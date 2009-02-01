@@ -1,33 +1,62 @@
-#include "lang.h"
-#include "stdarg.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
 
-#if !defined(Lang_String_H)
-#define Lang_String_H
-#pragma once
+#ifndef String_Lang_H
+#define String_Lang_H
 
-#include "IndexOutOfBoundsException.h"
-#include "NullPointerException.h"
+#include <dragon/config.h>
+
+#include <iostream>
+#include <cstdlib>
+#include <locale>
+
+Import std;
+
+#include "basic_type.h"
+
 #include "Math.h"
+#include "Array.h"
+#include "Comparable.h"
+#include "CharSequence.h"
 
 #define vstprintf_s vswprintf_s
 #define _ltot_s _ltow_s
 
-BeginPackage2(ProjectName,lang)
+BeginPackage2(dragon, lang)
 
-typedef wstring TString;
-typedef wostream tostream;
+class IndexOutOfBoundsException;
+class NullPointerException;
 
-class _DragonExport String:public Object,public Comparable<String>,public CharSequence
+class _DragonExport String : public Object, public Comparable<String>, 
+	public CharSequence
 {
-	friend tostream& operator << (tostream& os,const String& str);
-	friend tostream& operator << (tostream& os,String* str);
+	friend wostream& operator << (wostream& os,const String& str);
+	friend wostream& operator << (wostream& os,String* str);
 	friend size_t hash_value(const String& str);
-	friend bool operator<(const String& left,const String& right);
+	friend Boolean operator<(const String& left,const String& right);
 
 public:
 	String();
-	String(TString value);
+	String(wstring value);
 	String(const String& value);
 	String(const Char* value);
 	String(const Char* value, int offset, int count) throw(IndexOutOfBoundsException);
@@ -35,14 +64,14 @@ public:
 
 public:
 	void operator = (const Char*  str);
-	void operator = (TString  str);
+	void operator = (wstring  str);
 
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
-	bool operator==(const Char* str);
-	bool operator==(const String& str);
+	Boolean operator==(const Char* str);
+	Boolean operator==(const String& str);
 
-	operator TString();
+	operator wstring();
 	operator const Char*();
 	operator size_t();
 
@@ -50,10 +79,10 @@ public:
 
 public:
 	int compareTo(String& o);
-	bool equals(const Char* str);
-	bool startsWith(const Char* prefix);
-	bool startsWith(const Char* prefix,int toffset);
-	bool endsWith(String& suffix);
+	Boolean equals(const Char* str);
+	Boolean startsWith(const Char* prefix);
+	Boolean startsWith(const Char* prefix,int toffset);
+	Boolean endsWith(String& suffix);
 	int hashCode();
 
 	int indexOf(Char ch);
@@ -85,9 +114,10 @@ public:
 	String toString();
 	const Char* toCharArray();
 
-	bool matches(String regex);
-	bool contains(CharSequence* s) throw(NullPointerException);
-	bool contains(String s); 
+	Boolean matches(String regex);
+	Boolean contains(CharSequence* s) throw(NullPointerException);
+	Boolean contains(String s); 
+
 	String& replace(CharSequence* target,CharSequence* replacement);
 	String& replaceFirst(String& regex,String& replacement);
 	String& replaceFirst(String& regex,const Char* replacement);
@@ -101,19 +131,17 @@ public:
 	String& toUpperCase();
 	String trim();
 
-	char* toMultiByte();
-
 public:
 	static String valueOf(const Char* data);
 	static String valueOf(const Char* data,int offset,int count);
+
 	static String& copyValueOf(const Char* data);
 	static String& copyValueOf(const Char* data,int offset,int count);
 
 	static String format(String& format,...);
 	static String format(const Char* format,...);
-	static String format(const char* format,...);
 
-	static String valueOf(bool b);
+	static String valueOf(Boolean b);
 	static String valueOf(Char c);
 	static String valueOf(const char* value);
 	static String valueOf(int i);
@@ -121,25 +149,23 @@ public:
 	static String valueOf(float f);
 	static String valueOf(double d);
 
-
 private:
-	TString mstr;
-
+	wstring mstr;
 };
 
-inline tostream& operator << (tostream& os,const String& str)
+inline wostream& operator << (wostream& os,const String& str)
 {
     os<<str.mstr;
     return os;
 }
 
-inline tostream& operator << (tostream& os,String* str)
+inline wostream& operator << (wostream& os,String* str)
 {
     os<<str->mstr;
     return os;
 }
 
-inline bool operator<(const String& left,const String& right)
+inline Boolean operator<(const String& left,const String& right)
 {
 	return left.mstr<right.mstr;
 }
@@ -157,6 +183,6 @@ inline size_t hash_value(const String& str)
 	return hc;
 }
 
-EndPackage2
+EndPackage2//(dragon,lang)
 
-#endif
+#endif//String_Lang_H

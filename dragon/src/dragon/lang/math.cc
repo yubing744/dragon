@@ -14,11 +14,18 @@
 * limitations under the License.
 */
 
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#include <dragon/lang/math.h>
+
+#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 #include <ctime>
-
-#include <dragon/lang/math.h>
 
 Import std;
 Import dragon::lang;

@@ -4,7 +4,7 @@
 #define Util_Map_H
 #pragma once
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
 #define PEntryMap(K,V) P<Map<K,V>::Entry>
 #define PIteratorMap(K,V) P<Iterator<PEntryMap(K,V)>>

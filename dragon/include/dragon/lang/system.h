@@ -5,7 +5,7 @@
 #pragma once
 
 
-BeginPackage2(ProjectName,lang)
+BeginPackage2(dragon,lang)
 
 
 class _DragonExport System :public Object

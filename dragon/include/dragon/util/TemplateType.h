@@ -5,9 +5,9 @@
 #pragma once
 
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
-Import ProjectName::lang;
+Import dragon::lang;
 
 
 class _DragonExport TemplateType:public Object

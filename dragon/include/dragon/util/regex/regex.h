@@ -1,4 +1,3 @@
-
 // DEELX Regular Expression Engine (v1.2)
 //
 // Copyright 2006 (c) RegExLab.com
@@ -15,7 +14,7 @@
 #ifndef __DEELX_REGEXP__H__
 #define __DEELX_REGEXP__H__
 
-#include "../../config/config.h"
+#include <dragon/config.h>
 
 #include <memory.h>
 #include <ctype.h>
@@ -24,7 +23,7 @@
 #include <stdlib.h>
 
 
-BeginPackage3(ProjectName,util,regex)
+BeginPackage3(dragon, util, regex)
 
 extern "C" {
 	typedef int (*POSIX_FUNC)(int);
@@ -2510,8 +2509,8 @@ template <class CHART> ElxInterface * CBuilderT <CHART> :: BuildSimple(int & fla
 		return GetStockElx(STOCKELX_EMPTY);
 }
 
-#define max(a, b)  (((a) > (b)) ? (a) : (b))
-#define min(a, b)  (((a) < (b)) ? (a) : (b))
+#define regex_max(a, b)  (((a) > (b)) ? (a) : (b))
+#define regex_min(a, b)  (((a) < (b)) ? (a) : (b))
 
 template <class CHART> ElxInterface * CBuilderT <CHART> :: BuildCharset(int & flags)
 {
@@ -2622,8 +2621,8 @@ template <class CHART> ElxInterface * CBuilderT <CHART> :: BuildCharset(int & fl
 
 					if( ranges[i*2] <= RCHART('Z') && ranges[i*2+1] >= RCHART('A') )
 					{
-						newmin = tolower( max(RCHART('A'), ranges[i*2  ]) );
-						newmax = tolower( min(RCHART('Z'), ranges[i*2+1]) );
+						newmin = tolower( regex_max(RCHART('A'), ranges[i*2  ]) );
+						newmax = tolower( regex_min(RCHART('Z'), ranges[i*2+1]) );
 
 						if( newmin < ranges[i*2] || newmax > ranges[i*2+1] )
 						{
@@ -2634,8 +2633,8 @@ template <class CHART> ElxInterface * CBuilderT <CHART> :: BuildCharset(int & fl
 
 					if( ranges[i*2] <= RCHART('z') && ranges[i*2+1] >= RCHART('a') )
 					{
-						newmin = toupper( max(RCHART('a'), ranges[i*2  ]) );
-						newmax = toupper( min(RCHART('z'), ranges[i*2+1]) );
+						newmin = toupper( regex_max(RCHART('a'), ranges[i*2  ]) );
+						newmax = toupper( regex_min(RCHART('z'), ranges[i*2+1]) );
 
 						if( newmin < ranges[i*2] || newmax > ranges[i*2+1] )
 						{
@@ -4329,6 +4328,6 @@ typedef CRegexpT <wchar_t> CRegexpW;
 #endif
 
 
-EndPackage3
+EndPackage3//(dragon, util, regex)
 
 #endif//__DEELX_REGEXP__H__

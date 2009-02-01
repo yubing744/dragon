@@ -1,8 +1,38 @@
-#include "String.h"
-#include <ctype.h>
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-Import ProjectName::lang;
-Import ProjectName::util::regex;
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#include <dragon/lang/String.h>
+
+#include <stdarg.h>
+#include <ctype.h>
+#include <cwchar>
+
+#include <dragon/util/regex/regex.h>
+
+#include <dragon/lang/NullPointerException.h>
+#include <dragon/lang/IndexOutOfBoundsException.h>
+
+Import dragon::lang;
+Import dragon::util::regex;
 
 String::String(){}
 
@@ -12,18 +42,17 @@ String::~String()
 	{
 		mstr.clear();
 	}
-
 }
 
 String::String(const Char* value)
 {
-	if(value!=null)
+	if(value != null)
 	{
-		mstr=TString(value);
+		mstr = wstring(value);
 	}
 }
 
-String::String(TString value):mstr(value){}
+String::String(wstring value):mstr(value){}
 
 String::String(const String& value)
 {
@@ -37,13 +66,13 @@ String::String(const Char* value, int offset, int count)
 	{
 		throw IndexOutOfBoundsException();
 	}
-	mstr=TString(value,offset,count);
+	mstr=wstring(value,offset,count);
 }
 
 
 void String::operator = (const Char*  str)
 {
-	mstr=TString(str);
+	mstr=wstring(str);
 }
 
 
@@ -59,7 +88,7 @@ String& String::operator+=(const String& str)
 	return *this;
 }
 
-bool String::operator==(const Char* str)
+Boolean String::operator==(const Char* str)
 {
 	if(this->mstr==str)
 	{
@@ -69,7 +98,7 @@ bool String::operator==(const Char* str)
 	return false;
 }
 
-bool String::operator==(const String& str)
+Boolean String::operator==(const String& str)
 {
 	if(this->mstr==str.mstr)
 	{
@@ -80,7 +109,7 @@ bool String::operator==(const String& str)
 
 }
 
-String::operator TString()
+String::operator wstring()
 {
 	return mstr;
 }
@@ -110,14 +139,14 @@ size_t String::operator()(const String& str)
 
 }
 
-bool String::equals(const Char* str)
+Boolean String::equals(const Char* str)
 {
 	return mstr==str;
 }
 
-bool String::startsWith(const Char* prefix)
+Boolean String::startsWith(const Char* prefix)
 {
-	TString temp(prefix);
+	wstring temp(prefix);
 
 	if(mstr.substr(0,temp.length())==temp)
 	{
@@ -127,9 +156,9 @@ bool String::startsWith(const Char* prefix)
 	return false;
 }
 
-bool String::startsWith(const Char* prefix,int toffset)
+Boolean String::startsWith(const Char* prefix,int toffset)
 {
-	TString temp(prefix);
+	wstring temp(prefix);
 
 	if(mstr.substr(toffset,temp.length())==temp)
 	{
@@ -139,7 +168,7 @@ bool String::startsWith(const Char* prefix,int toffset)
 	return false;
 }
 
-bool String::endsWith(String& suffix)
+Boolean String::endsWith(String& suffix)
 {
 	int mlen=mstr.length();
 	int slen=suffix.mstr.length();
@@ -194,7 +223,7 @@ int String::indexOf(CharSequence* s,int fromIndex)
 	{
 		if(this->charAt(i)==s->charAt(0))
 		{
-			bool isEque=true;
+			Boolean isEque=true;
 			for(int j=0;j<slen;j++)
 			{
 				if(this->charAt(i+j)!=s->charAt(j))
@@ -363,14 +392,14 @@ const Char* String::toCharArray()
 	return mstr.c_str();
 }
 
-bool String::matches(String regex)
+Boolean String::matches(String regex)
 {
 	Regexp tempReg(regex);
 	MatchResult result = tempReg.MatchExact(this->mstr.c_str());
 	return result.IsMatched()!=0;
 }
 
-bool String::contains(CharSequence* s)
+Boolean String::contains(CharSequence* s)
 {
 	if(s==null)
 	{
@@ -384,7 +413,7 @@ bool String::contains(CharSequence* s)
 	{
 		if(this->charAt(i)==s->charAt(0))
 		{
-			bool isEque=true;
+			Boolean isEque=true;
 			for(int j=0;j<slen;j++)
 			{
 				if(this->charAt(i+j)!=s->charAt(j))
@@ -404,7 +433,7 @@ bool String::contains(CharSequence* s)
 	return false;
 }
 
-bool String::contains(String s)
+Boolean String::contains(String s)
 {
 	int pos=this->mstr.find(s.mstr,0);
 
@@ -598,16 +627,6 @@ String String::trim()
 }
 
 
-char* String::toMultiByte()
-{
-	int len=mstr.length();
-	char* pMBBuf=new char[len+1];
-	pMBBuf[len]=null;
-	size_t out;
-	wcstombs_s(&out,pMBBuf,len+1,mstr.c_str(),len);
-	return pMBBuf;
-}
-
 String& String::copyValueOf(const Char* data)
 {
 	return *new String(data);
@@ -644,19 +663,7 @@ String String::format(String& format,...)
 	return String::valueOf(text);
 }
 
-String String::format(const char* format,...)
-{
-	char text[256];
-	va_list ap;
-
-	va_start(ap, format);
-	    vsprintf_s(text,256,format, ap);
-	va_end(ap);	
-
-	return String::valueOf(text);
-}
-
-String String::valueOf(bool b)
+String String::valueOf(Boolean b)
 {
 	if(b)
 	{
@@ -668,36 +675,27 @@ String String::valueOf(bool b)
 
 String String::valueOf(Char c)
 {
-	return *new String(&c);
+	return String(&c);
 }
 
 String String::valueOf(int i)
 {
-	Char buf[30];
-	_ltot_s(i,buf,30,10);
-	return String::valueOf(buf);
+	return String::format(L"%d", i);
 }
 
 String String::valueOf(long l)
 {
-	Char buf[30];
-	_ltot_s(l,buf,30,10);
-	return String::valueOf(buf);
+	return String::format(L"%ld", l);
 }
 
 String String::valueOf(float f)
 {
-	return String::valueOf((double)f);
+	return String::format(L"%f", f);
 }
 
 String String::valueOf(double d)
 {
-	Char buf[30];
-	char tbuf[60];
-	_gcvt_s(tbuf,30,d,8);
-	MultiByteToWideChar(CP_ACP, 0, tbuf, -1, buf, 30); 
-
-	return String::valueOf(buf);
+	return String::format(L"%lf", d);
 }
 
 String String::valueOf(const Char* data)
@@ -705,23 +703,7 @@ String String::valueOf(const Char* data)
 	return String(data);
 }
 
-String String::valueOf(const Char* data,int offset,int count)
+String String::valueOf(const Char* data, int offset, int count)
 {
-	return String(data,offset,count);
+	return String(data, offset, count);
 }
-
-String String::valueOf(const char* value)
-{
-	int len = MultiByteToWideChar(CP_ACP, 0, value, -1, NULL, 0);
-	if (len!=0)
-	{
-		Char* buf=new Char[len];
-		MultiByteToWideChar(CP_ACP, 0, value, -1,buf, len);
-		String tempStr=String::valueOf(buf);
-		delete [] buf;
-		return tempStr;
-	}
-
-	return String();
-}
-

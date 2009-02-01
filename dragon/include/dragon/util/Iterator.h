@@ -4,7 +4,7 @@
 #define Util_Iterator_H
 #pragma once
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
 template<class E>
 interface Iterator

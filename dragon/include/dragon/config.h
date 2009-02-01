@@ -14,8 +14,16 @@
 * limitations under the License.
 */
 
-#ifndef Dragon_Config_H
-#define Dragon_Config_H
+/**********************************************************************
+ * File:        config.h
+ * Description: base config for all other classes
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#ifndef Config_Dragon_H
+#define Config_Dragon_H
 
 // Define BeginPackage and EndPackage
 #define BeginPackage1(name1) namespace name1{
@@ -121,8 +129,10 @@
 
 
 // Define null
-#define null (void*)
+#define null 0
 
+// Enable Unicode
+#define _UNICODE 1
 
 // Config Log
 #ifdef ENABLE_LOG
@@ -155,4 +165,13 @@ typedef unsigned __int64 uint64_t;
 
 #endif
 
-#endif
+
+// depressed some warnings 
+#ifdef _WIN32
+	#pragma warning (disable:4290)
+	#pragma warning (disable:4584)
+	#pragma warning (disable:4482)
+#endif // _WIN32
+
+
+#endif // Config_Dragon_H

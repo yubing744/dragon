@@ -6,7 +6,7 @@
 
 #include "List.h"
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
 template<class E>
 interface Queue:public List<E>

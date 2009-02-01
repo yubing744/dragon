@@ -14,12 +14,12 @@
 * limitations under the License.
 */
 
-#ifndef Dragon_Lang_Math_H
-#define Dragon_Lang_Math_H
+#ifndef Math_Lang_Dragon_H
+#define Math_Lang_Dragon_H
 
-#include "all.h"
+#include <dragon/config.h>
 
-BeginPackage2(dragon,lang)
+BeginPackage2(dragon, lang)
 
 class _DragonExport Math
 {
@@ -76,6 +76,6 @@ public:
 	static double hypot(double x,double y);
 };
 
-EndPackage2
+EndPackage2//(dragon, lang)
 
-#endif
+#endif//Math_Lang_Dragon_H

@@ -6,7 +6,7 @@
 
 #include "Queue.h"
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
 template<class E>
 interface Deque:public Queue<E>

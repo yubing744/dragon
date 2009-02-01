@@ -10,7 +10,7 @@
 #include "Deque.h"
 
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
 template<class E>
 class LinkedList:public Object,public Deque<E>

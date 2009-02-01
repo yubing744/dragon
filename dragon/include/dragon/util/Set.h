@@ -6,9 +6,9 @@
 
 #include "Collection.h"
 
-BeginPackage2(ProjectName,util)
+BeginPackage2(dragon,util)
 
-Import ProjectName::lang;
+Import dragon::lang;
 
 template<class E>
 interface Set:public Collection<E>

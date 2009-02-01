@@ -1,22 +1,41 @@
-#include "lang.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#if !defined(Lang_Exception_H)
-#define Lang_Exception_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#ifndef Exception_Lang_Dragon_H
+#define Exception_Lang_Dragon_H
 
 #include "Throwable.h"
 
-BeginPackage2(ProjectName,lang)
+BeginPackage2(dragon, lang)
 
 class _DragonExport Exception :public Throwable
 {
 public:
 	Exception();
-	Exception(String& message);
+	Exception(const String& message);
 	Exception(Throwable* cause);
-	Exception(String& message, Throwable* cause);
+	Exception(const String& message, Throwable* cause);
 };
 
-EndPackage2
+EndPackage2//(dragon, lang)
 
-#endif
+#endif//Exception_Lang_Dragon_H

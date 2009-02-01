@@ -1,5 +1,5 @@
 /*
-* Copyright 2006 the original author or authors.
+* Copyright 2013 the original author or authors.
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,19 +14,18 @@
 * limitations under the License.
 */
 
-#include "reflect.h"
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
 
-#ifndef Lang_Reflect_Library_H 
-#define Lang_Reflect_Library_H
-#pragma once
+#ifndef Library_Reflect_Lang_Dragon_H 
+#define Library_Reflect_Lang_Dragon_H
 
+#include <dragon/config.h>
 
-/** 
- * Maintains all reflect operator.
- * @version 0.1.3
- * @since 2010-03-24
- */
-BeginPackageReflect
+BeginPackage3(dragon, lang, reflect)
 
 interface _DragonExport Library
 {
@@ -48,6 +47,6 @@ public:
 	virtual int getMethodCount()=0;
 };
 
-EndPackageReflect
+EndPackage3//(dragon, lang, reflect)
 
-#endif
+#endif//Library_Reflect_Lang_Dragon_H
