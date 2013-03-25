@@ -1,1 +1,1 @@
-SharedLibrary('hello.c')
+SConscript('core/SConscript')
