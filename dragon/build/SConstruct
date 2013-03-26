@@ -1,0 +1,4 @@
+env = Environment()
+env.SharedLibrary('dragon','platform/platform_linux.cc')
+
+

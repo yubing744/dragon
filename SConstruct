@@ -1,1 +1,1 @@
-SConscript('core/SConscript')
+SConscript('dragon/SConstruct')

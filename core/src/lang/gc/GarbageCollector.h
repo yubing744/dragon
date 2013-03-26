@@ -10,7 +10,10 @@
 #include <hash_map>
 #include <string>
 
+#ifdef WIN32
 using namespace stdext;
+#endif
+
 using namespace std;
 
 BeginPackage3(ProjectName,lang,gc)

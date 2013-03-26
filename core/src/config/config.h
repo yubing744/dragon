@@ -17,7 +17,10 @@
 #undef _HAS_ITERATOR_DEBUGGING
 #define _HAS_ITERATOR_DEBUGGING 0
 
+#ifdef WIN32
 #include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -60,7 +63,7 @@
 //#define OPEN_LOG
 
 
-
+/*
 #if defined( DRAGON_STATIC_LIB )
 # 	define _DragonExport
 #  	define _DragonPrivate
@@ -76,10 +79,16 @@
 #   endif
 #   define _DragonPrivate
 #endif
+*/
+#define _DragonExport
+#define _DragonPrivate
 
-#define Export __declspec(dllexport)
-#define ExportClass class Export
-#define ExportInterface interface Export
+
+#ifdef WIN32
+#    define Export __declspec(dllexport)
+#    define ExportClass class Export
+#    define ExportInterface interface Export
+#endif
 
 #define null 0
 #define final const 

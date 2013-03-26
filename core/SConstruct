@@ -33,8 +33,9 @@ import os
 from os.path import join, dirname, abspath
 from types import DictType, StringTypes
 root_dir = dirname(File('SConstruct').rfile().abspath)
-src_dir = join(dragon_core, 'src')
 
-build_srcs = [src_dir + "/xml/xmlParser.cpp"]
+src_dir = join(root_dir, 'src')
+build_srcs = [src_dir + "/lang/String.cpp"]
 
-SharedLibrary("dragon", build_srcs);
+evn = Environment()
+evn.SharedLibrary("dragon", build_srcs);
