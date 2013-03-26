@@ -1,4 +1,10 @@
 env = Environment()
-env.SharedLibrary('dragon','platform/platform_linux.cc')
+
+srcs =[
+    "lang/internal/platform_linux.cc"
+]
+
+env.SharedLibrary('dragon', srcs)
+Repository('../include')
 
 
