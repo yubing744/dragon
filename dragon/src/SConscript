@@ -1,10 +1,10 @@
 env = Environment(CPPPATH="../include")
 
-srcs =[
-    "lang/internal/platform_linux.cc"
+src_files =[
+    "dragon/lang/math.cc",
+	"dragon/lang/internal/platform_linux.cc"
 ]
 
-env.SharedLibrary('dragon', srcs)
-Repository('../include')
+env.SharedLibrary('dragon', src_files)
 
 

@@ -9,9 +9,7 @@
 *.pdb
 *.pyc
 *.scons*
-*.sln
 *.so
-*.suo
 *.user
 *.vcproj
 *.xcodeproj
@@ -55,3 +53,6 @@ GTAGS
 GRTAGS
 GSYMS
 GPATH
+Debug
+Release
+_*
