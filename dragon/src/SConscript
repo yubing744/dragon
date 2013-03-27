@@ -1,4 +1,4 @@
-env = Environment()
+env = Environment(CPPPATH="../include")
 
 srcs =[
     "lang/internal/platform_linux.cc"
