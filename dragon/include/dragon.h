@@ -1,27 +1,18 @@
 #ifndef Dragon_H
 #define Dragon_H
-#pragma once
 
 #define DRAGON_HEADER_BUILD
-//#define MEM_CHECK
 
-#include "util/regex/regex.h"
-#include "lang/gc/gc.h"
-#include "lang/reflect/reflect.h"
-#include "lang/lang.h"
-#include "io/io.h"
-#include "util/util.h"
-#include "xml/xml.h"
-#include "util/zip/zip.h"
+#include "dragon/config.h"
 
-
-#ifdef DRAGON_STATIC_LIB
-#	pragma comment(lib,"Dragon_S.lib") 
-#elif !defined NDEBUG
-#	pragma comment(lib,"Dragon_D.lib")
-#else
-#	pragma comment(lib,"Dragon.lib")
-#endif
+#include "dragon/util/regex/all.h"
+#include "dragon/lang/gc/all.h"
+#include "dragon/lang/reflect/all.h"
+#include "dragon/lang/all.h"
+#include "dragon/io/all.h"
+#include "dragon/util/all.h"
+#include "dragon/util/zip/all.h"
+#include "dragon/xml/all.h"
 
 Import dragon::lang::gc;
 Import dragon::lang::reflect;

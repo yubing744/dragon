@@ -34,6 +34,7 @@ def walk(path):
 		if not stat.S_ISDIR(mode):
 			temp_item = uuid.uuid1().get_hex()
 			os.rename(item, temp_item)
-			os.rename(temp_item, to_low_name(item))
+			os.rename(temp_item, cpp_to_cc(item))
+			#print cpp_to_cc(item)
 			
 walk(os.getcwd());

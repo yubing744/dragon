@@ -66,32 +66,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\dragon.h" />
-    <ClInclude Include="include\dragon\config\config.h" />
-    <ClInclude Include="include\dragon\config\template.h" />
-    <ClInclude Include="include\dragon\lang\array.h" />
-    <ClInclude Include="include\dragon\lang\char_sequence.h" />
-    <ClInclude Include="include\dragon\lang\class.h" />
-    <ClInclude Include="include\dragon\lang\class_not_found_exception.h" />
-    <ClInclude Include="include\dragon\lang\comparable.h" />
-    <ClInclude Include="include\dragon\lang\exception.h" />
-    <ClInclude Include="include\dragon\lang\help_func.h" />
-    <ClInclude Include="include\dragon\lang\illegal_argument_exception.h" />
-    <ClInclude Include="include\dragon\lang\index_out_of_bounds_exception.h" />
-    <ClInclude Include="include\dragon\lang\interrupted_exception.h" />
-    <ClInclude Include="include\dragon\lang\lang.h" />
+    <ClInclude Include="include\dragon\config.h" />
+    <ClInclude Include="include\dragon\lang\all.h" />
     <ClInclude Include="include\dragon\lang\math.h" />
-    <ClInclude Include="include\dragon\lang\no_such_method_exception.h" />
-    <ClInclude Include="include\dragon\lang\null_pointer_exception.h" />
-    <ClInclude Include="include\dragon\lang\number.h" />
-    <ClInclude Include="include\dragon\lang\number_format_exception.h" />
-    <ClInclude Include="include\dragon\lang\object.h" />
-    <ClInclude Include="include\dragon\lang\runnable.h" />
-    <ClInclude Include="include\dragon\lang\runtime_exception.h" />
-    <ClInclude Include="include\dragon\lang\security_exception.h" />
-    <ClInclude Include="include\dragon\lang\string.h" />
-    <ClInclude Include="include\dragon\lang\system.h" />
-    <ClInclude Include="include\dragon\lang\thread.h" />
-    <ClInclude Include="include\dragon\lang\throwable.h" />
     <ClInclude Include="src\dragon\lang\internal\platform.h" />
   </ItemGroup>
   <ItemGroup>

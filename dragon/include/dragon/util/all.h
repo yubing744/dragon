@@ -1,4 +1,4 @@
-#if !defined(Util_H)
+#ifdef Util_H
 #define Util_H
 
 #include "../config/config.h"

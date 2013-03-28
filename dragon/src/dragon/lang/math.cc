@@ -1,34 +1,27 @@
-// Copyright 2013 the Dragon project authors. All rights reserved.
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-//       notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-//       copyright notice, this list of conditions and the following
-//       disclaimer in the documentation and/or other materials provided
-//       with the distribution.
-//     * Neither the name of Google Inc. nor the names of its
-//       contributors may be used to endorse or promote products derived
-//       from this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 #include <math.h>
+#include <iostream>
+#include <ctime>
+
 #include <dragon/lang/math.h>
 
-import dragon::lang;
+Import std;
+Import dragon::lang;
 
 const double Math::E=2.718281828459045;
 const double Math::PI=3.141592653589793;
@@ -115,69 +108,60 @@ long Math::round(double a){
 }
 
 double Math::random(){
-	return rand()/(double)RAND_MAX;
+	return ::rand()/(double)RAND_MAX;
 }
 
-#define DD_ABS(a) (a > 0 ? a : -a)
-
 int Math::abs(int a){
-//	return ::abs(a);
-//    return a > 0 ? = a : -a;
-     return DD_ABS(a);
+	return ::abs(a);
 }
 
 long Math::abs(long a){
-//	return ::abs(a);
-    return DD_ABS(a);
+	return ::abs(a);
 }
 
 float Math::abs(float a){
-//	return ::abs(a);
-    return DD_ABS(a);
+	return ::abs(a);
 }
 
 double Math::abs(double a){
-       //	return ::abs(a);
-    return DD_ABS(a);
+    return ::abs(a);
 }
 
-//int Math::max(int a,int b)
-//{
-//	return 0;
-//}
-//
-//long Math::max(long a,long b)
-//{
-//	return 0;
-//}
-//
-//float Math::max(float a,float b)
-//{
-//	return 0;
-//}
-//
-//double Math::max(double a,double b)
-//{
-//	return 0;
-//}
-//
-//int Math::min(int a,int b)
-//{
-//	return 0;
-//}
-//long Math::min(long a,long b)
-//{
-//	return 0;
-//}
-//float Math::min(float a,float b)
-//{
-//	return 0;
-//}
-//
-//double Math::min(double a,double b)
-//{
-//	return 0;
-//}
+#define DRAGON_MAX(x, y) (x > y ? x : y)
+
+int Math::max(int a,int b){
+	return DRAGON_MAX(a, b);
+}
+
+long Math::max(long a,long b){
+	return DRAGON_MAX(a, b);
+}
+
+float Math::max(float a,float b){
+	return DRAGON_MAX(a, b);
+}
+
+double Math::max(double a,double b){
+	return DRAGON_MAX(a, b);
+}
+
+#define DRAGON_MIN(x, y) (x > y ? y : x)
+
+int Math::min(int a,int b){
+	return DRAGON_MIN(a, b);
+}
+
+long Math::min(long a,long b){
+	return DRAGON_MIN(a, b);
+}
+
+float Math::min(float a,float b){
+	return DRAGON_MIN(a, b);
+}
+
+double Math::min(double a,double b){
+	return DRAGON_MIN(a, b);
+}
 
 double Math::signum(double d){
 	if(d>0)

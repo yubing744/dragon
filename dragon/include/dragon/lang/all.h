@@ -1,7 +1,7 @@
-#ifndef Lang_H
-#define Lang_H
+#ifndef Dragon_Lang_H
+#define Dragon_Lang_H
 
-#include <dragon/config/config.h>
+#include <dragon/config.h>
 
 BeginPackage2(dragon,lang)
 
@@ -16,7 +16,6 @@ BeginPackage2(dragon,lang)
 	typedef double Double;
 
 
-
 	template<class Type>
 	class Class;
 
@@ -25,8 +24,6 @@ BeginPackage2(dragon,lang)
 
 	template<class T>
 	interface Comparable;
-
-
 
 	interface CharSequence;
 	interface Throwable;

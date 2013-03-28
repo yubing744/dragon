@@ -10,9 +10,6 @@
     <Filter Include="include\dragon">
       <UniqueIdentifier>{6900e965-b3ed-45a1-995e-caed4a0fbaa9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\dragon\config">
-      <UniqueIdentifier>{104716bb-d610-4b76-a632-c367b502c426}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\dragon\lang">
       <UniqueIdentifier>{f8796b83-a3d2-4341-b9a0-f0b9c2da2d69}</UniqueIdentifier>
     </Filter>
@@ -30,86 +27,17 @@
     <ClInclude Include="include\dragon.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\dragon\config\config.h">
-      <Filter>include\dragon\config</Filter>
+    <ClInclude Include="src\dragon\lang\internal\platform.h">
+      <Filter>src\dragon\lang\internal</Filter>
     </ClInclude>
-    <ClInclude Include="include\dragon\config\template.h">
-      <Filter>include\dragon\config</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\array.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\char_sequence.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\class.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\class_not_found_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\comparable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\help_func.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\illegal_argument_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\index_out_of_bounds_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\interrupted_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\lang.h">
-      <Filter>include\dragon\lang</Filter>
+    <ClInclude Include="include\dragon\config.h">
+      <Filter>include\dragon</Filter>
     </ClInclude>
     <ClInclude Include="include\dragon\lang\math.h">
       <Filter>include\dragon\lang</Filter>
     </ClInclude>
-    <ClInclude Include="include\dragon\lang\no_such_method_exception.h">
+    <ClInclude Include="include\dragon\lang\all.h">
       <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\null_pointer_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\number.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\number_format_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\object.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\runnable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\runtime_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\security_exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\string.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\system.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\thread.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\throwable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dragon\lang\internal\platform.h">
-      <Filter>src\dragon\lang\internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
