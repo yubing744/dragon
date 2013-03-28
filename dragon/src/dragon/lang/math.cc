@@ -118,20 +118,27 @@ double Math::random(){
 	return rand()/(double)RAND_MAX;
 }
 
+#define DD_ABS(a) (a > 0 ? a : -a)
+
 int Math::abs(int a){
-	return ::abs(a);
+//	return ::abs(a);
+//    return a > 0 ? = a : -a;
+     return DD_ABS(a);
 }
 
 long Math::abs(long a){
-	return ::abs(a);
+//	return ::abs(a);
+    return DD_ABS(a);
 }
 
 float Math::abs(float a){
-	return ::abs(a);
+//	return ::abs(a);
+    return DD_ABS(a);
 }
 
 double Math::abs(double a){
-	return ::abs(a);
+       //	return ::abs(a);
+    return DD_ABS(a);
 }
 
 //int Math::max(int a,int b)
