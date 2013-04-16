@@ -25,8 +25,6 @@
 
 #include <dragon/config.h>
 
-#include "IndexOutOfBoundsException.h"
-
 BeginPackage2(dragon, lang)
 
 class String;
@@ -36,7 +34,7 @@ interface _DragonExport CharSequence
 public:
 	virtual int length()=0;
 	virtual Char charAt(int index)=0;
-	virtual CharSequence* subSequence(int start, int end) throw(IndexOutOfBoundsException) = 0;
+	virtual CharSequence* subSequence(int start, int end) = 0;
 	virtual String toString() =0;
 
 };

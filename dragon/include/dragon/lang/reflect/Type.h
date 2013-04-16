@@ -20,8 +20,20 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "platform.h"
+#ifndef Type_Reflect_Lang_Dragon_H 
+#define Type_Reflect_Lang_Dragon_H
 
-Import dragon::lang::internal;
+#include <dragon/config.h>
 
-#include <windows.h>
+BeginPackage3(dragon, lang, reflect)
+
+class _DragonExport Type
+{
+public:
+	Type(){};
+};
+
+
+EndPackage3//(dragon, lang, reflect)
+
+#endif//Library_Reflect_Lang_Dragon_H

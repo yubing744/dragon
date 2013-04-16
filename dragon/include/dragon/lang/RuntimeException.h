@@ -34,6 +34,7 @@ public:
 	RuntimeException(const String& message);
 	RuntimeException(Throwable* cause);
 	RuntimeException(const String& message, Throwable* cause);
+	~RuntimeException();
 };
 
 EndPackage2//(dragon, lang)

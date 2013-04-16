@@ -36,6 +36,39 @@ const int kMinInt = -kMaxInt - 1;
 
 BeginPackage3(dragon, lang, internal)
 
+	
+// ----------------------------------------------------------------------------
+// Some Help Func
+typedef int (__stdcall *Func_FarProc)();
+typedef int (__stdcall *Func_GetClassSize)(void);
+
+struct TypeInfo
+{
+	TypeInfo(){};
+
+	template<class Type>
+	TypeInfo(Type* value)
+	{
+		this->typeSize=sizeof(Type);
+		this->pValue=value;
+	};
+
+	TypeInfo(int size,void* value)
+	{
+		this->typeSize=size;
+		this->pValue=value;
+	};
+
+	int typeSize;
+	void* pValue;
+};
+
+void* Invoke(void* p, Func_FarProc func, TypeInfo *argv, int argc);
+
+void* Invoke(void* p, Func_FarProc func, ...);
+
+
+
 
 
 // ----------------------------------------------------------------------------

@@ -23,6 +23,9 @@
 #ifndef Array_Lang_H
 #define Array_Lang_H
 
+#include <dragon/config.h>
+#include "Object.h"
+
 BeginPackage2(dragon, lang)
 
 template<class T>

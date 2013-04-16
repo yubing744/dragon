@@ -19,14 +19,16 @@
 
 #include <dragon/config.h>
 
+
 #include "Object.h"
 #include "ClassNotFoundException.h"
+#include "reflect/reflect.h"
+
+
+typedef int (__stdcall *Func_FarProc)();
+typedef int (__thiscall *Func_GetClassSize)(void);
 
 BeginPackage2(dragon,lang)
-
-typedef int (__stdcall *FARPROC)();
-typedef Class<Object>* (__thiscall *GETCLASS)(void);
-typedef int (__thiscall *GETCLASSSIZE)(void);
 
 template<class Type=Object>
 class Class:public Object
@@ -46,12 +48,12 @@ public:
 	int getSize();
 	Type* cast(Object* obj);
 	Type* newInstance() throw(NoSuchMethodException);
-	FARPROC getMethodAddress(String methodName);
+	Func_FarProc getMethodAddress(String methodName);
 	Field* getField(String fieldName);
 	Method* getMethod(String methodName);
 	P<List<P<Method>>> lookupMethods(String keyword);
 	P<Method> lookupMethod(String keyword);
-	FARPROC lookupMethodAddress(String keyword);
+	Func_FarProc lookupMethodAddress(String keyword);
 
 	P<Map<String,P<Method>>> getMethodMap();
 	P<Map<String,P<Field>>> getFieldMap();
@@ -302,7 +304,7 @@ void Class<Type>::addMethod(Method* method)
 }
 
 template<class Type>
-FARPROC Class<Type>::getMethodAddress(String methodName)
+Func_FarProc Class<Type>::getMethodAddress(String methodName)
 {
 	P<Method> method=this->getMethod(methodName);
 
@@ -311,7 +313,7 @@ FARPROC Class<Type>::getMethodAddress(String methodName)
 		return method->getProcAddress();
 	}
 
-	return (FARPROC)null;
+	return (Func_FarProc)null;
 }
 
 template<class Type>
@@ -337,7 +339,7 @@ Method* Class<Type>::getMethod(String methodName)
 }
 
 template<class Type>
-FARPROC Class<Type>::lookupMethodAddress(String keyword)
+Func_FarProc Class<Type>::lookupMethodAddress(String keyword)
 {
 	P<Method> method=this->lookupMethod(keyword);
 
@@ -346,7 +348,7 @@ FARPROC Class<Type>::lookupMethodAddress(String keyword)
 		return method->getProcAddress();
 	}
 
-	return (FARPROC)null;
+	return (Func_FarProc)null;
 }
 
 template<class Type>

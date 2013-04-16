@@ -1,7 +1,7 @@
 #ifndef Dragon_Util_Zip_H
 #define Dragon_Util_Zip_H
 
-#include "../../config/config.h"
+#include <dragon/config.h>
 
 #define BeginPackageZip BeginPackage3(dragon,util,zip)
 #define EndPackageZip EndPackage3

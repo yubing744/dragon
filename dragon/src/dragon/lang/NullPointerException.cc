@@ -24,18 +24,18 @@
 
 Import dragon::lang;
 
-NullPointerException::NullPointerException(){
-	RuntimeException::RuntimeException();
+NullPointerException::NullPointerException()
+	:RuntimeException(){
 }
 
-NullPointerException::NullPointerException(const String& message){
-	RuntimeException::RuntimeException(message);
+NullPointerException::NullPointerException(const String& message)
+	:RuntimeException(message){
 }
 
-NullPointerException::NullPointerException(Throwable* cause){
-	RuntimeException::RuntimeException(cause);
+NullPointerException::NullPointerException(Throwable* cause)
+	:RuntimeException(cause){
 }
 
-NullPointerException::NullPointerException(const String& message, Throwable* cause){
-	RuntimeException::RuntimeException(message, cause);
+NullPointerException::NullPointerException(const String& message, Throwable* cause)
+	:RuntimeException(message, cause){
 } 

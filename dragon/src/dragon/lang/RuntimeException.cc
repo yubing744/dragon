@@ -24,18 +24,22 @@
 
 Import dragon::lang;
 
-RuntimeException::RuntimeException(){
-	Exception::Exception();
+RuntimeException::RuntimeException()
+	:Exception(){
 }
 
-RuntimeException::RuntimeException(const String& message){
-	Exception::Exception(message);
+RuntimeException::RuntimeException(const String& message)
+	:Exception(message){
 }
 
-RuntimeException::RuntimeException(Throwable* cause){
-	Exception::Exception(cause);
+RuntimeException::RuntimeException(Throwable* cause)
+	:Exception(cause){
 }
 
-RuntimeException::RuntimeException(const String& message, Throwable* cause){
-	Exception::Exception(message, cause);
+RuntimeException::RuntimeException(const String& message, Throwable* cause)
+	:Exception(message, cause){
 } 
+
+RuntimeException::~RuntimeException(){
+
+}

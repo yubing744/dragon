@@ -34,6 +34,7 @@ public:
 	Exception(const String& message);
 	Exception(Throwable* cause);
 	Exception(const String& message, Throwable* cause);
+	virtual ~Exception();
 };
 
 EndPackage2//(dragon, lang)

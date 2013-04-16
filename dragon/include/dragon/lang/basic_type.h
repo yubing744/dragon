@@ -37,6 +37,8 @@ BeginPackage2(dragon, lang)
 	typedef float Float;
 	typedef double Double;
 
+	typedef unsigned long Void;
+
 EndPackage2//(dragon, lang)
 
 #endif//BASIC_TYPE_Lang_Dragon_H

@@ -26,26 +26,14 @@
 
 #include <dragon/config.h>
 
-
-#include <dragon/lang/lang.h>
-#include <dragon/lang/gc/gc.h>
-#include <dragon/io/io.h>
-#include <dragon/util/util.h>
-
-Import dragon::lang;
-Import dragon::lang::gc;
-Import dragon::io;
-Import dragon::util;
-
-
 BeginPackage3(dragon, lang, dragon)
 
 	interface Constructor;
+
 	class Method;
 	class Field;
 	class Property;
 	class Library;
-	class DllLibrary;
 	class LibraryManager;
 
 EndPackage3 //(dragon, lang, dragon)

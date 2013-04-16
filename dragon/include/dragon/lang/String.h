@@ -38,15 +38,9 @@ Import std;
 #include "Comparable.h"
 #include "CharSequence.h"
 
-#define vstprintf_s vswprintf_s
-#define _ltot_s _ltow_s
-
 BeginPackage2(dragon, lang)
 
-class IndexOutOfBoundsException;
-class NullPointerException;
-
-class _DragonExport String : public Object, public Comparable<String>, 
+class _DragonExport String : public Object, public Comparable<String>,
 	public CharSequence
 {
 	friend wostream& operator << (wostream& os,const String& str);
@@ -59,7 +53,7 @@ public:
 	String(wstring value);
 	String(const String& value);
 	String(const Char* value);
-	String(const Char* value, int offset, int count) throw(IndexOutOfBoundsException);
+	String(const Char* value, int offset, int count);
 	~String();
 
 public:
@@ -97,11 +91,11 @@ public:
 	int lastIndexOf(const Char* str);
 	int lastIndexOf(const Char* str,int fromIndex);
 
-	String substring(int beginIndex) throw(IndexOutOfBoundsException);
-	String substring(int beginIndex,int endIndex) throw(IndexOutOfBoundsException);
+	String substring(int beginIndex);
+	String substring(int beginIndex,int endIndex);
 
-	String subString(int beginIndex) throw(IndexOutOfBoundsException);
-	String subString(int beginIndex,int endIndex) throw(IndexOutOfBoundsException);
+	String subString(int beginIndex);
+	String subString(int beginIndex,int endIndex);
 
 	String& concat(String& str);
 	String& append(const Char* str);
@@ -110,12 +104,12 @@ public:
 
 	int length();
 	Char charAt(int index);
-	CharSequence* subSequence(int start,int end) throw(IndexOutOfBoundsException);
+	CharSequence* subSequence(int start,int end);
 	String toString();
 	const Char* toCharArray();
 
 	Boolean matches(String regex);
-	Boolean contains(CharSequence* s) throw(NullPointerException);
+	Boolean contains(CharSequence* s);
 	Boolean contains(String s); 
 
 	String& replace(CharSequence* target,CharSequence* replacement);
@@ -177,12 +171,12 @@ inline size_t hash_value(const String& str)
 
 	for(int i=0;i<n;i++)
 	{
-		hc+=(str.mstr[i]*(int)Math::pow(31.0,n-i+1));
+		hc+=(str.mstr[i]*(int)Math::pow(31.0, n-i+1));
 	}
 
 	return hc;
 }
 
-EndPackage2//(dragon,lang)
+EndPackage2//(dragon, lang)
 
 #endif//String_Lang_H

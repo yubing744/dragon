@@ -103,9 +103,11 @@
 #undef __RPCNDR_H__
 
 #ifndef _WIN32
-#	define interface struct
+	#define interface struct
 #else
-#	define interface class __declspec(novtable)
+	#ifndef interface
+		#define interface class __declspec(novtable)
+	#endif
 #endif
 
 

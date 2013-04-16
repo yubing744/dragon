@@ -56,3 +56,5 @@ GPATH
 Debug
 Release
 _*
+.metadata
+*.os

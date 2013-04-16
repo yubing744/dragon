@@ -34,6 +34,7 @@ public:
 	IndexOutOfBoundsException(const String& message);
 	IndexOutOfBoundsException(Throwable* cause);
 	IndexOutOfBoundsException(const String& message, Throwable* cause);
+	~IndexOutOfBoundsException();
 };
 
 EndPackage2//(dragon, lang)

@@ -99,6 +99,7 @@
     <ClInclude Include="include\dragon\lang\reflect\Property.h" />
     <ClInclude Include="include\dragon\lang\reflect\reflect.h" />
     <ClInclude Include="include\dragon\lang\reflect\SoLibrary.h" />
+    <ClInclude Include="include\dragon\lang\reflect\Type.h" />
     <ClInclude Include="include\dragon\lang\Runnable.h" />
     <ClInclude Include="include\dragon\lang\RuntimeException.h" />
     <ClInclude Include="include\dragon\lang\SecurityException.h" />

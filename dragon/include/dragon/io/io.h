@@ -17,7 +17,7 @@
 #ifndef IO_H
 #define IO_H
 
-#include "../config/config.h"
+#include <dragon/config.h>
 
 #define BeginPackageIO BeginPackage2(ProjectName,io)
 #define EndPackageIO EndPackage2
@@ -48,8 +48,8 @@ EndPackageIO
 #include "../lang/gc/gc.h"
 #include "../lang/lang.h"
 
-Import ProjectName::lang::gc;
-Import ProjectName::lang;
+Import dragon::lang::gc;
+Import dragon::lang;
 
 
 #include "IOException.h"

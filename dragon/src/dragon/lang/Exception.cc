@@ -25,22 +25,21 @@
 Import dragon::lang;
 
 Exception::Exception(){
-	//this->message = new String(L"Exception");
-	this->cause = null;
+
 }
 
-Exception::Exception(const String& message){
-	//this->message = new String(message);
-	this->cause = null;
+Exception::Exception(const String& message)
+	:Throwable(message){
 }
 
-Exception::Exception(Throwable* cause){
-	SafeDelete(this->cause);
-	this->cause = cause;
+Exception::Exception(Throwable* cause)
+	:Throwable(cause) {
 }
 
-Exception::Exception(const String& message, Throwable* cause){
-	//this->message = new String(message);
-	SafeDelete(this->cause);
-	this->cause = cause;
+Exception::Exception(const String& message, Throwable* cause)
+	:Throwable(message, cause){
 } 
+
+Exception::~Exception(){
+
+}

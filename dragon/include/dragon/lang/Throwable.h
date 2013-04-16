@@ -23,8 +23,8 @@
 #ifndef Throwable_Lang_H
 #define Throwable_Lang_H
 
-#include <dragon/config.h>
 
+#include <dragon/config.h>
 #include "Object.h"
 
 BeginPackage2(dragon, lang)

@@ -24,18 +24,22 @@
 
 Import dragon::lang;
 
-IndexOutOfBoundsException::IndexOutOfBoundsException(){
-	RuntimeException::RuntimeException();
+IndexOutOfBoundsException::IndexOutOfBoundsException()
+	:RuntimeException(){
 }
 
-IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message){
-	RuntimeException::RuntimeException(message);
+IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message)
+	:RuntimeException(message){
 }
 
-IndexOutOfBoundsException::IndexOutOfBoundsException(Throwable* cause){
-	RuntimeException::RuntimeException(cause);
+IndexOutOfBoundsException::IndexOutOfBoundsException(Throwable* cause)
+	:RuntimeException(cause){
 }
 
-IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message, Throwable* cause){
-	RuntimeException::RuntimeException(message, cause);
+IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message, Throwable* cause)
+	:RuntimeException(message, cause){
 } 
+
+IndexOutOfBoundsException::~IndexOutOfBoundsException(){
+
+}

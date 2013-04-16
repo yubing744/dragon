@@ -31,6 +31,11 @@
 #include <dragon/lang/NullPointerException.h>
 #include <dragon/lang/IndexOutOfBoundsException.h>
 
+#include "internal/platform.h"
+
+#define vstprintf_s vswprintf_s
+#define _ltot_s _ltow_s
+
 Import dragon::lang;
 Import dragon::util::regex;
 
@@ -62,10 +67,12 @@ String::String(const String& value)
 String::String(const Char* value, int offset, int count)
 {
 	int len=String::valueOf(value).length();
+
 	if(offset<0 || offset>=len || offset+count>=len)
 	{
 		throw IndexOutOfBoundsException();
 	}
+
 	mstr=wstring(value,offset,count);
 }
 
@@ -303,6 +310,7 @@ String String::subString(int beginIndex)
 {
 	return substring(beginIndex);
 }
+
 String String::subString(int beginIndex,int endIndex)
 {
 	return substring(beginIndex,endIndex);

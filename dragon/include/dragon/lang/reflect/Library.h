@@ -34,7 +34,7 @@ public:
 
 public:
 	virtual void free() =0;
-	virtual void load(String libPath) throw(FileNotFoundException) =0;
+	virtual void load(String libPath) =0;
 
 	virtual P<Class<Object>> getClassForName(String className) =0;
 	virtual bool updateClass(Class<Object>* clazz)=0;

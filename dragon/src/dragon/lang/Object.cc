@@ -22,13 +22,13 @@
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
-#include <dragon/lang/Class.h>
+//#include <dragon/lang/Class.h>
 
 Import dragon::lang;
 
 Object::Object()
 {
-	this->clazz = null;
+	//this->clazz = null;
 }
 
 Object::~Object()
@@ -36,6 +36,7 @@ Object::~Object()
 	finalize();
 }
 
+/*
 Class<Object>* Object::getClass()
 {
 	if(this->clazz==null)
@@ -50,6 +51,7 @@ void Object::setClass(Class<Object>* clazz)
 {
 	this->clazz = clazz;
 }
+*/
 
 bool Object::equals(Object* obj)
 {
@@ -66,7 +68,7 @@ String Object::toString()
 	return String::format(L"@%d",this);
 }
 
-void Object::finalize() throw(Throwable)
+void Object::finalize()
 {
-	SafeDelete(this->clazz);
+	//SafeDelete(this->clazz);
 }

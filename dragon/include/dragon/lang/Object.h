@@ -24,14 +24,8 @@ BeginPackage2(dragon,lang)
 
 class String;
 
-template<class Type>
-class Class;
-
 class _DragonExport Object
 {
-	template<class Type>
-	friend class Class;
-
 public:
 	Object();
 	virtual ~Object();
@@ -40,16 +34,19 @@ public:
 	virtual Boolean equals(Object* obj);
 	virtual int hashCode();
 	virtual String toString();
-	virtual Class<Object>* getClass();
-
-private:
-	virtual void setClass(Class<Object>* clazz);
 
 protected:
 	virtual void finalize();
 
+/*
+	template<class Type>
+	friend class Class;
+
+public:
+	virtual Class<Object>* getClass();
 protected:
 	Class<Object>* clazz;
+*/
 };
 
 EndPackage2
