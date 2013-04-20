@@ -32,6 +32,9 @@ class String;
 interface _DragonExport CharSequence
 {
 public:
+	~CharSequence(){};
+
+public:
 	virtual int length()=0;
 	virtual Char charAt(int index)=0;
 	virtual CharSequence* subSequence(int start, int end) = 0;

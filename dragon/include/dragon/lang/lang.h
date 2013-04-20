@@ -26,7 +26,7 @@
 #include <dragon/config.h>
 #include "basic_type.h"
 
-BeginPackage2(dragon,lang)
+BeginPackage2(dragon, lang)
 
 	template<class Type>
 	class Class;
@@ -57,7 +57,7 @@ BeginPackage2(dragon,lang)
 	class Number;
 	class Thread;
 
-EndPackage2
+EndPackage2//(dragon, lang)
 
 #include <dragon/lang/gc/gc.h>
 #include <dragon/util/regex/regex.h>

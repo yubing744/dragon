@@ -1,12 +1,12 @@
 /*
 * Copyright 2013 the original author or authors.
-* 
+*
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
-* 
+*
 *      http://www.apache.org/licenses/LICENSE-2.0
-* 
+*
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,23 +19,28 @@
  * Email:       yubing744@163.com
  * Created:     2013/03/31
  **********************************************************************/
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
-#ifndef Runnable_Lang_Dragon_H
-#define Runnable_Lang_Dragon_H
+#include <dragon/lang/Math.h>
+Import dragon::lang;
 
-#include <dragon/config.h>
+class MathTest: public CppUnit::TestFixture {
 
-BeginPackage2(dragon, lang)
+	 CPPUNIT_TEST_SUITE(MathTest);
+	 CPPUNIT_TEST(testAdd);
+	 CPPUNIT_TEST(testMax);
+	 CPPUNIT_TEST_SUITE_END();
 
-interface _DragonExport Runnable
-{
 public:
-	virtual ~Runnable(){};
+	MathTest() {}
 
-public:
-	virtual void run() = 0;
+	void setUp();
+
+	void testAdd();
+	void testMax();
+
+	void tearDown();
 };
 
-EndPackage2//(dragon, lang)
 
-#endif//Runnable_Lang_Dragon_H

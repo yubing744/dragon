@@ -1,3 +1,4 @@
+# -*- python -*-
 # Copyright 2013 the original author or authors.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,22 +26,26 @@ LIBRARY_FLAGS = {
   },
   'gcc': {
 	'CPPPATH' : [
+		"/usr/local/include",
 		"../include"
 	],
 	'LIBPATH' : [
+		"/usr/local/lib",
 		"../lib"				
 	],
-	'LIBS' : [],
+	'LIBS' : ['cppunit', "dragon"],
 	'LINKFLAGS' : []
   },
   'msvc': {
 	'CPPPATH' : [
 		"../include",
+		"../../third_party/cppunit-1.10.2/include"
 	],
 	'LIBPATH' : [
+		"../../third_party/cppunit-1.10.2/lib",
 		"../lib"			
 	],
-	'LIBS' : [],
+	'LIBS' : ['cppunit_dll_x64', "dragon"],
 	'LINKFLAGS' : []	
   }
 }
@@ -48,43 +53,25 @@ LIBRARY_FLAGS = {
 def Build(env):
 	toolchain = env['toolchain'] 
 	
-	env.Append(CPPPATH = LIBRARY_FLAGS[toolchain]['CPPPATH'])
-	env.Append(LIBPATH = LIBRARY_FLAGS[toolchain]['LIBPATH'])
-	env.Append(LIBS = LIBRARY_FLAGS[toolchain]['LIBS'])
-
+	include_path = LIBRARY_FLAGS[toolchain]['CPPPATH']
+	lib_path = LIBRARY_FLAGS[toolchain]['LIBPATH']
+	libs = LIBRARY_FLAGS[toolchain]['LIBS']
 	link_flags = LIBRARY_FLAGS[toolchain]['LINKFLAGS']
+	
+	src_files = Split("""
+		dragon/lang/ObjectTest.cc
+		dragon/lang/StringTest.cc
+		dragon/lang/MathTest.cc
+		TestMain.cc
+	""")
+	
 	if (link_flags and len(link_flags)>0):
 		env.Append(LINKFLAGS = link_flags)
-		
-	src_files =[
-#		"dragon/lang/Object.cc",
-#		"dragon/lang/Throwable.cc",
-#		"dragon/lang/Exception.cc",
-#		"dragon/lang/RuntimeException.cc",
-#		"dragon/lang/IndexOutOfBoundsException.cc",
-#		"dragon/lang/NullPointerException.cc",
-		"dragon/lang/Math.cc"
-#		"dragon/lang/internal/platform_win32.cc",
-#		"dragon/lang/String.cc"
-	]
 	
-	results = []
-	
-#	lib_files = env.Library(target='dragon', source=src_files, LIBS=libs, LIBPATH=lib_path)
-#	libfilename = str(lib_files[0])
-#	results.append(libfilename);
-	
-	lib_files = env.SharedLibrary('dragon', source=src_files)
-	print lib_files
-	
-	libfilename = str(lib_files[0])
-	results.append(libfilename);
-	
-#	for name in results:
-#		Command('../lib/' + name, name, Copy("$TARGET", "$SOURCE")) 
-#		Command('../build/' + name, name, Copy("$TARGET", "$SOURCE")) 
-		
-		
+	test_files = env.Program(target='dragon_test', source=src_files, LIBS=libs, LIBPATH=lib_path)
+	testfilename = str(test_files[0])
+	Command('../build/' + testfilename, testfilename, Copy("$TARGET", "$SOURCE")) 
+
 
 # We disable deprecation warnings because we need to be able to use
 # env.Copy without getting warnings for compatibility with older
@@ -95,7 +82,7 @@ try:
   SetOption('warn', 'no-deprecated')
 except:
   pass
-
+ 
 Import('env')
 Build(env.Copy())
 

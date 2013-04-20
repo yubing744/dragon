@@ -20,7 +20,7 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/lang/math.h>
+#include <dragon/lang/Math.h>
 
 #include <stdlib.h>
 #include <cmath>
