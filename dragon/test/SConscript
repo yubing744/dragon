@@ -31,9 +31,12 @@ LIBRARY_FLAGS = {
 	],
 	'LIBPATH' : [
 		"/usr/local/lib",
-		"../lib"				
+		"../lib/gcc"				
 	],
+	'CPPDEFINES' : ['USING_DRAGON_SHARED'],
 	'LIBS' : ['cppunit', "dragon"],
+	'CXXFLAGS' : [],
+	'ARFLAGS' : [],	
 	'LINKFLAGS' : []
   },
   'msvc': {
@@ -43,21 +46,26 @@ LIBRARY_FLAGS = {
 	],
 	'LIBPATH' : [
 		"../../third_party/cppunit-1.10.2/lib",
-		"../lib"			
+		"../lib/msvc"			
 	],
 	'LIBS' : ['cppunit_dll_x64', "dragon"],
-	'LINKFLAGS' : []	
+	'CXXFLAGS' : ['/EHsc'],	
+	'CPPDEFINES' : ['USING_DRAGON_SHARED'],
+	'ARFLAGS' : ['/MACHINE:X64'],
+	'LINKFLAGS' : ['/MACHINE:X64']	
   }
 }
 
 def Build(env):
 	toolchain = env['toolchain'] 
 	
-	include_path = LIBRARY_FLAGS[toolchain]['CPPPATH']
-	lib_path = LIBRARY_FLAGS[toolchain]['LIBPATH']
-	libs = LIBRARY_FLAGS[toolchain]['LIBS']
-	link_flags = LIBRARY_FLAGS[toolchain]['LINKFLAGS']
-	
+	env.Append(CPPPATH = LIBRARY_FLAGS[toolchain]['CPPPATH'])
+	env.Append(LIBPATH = LIBRARY_FLAGS[toolchain]['LIBPATH'])
+	env.Append(LIBS = LIBRARY_FLAGS[toolchain]['LIBS'])
+	env.Append(CXXFLAGS = LIBRARY_FLAGS[toolchain]['CXXFLAGS'])
+	env.Append(ARFLAGS = LIBRARY_FLAGS[toolchain]['ARFLAGS'])
+	env.Append(LINKFLAGS = LIBRARY_FLAGS[toolchain]['LINKFLAGS'])
+			
 	src_files = Split("""
 		dragon/lang/ObjectTest.cc
 		dragon/lang/StringTest.cc
@@ -65,12 +73,8 @@ def Build(env):
 		TestMain.cc
 	""")
 	
-	if (link_flags and len(link_flags)>0):
-		env.Append(LINKFLAGS = link_flags)
-	
-	test_files = env.Program(target='dragon_test', source=src_files, LIBS=libs, LIBPATH=lib_path)
-	testfilename = str(test_files[0])
-	Command('../build/' + testfilename, testfilename, Copy("$TARGET", "$SOURCE")) 
+	test_files = env.Program(target='dragon_test', source=src_files)
+	env.Install('../lib/' + toolchain, test_files)	
 
 
 # We disable deprecation warnings because we need to be able to use

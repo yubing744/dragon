@@ -61,39 +61,39 @@
 // Define export
 #ifdef _WIN32
 
-// Setup for Windows DLL export/import. When building the DRAGON DLL the
-// BUILDING_DRAGON_SHARED needs to be defined. When building a program which uses
-// the DRAGON DLL USING_DRAGON_SHARED needs to be defined. When either building the DRAGON
-// static library or building a program which uses the DRAGON static library neither
-// BUILDING_DRAGON_SHARED nor USING_DRAGON_SHARED should be defined.
-#if defined(BUILDING_DRAGON_SHARED) && defined(USING_DRAGON_SHARED)
-#error both BUILDING_DRAGON_SHARED and USING_DRAGON_SHARED are set - please check the\
-  build configuration to ensure that at most one of these is set
-#endif
+	// Setup for Windows DLL export/import. When building the DRAGON DLL the
+	// BUILDING_DRAGON_SHARED needs to be defined. When building a program which uses
+	// the DRAGON DLL USING_DRAGON_SHARED needs to be defined. When either building the DRAGON
+	// static library or building a program which uses the DRAGON static library neither
+	// BUILDING_DRAGON_SHARED nor USING_DRAGON_SHARED should be defined.
+	#if defined(BUILDING_DRAGON_SHARED) && defined(USING_DRAGON_SHARED)
+		#error both BUILDING_DRAGON_SHARED and USING_DRAGON_SHARED are set - please check the\
+		  build configuration to ensure that at most one of these is set
+	#endif
 
-#ifdef BUILDING_DRAGON_SHARED
-#define DRAGONEXPORT __declspec(dllexport)
-#elif USING_DRAGON_SHARED
-#define DRAGONEXPORT __declspec(dllimport)
-#else
-#define DRAGONEXPORT
-#endif  // BUILDING_DRAGON_SHARED
+	#ifdef BUILDING_DRAGON_SHARED
+		#define DRAGONEXPORT __declspec(dllexport)
+	#elif USING_DRAGON_SHARED
+		#define DRAGONEXPORT __declspec(dllimport)
+	#else
+		#define DRAGONEXPORT
+	#endif  // BUILDING_DRAGON_SHARED
 
 #else  // _WIN32
 
-// Setup for Linux shared library export.
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || \
-    (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)) && defined(DRAGON_SHARED)
-#ifdef BUILDING_DRAGON_SHARED
-#define DRAGONEXPORT __attribute__ ((visibility("default")))
-#else
-#define DRAGONEXPORT
-#endif
-#else
-#define DRAGONEXPORT
-#endif
+	// Setup for Linux shared library export.
+	#if defined(__GNUC__) && ((__GNUC__ >= 4) || \
+		(__GNUC__ == 3 && __GNUC_MINOR__ >= 3)) && defined(DRAGON_SHARED)
+		#ifdef BUILDING_DRAGON_SHARED
+			#define DRAGONEXPORT __attribute__ ((visibility("default")))
+		#else
+			#define DRAGONEXPORT
+		#endif
+	#else
+		#define DRAGONEXPORT
+	#endif
 
-#endif  // _WIN32
+#endif
 
 #define _DragonExport DRAGONEXPORT
 

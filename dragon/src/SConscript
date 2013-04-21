@@ -28,9 +28,12 @@ LIBRARY_FLAGS = {
 		"../include"
 	],
 	'LIBPATH' : [
-		"../lib"				
+		"../lib/gcc"				
 	],
 	'LIBS' : [],
+	'CXXFLAGS' : [],
+	'CPPDEFINES' : ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
+	'ARFLAGS' : [],	
 	'LINKFLAGS' : []
   },
   'msvc': {
@@ -38,9 +41,12 @@ LIBRARY_FLAGS = {
 		"../include",
 	],
 	'LIBPATH' : [
-		"../lib"			
+		"../lib/msvc"			
 	],
 	'LIBS' : [],
+	'CXXFLAGS' : ['/EHsc'],	
+	'CPPDEFINES' : ['BUILDING_DRAGON_SHARED'],
+	'ARFLAGS' : [],
 	'LINKFLAGS' : []	
   }
 }
@@ -51,10 +57,10 @@ def Build(env):
 	env.Append(CPPPATH = LIBRARY_FLAGS[toolchain]['CPPPATH'])
 	env.Append(LIBPATH = LIBRARY_FLAGS[toolchain]['LIBPATH'])
 	env.Append(LIBS = LIBRARY_FLAGS[toolchain]['LIBS'])
-
-	link_flags = LIBRARY_FLAGS[toolchain]['LINKFLAGS']
-	if (link_flags and len(link_flags)>0):
-		env.Append(LINKFLAGS = link_flags)
+	env.Append(CXXFLAGS = LIBRARY_FLAGS[toolchain]['CXXFLAGS'])
+	env.Append(CPPDEFINES = LIBRARY_FLAGS[toolchain]['CPPDEFINES'])
+	env.Append(ARFLAGS = LIBRARY_FLAGS[toolchain]['ARFLAGS'])
+	env.Append(LINKFLAGS = LIBRARY_FLAGS[toolchain]['LINKFLAGS'])
 		
 	src_files =[
 #		"dragon/lang/Object.cc",
@@ -68,22 +74,8 @@ def Build(env):
 #		"dragon/lang/String.cc"
 	]
 	
-	results = []
-	
-#	lib_files = env.Library(target='dragon', source=src_files, LIBS=libs, LIBPATH=lib_path)
-#	libfilename = str(lib_files[0])
-#	results.append(libfilename);
-	
 	lib_files = env.SharedLibrary('dragon', source=src_files)
-	print lib_files
-	
-	libfilename = str(lib_files[0])
-	results.append(libfilename);
-	
-#	for name in results:
-#		Command('../lib/' + name, name, Copy("$TARGET", "$SOURCE")) 
-#		Command('../build/' + name, name, Copy("$TARGET", "$SOURCE")) 
-		
+	env.Install('../lib/' + toolchain, lib_files)	
 		
 
 # We disable deprecation warnings because we need to be able to use

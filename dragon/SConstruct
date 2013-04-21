@@ -156,13 +156,12 @@ def GetTools(opts):
   else:
     return ['default']
 
+
 vars = GetVariables()
 tools = GetTools(vars)
 env = Environment(options=vars, tools=tools)
 
 Help(vars.GenerateHelpText(env))
  
-Export('env')
- 
 SConscript('./src/SConscript', duplicate=0, exports='env')
-#SConscript('./test/SConscript', duplicate=0, exports='env')
+SConscript('./test/SConscript', duplicate=0, exports='env')
