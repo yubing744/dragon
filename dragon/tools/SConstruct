@@ -1,0 +1,167 @@
+# -*- python -*-
+# Copyright 2013 the original author or authors.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# **********************************************************************
+# Author:      Owen Wu/wcw/yubing
+# Email:       yubing744@163.com
+# Created:     2013/02/20
+# **********************************************************************
+ 
+import os.path
+import sys
+
+import platform
+import re
+import subprocess
+import sys
+import os
+
+from os.path import join, dirname, abspath
+from types import DictType, StringTypes
+
+root_dir = dirname(File('SConstruct').rfile().abspath)
+src_dir = join(root_dir, 'src')
+sys.path.insert(0, join(root_dir, 'tools'))
+sys.path.insert(0, join(root_dir, 'tools/SconsBuilder'))
+
+import utils
+import SconsBuilder
+import SconsBuilderConfig
+
+
+# add our command line options
+SconsBuilder.addCommandLineOptions()
+
+def Abort(message):
+  print message
+  sys.exit(1)
+
+
+def GuessOS(env):
+  return utils.GuessOS()
+
+
+def GuessArch(env):
+  return utils.GuessArchitecture()
+
+
+def GuessToolchain(env):
+  tools = env['TOOLS']
+  if 'gcc' in tools:
+    return 'gcc'
+  elif 'msvc' in tools:
+    return 'msvc'
+  else:
+    return None
+
+
+def GuessVisibility(env):
+  os = env['os']
+  toolchain = env['toolchain'];
+  if (os == 'win32' or os == 'cygwin') and toolchain == 'gcc':
+    # MinGW / Cygwin can't do it.
+    return 'default'
+  elif os == 'solaris':
+    return 'default'
+  else:
+    return 'hidden'
+
+
+def GuessStrictAliasing(env):
+  # There seems to be a problem with gcc 4.5.x.
+  # See http://code.google.com/p/v8/issues/detail?id=884
+  # It can be worked around by disabling strict aliasing.
+  toolchain = env['toolchain'];
+  if toolchain == 'gcc':
+    env = Environment(tools=['gcc'])
+    # The gcc version should be available in env['CCVERSION'],
+    # but when scons detects msvc this value is not set.
+    version = subprocess.Popen([env['CC'], '-dumpversion'],
+        stdout=subprocess.PIPE).communicate()[0]
+    if version.find('4.5') == 0:
+      return 'off'
+  return 'default'
+
+
+PLATFORM_OPTIONS = {
+  'arch': {
+    'values': ['arm', 'ia32', 'x64', 'mips'],
+    'guess': GuessArch,
+    'help': 'the architecture to build for'
+  },
+  'os': {
+    'values': ['freebsd', 'linux', 'macos', 'win32', 'openbsd', 'solaris', 'cygwin', 'netbsd'],
+    'guess': GuessOS,
+    'help': 'the os to build for'
+  },
+  'toolchain': {
+    'values': ['gcc', 'msvc'],
+    'guess': GuessToolchain,
+    'help': 'the toolchain to use'
+  }
+}
+
+SIMPLE_OPTIONS = {
+  'regexp': {
+    'values': ['native', 'interpreted'],
+    'default': 'native',
+    'help': 'Whether to use native or interpreted regexp implementation'
+  }
+}
+
+                  
+def AddVariables(variables, result):
+  guess_env = Environment(variables=result)
+  for (name, option) in variables.iteritems():
+    if 'guess' in option:
+      # Option has a guess function
+      guess = option.get('guess')
+      default = guess(guess_env)
+    else:
+      # Option has a fixed default
+      default = option.get('default')
+    help = '%s (%s)' % (option.get('help'), ", ".join(option['values']))
+    result.Add(name, help, default)
+
+
+def GetVariables():
+  result = Variables()
+  result.Add('mode', 'compilation mode (debug, release)', 'release')
+  AddVariables(PLATFORM_OPTIONS, result)
+  AddVariables(SIMPLE_OPTIONS, result)
+  return result
+
+
+def GetTools(opts):
+  env = Environment(options=opts)
+  os = env['os']
+  toolchain = env['toolchain']
+  if os == 'win32' and toolchain == 'gcc':
+    return ['mingw']
+  elif os == 'win32' and toolchain == 'msvc':
+    return ['msvc', 'mslink', 'mslib', 'msvs']
+  else:
+    return ['default']
+
+
+vars = GetVariables()
+tools = GetTools(vars)
+env = Environment(options=vars, tools=tools)
+
+Help(vars.GenerateHelpText(env))
+ 
+SConscript('./src/SConscript', duplicate=0, exports='env')
+SConscript('./test/SConscript', duplicate=0, exports='env')

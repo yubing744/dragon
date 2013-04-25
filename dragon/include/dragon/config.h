@@ -113,20 +113,20 @@
 
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)
-#define DRAGON_INLINE(declarator) inline __attribute__((always_inline)) declarator
+	#define DRAGON_INLINE(declarator) inline __attribute__((always_inline)) declarator
 #elif defined(_MSC_VER) && !defined(DEBUG)
-#define DRAGON_INLINE(declarator) __forceinline declarator
+	#define DRAGON_INLINE(declarator) __forceinline declarator
 #else
-#define DRAGON_INLINE(declarator) inline declarator
+	#define DRAGON_INLINE(declarator) inline declarator
 #endif
 
 // Define deprecated
 #if defined(__GNUC__) && !DRAGON_DISABLE_DEPRECATIONS
-#define DRAGON_DEPRECATED(declarator) declarator __attribute__ ((deprecated))
+	#define DRAGON_DEPRECATED(declarator) declarator __attribute__ ((deprecated))
 #elif defined(_MSC_VER) && !DRAGON_DISABLE_DEPRECATIONS
-#define DRAGON_DEPRECATED(declarator) __declspec(deprecated) declarator
+	#define DRAGON_DEPRECATED(declarator) __declspec(deprecated) declarator
 #else
-#define DRAGON_DEPRECATED(declarator) declarator
+	#define DRAGON_DEPRECATED(declarator) declarator
 #endif
 
 
