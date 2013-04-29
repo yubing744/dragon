@@ -27,8 +27,8 @@ Import dragon::lang;
 System::System(){}
 
 
-void System::load(String filename)
+void System::load(const Char* filename)
 {
-	LM::GetInstance()->load(filename);
+	//LM::GetInstance()->load(filename);
 }
 
