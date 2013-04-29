@@ -9,6 +9,8 @@ import re
 import sys
 import platform
 
+#print sys.platform
+
 # we need to know when the NDK is
 ANDROID_NDK_ROOT=os.getenv('ANDROID_NDK_ROOT')
 if not ANDROID_NDK_ROOT:
@@ -20,7 +22,7 @@ if env.has_key('android_host_system') and env['android_host_system']:
 else:
 	PLATFORM_TO_TARGET_MAP = { 
     	'linux-i386' : 'linux-x86',
-    	'linux2'     : 'linux-x86',
+    	'linux2'     : 'linux-x86_64',
     	'win32'      : 'windows',
     	'cygwin'     : 'windows',
     	'darwin'     : 'darwin-x86'
