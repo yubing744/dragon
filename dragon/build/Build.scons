@@ -214,24 +214,49 @@ if os.path.exists(target_config_file):
 # module's implementation only.
 #######################################################
 # Neptune
-  
-dragon_source_files = {
-#    "dragon/lang/Object.cc",
-#    "dragon/lang/Throwable.cc",
-#    "dragon/lang/Exception.cc",
-#    "dragon/lang/RuntimeException.cc",
-#    "dragon/lang/IndexOutOfBoundsException.cc",
-#    "dragon/lang/NullPointerException.cc",
-#    "dragon/lang" : "Math.cc"    
-#    "dragon/lang/internal/platform_win32.cc",
-#    "dragon/lang/String.cc"
-     "dragon/lang" : "System.cc"  
-}
+THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
+LibraryModule(name                  = 'Zlib',
+              source_root           = THIRD_PARTY_SOURCE_ROOT,
+              build_source_dirs     = ['zlib-1.2.3'],
+              shared                = True)
+
+LibraryModule(name                  = 'cppunit',
+              source_root           = THIRD_PARTY_SOURCE_ROOT,
+              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
+              build_source_dirs     = ['/cppunit-1.10.2/src/cppunit'],
+              shared                = True,
+              install               = True)
+
+
+dragon_source_files = {
+#        "dragon/lang/Object.cc",
+#        "dragon/lang/Throwable.cc",
+#        "dragon/lang/Exception.cc",
+#        "dragon/lang/RuntimeException.cc",
+#        "dragon/lang/IndexOutOfBoundsException.cc",
+#        "dragon/lang/NullPointerException.cc",
+    "dragon/lang" : "Math.cc"    
+#        "dragon/lang/internal/platform_win32.cc",
+#        "dragon/lang/String.cc"
+}
+    
 LibraryModule(name                  = 'dragon',
               build_include_dirs    = ['include'],
               build_source_files    = dragon_source_files,
               extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
               source_root           = 'src',
               shared                = True,
+              install               = True)
+
+
+dragon_test_source_files = {
+    "dragon/lang" : "MathTest.cc",
+    "." : "TestMain.cc"
+}
+             
+Application(name                  = 'dragon_test', 
+            source_root           = 'test',
+            build_source_files    = dragon_test_source_files,
+            deps                  = ['Zlib', 'cppunit', 'dragon'],
               install               = True)

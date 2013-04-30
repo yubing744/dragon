@@ -12,6 +12,7 @@
 *.user
 *.vcproj
 *.xcodeproj
+*.dblite
 #*#
 *~
 .cpplint-cache
