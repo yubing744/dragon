@@ -20,8 +20,9 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "MathTest.h"
+//#include "MathTest.h"
 
+/*
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(MathTest, "alltest");
 
 void MathTest::setUp(){
@@ -41,3 +42,15 @@ void MathTest::testMax(){
 	int result = Math::max(10, 12);
     CPPUNIT_ASSERT( result == 12 );
 }
+*/
+
+#include <gtest/gtest.h>
+#include <dragon/lang/Math.h>
+
+Import dragon::lang;
+
+TEST(Dragon_Lang_Math_Test, Max) {
+    EXPECT_EQ(10, Math::max(10, 5));
+}
+
+

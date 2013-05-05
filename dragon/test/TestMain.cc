@@ -20,18 +20,23 @@
  * Created:     2013/03/31
  **********************************************************************/
 #include <dragon/config.h>
+#include <gtest/gtest.h>
 
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/ui/text/TestRunner.h>
+//#include <cppunit/extensions/TestFactoryRegistry.h>
+//#include <cppunit/ui/text/TestRunner.h>
 
-int main(int /*argc*/, char** /*argv*/) {
+int main(int argc, char** argv) {
+        /*
 	CppUnit::TextUi::TestRunner runner;
 
 	CppUnit::TestFactoryRegistry &registry =
 			CppUnit::TestFactoryRegistry::getRegistry("alltest");
 	runner.addTest(registry.makeTest());
 	runner.run();
+        */
+        //printf("Hello World!");
 
-	return 0;
+	testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
 

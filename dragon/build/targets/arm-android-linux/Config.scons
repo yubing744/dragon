@@ -80,7 +80,8 @@ env['NPT_EXTRA_LIBS'] = ['gcc']
 
 ### Load the tools
 LoadTool('gcc-generic', env, gcc_cross_prefix=ANDROID_CROSS_PREFIX, gcc_strict=False)
-env.AppendUnique(CCFLAGS = ['-I'+ANDROID_NDK_ROOT+'/sources/cxx-stl/system/include' , 
+env.AppendUnique(CCFLAGS = ['-I'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc++/4.4.3/include',
+                            '-I'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi/include',
                             '--sysroot', ANDROID_SYSROOT,
                             '-msoft-float',
                             '-fpic',
@@ -89,14 +90,15 @@ env.AppendUnique(CCFLAGS = ['-I'+ANDROID_NDK_ROOT+'/sources/cxx-stl/system/inclu
                             '-funwind-tables',
                             '-fstack-protector',
                             '-fno-short-enums'])
-env.AppendUnique(CXXFLAGS = ['-fno-exceptions', '-fno-rtti'])
+env.AppendUnique(CXXFLAGS = ['-fexceptions', '-frtti'])
 env.AppendUnique(CPPDEFINES = ['ANDROID', 'NPT_CONFIG_HAVE_SYSTEM_LOG_CONFIG'])
 env.AppendUnique(LINKFLAGS = ['--sysroot', ANDROID_SYSROOT,
                 			  '-Wl,--no-undefined', 
-                              '-Wl,-z,noexecstack',
+                                          '-Wl,-z,noexecstack',
                 			  '-L'+ANDROID_SYSROOT+'/usr/lib', 
+                                          '-L'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi',
                 			  '-lc', 
-                			  '-lstdc++', 
+                			  '-lgnustl_shared', 
                 			  '-lm', 
                 			  '-llog', 
                 			  '-ldl'])
