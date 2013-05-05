@@ -241,13 +241,13 @@ dragon_source_files = {
 #        "dragon/lang/String.cc"
 }
     
-LibraryModule(name                  = 'dragon',
-              build_include_dirs    = ['include'],
-              build_source_files    = dragon_source_files,
-              extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
-              source_root           = 'src',
-              shared                = True,
-              install               = True)
+#LibraryModule(name                  = 'dragon',
+#              build_include_dirs    = ['include'],
+#              build_source_files    = dragon_source_files,
+#              extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
+#              source_root           = 'src',
+#              shared                = True,
+#              install               = True)
 
 
 dragon_test_source_files = {
@@ -255,8 +255,8 @@ dragon_test_source_files = {
     "." : "TestMain.cc"
 }
              
-Application(name                  = 'dragon_test', 
-            source_root           = 'test',
-            build_source_files    = dragon_test_source_files,
-            deps                  = ['Zlib', 'cppunit', 'dragon'],
-              install               = True)
+#Application(name                  = 'dragon_test', 
+#            source_root           = 'test',
+#            build_source_files    = dragon_test_source_files,
+#            deps                  = ['Zlib', 'cppunit', 'dragon'],
+#              install               = True)
