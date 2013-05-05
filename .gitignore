@@ -1,5 +1,3 @@
-*.a
-*.exe
 *.idb
 *.lib
 *.log
@@ -8,11 +6,9 @@
 *.ncb
 *.pdb
 *.pyc
-*.so
 *.user
-*.vcproj
-*.xcodeproj
 *.dblite
+.sconsign.dblite
 #*#
 *~
 .cpplint-cache

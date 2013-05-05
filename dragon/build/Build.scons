@@ -216,30 +216,44 @@ if os.path.exists(target_config_file):
 # Neptune
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
-LibraryModule(name                  = 'Zlib',
+# zip lib
+LibraryModule(name                  = 'zlib',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
               build_source_dirs     = ['zlib-1.2.3'],
-              shared                = True)
+              shared                = False,
+			  install               = True)
 
-LibraryModule(name                  = 'cppunit',
+# lib google test			  
+LibraryModule(name                  = 'gtest',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
-              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
-              build_source_dirs     = ['/cppunit-1.10.2/src/cppunit'],
+			  extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],
+              build_include_dirs    = [
+										THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
+										THIRD_PARTY_SOURCE_ROOT + '/googletest'
+									   ],
+              build_source_files    = {"googletest/src" : "gtest-all.cc",},
               shared                = True,
               install               = True)
+			  
+#LibraryModule(name                  = 'cppunit',
+#              source_root           = THIRD_PARTY_SOURCE_ROOT,
+#              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
+#              build_source_dirs     = ['/cppunit-1.10.2/src/cppunit'],
+#              shared                = True,
+#              install               = True)
 
 
-dragon_source_files = {
+#dragon_source_files = {
 #        "dragon/lang/Object.cc",
 #        "dragon/lang/Throwable.cc",
 #        "dragon/lang/Exception.cc",
 #        "dragon/lang/RuntimeException.cc",
 #        "dragon/lang/IndexOutOfBoundsException.cc",
 #        "dragon/lang/NullPointerException.cc",
-    "dragon/lang" : "Math.cc"    
+#    "dragon/lang" : "Math.cc"    
 #        "dragon/lang/internal/platform_win32.cc",
 #        "dragon/lang/String.cc"
-}
+#}
     
 #LibraryModule(name                  = 'dragon',
 #              build_include_dirs    = ['include'],
@@ -249,11 +263,10 @@ dragon_source_files = {
 #              shared                = True,
 #              install               = True)
 
-
-dragon_test_source_files = {
-    "dragon/lang" : "MathTest.cc",
-    "." : "TestMain.cc"
-}
+#dragon_test_source_files = {
+#    "dragon/lang" : "MathTest.cc",
+#    "." : "TestMain.cc"
+#}
              
 #Application(name                  = 'dragon_test', 
 #            source_root           = 'test',

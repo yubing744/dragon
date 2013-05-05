@@ -1,5 +1,0 @@
-env = Environment(CPPPATH="./include")
-
-src_files = Glob("./src/*.cc")
-
-env.SharedLibrary('libgtest', src_files)
