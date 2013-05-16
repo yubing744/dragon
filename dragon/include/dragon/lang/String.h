@@ -35,27 +35,29 @@ Import std;
 
 #include "Math.h"
 #include "Array.h"
-#include "Comparable.h"
-#include "CharSequence.h"
+//#include "Comparable.h"
+//#include "CharSequence.h"
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport String : public Object, public Comparable<String>,
-	public CharSequence
+class _DragonExport String //: public Comparable<String>,
+	//public CharSequence
 {
+	/*
 	friend wostream& operator << (wostream& os,const String& str);
 	friend wostream& operator << (wostream& os,String* str);
 	friend size_t hash_value(const String& str);
 	friend Boolean operator<(const String& left,const String& right);
-
+    */
+	
 public:
 	String();
 	String(wstring value);
 	String(const String& value);
 	String(const Char* value);
-	String(const Char* value, int offset, int count);
+   //	String(const Char* value, int offset, int count);
 	~String();
-
+/*
 public:
 	void operator = (const Char*  str);
 	void operator = (wstring  str);
@@ -142,11 +144,14 @@ public:
 	static String valueOf(long l);
 	static String valueOf(float f);
 	static String valueOf(double d);
+*/
 
 private:
-	wstring mstr;
+	Char* value;
+	int offset;
+	int count;
 };
-
+/*
 inline wostream& operator << (wostream& os,const String& str)
 {
     os<<str.mstr;
@@ -176,6 +181,7 @@ inline size_t hash_value(const String& str)
 
 	return hc;
 }
+*/
 
 EndPackage2//(dragon, lang)
 

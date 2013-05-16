@@ -26,57 +26,75 @@
 #include <ctype.h>
 #include <cwchar>
 
-#include <dragon/util/regex/regex.h>
-
+//#include <dragon/util/regex/regex.h>
+#include <dragon/lang/Arrays.h>
 #include <dragon/lang/NullPointerException.h>
 #include <dragon/lang/IndexOutOfBoundsException.h>
 
-#include "internal/platform.h"
+//#include "internal/platform.h"
 
-#define vstprintf_s vswprintf_s
-#define _ltot_s _ltow_s
+//#define vstprintf_s vswprintf_s
+//#define _ltot_s _ltow_s
 
 Import dragon::lang;
-Import dragon::util::regex;
+//Import dragon::util::regex;
 
-String::String(){}
+String::String(){
+   this->offset = 0;
+   this->count = 0;
+   this->value = new Char[0];
+}
 
-String::~String()
-{
-	if(mstr!=L"")
-	{
-		mstr.clear();
+String::~String(){
+	if (this->value != NULL) {
+		delete[] this->value;
 	}
 }
 
-String::String(const Char* value)
-{
-	if(value != null)
-	{
-		mstr = wstring(value);
+String::String(const Char* value){
+	this->offset = 0;
+	
+	int size = 0;
+	Char* cur = const_cast<Char*>(value);
+	while(*(cur++) != '\0') {
+		size++;
+	}
+	
+	this->count = size;
+	this->value = Arrays::copyOf(value, size);
+}
+
+String::String(wstring value){
+	this->offset = 0;
+	this->count = (int)value.size();
+	const wchar_t* raw = value.c_str();
+
+	if (sizeof(wchar_t) == 2) {
+		this->value = Arrays::copyOf((const Char*)raw, this->count);
+    } else {
+		this->value = Arrays::copyOf((const Char*)raw, this->count, sizeof(wchar_t) - 1);
 	}
 }
 
-String::String(wstring value):mstr(value){}
-
-String::String(const String& value)
-{
-	mstr=value.mstr;
+String::String(const String& value){
+	this->offset = 0;
+	this->count = value.count;
+	this->value = Arrays::copyOf(value.value, value.count);
 }
 
-String::String(const Char* value, int offset, int count)
-{
-	int len=String::valueOf(value).length();
+/*
+String::String(const Char* value, int offset, int count){
+	int len = String::valueOf(value).length();
 
-	if(offset<0 || offset>=len || offset+count>=len)
-	{
-		throw IndexOutOfBoundsException();
+	if(offset<0 || offset>=len || offset+count>=len){
+		throw new IndexOutOfBoundsException();
 	}
 
-	mstr=wstring(value,offset,count);
+	mstr = wstring(value, offset, count);
 }
+*/
 
-
+/*
 void String::operator = (const Char*  str)
 {
 	mstr=wstring(str);
@@ -657,7 +675,7 @@ String String::format(const Char* format,...)
 	return String::valueOf(text);
 }
 
-String String::format(String& format,...)
+String String::format(String& format, ...)
 {
 	Char text[256];
 	va_list ap;
@@ -667,7 +685,7 @@ String String::format(String& format,...)
 	va_start(ap, fmt);
 	    vstprintf_s(text,256,fmt, ap);
 	va_end(ap);	
-
+        
 	return String::valueOf(text);
 }
 
@@ -714,4 +732,5 @@ String String::valueOf(const Char* data)
 String String::valueOf(const Char* data, int offset, int count)
 {
 	return String(data, offset, count);
-}
+}*/
+

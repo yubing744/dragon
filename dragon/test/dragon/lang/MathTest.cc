@@ -50,7 +50,12 @@ void MathTest::testMax(){
 Import dragon::lang;
 
 TEST(Dragon_Lang_Math_Test, Max) {
-    EXPECT_EQ(10, Math::max(10, 5));
+    EXPECT_EQ(10, Math::max(10, 5));   
+    EXPECT_EQ(0, Math::max(-1, 0));
+    EXPECT_EQ(100, Math::max(0, 100));
 }
 
+TEST(Dragon_Lang_Math_Test, Min){
+    EXPECT_EQ(-1, Math::min(-1, 0));
+}
 

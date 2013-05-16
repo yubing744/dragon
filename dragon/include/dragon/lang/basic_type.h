@@ -30,7 +30,7 @@ BeginPackage2(dragon, lang)
 	//basic type
 	typedef bool Boolean;
 	typedef unsigned char Byte;
-	typedef wchar_t Char;
+	typedef unsigned short Char;
 	typedef short Short;
 	typedef int Integer;
 	typedef long long Long;
