@@ -251,12 +251,12 @@ dragon_source_files = {
 #        "dragon/lang/Exception.cc",
 #        "dragon/lang/RuntimeException.cc",
 #        "dragon/lang/IndexOutOfBoundsException.cc",
-#        "dragon/lang/NullPointerException.cc",
-       		 "dragon/lang" : "Arrays.cc",
-  "dragon/lang" : "Math.cc",
+#        "dragon/lang/NullPointerException.cc"
+         "dragon/lang/" : "Arrays.cc",
+         "dragon/lang/" : "Math.cc",
 
 #        "dragon/lang/internal/platform_win32.cc",
-        "dragon/lang/" : "String.cc"
+         "dragon/lang/" : "String.cc"
 }
     
 LibraryModule(name                  = 'dragon',

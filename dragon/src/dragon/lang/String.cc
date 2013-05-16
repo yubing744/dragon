@@ -42,7 +42,7 @@ Import dragon::lang;
 String::String(){
    this->offset = 0;
    this->count = 0;
-   this->value = new Char[0];
+   this->value = NULL;
 }
 
 String::~String(){
@@ -76,11 +76,13 @@ String::String(wstring value){
 	}
 }
 
+/*
 String::String(const String& value){
 	this->offset = 0;
 	this->count = value.count;
 	this->value = Arrays::copyOf(value.value, value.count);
 }
+*/
 
 /*
 String::String(const Char* value, int offset, int count){

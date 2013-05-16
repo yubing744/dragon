@@ -53,7 +53,7 @@ class _DragonExport String //: public Comparable<String>,
 public:
 	String();
 	String(wstring value);
-	String(const String& value);
+    //	String(const String& value);
 	String(const Char* value);
    //	String(const Char* value, int offset, int count);
 	~String();
