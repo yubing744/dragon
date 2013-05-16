@@ -76,13 +76,12 @@ String::String(wstring value){
 	}
 }
 
-/*
 String::String(const String& value){
 	this->offset = 0;
 	this->count = value.count;
 	this->value = Arrays::copyOf(value.value, value.count);
 }
-*/
+
 
 /*
 String::String(const Char* value, int offset, int count){
