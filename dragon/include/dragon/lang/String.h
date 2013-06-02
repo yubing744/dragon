@@ -52,6 +52,7 @@ class _DragonExport String //: le<g
 	
 public:
 	String();
+	String(string value);
 	String(wstring value);
     String(const String& value);
 	String(const Char* value);
@@ -103,9 +104,13 @@ public:
 	String& append(const Char* str);
 	String& append(CharSequence* s);
 	String& replace(Char oldChar,Char newChar);
-
+*/
+public:
 	int length();
 	Char charAt(int index);
+
+
+/*
 	CharSequence* subSequence(int start,int end);
 	String toString();
 	const Char* toCharArray();

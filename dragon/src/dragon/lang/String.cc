@@ -1,4 +1,4 @@
-/*
+ /*
 * Copyright 2013 the original author or authors.
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,6 +63,24 @@ String::String(const Char* value){
 	this->count = size;
 	this->value = Arrays::copyOf(value, size);
 }
+
+String::String(string value){
+	this->offset = 0;
+	int count = (int)value.size();
+	const char* raw = value.c_str();
+
+    Char* buf = new Char[count];	
+	char* target = (char*)buf;
+
+	for (int i=0; i<count; i++) {
+		target[i*2] = '\0';
+		target[i*2 + 1] = raw[i];
+	}
+
+	this->count = count;
+	this->value = buf;
+}
+
 
 String::String(wstring value){
 	this->offset = 0;
@@ -382,17 +400,22 @@ int String::compareTo(String& o)
 {
 	return mstr.compare(o.mstr);
 }
+*/
 
 Char String::charAt(int index)
 {
-	return mstr.at(index);
+	if (index < 0) index = 0;
+	if (index >= this->count) index = this->count -1;
+
+	return this->value[index];
 }
 
 int String::length()
 {
-	return mstr.length();
+	return this->count;
 }
 
+/*
 CharSequence* String::subSequence(int start,int end)
 {
 	return &this->substring(start,end);

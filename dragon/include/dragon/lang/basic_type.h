@@ -38,6 +38,17 @@ BeginPackage2(dragon, lang)
 	typedef double Double;
 
 	typedef unsigned long Void;
+    
+	//Convert function
+	inline Char CHAR(char ch){
+		Char stdCh;
+		char* pStdCha = (char*)(&stdCh);
+
+		pStdCha[0] = '\0';
+		pStdCha[1] = ch;
+
+		return stdCh;	
+	}
 
 EndPackage2//(dragon, lang)
 

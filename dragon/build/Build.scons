@@ -258,7 +258,7 @@ dragon_source_files = {
 #         "dragon/lang/" : "Math.cc",
 
 #        "dragon/lang/internal/platform_win32.cc",
-         "dragon/lang/" : ["Arrays.cc","Math.cc","String.cc"]
+         "dragon/lang" : ["Arrays.cc","Math.cc","String.cc"]
 }
     
 LibraryModule(name                  = 'dragon',
@@ -270,7 +270,10 @@ LibraryModule(name                  = 'dragon',
               install               = True)
 
 dragon_test_source_files = {
-    "dragon/lang" : "MathTest.cc",
+    "dragon/lang" : [
+		"MathTest.cc",
+		"StringTest.cc"
+	],
     "." : "TestMain.cc"
 }
              
