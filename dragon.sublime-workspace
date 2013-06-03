@@ -1,0 +1,1050 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".gitignore",
+			"settings":
+			{
+				"buffer_size": 769,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/dragon.sublime-project",
+			"settings":
+			{
+				"buffer_size": 424,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon.sublime-project",
+			"settings":
+			{
+				"buffer_size": 417,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/StringTest.cc",
+			"settings":
+			{
+				"buffer_size": 1147,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/testsuite/cxxsmoke.cc",
+			"settings":
+			{
+				"buffer_size": 425,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/testsuite/utf8.c",
+			"settings":
+			{
+				"buffer_size": 8917,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/NEWS",
+			"settings":
+			{
+				"buffer_size": 278,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/unicode-config.in",
+			"settings":
+			{
+				"buffer_size": 1408,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/unicode.h",
+			"settings":
+			{
+				"buffer_size": 7595,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/ucs2.c",
+			"settings":
+			{
+				"buffer_size": 4535,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/sjis.c",
+			"settings":
+			{
+				"buffer_size": 5874,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/prop.c",
+			"settings":
+			{
+				"buffer_size": 5867,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/latin1.c",
+			"settings":
+			{
+				"buffer_size": 2641,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/init.c",
+			"settings":
+			{
+				"buffer_size": 2731,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 1212 files for \"unicode_register_encoding\"\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.c:\n   40  \n   41  void\n   42: unicode_register_encoding (unicode_encoding_t *vec)\n   43  {\n   44    vec->next = encodings;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.h:\n  150  } unicode_encoding_t;\n  151  \n  152: void unicode_register_encoding (unicode_encoding_t *vec);\n  153  \n  154  extern unicode_encoding_t unicode_utf8_encoding;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/init.c:\n   28  unicode_init (void)\n   29  {\n   30:   unicode_register_encoding (&unicode_utf8_encoding);\n   31:   unicode_register_encoding (&unicode_java_utf8_encoding);\n   32:   unicode_register_encoding (&unicode_ascii_encoding);\n   33:   unicode_register_encoding (&unicode_latin1_encoding);\n   34:   unicode_register_encoding (&unicode_ucs4_big_encoding);\n   35:   unicode_register_encoding (&unicode_ucs4_little_encoding);\n   36:   unicode_register_encoding (&unicode_ucs4_native_encoding);\n   37:   unicode_register_encoding (&unicode_ucs2_big_encoding);\n   38:   unicode_register_encoding (&unicode_ucs2_little_encoding);\n   39:   unicode_register_encoding (&unicode_ucs2_native_encoding);\n   40  \n   41:   unicode_register_encoding (&unicode_iso8859_2_encoding);\n   42:   unicode_register_encoding (&unicode_iso8859_3_encoding);\n   43:   unicode_register_encoding (&unicode_iso8859_4_encoding);\n   44:   unicode_register_encoding (&unicode_iso8859_5_encoding);\n   45:   unicode_register_encoding (&unicode_iso8859_6_encoding);\n   46:   unicode_register_encoding (&unicode_iso8859_7_encoding);\n   47:   unicode_register_encoding (&unicode_iso8859_8_encoding);\n   48:   unicode_register_encoding (&unicode_iso8859_9_encoding);\n   49:   unicode_register_encoding (&unicode_iso8859_10_encoding);\n   50:   unicode_register_encoding (&unicode_iso8859_14_encoding);\n   51:   unicode_register_encoding (&unicode_iso8859_15_encoding);\n   52:   unicode_register_encoding (&unicode_windows_1252_encoding);\n   53:   unicode_register_encoding (&unicode_koi8_r_encoding);\n   54:   unicode_register_encoding (&unicode_koi8_u_encoding);\n   55:   unicode_register_encoding (&unicode_tis_620_encoding);\n   56:   unicode_register_encoding (&unicode_armscii_8_encoding);\n   57:   unicode_register_encoding (&unicode_georgian_academy_encoding);\n   58:   unicode_register_encoding (&unicode_georgian_ps_encoding);\n   59:   unicode_register_encoding (&unicode_sjis_encoding);\n   60:   unicode_register_encoding (&unicode_cp932_encoding);\n   61  }\n   62  \n\n32 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 2627,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/convert.c",
+			"settings":
+			{
+				"buffer_size": 6117,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/utf8.h",
+			"settings":
+			{
+				"buffer_size": 2267,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/utf8.c",
+			"settings":
+			{
+				"buffer_size": 6664,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libunicode-0.4/utf8conv.c",
+			"settings":
+			{
+				"buffer_size": 3350,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/dragon.sublime-build",
+	"command_palette":
+	{
+		"height": 67.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sublime",
+				"SublimeGDB: Stop Debugging"
+			],
+			[
+				"prett",
+				"Pretty JSON: Reformat (Pretty Print) JSON"
+			],
+			[
+				"pretey",
+				"Pretty JSON: Reformat (Pretty Print) JSON"
+			],
+			[
+				"prej",
+				"Pretty JSON: Reformat (Pretty Print) JSON"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Sumb",
+				"SublimeGDB: Stop Debugging"
+			],
+			[
+				"submi",
+				"SublimeGDB: Open Register View"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"About",
+				"About"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/.sconsign.dblite",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/dragon.sublime-project",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/SConstruct",
+		"/Users/yubing/Workspace/gdb-demo/test.c",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/scons.sublime-build",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"unicode_register_encoding",
+			"Char",
+			"char"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 18,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".gitignore",
+					"settings":
+					{
+						"buffer_size": 769,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/dragon.sublime-project",
+					"settings":
+					{
+						"buffer_size": 424,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								302,
+								302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon.sublime-project",
+					"settings":
+					{
+						"buffer_size": 417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								87
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/test/dragon/lang/StringTest.cc",
+					"settings":
+					{
+						"buffer_size": 1147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "third_party/libunicode-0.4/testsuite/cxxsmoke.cc",
+					"settings":
+					{
+						"buffer_size": 425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "third_party/libunicode-0.4/testsuite/utf8.c",
+					"settings":
+					{
+						"buffer_size": 8917,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4245.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "third_party/libunicode-0.4/NEWS",
+					"settings":
+					{
+						"buffer_size": 278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "third_party/libunicode-0.4/unicode-config.in",
+					"settings":
+					{
+						"buffer_size": 1408,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "third_party/libunicode-0.4/unicode.h",
+					"settings":
+					{
+						"buffer_size": 7595,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1903.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "third_party/libunicode-0.4/ucs2.c",
+					"settings":
+					{
+						"buffer_size": 4535,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2724.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "third_party/libunicode-0.4/sjis.c",
+					"settings":
+					{
+						"buffer_size": 5874,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3049.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "third_party/libunicode-0.4/prop.c",
+					"settings":
+					{
+						"buffer_size": 5867,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 60.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "third_party/libunicode-0.4/latin1.c",
+					"settings":
+					{
+						"buffer_size": 2641,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 454.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "third_party/libunicode-0.4/init.c",
+					"settings":
+					{
+						"buffer_size": 2731,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"settings":
+					{
+						"buffer_size": 2627,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										157,
+										182
+									],
+									[
+										376,
+										401
+									],
+									[
+										612,
+										637
+									],
+									[
+										673,
+										698
+									],
+									[
+										739,
+										764
+									],
+									[
+										801,
+										826
+									],
+									[
+										864,
+										889
+									],
+									[
+										929,
+										954
+									],
+									[
+										997,
+										1022
+									],
+									[
+										1065,
+										1090
+									],
+									[
+										1130,
+										1155
+									],
+									[
+										1198,
+										1223
+									],
+									[
+										1274,
+										1299
+									],
+									[
+										1340,
+										1365
+									],
+									[
+										1406,
+										1431
+									],
+									[
+										1472,
+										1497
+									],
+									[
+										1538,
+										1563
+									],
+									[
+										1604,
+										1629
+									],
+									[
+										1670,
+										1695
+									],
+									[
+										1736,
+										1761
+									],
+									[
+										1802,
+										1827
+									],
+									[
+										1869,
+										1894
+									],
+									[
+										1936,
+										1961
+									],
+									[
+										2003,
+										2028
+									],
+									[
+										2072,
+										2097
+									],
+									[
+										2135,
+										2160
+									],
+									[
+										2198,
+										2223
+									],
+									[
+										2262,
+										2287
+									],
+									[
+										2328,
+										2353
+									],
+									[
+										2401,
+										2426
+									],
+									[
+										2469,
+										2494
+									],
+									[
+										2530,
+										2555
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								176,
+								176
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "third_party/libunicode-0.4/convert.c",
+					"settings":
+					{
+						"buffer_size": 6117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1255,
+								1255
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2056.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "third_party/libunicode-0.4/utf8.h",
+					"settings":
+					{
+						"buffer_size": 2267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "third_party/libunicode-0.4/utf8.c",
+					"settings":
+					{
+						"buffer_size": 6664,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4605.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "third_party/libunicode-0.4/utf8conv.c",
+					"settings":
+					{
+						"buffer_size": 3350,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 349.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				3,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			],
+			[
+				2,
+				1,
+				3,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.473186791174,
+			0.66,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.89064638458,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 43.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true
+}

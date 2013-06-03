@@ -1,0 +1,15 @@
+libunicode is a library for manipulating Unicode characters and
+strings.  It understands both the UTF-8 and UCS-2 encodings, and has a
+framework for adding support for new encodings.
+
+libunicode is licensed under the LGPL
+
+================================================================
+
+Some design notes:
+
+You might wonder why we always advertise unicode_iconv* instead of
+just using the native ones when available.  The reason is that some
+programs, like Guile, want to be able to advertise a way to plug in
+converters.  We provide that by using the native iconv() as a first
+attempt and then falling back to our converters.

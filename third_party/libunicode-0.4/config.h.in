@@ -1,0 +1,17 @@
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define if system iconv() should be used.  */
+#undef UNICODE_USE_SYSTEM_ICONV
+
+/* Define if you have <langinfo.h> */
+#undef HAVE_LANGINFO_H
+
+/* Define if you have the memmove function.  */
+#undef HAVE_MEMMOVE
+
+/* Name of package */
+#undef PACKAGE
+
+/* Version number of package */
+#undef VERSION
+

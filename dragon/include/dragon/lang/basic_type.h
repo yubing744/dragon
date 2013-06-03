@@ -25,12 +25,14 @@
 
 #include <dragon/config.h>
 
+#include <endian2.h>
+
 BeginPackage2(dragon, lang)
 
 	//basic type
 	typedef bool Boolean;
 	typedef unsigned char Byte;
-	typedef unsigned short Char;
+	typedef unsigned int Char;
 	typedef short Short;
 	typedef int Integer;
 	typedef long long Long;
@@ -39,16 +41,29 @@ BeginPackage2(dragon, lang)
 
 	typedef unsigned long Void;
     
-	//Convert function
-	inline Char CHAR(char ch){
-		Char stdCh;
-		char* pStdCha = (char*)(&stdCh);
+    inline void SwapChar(const Char* pch) {
+    	__uint32_t *n = (__uint32_t*)(pch);
 
-		pStdCha[0] = '\0';
-		pStdCha[1] = ch;
+  		if (is_big_endian()) {
+			*n = bswap32(*n);
+		} 	
+    }
 
-		return stdCh;	
+	inline Char ToChar(char ch){
+		Char uch;
+		char* pdata = (char*)(&uch);
+
+		pdata[0] = '\0';
+		pdata[1] = '\0';
+		pdata[2] = '\0';
+		pdata[3] = ch;
+
+		SwapChar(&uch);
+
+		return uch;	
 	}
+
+	#define NULL_CHAR (Char)NULL;
 
 EndPackage2//(dragon, lang)
 

@@ -69,13 +69,17 @@ String::String(string value){
 	int count = (int)value.size();
 	const char* raw = value.c_str();
 
-    Char* buf = new Char[count];	
+    Char* buf = new Char[count + 1];	
 	char* target = (char*)buf;
 
 	for (int i=0; i<count; i++) {
-		target[i*2] = '\0';
-		target[i*2 + 1] = raw[i];
+		target[i*4] = '\0';
+		target[i*4 + 1] = '\0';
+		target[i*4 + 2] = '\0';
+		target[i*4 + 3] = raw[i];
 	}
+
+	buf[count] = NULL_CHAR;
 
 	this->count = count;
 	this->value = buf;
@@ -407,7 +411,10 @@ Char String::charAt(int index)
 	if (index < 0) index = 0;
 	if (index >= this->count) index = this->count -1;
 
-	return this->value[index];
+	Char result = this->value[index];
+	SwapChar(&result);
+
+	return result;
 }
 
 int String::length()

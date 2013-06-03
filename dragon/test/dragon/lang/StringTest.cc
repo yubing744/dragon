@@ -30,10 +30,10 @@ TEST(Dragon_Lang_String_Test, New) {
     String* str = new String("Hello World");
 	EXPECT_EQ(11, str->length());
 
-	Char ch1 = CHAR('H');
+	Char ch1 = ToChar('H');
 	Char ch2 = str->charAt(0);
 	
-    EXPECT_EQ(18432, ch1);
-	EXPECT_EQ(18432, ch2);
+    EXPECT_EQ(72, ch1);
+	EXPECT_EQ(72, ch2);
 }
 

@@ -155,8 +155,6 @@ def Application(name,
         drct_path = source_root+'/'+drct
         DeclareBuildDir(drct_path)
         sources += GlobSources(drct_path, pattern)
-    
-	print sources
 
     prog = env.Program(target=name, 
                        source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
@@ -219,6 +217,15 @@ if os.path.exists(target_config_file):
 # Neptune
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
+# endian lib
+LibraryModule(name                  = 'endian2',
+              source_root           = THIRD_PARTY_SOURCE_ROOT,
+              build_include_dirs    = ['endian2'],
+              build_source_dirs     = ['endian2'],
+              shared                = False,
+              install               = True)
+
+
 # zip lib
 LibraryModule(name                  = 'z',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
@@ -229,10 +236,10 @@ LibraryModule(name                  = 'z',
 # lib google test			  
 LibraryModule(name                  = 'gtest',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
-	      extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],
+	            extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],
               build_include_dirs    = [
-		         THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
-		         THIRD_PARTY_SOURCE_ROOT + '/googletest'
+		          THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
+		          THIRD_PARTY_SOURCE_ROOT + '/googletest'
                                       ],
               build_source_files    = {"googletest/src" : "gtest-all.cc",},
               linked_modules        = env['DRAGON_EXTRA_LIBS'],
@@ -266,6 +273,8 @@ LibraryModule(name                  = 'dragon',
               build_source_files    = dragon_source_files,
               extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
               source_root           = 'src',
+              included_modules      = ["endian2"], 
+              linked_modules        = ["endian2"],
               shared                = True,
               install               = True)
 
@@ -282,3 +291,5 @@ Application(name                  = 'dragon_test',
             build_source_files    = dragon_test_source_files,
             deps                  = ['z', 'gtest', 'dragon'],
             install               = True)
+
+

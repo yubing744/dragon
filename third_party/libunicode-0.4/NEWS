@@ -1,0 +1,12 @@
+New in 0.3:
+* Handle surrogate characters
+* Handle 4, 5, and 6 byte UTF-8 characters
+* Handle standard UTF-8 as well as Java-style
+* Check for native iconv
+New in 0.2:
+* More functions
+* Better UTF-8 interface
+* Smaller tables (from 192K to 21.5K)
+
+New in 0.1:
+* First release

@@ -1,0 +1,57 @@
+more work on test suite
+
+Real bugs:
+1. unicode_iconv needs to save the shift state when backing up
+2. the init function for a converter has no idea if it is initializing
+   for read or write.  should have two init functions
+
+Treat malformed (and overlong, except maybe c0 80) UTF-8 characters
+like 0xfffd.  Define for 0xfffd in converter header.
+
+we need some more functions:
+  a way to map character number to byte number
+    (so we can continue to use strncmp)
+  a strchr and strrchr using a unicode_char_t argument
+  strcasecmp and strncasecmp
+
+intermediate buffer:
+  * how to size it?
+  * should be circular for efficiency
+  * should be bypassed when converting to/from UCS-4
+
+more charsets
+  Japanese charsets like JIS are very important
+  These must be converted from Unicode tables using a script
+
+name charsets appropriately
+names of existing charsets should be changed.
+eg ucs2 -> utf16
+look at IANA registry
+
+look at Solaris and glibc 2.1:
+  make sure we use the same names for the same encodings
+  see if we have to make it so our aliases apply even when
+    using the system iconv (necessary when we want to use a fixed
+    charset but existing systems don't agree on what it should be
+    named)
+
+if fromcode==tocode, then just copy through
+
+merge with FriBidi
+
+use gtk-doc
+
+ucs readers which understand the feff convention
+
+turn converters into shared objects of their own and dynamically load
+them as requested
+
+unicode_canonical_decomposition has a bad interface
+Should let user give a buffer
+
+
+================================================================
+
+more properties:
+
+* mirrored.  use 2-level table

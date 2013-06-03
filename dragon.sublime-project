@@ -1,0 +1,23 @@
+{
+    "folders": [
+        {
+            "path": "/Users/yubing/Develop/GitRepos/dragon"
+        }
+    ],
+    "file_exclude_patterns": [
+        "*.vcproj",
+        "*.vcxproj",
+        "*.sln",
+        "*.gitignore",
+        "*.gitmodules",
+        "*.vcxproj.*"
+    ],
+    "folder_exclude_patterns": [
+        "build",
+        "out",
+        "third_party",
+        ".git",
+        "Debug",
+        "Release"
+    ]
+}

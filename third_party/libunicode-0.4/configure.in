@@ -1,0 +1,41 @@
+dnl Process this file with autoconf to create configure.
+
+AC_INIT(unicode.h)
+AM_INIT_AUTOMAKE(libunicode, 0.4)
+
+AM_CONFIG_HEADER(config.h)
+
+AC_PROG_CC
+AC_PROG_CXX
+AC_LIBTOOL_WIN32_DLL
+AM_PROG_LIBTOOL
+
+cflags=
+if test "$GCC" = yes; then
+   # Sigh: must use no-unused to avoid warning about unused parameters.
+   cflags='-W -Wall -Wno-unused'
+fi
+AC_SUBST(cflags)
+
+AC_CHECK_FUNCS(memmove)
+AC_CHECK_HEADER(langinfo.h, AC_DEFINE(HAVE_LANGINFO_H))
+
+UNICODE_DEFS=
+AC_CHECK_FUNC(iconv, [
+    AC_DEFINE(UNICODE_USE_SYSTEM_ICONV)
+    UNICODE_DEFS="$UNICODE_DEFS -DUNICODE_USE_SYSTEM_ICONV"
+    have_iconv=yes], have_iconv=no)
+AM_CONDITIONAL(NATIVE_ICONV, test "$have_iconv" = yes)
+AC_SUBST(UNICODE_DEFS)
+
+AC_OUTPUT(Makefile
+iso/Makefile
+jis/Makefile
+msft/Makefile
+testsuite/Makefile
+unicode-config,
+[case "$CONFIG_FILES" in
+*unicode-config*)chmod +x unicode-config;;
+esac])
+
+
