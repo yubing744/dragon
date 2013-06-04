@@ -29,14 +29,33 @@
 
 BeginPackage2(dragon, lang)
 
+template<class T>
 class _DragonExport Arrays {
 public:
 	Arrays(){};
 	~Arrays(){}
 
 public:
-	static Char* copyOf(const Char* src, int length);
-	static Char* copyOf(const Char* src, int length, int perOffset);
+	static T* copyOf(const T* src, int length) {
+		return Arrays::copyOf(src, length, 0, length);
+	};
+
+	static T* copyOf(const T* src, int length, int offset, int count){
+		if ((length < 0 || offset <0 || count<0) 
+			|| (offset + count > length)) {
+			//TODO throw new IndexOutOfBoundsException("the offset or count is out of rang.");
+		}
+
+		T* result = new T[count + 1];
+
+		for (int i=offset; i<count; i+=1){
+			result[i - offset] = src[i];
+		}
+
+		result[count] = (Char)0;
+
+		return result;
+	};
 
 };//Arrays
 

@@ -41,6 +41,10 @@ BeginPackage2(dragon, lang)
 
 	typedef unsigned long Void;
     
+    /**
+     * if current system is big endian, then 
+     * swap the order.
+     */
     inline void SwapChar(const Char* pch) {
     	__uint32_t *n = (__uint32_t*)(pch);
 
@@ -49,6 +53,9 @@ BeginPackage2(dragon, lang)
 		} 	
     }
 
+    /**
+     * change the char to Unicode Char.
+     */
 	inline Char ToChar(char ch){
 		Char uch;
 		char* pdata = (char*)(&uch);
@@ -58,12 +65,36 @@ BeginPackage2(dragon, lang)
 		pdata[2] = '\0';
 		pdata[3] = ch;
 
-		SwapChar(&uch);
+		return uch;	
+	}
+
+	/**
+     * change the wchar_t to Unicode Char.
+     */
+	inline Char ToChar(wchar_t ch){
+		Char uch;
+		char* pdata = (char*)(&uch);
+
+		char* pch = (char*)(&ch);
+
+		pdata[0] = '\0';
+		pdata[1] = '\0';
+		pdata[2] = pch[0];
+		pdata[3] = pch[1];
 
 		return uch;	
 	}
 
-	#define NULL_CHAR (Char)NULL;
+	/**
+     * get char code.
+     */
+	inline int CharCode(Char ch) {
+		SwapChar(&ch);
+		return (int)ch;
+	}
+
+
+	#define NULL_CHAR (Char)NULL
 
 EndPackage2//(dragon, lang)
 

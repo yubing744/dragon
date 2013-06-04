@@ -24,23 +24,24 @@
 #define Array_Lang_H
 
 #include <dragon/config.h>
-#include "Object.h"
 
 BeginPackage2(dragon, lang)
 
 template<class T>
-class  Array :public Object
+class Array
 {
 public:
 	Array()
 	{
 		msize=0;
 		data=null;
+		myData = false;
 	};
 
 	Array(int size){
-		msize=size;
-		data=new T[size];
+		msize = size;
+		data = new T[size];
+		myData = true;
 	};
 
 	Array(const Array& arr)
@@ -52,11 +53,21 @@ public:
 		{
 			data[i]=arr.data[i];
 		}
+
+		myData = true;
 	};
+
+	Array(const T* data, int size)
+	{
+		msize = size;
+		this->data = const_cast<T*>(data);
+		myData = false;
+	};
+
 
 	~Array()
 	{
-		if(data!=null)
+		if(data!=null && myData)
 		{
 			delete[] data;
 		}
@@ -76,6 +87,7 @@ public:
 		{
 			return data[index];
 		}
+
 		return data[msize-1];
 	}
 
@@ -85,10 +97,11 @@ public:
 		{
 			return data[index];
 		}
+
 		return data[msize-1];
 	}
 
-	void set(int index,const T& t)
+	void set(int index, const T& t)
 	{
 		if(index<msize)
 		{
@@ -102,6 +115,7 @@ public:
 	}
 
 private:
+	bool myData;
 	int msize;
 	T* data;
 };

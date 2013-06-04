@@ -56,7 +56,8 @@ public:
 	String(wstring value);
     String(const String& value);
 	String(const Char* value);
-   //	String(const Char* value, int offset, int count);
+	String(const String* value);
+   	String(const Char* value, int offset, int count);
 	~String();
 /*
 public:
@@ -76,7 +77,11 @@ public:
 
 public:
 	int compareTo(String& o);
-	Boolean equals(const Char* str);
+	*/
+
+	Boolean equals(const String* str);
+
+	/*
 	Boolean startsWith(const Char* prefix);
 	Boolean startsWith(const Char* prefix,int toffset);
 	Boolean endsWith(String& suffix);
@@ -113,8 +118,12 @@ public:
 /*
 	CharSequence* subSequence(int start,int end);
 	String toString();
-	const Char* toCharArray();
+*/
 
+	const Char* toChars();
+	Array<Char> toCharArray();
+
+/*
 	Boolean matches(String regex);
 	Boolean contains(CharSequence* s);
 	Boolean contains(String s); 

@@ -56,12 +56,12 @@ String::String(const Char* value){
 	
 	int size = 0;
 	Char* cur = const_cast<Char*>(value);
-	while(*(cur++) != '\0') {
+	while(*(cur++) != NULL_CHAR) {
 		size++;
 	}
 	
 	this->count = size;
-	this->value = Arrays::copyOf(value, size);
+	this->value = Arrays<Char>::copyOf(value, size);
 }
 
 String::String(string value){
@@ -87,35 +87,53 @@ String::String(string value){
 
 
 String::String(wstring value){
-	this->offset = 0;
-	this->count = (int)value.size();
+	int offset = 0;
+	int count = (int)value.size();
 	const wchar_t* raw = value.c_str();
 
-	if (sizeof(wchar_t) == 2) {
-		this->value = Arrays::copyOf((const Char*)raw, this->count);
-    } else {
-		this->value = Arrays::copyOf((const Char*)raw, this->count, sizeof(wchar_t) - 1);
+    Char* buf = new Char[count + 1];	
+	char* target = (char*)buf;
+
+	for (int i=0; i<count; i++) {
+		char* pch = (char*)(&raw[i]);
+
+		target[i*4] = '\0';
+		target[i*4 + 1] = '\0';
+		target[i*4 + 2] = pch[0];
+		target[i*4 + 3] = pch[1];
 	}
+
+	buf[count] = NULL_CHAR;
+
+	this->offset = offset;
+	this->count = count;
+	this->value = buf;	
 }
 
 String::String(const String& value){
 	this->offset = 0;
 	this->count = value.count;
-	this->value = Arrays::copyOf(value.value, value.count);
+	this->value = Arrays<Char>::copyOf(value.value, value.count);
 }
 
+String::String(const String* value) {
+	this->offset = 0;
+	this->count = value->count;
+	this->value = Arrays<Char>::copyOf(value->value, value->count);
+}
 
-/*
 String::String(const Char* value, int offset, int count){
-	int len = String::valueOf(value).length();
-
-	if(offset<0 || offset>=len || offset+count>=len){
-		throw new IndexOutOfBoundsException();
+	this->offset = 0;
+	
+	int size = 0;
+	Char* cur = const_cast<Char*>(value);
+	while(*(cur++) != NULL_CHAR) {
+		size++;
 	}
-
-	mstr = wstring(value, offset, count);
+	
+	this->count = size;
+	this->value = Arrays<Char>::copyOf(value, size, offset, count);
 }
-*/
 
 /*
 void String::operator = (const Char*  str)
@@ -187,11 +205,29 @@ size_t String::operator()(const String& str)
 
 }
 
-Boolean String::equals(const Char* str)
-{
-	return mstr==str;
+*/
+
+Boolean String::equals(const String* str) {
+	if (this == str) {
+		return true;
+	}
+
+	if (this->count != str->count) {
+		return false;
+	}
+
+	int size = str->count;
+	
+	for (int i=0; i<size; i++) {
+		if (this->value[i] != str->value[i]) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
+/*
 Boolean String::startsWith(const Char* prefix)
 {
 	wstring temp(prefix);
@@ -411,10 +447,7 @@ Char String::charAt(int index)
 	if (index < 0) index = 0;
 	if (index >= this->count) index = this->count -1;
 
-	Char result = this->value[index];
-	SwapChar(&result);
-
-	return result;
+	return this->value[index];
 }
 
 int String::length()
@@ -432,23 +465,18 @@ String String::toString()
 {
 	return String(mstr);
 }
+*/
 
-const Char* String::toCharArray()
-{
-	//int len=mstr.length();
-	//Char* buf=new Char[len+1];
-
-	//for(int i=0;i<len;i++)
-	//{
-	//	buf[i]=mstr[i];
-	//}
-	//buf[len]=0;
-
-	//return buf;
-
-	return mstr.c_str();
+const Char* String::toChars() {
+	return Arrays<Char>::copyOf(this->value, this->count);
 }
 
+Array<Char> String::toCharArray()
+{
+	return Array<Char>(this->value, this->count);
+}
+
+/*
 Boolean String::matches(String regex)
 {
 	Regexp tempReg(regex);
