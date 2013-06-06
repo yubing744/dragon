@@ -53,3 +53,5 @@ Release
 _*
 .metadata
 *.os
+*.o
+targets
