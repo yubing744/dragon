@@ -36,6 +36,11 @@ r_endian(const char *__restrict __fmt, void *__src);
 #define is_big_endian() (__BYTE_ORDER == __BIG_ENDIAN)
 #endif /* GNU/Linux */
 
+#ifndef is_big_endian
+static int 
+is_big_endian();
+#endif
+
 /* Reference: FreeBSD /usr/include/sys/endian.h */
 
 #ifndef bswap16
