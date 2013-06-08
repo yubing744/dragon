@@ -28,8 +28,8 @@
 
 //#include <dragon/util/regex/regex.h>
 #include <dragon/lang/Arrays.h>
-#include <dragon/lang/NullPointerException.h>
-#include <dragon/lang/IndexOutOfBoundsException.h>
+//#include <dragon/lang/NullPointerException.h>
+//#include <dragon/lang/IndexOutOfBoundsException.h>
 
 //#include "internal/platform.h"
 
@@ -51,17 +51,17 @@ String::~String(){
 	}
 }
 
-String::String(const Char* value){
+String::String(const dg_char* value){
 	this->offset = 0;
 	
 	int size = 0;
-	Char* cur = const_cast<Char*>(value);
+	dg_char* cur = const_cast<dg_char*>(value);
 	while(*(cur++) != NULL_CHAR) {
 		size++;
 	}
 	
 	this->count = size;
-	this->value = Arrays<Char>::copyOf(value, size);
+	this->value = Arrays<dg_char>::copyOf(value, size);
 }
 
 String::String(string value){
@@ -69,7 +69,7 @@ String::String(string value){
 	int count = (int)value.size();
 	const char* raw = value.c_str();
 
-    Char* buf = new Char[count + 1];	
+    dg_char* buf = new dg_char[count + 1];	
 	char* target = (char*)buf;
 
 	for (int i=0; i<count; i++) {
@@ -91,7 +91,7 @@ String::String(wstring value){
 	int count = (int)value.size();
 	const wchar_t* raw = value.c_str();
 
-    Char* buf = new Char[count + 1];	
+    dg_char* buf = new dg_char[count + 1];	
 	char* target = (char*)buf;
 
 	for (int i=0; i<count; i++) {
@@ -113,30 +113,30 @@ String::String(wstring value){
 String::String(const String& value){
 	this->offset = 0;
 	this->count = value.count;
-	this->value = Arrays<Char>::copyOf(value.value, value.count);
+	this->value = Arrays<dg_char>::copyOf(value.value, value.count);
 }
 
 String::String(const String* value) {
 	this->offset = 0;
 	this->count = value->count;
-	this->value = Arrays<Char>::copyOf(value->value, value->count);
+	this->value = Arrays<dg_char>::copyOf(value->value, value->count);
 }
 
-String::String(const Char* value, int offset, int count){
+String::String(const dg_char* value, int offset, int count){
 	this->offset = 0;
 	
 	int size = 0;
-	Char* cur = const_cast<Char*>(value);
+	dg_char* cur = const_cast<dg_char*>(value);
 	while(*(cur++) != NULL_CHAR) {
 		size++;
 	}
 	
 	this->count = size;
-	this->value = Arrays<Char>::copyOf(value, size, offset, count);
+	this->value = Arrays<dg_char>::copyOf(value, size, offset, count);
 }
 
 /*
-void String::operator = (const Char*  str)
+void String::operator = (const dg_char*  str)
 {
 	mstr=wstring(str);
 }
@@ -154,7 +154,7 @@ String& String::operator+=(const String& str)
 	return *this;
 }
 
-Boolean String::operator==(const Char* str)
+Boolean String::operator==(const dg_char* str)
 {
 	if(this->mstr==str)
 	{
@@ -180,7 +180,7 @@ String::operator wstring()
 	return mstr;
 }
 
-String::operator const Char*()
+String::operator const dg_char*()
 {
 	return mstr.c_str();
 }
@@ -228,7 +228,7 @@ Boolean String::equals(const String* str) {
 }
 
 /*
-Boolean String::startsWith(const Char* prefix)
+Boolean String::startsWith(const dg_char* prefix)
 {
 	wstring temp(prefix);
 
@@ -240,7 +240,7 @@ Boolean String::startsWith(const Char* prefix)
 	return false;
 }
 
-Boolean String::startsWith(const Char* prefix,int toffset)
+Boolean String::startsWith(const dg_char* prefix,int toffset)
 {
 	wstring temp(prefix);
 
@@ -283,17 +283,17 @@ int String::hashCode()
 	return hc;
 }
 
-int String::indexOf(Char ch)
+int String::indexOf(dg_char ch)
 {
 	return mstr.find_first_of(ch,0);
 }
 
-int String::indexOf(Char ch,int fromIndex)
+int String::indexOf(dg_char ch,int fromIndex)
 {
 	return mstr.find_first_of(ch,fromIndex);
 }
 
-int String::indexOf(const Char* str)
+int String::indexOf(const dg_char* str)
 {
 	return mstr.find_first_of(str,0);
 }
@@ -337,22 +337,22 @@ int String::indexOf(String& str,int fromIndex)
 	return mstr.find_first_of(str.mstr,fromIndex);
 }
 
-int String::lastIndexOf(Char ch)
+int String::lastIndexOf(dg_char ch)
 {
 	return mstr.find_last_of(ch,0);
 }
 
-int String::lastIndexOf(Char ch,int fromIndex)
+int String::lastIndexOf(dg_char ch,int fromIndex)
 {
 	return mstr.find_last_of(ch,fromIndex);
 }
 
-int String::lastIndexOf(const Char* str)
+int String::lastIndexOf(const dg_char* str)
 {
 	return mstr.find_last_of(str,mstr.size());
 }
 
-int String::lastIndexOf(const Char* str,int fromIndex)
+int String::lastIndexOf(const dg_char* str,int fromIndex)
 {
 	return mstr.find_last_of(str,fromIndex);
 }
@@ -399,7 +399,7 @@ String& String::concat(String& str)
 	return *this;
 }
 
-String& String::append(const Char* str)
+String& String::append(const dg_char* str)
 {
 	mstr.append(str);
 	return *this;
@@ -408,7 +408,7 @@ String& String::append(const Char* str)
 String& String::append(CharSequence* s)
 {
 	int slen=s->length();
-	Char* temp=new Char[slen+1];
+	dg_char* temp=new dg_char[slen+1];
 
 	for(int i=0;i<slen;i++)
 	{
@@ -422,7 +422,7 @@ String& String::append(CharSequence* s)
 	return *this;
 }
 
-String& String::replace(Char oldChar,Char newChar)
+String& String::replace(dg_char oldChar,dg_char newChar)
 {
 	int len=mstr.length();
 	for(int i=0;i<len;i++)
@@ -442,7 +442,7 @@ int String::compareTo(String& o)
 }
 */
 
-Char String::charAt(int index)
+dg_char String::charAt(int index)
 {
 	if (index < 0) index = 0;
 	if (index >= this->count) index = this->count -1;
@@ -467,13 +467,13 @@ String String::toString()
 }
 */
 
-const Char* String::toChars() {
-	return Arrays<Char>::copyOf(this->value, this->count);
+const dg_char* String::toChars() {
+	return Arrays<dg_char>::copyOf(this->value, this->count);
 }
 
-Array<Char> String::toCharArray()
+Array<dg_char> String::toCharArray()
 {
-	return Array<Char>(this->value, this->count);
+	return Array<dg_char>(this->value, this->count);
 }
 
 /*
@@ -555,32 +555,32 @@ String& String::replace(CharSequence* target,CharSequence* replacement)
 String& String::replaceFirst(String& regex,String& replacement)
 {
 	Regexp tempReg(regex);
-	Char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,1);
+	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,1);
 	return *new String(result);
 }
 
-String& String::replaceFirst(String& regex,const Char* replacement)
+String& String::replaceFirst(String& regex,const dg_char* replacement)
 {
 	Regexp tempReg(regex);
-	Char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,1);
+	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,1);
 	return *new String(result);
 }
 
 String& String::replaceAll(String& regex,String& replacement)
 {
 	Regexp tempReg(regex);
-	Char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,-1);
+	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,-1);
 	return *new String(result);
 }
 
-String& String::replaceAll(String& regex,const Char* replacement)
+String& String::replaceAll(String& regex,const dg_char* replacement)
 {
 	Regexp tempReg(regex);
-	Char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,-1);
+	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,-1);
 	return *new String(result);
 }
 
-Array<String>& String::split(Char ch)
+Array<String>& String::split(dg_char ch)
 {
 	int npart=1;
 
@@ -712,19 +712,19 @@ String String::trim()
 }
 
 
-String& String::copyValueOf(const Char* data)
+String& String::copyValueOf(const dg_char* data)
 {
 	return *new String(data);
 }
 
-String& String::copyValueOf(const Char* data,int offset,int count)
+String& String::copyValueOf(const dg_char* data,int offset,int count)
 {
 	return *new String(data,offset,count);
 }
 
-String String::format(const Char* format,...)
+String String::format(const dg_char* format,...)
 {
-	Char text[256];
+	dg_char text[256];
 	va_list ap;
 
 	va_start(ap, format);
@@ -736,10 +736,10 @@ String String::format(const Char* format,...)
 
 String String::format(String& format, ...)
 {
-	Char text[256];
+	dg_char text[256];
 	va_list ap;
 
-	const Char* fmt=format.mstr.c_str();
+	const dg_char* fmt=format.mstr.c_str();
 
 	va_start(ap, fmt);
 	    vstprintf_s(text,256,fmt, ap);
@@ -758,7 +758,7 @@ String String::valueOf(Boolean b)
 	return String::valueOf(L"false");
 }
 
-String String::valueOf(Char c)
+String String::valueOf(dg_char c)
 {
 	return String(&c);
 }

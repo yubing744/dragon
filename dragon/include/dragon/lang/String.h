@@ -40,7 +40,7 @@ Import std;
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport String //: le<g
+class _DragonExport String
 	//public CharSequence
 {
 	/*
@@ -55,18 +55,18 @@ public:
 	String(string value);
 	String(wstring value);
     String(const String& value);
-	String(const Char* value);
+	String(const dg_char* value);
 	String(const String* value);
-   	String(const Char* value, int offset, int count);
+   	String(const dg_char* value, int offset, int count);
 	~String();
 /*
 public:
-	void operator = (const Char*  str);
+	void operator = (const dg_char*  str);
 	void operator = (wstring  str);
 
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
-	Boolean operator==(const Char* str);
+	Boolean operator==(const dg_char* str);
 	Boolean operator==(const String& str);
 
 	operator wstring();
@@ -82,22 +82,22 @@ public:
 	Boolean equals(const String* str);
 
 	/*
-	Boolean startsWith(const Char* prefix);
-	Boolean startsWith(const Char* prefix,int toffset);
+	Boolean startsWith(const dg_char* prefix);
+	Boolean startsWith(const dg_char* prefix,int toffset);
 	Boolean endsWith(String& suffix);
 	int hashCode();
 
-	int indexOf(Char ch);
-	int indexOf(Char ch,int fromIndex);
-	int indexOf(const Char* str);
+	int indexOf(dg_char ch);
+	int indexOf(dg_char ch,int fromIndex);
+	int indexOf(const dg_char* str);
 	int indexOf(CharSequence* s);
 	int indexOf(String& str,int fromIndex);
 	int indexOf(CharSequence* s,int fromIndex);
 
-	int lastIndexOf(Char ch);
-	int lastIndexOf(Char ch,int fromIndex);
-	int lastIndexOf(const Char* str);
-	int lastIndexOf(const Char* str,int fromIndex);
+	int lastIndexOf(dg_char ch);
+	int lastIndexOf(dg_char ch,int fromIndex);
+	int lastIndexOf(const dg_char* str);
+	int lastIndexOf(const dg_char* str,int fromIndex);
 
 	String substring(int beginIndex);
 	String substring(int beginIndex,int endIndex);
@@ -106,13 +106,13 @@ public:
 	String subString(int beginIndex,int endIndex);
 
 	String& concat(String& str);
-	String& append(const Char* str);
+	String& append(const dg_char* str);
 	String& append(CharSequence* s);
-	String& replace(Char oldChar,Char newChar);
+	String& replace(dg_char oldChar,dg_char newChar);
 */
 public:
 	int length();
-	Char charAt(int index);
+	dg_char charAt(int index);
 
 
 /*
@@ -120,8 +120,8 @@ public:
 	String toString();
 */
 
-	const Char* toChars();
-	Array<Char> toCharArray();
+	const dg_char* toChars();
+	Array<dg_char> toCharArray();
 
 /*
 	Boolean matches(String regex);
@@ -130,11 +130,11 @@ public:
 
 	String& replace(CharSequence* target,CharSequence* replacement);
 	String& replaceFirst(String& regex,String& replacement);
-	String& replaceFirst(String& regex,const Char* replacement);
+	String& replaceFirst(String& regex,const dg_char* replacement);
 	String& replaceAll(String& regex,String& replacement);
-	String& replaceAll(String& regex,const Char* replacement);
+	String& replaceAll(String& regex,const dg_char* replacement);
 
-	Array<String>& split(Char ch);
+	Array<String>& split(dg_char ch);
 	Array<String>& split(String regex);
 
 	String& toLowerCase();
@@ -142,17 +142,17 @@ public:
 	String trim();
 
 public:
-	static String valueOf(const Char* data);
-	static String valueOf(const Char* data,int offset,int count);
+	static String valueOf(const dg_char* data);
+	static String valueOf(const dg_char* data,int offset,int count);
 
-	static String& copyValueOf(const Char* data);
-	static String& copyValueOf(const Char* data,int offset,int count);
+	static String& copyValueOf(const dg_char* data);
+	static String& copyValueOf(const dg_char* data,int offset,int count);
 
 	static String format(String& format,...);
-	static String format(const Char* format,...);
+	static String format(const dg_char* format,...);
 
 	static String valueOf(Boolean b);
-	static String valueOf(Char c);
+	static String valueOf(dg_char c);
 	static String valueOf(const char* value);
 	static String valueOf(int i);
 	static String valueOf(long l);
@@ -161,7 +161,7 @@ public:
 */
 
 private:
-	Char* value;
+	dg_char* value;
 	int offset;
 	int count;
 };

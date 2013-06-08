@@ -25,40 +25,53 @@
 
 #include <dragon/config.h>
 
-#include <endian2.h>
-
 BeginPackage2(dragon, lang)
 
-	//basic type
-	typedef bool Boolean;
-	typedef unsigned char Byte;
-	typedef unsigned int Char;
-	typedef short Short;
-	typedef int Integer;
-	typedef long long Long;
-	typedef float Float;
-	typedef double Double;
+	//match java type
+	typedef dg_boolean Boolean;
+	typedef dg_byte Byte;
+	typedef dg_char Character;
+	typedef dg_short Short;
+	typedef dg_int Integer;
+	typedef dg_long Long;
+	typedef dg_float Float;
+	typedef dg_double Double;
 
-	typedef unsigned long Void;
-    
+	typedef dg_void Void;
+
+    /**
+     * check current system whether is 
+     * big endian order.
+     */
+    inline dg_int IsBigEndian() {
+		union {
+			dg_char i;
+			dg_byte c[4];
+		} bint = {0x01020304};
+
+		return bint.c[0] == 1;
+	}
+
+
     /**
      * if current system is big endian, then 
      * swap the order.
      */
-    inline void SwapChar(const Char* pch) {
-    	__uint32_t *n = (__uint32_t*)(pch);
+	#define __bswap_unicode_char(xx)       ((((dg_char)(xx) << 24) & 0xff000000UL) | \
+       (((dg_char)(xx) <<  8) & 0x00ff0000UL) | \
+       (((dg_char)(xx) >>  8) & 0x0000ff00UL) | \
+       (((dg_char)(xx) >> 24) & 0x000000ffUL))
 
-  		if (is_big_endian()) {
-			*n = bswap32(*n);
-		} 	
+    inline void SwapChar(const dg_char* pch){
+    	__bswap_unicode_char(*pch);
     }
 
     /**
      * change the char to Unicode Char.
      */
-	inline Char ToChar(char ch){
-		Char uch;
-		char* pdata = (char*)(&uch);
+	inline dg_char ToChar(char ch) {
+		dg_char uch;
+		dg_byte* pdata = (dg_byte*)(&uch);
 
 		pdata[0] = '\0';
 		pdata[1] = '\0';
@@ -71,11 +84,11 @@ BeginPackage2(dragon, lang)
 	/**
      * change the wchar_t to Unicode Char.
      */
-	inline Char ToChar(wchar_t ch){
-		Char uch;
-		char* pdata = (char*)(&uch);
+	inline dg_char ToChar(wchar_t ch) {
+		dg_char uch;
+		dg_byte* pdata = (dg_byte*)(&uch);
 
-		char* pch = (char*)(&ch);
+		dg_byte* pch = (dg_byte*)(&ch);
 
 		pdata[0] = '\0';
 		pdata[1] = '\0';
@@ -88,13 +101,13 @@ BeginPackage2(dragon, lang)
 	/**
      * get char code.
      */
-	inline int CharCode(Char ch) {
+	inline dg_int CharCode(dg_char ch) {
 		SwapChar(&ch);
-		return (int)ch;
+		return (dg_int)ch;
 	}
 
 
-	#define NULL_CHAR (Char)NULL
+	#define NULL_CHAR (dg_char)NULL
 
 EndPackage2//(dragon, lang)
 

@@ -20,9 +20,9 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+#include <gtest/gtest.h>
 #include <dragon/lang/String.h>
 
-#include <gtest/gtest.h>
 
 Import dragon::lang;
 
@@ -30,8 +30,8 @@ TEST(Dragon_Lang_String_Test, NewWithBasicChar) {
     String* str = new String("Hello World");
 	EXPECT_EQ(11, str->length());
 
-	Char ch1 = ToChar('H');
-	Char ch2 = str->charAt(0);
+	dg_char ch1 = ToChar('H');
+	dg_char ch2 = str->charAt(0);
 	
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -41,11 +41,11 @@ TEST(Dragon_Lang_String_Test, NewWithBasicChar) {
 
 
 TEST(Dragon_Lang_String_Test, NewWithChar) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
-	Char ch1 = ToChar(L'你');
-	Char ch2 = str->charAt(0);
+	dg_char ch1 = ToChar(L'C');
+	dg_char ch2 = str->charAt(0);
 
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -54,13 +54,13 @@ TEST(Dragon_Lang_String_Test, NewWithChar) {
 }
 
 TEST(Dragon_Lang_String_Test, NewWithString) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
 	String* str2 = new String(str);
 
-	Char ch1 = ToChar(L'你');
-	Char ch2 = str2->charAt(0);
+	dg_char ch1 = ToChar(L'C');
+	dg_char ch2 = str2->charAt(0);
 
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -69,13 +69,13 @@ TEST(Dragon_Lang_String_Test, NewWithString) {
 }
 
 TEST(Dragon_Lang_String_Test, NewWithStringOffset) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
 	String* str2 = new String(str);
 
-	Char ch1 = ToChar(L'你');
-	Char ch2 = str2->charAt(0);
+	dg_char ch1 = ToChar(L'C');
+	dg_char ch2 = str2->charAt(0);
 
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -85,13 +85,13 @@ TEST(Dragon_Lang_String_Test, NewWithStringOffset) {
 }
 
 TEST(Dragon_Lang_String_Test, toCharArray) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
-	Array<Char> charArray = str->toCharArray();
+	Array<dg_char> charArray = str->toCharArray();
 
-	Char ch1 = ToChar(L'你');
-	Char ch2 = charArray[0];
+	dg_char ch1 = ToChar(L'C');
+	dg_char ch2 = charArray[0];
 
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -100,13 +100,13 @@ TEST(Dragon_Lang_String_Test, toCharArray) {
 }
 
 TEST(Dragon_Lang_String_Test, toChars) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
-	const Char* charArray = str->toChars();
+	const dg_char* charArray = str->toChars();
 
-	Char ch1 = ToChar(L'你');
-	Char ch2 = charArray[0];
+	dg_char ch1 = ToChar(L'C');
+	dg_char ch2 = charArray[0];
 
 	Boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(true, isEqual);
@@ -116,10 +116,10 @@ TEST(Dragon_Lang_String_Test, toChars) {
 
 
 TEST(Dragon_Lang_String_Test, strEquals) {
-    String* str = new String(L"你好！");
-	EXPECT_EQ(3, str->length());
+    String* str = new String(L"CN China!");
+	EXPECT_EQ(9, str->length());
 
-	const Char* charArray = str->toChars();
+	const dg_char* charArray = str->toChars();
 	String* str2 = new String(charArray);
 
 	Boolean isEqual = (str->equals(str2));

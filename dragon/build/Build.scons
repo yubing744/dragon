@@ -218,12 +218,12 @@ if os.path.exists(target_config_file):
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
 # endian lib
-LibraryModule(name                  = 'endian2',
-              source_root           = THIRD_PARTY_SOURCE_ROOT,
-              build_include_dirs    = ['endian2'],
-              build_source_dirs     = ['endian2'],
-              shared                = False,
-              install               = True)
+#LibraryModule(name                  = 'endian2',
+#              source_root           = THIRD_PARTY_SOURCE_ROOT,
+#              build_include_dirs    = ['endian2'],
+#              build_source_dirs     = ['endian2'],
+#              shared                = False,
+#              install               = True)
 
 
 # zip lib
@@ -273,8 +273,8 @@ LibraryModule(name                  = 'dragon',
               build_source_files    = dragon_source_files,
               extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
               source_root           = 'src',
-              included_modules      = ["endian2"], 
-              linked_modules        = ["endian2"],
+#              included_modules      = ["endian2"], 
+#              linked_modules        = ["endian2"],
               shared                = True,
               install               = True)
 

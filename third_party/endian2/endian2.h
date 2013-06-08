@@ -43,6 +43,30 @@ is_big_endian();
 
 /* Reference: FreeBSD /usr/include/sys/endian.h */
 
+
+
+#ifdef _WIN32
+
+#include <stdlib.h>
+#include <io.h>
+
+typedef unsigned __int8 __int8_t;
+typedef unsigned __int16 __uint16_t;
+typedef unsigned __int32 __uint32_t;
+typedef unsigned __int64 __uint64_t;
+
+unsigned int8_t abc;
+
+#define __bswap16(x)  
+                   ((__uint8_t*)&x)[0] ^= ((__uint8_t*)&x)[1];\
+                   ((__uint8_t*)&x)[1] ^= ((__uint8_t*)&x)[0];\
+                   ((__uint8_t*)&x)[0] ^= ((__uint8_t*)&x)[1];	
+
+static inline __uint16_t
+bswap16(__uint16_t _x) {  return (__bswap16(_x));  }
+
+#else
+
 #ifndef bswap16
 
 #define __bswap64(x) \
@@ -64,6 +88,9 @@ bswap32(__uint32_t _x) { return (__bswap32(_x)); }
 static __inline __uint16_t
 bswap16(__uint16_t _x) { return (_x << 8 | _x >> 8); }
 
-#endif
+#endif // bswap16
+
+#endif //_WIN32
+
 
 #endif

@@ -152,4 +152,18 @@
 #endif // _WIN32
 
 
+// dragon basic types
+typedef unsigned char dg_byte;
+typedef short dg_short;
+typedef int dg_int;
+typedef long long dg_long;
+typedef float dg_float;
+typedef double dg_double;
+
+typedef unsigned int dg_char;
+typedef bool dg_boolean;
+
+typedef void dg_void;
+
+
 #endif // Config_Dragon_H

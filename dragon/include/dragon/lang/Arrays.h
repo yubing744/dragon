@@ -52,7 +52,7 @@ public:
 			result[i - offset] = src[i];
 		}
 
-		result[count] = (Char)0;
+		result[count] = (T)NULL;
 
 		return result;
 	};
