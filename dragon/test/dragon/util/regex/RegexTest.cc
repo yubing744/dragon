@@ -39,7 +39,7 @@ TEST(Dragon_Util_Regex_RegexTest, BasicTest) {
     unsigned int option_bits;
     int erroffset;
 
-    pattern = "[\d]";
+    pattern = "[\\d]";
 
     re = pcre_compile(
         pattern,              /* the pattern */

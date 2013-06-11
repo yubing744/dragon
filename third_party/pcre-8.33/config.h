@@ -153,6 +153,8 @@ sure both macros are undefined; an emulation function will then be used. */
 /* Define to 1 if you have `_strtoi64'. */
 /* #undef HAVE__STRTOI64 */
 
+#undef PCRE_EXP_DECL
+   
 /* The value of LINK_SIZE determines the number of bytes used to store links
    as offsets within the compiled regex. The default is 2, which allows for
    compiled patterns up to 64K long. This covers the vast majority of cases.
