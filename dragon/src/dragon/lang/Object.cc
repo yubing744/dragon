@@ -26,13 +26,11 @@
 
 Import dragon::lang;
 
-Object::Object()
-{
+Object::Object() {
 	//this->clazz = null;
 }
 
-Object::~Object()
-{
+Object::~Object() {
 	finalize();
 }
 
@@ -53,22 +51,18 @@ void Object::setClass(Class<Object>* clazz)
 }
 */
 
-bool Object::equals(Object* obj)
-{
-	return false;
+dg_boolean Object::equals(const Object* obj) {
+	return this == obj;
 }
 
-int Object::hashCode()
-{
-	return  (int)this;
+dg_int Object::hashCode() {
+	return (dg_int)this;
 }
 
-String Object::toString()
-{
+const String* Object::toString() {
 	return String::format(L"@%d",this);
 }
 
-void Object::finalize()
-{
+void Object::finalize() {
 	//SafeDelete(this->clazz);
 }

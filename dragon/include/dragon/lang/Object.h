@@ -18,9 +18,8 @@
 #define Lang_Object_H
 
 #include <dragon/config.h>
-#include "basic_type.h"
 
-BeginPackage2(dragon,lang)
+BeginPackage2(dragon, lang)
 
 class String;
 
@@ -31,9 +30,9 @@ public:
 	virtual ~Object();
 
 public:
-	virtual Boolean equals(Object* obj);
-	virtual int hashCode();
-	virtual String toString();
+	virtual dg_boolean equals(const Object* obj);
+	virtual dg_int hashCode();
+	virtual const String* toString();
 
 protected:
 	virtual void finalize();
@@ -49,7 +48,7 @@ protected:
 */
 };
 
-EndPackage2
+EndPackage2//(dragon, lang)
 
 #endif
 

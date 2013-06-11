@@ -85,7 +85,9 @@ class LibraryModule(Module):
                         name, 
                         Split(included_modules)+Split(included_only_modules)+Split(build_source_dirs), 
                         Split(linked_modules)+Split(included_modules))
+
         self.build_include_dirs = build_include_dirs
+
         if environment is None:
             self.env = env.Clone()
         else:
@@ -115,6 +117,7 @@ class LibraryModule(Module):
 
         # the product is a library
         self.env.AppendUnique(CPPPATH=cpp_path)
+
         if shared is False:
             self.product = self.env.Library(target=name, source=sources)
         else:
@@ -230,22 +233,69 @@ THIRD_PARTY_SOURCE_ROOT = '../third_party'
 LibraryModule(name                  = 'z',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
               build_source_dirs     = ['zlib-1.2.3'],
-              shared                = False,
+              shared                = True,
               install               = True)
+
+# pcre lib
+libpcre32_SOURCES = Split("""
+    pcre32_byte_order.c 
+    pcre32_chartables.c 
+    pcre32_compile.c 
+    pcre32_config.c 
+    pcre32_dfa_exec.c 
+    pcre32_exec.c 
+    pcre32_fullinfo.c 
+    pcre32_get.c 
+    pcre32_globals.c 
+    pcre32_jit_compile.c 
+    pcre32_maketables.c 
+    pcre32_newline.c 
+    pcre32_ord2utf32.c 
+    pcre32_refcount.c 
+    pcre32_string_utils.c 
+    pcre32_study.c 
+    pcre32_tables.c 
+    pcre32_ucd.c 
+    pcre32_utf32_utils.c 
+    pcre32_valid_utf32.c 
+    pcre32_version.c 
+    pcre32_xclass.c
+""")
+
+LibraryModule(name                  = 'pcre',
+              build_include_dirs    = [
+                  THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+              ],  
+              source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+              build_source_dirs     = [],         
+              build_source_files    = {
+                  "." : libpcre32_SOURCES
+              },    
+              extra_cpp_defines     = [
+                  'HAVE_CONFIG_H', 
+                  'LINK_SIZE=4', 
+                  'HAVE_STRERROR'
+              ],     
+              shared                = True,                    
+              install               = True)
+
 
 # lib google test			  
 LibraryModule(name                  = 'gtest',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
 	            extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],
               build_include_dirs    = [
-		          THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
-		          THIRD_PARTY_SOURCE_ROOT + '/googletest'
-                                      ],
-              build_source_files    = {"googletest/src" : "gtest-all.cc",},
+                  THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
+                  THIRD_PARTY_SOURCE_ROOT + '/googletest'
+              ],
+              build_source_files    = {
+                  "googletest/src" : "gtest-all.cc"
+              },
               linked_modules        = env['DRAGON_EXTRA_LIBS'],
               shared                = True,
               install               = True)
-			  
+
+# lib cppunit   			  
 #LibraryModule(name                  = 'cppunit',
 #              source_root           = THIRD_PARTY_SOURCE_ROOT,
 #              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
@@ -254,42 +304,59 @@ LibraryModule(name                  = 'gtest',
 #              install               = True)
 
 
-dragon_source_files = {
+
+# dragon c++ class library
+dragon_SOURCES = {
 #        "dragon/lang/Object.cc",
 #        "dragon/lang/Throwable.cc",
 #        "dragon/lang/Exception.cc",
 #        "dragon/lang/RuntimeException.cc",
 #        "dragon/lang/IndexOutOfBoundsException.cc",
 #        "dragon/lang/NullPointerException.cc"
-#         "dragon/lang/" : "Arrays.cc",
-#         "dragon/lang/" : "Math.cc",
-
 #        "dragon/lang/internal/platform_win32.cc",
-         "dragon/lang" : ["Math.cc","String.cc"]
+
+  "dragon/lang" : [
+    "Math.cc", 
+    "String.cc"
+  ]
 }
     
 LibraryModule(name                  = 'dragon',
               build_include_dirs    = ['include'],
-              build_source_files    = dragon_source_files,
-              extra_cpp_defines     = ['DRAGON_SHARED', 'BUILDING_DRAGON_SHARED'],
+              build_source_files    = dragon_SOURCES,
+              extra_cpp_defines     = [
+                  'DRAGON_SHARED', 
+                  'BUILDING_DRAGON_SHARED'
+              ],
               source_root           = 'src',
-#              included_modules      = ["endian2"], 
-#              linked_modules        = ["endian2"],
+#              included_modules      = ["pcre"], 
+#              linked_modules        = ["pcre"],
               shared                = True,
               install               = True)
 
-dragon_test_source_files = {
+
+# dragon test
+dragon_test_SOURCES = {
     "dragon/lang" : [
-		"MathTest.cc",
-		"StringTest.cc"
-	],
+        "MathTest.cc",
+        "StringTest.cc"
+    ],
+    "dragon/util/regex" : [
+        "RegexTest.cc"
+    ],    
     "." : "TestMain.cc"
 }
              
 Application(name                  = 'dragon_test', 
             source_root           = 'test',
-            build_source_files    = dragon_test_source_files,
-            deps                  = ['z', 'gtest', 'dragon'],
+            build_source_files    = dragon_test_SOURCES,
+            deps                  = [
+                'z', 
+                'gtest', 
+                'pcre', 
+                'dragon'
+            ],
+#            deps                  = ['dragon'],            
             install               = True)
 
 

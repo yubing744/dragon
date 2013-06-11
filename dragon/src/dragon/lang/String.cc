@@ -33,6 +33,8 @@
 
 //#include "internal/platform.h"
 
+#include <dragon/util/regex/regex.h>
+
 //#define vstprintf_s vswprintf_s
 //#define _ltot_s _ltow_s
 
@@ -54,7 +56,7 @@ String::~String(){
 String::String(const dg_char* value){
 	this->offset = 0;
 	
-	int size = 0;
+	dg_int size = 0;
 	dg_char* cur = const_cast<dg_char*>(value);
 	while(*(cur++) != NULL_CHAR) {
 		size++;
@@ -66,13 +68,13 @@ String::String(const dg_char* value){
 
 String::String(string value){
 	this->offset = 0;
-	int count = (int)value.size();
+	dg_int count = (dg_int)value.size();
 	const char* raw = value.c_str();
 
     dg_char* buf = new dg_char[count + 1];	
 	char* target = (char*)buf;
 
-	for (int i=0; i<count; i++) {
+	for (dg_int i=0; i<count; i++) {
 		target[i*4] = '\0';
 		target[i*4 + 1] = '\0';
 		target[i*4 + 2] = '\0';
@@ -87,14 +89,14 @@ String::String(string value){
 
 
 String::String(wstring value){
-	int offset = 0;
-	int count = (int)value.size();
+	dg_int offset = 0;
+	dg_int count = (dg_int)value.size();
 	const wchar_t* raw = value.c_str();
 
     dg_char* buf = new dg_char[count + 1];	
 	char* target = (char*)buf;
 
-	for (int i=0; i<count; i++) {
+	for (dg_int i=0; i<count; i++) {
 		char* pch = (char*)(&raw[i]);
 
 		target[i*4] = '\0';
@@ -122,10 +124,10 @@ String::String(const String* value) {
 	this->value = Arrays<dg_char>::copyOf(value->value, value->count);
 }
 
-String::String(const dg_char* value, int offset, int count){
+String::String(const dg_char* value, dg_int offset, dg_int count){
 	this->offset = 0;
 	
-	int size = 0;
+	dg_int size = 0;
 	dg_char* cur = const_cast<dg_char*>(value);
 	while(*(cur++) != NULL_CHAR) {
 		size++;
@@ -154,7 +156,7 @@ String& String::operator+=(const String& str)
 	return *this;
 }
 
-Boolean String::operator==(const dg_char* str)
+dg_boolean String::operator==(const dg_char* str)
 {
 	if(this->mstr==str)
 	{
@@ -164,7 +166,7 @@ Boolean String::operator==(const dg_char* str)
 	return false;
 }
 
-Boolean String::operator==(const String& str)
+dg_boolean String::operator==(const String& str)
 {
 	if(this->mstr==str.mstr)
 	{
@@ -193,12 +195,12 @@ String::operator size_t()
 
 size_t String::operator()(const String& str)
 {
-	int n=str.mstr.size();
-	int hc=0;
+	dg_int n=str.mstr.size();
+	dg_int hc=0;
 
-	for(int i=0;i<n;i++)
+	for(dg_int i=0;i<n;i++)
 	{
-		hc+=(str.mstr[i]*(int)Math::pow(31.0,n-i+1));
+		hc+=(str.mstr[i]*(dg_int)Math::pow(31.0,n-i+1));
 	}
 
 	return hc;
@@ -207,7 +209,7 @@ size_t String::operator()(const String& str)
 
 */
 
-Boolean String::equals(const String* str) {
+dg_boolean String::equals(const String* str) {
 	if (this == str) {
 		return true;
 	}
@@ -216,9 +218,9 @@ Boolean String::equals(const String* str) {
 		return false;
 	}
 
-	int size = str->count;
+	dg_int size = str->count;
 	
-	for (int i=0; i<size; i++) {
+	for (dg_int i=0; i<size; i++) {
 		if (this->value[i] != str->value[i]) {
 			return false;
 		}
@@ -227,88 +229,78 @@ Boolean String::equals(const String* str) {
 	return true;
 }
 
-/*
-Boolean String::startsWith(const dg_char* prefix)
-{
-	wstring temp(prefix);
 
-	if(mstr.substr(0,temp.length())==temp)
-	{
-		return true;
+dg_boolean String::startsWith(const String* prefix, dg_int toffset) {
+	dg_char* ta = this->value;
+	dg_int to = offset + toffset;
+
+	dg_char* pa = prefix->value;
+	dg_int po = prefix->offset;
+	dg_int pc = prefix->count;
+
+	// Note: toffset might be near -1>>>1.
+	if ((toffset < 0) || (toffset + pc > this->count)) {
+	    return dg_false;
 	}
 
-	return false;
-}
-
-Boolean String::startsWith(const dg_char* prefix,int toffset)
-{
-	wstring temp(prefix);
-
-	if(mstr.substr(toffset,temp.length())==temp)
-	{
-		return true;
+	while (--pc >= 0) {
+	    if (ta[to++] != pa[po++]) {
+	        return dg_false;
+	    }
 	}
-
-	return false;
-}
-
-Boolean String::endsWith(String& suffix)
-{
-	int mlen=mstr.length();
-	int slen=suffix.mstr.length();
 	
-	if(mlen<slen)
-	{
-		return false;
-	}
-
-	if(mstr.substr(mlen-slen,slen)==suffix.mstr)
-	{
-		return true;
-	}
-
-	return false;
+	return dg_true;
 }
 
-int String::hashCode()
-{
-	int n=mstr.length();
-	int hc=0;
+dg_boolean String::startsWith(const String* prefix) {
+	return this->startsWith(prefix, 0);
+}
 
-	for(int i=0;i<n;i++)
+dg_boolean String::endsWith(const String* suffix){
+	return this->startsWith(suffix, this->count - suffix->count);
+}
+
+
+/*
+dg_int String::hashCode()
+{
+	dg_int n=mstr.length();
+	dg_int hc=0;
+
+	for(dg_int i=0;i<n;i++)
 	{
-		hc+=(mstr[i]*(int)Math::pow(31.0,n-i+1));
+		hc+=(mstr[i]*(dg_int)Math::pow(31.0,n-i+1));
 	}
 
 	return hc;
 }
 
-int String::indexOf(dg_char ch)
+dg_int String::indexOf(dg_char ch)
 {
 	return mstr.find_first_of(ch,0);
 }
 
-int String::indexOf(dg_char ch,int fromIndex)
+dg_int String::indexOf(dg_char ch,dg_int fromIndex)
 {
 	return mstr.find_first_of(ch,fromIndex);
 }
 
-int String::indexOf(const dg_char* str)
+dg_int String::indexOf(const dg_char* str)
 {
 	return mstr.find_first_of(str,0);
 }
 
-int String::indexOf(CharSequence* s,int fromIndex)
+dg_int String::indexOf(CharSequence* s,dg_int fromIndex)
 {
-	int mlen=this->length();
-	int slen=s->length();
+	dg_int mlen=this->length();
+	dg_int slen=s->length();
 
-	for(int i=fromIndex;i<mlen;i++)
+	for(dg_int i=fromIndex;i<mlen;i++)
 	{
 		if(this->charAt(i)==s->charAt(0))
 		{
-			Boolean isEque=true;
-			for(int j=0;j<slen;j++)
+			dg_boolean isEque=true;
+			for(dg_int j=0;j<slen;j++)
 			{
 				if(this->charAt(i+j)!=s->charAt(j))
 				{
@@ -326,40 +318,40 @@ int String::indexOf(CharSequence* s,int fromIndex)
 
 	return -1;
 }
-int String::indexOf(CharSequence* s)
+dg_int String::indexOf(CharSequence* s)
 {
 	return this->indexOf(s,0);
 }
 
 
-int String::indexOf(String& str,int fromIndex)
+dg_int String::indexOf(String& str,dg_int fromIndex)
 {
 	return mstr.find_first_of(str.mstr,fromIndex);
 }
 
-int String::lastIndexOf(dg_char ch)
+dg_int String::lastIndexOf(dg_char ch)
 {
 	return mstr.find_last_of(ch,0);
 }
 
-int String::lastIndexOf(dg_char ch,int fromIndex)
+dg_int String::lastIndexOf(dg_char ch,dg_int fromIndex)
 {
 	return mstr.find_last_of(ch,fromIndex);
 }
 
-int String::lastIndexOf(const dg_char* str)
+dg_int String::lastIndexOf(const dg_char* str)
 {
 	return mstr.find_last_of(str,mstr.size());
 }
 
-int String::lastIndexOf(const dg_char* str,int fromIndex)
+dg_int String::lastIndexOf(const dg_char* str,dg_int fromIndex)
 {
 	return mstr.find_last_of(str,fromIndex);
 }
 
-String String::substring(int beginIndex)
+String String::substring(dg_int beginIndex)
 {
-	int len=mstr.length();
+	dg_int len=mstr.length();
 	
 	if(beginIndex<0 || beginIndex>=len)
 	{
@@ -369,9 +361,9 @@ String String::substring(int beginIndex)
 	return String(mstr.substr(beginIndex,len-beginIndex));
 }
 
-String String::substring(int beginIndex,int endIndex)
+String String::substring(dg_int beginIndex,dg_int endIndex)
 {
-	int len=mstr.length();
+	dg_int len=mstr.length();
 
 	if (endIndex == beginIndex) return String(L"");
 
@@ -383,12 +375,12 @@ String String::substring(int beginIndex,int endIndex)
 	return String(mstr.substr(beginIndex,endIndex-beginIndex));
 }
 
-String String::subString(int beginIndex)
+String String::subString(dg_int beginIndex)
 {
 	return substring(beginIndex);
 }
 
-String String::subString(int beginIndex,int endIndex)
+String String::subString(dg_int beginIndex,dg_int endIndex)
 {
 	return substring(beginIndex,endIndex);
 }
@@ -407,10 +399,10 @@ String& String::append(const dg_char* str)
 
 String& String::append(CharSequence* s)
 {
-	int slen=s->length();
+	dg_int slen=s->length();
 	dg_char* temp=new dg_char[slen+1];
 
-	for(int i=0;i<slen;i++)
+	for(dg_int i=0;i<slen;i++)
 	{
 		temp[i]=s->charAt(i);
 	}
@@ -424,8 +416,8 @@ String& String::append(CharSequence* s)
 
 String& String::replace(dg_char oldChar,dg_char newChar)
 {
-	int len=mstr.length();
-	for(int i=0;i<len;i++)
+	dg_int len=mstr.length();
+	for(dg_int i=0;i<len;i++)
 	{
 		if(mstr[i]==oldChar)
 		{
@@ -436,27 +428,27 @@ String& String::replace(dg_char oldChar,dg_char newChar)
 	return *this;
 }
 
-int String::compareTo(String& o)
+dg_int String::compareTo(String& o)
 {
 	return mstr.compare(o.mstr);
 }
 */
 
-dg_char String::charAt(int index)
-{
+dg_char String::charAt(dg_int index) {
 	if (index < 0) index = 0;
-	if (index >= this->count) index = this->count -1;
+
+	if (index >= this->count) 
+		index = this->count -1;
 
 	return this->value[index];
 }
 
-int String::length()
-{
+dg_int String::length() const {
 	return this->count;
 }
 
 /*
-CharSequence* String::subSequence(int start,int end)
+CharSequence* String::subSequence(dg_int start,dg_int end)
 {
 	return &this->substring(start,end);
 }
@@ -477,29 +469,29 @@ Array<dg_char> String::toCharArray()
 }
 
 /*
-Boolean String::matches(String regex)
+dg_boolean String::matches(String regex)
 {
 	Regexp tempReg(regex);
 	MatchResult result = tempReg.MatchExact(this->mstr.c_str());
 	return result.IsMatched()!=0;
 }
 
-Boolean String::contains(CharSequence* s)
+dg_boolean String::contains(CharSequence* s)
 {
 	if(s==null)
 	{
 		throw NullPointerException();
 	}
 
-	int mlen=this->length();
-	int slen=s->length();
+	dg_int mlen=this->length();
+	dg_int slen=s->length();
 
-	for(int i=0;i<mlen;i++)
+	for(dg_int i=0;i<mlen;i++)
 	{
 		if(this->charAt(i)==s->charAt(0))
 		{
-			Boolean isEque=true;
-			for(int j=0;j<slen;j++)
+			dg_boolean isEque=true;
+			for(dg_int j=0;j<slen;j++)
 			{
 				if(this->charAt(i+j)!=s->charAt(j))
 				{
@@ -518,9 +510,9 @@ Boolean String::contains(CharSequence* s)
 	return false;
 }
 
-Boolean String::contains(String s)
+dg_boolean String::contains(String s)
 {
-	int pos=this->mstr.find(s.mstr,0);
+	dg_int pos=this->mstr.find(s.mstr,0);
 
 	return pos>0?true:false;
 }
@@ -529,9 +521,9 @@ String& String::replace(CharSequence* target,CharSequence* replacement)
 {
 	String* temp=new String();
 	
-	int index1=0,index2=0;
-	int len=this->length();
-	int tlen=target->length();
+	dg_int index1=0,index2=0;
+	dg_int len=this->length();
+	dg_int tlen=target->length();
 
 	for(;;)
 	{
@@ -582,9 +574,9 @@ String& String::replaceAll(String& regex,const dg_char* replacement)
 
 Array<String>& String::split(dg_char ch)
 {
-	int npart=1;
+	dg_int npart=1;
 
-	int index=0;
+	dg_int index=0;
 	for(;;)
 	{
 		index=this->indexOf(ch,index);
@@ -598,9 +590,9 @@ Array<String>& String::split(dg_char ch)
 
 	Array<String>& arr=*new Array<String>(npart);
 
-	int index1=0,index2=0;
+	dg_int index1=0,index2=0;
 
-	for(int i=0;;i++)
+	for(dg_int i=0;;i++)
 	{
 		index2=this->indexOf(ch,index1);
 		if(index2==-1)
@@ -625,7 +617,7 @@ Array<String>& String::split(String reg)
 	CContext * pContext = regexp.PrepareMatch(this->mstr.c_str());
 
 
-	int npart=1;
+	dg_int npart=1;
 
     MatchResult result = regexp.Match(pContext);
 
@@ -640,8 +632,8 @@ Array<String>& String::split(String reg)
 	pContext = regexp.PrepareMatch(this->mstr.c_str());
 	result = regexp.Match(pContext);
 
-	int index1=0,index2=0;
-	int i=0;
+	dg_int index1=0,index2=0;
+	dg_int i=0;
     while(result.IsMatched())
     {
 		index2=result.GetStart();
@@ -661,9 +653,9 @@ Array<String>& String::split(String reg)
 
 String& String::toLowerCase()
 {
-	int len=this->length();
+	dg_int len=this->length();
 
-	for(int i=0;i<len;i++)
+	for(dg_int i=0;i<len;i++)
 	{
 		mstr[i]=tolower(mstr[i]);
 	}
@@ -673,9 +665,9 @@ String& String::toLowerCase()
 
 String& String::toUpperCase()
 {
-	int len=this->length();
+	dg_int len=this->length();
 
-	for(int i=0;i<len;i++)
+	for(dg_int i=0;i<len;i++)
 	{
 		mstr[i]=toupper(mstr[i]);
 	}
@@ -685,12 +677,12 @@ String& String::toUpperCase()
 
 String String::trim()
 {
-	int start=0;
-	int end=this->length();
+	dg_int start=0;
+	dg_int end=this->length();
 
 	if(end <= start) return String(mstr);
 
-	for(int i=0;i<end;i++)
+	for(dg_int i=0;i<end;i++)
 	{
 		if(mstr[i]>0x20)
 		{
@@ -699,7 +691,7 @@ String String::trim()
 		}
 	}
 
-	for(int i=end-1;i>start;i--)
+	for(dg_int i=end-1;i>start;i--)
 	{
 		if(mstr[i]>0x20)
 		{
@@ -717,7 +709,7 @@ String& String::copyValueOf(const dg_char* data)
 	return *new String(data);
 }
 
-String& String::copyValueOf(const dg_char* data,int offset,int count)
+String& String::copyValueOf(const dg_char* data,dg_int offset,dg_int count)
 {
 	return *new String(data,offset,count);
 }
@@ -748,7 +740,7 @@ String String::format(String& format, ...)
 	return String::valueOf(text);
 }
 
-String String::valueOf(Boolean b)
+String String::valueOf(dg_boolean b)
 {
 	if(b)
 	{
@@ -763,7 +755,7 @@ String String::valueOf(dg_char c)
 	return String(&c);
 }
 
-String String::valueOf(int i)
+String String::valueOf(dg_int i)
 {
 	return String::format(L"%d", i);
 }
@@ -788,7 +780,7 @@ String String::valueOf(const Char* data)
 	return String(data);
 }
 
-String String::valueOf(const Char* data, int offset, int count)
+String String::valueOf(const Char* data, dg_int offset, dg_int count)
 {
 	return String(data, offset, count);
 }*/

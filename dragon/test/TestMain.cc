@@ -19,24 +19,32 @@
  * Email:       yubing744@163.com
  * Created:     2013/03/31
  **********************************************************************/
+
 #include <dragon/config.h>
 #include <gtest/gtest.h>
 
-//#include <cppunit/extensions/TestFactoryRegistry.h>
-//#include <cppunit/ui/text/TestRunner.h>
-
 int main(int argc, char** argv) {
-        /*
-	CppUnit::TextUi::TestRunner runner;
-
-	CppUnit::TestFactoryRegistry &registry =
-			CppUnit::TestFactoryRegistry::getRegistry("alltest");
-	runner.addTest(registry.makeTest());
-	runner.run();
-        */
-        //printf("Hello World!");
-
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
 
+/*
+#include <dragon/config.h>
+#include <dragon/lang/String.h>
+#include <stdio.h>
+
+Import dragon::lang;
+
+int main(int argc, char** argv) {
+	String* str = new String("Hello World!");
+	printf("%s\n", str);
+}
+*/
+
+/*
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+	printf("%s\n", "Hello World\n");
+}
+*/

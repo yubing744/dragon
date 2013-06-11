@@ -21,7 +21,9 @@
  **********************************************************************/
 
 #include <gtest/gtest.h>
+
 #include <dragon/lang/String.h>
+#include <dragon/lang/basic_type.h>
 
 
 Import dragon::lang;
@@ -33,8 +35,8 @@ TEST(Dragon_Lang_String_Test, NewWithBasicChar) {
 	dg_char ch1 = ToChar('H');
 	dg_char ch2 = str->charAt(0);
 	
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);
 }
@@ -47,8 +49,8 @@ TEST(Dragon_Lang_String_Test, NewWithChar) {
 	dg_char ch1 = ToChar(L'C');
 	dg_char ch2 = str->charAt(0);
 
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);    
 }
@@ -62,8 +64,8 @@ TEST(Dragon_Lang_String_Test, NewWithString) {
 	dg_char ch1 = ToChar(L'C');
 	dg_char ch2 = str2->charAt(0);
 
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);    
 }
@@ -77,8 +79,8 @@ TEST(Dragon_Lang_String_Test, NewWithStringOffset) {
 	dg_char ch1 = ToChar(L'C');
 	dg_char ch2 = str2->charAt(0);
 
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);  
     SafeDelete(str2);  
@@ -93,8 +95,8 @@ TEST(Dragon_Lang_String_Test, toCharArray) {
 	dg_char ch1 = ToChar(L'C');
 	dg_char ch2 = charArray[0];
 
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);    
 }
@@ -108,8 +110,8 @@ TEST(Dragon_Lang_String_Test, toChars) {
 	dg_char ch1 = ToChar(L'C');
 	dg_char ch2 = charArray[0];
 
-	Boolean isEqual = (ch1 == ch2);
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (ch1 == ch2);
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);    
 }
@@ -122,10 +124,76 @@ TEST(Dragon_Lang_String_Test, strEquals) {
 	const dg_char* charArray = str->toChars();
 	String* str2 = new String(charArray);
 
-	Boolean isEqual = (str->equals(str2));
-    EXPECT_EQ(true, isEqual);
+	dg_boolean isEqual = (str->equals(str2));
+    EXPECT_EQ(dg_true, isEqual);
 
     SafeDelete(str);  
     SafeDelete(str2);  
 }
 
+
+TEST(Dragon_Lang_String_Test, startsWith_empty_str) {
+    String* str1 = new String(L"CN China!");
+	String* str2 = new String(L"");
+
+	dg_boolean isEqual = str1->startsWith(str2);
+    EXPECT_EQ(true, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}
+
+TEST(Dragon_Lang_String_Test, startsWith_normal) {
+    String* str1 = new String(L"CN China!");
+	String* str2 = new String(L"CN");
+
+	dg_boolean isEqual = str1->startsWith(str2);
+    EXPECT_EQ(dg_true, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}
+
+TEST(Dragon_Lang_String_Test, startsWith_full_match) {
+    String* str1 = new String(L"CN China!");
+	String* str2 = new String(L"CN China!");
+
+	dg_boolean isEqual = str1->startsWith(str2);
+    EXPECT_EQ(dg_true, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}
+
+TEST(Dragon_Lang_String_Test, startsWith_more_lenth_than) {
+    String* str1 = new String(L"CN China!");
+	String* str2 = new String(L"CN China!DD");
+
+	dg_boolean isEqual = str1->startsWith(str2);
+    EXPECT_EQ(dg_false, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}
+
+TEST(Dragon_Lang_String_Test, startsWith_with_toffet) {
+    String* str1 = new String(L"I'm a CN China!");
+	String* str2 = new String(L"CN Chi");
+
+	dg_boolean isEqual = str1->startsWith(str2, 6);
+    EXPECT_EQ(dg_true, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}
+
+TEST(Dragon_Lang_String_Test, endsWith) {
+    String* str1 = new String(L"I'm a CN China!");
+	String* str2 = new String(L"China!");
+
+	dg_boolean isEqual = str1->endsWith(str2);
+    EXPECT_EQ(dg_true, isEqual);
+
+    SafeDelete(str1);  
+    SafeDelete(str2);  
+}

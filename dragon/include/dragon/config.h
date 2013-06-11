@@ -163,7 +163,9 @@ typedef double dg_double;
 typedef unsigned int dg_char;
 typedef bool dg_boolean;
 
-typedef void dg_void;
 
+// boolean value
+#define dg_true true
+#define dg_false false
 
 #endif // Config_Dragon_H

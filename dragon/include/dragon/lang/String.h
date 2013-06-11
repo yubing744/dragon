@@ -31,8 +31,6 @@
 
 Import std;
 
-#include "basic_type.h"
-
 #include "Math.h"
 #include "Array.h"
 //#include "Comparable.h"
@@ -47,7 +45,7 @@ class _DragonExport String
 	friend wostream& operator << (wostream& os,const String& str);
 	friend wostream& operator << (wostream& os,String* str);
 	friend size_t hash_value(const String& str);
-	friend Boolean operator<(const String& left,const String& right);
+	friend dg_boolean operator<(const String& left,const String& right);
     */
 	
 public:
@@ -57,7 +55,7 @@ public:
     String(const String& value);
 	String(const dg_char* value);
 	String(const String* value);
-   	String(const dg_char* value, int offset, int count);
+   	String(const dg_char* value, dg_int offset, dg_int count);
 	~String();
 /*
 public:
@@ -66,8 +64,8 @@ public:
 
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
-	Boolean operator==(const dg_char* str);
-	Boolean operator==(const String& str);
+	dg_boolean operator==(const dg_char* str);
+	dg_boolean operator==(const String& str);
 
 	operator wstring();
 	operator const Char*();
@@ -76,34 +74,92 @@ public:
 	size_t operator()(const String& str);
 
 public:
-	int compareTo(String& o);
+	dg_int compareTo(String& o);
 	*/
 
-	Boolean equals(const String* str);
+
+    /**
+     * Compares this string to the specified object.
+     * The result is <code>true</code> if and only if the argument is not
+     * <code>null</code> and is a <code>String</code> object that represents
+     * the same sequence of characters as this object.
+     *
+     * @param   str   the object to compare this <code>String</code>
+     *                     against.
+     * @return  <code>dg_true</code> if the <code>String </code>are equal;
+     *          <code>dg_false</code> otherwise.
+     * @see     dragon.lang.String#compareTo(const dragon.lang.String*)
+     * @see     dragon.lang.String#equalsIgnoreCase(const dragon.lang.String*)
+     */
+	dg_boolean equals(const String* str);
+
+	/**
+     * Tests if this string starts with the specified prefix beginning
+     * a specified index.
+     *
+     * @param   prefix    the prefix.
+     * @param   toffset   where to begin looking in the string.
+     * @return  <code>dg_true</code> if the character sequence represented by the
+     *          argument is a prefix of the substring of this object starting
+     *          at index <code>toffset</code>; <code>dg_false</code> otherwise.
+     *          The result is <code>false</code> if <code>toffset</code> is
+     *          negative or greater than the length of this
+     *          <code>String</code> object; otherwise the result is the same
+     *          as the result of the expression
+     *          <pre>
+     *          this->substring(toffset)->startsWith(prefix)
+     *          </pre>
+     */
+	dg_boolean startsWith(const String* prefix, dg_int toffset);
+
+    /**
+     * Tests if this string starts with the specified prefix.
+     *
+     * @param   prefix   the prefix.
+     * @return  <code>dg_true</code> if the character sequence represented by the
+     *          argument is a prefix of the character sequence represented by
+     *          this string; <code>dg_false</code> otherwise.
+     *          Note also that <code>true</code> will be returned if the
+     *          argument is an empty string or is equal to this
+     *          <code>String</code> object as determined by the
+     *          {@link #equals(Object)} method.
+     * @since   1. 0
+     */	
+	dg_boolean startsWith(const String* prefix);
+
+    /**
+     * Tests if this string ends with the specified suffix.
+     *
+     * @param   suffix   the suffix.
+     * @return  <code>dg_true</code> if the character sequence represented by the
+     *          argument is a suffix of the character sequence represented by
+     *          this object; <code>dg_false</code> otherwise. Note that the
+     *          result will be <code>true</code> if the argument is the
+     *          empty string or is equal to this <code>String</code> object
+     *          as determined by the {@link #equals(Object)} method.
+     */
+	dg_boolean endsWith(const String* suffix);
 
 	/*
-	Boolean startsWith(const dg_char* prefix);
-	Boolean startsWith(const dg_char* prefix,int toffset);
-	Boolean endsWith(String& suffix);
-	int hashCode();
+	dg_int hashCode();
 
-	int indexOf(dg_char ch);
-	int indexOf(dg_char ch,int fromIndex);
-	int indexOf(const dg_char* str);
-	int indexOf(CharSequence* s);
-	int indexOf(String& str,int fromIndex);
-	int indexOf(CharSequence* s,int fromIndex);
+	dg_int indexOf(dg_char ch);
+	dg_int indexOf(dg_char ch,dg_int fromIndex);
+	dg_int indexOf(const dg_char* str);
+	dg_int indexOf(CharSequence* s);
+	dg_int indexOf(String& str,dg_int fromIndex);
+	dg_int indexOf(CharSequence* s,dg_int fromIndex);
 
-	int lastIndexOf(dg_char ch);
-	int lastIndexOf(dg_char ch,int fromIndex);
-	int lastIndexOf(const dg_char* str);
-	int lastIndexOf(const dg_char* str,int fromIndex);
+	dg_int lastIndexOf(dg_char ch);
+	dg_int lastIndexOf(dg_char ch,dg_int fromIndex);
+	dg_int lastIndexOf(const dg_char* str);
+	dg_int lastIndexOf(const dg_char* str,dg_int fromIndex);
 
-	String substring(int beginIndex);
-	String substring(int beginIndex,int endIndex);
+	String substring(dg_int beginIndex);
+	String substring(dg_int beginIndex,dg_int endIndex);
 
-	String subString(int beginIndex);
-	String subString(int beginIndex,int endIndex);
+	String subString(dg_int beginIndex);
+	String subString(dg_int beginIndex,dg_int endIndex);
 
 	String& concat(String& str);
 	String& append(const dg_char* str);
@@ -111,12 +167,12 @@ public:
 	String& replace(dg_char oldChar,dg_char newChar);
 */
 public:
-	int length();
-	dg_char charAt(int index);
+	dg_int length() const;
+	dg_char charAt(dg_int index);
 
 
 /*
-	CharSequence* subSequence(int start,int end);
+	CharSequence* subSequence(dg_int start,dg_int end);
 	String toString();
 */
 
@@ -124,9 +180,9 @@ public:
 	Array<dg_char> toCharArray();
 
 /*
-	Boolean matches(String regex);
-	Boolean contains(CharSequence* s);
-	Boolean contains(String s); 
+	dg_boolean matches(String regex);
+	dg_boolean contains(CharSequence* s);
+	dg_boolean contains(String s); 
 
 	String& replace(CharSequence* target,CharSequence* replacement);
 	String& replaceFirst(String& regex,String& replacement);
@@ -143,18 +199,18 @@ public:
 
 public:
 	static String valueOf(const dg_char* data);
-	static String valueOf(const dg_char* data,int offset,int count);
+	static String valueOf(const dg_char* data,dg_int offset,dg_int count);
 
 	static String& copyValueOf(const dg_char* data);
-	static String& copyValueOf(const dg_char* data,int offset,int count);
+	static String& copyValueOf(const dg_char* data,dg_int offset,dg_int count);
 
 	static String format(String& format,...);
 	static String format(const dg_char* format,...);
 
-	static String valueOf(Boolean b);
+	static String valueOf(dg_boolean b);
 	static String valueOf(dg_char c);
 	static String valueOf(const char* value);
-	static String valueOf(int i);
+	static String valueOf(dg_int i);
 	static String valueOf(long l);
 	static String valueOf(float f);
 	static String valueOf(double d);
@@ -162,9 +218,10 @@ public:
 
 private:
 	dg_char* value;
-	int offset;
-	int count;
+	dg_int offset;
+	dg_int count;
 };
+
 /*
 inline wostream& operator << (wostream& os,const String& str)
 {
@@ -178,19 +235,19 @@ inline wostream& operator << (wostream& os,String* str)
     return os;
 }
 
-inline Boolean operator<(const String& left,const String& right)
+inline dg_boolean operator<(const String& left,const String& right)
 {
 	return left.mstr<right.mstr;
 }
 
 inline size_t hash_value(const String& str)
 {
-	int n=str.mstr.size();
-	int hc=0;
+	dg_int n=str.mstr.size();
+	dg_int hc=0;
 
-	for(int i=0;i<n;i++)
+	for(dg_int i=0;i<n;i++)
 	{
-		hc+=(str.mstr[i]*(int)Math::pow(31.0, n-i+1));
+		hc+=(str.mstr[i]*(dg_int)Math::pow(31.0, n-i+1));
 	}
 
 	return hc;

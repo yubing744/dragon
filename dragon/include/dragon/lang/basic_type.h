@@ -37,8 +37,6 @@ BeginPackage2(dragon, lang)
 	typedef dg_float Float;
 	typedef dg_double Double;
 
-	typedef dg_void Void;
-
     /**
      * check current system whether is 
      * big endian order.
