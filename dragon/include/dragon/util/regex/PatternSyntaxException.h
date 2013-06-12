@@ -24,19 +24,18 @@
 #define Lang_Util_Regex_PatternSyntaxException_H
 
 #include <dragon/config.h>
-
+#include <dragon/lang/String.h>
 #include <dragon/lang/IllegalArgumentException.h>
 
 BeginPackage3(dragon, util, regex)
 
+Import dragon::lang;
+
 class _DragonExport PatternSyntaxException
 	:public IllegalArgumentException {
 public:
-	PatternSyntaxException();
-	PatternSyntaxException(String* message);
-	PatternSyntaxException(Throwable* cause);
-	PatternSyntaxException(String* message, Throwable* cause);
-	~PatternSyntaxException(){};
+	PatternSyntaxException(String* desc, String* regex, int index);
+	virtual ~PatternSyntaxException();
 
 public:
 	virtual String* getDescription();
@@ -44,13 +43,14 @@ public:
 	virtual String* getMessage();
 	virtual String* getPattern();
 
-private:
+protected:
 	String* desc;
 	String* regex;
+	String* pattern;
 	dg_int index;
 
-};//Arrays
+};//PatternSyntaxException
 
-EndPackage3 //(dragon, lang)
+EndPackage3 //(dragon, util, regex)
 
-#endif //Lang_Util_Regex_MatchResult_H
+#endif //Lang_Util_Regex_PatternSyntaxException_H

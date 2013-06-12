@@ -35,7 +35,7 @@ public:
 	RuntimeException(String* message);
 	RuntimeException(Throwable* cause);
 	RuntimeException(String* message, Throwable* cause);
-	~RuntimeException(){};
+	virtual ~RuntimeException(){};
 };
 
 EndPackage2//(dragon, lang)

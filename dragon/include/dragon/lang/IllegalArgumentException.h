@@ -38,7 +38,7 @@ public:
 	IllegalArgumentException(String* message);
 	IllegalArgumentException(Throwable* cause);
 	IllegalArgumentException(String* message, Throwable* cause);
-	~IllegalArgumentException(){};
+	virtual ~IllegalArgumentException(){};
 };
 
 EndPackage2//(dragon,lang)

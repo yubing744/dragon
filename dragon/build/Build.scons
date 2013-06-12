@@ -373,9 +373,9 @@ dragon_SOURCES = {
         RuntimeException.cc 
         IllegalArgumentException.cc 
     """),
-    "dragon/util/regex" : [
-        "PatternSyntaxExceptionTest.cc"
-    ]
+    "dragon/util/regex" : Split("""
+        PatternSyntaxException.cc
+    """)
 }
     
 LibraryModule(name                  = 'dragon',
@@ -403,11 +403,13 @@ dragon_test_SOURCES = {
         RuntimeExceptionTest.cc 
         IllegalArgumentExceptionTest.cc 
     """),
-    "dragon/util/regex" : [
-#        "PatternSyntaxExceptionTest.cc",
-        "RegexTest.cc"
-    ],    
-    "." : "TestMain.cc"
+    "dragon/util/regex" : Split("""
+        PatternSyntaxExceptionTest.cc 
+        RegexTest.cc 
+    """),   
+    "." : Split("""
+        TestMain.cc
+    """)
 }
              
 Application(name                  = 'dragon_test', 

@@ -20,24 +20,22 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/lang/PatternSyntaxException.h>
+#include <dragon/util/regex/PatternSyntaxException.h>
 
 Import dragon::lang;
+Import dragon::util::regex;
 
-PatternSyntaxException::PatternSyntaxException()
-	:IllegalArgumentException(){
+PatternSyntaxException::PatternSyntaxException(String* desc, String* regex, int index) 
+	:IllegalArgumentException() {
+	this->desc = desc;
+	this->regex = regex;
+	this->index = index;
 }
 
-PatternSyntaxException::PatternSyntaxException(String* message)
-	:IllegalArgumentException(message){
- }
-
-PatternSyntaxException::PatternSyntaxException(Throwable* cause)
-	:IllegalArgumentException(cause){
-}
-
-PatternSyntaxException::PatternSyntaxException(String* message, Throwable* cause)
-	:IllegalArgumentException(message, cause){
+PatternSyntaxException::~PatternSyntaxException() {
+	SafeDelete(this->desc);
+	SafeDelete(this->regex);
+	SafeDelete(this->pattern);
 }
 
 String* PatternSyntaxException::getDescription() {

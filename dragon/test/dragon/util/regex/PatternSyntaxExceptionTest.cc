@@ -28,8 +28,9 @@ Import dragon::util::regex;
 
 TEST(Dragon_Util_Regex_PatternSyntaxExceptionTest, TryCatch) {
 	try {
-		String* msg = new String("abc");
-		throw new PatternSyntaxException(msg);
+		String* desc = new String("desc");
+		String* regex = new String("regex");
+		throw new PatternSyntaxException(desc, regex, 1);
 	} catch (Throwable* e) {
 		String* msg = e->getMessage();
 		dg_boolean isEqual = msg->equals(new String("abc"));

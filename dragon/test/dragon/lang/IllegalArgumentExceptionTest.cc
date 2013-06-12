@@ -34,6 +34,8 @@ TEST(Dragon_Lang_IllegalArgumentExceptionTest, TryCatchTest) {
 		dg_boolean isEqual = msg->equals(new String("abc"));
 
 		EXPECT_EQ(dg_true, isEqual);
+	} catch (...) {
+		FAIL();
 	}
 }
 
