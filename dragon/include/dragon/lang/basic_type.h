@@ -104,9 +104,6 @@ BeginPackage2(dragon, lang)
 		return (dg_int)ch;
 	}
 
-
-	#define NULL_CHAR (dg_char)NULL
-
 EndPackage2//(dragon, lang)
 
 #endif//BASIC_TYPE_Lang_Dragon_H

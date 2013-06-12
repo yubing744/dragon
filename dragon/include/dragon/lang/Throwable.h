@@ -25,27 +25,28 @@
 
 
 #include <dragon/config.h>
-#include "Object.h"
+#include <dragon/lang/String.h>
+
+//#include "Object.h"
 
 BeginPackage2(dragon, lang)
 
-class String;
-
-class _DragonExport Throwable :public Object
+class _DragonExport Throwable 
+	//:public Object
 {
 public:
 	Throwable();
-	Throwable(const String& message);
+	Throwable(String* message);
 	Throwable(Throwable* cause);
-	Throwable(const String& message, Throwable* cause);
+	Throwable(String* message, Throwable* cause);
 	virtual ~Throwable();
 
 public:
-	virtual String getMessage();
-	virtual String getLocalizedMessage();
+	virtual String* getMessage();
+	virtual String* getLocalizedMessage();
 	virtual Throwable* getCause();
 	virtual Throwable* initCause(Throwable* cause);
-	virtual String toString();
+	virtual String* toString();
 	virtual void printStackTrace();
 
 protected:

@@ -1,20 +1,46 @@
-#include "lang.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef Lang_IllegalArgumentException_H
-#define Lang_IllegalArgumentException_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#ifndef IllegalArgumentException_Lang_H
+#define IllegalArgumentException_Lang_H
+
+#include <dragon/config.h>
 
 #include "RuntimeException.h"
 
-BeginPackage2(dragon,lang)
+BeginPackage2(dragon, lang)
 
-class _DragonExport IllegalArgumentException :public RuntimeException
+
+class _DragonExport IllegalArgumentException 
+	:public RuntimeException
 {
 public:
 	IllegalArgumentException();
-	IllegalArgumentException(String& message);
+	IllegalArgumentException(String* message);
+	IllegalArgumentException(Throwable* cause);
+	IllegalArgumentException(String* message, Throwable* cause);
+	~IllegalArgumentException(){};
 };
 
-EndPackage2
+EndPackage2//(dragon,lang)
 
-#endif
+#endif//IllegalArgumentException_Lang_H

@@ -27,14 +27,15 @@
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport Exception :public Throwable
+class _DragonExport Exception 
+	:public Throwable
 {
 public:
 	Exception();
-	Exception(const String& message);
+	Exception(String* message);
 	Exception(Throwable* cause);
-	Exception(const String& message, Throwable* cause);
-	virtual ~Exception();
+	Exception(String* message, Throwable* cause);
+	virtual ~Exception(){};
 };
 
 EndPackage2//(dragon, lang)

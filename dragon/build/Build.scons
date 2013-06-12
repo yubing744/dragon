@@ -364,10 +364,18 @@ dragon_SOURCES = {
 #        "dragon/lang/NullPointerException.cc"
 #        "dragon/lang/internal/platform_win32.cc",
 
-  "dragon/lang" : [
-    "Math.cc", 
-    "String.cc"
-  ]
+    "dragon/lang" : Split("""
+        Math.cc 
+        String.cc 
+
+        Throwable.cc 
+        Exception.cc 
+        RuntimeException.cc 
+        IllegalArgumentException.cc 
+    """),
+    "dragon/util/regex" : [
+        "PatternSyntaxExceptionTest.cc"
+    ]
 }
     
 LibraryModule(name                  = 'dragon',
@@ -386,11 +394,17 @@ LibraryModule(name                  = 'dragon',
 
 # dragon test
 dragon_test_SOURCES = {
-    "dragon/lang" : [
-        "MathTest.cc",
-        "StringTest.cc"
-    ],
+    "dragon/lang" : Split("""
+        MathTest.cc 
+        StringTest.cc 
+
+        ThrowableTest.cc 
+        ExceptionTest.cc 
+        RuntimeExceptionTest.cc 
+        IllegalArgumentExceptionTest.cc 
+    """),
     "dragon/util/regex" : [
+#        "PatternSyntaxExceptionTest.cc",
         "RegexTest.cc"
     ],    
     "." : "TestMain.cc"

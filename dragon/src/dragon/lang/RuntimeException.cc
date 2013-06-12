@@ -28,7 +28,7 @@ RuntimeException::RuntimeException()
 	:Exception(){
 }
 
-RuntimeException::RuntimeException(const String& message)
+RuntimeException::RuntimeException(String* message)
 	:Exception(message){
 }
 
@@ -36,10 +36,6 @@ RuntimeException::RuntimeException(Throwable* cause)
 	:Exception(cause){
 }
 
-RuntimeException::RuntimeException(const String& message, Throwable* cause)
+RuntimeException::RuntimeException(String* message, Throwable* cause)
 	:Exception(message, cause){
 } 
-
-RuntimeException::~RuntimeException(){
-
-}

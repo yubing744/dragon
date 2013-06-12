@@ -24,11 +24,12 @@
 
 Import dragon::lang;
 
-Exception::Exception(){
+Exception::Exception()
+	:Throwable() {
 
 }
 
-Exception::Exception(const String& message)
+Exception::Exception(String* message)
 	:Throwable(message){
 }
 
@@ -36,10 +37,6 @@ Exception::Exception(Throwable* cause)
 	:Throwable(cause) {
 }
 
-Exception::Exception(const String& message, Throwable* cause)
+Exception::Exception(String* message, Throwable* cause)
 	:Throwable(message, cause){
 } 
-
-Exception::~Exception(){
-
-}

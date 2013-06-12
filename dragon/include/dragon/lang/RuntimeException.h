@@ -27,14 +27,15 @@
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport RuntimeException :public Exception
+class _DragonExport RuntimeException 
+	:public Exception
 {
 public:
 	RuntimeException();
-	RuntimeException(const String& message);
+	RuntimeException(String* message);
 	RuntimeException(Throwable* cause);
-	RuntimeException(const String& message, Throwable* cause);
-	~RuntimeException();
+	RuntimeException(String* message, Throwable* cause);
+	~RuntimeException(){};
 };
 
 EndPackage2//(dragon, lang)

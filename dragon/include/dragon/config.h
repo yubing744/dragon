@@ -163,6 +163,8 @@ typedef double dg_double;
 typedef unsigned int dg_char;
 typedef bool dg_boolean;
 
+// NULL char
+#define NULL_CHAR (dg_char)NULL
 
 // boolean value
 #define dg_true true

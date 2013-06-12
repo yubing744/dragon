@@ -25,13 +25,17 @@
 Import dragon::lang;
 
 IllegalArgumentException::IllegalArgumentException()
-{
-	mMsg = new String(L"IllegalArgumentException");
-	mpCause = null;
+	:RuntimeException(){
 }
 
-IllegalArgumentException::IllegalArgumentException(String& message)
-{
-	mMsg = new String(message);
-	mpCause = null;
+IllegalArgumentException::IllegalArgumentException(String* message)
+	:RuntimeException(message){
+ }
+
+IllegalArgumentException::IllegalArgumentException(Throwable* cause)
+	:RuntimeException(cause){
+}
+
+IllegalArgumentException::IllegalArgumentException(String* message, Throwable* cause)
+	:RuntimeException(message, cause){
 }

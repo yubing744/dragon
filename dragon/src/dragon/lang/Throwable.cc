@@ -20,17 +20,17 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/lang/Throwable.h>
 #include <dragon/lang/String.h>
+#include <dragon/lang/Throwable.h>
 
 Import dragon::lang;
 
 Throwable::Throwable() {
-	this->message = new String(L"Throwable");
+	this->message = new String("");
 	this->cause = null;
 }
 
-Throwable::Throwable(const String& message){
+Throwable::Throwable(String* message){
 	SafeDelete(this->message);
 	this->message = new String(message);
 
@@ -38,13 +38,13 @@ Throwable::Throwable(const String& message){
 }
 
 Throwable::Throwable(Throwable* cause){
-	this->message = new String(L"Throwable");
+	this->message = new String("");
 
 	SafeDelete(this->cause);
 	this->cause = cause;
 }
 
-Throwable::Throwable(const String& message, Throwable* cause){
+Throwable::Throwable(String* message, Throwable* cause){
 	SafeDelete(this->message);
 	this->message = new String(message);
 
@@ -57,12 +57,12 @@ Throwable::~Throwable(){
 	SafeDelete(this->cause);
 }
 
-String Throwable::getMessage(){
-	return String(*this->message);
+String* Throwable::getMessage(){
+	return new String(this->message);
 }
 
-String Throwable::getLocalizedMessage(){
-	return String(*this->message);
+String* Throwable::getLocalizedMessage(){
+	return new String(this->message);
 }
 
 Throwable* Throwable::getCause(){
@@ -76,9 +76,9 @@ Throwable* Throwable::initCause(Throwable* cause)
 	return cause;
 }
 
-String Throwable::toString()
+String* Throwable::toString()
 {
-	return String::format(L"Msg:,%s", getLocalizedMessage().toCharArray());
+	return this->getMessage();
 }
 
 void Throwable::printStackTrace()
