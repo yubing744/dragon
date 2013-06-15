@@ -111,6 +111,16 @@
 #endif
 
 
+// Define Extends
+#undef extends
+#define extends(super_class) :public super_class	
+
+
+// Define Implements
+#undef implements
+#define implements(interface_class) :public interface_class
+
+
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)
 	#define DRAGON_INLINE(declarator) inline __attribute__((always_inline)) declarator

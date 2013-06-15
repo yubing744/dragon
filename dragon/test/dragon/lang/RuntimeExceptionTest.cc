@@ -26,15 +26,20 @@
 Import dragon::lang;
 
 TEST(Dragon_Lang_RuntimeExceptionTest, TryCatchTest) {
+	String* msg = new String("abc");
+
 	try {
-		String* msg = new String("abc");
 		throw new RuntimeException(msg);
 	} catch (Throwable* e) {
 		String* msg = e->getMessage();
 		dg_boolean isEqual = msg->equals(new String("abc"));
 
 		EXPECT_EQ(dg_true, isEqual);
+
+		SafeDelete(e);
 	}
+
+	SafeDelete(msg);
 }
 
 

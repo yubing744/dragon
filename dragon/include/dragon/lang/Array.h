@@ -31,92 +31,86 @@ template<class T>
 class Array
 {
 public:
-	Array()
-	{
-		msize=0;
-		data=null;
-		myData = false;
+	Array() {
+		this->count = 0;
+		this->data = null;
+		this->myData = dg_true;
 	};
 
-	Array(int size){
-		msize = size;
-		data = new T[size];
-		myData = true;
+	Array(dg_int count) {
+		this->count = count;
+		this->data = new T[count];
+		this->myData = dg_true;
 	};
 
-	Array(const Array& arr)
-	{
-		msize=arr.msize;
-		data=new T[msize];
-
-		for ( int i = 0; i < msize; ++i )
-		{
-			data[i]=arr.data[i];
-		}
-
-		myData = true;
+	Array(const Array& arr) {
+		this->count = arr.count;
+		this->data = arr.data;
+		this->myData = dg_false;
 	};
 
-	Array(const T* data, int size)
-	{
-		msize = size;
+	Array(const T* data, dg_int count) {
+		this->count = count;
 		this->data = const_cast<T*>(data);
-		myData = false;
+		this->myData = dg_false;
 	};
 
 
-	~Array()
-	{
-		if(data!=null && myData)
-		{
-			delete[] data;
-		}
+	~Array() {
+		tryRelease();
 	};
 
 
-	Array& operator=(const Array& arr)
-	{
-		msize=arr.msize;
-		data=arr.data;
+	Array& operator=(const Array& arr) {
+		tryRelease();
+
+		this->count = arr.count;
+		this->data = arr.data;
+		this->myData = dg_false;
+
 		return *this;
 	};
 
-	T& operator[](int index)
-	{
-		if(index<msize)
-		{
+	const T& operator[](dg_int index) {
+		return this->get(index);
+	};
+
+	const T& get(dg_int index) {
+		if(index >=0 && index < this->count) {
 			return data[index];
+		} 
+
+		return T();
+	};
+
+	void set(dg_int index, const T& t) {
+		if(index>=0 && index<this->count) {
+			this->data[index] = t;
 		}
+	};
 
-		return data[msize-1];
-	}
+	dg_int size() {
+		return this->count;
+	};
 
-	T& get(int index)
-	{
-		if(index<msize)
-		{
-			return data[index];
+	dg_int length() {
+		return this->count;
+	};
+
+	const T* raw() {
+		return this->data;
+	};
+
+private:
+	void tryRelease() {
+		if(this->data!=null && this->myData) {
+			delete[] this->data;
 		}
-
-		return data[msize-1];
-	}
-
-	void set(int index, const T& t)
-	{
-		if(index<msize)
-		{
-			data[index]=t;
-		}
-	}
-
-	int size()
-	{
-		return msize;
 	}
 
 private:
-	bool myData;
-	int msize;
+	dg_boolean myData;
+	dg_int count;
 	T* data;
 };
 

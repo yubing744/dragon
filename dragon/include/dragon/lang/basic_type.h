@@ -68,14 +68,7 @@ BeginPackage2(dragon, lang)
      * change the char to Unicode Char.
      */
 	inline dg_char ToChar(char ch) {
-		dg_char uch;
-		dg_byte* pdata = (dg_byte*)(&uch);
-
-		pdata[0] = '\0';
-		pdata[1] = '\0';
-		pdata[2] = '\0';
-		pdata[3] = ch;
-
+		dg_char uch = ch;
 		return uch;	
 	}
 
@@ -83,16 +76,7 @@ BeginPackage2(dragon, lang)
      * change the wchar_t to Unicode Char.
      */
 	inline dg_char ToChar(wchar_t ch) {
-		dg_char uch;
-		dg_byte* pdata = (dg_byte*)(&uch);
-
-		dg_byte* pch = (dg_byte*)(&ch);
-
-		pdata[0] = '\0';
-		pdata[1] = '\0';
-		pdata[2] = pch[0];
-		pdata[3] = pch[1];
-
+		dg_char uch = ch;
 		return uch;	
 	}
 

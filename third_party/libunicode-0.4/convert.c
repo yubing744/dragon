@@ -36,8 +36,6 @@
 /* Linked list of all character sets.  */
 static unicode_encoding_t *encodings;
 
-
-
 void
 unicode_register_encoding (unicode_encoding_t *vec)
 {

@@ -20,35 +20,35 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/config.h>
-
 #include <gtest/gtest.h>
-#include <stdio.h>
-#include <string.h>
-#include <pcre.h>
+#include <dragon/config.h>
+#include <dragon/lang/String.h>
+
+#include <dragon/util/regex/Pattern.h>
+#include <dragon/util/regex/Matcher.h>
 
 
-//Import dragon::lang;
+Import dragon::lang;
+Import dragon::util::regex;
 
 TEST(Dragon_Util_Regex_RegexTest, BasicTest) {
-    pcre *re;
-    const char *error;
-    char *pattern;
-    char *subject;
-    unsigned char *name_table;
-    unsigned int option_bits;
-    int erroffset;
+    String* regex = new String("a*b");
+    String* subject = new String("aaaaab");
 
-    pattern = "[\\d]";
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(subject);
+    dg_boolean b = m->matches();
 
-    re = pcre_compile(
-        pattern,              /* the pattern */
-        0,                    /* default options */
-        &error,               /* for error message */
-        &erroffset,           /* for error offset */
-        NULL);                /* use default character tables */
+    EXPECT_EQ(dg_true, b);
+}
 
-    if (re == NULL){
-        printf("PCRE compilation failed at offset %d: %s\n", erroffset, error);
-    }
+TEST(Dragon_Util_Regex_RegexTest, UnicodeStrMatch) {
+    String* regex = new String("[^\\x{4e00}-\\x{9fa5}]$");
+    String* subject = new String(L"好");
+
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(subject);
+    dg_boolean b = m->matches();
+
+    EXPECT_EQ(dg_true, b);
 }

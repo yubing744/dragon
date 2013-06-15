@@ -47,9 +47,24 @@ class _DragonExport String
 	friend size_t hash_value(const String& str);
 	friend dg_boolean operator<(const String& left,const String& right);
     */
-	
+private:
+	static const char* LOCAL_UCS4_CHARSET;
+	static const Array<dg_char> EMPTY_CHAR_ARRAY;
+	static const Array<dg_byte> EMPTY_BYTE_ARRAY;
+
+private:
+	static char* DEFAULT_CHARSET_NAME;
+	static char* Init();
+	static Array<dg_char> Decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
+	static Array<dg_byte> Encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset);
+
 public:
 	String();
+
+	String(Array<dg_byte> bytes, dg_int length);
+	String(Array<dg_byte> bytes, dg_int offset, dg_int length);
+	String(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
+
 	String(string value);
 	String(wstring value);
     String(const String& value);
@@ -178,7 +193,9 @@ public:
 
 	const dg_char* toChars();
 	Array<dg_char> toCharArray();
-
+	Array<dg_byte> getBytes();
+	Array<dg_byte> getBytes(const char* charset);
+	
 /*
 	dg_boolean matches(String regex);
 	dg_boolean contains(CharSequence* s);

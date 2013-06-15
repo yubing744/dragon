@@ -30,29 +30,22 @@ Throwable::Throwable() {
 	this->cause = null;
 }
 
-Throwable::Throwable(String* message){
-	SafeDelete(this->message);
+Throwable::Throwable(String* message) {
 	this->message = new String(message);
-
 	this->cause = null;
 }
 
-Throwable::Throwable(Throwable* cause){
+Throwable::Throwable(Throwable* cause) {
 	this->message = new String("");
-
-	SafeDelete(this->cause);
 	this->cause = cause;
 }
 
-Throwable::Throwable(String* message, Throwable* cause){
-	SafeDelete(this->message);
+Throwable::Throwable(String* message, Throwable* cause) {
 	this->message = new String(message);
-
-	SafeDelete(this->cause);
 	this->cause = cause;
 } 
 
-Throwable::~Throwable(){
+Throwable::~Throwable() {
 	SafeDelete(this->message);
 	SafeDelete(this->cause);
 }
@@ -69,19 +62,16 @@ Throwable* Throwable::getCause(){
 	return this->cause;
 }
 
-Throwable* Throwable::initCause(Throwable* cause)
-{
+Throwable* Throwable::initCause(Throwable* cause) {
 	SafeDelete(this->cause);
 	this->cause = cause;
 	return cause;
 }
 
-String* Throwable::toString()
-{
-	return this->getMessage();
+String* Throwable::toString() {
+	return this->message;
 }
 
-void Throwable::printStackTrace()
-{
+void Throwable::printStackTrace() {
 
 }

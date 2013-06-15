@@ -33,6 +33,10 @@ TEST(Dragon_Lang_ThrowableTest, New) {
 	dg_boolean isEqual = msg->equals(emptyStr);
 
 	EXPECT_EQ(dg_true, isEqual);
+
+	SafeDelete(t);
+	SafeDelete(msg);
+	SafeDelete(emptyStr);
 }
 
 TEST(Dragon_Lang_ThrowableTest, NotEmptyMsg) {
@@ -44,4 +48,7 @@ TEST(Dragon_Lang_ThrowableTest, NotEmptyMsg) {
 	dg_boolean isEqual = msg->equals(tempStr);
 
 	EXPECT_EQ(dg_true, isEqual);
+
+	SafeDelete(tempStr);
+	SafeDelete(t);
 }

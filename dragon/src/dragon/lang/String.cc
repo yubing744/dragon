@@ -26,6 +26,9 @@
 #include <ctype.h>
 #include <cwchar>
 
+#include <unicode.h>
+#include <convert.h>
+
 //#include <dragon/util/regex/regex.h>
 #include <dragon/lang/Arrays.h>
 //#include <dragon/lang/NullPointerException.h>
@@ -41,6 +44,104 @@
 Import dragon::lang;
 //Import dragon::util::regex;
 
+
+// static const variables
+const char* String::LOCAL_UCS4_CHARSET = "UCS4-native";
+const Array<dg_char> String::EMPTY_CHAR_ARRAY = Array<dg_char>();
+const Array<dg_byte> String::EMPTY_BYTE_ARRAY = Array<dg_byte>();
+
+
+// Static variable and method
+char* String::DEFAULT_CHARSET_NAME = String::Init();
+
+char* String::Init() {
+	unicode_init();
+
+	char* charset;
+	unicode_get_charset(&charset);
+
+	if (charset) {
+		return charset;
+	}	
+
+	return null;
+}
+
+Array<dg_char> String::Decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset) {
+	if (length<0 || offset<0 || offset + length > bytes.size()) {
+		return EMPTY_CHAR_ARRAY;
+	}
+
+	const char* fromcode = charset;
+	if (fromcode == NULL) {
+		fromcode = DEFAULT_CHARSET_NAME;
+	}
+
+	const char* tocode = LOCAL_UCS4_CHARSET;
+
+	unicode_iconv_t ic;
+
+    if ((ic = unicode_iconv_open(tocode, fromcode)) == (unicode_iconv_t) -1){
+     	return EMPTY_CHAR_ARRAY;
+    }
+
+	const dg_byte* from = bytes.raw() + offset;
+	size_t from_size = (size_t)length;
+
+	size_t to_size = 4 * bytes.size();
+	dg_char* buf = new dg_char[bytes.size() + 1];
+	char* to = (char*)buf;
+
+	size_t rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
+	if (rt == -1){
+		return EMPTY_CHAR_ARRAY;
+	}
+
+	unicode_iconv_close(ic);
+
+	buf[rt] = NULL_CHAR;
+	return Array<dg_char>(buf, rt);
+}
+
+Array<dg_byte> String::Encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset) {
+	if (length<0 || offset<0 || offset + length > chars.size()) {
+		return EMPTY_BYTE_ARRAY;
+	}
+
+	const char* tocode = charset;
+	if (tocode == NULL) {
+		tocode = DEFAULT_CHARSET_NAME;
+	}
+
+	const char* fromcode = LOCAL_UCS4_CHARSET;
+
+	unicode_iconv_t ic;
+
+    if ((ic = unicode_iconv_open(tocode, fromcode)) == (unicode_iconv_t) -1){
+     	return EMPTY_BYTE_ARRAY;
+    }
+
+	const dg_char* fromBuf = chars.raw() + offset;
+	const char* from = (const char*)fromBuf;
+	size_t from_size = (size_t)(length * 4);
+
+	size_t to_size = from_size;
+	dg_byte* buf = new dg_byte[to_size + 1];
+	char* to = (char*)buf;
+
+	size_t rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
+	if (rt == -1){
+		return EMPTY_BYTE_ARRAY;
+	}
+
+	unicode_iconv_close(ic);
+
+	return Array<dg_byte>(buf, rt);
+}
+
+
+// Member method
+
 String::String(){
    this->offset = 0;
    this->count = 0;
@@ -52,6 +153,32 @@ String::~String(){
 		delete[] this->value;
 	}
 }
+
+
+String::String(Array<dg_byte> bytes, dg_int offset) {
+	Array<dg_char> v = String::Decode(bytes, offset, bytes.size(), null);
+
+	this->offset = 0;
+	this->count = v.size();
+	this->value = const_cast<dg_char*>(v.raw());
+}
+
+String::String(Array<dg_byte> bytes, dg_int offset, dg_int length) {
+	Array<dg_char> v = String::Decode(bytes, offset, length, null);
+
+	this->offset = 0;
+	this->count = v.size();
+	this->value = const_cast<dg_char*>(v.raw());
+}
+
+String::String(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset) {
+	Array<dg_char> v = String::Decode(bytes, offset, length, charset);
+
+	this->offset = 0;
+	this->count = v.size();
+	this->value = const_cast<dg_char*>(v.raw());
+}
+
 
 String::String(const dg_char* value){
 	this->offset = 0;
@@ -67,47 +194,44 @@ String::String(const dg_char* value){
 }
 
 String::String(string value){
-	this->offset = 0;
 	dg_int count = (dg_int)value.size();
+	dg_int len = count;
+
 	const char* raw = value.c_str();
+	char* p = const_cast<char*>(raw);
 
     dg_char* buf = new dg_char[count + 1];	
-	char* target = (char*)buf;
+	dg_char* pp = buf;
 
-	for (dg_int i=0; i<count; i++) {
-		target[i*4] = '\0';
-		target[i*4 + 1] = '\0';
-		target[i*4 + 2] = '\0';
-		target[i*4 + 3] = raw[i];
+	if (len > 0) {
+		while(len-- >0) *pp++ = *p++;
 	}
 
 	buf[count] = NULL_CHAR;
 
+	this->offset = 0;
 	this->count = count;
 	this->value = buf;
 }
 
 
 String::String(wstring value){
-	dg_int offset = 0;
 	dg_int count = (dg_int)value.size();
+	dg_int len = count;
+	
 	const wchar_t* raw = value.c_str();
+	wchar_t* p = const_cast<wchar_t*>(raw);
 
     dg_char* buf = new dg_char[count + 1];	
-	char* target = (char*)buf;
+	dg_char* pp = buf;
 
-	for (dg_int i=0; i<count; i++) {
-		char* pch = (char*)(&raw[i]);
-
-		target[i*4] = '\0';
-		target[i*4 + 1] = '\0';
-		target[i*4 + 2] = pch[0];
-		target[i*4 + 3] = pch[1];
+	if (len > 0) {
+		while(len-- >0) *pp++ = *p++;
 	}
 
 	buf[count] = NULL_CHAR;
 
-	this->offset = offset;
+	this->offset = 0;
 	this->count = count;
 	this->value = buf;	
 }
@@ -463,10 +587,19 @@ const dg_char* String::toChars() {
 	return Arrays<dg_char>::copyOf(this->value, this->count);
 }
 
-Array<dg_char> String::toCharArray()
-{
+Array<dg_char> String::toCharArray() {
 	return Array<dg_char>(this->value, this->count);
 }
+
+
+Array<dg_byte> String::getBytes() {
+	return this->getBytes(null);
+}
+
+Array<dg_byte> String::getBytes(const char* charset) {
+	return String::Encode(Array<dg_char>(this->value + this->offset, this->count), 0, this->count, charset);
+}
+
 
 /*
 dg_boolean String::matches(String regex)
