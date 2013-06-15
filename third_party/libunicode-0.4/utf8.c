@@ -20,9 +20,11 @@
 #include <config.h>
 
 #include <stdlib.h>
+/*
 #ifdef HAVE_LANGINFO_H
 #include <langinfo.h>
 #endif
+*/
 #include <string.h>
 
 #include "unicode.h"
@@ -163,7 +165,7 @@ unicode_get_charset_internal (char **a)
 
   if (charset && strstr (charset, "UTF-8"))
       return 1;
-
+/*
 #ifdef _NL_CTYPE_CODESET_NAME
   charset = nl_langinfo (_NL_CTYPE_CODESET_NAME);
   if (charset)
@@ -183,7 +185,7 @@ unicode_get_charset_internal (char **a)
 	return 1;
     }
 #endif  
-
+*/
   if (a && ! *a) 
     *a = "US-ASCII";
   /* Assume this for compatibility at present.  */

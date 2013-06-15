@@ -43,6 +43,29 @@ unicode_register_encoding (unicode_encoding_t *vec)
   encodings = vec;
 }
 
+
+static int 
+__fix_strcasecmp (const char *s1, const char *s2) {
+  char* p1 = s1;
+  char* p2 = s2;
+
+  int result = 0;
+
+  while((*p1) != '\0' || (*p2) != '\0'){
+    int r = tolower(*p1) - tolower(*p2);
+
+    if (r != 0) {
+        result = r;
+        break;
+    }
+
+    p1++;
+    p2++;
+  }
+
+  return result;
+}
+
 static unicode_encoding_t *
 find_encoding (const char *name)
 {
@@ -52,7 +75,7 @@ find_encoding (const char *name)
       int i;
       for (i = 0; cs->names[i]; ++i)
 	{
-	  if (! strcasecmp (cs->names[i], name))
+	  if (! __fix_strcasecmp (cs->names[i], name))
 	    return cs;
 	}
     }

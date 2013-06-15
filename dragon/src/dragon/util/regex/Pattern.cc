@@ -75,20 +75,7 @@ Matcher* Pattern::matcher(String* input) {
     /* Matching failed: handle error cases */
 
     if (rc < 0) {
-        switch(rc) {
-            case PCRE_ERROR_NOMATCH: 
-                printf("No match\n"); 
-                break;
-            /*
-            Handle other special cases if you like
-            */
-            default: 
-                printf("Matching error %d\n", rc); 
-                break;
-        }
-        
         pcre32_free(this->re);     /* Release memory used for the compiled pattern */
-        
         return new Matcher(subject, ovector, 0);
     } else {
         return new Matcher(subject, ovector, rc);
