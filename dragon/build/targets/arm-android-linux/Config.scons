@@ -8,6 +8,7 @@ import os
 import re
 import sys
 import platform
+import SCons.Util
 
 #print sys.platform
 
@@ -25,12 +26,17 @@ else:
     	'linux2'     : 'linux-x86_64',
     	'win32'      : 'windows',
     	'cygwin'     : 'windows',
-    	'darwin'     : 'darwin-x86'
+    	'darwin'     : 'darwin-x86_64'
 	}
 	if sys.platform in PLATFORM_TO_TARGET_MAP:
 		ANDROID_HOST_SYSTEM = PLATFORM_TO_TARGET_MAP[sys.platform]
 	else:
 		raise Exception('Android Host Platform cannot be determined')
+
+if sys.platform == "darwin" :
+    env['SHLIBSUFFIX'] = '.so'
+    env['SHLINKFLAGS'] = SCons.Util.CLVar('$LINKFLAGS -shared')
+
 
 # set defaults
 ANDROID_ARCH         = 'arm'
@@ -71,6 +77,10 @@ print 'ANDROID_ARCH        =', ANDROID_ARCH
 ANDROID_TOOLCHAIN_BIN = ANDROID_NDK_ROOT+'/toolchains/'+ANDROID_TOOLCHAIN+'/prebuilt/'+ANDROID_HOST_SYSTEM+'/bin'
 ANDROID_SYSROOT = ANDROID_NDK_ROOT+'/platforms/'+ANDROID_PLATFORM+'/arch-'+ANDROID_ARCH
 
+print 'ANDROID_TOOLCHAIN_BIN  =', ANDROID_TOOLCHAIN_BIN
+print 'ANDROID_SYSROOT        =', ANDROID_SYSROOT
+
+
 ### add the tools to the path
 env.PrependENVPath('PATH', ANDROID_TOOLCHAIN_BIN)
 
@@ -90,13 +100,14 @@ env.AppendUnique(CCFLAGS = ['-I'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc+
                             '-funwind-tables',
                             '-fstack-protector',
                             '-fno-short-enums'])
+                            
 env.AppendUnique(CXXFLAGS = ['-fexceptions', '-frtti'])
 env.AppendUnique(CPPDEFINES = ['ANDROID', 'NPT_CONFIG_HAVE_SYSTEM_LOG_CONFIG'])
 env.AppendUnique(LINKFLAGS = ['--sysroot', ANDROID_SYSROOT,
                 			  '-Wl,--no-undefined', 
-                                          '-Wl,-z,noexecstack',
+                              '-Wl,-z,noexecstack',
                 			  '-L'+ANDROID_SYSROOT+'/usr/lib', 
-                                          '-L'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi',
+                              '-L'+ANDROID_NDK_ROOT+'/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi',
                 			  '-lc', 
                 			  '-lgnustl_shared', 
                 			  '-lm', 

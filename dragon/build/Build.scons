@@ -230,11 +230,11 @@ THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
 
 # zip lib
-LibraryModule(name                  = 'z',
-              source_root           = THIRD_PARTY_SOURCE_ROOT,
-              build_source_dirs     = ['zlib-1.2.3'],
-              shared                = True,
-              install               = True)
+#LibraryModule(name                  = 'z',
+#              source_root           = THIRD_PARTY_SOURCE_ROOT,
+#              build_source_dirs     = ['zlib-1.2.3'],
+#              shared                = True,
+#              install               = True)
 
 # pcre lib
 libpcre_SOURCES = Split("""
@@ -457,8 +457,7 @@ dragon_test_SOURCES = {
 Application(name                  = 'dragon_test', 
             source_root           = 'test',
             build_source_files    = dragon_test_SOURCES,
-            deps                  = [
-                'z', 
+            deps                  = [ 
                 'gtest', 
                 'pcre', 
                 'dragon'
