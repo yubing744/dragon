@@ -37,12 +37,13 @@ public:
 	~MatchResult(){}
 
 public:
-	virtual int end() = 0;
-	virtual int end(int group) = 0;
-	virtual const String* group() = 0;
-	virtual int groupCount() = 0;
-	virtual int start() = 0;
-	virtual int start(int group) = 0;
+	virtual dg_int end() = 0;
+	virtual dg_int end(dg_int group) = 0;
+	virtual String* group() = 0;
+	virtual dg_int groupCount() = 0;
+	virtual dg_int start() = 0;
+	virtual dg_int start(dg_int group) = 0;
+	virtual String* group(dg_int group) = 0;
 
 };//Arrays
 

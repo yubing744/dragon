@@ -25,21 +25,26 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/String.h>
-#include <dragon/util/regex/Matcher.h>
-
 #include <pcre.h>
  
 BeginPackage3(dragon, util, regex)
 
 Import dragon::lang;
 
+class Matcher;
 
 class _DragonExport Pattern {
 public:
 	friend class Matcher;
 
+public:
+	static Pattern* compile(String* regex);
+	static Pattern* compile(String* regex, dg_int flags);
+	static dg_boolean matches(String* regex, String* input);
+	static void release(Pattern* p);
+
 private:
-	Pattern(pcre32* re);
+	Pattern(String* regex, dg_int flags);
 
 public:
 	virtual ~Pattern();
@@ -47,12 +52,14 @@ public:
 public:
 	virtual Matcher* matcher(String* input);
 
-public:
-	static Pattern* compile(String* regex);
+protected:
+	virtual void compile();
 
 protected:
 	pcre32 *re;
-
+	String* pattern;
+	dg_boolean compiled;
+	dg_int flags;
 };//Pattern
 
 EndPackage3 //(dragon, util, regex)

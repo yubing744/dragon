@@ -21,26 +21,55 @@
  **********************************************************************/
 
 #include <dragon/util/regex/Pattern.h>
+#include <dragon/util/regex/Matcher.h>
 
 Import dragon::lang;
 Import dragon::util::regex;
 
+// static methods
+Pattern* Pattern::compile(String* regex) {
+    return new Pattern(regex, 0);
+}
 
-#define OVECCOUNT 30    /* should be a multiple of 3 */
+Pattern* Pattern::compile(String* regex, dg_int flags) {
+    return new Pattern(regex, flags);
+}
 
-Pattern::Pattern(pcre32* re) {
-    this->re = re; 
+void Pattern::release(Pattern* p) {
+    SafeDelete(p);
+}
+
+dg_boolean Pattern::matches(String* regex, String* input) {
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(input);
+    dg_boolean result = m->matches();
+    Pattern::release(p);
+
+    return result;
+}
+
+// member methods
+Pattern::Pattern(String* regex, dg_int flags) {
+    this->pattern = new String(regex);
+    this->flags = flags;
+    this->compiled = dg_false;
 }
 
 Pattern::~Pattern() {
-    pcre32_free(this->re);
+    SafeDelete(this->pattern);
+
+    if (this->re != NULL) {
+        pcre32_free(this->re);
+        this->re = NULL;
+    }
 }
 
-Pattern* Pattern::compile(String* regex) {
+
+void Pattern::compile() {
     const char *error;
     int erroffset;
 
-    dg_char* pattern = (dg_char*)regex->toChars();
+    dg_char* pattern = (dg_char*)this->pattern->toChars();
 
     pcre32* re = pcre32_compile(
         pattern,              /* the pattern */
@@ -50,34 +79,17 @@ Pattern* Pattern::compile(String* regex) {
         NULL);                /* use default character tables */
 
     if (re != NULL) {
-        return new Pattern(re);
-    }
-
-    return null;
+        this->re = re;
+        this->compiled = dg_true;
+    } 
 }
 
+
 Matcher* Pattern::matcher(String* input) {
-    const dg_char* subject = input->toChars();
-    dg_int subject_length = input->length();
- 
-    int ovector[OVECCOUNT];
-
-    int rc = pcre32_exec(
-      this->re,             /* the compiled pattern */
-      NULL,                 /* no extra data - we didn't study the pattern */
-      subject,              /* the subject string */
-      subject_length,       /* the length of the subject */
-      0,                    /* start at offset 0 in the subject */
-      0,                    /* default options */
-      ovector,              /* output vector for substring information */
-      OVECCOUNT);           /* number of elements in the output vector */
-
-    /* Matching failed: handle error cases */
-
-    if (rc < 0) {
-        pcre32_free(this->re);     /* Release memory used for the compiled pattern */
-        return new Matcher(subject, ovector, 0);
-    } else {
-        return new Matcher(subject, ovector, rc);
+    if (!this->compiled) {
+        this->compile();
     }
+
+    Matcher* m = new Matcher(this, input);
+    return m;
 }

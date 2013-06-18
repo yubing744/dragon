@@ -28,6 +28,7 @@
 #include <dragon/lang/Array.h>
 
 #include <dragon/util/regex/MatchResult.h>
+#include <dragon/util/regex/Pattern.h>
 
 BeginPackage3(dragon, util, regex)
 
@@ -40,26 +41,38 @@ public:
 	friend class Pattern;
 	
 protected:
-	Matcher(const dg_char* subject, int* ovector, int length);
+	Matcher(Pattern* p, String* text);
 
 public:
 	virtual ~Matcher();
 
 // Implements interface MatchResult
 public:
-	virtual int end();
-	virtual int end(int group);
-	virtual const String* group();
-	virtual int groupCount();
-	virtual int start();
-	virtual int start(int group);
+	virtual dg_int end();
+	virtual dg_int end(dg_int group);
+	virtual String* group();
+	virtual dg_int groupCount();
+	virtual dg_int start();
+	virtual dg_int start(dg_int group);
+	virtual String* group(dg_int group);
 
 public:
 	virtual dg_boolean matches();
+	virtual dg_boolean find();
+	virtual dg_boolean find(dg_int start);
 
 protected:
-	String* input;
-	Array<dg_int>* ovector;
+	virtual void reset();
+
+protected:
+	Pattern* parentPattern;
+	String* text;
+
+	dg_int* groups;
+	dg_int groupSize;
+
+	dg_int first;
+	dg_int last;
 };//Matcher
 
 EndPackage3 //(dragon, util, regex)

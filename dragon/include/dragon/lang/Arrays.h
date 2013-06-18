@@ -40,7 +40,7 @@ public:
 		return Arrays::copyOf(src, length, 0, length);
 	};
 
-	static T* copyOf(const T* src, int length, int offset, int count){
+	static T* copyOf(const T* src, int length, int offset, int count) {
 		if ((length < 0 || offset <0 || count<0) 
 			|| (offset + count > length)) {
 			//TODO throw new IndexOutOfBoundsException("the offset or count is out of rang.");
@@ -48,8 +48,8 @@ public:
 
 		T* result = new T[count + 1];
 
-		for (int i=offset; i<count; i+=1){
-			result[i - offset] = src[i];
+		for (int i=0; i<count; i+=1) {
+			result[i] = src[i + offset];
 		}
 
 		result[count] = (T)NULL;

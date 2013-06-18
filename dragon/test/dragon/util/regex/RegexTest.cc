@@ -40,10 +40,13 @@ TEST(Dragon_Util_Regex_RegexTest, BasicTest) {
     dg_boolean b = m->matches();
 
     EXPECT_EQ(dg_true, b);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
 }
 
 TEST(Dragon_Util_Regex_RegexTest, UnicodeStrMatch) {
-    String* regex = new String("[^\\x{4e00}-\\x{9fa5}]$");
+    String* regex = new String("[\\x{4e00}-\\x{9fa5}]");
     String* subject = new String(L"好");
 
     Pattern* p = Pattern::compile(regex);
@@ -51,4 +54,66 @@ TEST(Dragon_Util_Regex_RegexTest, UnicodeStrMatch) {
     dg_boolean b = m->matches();
 
     EXPECT_EQ(dg_true, b);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
+}
+
+TEST(Dragon_Util_Regex_RegexTest, MatchSimpleNum) {
+    String* regex = new String("\\d{3}");
+    String* subject = new String("222");
+
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(subject);
+    dg_boolean b = m->matches();
+
+    EXPECT_EQ(dg_true, b);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
+}
+
+TEST(Dragon_Util_Regex_RegexTest, MatchPhoneNum) {
+    String* regex = new String("\\(\\d{3}\\)\\s\\d{3}-\\d{4}");
+    String* subject = new String("(222) 555-1212");
+
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(subject);
+    dg_boolean b = m->matches();
+
+    EXPECT_EQ(dg_true, b);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
+}
+
+TEST(Dragon_Util_Regex_RegexTest, findBasic) {
+    String* regex = new String("\\w+");
+    String* subject = new String("Hello World");
+
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(subject);
+
+    dg_boolean result1 = m->find();
+    ASSERT_EQ(dg_true, result1);
+
+    String* match1 = new String("Hello");
+    String* group1 = m->group();
+    dg_boolean strEqu = match1->equals(group1);
+    EXPECT_EQ(dg_true, strEqu);
+    SafeDelete(match1);
+    SafeDelete(group1);
+
+    dg_boolean result2 = m->find();
+    ASSERT_EQ(dg_true, result2);
+
+    String* match2 = new String("World");
+    String* group2 = m->group();
+    dg_boolean strEqu2 = match2->equals(group2);
+    EXPECT_EQ(dg_true, strEqu2);
+    SafeDelete(match2);
+    SafeDelete(group2);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
 }

@@ -257,7 +257,7 @@ String::String(const dg_char* value, dg_int offset, dg_int count){
 		size++;
 	}
 	
-	this->count = size;
+	this->count = count;
 	this->value = Arrays<dg_char>::copyOf(value, size, offset, count);
 }
 
@@ -334,23 +334,27 @@ size_t String::operator()(const String& str)
 */
 
 dg_boolean String::equals(const String* str) {
+	if (str == null) {
+		return dg_false;
+	}
+
 	if (this == str) {
-		return true;
+		return dg_true;
 	}
 
 	if (this->count != str->count) {
-		return false;
+		return dg_false;
 	}
 
 	dg_int size = str->count;
 	
 	for (dg_int i=0; i<size; i++) {
 		if (this->value[i] != str->value[i]) {
-			return false;
+			return dg_false;
 		}
 	}
 
-	return true;
+	return dg_true;
 }
 
 
@@ -472,33 +476,25 @@ dg_int String::lastIndexOf(const dg_char* str,dg_int fromIndex)
 {
 	return mstr.find_last_of(str,fromIndex);
 }
+*/
 
-String String::substring(dg_int beginIndex)
-{
-	dg_int len=mstr.length();
-	
-	if(beginIndex<0 || beginIndex>=len)
-	{
-		throw IndexOutOfBoundsException();
-	}
-
-	return String(mstr.substr(beginIndex,len-beginIndex));
+String* String::substring(dg_int beginIndex) {
+	return this->substring(beginIndex, beginIndex + this->count);
 }
 
-String String::substring(dg_int beginIndex,dg_int endIndex)
-{
-	dg_int len=mstr.length();
-
-	if (endIndex == beginIndex) return String(L"");
-
-	if(beginIndex<0 || beginIndex>=len || beginIndex>endIndex || endIndex<0 || endIndex>len)
-	{
-		throw IndexOutOfBoundsException();
+String* String::substring(dg_int beginIndex, dg_int endIndex) {
+	if (beginIndex < 0 || endIndex > this->count) {
+		return null;
 	}
 
-	return String(mstr.substr(beginIndex,endIndex-beginIndex));
+	if (endIndex < beginIndex) {
+		return null;
+	}
+
+	return new String(this->value + this->offset, beginIndex, endIndex - beginIndex);
 }
 
+/*
 String String::subString(dg_int beginIndex)
 {
 	return substring(beginIndex);

@@ -169,12 +169,13 @@ public:
 	dg_int lastIndexOf(dg_char ch,dg_int fromIndex);
 	dg_int lastIndexOf(const dg_char* str);
 	dg_int lastIndexOf(const dg_char* str,dg_int fromIndex);
+    
+    */
+   
+	String* substring(dg_int beginIndex);
+	String* substring(dg_int beginIndex, dg_int endIndex);
 
-	String substring(dg_int beginIndex);
-	String substring(dg_int beginIndex,dg_int endIndex);
-
-	String subString(dg_int beginIndex);
-	String subString(dg_int beginIndex,dg_int endIndex);
+	/*
 
 	String& concat(String& str);
 	String& append(const dg_char* str);
