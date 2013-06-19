@@ -31,11 +31,15 @@ TEST(Dragon_Lang_ExceptionTest, TryCatchTest) {
 	try {	
 		throw new Exception(msg);
 	} catch (Throwable* e) {
-		String* msg = e->getMessage();
-		dg_boolean isEqual = msg->equals(new String("abc"));
+		String* msg2 = e->getMessage();
+		String* temp = new String("abc");
+
+		dg_boolean isEqual = msg2->equals(temp);
 
 		EXPECT_EQ(dg_true, isEqual);
 
+		SafeDelete(temp);
+		SafeDelete(msg2);
 		SafeDelete(e);
 	}
 

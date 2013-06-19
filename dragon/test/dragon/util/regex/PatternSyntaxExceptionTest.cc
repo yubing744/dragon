@@ -34,10 +34,11 @@ TEST(Dragon_Util_Regex_PatternSyntaxExceptionTest, TryCatch) {
 		throw new PatternSyntaxException(desc, regex, 1);
 	} catch (Throwable* e) {
 		String* msg = e->getMessage();
-		dg_boolean isEqual = msg->equals(new String("desc"));
+		dg_boolean isEqual = msg->equals(desc);
 
 		EXPECT_EQ(dg_true, isEqual);
 
+		SafeDelete(msg);
 		SafeDelete(e);
 	} 
 

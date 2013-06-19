@@ -106,7 +106,7 @@ public:
      * @see     dragon.lang.String#compareTo(const dragon.lang.String*)
      * @see     dragon.lang.String#equalsIgnoreCase(const dragon.lang.String*)
      */
-	dg_boolean equals(const String* str);
+	dg_boolean equals(const String* str) const;
 
 	/**
      * Tests if this string starts with the specified prefix beginning
@@ -197,8 +197,9 @@ public:
 	Array<dg_byte> getBytes();
 	Array<dg_byte> getBytes(const char* charset);
 	
+
+	dg_boolean matches(String* regex);
 /*
-	dg_boolean matches(String regex);
 	dg_boolean contains(CharSequence* s);
 	dg_boolean contains(String s); 
 

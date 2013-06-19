@@ -34,8 +34,8 @@ TEST(Dragon_Lang_ThrowableTest, New) {
 
 	EXPECT_EQ(dg_true, isEqual);
 
-	SafeDelete(t);
 	SafeDelete(msg);
+	SafeDelete(t);
 	SafeDelete(emptyStr);
 }
 
@@ -49,6 +49,7 @@ TEST(Dragon_Lang_ThrowableTest, NotEmptyMsg) {
 
 	EXPECT_EQ(dg_true, isEqual);
 
+	SafeDelete(msg);
 	SafeDelete(tempStr);
 	SafeDelete(t);
 }

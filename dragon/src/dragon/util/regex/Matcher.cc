@@ -110,6 +110,8 @@ dg_boolean Matcher::find(dg_int start) {
         count);                   /* number of elements in the output vector */
     }
 
+    SafeDeleteArray(subject);
+
     if (rc > 0) {
         this->groups = ovector;
         this->groupSize = rc;

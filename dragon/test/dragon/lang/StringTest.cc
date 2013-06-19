@@ -67,6 +67,7 @@ TEST(Dragon_Lang_String_Test, NewWithString) {
 	dg_boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(dg_true, isEqual);
 
+    SafeDelete(str2);
     SafeDelete(str);    
 }
 
@@ -98,6 +99,8 @@ TEST(Dragon_Lang_String_Test, toCharArray) {
 	dg_boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(dg_true, isEqual);
 
+    const dg_char* data = charArray.raw();
+    SafeDeleteArray(data);
     SafeDelete(str);    
 }
 
@@ -113,6 +116,7 @@ TEST(Dragon_Lang_String_Test, toChars) {
 	dg_boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(dg_true, isEqual);
 
+    SafeDeleteArray(charArray);
     SafeDelete(str);    
 }
 
@@ -126,6 +130,8 @@ TEST(Dragon_Lang_String_Test, strEquals) {
 
 	dg_boolean isEqual = (str->equals(str2));
     EXPECT_EQ(dg_true, isEqual);
+
+    SafeDeleteArray(charArray);
 
     SafeDelete(str);  
     SafeDelete(str2);  
@@ -272,6 +278,7 @@ TEST(Dragon_Lang_String_Test, getBytes) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
 }
 
@@ -289,6 +296,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_little) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
 }
 
@@ -306,6 +314,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_big) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
 }
 
@@ -323,6 +332,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_little) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
 }
 
@@ -340,6 +350,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_big) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
 }
 
@@ -358,5 +369,18 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_big_FOR_WCHAR) {
         EXPECT_EQ(src_byte, out_byte) << "src_byte and out_byte at index" << i;
     }
 
+    SafeDeleteArray(data);
     SafeDelete(str1);
+}
+
+TEST(Dragon_Lang_String_Test, matches) {
+    String* regex = new String("a*b");
+    String* subject = new String("aaaaab");
+
+    dg_boolean b = subject->matches(regex);
+
+    EXPECT_EQ(dg_true, b);
+
+    SafeDelete(regex);
+    SafeDelete(subject);
 }

@@ -26,17 +26,25 @@
 Import dragon::lang;
 
 TEST(Dragon_Lang_IllegalArgumentExceptionTest, TryCatchTest) {
+	String* msg = new String("abc");
+
 	try {
-		String* msg = new String("abc");
 		throw new IllegalArgumentException(msg);
 	} catch (Throwable* e) {
 		String* msg = e->getMessage();
-		dg_boolean isEqual = msg->equals(new String("abc"));
+		String* testMsg = new String("abc");
+		dg_boolean isEqual = msg->equals(testMsg);
 
 		EXPECT_EQ(dg_true, isEqual);
+
+		SafeDelete(msg);
+		SafeDelete(testMsg);
+		SafeDelete(e);
 	} catch (...) {
 		FAIL();
 	}
+
+	SafeDelete(msg);
 }
 
 

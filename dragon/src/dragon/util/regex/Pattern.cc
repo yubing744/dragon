@@ -43,6 +43,7 @@ dg_boolean Pattern::matches(String* regex, String* input) {
     Pattern* p = Pattern::compile(regex);
     Matcher* m = p->matcher(input);
     dg_boolean result = m->matches();
+    SafeDelete(m);
     Pattern::release(p);
 
     return result;
@@ -77,6 +78,8 @@ void Pattern::compile() {
         &error,               /* for error message */
         &erroffset,           /* for error offset */
         NULL);                /* use default character tables */
+
+    SafeDeleteArray(pattern);
 
     if (re != NULL) {
         this->re = re;

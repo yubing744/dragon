@@ -41,6 +41,9 @@ TEST(Dragon_Util_Regex_RegexTest, BasicTest) {
 
     EXPECT_EQ(dg_true, b);
 
+    SafeDelete(m);
+    SafeDelete(p);
+
     SafeDelete(regex);
     SafeDelete(subject);
 }
@@ -54,6 +57,9 @@ TEST(Dragon_Util_Regex_RegexTest, UnicodeStrMatch) {
     dg_boolean b = m->matches();
 
     EXPECT_EQ(dg_true, b);
+
+    SafeDelete(m);
+    SafeDelete(p);
 
     SafeDelete(regex);
     SafeDelete(subject);
@@ -69,6 +75,9 @@ TEST(Dragon_Util_Regex_RegexTest, MatchSimpleNum) {
 
     EXPECT_EQ(dg_true, b);
 
+    SafeDelete(m);
+    SafeDelete(p);
+
     SafeDelete(regex);
     SafeDelete(subject);
 }
@@ -82,6 +91,9 @@ TEST(Dragon_Util_Regex_RegexTest, MatchPhoneNum) {
     dg_boolean b = m->matches();
 
     EXPECT_EQ(dg_true, b);
+
+    SafeDelete(m);
+    SafeDelete(p);
 
     SafeDelete(regex);
     SafeDelete(subject);
@@ -113,6 +125,9 @@ TEST(Dragon_Util_Regex_RegexTest, findBasic) {
     EXPECT_EQ(dg_true, strEqu2);
     SafeDelete(match2);
     SafeDelete(group2);
+
+    SafeDelete(m);
+    SafeDelete(p);
 
     SafeDelete(regex);
     SafeDelete(subject);

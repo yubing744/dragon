@@ -51,6 +51,7 @@
 // Define release
 #define SafeRelease(pObject) if(pObject != NULL) {pObject->Release(); pObject=NULL;}
 #define SafeDelete(pObject)  if(pObject != NULL) {delete pObject; pObject=NULL;}
+#define SafeDeleteArray(pArray) if(pArray != NULL) {delete[] pArray; pArray=NULL;}
 
 
 //#define DRAGON_STATIC_LIB

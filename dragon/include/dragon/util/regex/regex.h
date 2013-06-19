@@ -20,15 +20,21 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#ifndef Lang_Util_Regex_H
-#define Lang_Util_Regex_H
+#ifndef Regex_Util_Lang_Dragon_H
+#define Regex_Util_Lang_Dragon_H
 
 #include <dragon/config.h>
 
-BeginPackage2(dragon, lang)
+BeginPackage3(dragon, util, regex)
+	class PatternSyntaxException;
+	class MatchResult;
+	class Pattern;
+	class Matcher;
+EndPackage3//(dragon, util, regex)
 
+#include <dragon/util/regex/PatternSyntaxException.h>
+#include <dragon/util/regex/MatchResult.h>
+#include <dragon/util/regex/Pattern.h>
+#include <dragon/util/regex/Matcher.h>
 
-EndPackage2//(dragon, lang)
-
-
-#endif //Lang_Util_Regex_H
+#endif //Regex_Util_Lang_Dragon_H

@@ -42,7 +42,7 @@
 //#define _ltot_s _ltow_s
 
 Import dragon::lang;
-//Import dragon::util::regex;
+Import dragon::util::regex;
 
 
 // static const variables
@@ -149,9 +149,9 @@ String::String(){
 }
 
 String::~String(){
-	if (this->value != NULL) {
-		delete[] this->value;
-	}
+	SafeDeleteArray(this->value);
+	this->offset = 0;
+	this->count = 0;
 }
 
 
@@ -333,7 +333,7 @@ size_t String::operator()(const String& str)
 
 */
 
-dg_boolean String::equals(const String* str) {
+dg_boolean String::equals(const String* str) const {
 	if (str == null) {
 		return dg_false;
 	}
@@ -584,7 +584,7 @@ const dg_char* String::toChars() {
 }
 
 Array<dg_char> String::toCharArray() {
-	return Array<dg_char>(this->value, this->count);
+	return Array<dg_char>(this->toChars(), this->count);
 }
 
 
@@ -596,15 +596,11 @@ Array<dg_byte> String::getBytes(const char* charset) {
 	return String::Encode(Array<dg_char>(this->value + this->offset, this->count), 0, this->count, charset);
 }
 
-
-/*
-dg_boolean String::matches(String regex)
-{
-	Regexp tempReg(regex);
-	MatchResult result = tempReg.MatchExact(this->mstr.c_str());
-	return result.IsMatched()!=0;
+dg_boolean String::matches(String* regex) {
+	return Pattern::matches(regex, this);
 }
 
+/*
 dg_boolean String::contains(CharSequence* s)
 {
 	if(s==null)
