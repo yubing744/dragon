@@ -22,6 +22,7 @@
 
 #include <dragon/lang/String.h>
 
+#include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include <cwchar>
@@ -52,9 +53,11 @@ const Array<dg_byte> String::EMPTY_BYTE_ARRAY = Array<dg_byte>();
 
 
 // Static variable and method
-char* String::DEFAULT_CHARSET_NAME = String::Init();
+char* String::DEFAULT_CHARSET_NAME = String::init();
 
-char* String::Init() {
+char* String::init() {
+	atexit(String::destroy);
+
 	unicode_init();
 
 	char* charset;
@@ -67,7 +70,7 @@ char* String::Init() {
 	return null;
 }
 
-Array<dg_char> String::Decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset) {
+Array<dg_char> String::decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset) {
 	if (length<0 || offset<0 || offset + length > bytes.size()) {
 		return EMPTY_CHAR_ARRAY;
 	}
@@ -103,7 +106,7 @@ Array<dg_char> String::Decode(Array<dg_byte> bytes, dg_int offset, dg_int length
 	return Array<dg_char>(buf, rt);
 }
 
-Array<dg_byte> String::Encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset) {
+Array<dg_byte> String::encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset) {
 	if (length<0 || offset<0 || offset + length > chars.size()) {
 		return EMPTY_BYTE_ARRAY;
 	}
@@ -139,6 +142,9 @@ Array<dg_byte> String::Encode(Array<dg_char> chars, dg_int offset, dg_int length
 	return Array<dg_byte>(buf, rt);
 }
 
+void String::destroy() {
+
+}
 
 // Member method
 
@@ -156,7 +162,7 @@ String::~String(){
 
 
 String::String(Array<dg_byte> bytes, dg_int offset) {
-	Array<dg_char> v = String::Decode(bytes, offset, bytes.size(), null);
+	Array<dg_char> v = String::decode(bytes, offset, bytes.size(), null);
 
 	this->offset = 0;
 	this->count = v.size();
@@ -164,7 +170,7 @@ String::String(Array<dg_byte> bytes, dg_int offset) {
 }
 
 String::String(Array<dg_byte> bytes, dg_int offset, dg_int length) {
-	Array<dg_char> v = String::Decode(bytes, offset, length, null);
+	Array<dg_char> v = String::decode(bytes, offset, length, null);
 
 	this->offset = 0;
 	this->count = v.size();
@@ -172,7 +178,7 @@ String::String(Array<dg_byte> bytes, dg_int offset, dg_int length) {
 }
 
 String::String(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset) {
-	Array<dg_char> v = String::Decode(bytes, offset, length, charset);
+	Array<dg_char> v = String::decode(bytes, offset, length, charset);
 
 	this->offset = 0;
 	this->count = v.size();
@@ -593,7 +599,7 @@ Array<dg_byte> String::getBytes() {
 }
 
 Array<dg_byte> String::getBytes(const char* charset) {
-	return String::Encode(Array<dg_char>(this->value + this->offset, this->count), 0, this->count, charset);
+	return String::encode(Array<dg_char>(this->value + this->offset, this->count), 0, this->count, charset);
 }
 
 dg_boolean String::matches(String* regex) {

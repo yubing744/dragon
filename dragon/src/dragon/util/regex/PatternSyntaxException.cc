@@ -28,13 +28,12 @@ Import dragon::util::regex;
 PatternSyntaxException::PatternSyntaxException(String* desc, String* regex, int index) 
 	:IllegalArgumentException() {
 	this->desc = new String(desc);
-	this->regex = new String(regex);
+	this->pattern = new String(regex);
 	this->index = index;
 }
 
 PatternSyntaxException::~PatternSyntaxException() {
 	SafeDelete(this->desc);
-	SafeDelete(this->regex);
 	SafeDelete(this->pattern);
 }
 

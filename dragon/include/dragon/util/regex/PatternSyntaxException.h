@@ -45,7 +45,6 @@ public:
 
 protected:
 	String* desc;
-	String* regex;
 	String* pattern;
 	dg_int index;
 

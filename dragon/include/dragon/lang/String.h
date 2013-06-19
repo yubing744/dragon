@@ -54,9 +54,10 @@ private:
 
 private:
 	static char* DEFAULT_CHARSET_NAME;
-	static char* Init();
-	static Array<dg_char> Decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
-	static Array<dg_byte> Encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset);
+	static char* init();
+	static Array<dg_char> decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
+	static Array<dg_byte> encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset);
+	static void destroy();
 
 public:
 	String();
