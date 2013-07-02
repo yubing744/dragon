@@ -30,8 +30,8 @@
 Import std;
 Import dragon::lang;
 
-const double Math::E=2.718281828459045;
-const double Math::PI=3.141592653589793;
+const double Math::E = 2.718281828459045;
+const double Math::PI = 3.141592653589793;
 
 double Math::sin(double a){
 	return ::sin(a);
@@ -199,5 +199,5 @@ float Math::signum(float f)
 
 double Math::hypot(double x,double y)
 {
-	return Math::sqrt(x*x +y*y);
+	return Math::sqrt(x*x + y*y);
 }

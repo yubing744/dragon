@@ -21,26 +21,18 @@
  **********************************************************************/
 
 
-#ifndef Number_Lang_Dragon_H
-#define Number_Lang_Dragon_H
-
-#include <dragon/config.h>
-
-BeginPackage2(dragon, lang)
+#include <dragon/lang/Double.h>
 
 Import dragon::lang;
 
-class _DragonExport Number {
-public:
-	Number();
-	virtual ~Number();
+Double::Double(dg_double val) {
+	this->value = val;
+}
 
-public:
-	
-protected:
-	
-};//Number
+Double::~Double() {
 
-EndPackage2 //(dragon, lang)
+}
 
-#endif //Number_Lang_Dragon_H
+dg_double Double::doubleValue() {
+	return this->value;
+}

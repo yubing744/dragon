@@ -406,13 +406,25 @@ dragon_SOURCES = {
 #        "dragon/lang/internal/platform_win32.cc",
 
     "dragon/lang" : Split("""
+        Object.cc
         Math.cc 
         String.cc 
 
         Throwable.cc 
         Exception.cc 
         RuntimeException.cc 
-        IllegalArgumentException.cc 
+        IllegalArgumentException.cc
+
+        Integer.cc
+        Long.cc
+        Float.cc
+        Double.cc
+        
+        AbstractStringBuilder.cc
+        StringBuffer.cc 
+    """),
+    "dragon/lang/gc" : Split("""
+        GarbageCollector.cc
     """),
     "dragon/util/regex" : Split("""
         PatternSyntaxException.cc 
@@ -426,7 +438,8 @@ LibraryModule(name                  = 'dragon',
               build_source_files    = dragon_SOURCES,
               extra_cpp_defines     = [
                   'DRAGON_SHARED', 
-                  'BUILDING_DRAGON_SHARED'
+                  'BUILDING_DRAGON_SHARED',
+                  'ENABLE_LOG'
               ],
               source_root           = 'src',
               included_modules      = ["pcre32", "unicode"], 
@@ -437,6 +450,7 @@ LibraryModule(name                  = 'dragon',
 # dragon test
 dragon_test_SOURCES = {
     "dragon/lang" : Split("""
+        ObjectTest.cc
         MathTest.cc 
         StringTest.cc 
 
@@ -444,6 +458,13 @@ dragon_test_SOURCES = {
         ExceptionTest.cc 
         RuntimeExceptionTest.cc 
         IllegalArgumentExceptionTest.cc 
+
+        IntegerTest.cc
+        LongTest.cc
+        StringBufferTest.cc
+    """),
+    "dragon/lang/gc" : Split("""
+        SmartPointerTest.cc
     """),
     "dragon/util/regex" : Split("""
         PatternSyntaxExceptionTest.cc 

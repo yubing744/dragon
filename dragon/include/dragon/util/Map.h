@@ -1,15 +1,28 @@
-#include "util.h"
+/*
+* Copyright 2013 the original author or authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef Util_Map_H
-#define Util_Map_H
-#pragma once
+#ifndef Map_Util_Dragon_H
+#define Map_Util_Dragon_H
 
-BeginPackage2(dragon,util)
+BeginPackage2(dragon, util)
 
 #define PEntryMap(K,V) P<Map<K,V>::Entry>
 #define PIteratorMap(K,V) P<Iterator<PEntryMap(K,V)>>
 
-template<class K=String,class V=P<Object>>
+template<class K=String, class V=P<Object>>
 interface Map
 {
 public:

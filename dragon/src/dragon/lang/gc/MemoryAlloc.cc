@@ -2,44 +2,39 @@
 
 Import dragon::lang::gc;
 
-MemoryAlloc* MemoryAlloc::ma=null;
+MemoryAlloc* MemoryAlloc::ma = null;
 
-MemoryAlloc::MemoryAlloc()
-{
-	mpBegin=(char*)HEADER_SIZE;
-	mpEnd=(char*)HEADER_SIZE;
+MemoryAlloc::MemoryAlloc() {
+	mpBegin = (char*)HEADER_SIZE;
+	mpEnd = (char*)HEADER_SIZE;
 }
 
-MemoryAlloc* MemoryAlloc::GetInstance()
-{
-	if(ma==null)
-	{
-		ma=new MemoryAlloc();
-		GC::GetInstance()->addRef(ma,ma,MemoryAlloc::Clear);
+MemoryAlloc* MemoryAlloc::GetInstance() {
+	if(ma==null) {
+		ma = new MemoryAlloc();
+		GC::GetInstance()->addRef(ma, ma, MemoryAlloc::Clear);
 	}
 
 	return ma;
 }
 
-void* MemoryAlloc::Alloc(size_t cb)
-{
+void* MemoryAlloc::Alloc(size_t cb) {
 	return MA::GetInstance()->alloc(cb);
 }
 
-void MemoryAlloc::Free(void* p)
-{
-	Log("MemoryAlloc::Free\n");
+void MemoryAlloc::Free(void* p) {
+	//Log("MemoryAlloc::Free\n");
 }
 
-void  MemoryAlloc::Clear(void* p)
-{
-	Log("MemoryAlloc::Clear\n");
+void MemoryAlloc::Clear(void* p) {
+	//Log("MemoryAlloc::Clear\n");
 	MA::GetInstance()->clear();
 	delete ma;
 }
 
-void* MemoryAlloc::alloc(size_t cb)
-{
+
+//------------------------------------------------------------
+void* MemoryAlloc::alloc(size_t cb) {
 	if((size_t)(mpEnd-mpBegin)<cb)
 	{
 		if (cb >= BLOCK_SIZE)
@@ -75,12 +70,10 @@ void* MemoryAlloc::alloc(size_t cb)
 }
 
 
-void MemoryAlloc::clear()
-{
+void MemoryAlloc::clear() {
 	MemBlock* pHeader = getChainHeader();
 
-	while(pHeader)
-	{
+	while(pHeader) {
 		MemBlock* pTemp=pHeader->pPrev;
 		free(pHeader);
 		pHeader = pTemp;
@@ -90,7 +83,6 @@ void MemoryAlloc::clear()
 	mpEnd=(char*)HEADER_SIZE;
 }
 
-MemoryAlloc::MemBlock* MemoryAlloc::getChainHeader() const
-{
+MemoryAlloc::MemBlock* MemoryAlloc::getChainHeader() const {
 	return (MemBlock*)(mpBegin - HEADER_SIZE);
 }

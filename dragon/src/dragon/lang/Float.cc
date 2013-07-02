@@ -21,26 +21,18 @@
  **********************************************************************/
 
 
-#ifndef Number_Lang_Dragon_H
-#define Number_Lang_Dragon_H
-
-#include <dragon/config.h>
-
-BeginPackage2(dragon, lang)
+#include <dragon/lang/Float.h>
 
 Import dragon::lang;
 
-class _DragonExport Number {
-public:
-	Number();
-	virtual ~Number();
+Float::Float(dg_float val) {
+	this->value = val;
+}
 
-public:
-	
-protected:
-	
-};//Number
+Float::~Float() {
 
-EndPackage2 //(dragon, lang)
+}
 
-#endif //Number_Lang_Dragon_H
+dg_float Float::floatValue() {
+	return this->value;
+}

@@ -28,10 +28,12 @@
 BeginPackage2(dragon, lang)
 
 template<class T>
-interface Comparable
-{
+interface Comparable {
 public:
-	virtual int compareTo(T& o)=0;
+	virtual ~Comparable(){};
+	
+public:
+	virtual int compareTo(T* o) = 0;
 };
 
 EndPackage2//(dragon, lang)

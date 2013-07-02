@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef Lang_Object_H
-#define Lang_Object_H
+#ifndef Object_Lang_Dragon_H
+#define Object_Lang_Dragon_H
 
 #include <dragon/config.h>
 
@@ -23,8 +23,7 @@ BeginPackage2(dragon, lang)
 
 class String;
 
-class _DragonExport Object
-{
+class _DragonExport Object {
 public:
 	Object();
 	virtual ~Object();
@@ -32,7 +31,7 @@ public:
 public:
 	virtual dg_boolean equals(const Object* obj);
 	virtual dg_int hashCode();
-	virtual const String* toString();
+	virtual String* toString();
 
 protected:
 	virtual void finalize();
@@ -50,5 +49,5 @@ protected:
 
 EndPackage2//(dragon, lang)
 
-#endif
+#endif//Object_Lang_Dragon_H
 

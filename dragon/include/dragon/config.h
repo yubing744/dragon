@@ -47,11 +47,9 @@
 // Define import
 #define Import using namespace
 
-
-// Define release
-#define SafeRelease(pObject) if(pObject != NULL) {pObject->Release(); pObject=NULL;}
-#define SafeDelete(pObject)  if(pObject != NULL) {delete pObject; pObject=NULL;}
-#define SafeDeleteArray(pArray) if(pArray != NULL) {delete[] pArray; pArray=NULL;}
+// Safe Delete
+#define SafeDelete(pObject)  if(pObject != null) {delete pObject; pObject = null;}
+#define SafeDeleteArray(pArray) if(pArray != null) {delete[] pArray; pArray = null;}
 
 
 //#define DRAGON_STATIC_LIB
@@ -99,6 +97,25 @@
 #define _DragonExport DRAGONEXPORT
 
 
+// Define Extends
+#undef extends
+#define extends(super_class) :public super_class	
+
+
+// Define Implements
+#undef implements
+#define implements(interface_class) :public interface_class
+#define implements1(interface_class1) ,public interface_class1
+#define implements2(interface_class1, interface_class2) ,public interface_class1, \
+	public interface_class2
+#define implements3(interface_class1, interface_class2, interface_class3) ,public interface_class1, \
+	public interface_class2, public interface_class3
+#define implements4(interface_class1, interface_class2, interface_class3, interface_class4) ,\
+	public interface_class1, public interface_class2, public interface_class3, public interface_class4
+#define implements5(interface_class1, interface_class2, interface_class3, interface_class4, interface_class5) ,\
+	public interface_class1, public interface_class2, public interface_class3, public interface_class4, \
+	public interface_class5
+
 // Define interface
 #undef interface
 #undef __RPCNDR_H__
@@ -112,16 +129,6 @@
 #endif
 
 
-// Define Extends
-#undef extends
-#define extends(super_class) :public super_class	
-
-
-// Define Implements
-#undef implements
-#define implements(interface_class) :public interface_class
-
-
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)
 	#define DRAGON_INLINE(declarator) inline __attribute__((always_inline)) declarator
@@ -130,6 +137,7 @@
 #else
 	#define DRAGON_INLINE(declarator) inline declarator
 #endif
+
 
 // Define deprecated
 #if defined(__GNUC__) && !DRAGON_DISABLE_DEPRECATIONS
@@ -142,6 +150,7 @@
 
 
 // Define null
+#undef null	
 #define null 0
 
 // Enable Unicode
@@ -149,8 +158,7 @@
 
 // Config Log
 #ifdef ENABLE_LOG
-#	define Log(format,...) \
-		printf(format,__VA_ARGS__)
+#	define Log(format,...) printf(format, __VA_ARGS__)
 #else
 #	define Log(format,...)
 #endif
@@ -160,11 +168,11 @@
 	#pragma warning (disable:4290)
 	#pragma warning (disable:4584)
 	#pragma warning (disable:4482)
-#endif // _WIN32
+#endif //_WIN32
 
 
 // dragon basic types
-typedef unsigned char dg_byte;
+typedef char dg_byte;
 typedef short dg_short;
 typedef int dg_int;
 typedef long long dg_long;
@@ -174,8 +182,14 @@ typedef double dg_double;
 typedef unsigned int dg_char;
 typedef bool dg_boolean;
 
+// unsigned basic types
+typedef unsigned short dg_ushort;
+typedef unsigned int dg_uint;
+typedef unsigned long long dg_ulong;
+
+
 // NULL char
-#define NULL_CHAR (dg_char)NULL
+#define NULL_CHAR (dg_char)null;
 
 // boolean value
 #define dg_true true

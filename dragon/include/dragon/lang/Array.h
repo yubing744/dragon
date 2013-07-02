@@ -20,16 +20,15 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#ifndef Array_Lang_H
-#define Array_Lang_H
+#ifndef Array_Lang_Dragon_H
+#define Array_Lang_Dragon_H
 
 #include <dragon/config.h>
 
 BeginPackage2(dragon, lang)
 
 template<class T>
-class Array
-{
+class Array {
 public:
 	Array() {
 		this->count = 0;
@@ -60,7 +59,7 @@ public:
 		tryRelease();
 	};
 
-
+public:
 	Array& operator=(const Array& arr) {
 		tryRelease();
 
@@ -71,22 +70,25 @@ public:
 		return *this;
 	};
 
-	const T& operator[](dg_int index) {
+	T& operator[](dg_int index) {
+		return this->data[index];
+	};
+
+	const T& operator[](dg_int index) const {
 		return this->get(index);
 	};
 
-	const T& get(dg_int index) {
-		if(index >=0 && index < this->count) {
-			return data[index];
-		} 
+	operator const T*() const {
+		return this->raw();
+	};
 
-		return T();
+public:
+	const T& get(dg_int index) const {
+		return this->data[index];
 	};
 
 	void set(dg_int index, const T& t) {
-		if(index>=0 && index<this->count) {
-			this->data[index] = t;
-		}
+		this->data[index] = t;
 	};
 
 	dg_int size() {
@@ -97,14 +99,19 @@ public:
 		return this->count;
 	};
 
-	const T* raw() {
+	const T* raw() const {
 		return this->data;
 	};
 
+	void release() {
+		SafeDeleteArray(this->data);
+		this->count = 0;
+	}
+
 private:
 	void tryRelease() {
-		if(this->data!=null && this->myData) {
-			delete[] this->data;
+		if(this->myData) {
+			this->release();
 		}
 	}
 
@@ -116,4 +123,4 @@ private:
 
 EndPackage2//(dragon, lang)
 
-#endif//Array_Lang_H
+#endif//Array_Lang_Dragon_H

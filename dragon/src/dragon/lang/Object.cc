@@ -56,11 +56,12 @@ dg_boolean Object::equals(const Object* obj) {
 }
 
 dg_int Object::hashCode() {
-	return (dg_int)this;
+	dg_int* p = (dg_int*)(this);
+	return (dg_int)(*p);
 }
 
-const String* Object::toString() {
-	return String::format(L"@%d",this);
+String* Object::toString() {
+	return String::format(L"@%d", this);
 }
 
 void Object::finalize() {

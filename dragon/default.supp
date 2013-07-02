@@ -793,3 +793,10 @@
    fun:_Z41__static_initialization_and_destruction_0ii
    ...
 }
+
+{
+   __vfprintf
+   Memcheck:Cond
+   fun:__vfprintf
+   ...
+}

@@ -20,53 +20,31 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#ifndef Arrays_Lang_H
-#define Arrays_Lang_H
+
+#ifndef StringBuffer_Lang_Dragon_H
+#define StringBuffer_Lang_Dragon_H
 
 #include <dragon/config.h>
-
+#include <dragon/lang/AbstractStringBuilder.h>
 
 BeginPackage2(dragon, lang)
 
-template<class T>
-class _DragonExport Arrays {
+Import dragon::lang;
+
+class _DragonExport StringBuffer 
+	:public AbstractStringBuilder {
 public:
-	Arrays(){};
-	~Arrays(){}
+	StringBuffer();
+	StringBuffer(dg_int capcity);
+	virtual ~StringBuffer();
 
 public:
-	static T* copyOf(const T* src, dg_int count) {
-		return Arrays::copyOf(src, 0, count);
-	};
+    virtual String* toString();
 
-	static T* copyOf(const T* src, dg_int offset, dg_int count) {
-		T* target = new T[count + 1];
-		Arrays::copyOf(src, offset, target, 0, count);
-		target[count] = null;
+protected:
+	
+};//StringBuffer
 
-		return target;
-	};
+EndPackage2 //(dragon, lang)
 
-	static void copyOf(const T* src, dg_int srcOffset, T* target, dg_int targetOffset, dg_int count) {
-		/*
-		T* p1 = const_cast<T*>(src) + srcOffset;
-		T* p2 = const_cast<T*>(target) + targetOffset;
-
-		dg_int len = count;
-
-		while(--len > 0) {
-			p2 = p1;
-
-			p2++;
-			p1++;
-		}*/
-
-		for (dg_int i=0; i<count; i++) {
-			target[i + targetOffset] = src[i + srcOffset];
-		}
-	};
-};//Arrays
-
-EndPackage2///(dragon, lang)
-
-#endif //Arrays_Lang_H
+#endif //StringBuffer_Lang_Dragon_H

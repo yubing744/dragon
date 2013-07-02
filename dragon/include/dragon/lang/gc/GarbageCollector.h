@@ -1,49 +1,54 @@
-#include "gc.h"
+/*
+* Copyright 2013 the original author or authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef Lang_GC_GarbageCollector_H 
-#define Lang_GC_GarbageCollector_H
-#pragma once
+#ifndef GarbageCollector_GC_Lang_Dragon_H 
+#define GarbageCollector_GC_Lang_Dragon_H
 
-#pragma  warning(disable:4251)   
+#include <dragon/config.h>
 
 #include <map>
-#include <hash_map>
 #include <string>
-
-#ifdef WIN32
-using namespace stdext;
-#endif
 
 using namespace std;
 
-BeginPackage3(dragon,lang,gc)
+BeginPackage3(dragon, lang, gc)
 
 typedef void (*FnDestructor)(void* pThis);
 
-enum _DragonExport GCMode{
+enum _DragonExport GCMode {
 	GCMODE_AUTOCOLLECT = 0,
 	GCMODE_HANDCOLLECT = 1
 };
 
-class _DragonExport GarbageCollector
-{
-
+class _DragonExport GarbageCollector {
 public:
-	struct PointerInfo
-	{
+	struct PointerInfo {
 		int refCount;
 		void* memPtr;
 		void* ployPtr;
 		FnDestructor fnDestroy;
 	};
 
-	typedef hash_map<void*,PointerInfo> KeyMap;
+	typedef map<void*, PointerInfo> KeyMap;
 	typedef KeyMap::iterator Iterator;
 
 public:
 	void addRef(void* p);
-	void addRef(void* p,void* tp,FnDestructor fn);
-	void regist(void* p,void* tp,FnDestructor fn);
+	void addRef(void* p, void* tp, FnDestructor fn);
+	void regist(void* p, void* tp, FnDestructor fn);
 	void release(void* p);
 
 public:
@@ -66,6 +71,6 @@ private:
 
 typedef GarbageCollector GC;
 
-EndPackage3
+EndPackage3//(dragon, lang, gc)
 
-#endif
+#endif//GarbageCollector_GC_Lang_Dragon_H

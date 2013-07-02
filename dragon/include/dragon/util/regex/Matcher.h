@@ -26,6 +26,7 @@
 #include <dragon/config.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/Array.h>
+#include <dragon/lang/StringBuffer.h>
 
 #include <dragon/util/regex/MatchResult.h>
 #include <dragon/util/regex/Pattern.h>
@@ -60,9 +61,16 @@ public:
 	virtual dg_boolean matches();
 	virtual dg_boolean find();
 	virtual dg_boolean find(dg_int start);
+	virtual Matcher* appendReplacement(StringBuffer* sb, String* replacement);
+	virtual StringBuffer* appendTail(StringBuffer* sb);
+	virtual String* replaceAll(String* replacement);
 
 protected:
 	virtual void reset();
+	virtual dg_boolean search(dg_int from);
+	virtual dg_int getTextLength();
+	virtual CharSequence* getSubSequence(dg_int beginIndex, dg_int endIndex);
+	virtual dg_char charAt(dg_int i);
 
 protected:
 	Pattern* parentPattern;
@@ -73,6 +81,8 @@ protected:
 
 	dg_int first;
 	dg_int last;
+
+	dg_int lastAppendPosition;
 };//Matcher
 
 EndPackage3 //(dragon, util, regex)

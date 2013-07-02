@@ -17,30 +17,27 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/03/31
  **********************************************************************/
 
 
-#ifndef Number_Lang_Dragon_H
-#define Number_Lang_Dragon_H
-
-#include <dragon/config.h>
-
-BeginPackage2(dragon, lang)
+#include <dragon/lang/StringBuffer.h>
 
 Import dragon::lang;
 
-class _DragonExport Number {
-public:
-	Number();
-	virtual ~Number();
+StringBuffer::StringBuffer() {
 
-public:
-	
-protected:
-	
-};//Number
+}
 
-EndPackage2 //(dragon, lang)
+StringBuffer::StringBuffer(dg_int capcity) 
+	:AbstractStringBuilder(capcity) {
 
-#endif //Number_Lang_Dragon_H
+}
+
+StringBuffer::~StringBuffer() {
+
+}
+
+String* StringBuffer::toString() {
+	return new String(this->value, 0, this->count);
+}

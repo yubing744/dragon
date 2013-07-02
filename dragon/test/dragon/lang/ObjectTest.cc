@@ -17,17 +17,16 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2013/07/02
  **********************************************************************/
 
-#include <stdio.h>
 
-//#include <dragon/lang/Object.h>
-//#include <dragon/lang/String.h>
+#include <gtest/gtest.h>
+#include <dragon/lang/Object.h>
 
-//Import dragon::lang;
+Import dragon::lang;
 
-void testNewObject(){
-	//Object* obj = new Object();
-	printf("Object");
+TEST(Dragon_Lang_ObjectTest, New) {
+	Object* o = new Object();
+	SafeDelete(o);
 }

@@ -30,8 +30,10 @@
 #include <unicode.h>
 #include <convert.h>
 
-//#include <dragon/util/regex/regex.h>
 #include <dragon/lang/Arrays.h>
+#include <dragon/lang/Integer.h>
+#include <dragon/lang/Long.h>
+
 //#include <dragon/lang/NullPointerException.h>
 //#include <dragon/lang/IndexOutOfBoundsException.h>
 
@@ -95,7 +97,7 @@ Array<dg_char> String::decode(Array<dg_byte> bytes, dg_int offset, dg_int length
 	dg_char* buf = new dg_char[bytes.size() + 1];
 	char* to = (char*)buf;
 
-	size_t rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
+	int rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
 	if (rt == -1){
 		return EMPTY_CHAR_ARRAY;
 	}
@@ -132,7 +134,7 @@ Array<dg_byte> String::encode(Array<dg_char> chars, dg_int offset, dg_int length
 	dg_byte* buf = new dg_byte[to_size + 1];
 	char* to = (char*)buf;
 
-	size_t rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
+	int rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
 	if (rt == -1){
 		return EMPTY_BYTE_ARRAY;
 	}
@@ -146,7 +148,7 @@ void String::destroy() {
 
 }
 
-// Member method
+// -------------------------- Member method --------------------------------------
 
 String::String(){
    this->offset = 0;
@@ -191,7 +193,7 @@ String::String(const dg_char* value){
 	
 	dg_int size = 0;
 	dg_char* cur = const_cast<dg_char*>(value);
-	while(*(cur++) != NULL_CHAR) {
+	while(*(cur++) != null) {
 		size++;
 	}
 	
@@ -199,12 +201,11 @@ String::String(const dg_char* value){
 	this->value = Arrays<dg_char>::copyOf(value, size);
 }
 
-String::String(string value){
-	dg_int count = (dg_int)value.size();
+String::String(const char* value){
+	dg_int count = strlen(value);
 	dg_int len = count;
 
-	const char* raw = value.c_str();
-	char* p = const_cast<char*>(raw);
+	char* p = const_cast<char*>(value);
 
     dg_char* buf = new dg_char[count + 1];	
 	dg_char* pp = buf;
@@ -221,12 +222,11 @@ String::String(string value){
 }
 
 
-String::String(wstring value){
-	dg_int count = (dg_int)value.size();
+String::String(const wchar_t* value){
+	dg_int count = wcslen(value);
 	dg_int len = count;
 	
-	const wchar_t* raw = value.c_str();
-	wchar_t* p = const_cast<wchar_t*>(raw);
+	wchar_t* p = const_cast<wchar_t*>(value);
 
     dg_char* buf = new dg_char[count + 1];	
 	dg_char* pp = buf;
@@ -256,24 +256,28 @@ String::String(const String* value) {
 
 String::String(const dg_char* value, dg_int offset, dg_int count){
 	this->offset = 0;
-	
-	dg_int size = 0;
-	dg_char* cur = const_cast<dg_char*>(value);
-	while(*(cur++) != NULL_CHAR) {
-		size++;
-	}
-	
 	this->count = count;
-	this->value = Arrays<dg_char>::copyOf(value, size, offset, count);
+	this->value = Arrays<dg_char>::copyOf(value, offset, count);
+}
+
+String::String(dg_int offset, dg_int count, dg_char* value) {
+	this->value = value;
+	this->offset = offset;
+	this->count = count;
+}
+
+// ----------------------------------------------------------------------
+
+
+String* String::operator = (const char* str) {
+	return new String(str);
+}
+
+String* String::operator = (const wchar_t* str) {
+	return new String(str);
 }
 
 /*
-void String::operator = (const dg_char*  str)
-{
-	mstr=wstring(str);
-}
-
-
 String& String::operator+(const String& str)
 {
 	mstr.append(str.mstr);
@@ -394,95 +398,166 @@ dg_boolean String::endsWith(const String* suffix){
 	return this->startsWith(suffix, this->count - suffix->count);
 }
 
+dg_int String::hashCode() {
+	dg_int h = 0;
 
-/*
-dg_int String::hashCode()
-{
-	dg_int n=mstr.length();
-	dg_int hc=0;
+    dg_int off = offset;
+    dg_char* val = value;
+    dg_int len = count;
 
-	for(dg_int i=0;i<n;i++)
-	{
-		hc+=(mstr[i]*(dg_int)Math::pow(31.0,n-i+1));
+    for (dg_int i = 0; i < len; i++) {
+        h = 31*h + val[off++];
+    }
+
+    return h;
+}
+
+dg_int String::indexOf(dg_char ch) {
+	return this->indexOf(ch, 0);
+}
+
+dg_int String::indexOf(dg_char ch, dg_int fromIndex) {
+	dg_int max = this->offset + this->count;
+	dg_char* v = this->value;
+
+	if (fromIndex < 0) {
+		fromIndex = 0;
+	} else if (fromIndex >= this->count) {
+		return -1;
 	}
 
-	return hc;
+	dg_int i = this->offset + fromIndex;
+
+	for (; i<max; i++) {
+		if (v[i] == ch) {
+			return i - offset;
+		}
+	}
+
+	return -1;
 }
 
-dg_int String::indexOf(dg_char ch)
-{
-	return mstr.find_first_of(ch,0);
+dg_int String::indexOf(String* str) {
+	return this->indexOf(str);
 }
 
-dg_int String::indexOf(dg_char ch,dg_int fromIndex)
-{
-	return mstr.find_first_of(ch,fromIndex);
-}
+dg_int String::indexOf(String* str, dg_int fromIndex) {
+	dg_char* source = this->value;
+	dg_int sourceOffset = this->offset;
+	dg_int sourceCount = this->count;
 
-dg_int String::indexOf(const dg_char* str)
-{
-	return mstr.find_first_of(str,0);
-}
+	dg_char* target = str->value;
+	dg_int targetOffset = str->offset;
+	dg_int targetCount = str->count;
 
-dg_int String::indexOf(CharSequence* s,dg_int fromIndex)
-{
-	dg_int mlen=this->length();
-	dg_int slen=s->length();
+	if (fromIndex >= sourceCount) {
+		return (targetCount == 0 ? sourceCount : -1);
+	}
 
-	for(dg_int i=fromIndex;i<mlen;i++)
-	{
-		if(this->charAt(i)==s->charAt(0))
-		{
-			dg_boolean isEque=true;
-			for(dg_int j=0;j<slen;j++)
-			{
-				if(this->charAt(i+j)!=s->charAt(j))
-				{
-					isEque=false;
-					break;
-				}
-			}
+	if (fromIndex < 0) {
+		fromIndex = 0;
+	}
 
-			if(isEque)
-			{
-				return i;
+	if (targetCount == 0) {
+		return fromIndex;
+	}
+
+	dg_char first = target[targetOffset];
+	dg_int max = sourceOffset + (sourceCount - targetCount);
+
+	for (dg_int i = sourceOffset + fromIndex; i <= max; i++) {
+		/* Look for first character. */
+		if (source[i] != first) {
+			while(++i <= max && source[i] != first) ;
+		}
+
+		/* Found fisrt character, now look at the rest of v2 */
+		if (i <= max) {
+			dg_int j= i + 1;
+			dg_int end = j + targetCount - 1;
+
+			for (dg_int k = targetOffset + 1; j < end && source[j] == target[k]; j++, k++) ;
+
+			if (j == end) {
+				return i - sourceOffset;
 			}
 		}
 	}
 
 	return -1;
 }
-dg_int String::indexOf(CharSequence* s)
-{
-	return this->indexOf(s,0);
+
+dg_int String::lastIndexOf(dg_char ch) {
+	return this->lastIndexOf(ch, this->count - 1);
 }
 
+dg_int String::lastIndexOf(dg_char ch, dg_int fromIndex) {
+	dg_int min = this->offset;
+	dg_char* v = this->value;
 
-dg_int String::indexOf(String& str,dg_int fromIndex)
-{
-	return mstr.find_first_of(str.mstr,fromIndex);
+	dg_int i = this->offset + ((fromIndex >= this->count) ? count - 1 : fromIndex);
+
+	for (; i>=min; i--) {
+		if (v[i] == ch) {
+			return i - offset;
+		}
+	}
+
+	return -1;	
 }
 
-dg_int String::lastIndexOf(dg_char ch)
-{
-	return mstr.find_last_of(ch,0);
+dg_int String::lastIndexOf(String* str) {
+	return this->lastIndexOf(str, this->count - 1);
 }
 
-dg_int String::lastIndexOf(dg_char ch,dg_int fromIndex)
-{
-	return mstr.find_last_of(ch,fromIndex);
+dg_int String::lastIndexOf(String* str, dg_int fromIndex) {
+	dg_char* source = this->value;
+	dg_int sourceOffset = this->offset;
+	dg_int sourceCount = this->count;
+
+	dg_char* target = str->value;
+	dg_int targetOffset = str->offset;
+	dg_int targetCount = str->count;
+
+
+	if (fromIndex >= sourceCount) {
+        return (targetCount == 0 ? sourceCount : -1);
+	}
+    
+    if (fromIndex < 0) {
+    	fromIndex = 0;
+    }
+
+	if (targetCount == 0) {
+	    return fromIndex;
+	}
+
+    dg_char first  = target[targetOffset];
+    dg_int max = sourceOffset + (sourceCount - targetCount);
+
+    for (dg_int i = sourceOffset + fromIndex; i <= max; i++) {
+        /* Look for first character. */
+        if (source[i] != first) {
+            while (++i <= max && source[i] != first) ;
+        }
+
+        /* Found first character, now look at the rest of v2 */
+        if (i <= max) {
+            dg_int j = i + 1;
+            dg_int end = j + targetCount - 1;
+            for (dg_int k = targetOffset + 1; j < end && source[j] == 
+                     target[k]; j++, k++) ;
+
+            if (j == end) {
+                /* Found whole string. */
+                return i - sourceOffset;
+            }
+        }
+    }
+
+    return -1;
 }
 
-dg_int String::lastIndexOf(const dg_char* str)
-{
-	return mstr.find_last_of(str,mstr.size());
-}
-
-dg_int String::lastIndexOf(const dg_char* str,dg_int fromIndex)
-{
-	return mstr.find_last_of(str,fromIndex);
-}
-*/
 
 String* String::substring(dg_int beginIndex) {
 	return this->substring(beginIndex, beginIndex + this->count);
@@ -500,65 +575,66 @@ String* String::substring(dg_int beginIndex, dg_int endIndex) {
 	return new String(this->value + this->offset, beginIndex, endIndex - beginIndex);
 }
 
-/*
-String String::subString(dg_int beginIndex)
-{
-	return substring(beginIndex);
-}
-
-String String::subString(dg_int beginIndex,dg_int endIndex)
-{
-	return substring(beginIndex,endIndex);
-}
-
-String& String::concat(String& str)
-{
-	mstr.append(str.mstr);
-	return *this;
-}
-
-String& String::append(const dg_char* str)
-{
-	mstr.append(str);
-	return *this;
-}
-
-String& String::append(CharSequence* s)
-{
-	dg_int slen=s->length();
-	dg_char* temp=new dg_char[slen+1];
-
-	for(dg_int i=0;i<slen;i++)
-	{
-		temp[i]=s->charAt(i);
+String* String::concat(String* str) {
+	dg_int otherLen = str->length();
+	if (otherLen == 0) {
+	    return this;
 	}
 
-	temp[slen]=0;
-	mstr.append(temp);
-	delete[] temp;
-
-	return *this;
+	dg_char* buf = new dg_char[count + otherLen];
+	getChars(0, count, buf, 0);
+	str->getChars(0, otherLen, buf, count);
+	return new String(0, count + otherLen, buf);
 }
 
-String& String::replace(dg_char oldChar,dg_char newChar)
-{
-	dg_int len=mstr.length();
-	for(dg_int i=0;i<len;i++)
-	{
-		if(mstr[i]==oldChar)
-		{
-			mstr[i]=newChar;
+
+dg_int String::compareTo(String* o) {
+	dg_char* p1 = this->value;
+	dg_char* p2 = o->value;
+
+	dg_int pc1 = this->count;
+	dg_int pc2 = o->count;
+
+	while(pc1>0 && pc2>0) {
+		dg_char ch1 = *p1++;
+		dg_char ch2 = *p2++;
+
+		dg_int result = ch1 - ch2;
+
+		if (result != 0) {
+			return result;
 		}
+
+		pc1--;
+		pc2--;
 	}
 
-	return *this;
+	return pc1 - pc2;
 }
 
-dg_int String::compareTo(String& o)
-{
-	return mstr.compare(o.mstr);
+dg_int String::compareToIgnoreCase(String* str){
+	dg_char* p1 = this->value;
+	dg_char* p2 = str->value;
+
+	dg_int pc1 = this->count;
+	dg_int pc2 = str->count;
+
+	while(pc1>0 || pc2>0) {
+		dg_char ch1 = *p1++;
+		dg_char ch2 = *p2++;
+
+		dg_int result = unicode_tolower(ch1) - unicode_tolower(ch2);
+
+		if (result != 0) {
+			return result;
+		}
+
+		pc1--;
+		pc2--;
+	}
+
+	return pc1 - pc2;
 }
-*/
 
 dg_char String::charAt(dg_int index) {
 	if (index < 0) index = 0;
@@ -573,17 +649,14 @@ dg_int String::length() const {
 	return this->count;
 }
 
-/*
-CharSequence* String::subSequence(dg_int start,dg_int end)
-{
-	return &this->substring(start,end);
+CharSequence* String::subSequence(dg_int start, dg_int end) {
+	return this->substring(start, end);
 }
 
-String String::toString()
+String* String::toString()
 {
-	return String(mstr);
+	return new String(this);
 }
-*/
 
 const dg_char* String::toChars() {
 	return Arrays<dg_char>::copyOf(this->value, this->count);
@@ -593,6 +666,9 @@ Array<dg_char> String::toCharArray() {
 	return Array<dg_char>(this->toChars(), this->count);
 }
 
+void String::getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) {
+    Arrays<dg_char>::copyOf(value, offset + srcBegin, dst, dstBegin, srcEnd - srcBegin);
+}
 
 Array<dg_byte> String::getBytes() {
 	return this->getBytes(null);
@@ -606,313 +682,240 @@ dg_boolean String::matches(String* regex) {
 	return Pattern::matches(regex, this);
 }
 
-/*
-dg_boolean String::contains(CharSequence* s)
-{
-	if(s==null)
-	{
-		throw NullPointerException();
-	}
 
-	dg_int mlen=this->length();
-	dg_int slen=s->length();
+dg_boolean String::contains(CharSequence* s) {
+	dg_boolean result = dg_false;
+	String* str = s->toString();
+	result = this->indexOf(str) > -1;
+	SafeDelete(str);
+	return result;
+}
 
-	for(dg_int i=0;i<mlen;i++)
-	{
-		if(this->charAt(i)==s->charAt(0))
-		{
-			dg_boolean isEque=true;
-			for(dg_int j=0;j<slen;j++)
-			{
-				if(this->charAt(i+j)!=s->charAt(j))
-				{
-					isEque=false;
-					break;
-				}
+String* String::replace(dg_char oldChar, dg_char newChar) {
+	if (oldChar != newChar) {
+	    dg_int len = this->count;
+	    dg_int i = -1;
+	    dg_char* val = this->value; /* avoid getfield opcode */
+	    dg_int off = offset;   /* avoid getfield opcode */
+
+	    while (++i < len) {
+			if (val[off + i] == oldChar) {
+			    break;
+			}
+	    }
+
+	    if (i < len) {
+			dg_char* buf = new dg_char[len];
+
+			for (dg_int j = 0 ; j < i ; j++) {
+			    buf[j] = val[off+j];
 			}
 
-			if(isEque)
-			{
-				return true;
+			while (i < len) {
+			    dg_char c = val[off + i];
+			    buf[i] = (c == oldChar) ? newChar : c;
+			    i++;
 			}
+
+			return new String(buf, 0, len);
 		}
 	}
 
-	return false;
+	return this;
 }
 
-dg_boolean String::contains(String s)
-{
-	dg_int pos=this->mstr.find(s.mstr,0);
+String* String::replace(CharSequence* target, CharSequence* replacement) {
+    String* targetStr = target->toString();
+    String* replacementStr = replacement->toString();
 
-	return pos>0?true:false;
+    this->replaceAll(targetStr, replacementStr);
+
+    SafeDelete(targetStr);
+    SafeDelete(replacementStr);
 }
 
-String& String::replace(CharSequence* target,CharSequence* replacement)
-{
-	String* temp=new String();
-	
-	dg_int index1=0,index2=0;
-	dg_int len=this->length();
-	dg_int tlen=target->length();
+String* String::replaceAll(String* regex, String* replacement) {
+    Pattern* p = Pattern::compile(regex);
+    Matcher* m = p->matcher(this);
 
-	for(;;)
-	{
-		index2=this->indexOf(target,index1);
-		if(index2==-1)
-		{
-			break;
-		}
+    String* ret = m->replaceAll(replacement);
+    
+    SafeDelete(m);
+    SafeDelete(p);
 
-		temp->append(this->subSequence(index1,index2));
-		temp->append(replacement);
-		index1=index2+tlen;
-		index2=index1;
+    return ret;
+} 
+
+String* String::replaceFirst(String* regex, String* replacement) {
+
+	return null;
+}
+
+
+Array<String*> String::split(dg_char ch) {
+	return Array<String*>();
+}
+
+Array<String*> String::split(String* regex){
+	return Array<String*>();
+}
+
+String* String::toLowerCase() {
+	dg_char* buf = new dg_char[this->count];
+	this->getChars(0, this->count, buf, 0);
+
+	for (dg_int i=0; i<this->count; i++) {
+		buf[i] = unicode_tolower(buf[i]);
 	}
 
-	temp->append(this->subSequence(index1,len));
-
-	return *temp;
+	return new String(0, this->count, buf);
 }
 
-String& String::replaceFirst(String& regex,String& replacement)
-{
-	Regexp tempReg(regex);
-	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,1);
-	return *new String(result);
-}
+String* String::toUpperCase(){
+	dg_char* buf = new dg_char[this->count];
+	this->getChars(0, this->count, buf, 0);
 
-String& String::replaceFirst(String& regex,const dg_char* replacement)
-{
-	Regexp tempReg(regex);
-	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,1);
-	return *new String(result);
-}
-
-String& String::replaceAll(String& regex,String& replacement)
-{
-	Regexp tempReg(regex);
-	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement.mstr.c_str(),-1,-1);
-	return *new String(result);
-}
-
-String& String::replaceAll(String& regex,const dg_char* replacement)
-{
-	Regexp tempReg(regex);
-	dg_char* result = tempReg.Replace(this->mstr.c_str(),replacement,-1,-1);
-	return *new String(result);
-}
-
-Array<String>& String::split(dg_char ch)
-{
-	dg_int npart=1;
-
-	dg_int index=0;
-	for(;;)
-	{
-		index=this->indexOf(ch,index);
-		if(index==-1)
-		{	
-			break;
-		}
-		index++;
-		npart++;
+	for (dg_int i=0; i<this->count; i++) {
+		buf[i] = unicode_toupper(buf[i]);
 	}
 
-	Array<String>& arr=*new Array<String>(npart);
+	return new String(0, this->count, buf);
+}
 
-	dg_int index1=0,index2=0;
+String* String::trim() {
+	dg_int len = count;
+	dg_int st = 0;
+	dg_int off = offset;      /* avoid getfield opcode */
+	dg_char* val = value;    /* avoid getfield opcode */
 
-	for(dg_int i=0;;i++)
-	{
-		index2=this->indexOf(ch,index1);
-		if(index2==-1)
-		{	
-			arr[npart-1]=this->substring(index1,this->length());
-			break;
-		}
-		
-		arr[i]=this->substring(index1,index2);
-
-		index1=index2+1;
-		index2=index1;
+	while ((st < len) && (val[off + st] <= ' ')) {
+	    st++;
+	}
+	while ((st < len) && (val[off + len - 1] <= ' ')) {
+	    len--;
 	}
 
-	return arr;
-}
-
-Array<String>& String::split(String reg)
-{
-	Regexp regexp(reg);
-
-	CContext * pContext = regexp.PrepareMatch(this->mstr.c_str());
-
-
-	dg_int npart=1;
-
-    MatchResult result = regexp.Match(pContext);
-
-    while( result.IsMatched() )
-    {
-		npart++;
-        result = regexp.Match(pContext);
-    }
-
-	Array<String>& arr=*new Array<String>(npart);
-
-	pContext = regexp.PrepareMatch(this->mstr.c_str());
-	result = regexp.Match(pContext);
-
-	dg_int index1=0,index2=0;
-	dg_int i=0;
-    while(result.IsMatched())
-    {
-		index2=result.GetStart();
-		arr[i]=this->substring(index1,index2);
-		index1=result.GetEnd();
-
-        result = regexp.Match(pContext);
-		i++;
-    }
-
-	arr[npart-1]=this->substring(index1,this->length());
-
-    regexp.ReleaseContext(pContext);
-
-	return arr;
-}
-
-String& String::toLowerCase()
-{
-	dg_int len=this->length();
-
-	for(dg_int i=0;i<len;i++)
-	{
-		mstr[i]=tolower(mstr[i]);
-	}
-
-	return *this;
-}
-
-String& String::toUpperCase()
-{
-	dg_int len=this->length();
-
-	for(dg_int i=0;i<len;i++)
-	{
-		mstr[i]=toupper(mstr[i]);
-	}
-
-	return *this;
-}
-
-String String::trim()
-{
-	dg_int start=0;
-	dg_int end=this->length();
-
-	if(end <= start) return String(mstr);
-
-	for(dg_int i=0;i<end;i++)
-	{
-		if(mstr[i]>0x20)
-		{
-			start=i;
-			break;
-		}
-	}
-
-	for(dg_int i=end-1;i>start;i--)
-	{
-		if(mstr[i]>0x20)
-		{
-			end=i+1;
-			break;
-		}
-	}
-
-	return this->substring(start,end);
+	return ((st > 0) || (len < count)) ? substring(st, len) : new String(this);
 }
 
 
-String& String::copyValueOf(const dg_char* data)
-{
-	return *new String(data);
+//----------------------------------------------------------
+
+String* String::copyValueOf(const dg_char* data) {
+	return new String(data);
 }
 
-String& String::copyValueOf(const dg_char* data,dg_int offset,dg_int count)
-{
-	return *new String(data,offset,count);
+String* String::copyValueOf(const dg_char* data, dg_int offset, dg_int count) {
+	// All public String constructors now copy the data.
+	return new String(data, offset, count);
 }
 
-String String::format(const dg_char* format,...)
-{
-	dg_char text[256];
+String* String::format(String* format, va_list args) {
+	Array<dg_byte> data = format->getBytes("ISO-8859-1");
+	int bufSize = data.size();
+
+	int ret = 0;
+	dg_byte* buf = null;
+
+	do {
+		bufSize*=2;
+		SafeDeleteArray(buf);
+		buf = new dg_byte[bufSize];
+		memset(buf, '\0', bufSize);
+		ret = vsnprintf(buf, bufSize - 1, data.raw(), args);
+	} while(ret < 0 || ret>bufSize);
+
+	data.release();
+
+	String* result = new String(buf);
+	SafeDeleteArray(buf);
+
+	return result;
+}
+
+
+String* String::format(String* format, ...) {
+	String* result = null;
+
+	va_list args;
+	va_start(args, format);
+		result = String::format(format, args);
+	va_end(args);
+
+	return result;
+}
+
+String* String::format(const char* format, ...) {
+	String* result = null;
+
+	String* fmt = new String(format);
+
 	va_list ap;
-
 	va_start(ap, format);
-	    vstprintf_s(text,256,format, ap);
-	va_end(ap);	
+		result = String::format(fmt, ap);
+	va_end(ap);
+	
+	SafeDelete(fmt);
 
-	return String::valueOf(text);
+	return result;
 }
 
-String String::format(String& format, ...)
-{
-	dg_char text[256];
+String* String::format(const wchar_t* format, ...){
+	String* result = null;
+
+	String* fmt = new String(format);
+
 	va_list ap;
+	va_start(ap, format);
+		result = String::format(fmt, ap);
+	va_end(ap);
+	
+	SafeDelete(fmt);
 
-	const dg_char* fmt=format.mstr.c_str();
-
-	va_start(ap, fmt);
-	    vstprintf_s(text,256,fmt, ap);
-	va_end(ap);	
-        
-	return String::valueOf(text);
+	return result;
 }
 
-String String::valueOf(dg_boolean b)
-{
-	if(b)
-	{
-		return String::valueOf(L"true");
-	}
 
-	return String::valueOf(L"false");
+String* String::valueOf(const dg_char* data, dg_int offset, dg_int count){
+	return new String(data, offset, count);
 }
 
-String String::valueOf(dg_char c)
-{
-	return String(&c);
+String* String::valueOf(const dg_char* data){
+	return new String(data);
 }
 
-String String::valueOf(dg_int i)
-{
-	return String::format(L"%d", i);
+String* String::valueOf(const char* value){
+	return new String(value);
 }
 
-String String::valueOf(long l)
-{
-	return String::format(L"%ld", l);
+String* String::valueOf(const wchar_t* value){
+	return new String(value);
 }
 
-String String::valueOf(float f)
-{
-	return String::format(L"%f", f);
+String* String::valueOf(dg_boolean b){
+	return b ? new String("true") : new String("false");
 }
 
-String String::valueOf(double d)
-{
-	return String::format(L"%lf", d);
+String* String::valueOf(dg_char c){
+	dg_char* data = new dg_char[1];
+	data[0] = c;
+	return new String(0, 1, data);
 }
 
-String String::valueOf(const Char* data)
-{
-	return String(data);
+
+String* String::valueOf(dg_int i){
+	return Integer::toString(i);
 }
 
-String String::valueOf(const Char* data, dg_int offset, dg_int count)
-{
-	return String(data, offset, count);
-}*/
+String* String::valueOf(dg_long l){
+	return Long::toString(l);
+}
+
+String* String::valueOf(dg_float f){
+	return null;
+}
+
+String* String::valueOf(dg_double d){
+	return null;
+}
 

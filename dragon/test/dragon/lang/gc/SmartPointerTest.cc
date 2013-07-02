@@ -1,12 +1,12 @@
 /*
 * Copyright 2013 the original author or authors.
-* 
+*
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
-* 
+*
 *      http://www.apache.org/licenses/LICENSE-2.0
-* 
+*
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,30 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/07/01
  **********************************************************************/
 
 
-#ifndef Number_Lang_Dragon_H
-#define Number_Lang_Dragon_H
+#include <gtest/gtest.h>
 
-#include <dragon/config.h>
-
-BeginPackage2(dragon, lang)
+#include <dragon/lang/String.h>
+#include <dragon/lang/gc/SmartPointer.h>
 
 Import dragon::lang;
+Import dragon::lang::gc;
 
-class _DragonExport Number {
-public:
-	Number();
-	virtual ~Number();
+TEST(Dragon_Lang_Gc_SmartPointerTest, New) {
+	P<String> p = new String("abc");
+}
 
-public:
-	
-protected:
-	
-};//Number
-
-EndPackage2 //(dragon, lang)
-
-#endif //Number_Lang_Dragon_H
+TEST(Dragon_Lang_Gc_SmartPointerTest, New2) {
+	P<String> p = new String("abc");
+	P<String> p2 = p;
+}

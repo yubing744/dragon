@@ -23,7 +23,6 @@
 #include <gtest/gtest.h>
 
 #include <dragon/lang/String.h>
-#include <dragon/lang/basic_type.h>
 
 
 Import dragon::lang;
@@ -32,7 +31,7 @@ TEST(Dragon_Lang_String_Test, NewWithBasicChar) {
     String* str = new String("Hello World");
 	EXPECT_EQ(11, str->length());
 
-	dg_char ch1 = ToChar('H');
+	dg_char ch1 = 'H';
 	dg_char ch2 = str->charAt(0);
 	
 	dg_boolean isEqual = (ch1 == ch2);
@@ -46,7 +45,7 @@ TEST(Dragon_Lang_String_Test, NewWithChar) {
     String* str = new String(L"CN China!");
 	EXPECT_EQ(9, str->length());
 
-	dg_char ch1 = ToChar(L'C');
+	dg_char ch1 = L'C';
 	dg_char ch2 = str->charAt(0);
 
 	dg_boolean isEqual = (ch1 == ch2);
@@ -61,7 +60,7 @@ TEST(Dragon_Lang_String_Test, NewWithString) {
 
 	String* str2 = new String(str);
 
-	dg_char ch1 = ToChar(L'C');
+	dg_char ch1 = L'C';
 	dg_char ch2 = str2->charAt(0);
 
 	dg_boolean isEqual = (ch1 == ch2);
@@ -77,7 +76,7 @@ TEST(Dragon_Lang_String_Test, NewWithStringOffset) {
 
 	String* str2 = new String(str);
 
-	dg_char ch1 = ToChar(L'C');
+	dg_char ch1 = L'C';
 	dg_char ch2 = str2->charAt(0);
 
 	dg_boolean isEqual = (ch1 == ch2);
@@ -93,7 +92,7 @@ TEST(Dragon_Lang_String_Test, toCharArray) {
 
 	Array<dg_char> charArray = str->toCharArray();
 
-	dg_char ch1 = ToChar(L'C');
+	dg_char ch1 = L'C';
 	dg_char ch2 = charArray[0];
 
 	dg_boolean isEqual = (ch1 == ch2);
@@ -110,7 +109,7 @@ TEST(Dragon_Lang_String_Test, toChars) {
 
 	const dg_char* charArray = str->toChars();
 
-	dg_char ch1 = ToChar(L'C');
+	dg_char ch1 = L'C';
 	dg_char ch2 = charArray[0];
 
 	dg_boolean isEqual = (ch1 == ch2);
@@ -373,14 +372,393 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_big_FOR_WCHAR) {
     SafeDelete(str1);
 }
 
-TEST(Dragon_Lang_String_Test, matches) {
-    String* regex = new String("a*b");
-    String* subject = new String("aaaaab");
+TEST(Dragon_Lang_String_Test, compareTo01) {
+    String* str1 = new String("");
+    String* str2 = new String("");
 
-    dg_boolean b = subject->matches(regex);
+    dg_int b = str1->compareTo(str2);
 
-    EXPECT_EQ(dg_true, b);
+    EXPECT_EQ(0, b);
 
-    SafeDelete(regex);
-    SafeDelete(subject);
+    SafeDelete(str1);
+    SafeDelete(str2);
 }
+
+TEST(Dragon_Lang_String_Test, compareTo02) {
+    String* str1 = new String("a");
+    String* str2 = new String("a");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(0, b);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareTo03) {
+    String* str1 = new String("ab");
+    String* str2 = new String("ab");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b == 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareTo04) {
+    String* str1 = new String("");
+    String* str2 = new String("a");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b < 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareTo05) {
+    String* str1 = new String("a");
+    String* str2 = new String("");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b > 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+
+TEST(Dragon_Lang_String_Test, compareTo06) {
+    String* str1 = new String("ab");
+    String* str2 = new String("ac");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b < 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareTo07) {
+    String* str1 = new String("ad");
+    String* str2 = new String("ac");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b > 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase01) {
+    String* str1 = new String("");
+    String* str2 = new String("");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(0, b);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase02) {
+    String* str1 = new String("a");
+    String* str2 = new String("a");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(0, b);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase03) {
+    String* str1 = new String("Ab");
+    String* str2 = new String("aB");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(dg_true, b == 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase04) {
+    String* str1 = new String("");
+    String* str2 = new String("a");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(dg_true, b < 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase05) {
+    String* str1 = new String("a");
+    String* str2 = new String("");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(dg_true, b > 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase06) {
+    String* str1 = new String("aB");
+    String* str2 = new String("ac");
+
+    dg_int b = str1->compareTo(str2);
+
+    EXPECT_EQ(dg_true, b < 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, compareToIgnoreCase07) {
+    String* str1 = new String("AD");
+    String* str2 = new String("ac");
+
+    dg_int b = str1->compareToIgnoreCase(str2);
+
+    EXPECT_EQ(dg_true, b > 0);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+
+TEST(Dragon_Lang_String_Test, hashCode) {
+    String* str1 = new String("ab");
+    String* str2 = new String("ab");
+
+    dg_int b1 = str1->hashCode();
+    dg_int b2 = str2->hashCode();
+
+    EXPECT_EQ(dg_true, b1 == b2);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+}
+
+TEST(Dragon_Lang_String_Test, concat) {
+    String* result = new String("abab");
+    String* str1 = new String("ab");
+    String* str2 = new String("ab");
+
+    String* ret = str1->concat(str2);
+    dg_boolean isEqual = ret->equals(result);
+
+    EXPECT_EQ(dg_true, isEqual);
+
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(str2);
+
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, trim) {
+    String* result = new String("abab");
+    String* str1 = new String("  abab");
+
+    String* ret = str1->trim();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, trim02) {
+    String* result = new String("abab");
+    String* str1 = new String("  abab  ");
+
+    String* ret = str1->trim();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, trim03) {
+    String* result = new String("abab");
+    String* str1 = new String("abab  ");
+
+    String* ret = str1->trim();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, trim04) {
+    String* result = new String("abab");
+    String* str1 = new String("abab\t");
+
+    String* ret = str1->trim();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+
+TEST(Dragon_Lang_String_Test, trim05) {
+    String* result = new String("abab");
+    String* str1 = new String("abab");
+
+    String* ret = str1->trim();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, toUpperCase) {
+    String* result = new String("ABAB");
+    String* str1 = new String("abab");
+
+    String* ret = str1->toUpperCase();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, toUpperCase02) {
+    String* result = new String("ABAB");
+    String* str1 = new String("abaB");
+
+    String* ret = str1->toUpperCase();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+
+TEST(Dragon_Lang_String_Test, toLowerCase) {
+    String* result = new String("abab");
+    String* str1 = new String("ABAB");
+
+    String* ret = str1->toLowerCase();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, toLowerCase02) {
+    String* result = new String("abab");
+    String* str1 = new String("abaB");
+
+    String* ret = str1->toLowerCase();
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, replaceAll) {
+    String* result = new String("Hello Baby, my Baby");
+    String* str1 = new String("Hello World, my World");
+    String* str2 = new String("World");
+    String* str3 = new String("Baby");
+
+    String* ret = str1->replaceAll(str2, str3);
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str3);
+    SafeDelete(str2);
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, toStringInteger) {
+    String* result = new String("1234");
+
+    String* ret = String::valueOf(1234);
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, format) {
+    String* result = new String("abc , he he");
+    String* str1 = new String("%s , he he");
+
+    String* ret = String::format(str1, "abc");
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(str1);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, format02) {
+    String* result = new String("abc , he he");
+
+    String* ret = String::format("%s , he he", "abc");
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, format03) {
+    String* result = new String("abc32");
+
+    String* ret = String::format("%s%d", "abc", 32);
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+    
+    SafeDelete(result);
+}
+
+
