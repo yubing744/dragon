@@ -79,8 +79,6 @@ void Pattern::compile() {
         &erroffset,           /* for error offset */
         NULL);                /* use default character tables */
 
-    SafeDeleteArray(pattern);
-
     if (re != NULL) {
         this->re = re;
         this->compiled = dg_true;

@@ -193,7 +193,7 @@ String::String(const dg_char* value){
 		size++;
 	}
 	
-	dg_char* buf = new dg_char[count + 1];	
+	dg_char* buf = new dg_char[size + 1];	
 	Arrays<dg_char>::copyOf(value, 0, buf, 0, size);
 	buf[size] = NULL_CHAR;
 

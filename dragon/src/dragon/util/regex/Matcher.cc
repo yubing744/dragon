@@ -123,8 +123,6 @@ dg_boolean Matcher::search(dg_int from) {
         count);                   /* number of elements in the output vector */
     }
 
-    SafeDeleteArray(subject);
-
     if (rc > 0) {
         SafeDeleteArray(this->groups);
         this->groups = ovector;
