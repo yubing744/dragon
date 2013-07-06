@@ -60,7 +60,7 @@ class Module:
         self.product          = []
 
     def GetLibraries(self):
-        return self.product+GetLibraries(self.linked_modules)
+        return self.product + GetLibraries(self.linked_modules)
         
     def GetIncludeDirs(self):
         return GetIncludeDirs(self.included_modules+self.build_include_dirs, self.name)
@@ -70,7 +70,7 @@ class LibraryModule(Module):
                  build_source_dirs     = ['.'], 
                  build_source_files    = {},
                  source_root           = 'Source',
-                 build_source_pattern  = ['*.c', '*.cpp'], 
+                 build_source_pattern  = ['*.c', '*.cpp', '*.cc'], 
                  build_include_dirs    = [], 
                  included_modules      = [], 
                  included_only_modules = [],
@@ -80,11 +80,12 @@ class LibraryModule(Module):
                  extra_cpp_defines     = [],
                  shared                = False,
                  install               = False) :
+        self.shared = shared
         build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
         Module.__init__(self, 
                         name, 
-                        Split(included_modules)+Split(included_only_modules)+Split(build_source_dirs), 
-                        Split(linked_modules)+Split(included_modules))
+                        Split(included_modules) + Split(included_only_modules) + Split(build_source_dirs), 
+                        Split(linked_modules) + Split(included_modules))
 
         self.build_include_dirs = build_include_dirs
 
@@ -92,6 +93,7 @@ class LibraryModule(Module):
             self.env = env.Clone()
         else:
             self.env = environment.Clone()
+
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
         # store this new object in the module dictionary
@@ -125,12 +127,24 @@ class LibraryModule(Module):
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
         self.env.Alias(name, self.product)
             
+        
+
         # copy to Targets folder
         if install is True:
             inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
             if env['build_config'] == 'release' and env.has_key('STRIP'):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
-        
+ 
+    def GetLibraries(self):
+        if sys.platform == "win32" and self.shared and len(self.product) > 0:
+          libs = [];
+          libs.append(self.product[1])
+          libs += GetLibraries(self.linked_modules)  
+          return libs
+        else:
+          return self.product + GetLibraries(self.linked_modules)
+
+
 def Application(name, 
                 source_root           = 'Source',
                 build_source_dirs     = ['.'], 
@@ -217,6 +231,7 @@ if os.path.exists(target_config_file):
 # all the modules not listed in included_modules that are used by the
 # module's implementation only.
 #######################################################
+
 # Neptune
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
@@ -311,81 +326,89 @@ libpcre32_SOURCES = Split("""
     pcre32_xclass.c
 """)
 
-LibraryModule(name                  = 'pcre',
-              build_include_dirs    = [
-                  THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-              ],  
-              source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-              build_source_dirs     = [],         
-              build_source_files    = {
-                  "." : libpcre_SOURCES
-              },    
-              extra_cpp_defines     = [
-                  'HAVE_CONFIG_H', 
-                  'LINK_SIZE=4', 
-                  'HAVE_STRERROR'
-              ],     
-              shared                = True,                    
-              install               = True)
+LibraryModule(
+    name                  = 'pcre',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : libpcre_SOURCES
+    },    
+    extra_cpp_defines     = [
+        'HAVE_CONFIG_H', 
+        'LINK_SIZE=4', 
+        'HAVE_STRERROR'
 
+        #'PCRE_STATIC'
+    ],     
+    shared                = True,                    
+    install               = True
+)
 
-LibraryModule(name                  = 'pcre32',
-              build_include_dirs    = [
-                  THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-              ],  
-              source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-              build_source_dirs     = [],         
-              build_source_files    = {
-                  "." : libpcre32_SOURCES
-              },    
-              extra_cpp_defines     = [
-                  'HAVE_CONFIG_H', 
-                  'LINK_SIZE=4', 
-                  'HAVE_STRERROR'
-              ],     
-              shared                = True,                    
-              install               = True)
+LibraryModule(
+    name                  = 'pcre32',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : libpcre32_SOURCES
+    },    
+    extra_cpp_defines     = [
+        'HAVE_CONFIG_H', 
+        'LINK_SIZE=4', 
+        'HAVE_STRERROR'
+
+        #'PCRE_STATIC'
+    ],     
+    shared                = True,                    
+    install               = True
+)
 
 # lib unicode 
-LibraryModule(name                  = 'unicode',
-              build_include_dirs    = [
-                  THIRD_PARTY_SOURCE_ROOT + "/libunicode-0.4",
-              ],  
-              source_root           = THIRD_PARTY_SOURCE_ROOT + "/libunicode-0.4",
-              build_source_dirs     = [],         
-              build_source_files    = {
-                  "." : "*.c",
-                  "iso" : "*.c",
-                  "jis" : "*.c",
-                  "msft" : "*.c"
-              },    
-              extra_cpp_defines     = [
-                  'HAVE_CONFIG_H', 
-                  'LINK_SIZE=4', 
-                  'HAVE_STRERROR'
-              ],     
-              shared                = True,                    
-              install               = True)
+LibraryModule(
+    name                  = 'unicode',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libunicode-0.4",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libunicode-0.4",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : "*.c",
+        "iso" : "*.c",
+        "jis" : "*.c",
+        "msft" : "*.c"
+    },    
+    extra_cpp_defines     = [
+        'HAVE_CONFIG_H', 
+        'LINK_SIZE=4', 
+        'HAVE_STRERROR'
+    ],     
+    shared                = False,                    
+    install               = True
+)
 
+# lib google test       
+LibraryModule(
+    name                  = 'gtest',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
+        THIRD_PARTY_SOURCE_ROOT + '/googletest'
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT,
+    build_source_files    = {
+        "googletest/src" : "gtest-all.cc"
+    },
+    extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],              
+    linked_modules        = env['DRAGON_EXTRA_LIBS'],
+    shared                = False,
+    install               = True
+)
 
-
-
-# lib google test			  
-LibraryModule(name                  = 'gtest',
-              build_include_dirs    = [
-                  THIRD_PARTY_SOURCE_ROOT + '/googletest/include',
-                  THIRD_PARTY_SOURCE_ROOT + '/googletest'
-              ],  
-              source_root           = THIRD_PARTY_SOURCE_ROOT,
-              build_source_files    = {
-                  "googletest/src" : "gtest-all.cc"
-              },
-              extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],              
-              linked_modules        = env['DRAGON_EXTRA_LIBS'],
-              shared                = True,
-              install               = True)
-
-# lib cppunit   			  
+# lib cppunit           
 #LibraryModule(name                  = 'cppunit',
 #              source_root           = THIRD_PARTY_SOURCE_ROOT,
 #              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
@@ -433,18 +456,20 @@ dragon_SOURCES = {
     """)
 }
     
-LibraryModule(name                  = 'dragon',
-              build_include_dirs    = ['include'],
-              build_source_files    = dragon_SOURCES,
-              extra_cpp_defines     = [
-                  'DRAGON_SHARED', 
-                  'BUILDING_DRAGON_SHARED',
-                  'ENABLE_LOG'
-              ],
-              source_root           = 'src',
-              included_modules      = ["pcre32", "unicode"], 
-              shared                = True,
-              install               = True)
+LibraryModule(
+    name                  = 'dragon',
+    build_include_dirs    = ['include'],
+    build_source_files    = dragon_SOURCES,
+    extra_cpp_defines     = [
+        'DRAGON_SHARED', 
+        'BUILDING_DRAGON_SHARED',
+        'ENABLE_LOG'
+    ],
+    source_root           = 'src',
+    included_modules      = ["pcre32", "unicode"], 
+    shared                = True,
+    install               = True
+)
 
 
 # dragon test
@@ -475,15 +500,14 @@ dragon_test_SOURCES = {
     """)
 }
              
-Application(name                  = 'dragon_test', 
-            source_root           = 'test',
-            build_source_files    = dragon_test_SOURCES,
-            deps                  = [ 
-                'gtest', 
-                'pcre', 
-                'dragon'
-            ],
-#            deps                  = ['dragon'],            
-            install               = True)
-
+Application(
+    name                  = 'dragon_test', 
+    source_root           = 'test',
+    build_source_files    = dragon_test_SOURCES,
+    deps                  = [ 
+        'gtest',
+        'dragon'
+    ],          
+    install               = True
+)
 

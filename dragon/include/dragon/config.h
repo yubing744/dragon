@@ -70,14 +70,21 @@
 		  build configuration to ensure that at most one of these is set
 	#endif
 
-	#ifdef BUILDING_DRAGON_SHARED
-		#define DRAGONEXPORT __declspec(dllexport)
-	#elif USING_DRAGON_SHARED
-		#define DRAGONEXPORT __declspec(dllimport)
-	#else
-		#define DRAGONEXPORT
-	#endif  // BUILDING_DRAGON_SHARED
+	#ifndef DRAGONEXPORT	  
+		#ifdef BUILDING_DRAGON_SHARED
+			#define DRAGONEXPORT __declspec(dllexport)
+		#endif
+    #endif
 
+    #ifndef DRAGONEXPORT
+		#ifdef USING_DRAGON_SHARED
+			#define DRAGONEXPORT __declspec(dllimport)
+		#endif  // BUILDING_DRAGON_SHARED
+    #endif 
+
+    #ifndef DRAGONEXPORT
+		  #define DRAGONEXPORT
+    #endif
 #else  // _WIN32
 
 	// Setup for Linux shared library export.

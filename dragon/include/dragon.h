@@ -25,10 +25,10 @@
 #ifndef Dragon_H
 #define Dragon_H
 
-#define DRAGON_HEADER_BUILD
+#define USING_DRAGON_SHARED
+#include <dragon/config.h>
 
-#include "dragon/config.h"
-
+/*
 #include "dragon/util/regex/regex.h"
 #include "dragon/lang/gc/gc.h"
 #include "dragon/lang/reflect/reflect.h"
@@ -46,6 +46,6 @@ Import dragon::util;
 Import dragon::xml;
 Import dragon::util::zip;
 Import dragon::util::regex;
-
+*/
 
 #endif // Dragon_H

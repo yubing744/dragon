@@ -35,36 +35,15 @@ public:
 	~Arrays(){}
 
 public:
-	static T* copyOf(const T* src, dg_int count) {
-		return Arrays::copyOf(src, 0, count);
-	};
-
-	static T* copyOf(const T* src, dg_int offset, dg_int count) {
-		T* target = new T[count + 1];
-		Arrays::copyOf(src, offset, target, 0, count);
-		target[count] = null;
-
-		return target;
-	};
 
 	static void copyOf(const T* src, dg_int srcOffset, T* target, dg_int targetOffset, dg_int count) {
-		/*
 		T* p1 = const_cast<T*>(src) + srcOffset;
-		T* p2 = const_cast<T*>(target) + targetOffset;
+		T* p2 = target + targetOffset;
 
 		dg_int len = count;
-
-		while(--len > 0) {
-			p2 = p1;
-
-			p2++;
-			p1++;
-		}*/
-
-		for (dg_int i=0; i<count; i++) {
-			target[i + targetOffset] = src[i + srcOffset];
-		}
+		while(len-- >0) *p2++ = *p1++;
 	};
+
 };//Arrays
 
 EndPackage2///(dragon, lang)

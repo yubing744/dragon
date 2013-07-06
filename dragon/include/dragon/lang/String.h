@@ -29,6 +29,10 @@
 #include <cstdlib>
 #include <locale>
 
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+
 Import std;
 
 #include "Math.h"
@@ -594,9 +598,13 @@ public: // Implements Interface CharSequence
 	virtual String* toString();
 
 public:
+    /**
+     * return the pointer of string,
+     */    
 	const dg_char* toChars();
 	Array<dg_char> toCharArray();
 	void getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin);
+     
 	Array<dg_byte> getBytes();
 	Array<dg_byte> getBytes(const char* charset);
 

@@ -23,6 +23,7 @@
 
 #include <gtest/gtest.h>
 
+#include <dragon.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/gc/SmartPointer.h>
 

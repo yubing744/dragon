@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Copyright 2013 the original author or authors.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,14 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <gtest/gtest.h>
-#include <dragon/config.h>
-#include <dragon/lang/String.h>
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
 
+#include <gtest/gtest.h>
+
+#include <dragon.h>
+#include <dragon/lang/String.h>
 #include <dragon/util/regex/Pattern.h>
 #include <dragon/util/regex/Matcher.h>
 

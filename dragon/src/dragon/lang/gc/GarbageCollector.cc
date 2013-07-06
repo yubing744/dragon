@@ -22,6 +22,7 @@
 
 #include <dragon/lang/gc/GarbageCollector.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 
 Import dragon::lang::gc;

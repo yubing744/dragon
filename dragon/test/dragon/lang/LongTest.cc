@@ -22,6 +22,8 @@
 
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
 #include <dragon/lang/Long.h>
 
 Import dragon::lang;

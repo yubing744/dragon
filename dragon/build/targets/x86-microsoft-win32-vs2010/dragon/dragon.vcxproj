@@ -67,9 +67,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\dragon.h" />
     <ClInclude Include="..\..\..\..\include\dragon\config.h" />
-    <ClInclude Include="..\..\..\..\include\dragon\lang\Array.h" />
-    <ClInclude Include="..\..\..\..\include\dragon\lang\basic_type.h" />
-    <ClInclude Include="..\..\..\..\include\dragon\lang\CharSequence.h" />
     <ClInclude Include="include\dragon\lang\Class.h" />
     <ClInclude Include="include\dragon\lang\ClassNotFoundException.h" />
     <ClInclude Include="include\dragon\lang\Comparable.h" />

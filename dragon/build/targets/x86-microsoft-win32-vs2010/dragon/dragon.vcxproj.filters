@@ -210,9 +210,6 @@
     <ClInclude Include="include\dragon\lang\reflect\Type.h">
       <Filter>include\dragon\lang\reflect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\dragon\lang\Array.h" />
-    <ClInclude Include="..\..\..\..\include\dragon\lang\basic_type.h" />
-    <ClInclude Include="..\..\..\..\include\dragon\lang\CharSequence.h" />
     <ClInclude Include="..\..\..\..\include\dragon.h">
       <Filter>include</Filter>
     </ClInclude>

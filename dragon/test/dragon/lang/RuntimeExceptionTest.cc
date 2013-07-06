@@ -21,6 +21,8 @@
  **********************************************************************/
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
 #include <dragon/lang/RuntimeException.h>
 
 Import dragon::lang;

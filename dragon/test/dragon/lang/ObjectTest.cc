@@ -20,8 +20,9 @@
  * Created:     2013/07/02
  **********************************************************************/
 
-
 #include <gtest/gtest.h>
+ 
+#include <dragon.h>
 #include <dragon/lang/Object.h>
 
 Import dragon::lang;

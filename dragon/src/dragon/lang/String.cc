@@ -41,8 +41,6 @@
 
 #include <dragon/util/regex/regex.h>
 
-//#define vstprintf_s vswprintf_s
-//#define _ltot_s _ltow_s
 
 Import dragon::lang;
 Import dragon::util::regex;
@@ -189,16 +187,19 @@ String::String(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* c
 
 
 String::String(const dg_char* value){
-	this->offset = 0;
-	
 	dg_int size = 0;
 	dg_char* cur = const_cast<dg_char*>(value);
 	while(*(cur++) != null) {
 		size++;
 	}
 	
+	dg_char* buf = new dg_char[count + 1];	
+	Arrays<dg_char>::copyOf(value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->offset = 0;
 	this->count = size;
-	this->value = Arrays<dg_char>::copyOf(value, size);
+	this->value = buf;
 }
 
 String::String(const char* value){
@@ -243,21 +244,39 @@ String::String(const wchar_t* value){
 }
 
 String::String(const String& value){
+	dg_int size = value.count;
+
+	dg_char* buf = new dg_char[size + 1];	
+	Arrays<dg_char>::copyOf(value.value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
 	this->offset = 0;
-	this->count = value.count;
-	this->value = Arrays<dg_char>::copyOf(value.value, value.count);
+	this->count = size;
+	this->value = buf;
 }
 
 String::String(const String* value) {
+	dg_int size = value->count;
+	
+	dg_char* buf = new dg_char[size + 1];	
+	Arrays<dg_char>::copyOf(value->value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
 	this->offset = 0;
-	this->count = value->count;
-	this->value = Arrays<dg_char>::copyOf(value->value, value->count);
+	this->count = size;
+	this->value = buf;
 }
 
 String::String(const dg_char* value, dg_int offset, dg_int count){
+	dg_int size = count;
+
+	dg_char* buf = new dg_char[size + 1];	
+	Arrays<dg_char>::copyOf(value, offset, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
 	this->offset = 0;
-	this->count = count;
-	this->value = Arrays<dg_char>::copyOf(value, offset, count);
+	this->count = size;
+	this->value = buf;
 }
 
 String::String(dg_int offset, dg_int count, dg_char* value) {
@@ -276,72 +295,6 @@ String* String::operator = (const char* str) {
 String* String::operator = (const wchar_t* str) {
 	return new String(str);
 }
-
-/*
-String& String::operator+(const String& str)
-{
-	mstr.append(str.mstr);
-	return *this;
-}
-
-String& String::operator+=(const String& str)
-{
-	mstr.append(str.mstr);
-	return *this;
-}
-
-dg_boolean String::operator==(const dg_char* str)
-{
-	if(this->mstr==str)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-dg_boolean String::operator==(const String& str)
-{
-	if(this->mstr==str.mstr)
-	{
-		return true;
-	}
-
-	return false;
-
-}
-
-String::operator wstring()
-{
-	return mstr;
-}
-
-String::operator const dg_char*()
-{
-	return mstr.c_str();
-}
-
-
-String::operator size_t()
-{
-	return this->hashCode();
-}
-
-size_t String::operator()(const String& str)
-{
-	dg_int n=str.mstr.size();
-	dg_int hc=0;
-
-	for(dg_int i=0;i<n;i++)
-	{
-		hc+=(str.mstr[i]*(dg_int)Math::pow(31.0,n-i+1));
-	}
-
-	return hc;
-
-}
-
-*/
 
 dg_boolean String::equals(const String* str) const {
 	if (str == null) {
@@ -659,11 +612,11 @@ String* String::toString()
 }
 
 const dg_char* String::toChars() {
-	return Arrays<dg_char>::copyOf(this->value, this->count);
+	return this->value + offset;
 }
 
 Array<dg_char> String::toCharArray() {
-	return Array<dg_char>(this->toChars(), this->count);
+	return Array<dg_char>(this->value + offset, this->count);
 }
 
 void String::getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) {
@@ -728,10 +681,12 @@ String* String::replace(CharSequence* target, CharSequence* replacement) {
     String* targetStr = target->toString();
     String* replacementStr = replacement->toString();
 
-    this->replaceAll(targetStr, replacementStr);
+    String* ret = this->replaceAll(targetStr, replacementStr);
 
     SafeDelete(targetStr);
     SafeDelete(replacementStr);
+
+    return ret;
 }
 
 String* String::replaceAll(String* regex, String* replacement) {

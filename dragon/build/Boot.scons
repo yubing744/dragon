@@ -36,7 +36,7 @@ options.AddVariables(
     ListVariable('build_config', 'build configurations', 'debug', names=['debug', 'release'])
 )
 
-env = Environment(variables=options)
+env = Environment(variables=options, TARGET_ARCH='x86')
 Help(options.GenerateHelpText(env))
 
 if 'CXX' in os.environ:

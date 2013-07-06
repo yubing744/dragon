@@ -45,6 +45,8 @@ void MathTest::testMax(){
 */
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
 #include <dragon/lang/Math.h>
 
 Import dragon::lang;

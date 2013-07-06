@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Copyright 2013 the original author or authors.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,14 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include <gtest/gtest.h>
 
+#include <dragon.h>
+#include <dragon/lang/Arrays.h>
 #include <dragon/lang/String.h>
 
 
@@ -86,6 +92,15 @@ TEST(Dragon_Lang_String_Test, NewWithStringOffset) {
     SafeDelete(str2);  
 }
 
+TEST(Dragon_Lang_String_Test, toChars_01) {
+    String* str = new String(L"CN China!");
+    EXPECT_EQ(9, str->length());
+
+    const dg_char* data = str->toChars();
+
+    SafeDelete(str);    
+}
+
 TEST(Dragon_Lang_String_Test, toCharArray) {
     String* str = new String(L"CN China!");
 	EXPECT_EQ(9, str->length());
@@ -98,8 +113,6 @@ TEST(Dragon_Lang_String_Test, toCharArray) {
 	dg_boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(dg_true, isEqual);
 
-    const dg_char* data = charArray.raw();
-    SafeDeleteArray(data);
     SafeDelete(str);    
 }
 
@@ -115,7 +128,6 @@ TEST(Dragon_Lang_String_Test, toChars) {
 	dg_boolean isEqual = (ch1 == ch2);
     EXPECT_EQ(dg_true, isEqual);
 
-    SafeDeleteArray(charArray);
     SafeDelete(str);    
 }
 
@@ -129,8 +141,6 @@ TEST(Dragon_Lang_String_Test, strEquals) {
 
 	dg_boolean isEqual = (str->equals(str2));
     EXPECT_EQ(dg_true, isEqual);
-
-    SafeDeleteArray(charArray);
 
     SafeDelete(str);  
     SafeDelete(str2);  
