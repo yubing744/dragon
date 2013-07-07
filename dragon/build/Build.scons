@@ -490,6 +490,7 @@ dragon_test_SOURCES = {
     """),
     "dragon/lang/gc" : Split("""
         SmartPointerTest.cc
+        SmartArrayPointerTest.cc
     """),
     "dragon/util/regex" : Split("""
         PatternSyntaxExceptionTest.cc 

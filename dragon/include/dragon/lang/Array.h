@@ -24,48 +24,51 @@
 #define Array_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/gc/SmartArrayPointer.h>
 
 BeginPackage2(dragon, lang)
 
+Import dragon::lang::gc;
+
 template<class T>
 class Array {
+	struct DestructorNormal {
+		static void NotDestructArray(void* arr) {
+
+		}
+	};
+
+
 public:
 	Array() {
 		this->count = 0;
 		this->data = null;
-		this->myData = dg_true;
 	};
 
 	Array(dg_int count) {
 		this->count = count;
 		this->data = new T[count];
-		this->myData = dg_true;
 	};
 
 	Array(const Array& arr) {
 		this->count = arr.count;
 		this->data = arr.data;
-		this->myData = dg_false;
 	};
 
-	Array(const T* data, dg_int count) {
+	Array(const T* data, dg_int count, dg_boolean gcData = dg_false) {
 		this->count = count;
-		this->data = const_cast<T*>(data);
-		this->myData = dg_false;
-	};
 
-
-	~Array() {
-		tryRelease();
+		if (gcData) {
+			this->data = const_cast<T*>(data);
+		} else {
+			this->data = PArray<T>(const_cast<T*>(data), DestructorNormal::NotDestructArray);
+		}
 	};
 
 public:
 	Array& operator=(const Array& arr) {
-		tryRelease();
-
 		this->count = arr.count;
 		this->data = arr.data;
-		this->myData = dg_false;
 
 		return *this;
 	};
@@ -100,25 +103,16 @@ public:
 	};
 
 	const T* raw() const {
-		return this->data;
+		return this->data.raw();
 	};
 
 	void release() {
-		SafeDeleteArray(this->data);
-		this->count = 0;
+		const T* data = this->data.raw();
+		SafeDeleteArray(data);
 	}
-
 private:
-	void tryRelease() {
-		if(this->myData) {
-			this->release();
-		}
-	}
-
-private:
-	dg_boolean myData;
 	dg_int count;
-	T* data;
+	PArray<T> data;
 };
 
 EndPackage2//(dragon, lang)

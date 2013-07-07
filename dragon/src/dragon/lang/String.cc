@@ -139,7 +139,7 @@ Array<dg_byte> String::encode(Array<dg_char> chars, dg_int offset, dg_int length
 
 	unicode_iconv_close(ic);
 
-	return Array<dg_byte>(buf, rt);
+	return Array<dg_byte>(buf, rt, dg_true);
 }
 
 void String::destroy() {
@@ -779,8 +779,6 @@ String* String::format(String* format, va_list args) {
 		memset(buf, '\0', bufSize);
 		ret = vsnprintf(buf, bufSize - 1, data.raw(), args);
 	} while(ret < 0 || ret>bufSize);
-
-	data.release();
 
 	String* result = new String(buf);
 	SafeDeleteArray(buf);

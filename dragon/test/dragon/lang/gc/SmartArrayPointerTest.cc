@@ -17,7 +17,7 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/01
+ * Created:     2013/07/07
  **********************************************************************/
 
 
@@ -25,21 +25,35 @@
 
 #include <dragon.h>
 #include <dragon/lang/String.h>
-#include <dragon/lang/gc/SmartPointer.h>
+#include <dragon/lang/gc/SmartArrayPointer.h>
 
 Import dragon::lang;
 Import dragon::lang::gc;
 
-TEST(Dragon_Lang_Gc_SmartPointerTest, New) {
-	P<String> p = new String("abc");
+TEST(Dragon_Lang_Gc_SmartArrayPointerTest, New) {
+	PArray<dg_char> p = new dg_char[13];
 }
 
-TEST(Dragon_Lang_Gc_SmartPointerTest, New2) {
-	P<String> p = new String("abc");
-	P<String> p2 = p;
+TEST(Dragon_Lang_Gc_SmartArrayPointerTest, New2) {
+	PArray<dg_char> p = new dg_char[13];
+	PArray<dg_char> p2 = p;
 }
 
-TEST(Dragon_Lang_Gc_SmartPointerTest, New3) {
-	P<String> p = new String("abc");
-	P<Object> p2 = p.raw();
+TEST(Dragon_Lang_Gc_SmartArrayPointerTest, New3) {
+	PArray<dg_char> p = new dg_char[13];
+	PArray<dg_char> p2 = p;
+	p = new dg_char[4];
 }
+
+TEST(Dragon_Lang_Gc_SmartArrayPointerTest, NewStringArray01) {
+	PArray<String> p = new String[13];
+	PArray<String> p2 = p;
+	p = new String[4];
+}
+
+TEST(Dragon_Lang_Gc_SmartArrayPointerTest, NewStringPointerArray01) {
+	PArray<String*> p = new String*[13];
+	PArray<String*> p2 = p;
+	p = new String*[4];
+}
+
