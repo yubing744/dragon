@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-Version: 1.0.100.v20090525
-Bundle-SymbolicName: org.eclipse.equinox.p2.directorywatcher;singleton:=true
-Bundle-Activator: org.eclipse.equinox.internal.provisional.p2.directorywatcher.Activator
-
-Require-Bundle: org.eclipse.equinox.common;bundle-version="[3.3.0,4.0)"
-
-Export-Package: org.eclipse.equinox.internal.provisional.p2.directorywatcher
-Import-Package: org.eclipse.equinox.internal.p2.core.helpers
