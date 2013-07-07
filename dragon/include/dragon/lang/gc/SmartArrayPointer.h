@@ -33,7 +33,7 @@ BeginPackage3(dragon, lang, gc)
 
 
 template<class Type>
-class _DragonExport SmartArrayPointer {
+class SmartArrayPointer {
 public:
 	template <class T>
 	struct DestructorNormal {

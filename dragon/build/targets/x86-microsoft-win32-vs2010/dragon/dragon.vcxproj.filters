@@ -1,309 +1,240 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{ece674b3-ec63-4143-b68c-10f7ab0e0fb1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include">
+    <Filter Include="头文件">
       <UniqueIdentifier>{c70637cb-82c7-403b-b0f6-9de8805ea5ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\dragon">
+    <Filter Include="头文件\dragon">
       <UniqueIdentifier>{6900e965-b3ed-45a1-995e-caed4a0fbaa9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\dragon\lang">
+    <Filter Include="头文件\dragon\lang">
       <UniqueIdentifier>{f8796b83-a3d2-4341-b9a0-f0b9c2da2d69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\dragon">
-      <UniqueIdentifier>{d41c0d97-34fd-499f-84e1-e62d40606217}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\dragon\lang">
-      <UniqueIdentifier>{4a1a9e09-85b3-46b7-8bfc-b2360d9dab03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\dragon\lang\internal">
-      <UniqueIdentifier>{bbe39d57-e7d1-41b4-9b74-d7fc4f573e8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\dragon\lang\gc">
+    <Filter Include="头文件\dragon\lang\gc">
       <UniqueIdentifier>{afffad21-3aca-44df-ba42-3c0c7c8a43b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\dragon\lang\reflect">
+    <Filter Include="头文件\dragon\lang\reflect">
       <UniqueIdentifier>{47952434-1ea7-4df2-9cc5-552931fa1b22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\dragon\lang\gc">
-      <UniqueIdentifier>{69e9e425-55ee-4d65-a1a3-9cebc93f227a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\dragon\lang\reflect">
-      <UniqueIdentifier>{a2407c1e-4dc2-47f8-a5ed-baf33653d5e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\dragon\util">
+    <Filter Include="头文件\dragon\util">
       <UniqueIdentifier>{5d1a5769-c1fc-4284-ab78-6a6b42b13f7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\dragon\util">
+    <Filter Include="源文件">
+      <UniqueIdentifier>{ece674b3-ec63-4143-b68c-10f7ab0e0fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon">
+      <UniqueIdentifier>{d41c0d97-34fd-499f-84e1-e62d40606217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang">
+      <UniqueIdentifier>{4a1a9e09-85b3-46b7-8bfc-b2360d9dab03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\internal">
+      <UniqueIdentifier>{bbe39d57-e7d1-41b4-9b74-d7fc4f573e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\gc">
+      <UniqueIdentifier>{69e9e425-55ee-4d65-a1a3-9cebc93f227a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\reflect">
+      <UniqueIdentifier>{a2407c1e-4dc2-47f8-a5ed-baf33653d5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\util">
       <UniqueIdentifier>{421bd00b-bde7-48a9-9c5d-d75387950c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\dragon\util\regex">
+      <UniqueIdentifier>{c4e2901c-1fc6-4249-9425-3f7e4f767b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\util\regex">
+      <UniqueIdentifier>{999d984d-d22f-4750-8ba0-eaf6021f46f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\dragon\lang\internal\platform.h">
-      <Filter>src\dragon\lang\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Math.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Object.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\String.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\lang.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Class.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\gc\GarbageCollector.h">
-      <Filter>include\dragon\lang\gc</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\gc\gc.h">
-      <Filter>include\dragon\lang\gc</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\gc\MemoryAlloc.h">
-      <Filter>include\dragon\lang\gc</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\gc\MemoryLeakCheck.h">
-      <Filter>include\dragon\lang\gc</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\gc\SmartPointer.h">
-      <Filter>include\dragon\lang\gc</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Constructor.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\DllLibrary.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Field.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Library.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\LibraryManager.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Method.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Property.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\reflect.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\SoLibrary.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\ClassNotFoundException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Comparable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Exception.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\help_func.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\IllegalArgumentException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\IndexOutOfBoundsException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\InterruptedException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\NoSuchMethodException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\NullPointerException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Number.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\NumberFormatException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Runnable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\RuntimeException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\SecurityException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\System.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Thread.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\Throwable.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\UnsupportedOperationException.h">
-      <Filter>include\dragon\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\ArrayList.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Collection.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Deque.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\HashMap.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\HashSet.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Iterable.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Iterator.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\LinkedList.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\List.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Map.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\PriorityQueue.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Properties.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Queue.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Set.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Stack.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\Templatetype.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\util\util.h">
-      <Filter>include\dragon\util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dragon\lang\reflect\Type.h">
-      <Filter>include\dragon\lang\reflect</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\dragon.h">
-      <Filter>include</Filter>
+      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\dragon\config.h">
-      <Filter>include\dragon</Filter>
+      <Filter>头文件\dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\GarbageCollector.h">
+      <Filter>头文件\dragon\lang\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\gc.h">
+      <Filter>头文件\dragon\lang\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\MemoryAlloc.h">
+      <Filter>头文件\dragon\lang\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\SmartArrayPointer.h">
+      <Filter>头文件\dragon\lang\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\SmartPointer.h">
+      <Filter>头文件\dragon\lang\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\AbstractStringBuilder.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Array.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Arrays.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\CharSequence.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Class.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\ClassNotFoundException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Comparable.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Double.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Exception.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Float.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\help_func.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\IllegalArgumentException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\IndexOutOfBoundsException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Integer.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\InterruptedException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\lang.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Long.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Math.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NoSuchMethodException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NullPointerException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Number.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NumberFormatException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Object.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Runnable.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\RuntimeException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\SecurityException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\String.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\StringBuffer.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\System.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Thread.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Throwable.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\UnsupportedOperationException.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\Matcher.h">
+      <Filter>头文件\dragon\util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\MatchResult.h">
+      <Filter>头文件\dragon\util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\Pattern.h">
+      <Filter>头文件\dragon\util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\PatternSyntaxException.h">
+      <Filter>头文件\dragon\util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\regex.h">
+      <Filter>头文件\dragon\util\regex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\dragon\lang\Math.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\gc\GarbageCollector.cc">
+      <Filter>源文件\dragon\lang\gc</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\Object.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\gc\MemoryAlloc.cc">
+      <Filter>源文件\dragon\lang\gc</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\String.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\Matcher.cc">
+      <Filter>源文件\dragon\util\regex</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\ClassNotFoundException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\Pattern.cc">
+      <Filter>源文件\dragon\util\regex</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\Exception.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\PatternSyntaxException.cc">
+      <Filter>源文件\dragon\util\regex</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\IllegalArgumentException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\AbstractStringBuilder.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\IndexOutOfBoundsException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Double.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\InterruptedException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Exception.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\NoSuchMethodException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Float.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\NullPointerException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\IllegalArgumentException.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\Number.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Integer.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\NumberFormatException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Long.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\RuntimeException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Math.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\SecurityException.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Object.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\System.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\RuntimeException.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\Thread.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\String.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\Throwable.cc">
-      <Filter>src\dragon\lang</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\StringBuffer.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
-    <ClCompile Include="src\dragon\lang\UnsupportedOperationException.cc">
-      <Filter>src\dragon\lang</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\gc\GarbageCollector.cc">
-      <Filter>src\dragon\lang\gc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\gc\MemoryAlloc.cc">
-      <Filter>src\dragon\lang\gc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\gc\MemoryLeakCheck.cc">
-      <Filter>src\dragon\lang\gc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\reflect\DllLibrary.cc">
-      <Filter>src\dragon\lang\reflect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\reflect\Field.cc">
-      <Filter>src\dragon\lang\reflect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\reflect\LibraryManager.cc">
-      <Filter>src\dragon\lang\reflect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\reflect\Method.cc">
-      <Filter>src\dragon\lang\reflect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\reflect\Property.cc">
-      <Filter>src\dragon\lang\reflect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\util\Properties.cc">
-      <Filter>src\dragon\util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\util\Templatetype.cc">
-      <Filter>src\dragon\util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dragon\lang\internal\platform_win32.cc">
-      <Filter>src\dragon\lang\internal</Filter>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Throwable.cc">
+      <Filter>源文件\dragon\lang</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

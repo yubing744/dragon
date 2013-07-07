@@ -37,14 +37,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(ProjectDir)build\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)build\$(Configuration)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\dragon\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_DRAGON_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,93 +69,76 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\dragon.h" />
     <ClInclude Include="..\..\..\..\include\dragon\config.h" />
-    <ClInclude Include="include\dragon\lang\Class.h" />
-    <ClInclude Include="include\dragon\lang\ClassNotFoundException.h" />
-    <ClInclude Include="include\dragon\lang\Comparable.h" />
-    <ClInclude Include="include\dragon\lang\Exception.h" />
-    <ClInclude Include="include\dragon\lang\gc\GarbageCollector.h" />
-    <ClInclude Include="include\dragon\lang\gc\gc.h" />
-    <ClInclude Include="include\dragon\lang\gc\MemoryAlloc.h" />
-    <ClInclude Include="include\dragon\lang\gc\MemoryLeakCheck.h" />
-    <ClInclude Include="include\dragon\lang\gc\SmartPointer.h" />
-    <ClInclude Include="include\dragon\lang\help_func.h" />
-    <ClInclude Include="include\dragon\lang\IllegalArgumentException.h" />
-    <ClInclude Include="include\dragon\lang\IndexOutOfBoundsException.h" />
-    <ClInclude Include="include\dragon\lang\InterruptedException.h" />
-    <ClInclude Include="include\dragon\lang\lang.h" />
-    <ClInclude Include="include\dragon\lang\Math.h" />
-    <ClInclude Include="include\dragon\lang\NoSuchMethodException.h" />
-    <ClInclude Include="include\dragon\lang\NullPointerException.h" />
-    <ClInclude Include="include\dragon\lang\Number.h" />
-    <ClInclude Include="include\dragon\lang\NumberFormatException.h" />
-    <ClInclude Include="include\dragon\lang\Object.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Constructor.h" />
-    <ClInclude Include="include\dragon\lang\reflect\DllLibrary.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Field.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Library.h" />
-    <ClInclude Include="include\dragon\lang\reflect\LibraryManager.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Method.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Property.h" />
-    <ClInclude Include="include\dragon\lang\reflect\reflect.h" />
-    <ClInclude Include="include\dragon\lang\reflect\SoLibrary.h" />
-    <ClInclude Include="include\dragon\lang\reflect\Type.h" />
-    <ClInclude Include="include\dragon\lang\Runnable.h" />
-    <ClInclude Include="include\dragon\lang\RuntimeException.h" />
-    <ClInclude Include="include\dragon\lang\SecurityException.h" />
-    <ClInclude Include="include\dragon\lang\String.h" />
-    <ClInclude Include="include\dragon\lang\System.h" />
-    <ClInclude Include="include\dragon\lang\Thread.h" />
-    <ClInclude Include="include\dragon\lang\Throwable.h" />
-    <ClInclude Include="include\dragon\lang\UnsupportedOperationException.h" />
-    <ClInclude Include="include\dragon\util\ArrayList.h" />
-    <ClInclude Include="include\dragon\util\Collection.h" />
-    <ClInclude Include="include\dragon\util\Deque.h" />
-    <ClInclude Include="include\dragon\util\HashMap.h" />
-    <ClInclude Include="include\dragon\util\HashSet.h" />
-    <ClInclude Include="include\dragon\util\Iterable.h" />
-    <ClInclude Include="include\dragon\util\Iterator.h" />
-    <ClInclude Include="include\dragon\util\LinkedList.h" />
-    <ClInclude Include="include\dragon\util\List.h" />
-    <ClInclude Include="include\dragon\util\Map.h" />
-    <ClInclude Include="include\dragon\util\PriorityQueue.h" />
-    <ClInclude Include="include\dragon\util\Properties.h" />
-    <ClInclude Include="include\dragon\util\Queue.h" />
-    <ClInclude Include="include\dragon\util\Set.h" />
-    <ClInclude Include="include\dragon\util\Stack.h" />
-    <ClInclude Include="include\dragon\util\Templatetype.h" />
-    <ClInclude Include="include\dragon\util\util.h" />
-    <ClInclude Include="src\dragon\lang\internal\platform.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\AbstractStringBuilder.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Array.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Arrays.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\CharSequence.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Class.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\ClassNotFoundException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Comparable.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Double.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Exception.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Float.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\GarbageCollector.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\gc.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\MemoryAlloc.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\SmartArrayPointer.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\gc\SmartPointer.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\help_func.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\IllegalArgumentException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\IndexOutOfBoundsException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Integer.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\InterruptedException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\lang.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Long.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Math.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NoSuchMethodException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NullPointerException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Number.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\NumberFormatException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Object.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Runnable.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\RuntimeException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\SecurityException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\String.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\StringBuffer.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\System.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Thread.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Throwable.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\UnsupportedOperationException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\Matcher.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\MatchResult.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\Pattern.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\PatternSyntaxException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\util\regex\regex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\dragon\lang\ClassNotFoundException.cc" />
-    <ClCompile Include="src\dragon\lang\Exception.cc" />
-    <ClCompile Include="src\dragon\lang\gc\GarbageCollector.cc" />
-    <ClCompile Include="src\dragon\lang\gc\MemoryAlloc.cc" />
-    <ClCompile Include="src\dragon\lang\gc\MemoryLeakCheck.cc" />
-    <ClCompile Include="src\dragon\lang\IllegalArgumentException.cc" />
-    <ClCompile Include="src\dragon\lang\IndexOutOfBoundsException.cc" />
-    <ClCompile Include="src\dragon\lang\internal\platform_win32.cc" />
-    <ClCompile Include="src\dragon\lang\InterruptedException.cc" />
-    <ClCompile Include="src\dragon\lang\Math.cc" />
-    <ClCompile Include="src\dragon\lang\NoSuchMethodException.cc" />
-    <ClCompile Include="src\dragon\lang\NullPointerException.cc" />
-    <ClCompile Include="src\dragon\lang\Number.cc" />
-    <ClCompile Include="src\dragon\lang\NumberFormatException.cc" />
-    <ClCompile Include="src\dragon\lang\Object.cc" />
-    <ClCompile Include="src\dragon\lang\reflect\DllLibrary.cc" />
-    <ClCompile Include="src\dragon\lang\reflect\Field.cc" />
-    <ClCompile Include="src\dragon\lang\reflect\LibraryManager.cc" />
-    <ClCompile Include="src\dragon\lang\reflect\Method.cc" />
-    <ClCompile Include="src\dragon\lang\reflect\Property.cc" />
-    <ClCompile Include="src\dragon\lang\RuntimeException.cc" />
-    <ClCompile Include="src\dragon\lang\SecurityException.cc" />
-    <ClCompile Include="src\dragon\lang\String.cc" />
-    <ClCompile Include="src\dragon\lang\System.cc" />
-    <ClCompile Include="src\dragon\lang\Thread.cc" />
-    <ClCompile Include="src\dragon\lang\Throwable.cc" />
-    <ClCompile Include="src\dragon\lang\UnsupportedOperationException.cc" />
-    <ClCompile Include="src\dragon\util\Properties.cc" />
-    <ClCompile Include="src\dragon\util\Templatetype.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\AbstractStringBuilder.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Double.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Exception.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Float.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\gc\GarbageCollector.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\gc\MemoryAlloc.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\IllegalArgumentException.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Integer.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Long.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Math.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Object.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\RuntimeException.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\String.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\StringBuffer.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Throwable.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\Matcher.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\Pattern.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\util\regex\PatternSyntaxException.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\third_party\pcre32\pcre32.vcxproj">
+      <Project>{7535152e-0e72-4e27-bfc1-c8de4b3d2217}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\third_party\unicode\unicode.vcxproj">
+      <Project>{1d9a9576-a56a-4037-babe-0d674f5bce66}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
