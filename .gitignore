@@ -130,5 +130,6 @@ _*
 *.idb
 *.pdb
 *.sdf
+*.opensdf
 *.stackdump
 >>>>>>> Stashed changes

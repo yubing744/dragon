@@ -679,7 +679,7 @@ public:
 	static String* copyValueOf(const dg_char* data, dg_int offset, dg_int count);
 	static String* copyValueOf(const dg_char* data);
 
-     static String* format(String* format, va_list arg);
+    static String* vformat(String* format, va_list arg);
 	static String* format(String* format, ...);
 	static String* format(const char* format, ...);
 	static String* format(const wchar_t* format, ...);

@@ -130,6 +130,8 @@ Array<dg_byte> String::encode(Array<dg_char> chars, dg_int offset, dg_int length
 
 	size_t to_size = from_size;
 	dg_byte* buf = new dg_byte[to_size + 1];
+	memset(buf, 0, to_size + 1);
+
 	char* to = (char*)buf;
 
 	int rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
@@ -139,6 +141,7 @@ Array<dg_byte> String::encode(Array<dg_char> chars, dg_int offset, dg_int length
 
 	unicode_iconv_close(ic);
 
+	
 	return Array<dg_byte>(buf, rt, dg_true);
 }
 
@@ -765,7 +768,7 @@ String* String::copyValueOf(const dg_char* data, dg_int offset, dg_int count) {
 	return new String(data, offset, count);
 }
 
-String* String::format(String* format, va_list args) {
+String* String::vformat(String* format, va_list args) {
 	Array<dg_byte> data = format->getBytes("ISO-8859-1");
 	int bufSize = data.size();
 
@@ -792,7 +795,7 @@ String* String::format(String* format, ...) {
 
 	va_list args;
 	va_start(args, format);
-		result = String::format(format, args);
+		result = String::vformat(format, args);
 	va_end(args);
 
 	return result;
@@ -805,7 +808,7 @@ String* String::format(const char* format, ...) {
 
 	va_list ap;
 	va_start(ap, format);
-		result = String::format(fmt, ap);
+		result = String::vformat(fmt, ap);
 	va_end(ap);
 	
 	SafeDelete(fmt);
@@ -820,7 +823,7 @@ String* String::format(const wchar_t* format, ...){
 
 	va_list ap;
 	va_start(ap, format);
-		result = String::format(fmt, ap);
+		result = String::vformat(fmt, ap);
 	va_end(ap);
 	
 	SafeDelete(fmt);
