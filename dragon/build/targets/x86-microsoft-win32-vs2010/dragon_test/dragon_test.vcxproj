@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9079C4D-2E06-469A-83E1-7CC971F40248}</ProjectGuid>
+    <RootNamespace>dragon_test</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>E:\Develop\GitProject\dragon\third_party\googletest\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\third_party\googletest\include;..\..\..\..\..\dragon\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dragon\dragon.vcxproj">
+      <Project>{eac1c6ba-fad2-41fc-bc6a-1752086df570}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\third_party\gtest\gtest.vcxproj">
+      <Project>{368d471e-4c5e-45a5-8008-8f421f05e9b7}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ExceptionTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartArrayPointerTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartPointerTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\IllegalArgumentExceptionTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\IntegerTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\LongTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\MathTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ObjectTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\RuntimeExceptionTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\StringBufferTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\StringTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ThrowableTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\util\regex\PatternSyntaxExceptionTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\util\regex\RegexTest.cc" />
+    <ClCompile Include="..\..\..\..\test\TestMain.cc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
