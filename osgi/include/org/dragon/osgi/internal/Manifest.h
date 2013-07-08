@@ -14,13 +14,14 @@ BeginPackageOSGIInternal
 
 Import org::dragon::osgi::framework;
 
-class _DragonExport Manifest :public Object
+class _DragonExport Manifest 
+	:public Object
 {
 public:
 	Manifest();
 	Manifest(P<File> file);
 
-    virtual P<Map<String,String>> getEntries();
+    virtual P<Map<String, String>> getEntries();
 	virtual void setFile(P<File> file);
 protected:
 	virtual void parseFile();
@@ -29,7 +30,7 @@ private:
 	void addEnity(String entity);
 
 private:
-	P<Map<String,String>> entries;
+	P<Map<String, String>> entries;
 	P<File> file;
 };
 
