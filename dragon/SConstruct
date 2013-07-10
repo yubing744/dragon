@@ -19,5 +19,22 @@
 # Email:       yubing744@163.com
 # Created:     2013/02/20
 # **********************************************************************
+import os
 
-SConscript('./build/Boot.scons')
+try:
+	Import('project')
+except:
+	project = {}
+	pass
+
+project = {
+	'parent' : project,
+
+	'groupID' : 'dragon',
+	'artifactID' : 'dragon',
+	'packaging' : 'lib',
+}
+
+project['cwd'] = os.getcwd()
+
+SConscript('./build/Boot.scons', exports='project')

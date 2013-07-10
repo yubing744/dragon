@@ -32,7 +32,6 @@ project = {
 
 	'groupID' : 'dragon',
 	'artifactID' : 'dragon-game',
-	'version' : '0.03',
 	'packaging' : 'pom',
 
 	'name' : 'dragon-game',
@@ -42,6 +41,15 @@ project = {
 	]
 }
 
-project['cwd'] = os.getcwd()
+def build():
+	project['cwd'] = os.getcwd()
 
-SConscript('./build/Boot.scons', exports='project')
+	modules = project['modules']
+
+	for module in Split(modules):
+		SConscript(module + '/SConstruct', exports='project')
+
+build()
+
+
+
