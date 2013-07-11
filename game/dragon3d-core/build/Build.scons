@@ -80,6 +80,8 @@ class Module:
         self.build_lib_dirs     = build_lib_dirs
         self.linked_modules     = linked_modules
         self.product            = []
+    def GetProduct(self):
+        return self.product
 
     def GetLibraries(self):
         return self.product + GetLibraries(self.linked_modules)
@@ -202,16 +204,11 @@ def Application(name,
         
     # add cherry-picked files
     for drct in build_source_files.keys():
-        print 'dict:', drct
         pattern = build_source_files[drct]
         drct_path = source_root+'/'+drct
-        print 'drct_path', drct_path
 
         DeclareBuildDir(drct_path)
         sources += GlobSources(drct_path, pattern)
-        print 'sources:', sources
-
-    print 'sources:', sources
 
     prog = env.Program(target=name, 
                        source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
@@ -227,15 +224,123 @@ def Application(name,
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
+class Project:
+    def __init__(self, project):
+        self.config = project
+
+    def getGroupID(self):
+        return self.config['groupID']
+
+    def getArtifactID(self):
+        return self.config['artifactID']
+
+    def getName(self):
+        return self.config['groupID'] + ":" + self.config['artifactID']
+
+    def getSubProjects(self):
+        if 'children' in self.config:
+            return self.config['children']
+        else:
+            return []
+
+    def parseDependeny(self, dep):
+        if isinstance(dep, str):
+            segs = dep.split(':')
+
+            if len(segs) >= 2:
+                groupID = segs[0]
+                artifactID = segs[1]
+
+                if not groupID:
+                    groupID = self.config['groupID']
+
+            return {
+                'groupID' : groupID,
+                'artifactID' : artifactID
+            }
+        elif isinstance(dep, dict):
+            return dep
+        else:
+            raise 'not support dependency config type!'
+
+    def matchFilterConfig(self, filterConfig):
+        return self.getGroupID() == filterConfig['groupID'] and self.getArtifactID() == filterConfig['artifactID']
+
+    def match(self, project):
+        if project:
+            return self.getGroupID() == project.getGroupID() and self.getArtifactID() == project.getArtifactID()
+
+        return False
+
+    def findDependencyInSubProjects(self, filterConfig, exclude=None):
+        print 'begin find in subProjects'
+
+        for subProjectCfg in self.getSubProjects():
+            subProject = Project(subProjectCfg)
+            print 'find in sub project', subProject.getName()
+
+            if (exclude):
+                print 'exclude:', exclude.getName()
+            else:
+                print 'exclude is None'
+
+            if subProject.match(exclude):
+                print 'sub project match exclude and continue'
+                continue
+  
+            if subProject.matchFilterConfig(filterConfig):
+                print 'subProject match filterConfig'
+                return subProject
+            else:
+                print 'subProject not match filterConfig'
+                return subProject.findDependencyInSubProjects(filterConfig)
+
+    def findDependencyProject(self, filterConfig):
+        parentCfg = self.config['parent']
+        if parentCfg:
+            project = Project(parentCfg)
+
+            print 'try find dependencies in', project.getName()
+            
+            result = project.findDependencyInSubProjects(filterConfig, self)
+            if not result == None:
+                return result
+            else:
+                return project.findDependencyProject(filterConfig)
+        else:
+            return None
+
+    def getLibs(self):
+        libs = []
+        if 'libs' in self.config:
+            modules = self.config['libs']
+            for key in modules:
+                libs += modules[key].GetProduct()
+        return libs
+
+    def installDependencies(self):
+        if ('dependencies' in self.config):
+            deps = self.config['dependencies']
+            print 'all deps:', deps
+            for dep in deps:
+                depConfig = self.parseDependeny(dep)
+                depProject = self.findDependencyProject(depConfig)
+                if depProject:
+                    print 'install libs', depProject.getName()
+                    print 'dep project libs:', depProject.getLibs()
+                    env.Install(dir=env.GetBuildPath(project['cwd'] + '/targets/'+env['target']+'/'+env['build_config']), source=depProject.getLibs())
+                else:
+                    raise 'not found dependency project'
+
 #######################################################
 # Main Build
 #######################################################
 Import("env")
 Import('project')
 
-print 'build dragon3d-core build.scons cwp:', os.getcwd()
-print 'build dragon3d-core build.scons cwp:', project['cwd']
-print 'fiex', env['SHLIBSUFFIX']
+project['libs'] = Modules
+p = Project(project)
+p.installDependencies()
 
 ### defaults
 env['DRAGON_EXTRA_LIBS'] = []

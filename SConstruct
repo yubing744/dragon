@@ -24,14 +24,14 @@ import os
 try:
 	Import('project')
 except:
-	project = {}
+	project = None
 	pass
 
 project = {
 	'parent' : project,
 
 	'groupID' : 'dragon',
-	'artifactID' : 'dragon',
+	'artifactID' : 'dragon-pom',
 	'version' : '0.03',
 	'packaging' : 'pom',
 
@@ -48,11 +48,20 @@ project = {
 
 def build():
 	project['cwd'] = os.getcwd()
+	project['children'] = []
 
-	modules = project['modules']
+	parent = project['parent']
+	if parent:
+		parent['children'].append(project)
 
-	for module in Split(modules):
-		SConscript(module + '/SConstruct', exports='project')
+	if not project['parent'] and os.path.exists('../SConstruct'):
+		SConscript('../SConstruct')
+	elif 'modules' in project:
+		modules = project['modules']
 
+		for module in Split(modules):
+			SConscript(module + '/SConstruct', exports='project')
+	else:
+		SConscript('./build/Boot.scons', exports='project')
+		
 build()
-
