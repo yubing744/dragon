@@ -9,7 +9,7 @@ from glob import glob
 #######################################################
 def LoadTool(name, env, **kw):
     #config_path = GetBuildPath('#/build/tools/scons')
-    config_path = GetBuildPath(project['cwd'] + '/build/tools/scons')
+    config_path = GetBuildPath(project.getBase() + '/build/tools/scons')
     
     file, path, desc = imp.find_module(name, [config_path])
     module = imp.load_module(name, file, path, desc)
@@ -24,7 +24,7 @@ def MergeItemUnique(item_list, item):
 
 def GlobSources(drct, patterns, excluded_files=[]):
     #root = GetBuildPath('#'+drct)
-    root = GetBuildPath(project['cwd'] + '/' + drct)
+    root = GetBuildPath(project.getBase() + '/' + drct)
 
     files = []
     for pattern in Split(patterns):
@@ -32,7 +32,7 @@ def GlobSources(drct, patterns, excluded_files=[]):
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
 def GetDirPath(dir):
-    return project['cwd'] + '/' + dir
+    return project.getBase() + '/' + dir
     #return '#/' + dir
 
 def GetDirPaths(paths):
@@ -47,8 +47,8 @@ def DeclareBuildDir(dir):
 def GetIncludeDirs(modules, exclude=None):
     dirs = []
     for module in Split(modules):
-        if Modules.has_key(module) and not module == exclude:
-            dirs += Modules[module].GetIncludeDirs()
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetIncludeDirs()
         else:
             dirs += [GetDirPath(module)]
     return dirs
@@ -56,21 +56,20 @@ def GetIncludeDirs(modules, exclude=None):
 def GetLibrarieDirs(modules, exclude=None):
     dirs = []
     for module in Split(modules):
-        if Modules.has_key(module) and not module == exclude:
-            dirs += Modules[module].GetLibrarieDirs()
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetLibrarieDirs()
     return dirs
 
 
 def GetLibraries(modules):
     libs = []
     for module in Split(modules):
-        if Modules.has_key(module):
-            libs += Modules[module].GetLibraries()
+        if project.hasModule(module):
+            libs += project.getModule(module).GetLibraries()
         else:
             libs += [module]
     return libs
 
-Modules = {}
 class Module:
     def __init__(self, name, build_include_dirs = [], included_modules = [], 
         build_lib_dirs  = [], linked_modules = []):
@@ -80,7 +79,6 @@ class Module:
         self.build_lib_dirs     = build_lib_dirs
         self.linked_modules     = linked_modules
         self.product            = []
-
     def GetProduct(self):
         return self.product
 
@@ -129,7 +127,7 @@ class LibraryModule(Module):
         self.env.AppendUnique(LIBPATH = lib_path)
 
         # store this new object in the module dictionary
-        Modules[name] = self
+        project.addModule(name, self)
                 
         # for each source drct to build, create a VariantDir
         # to say where we want the object files to be built,
@@ -162,7 +160,7 @@ class LibraryModule(Module):
         # copy to Targets folder
         if install is True:
             #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
-            inst = env.Install(dir=env.GetBuildPath(project['cwd'] + '/targets/'+env['target']+'/'+env['build_config']), source=self.product)
+            inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=self.product)
             if env['build_config'] == 'release' and env.has_key('STRIP'):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
  
@@ -221,13 +219,21 @@ def Application(name,
     # copy to Targets folder
     if install is True:
         #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
-        inst = env.Install(dir=env.GetBuildPath(project['cwd'] + '/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
 class Project:
     def __init__(self, project):
         self.config = project
+
+    def init(self):
+        self.config['_Modules_'] = {}
+        self.config['deps'] = self.findDependencies()
+        self.installDependencies()
+
+    def getBase(self):
+        return self.config['cwd']
 
     def getGroupID(self):
         return self.config['groupID']
@@ -311,37 +317,72 @@ class Project:
         else:
             return None
 
-    def getLibs(self):
-        libs = []
-        if 'libs' in self.config:
-            modules = self.config['libs']
-            for key in modules:
-                libs += modules[key].GetProduct()
-        return libs
+    def getModules(self):
+        if not '_Modules_' in self.config:
+            self.config['_Modules_'] = {}
+        return self.config['_Modules_']
 
+    def hasModule(self, name):
+        modules = self.getModules()
+        return modules.has_key(name)
 
-    def installDependencies(self):
+    def addModules(self, modules):
+        localModules = self.getModules()
+        for name in modules:
+            localModules[name] = modules[name]
+
+    def addModule(self, name, module):
+        modules = self.getModules()
+        modules[name] = module
+
+    def getModule(self, name):
+        modules = self.getModules()
+        return modules[name]
+
+    def getProducts(self):
+        dirs = []
+        modules = self.getModules()
+        for name in modules:
+            dirs += modules[name].GetProduct()
+
+        return dirs
+
+    def findDependencies(self):
+        deps = []
         if ('dependencies' in self.config):
-            deps = self.config['dependencies']
-            print 'all deps:', deps
-            for dep in deps:
-                depConfig = self.parseDependeny(dep)
+            depDefs = self.config['dependencies']
+            print 'all deps def:', depDefs
+            for depDef in depDefs:
+                depConfig = self.parseDependeny(depDef)
                 depProject = self.findDependencyProject(depConfig)
                 if depProject:
-                    print 'install libs', depProject
-                    env.Install(dir=env.GetBuildPath(project['cwd'] + '/targets/'+env['target']+'/'+env['build_config']), source=depProject.getLibs())
+                    deps.append(depProject)
                 else:
                     raise 'not found dependency project'
 
+        return deps
+                           
+    def installDependencies(self):
+        if ('deps' in self.config):
+            deps = self.config['deps']
+            print 'all deps:', deps
+            for dep in deps:
+                print 'dep project:', dep.getName()
+
+                print 'install dep project modules:', dep.getModules()
+                self.addModules(dep.getModules());
+
+                print 'install dep project product:', dep.getProducts()
+                env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=dep.getProducts())
+  
 #######################################################
 # Main Build
 #######################################################
 Import("env")
 Import('project')
 
-project['libs'] = Modules
-p = Project(project)
-p.installDependencies()
+project = Project(project)
+project.init()
 
 ### defaults
 env['DRAGON_EXTRA_LIBS'] = []
@@ -354,7 +395,7 @@ else:
 
 ### try to read in any target specific configuration
 #target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')
-target_config_file = env.GetBuildPath(project['cwd'] + '/build/targets/'+env['target']+'/Config.scons')
+target_config_file = env.GetBuildPath(project.getBase() + '/build/targets/'+env['target']+'/Config.scons')
 if os.path.exists(target_config_file):
     # Load the target-specific config file    
     execfile(target_config_file)
@@ -664,5 +705,3 @@ Application(
     ],          
     install               = True
 )
-
-print 'dragon build cwd:',os.getcwd()
