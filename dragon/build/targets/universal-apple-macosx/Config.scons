@@ -5,6 +5,7 @@ universal_flags =  [('-arch', 'x86_64'), ('-arch', 'i386'), ('-isysroot', '/Appl
 #env.AppendUnique(CCFLAGS   = universal_flags + ['-fno-common', '-fno-stack-protector'])
 #env.AppendUnique(LINKFLAGS = universal_flags + [('-framework', 'SystemConfiguration'), ('-framework', 'Cocoa'), '-mmacosx-version-min=10.5'])
 
+env.Append(SHLINKFLAGS = ['-install_name @rpath/${TARGET.file}'])
 env.AppendUnique(CPPDEFINES = ["__APPLE__"])
 
 ### Neptune System Files
