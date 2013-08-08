@@ -17,30 +17,51 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2013/07/26
  **********************************************************************/
 
-#include "dragon.h"
 
-#ifndef Lang_dragon_LibraryManager_H 
-#define Lang_dragon_LibraryManager_H
-#pragma once
+#ifndef LibraryClassLoader_Internal_Lang_Dragon_H
+#define LibraryClassLoader_Internal_Lang_Dragon_H
 
-#include "Library.h"
+#include <dragon/config.h>
+#include <dragon/lang/ClassLoader.h>
+#include <dragon/lang/internal/Library.h>
 
+#include <vector>
 
-BeginPackage3(dragon, lang, reflect)
+BeginPackage3(dragon, lang, internal)
 
+Import dragon::lang;
+Import std;
 
-class _DragonExport LibraryManager:public Object,public Library
-{
-private:
-	LibraryManager();
-	virtual ~LibraryManager(){};
+class _DragonExport LibraryClassLoader 
+	extends(ClassLoader) {
+public:
+	typedef vector<Library*> LibraryList;
+	typedef LibraryList::iterator Iterator;
 
 public:
- 	virtual void free();
-	virtual void load(String libPath) throw(FileNotFoundException);
+	LibraryClassLoader();
+	LibraryClassLoader(const char* libPath);
+	virtual ~LibraryClassLoader();
+
+protected: //Override ClassLoader
+	virtual Class* findClass(const char* name);
+
+public:
+	virtual void load(const char* libPath);
+
+protected:
+	virtual Class* defineClass(const char* name, Library::NameSpace* space);
+
+protected:
+	LibraryList* librarys;
+
+/*
+protected:
+	virtual void free();
+	
 
 	virtual P<Class<Object>> getClassForName(String className);
 	virtual bool updateClass(Class<Object>* clazz);
@@ -52,12 +73,12 @@ public:
 	virtual P<Method> getClassMethod(String methodName);
 	virtual P<Array<P<Method>>> getClassMethods();
 
-public:
+protected:
 	virtual void registLibrary(String libName,Library* lib);
 	virtual void freeLibrary(String libName);
 	virtual P<Library> getLibrary(String libName);
 
-public:
+protected:
 	static LibraryManager* GetInstance();
 	static void Clear(void* p);
 	static LibraryManager* InitLM();
@@ -68,10 +89,10 @@ private:
 
 private:
 	P<Map<String,P<Library>>> librarys;
-};
+*/
+	
+};//LibraryClassLoader
 
-typedef LibraryManager LM;
+EndPackage3 //(dragon, lang, internal)
 
-EndPackage3//(dragon, lang, reflect)
-
-#endif
+#endif //LibraryClassLoader_Internal_Lang_Dragon_H

@@ -29,9 +29,16 @@ Import dragon::lang::gc;
 
 GarbageCollector* GarbageCollector::gc = null;
 
-GarbageCollector::GarbageCollector() {
-	atexit(GarbageCollector::ClearAll);
+GarbageCollector* GarbageCollector::GetInstance() {
+	if(gc==null) {
+		gc = new GarbageCollector();
+		atexit(GarbageCollector::ClearAll);
+	}
 
+	return gc;
+}
+
+GarbageCollector::GarbageCollector() {
 	collectMode = GCMODE_AUTOCOLLECT;
 	mpMap = KeyMap();
 }
@@ -43,7 +50,13 @@ void GarbageCollector::ClearAll() {
 	//Log("Prepare to delete all Object...\n\n");
 
 	for(Iterator it=tMap.begin();tMap.size()>0;it=tMap.begin()) { 
-		//it->second.fnDestroy(it->second.ployPtr);
+		PointerInfo pInfo = it->second;
+		//printf("destroy %d %d\n", pInfo.memPtr, pInfo.refCount);
+
+		if (pInfo.refCount >= 1) {
+			pInfo.fnDestroy(pInfo.ployPtr);
+		}
+		
 		tMap.erase(it);
 	}
 
@@ -121,6 +134,12 @@ void GarbageCollector::regist(void* p, void* tp, FnDestructor fn) {
 	}
 }
 
+
+void GarbageCollector::regist(void* p, FnDestructor fn) {
+	this->regist(p, p, fn);
+}
+
+
 void GarbageCollector::release(void* p) {
 	Iterator it=mpMap.find(p);
 
@@ -136,13 +155,6 @@ void GarbageCollector::release(void* p) {
 	}
 }
 
-GarbageCollector* GarbageCollector::GetInstance() {
-	if(gc==null) {
-		gc=new GarbageCollector();
-	}
-
-	return gc;
-}
 
 void GarbageCollector::SetCollectMode(GCMode mode) {
 	GC::GetInstance()->collectMode=mode;

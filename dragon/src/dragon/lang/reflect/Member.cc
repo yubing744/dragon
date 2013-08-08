@@ -17,24 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/07/25
  **********************************************************************/
 
 
-#include <dragon/lang/reflect/Field.h>
+#include <dragon/lang/reflect/Member.h>
+#include <stdlib.h>
+#include <string.h>
 
 Import dragon::lang::reflect;
 
-
-Field::Field(const Class* clazz, const char* name, const Class* type) 
-	:Member(clazz, name), genericType(type){
-	//Nothing
+Member::Member(const Class* clazz, const char* name) 
+	: clazz(clazz){
+	char* buf = (char*)malloc(strlen(name) + 1);
+	strcpy(buf, name);
+	this->name = buf;
 }
 
-Field::~Field() {
-
+Member::~Member() {
+	free(this->name);
+	this->name = null;
 }
 
-const Class* Field::getGenericType() {
-	return this->genericType;
+const Class* Member::getDeclaringClass() {
+	return this->clazz;
+}
+
+const char* Member::getName() {
+	return this->name;
 }

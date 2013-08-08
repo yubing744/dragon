@@ -48,6 +48,7 @@ public:
 public:
 	void addRef(void* p);
 	void addRef(void* p, void* tp, FnDestructor fn);
+	void regist(void* p, FnDestructor fn);
 	void regist(void* p, void* tp, FnDestructor fn);
 	void release(void* p);
 

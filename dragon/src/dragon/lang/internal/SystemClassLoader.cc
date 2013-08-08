@@ -17,24 +17,20 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/07/24
  **********************************************************************/
 
 
-#include <dragon/lang/reflect/Field.h>
+#include <dragon/lang/internal/SystemClassLoader.h>
+#include <dragon/lang/internal/platform.h>
 
-Import dragon::lang::reflect;
+Import dragon::lang::internal;
 
-
-Field::Field(const Class* clazz, const char* name, const Class* type) 
-	:Member(clazz, name), genericType(type){
-	//Nothing
+SystemClassLoader::SystemClassLoader() {
+	const char* localLib = GetLocalLibPath();
+	this->load(localLib);
 }
 
-Field::~Field() {
+SystemClassLoader::~SystemClassLoader() {
 
-}
-
-const Class* Field::getGenericType() {
-	return this->genericType;
 }

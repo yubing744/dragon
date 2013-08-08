@@ -800,3 +800,29 @@
    fun:__vfprintf
    ...
 }
+
+{
+   __dlsym_mkstring
+   Memcheck:Value8
+   ...
+   fun:dlsym
+   ...
+}
+
+{
+   __dlsym_cond
+   Memcheck:Cond
+   ...
+   fun:dlsym
+   ...
+}
+
+
+{
+   at_exit
+   Memcheck:Leak
+   fun:malloc
+   fun:atexit_register
+   fun:__cxa_atexit
+   ...
+}

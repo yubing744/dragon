@@ -20,31 +20,27 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "dragon.h"
+#ifndef Field_Lang_Dragon_H
+#define Field_Lang_Dragon_H
 
-#ifndef Lang_dragon_Field_H 
-#define Lang_dragon_Field_H
-#pragma once
+#include <dragon/config.h>
+#include <dragon/lang/reflect/Member.h>
 
 BeginPackage3(dragon, lang, reflect)
 
-class _DragonExport Field:public Object
+class _DragonExport Field extends(Member)
 {
 public:
-	Field(String name,String type);
-	virtual ~Field(){};
-public:
-	virtual void setName(String name);
-	virtual String getName();
+	Field(const Class* clazz, const char* name, const Class* type);
+	virtual ~Field();
 
-	virtual void setType(String type);
-	virtual String getType();
+public:
+	virtual const Class* getGenericType();
 
 protected:
-	String name;
-	String type;
+	const Class* genericType;
 };
 
 EndPackage3//(dragon, lang, reflect)
 
-#endif
+#endif //Field_Lang_Dragon_H

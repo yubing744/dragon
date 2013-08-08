@@ -25,12 +25,25 @@
 
 #include <dragon/config.h>
 
+#include <stdlib.h>
+
 BeginPackage3(dragon, lang, reflect)
 
 class _DragonExport Type
 {
 public:
-	Type(){};
+	Type(const char* name);
+	Type(const char* name, int offset, size_t count);
+	virtual ~Type();
+
+public:
+	virtual const char* getName();
+	virtual size_t getSize();
+    virtual dg_boolean equals(const Type* type);	
+
+protected:
+	char* name;
+	size_t size;
 };
 
 

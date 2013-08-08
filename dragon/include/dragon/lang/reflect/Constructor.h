@@ -24,41 +24,55 @@
 #define Constructor_Reflect_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Array.h>
+#include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/reflect/Member.h>
 
 BeginPackage3(dragon, lang, reflect)
 
-typedef void (__thiscall *FnConstructor)(void* pThis);
-
-interface Constructor
+class _DragonExport Constructor 
+	extends(Member)
 {
 public:
-	virtual void* invoke()=0;
+	Constructor(const Class* clazz, const char* name, 
+		void* procAddress, const Array<Type*>& parameterTypes);
+	virtual ~Constructor();
+
+public:
+	virtual void* newInstance();
+	virtual void* newInstance(const Array<Object*>& args);
+
+	virtual const Array<Type*> getParameterTypes();
+
+protected:
+	void* procAddress;
+	Array<Type*> parameterTypes;
 };
 
 
+/*
 template <class Type>
-class TemplateConstructor:public Constructor
+class TemplateConstructor 
+	:public Constructor 
 {
-	void* invoke()
-	{
-		Type* type=new Type();
+	void* invoke() {
+		Type* type = new Type();
 		return (void*)type;
 	};
 };
 
-class AddressConstructor:public Constructor
+class AddressConstructor 
+	:public Constructor
 {
 public:
-	AddressConstructor(int size, FnConstructor constructAddress)
-	{
-		this->classSize=size;
-		this->fnCreateObject=constructAddress;
+	AddressConstructor(int size, FnConstructor constructAddress) {
+		this->classSize = size;
+		this->fnCreateObject = constructAddress;
 	}
 
 public:
-	void* invoke()
-	{
-		void* pThis=(void*)new char[classSize];
+	void* invoke() {
+		void* pThis = (void*)new char[classSize];
 		fnCreateObject(pThis);
 		return pThis;
 	}
@@ -67,6 +81,7 @@ private:
 	FnConstructor fnCreateObject;
 	int classSize;
 };
+*/
 
 EndPackage3//(dragon, lang, reflect)
 

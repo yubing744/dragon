@@ -20,26 +20,55 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#ifndef DllLibrary_Reflect_Lang_Dragon_H 
-#define DllLibrary_Reflect_Lang_Dragon_H
+#ifndef Library_Internal_Lang_Dragon_H 
+#define Library_Internal_Lang_Dragon_H
 
 #include <dragon/config.h>
-#include "Library.h"
 
-/** 
- * Maintains all dragon operator.
- * @version 0.1.3
- * @since 2010-03-24
- */
-BeginPackage3(dragon, lang, reflect)
+BeginPackage3(dragon, lang, internal)
 
-class _DragonExport DllLibrary:public Object,public Library
+class _DragonExport Library
 {
 public:
-	DllLibrary();
-	DllLibrary(HMODULE hModule);
-	DllLibrary(String dllPath) throw(FileNotFoundException);
-	virtual ~DllLibrary();
+	struct ExportSymbol {
+		char* symbol;
+		void* address;
+	};
+
+	struct NameSpace {
+		char* name;
+
+		NameSpace* spaces;
+
+		ExportSymbol* symbols;
+		int symbolCount;
+
+		NameSpace* next;
+	};
+
+	struct ClassTree {
+		NameSpace* spaces;
+	};
+
+public:
+	Library(const char* libPath);
+	virtual ~Library();
+
+public:
+	virtual void resolve();
+	virtual NameSpace* findClassDefine(const char* name);
+
+protected:
+	char* libPath;
+	dg_boolean resolved;
+	ClassTree* classTree;
+
+/*
+public:
+	Library();
+	Library(HMODULE hModule);
+	Library(String dllPath) throw(FileNotFoundException);
+	virtual ~Library();
 
 public:
 	virtual void load(String libPath) throw(FileNotFoundException);
@@ -57,15 +86,16 @@ public:
 
 protected:
 	virtual bool processLib();
-	virtual bool processMethod(String methodSign,FARPROC pfn);
+	virtual bool processMethod(String methodSign, FARPROC pfn);
 
-private:
+protected:
 	HMODULE hModule;
 	int methodCount;
-	P<Map<String,P<Method>>> methodMap;
-	P<Map<String,P<Class<Object>>>> classMap;
+	P<Map<String, P<Method>>> methodMap;
+	P<Map<String, P<Class<Object>>>> classMap;
+*/
 };
 
-EndPackage3//(dragon, lang, reflect)
+EndPackage3//(dragon, lang, internal)
 
-#endif//DllLibrary_Reflect_Lang_Dragon_H
+#endif//Library_Internal_Lang_Dragon_H

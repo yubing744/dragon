@@ -5,4 +5,14 @@
 			"path": "/Users/yubing/Develop/GitRepos/dragon"
 		}
 	]
+
+	
+	,"settings":
+    {
+        //"sublimegdb_workingdir": "${project_path:${file_name}}",
+        //"sublimegdb_commandline": "gdb --interpreter=mi ./${file_name}"
+
+        "sublimegdb_workingdir": "/Users/yubing/Develop/GitRepos/dragon",
+    	"sublimegdb_commandline": "gdb --interpreter=mi ./dragon/targets/universal-apple-macosx/debug/dragon_test"
+    }
 }

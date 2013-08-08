@@ -25,6 +25,8 @@
 	#define MEMORY_BLOCK_SIZE 2048
 #endif
 
+#include <typeinfo>
+
 BeginPackage3(dragon, lang, gc)
 
 class _DragonExport MemoryAlloc {
@@ -50,7 +52,7 @@ public:
 	static MemoryAlloc* GetInstance();
 	static void* Alloc(size_t cb);
 	static void  Free(void* p);
-	static void  Clear(void* p);
+	static void Clear();
 	
 private:
 	MemBlock* getChainHeader() const;
@@ -69,14 +71,14 @@ template <class Type,int Size=0>
 struct DestructorMA {
 	static void destruct(void* data) {
 		Type* td=(Type*)data;
-		Log("\n[%s] @%d is destructing...\n",typeid(td).name(),td);
+		Log("\n[%s] @%d is destructing...\n", typeid(td).name(), td);
 		td->~Type();
 		MA::Free(td);
 	}
 
 	static void destructArray(void* arr) {
 		Type* data=(Type*)arr;
-		Log("\n[%s] Array @%d is destructing...\n",typeid(data).name(),data);
+		Log("\n[%s] Array @%d is destructing...\n", typeid(data).name(), data);
 		
 		int size=(Size<1)?1:Size;
 		for(int i=0;i<size;i++) {
@@ -89,43 +91,43 @@ struct DestructorMA {
 
 template <class Type>
 Type* New() {
-	Type* p=new(MA::Alloc(sizeof(Type))) Type;
-	GC::GetInstance()->regist(p,DestructorMA<Type>::destruct);
+	Type* p = new(MA::Alloc(sizeof(Type))) Type;
+	GC::GetInstance()->regist(p, DestructorMA<Type>::destruct);
 	return p;
 }
 
 template <class Type, class ArgType1>
 Type* New(ArgType1 arg1) {
-	Type* p=new(MA::Alloc(sizeof(Type))) Type(arg1);
-	GC::GetInstance()->regist(p,DestructorMA<Type>::destruct);
+	Type* p = new(MA::Alloc(sizeof(Type))) Type(arg1);
+	GC::GetInstance()->regist(p, DestructorMA<Type>::destruct);
 	return p;
 }
 
 template <class Type, class A1, class A2>
 Type* New(A1 a1, A2 a2) {
-	Type* p=new(MA::Alloc(sizeof(Type))) Type(a1, a2);
-	GC::GetInstance()->regist(p,DestructorMA<Type>::destruct);
+	Type* p = new(MA::Alloc(sizeof(Type))) Type(a1, a2);
+	GC::GetInstance()->regist(p, DestructorMA<Type>::destruct);
 	return p;
 }
 
 template <class Type, class A1, class A2, class A3>
 Type* New(A1 a1,A2 a2,A3 a3) {
-	Type* p=new(MA::Alloc(sizeof(Type))) Type(a1, a2, a3);
-	GC::GetInstance()->regist(p,DestructorMA<Type>::destruct);
+	Type* p = new(MA::Alloc(sizeof(Type))) Type(a1, a2, a3);
+	GC::GetInstance()->regist(p, DestructorMA<Type>::destruct);
 	return p;
 }
 
 template <class Type, class A1, class A2, class A3, class A4>
 Type* New(A1 a1, A2 a2, A3 a3, A4 a4) {
-	Type* p=new(MA::Alloc(sizeof(Type))) Type(a1, a2, a3, a4);
-	GC::GetInstance()->regist(p,DestructorMA<Type>::destruct);
+	Type* p = new(MA::Alloc(sizeof(Type))) Type(a1, a2, a3, a4);
+	GC::GetInstance()->regist(p, DestructorMA<Type>::destruct);
 	return p;
 }
 
 template <class Type, int Count>
 Type* NewArray() {
 	Type* p = new(MA::Alloc(sizeof(size_t)+sizeof(Type)*Count)) Type[Count];
-	GC::GetInstance()->regist(p,DestructorMA<Type,Count>::destructArray);
+	GC::GetInstance()->regist(p, DestructorMA<Type,Count>::destructArray);
 	return p;
 }
 

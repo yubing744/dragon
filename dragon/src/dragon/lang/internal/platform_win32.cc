@@ -22,11 +22,10 @@
 
 #include <windows.h>
 
-#include "platform.h"
+#include <dragon/lang/internal/platform.h>
 
 Import dragon::lang::internal;
 
-/*
 // ----------------------------------------------------------------------------
 // Some Help Func
 void* Invoke(void* p,Func_FarProc func, TypeInfo *argv, int argc)
@@ -76,7 +75,7 @@ void* Invoke(void* p,Func_FarProc func, TypeInfo *argv, int argc)
 } 
 
 
-void* Invoke(void* p, Func_FarProc func,...)
+void* Invoke(void* p, Func_FarProc func, ...)
 {
 	DWORD result;
 
@@ -101,4 +100,3 @@ void* Invoke(void* p, Func_FarProc func,...)
 
 	return (void*)result;
 }
-*/

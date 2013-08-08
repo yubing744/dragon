@@ -21,6 +21,7 @@
 
 BeginPackage2(dragon, lang)
 
+class Class;
 class String;
 
 class _DragonExport Object {
@@ -32,19 +33,10 @@ public:
 	virtual dg_boolean equals(const Object* obj);
 	virtual dg_int hashCode();
 	virtual String* toString();
+	virtual Class* getClass();
 
 protected:
 	virtual void finalize();
-
-/*
-	template<class Type>
-	friend class Class;
-
-public:
-	virtual Class<Object>* getClass();
-protected:
-	Class<Object>* clazz;
-*/
 };
 
 EndPackage2//(dragon, lang)

@@ -20,62 +20,44 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "dragon.h"
+#ifndef Method_Lang_Dragon_H
+#define Method_Lang_Dragon_H
 
-#ifndef Lang_dragon_Method_H 
-#define Lang_dragon_Method_H
-#pragma once
+#include <dragon/config.h>
+#include <dragon/lang/Array.h>
+#include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/reflect/Member.h>
+
+BeginPackage2(dragon, lang)
+	class Class;
+	class Object;
+EndPackage2//(dragon, lang)
 
 BeginPackage3(dragon, lang, reflect)
 
+Import dragon::lang;
 
-
-typedef void* (__thiscall *Method0)();
-typedef void* (__thiscall *Method1)(void* p);
-typedef void* (__thiscall *AgrsMethod1)(void* p,void* agr1);
-typedef void* (__thiscall *AgrsMethod2)(void* p,void* agr1,void* agr2);
-typedef void* (__thiscall *AgrsMethod3)(void* p,void* agr1,void* agr2,void* agr3);
-typedef void* (__thiscall *AgrsMethod4)(void* p,void* agr1,void* agr2,void* agr3,void* agr4);
-typedef void* (__thiscall *AgrsMethod5)(void* p,void* agr1,void* agr2,void* agr3,void* agr4,void* agr5);
-typedef void* (__thiscall *AgrsMethod6)(void* p,void* agr1,void* agr2,void* agr3,void* agr4,void* agr5,void* agr6);
-
-class _DragonExport Method:public Object
+class _DragonExport Method 
+	extends(Member)
 {
 public:
-	Method();
+	Method(const Class* clazz, const char* name, 
+		void* procAddress, const Type* returnType, const Array<Type*>& parameterTypes);
 	virtual ~Method(){};
-	operator const Char*();
+	
 public:
-	virtual void setPackageName(String packageName);
-	virtual void setClassName(String className);
-	virtual void setName(String name);
-	virtual void setParameterTypes(Array<String>* parameterTypes);
-	virtual void build();
+	virtual const Array<Type*> getParameterTypes();
+	virtual const Type* getReturnType();
 
-	virtual void setFullName(String fullName);
-	virtual String getFullName();
-
-	virtual void setProcAddress(FARPROC procAddress);
-	virtual FARPROC getProcAddress();
-	virtual void setThis(void* base);
-	virtual void* getThis();
-
-	virtual void* invoke();
 	virtual void* invoke(void* pThis);
-	virtual void* invoke(void* pThis,Array<void*>& args);
+	virtual void* invoke(void* pThis, const Array<void*>& args);
 
 protected:
-	String packageName;
-	String className;
-	String name;
-
-	P<Array<String>> parameterTypes;
-	
-	String fullName;
-	FARPROC procAddress;
-	void* self;
+	void* procAddress;
+	const Type* returnType;
+	const Array<Type*> parameterTypes;
 };
 
 EndPackage3//(dragon, lang, reflect)
 
-#endif
+#endif //Method_Lang_Dragon_H

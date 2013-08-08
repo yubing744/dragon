@@ -20,31 +20,29 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "dragon.h"
+#ifndef Property_Lang_Dragon_H 
+#define Property_Lang_Dragon_H
 
-#ifndef Lang_dragon_Property_H 
-#define Lang_dragon_Property_H
-#pragma once
+#include <dragon/config.h>
+#include <dragon/lang/reflect/Field.h>
 
-#include "Field.h"
 BeginPackage3(dragon, lang, reflect)
 
-class _DragonExport Property:public Field
+class _DragonExport Property extends(Field)
 {
 public:
-	Property(String name,String type,P<Method> setter,P<Method> getter);
+	Property(const Class* clazz, const char* name, const Class* type);
+	virtual ~Property();
 
 public:
-	virtual void setSetter(P<Method> setter);
-	virtual void setGetter(P<Method> getter);
-	virtual P<Method> getGetter();
-	virtual P<Method> getSetter();
+	virtual const Method* getGetter();
+	virtual const Method* getSetter();
 
 protected:
-	P<Method> setter;
-	P<Method> getter;
+	Method* setter;
+	Method* getter;
 };
 
 EndPackage3//(dragon, lang, reflect)
 
-#endif
+#endif//Property_Lang_Dragon_H

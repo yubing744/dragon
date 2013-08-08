@@ -33,6 +33,8 @@ project = {
 	'groupID' : 'dragon',
 	'artifactID' : 'dragon3d-core',
 
+	'name' : 'dragon3d-core',
+
 	'dependencies' : [
 		'dragon:dragon'
 	]

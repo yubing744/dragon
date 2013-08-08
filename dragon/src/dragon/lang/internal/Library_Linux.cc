@@ -17,24 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/07/25
  **********************************************************************/
 
 
-#include <dragon/lang/reflect/Field.h>
+#include <dragon/lang/internal/Library.h>
 
-Import dragon::lang::reflect;
+Import dragon::lang::internal;
 
-
-Field::Field(const Class* clazz, const char* name, const Class* type) 
-	:Member(clazz, name), genericType(type){
-	//Nothing
-}
-
-Field::~Field() {
+Library::Library() {
 
 }
 
-const Class* Field::getGenericType() {
-	return this->genericType;
+Library::~Library() {
+
 }

@@ -17,24 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/07/24
  **********************************************************************/
 
 
-#include <dragon/lang/reflect/Field.h>
+#ifndef SystemClassLoader_Internal_Lang_Dragon_H
+#define SystemClassLoader_Internal_Lang_Dragon_H
 
-Import dragon::lang::reflect;
+#include <dragon/config.h>
 
+#include <dragon/lang/internal/LibraryClassLoader.h>
 
-Field::Field(const Class* clazz, const char* name, const Class* type) 
-	:Member(clazz, name), genericType(type){
-	//Nothing
-}
+BeginPackage3(dragon, lang, internal)
 
-Field::~Field() {
+Import dragon::lang::internal;
 
-}
+class _DragonExport SystemClassLoader 
+	extends(LibraryClassLoader) {
+public:
+	friend class ClassLoader;
 
-const Class* Field::getGenericType() {
-	return this->genericType;
-}
+private:
+	SystemClassLoader();
+	virtual ~SystemClassLoader();
+	
+};//SystemClassLoader
+
+EndPackage3 //(dragon, lang, internal)
+
+#endif //SystemClassLoader_Internal_Lang_Dragon_H

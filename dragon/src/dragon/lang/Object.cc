@@ -22,34 +22,20 @@
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
-//#include <dragon/lang/Class.h>
+#include <dragon/lang/ClassLoader.h>
 
 Import dragon::lang;
 
-Object::Object() {
-	//this->clazz = null;
-}
+Object::Object() {}
 
 Object::~Object() {
 	finalize();
 }
 
-/*
-Class<Object>* Object::getClass()
-{
-	if(this->clazz==null)
-	{
-		return new Class<Object>(&typeid(*this));
-	}
-
-	return this->clazz;
+Class* Object::getClass() {
+	ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
+	return classLoader->loadClass(typeid(*this).name());
 }
-
-void Object::setClass(Class<Object>* clazz)
-{
-	this->clazz = clazz;
-}
-*/
 
 dg_boolean Object::equals(const Object* obj) {
 	return this == obj;
@@ -64,6 +50,4 @@ String* Object::toString() {
 	return String::format(L"@%d", this);
 }
 
-void Object::finalize() {
-	//SafeDelete(this->clazz);
-}
+void Object::finalize(){}

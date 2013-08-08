@@ -1,4 +1,4 @@
-#include <dragon/lang/reflect/DllLibrary.h>
+#include <dragon/lang/reflect/Library.h>
 
 #include <windows.h>
 #include <Dbghelp.h>
@@ -12,7 +12,7 @@ Import dragon::lang::reflect;
 #pragma comment(lib,"Dbghelp.lib")
 #endif
 
-DllLibrary::DllLibrary()
+Library::Library()
 {
 	hModule=null;
 	this->methodCount=0;
@@ -20,7 +20,7 @@ DllLibrary::DllLibrary()
 	this->classMap=new HashMap<String,P<Class<Object>>>();
 }
 
-DllLibrary::DllLibrary(HMODULE hModule)
+Library::Library(HMODULE hModule)
 {
 	this->hModule=hModule;
 	this->methodCount=0;
@@ -29,7 +29,7 @@ DllLibrary::DllLibrary(HMODULE hModule)
 	this->processLib();
 }
 
-DllLibrary::DllLibrary(String dllPath) throw(FileNotFoundException)
+Library::Library(String dllPath) throw(FileNotFoundException)
 {
 	File file(dllPath);
 	if(!file.exists())
@@ -44,7 +44,7 @@ DllLibrary::DllLibrary(String dllPath) throw(FileNotFoundException)
 	this->processLib(); 
 }
 
-DllLibrary::~DllLibrary()
+Library::~Library()
 {
 	if(this->hModule!=null)
 	{
@@ -52,7 +52,7 @@ DllLibrary::~DllLibrary()
 	}
 }
 
-void DllLibrary::free()
+void Library::free()
 {
 	if(this->hModule!=null)
 	{
@@ -61,7 +61,7 @@ void DllLibrary::free()
 	}
 }
 
-void DllLibrary::load(String libPath) throw(FileNotFoundException)
+void Library::load(String libPath) throw(FileNotFoundException)
 {
 	this->free();
 
@@ -75,7 +75,7 @@ void DllLibrary::load(String libPath) throw(FileNotFoundException)
 	this->processLib();
 }
 
-bool DllLibrary::processLib()
+bool Library::processLib()
 {
 	if(this->hModule==null)
 	{
@@ -146,7 +146,7 @@ bool DllLibrary::processLib()
 	return true;
 }
 
-bool DllLibrary::processMethod(String methodSign,FARPROC pfn)
+bool Library::processMethod(String methodSign,FARPROC pfn)
 {
 	int leftBracket=methodSign.indexOf(L'(');
 	if(leftBracket==-1) return false;
@@ -229,12 +229,12 @@ bool DllLibrary::processMethod(String methodSign,FARPROC pfn)
 	return true;
 }
 
-P<Class<Object>> DllLibrary::getClassForName(String className)
+P<Class<Object>> Library::getClassForName(String className)
 {
 	return this->classMap->get(className);
 }
 
-bool DllLibrary::updateClass(Class<Object>* clazz)
+bool Library::updateClass(Class<Object>* clazz)
 {
 	if(this->classMap->containsKey(clazz->getName()))
 	{
@@ -245,7 +245,7 @@ bool DllLibrary::updateClass(Class<Object>* clazz)
 	return false;
 }
 
-bool DllLibrary::containsClass(String className)
+bool Library::containsClass(String className)
 {
 	if(this->classMap->containsKey(className))
 	{
@@ -255,12 +255,12 @@ bool DllLibrary::containsClass(String className)
 	return false;
 }
 
-int DllLibrary::getClassCount()
+int Library::getClassCount()
 {
 	return this->classMap->size();
 }
 
-FARPROC DllLibrary::getClassProc(String methodName)
+FARPROC Library::getClassProc(String methodName)
 {
 	P<Method> method=getClassMethod(methodName);
 
@@ -272,7 +272,7 @@ FARPROC DllLibrary::getClassProc(String methodName)
 	return (FARPROC)null;
 }
 
-P<Method> DllLibrary::getClassMethod(String methodName)
+P<Method> Library::getClassMethod(String methodName)
 {
 	if(methodMap->containsKey(methodName))
 	{
@@ -283,7 +283,7 @@ P<Method> DllLibrary::getClassMethod(String methodName)
 }
 
 
-P<Array<P<Method>>> DllLibrary::getClassMethods()
+P<Array<P<Method>>> Library::getClassMethods()
 {
 	int size=methodMap->size();
 	P<Array<P<Method>>> methodArray=new Array<P<Method>>(size);
@@ -303,7 +303,7 @@ P<Array<P<Method>>> DllLibrary::getClassMethods()
 	return methodArray;
 }
 
-int DllLibrary::getMethodCount()
+int Library::getMethodCount()
 {
 	return methodMap->size();
 }

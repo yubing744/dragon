@@ -48,14 +48,15 @@
 #define Import using namespace
 
 // Safe Delete
-#define SafeDelete(pObject)  if(pObject != null) {delete pObject; pObject = null;}
+#define SafeDelete(pObject) if(pObject != null) {delete pObject; pObject = null;}
 #define SafeDeleteArray(pArray) if(pArray != null) {delete[] pArray; pArray = null;}
 
+// Safe Free
+#define SafeFree(pMem) if(pMem != null) {free(pMem); pMem = null;}
 
 //#define DRAGON_STATIC_LIB
 //#define MEM_CHECK
 //#define ENABLE_LOG
-
 
 // Define export
 #ifdef _WIN32
@@ -145,6 +146,19 @@
 	#define DRAGON_INLINE(declarator) inline declarator
 #endif
 
+// Define stdcall
+#if defined(__GNUC__)
+	#define DRAGON_STDCALL __attribute__((stdcall))
+#else
+	#define DRAGON_STDCALL __stdcall
+#endif
+
+// Define thiscall
+#if defined(__GNUC__)
+	#define DRAGON_THISCALL __attribute__((thiscall))
+#else
+	#define DRAGON_THISCALL __thiscall
+#endif
 
 // Define deprecated
 #if defined(__GNUC__) && !DRAGON_DISABLE_DEPRECATIONS

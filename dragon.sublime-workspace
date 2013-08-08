@@ -4,6 +4,126 @@
 		"selected_items":
 		[
 			[
+				"im",
+				"image_num"
+			],
+			[
+				"is",
+				"is_64bit_image"
+			],
+			[
+				"lib",
+				"librarys"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"find",
+				"findClass"
+			],
+			[
+				"pack",
+				"packageName"
+			],
+			[
+				"pr",
+				"procAddress"
+			],
+			[
+				"sett",
+				"setter_name"
+			],
+			[
+				"ret",
+				"returnType"
+			],
+			[
+				"Sym",
+				"SymTestBean2"
+			],
+			[
+				"m_p",
+				"m_pFunction"
+			],
+			[
+				"te",
+				"testVal1"
+			],
+			[
+				"set",
+				"setBytePtr2"
+			],
+			[
+				"sig",
+				"signature"
+			],
+			[
+				"push",
+				"push_back"
+			],
+			[
+				"de",
+				"demangled"
+			],
+			[
+				"re",
+				"results"
+			],
+			[
+				"it",
+				"iterator"
+			],
+			[
+				"sub",
+				"substr"
+			],
+			[
+				"si",
+				"size_t"
+			],
+			[
+				"vr",
+				"vector	std::vector"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"qu",
+				"queryByteSymbol"
+			],
+			[
+				"sym",
+				"symbol"
+			],
+			[
+				"setByte",
+				"setBytePtr2"
+			],
+			[
+				"sour",
+				"source_file"
+			],
+			[
+				"new",
+				"new_files"
+			],
+			[
+				"excl",
+				"excluded_files"
+			],
+			[
+				"pat",
+				"patterns"
+			],
+			[
+				"suf",
+				"suffix"
+			],
+			[
 				"mo",
 				"modules"
 			],
@@ -30,10 +150,6 @@
 			[
 				"fil",
 				"filterConfig"
-			],
-			[
-				"sub",
-				"subProject"
 			],
 			[
 				"par",
@@ -104,24 +220,12 @@
 				"targetOffset"
 			],
 			[
-				"new",
-				"newCapacity"
-			],
-			[
 				"targe",
 				"targetStr"
 			],
 			[
 				"repl",
 				"replaceAll"
-			],
-			[
-				"re",
-				"replacement"
-			],
-			[
-				"sour",
-				"sourceOffset"
 			],
 			[
 				"Saf",
@@ -184,19 +288,85 @@
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
+			"file": "dragon.sublime-project",
 			"settings":
 			{
-				"buffer_size": 826,
+				"buffer_size": 438,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/build/Build.scons",
+			"contents": "~\"GNU gdb 6.3.50-20050815 (Apple version gdb-1824) (Wed Feb  6 22:51:23 UTC 2013)\\n\"\n12-gdb-show interpreter\n~\"Copyright 2004 Free Software Foundation, Inc.\\n\"\n~\"GDB is free software, covered by the GNU General Public License, and you are\\n\"\n~\"welcome to change it and/or distribute copies of it under certain conditions.\\n\"\n~\"Type \\\"show copying\\\" to see the conditions.\\n\"\n~\"There is absolutely no warranty for GDB.  Type \\\"show warranty\\\" for details.\\n\"\n~\"This GDB was configured as \\\"x86_64-apple-darwin\\\"...\"\n&\"\\nwarning: \"\n&\"UUID mismatch detected between:\\n\\t/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib\\n\\t/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib.dSYM/Contents/Resources/DWARF/libdragon.dylib...\"\n&\"\\n\"\n=uuid-mismatch,file=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib\",debug-file=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib.dSYM/Contents/Resources/DWARF/libdragon.dylib\"\n&\"\\nwarning: \"\n&\"UUID mismatch detected between:\\n\\t/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test\\n\\t/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test.dSYM/Contents/Resources/DWARF/dragon_test...\"\n&\"\\n\"\n=uuid-mismatch,file=\"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test\",debug-file=\"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test.dSYM/Contents/Resources/DWARF/dragon_test\"\n~\"\\n\"\n(gdb)\n12^done,value=\"mi\",time={wallclock=\"0.00004\",user=\"0.00003\",system=\"0.00001\",start=\"1375057479.918310\",end=\"1375057479.918354\"}\n(gdb)\n13-inferior-tty-set /var/folders/2x/mmlkcsyn4sx81vwsp3c0m75w0000gp/T/tmpjQDMQu\n13^done,time={wallclock=\"0.00001\",user=\"0.00000\",system=\"0.00000\",start=\"1375057479.920906\",end=\"1375057479.920913\"}\n(gdb)\n14-gdb-set target-async 1\n15-gdb-set pagination off\n14^error,msg=\"No symbol \\\"target\\\" in current context.\"\n(gdb)\n16-exec-run\n15^done,time={wallclock=\"0.00002\",user=\"0.00002\",system=\"0.00000\",start=\"1375057479.922688\",end=\"1375057479.922707\"}\n(gdb)\n~\"[Switching to process 64677 thread 0x0]\\n\"\n=shlibs-updated\n16^running\n(gdb)\n=shlibs-added,shlib-info={num=\"2\",name=\"dragon_test\",kind=\"-\",dyld-addr=\"0x100000000\",reason=\"exec\",requested-state=\"Y\",state=\"Y\",path=\"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test\",description=\"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test\",loaded_addr=\"\",slide=\"0x0\",prefix=\"\"},time={now=\"1375057480.027469\"}\n=shlibs-added,shlib-info={num=\"3\",name=\"libgtest.dylib\",kind=\"-\",dyld-addr=\"0x10012c000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libgtest.dylib\",description=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libgtest.dylib\",loaded_addr=\"0x10012c000\",slide=\"0x10012c000\",prefix=\"\",dsym-objpath=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libgtest.dylib.dSYM/Contents/Resources/DWARF/libgtest.dylib\"},time={now=\"1375057480.027834\"}\n=shlibs-added,shlib-info={num=\"4\",name=\"libdragon.dylib\",kind=\"-\",dyld-addr=\"0x100229000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib\",description=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libdragon.dylib\",loaded_addr=\"0x100229000\",slide=\"0x100229000\",prefix=\"\"},time={now=\"1375057480.028064\"}\n=shlibs-added,shlib-info={num=\"5\",name=\"libpcre32.dylib\",kind=\"-\",dyld-addr=\"0x1002bb000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libpcre32.dylib\",description=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libpcre32.dylib\",loaded_addr=\"0x1002bb000\",slide=\"0x1002bb000\",prefix=\"\",dsym-objpath=\"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/debug/libpcre32.dylib.dSYM/Contents/Resources/DWARF/libpcre32.dylib\"},time={now=\"1375057480.028368\"}\n=shlibs-added,shlib-info={num=\"6\",name=\"libstdc++.6.0.9.dylib\",kind=\"-\",dyld-addr=\"0x7fff9533f000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libstdc++.6.0.9.dylib\",description=\"/usr/lib/libstdc++.6.0.9.dylib\",loaded_addr=\"0x7fff9533f000\",slide=\"0x7fff9533f000\",prefix=\"\"},time={now=\"1375057480.028506\"}\n=shlibs-added,shlib-info={num=\"7\",name=\"libSystem.B.dylib\",kind=\"-\",dyld-addr=\"0x7fff96e9c000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libSystem.B.dylib\",description=\"/usr/lib/libSystem.B.dylib\",loaded_addr=\"0x7fff96e9c000\",slide=\"0x7fff96e9c000\",prefix=\"\"},time={now=\"1375057480.028659\"}\n=shlibs-added,shlib-info={num=\"8\",name=\"libc++abi.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f5c5000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libc++abi.dylib\",description=\"/usr/lib/libc++abi.dylib\",loaded_addr=\"0x7fff8f5c5000\",slide=\"0x7fff8f5c5000\",prefix=\"\"},time={now=\"1375057480.028790\"}\n=shlibs-added,shlib-info={num=\"9\",name=\"libcache.dylib\",kind=\"-\",dyld-addr=\"0x7fff8b266000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libcache.dylib\",description=\"/usr/lib/system/libcache.dylib\",loaded_addr=\"0x7fff8b266000\",slide=\"0x7fff8b266000\",prefix=\"\"},time={now=\"1375057480.028929\"}\n=shlibs-added,shlib-info={num=\"10\",name=\"libcommonCrypto.dylib\",kind=\"-\",dyld-addr=\"0x7fff8dcdd000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libcommonCrypto.dylib\",description=\"/usr/lib/system/libcommonCrypto.dylib\",loaded_addr=\"0x7fff8dcdd000\",slide=\"0x7fff8dcdd000\",prefix=\"\"},time={now=\"1375057480.029087\"}\n=shlibs-added,shlib-info={num=\"11\",name=\"libcompiler_rt.dylib\",kind=\"-\",dyld-addr=\"0x7fff94af9000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libcompiler_rt.dylib\",description=\"/usr/lib/system/libcompiler_rt.dylib\",loaded_addr=\"0x7fff94af9000\",slide=\"0x7fff94af9000\",prefix=\"\"},time={now=\"1375057480.029237\"}\n=shlibs-added,shlib-info={num=\"12\",name=\"libcopyfile.dylib\",kind=\"-\",dyld-addr=\"0x7fff8b6a3000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libcopyfile.dylib\",description=\"/usr/lib/system/libcopyfile.dylib\",loaded_addr=\"0x7fff8b6a3000\",slide=\"0x7fff8b6a3000\",prefix=\"\"},time={now=\"1375057480.029388\"}\n=shlibs-added,shlib-info={num=\"13\",name=\"libdispatch.dylib\",kind=\"-\",dyld-addr=\"0x7fff8c2cf000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libdispatch.dylib\",description=\"/usr/lib/system/libdispatch.dylib\",loaded_addr=\"0x7fff8c2cf000\",slide=\"0x7fff8c2cf000\",prefix=\"\"},time={now=\"1375057480.029528\"}\n=shlibs-added,shlib-info={num=\"14\",name=\"libdnsinfo.dylib\",kind=\"-\",dyld-addr=\"0x7fff930f0000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libdnsinfo.dylib\",description=\"/usr/lib/system/libdnsinfo.dylib\",loaded_addr=\"0x7fff930f0000\",slide=\"0x7fff930f0000\",prefix=\"\"},time={now=\"1375057480.029686\"}\n=shlibs-added,shlib-info={num=\"15\",name=\"libdyld.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f040000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libdyld.dylib\",description=\"/usr/lib/system/libdyld.dylib\",loaded_addr=\"0x7fff8f040000\",slide=\"0x7fff8f040000\",prefix=\"\"},time={now=\"1375057480.029804\"}\n=shlibs-added,shlib-info={num=\"16\",name=\"libkeymgr.dylib\",kind=\"-\",dyld-addr=\"0x7fff8b661000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libkeymgr.dylib\",description=\"/usr/lib/system/libkeymgr.dylib\",loaded_addr=\"0x7fff8b661000\",slide=\"0x7fff8b661000\",prefix=\"\"},time={now=\"1375057480.029932\"}\n=shlibs-added,shlib-info={num=\"17\",name=\"liblaunch.dylib\",kind=\"-\",dyld-addr=\"0x7fff8b66d000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/liblaunch.dylib\",description=\"/usr/lib/system/liblaunch.dylib\",loaded_addr=\"0x7fff8b66d000\",slide=\"0x7fff8b66d000\",prefix=\"\"},time={now=\"1375057480.030055\"}\n=shlibs-added,shlib-info={num=\"18\",name=\"libmacho.dylib\",kind=\"-\",dyld-addr=\"0x7fff9018a000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libmacho.dylib\",description=\"/usr/lib/system/libmacho.dylib\",loaded_addr=\"0x7fff9018a000\",slide=\"0x7fff9018a000\",prefix=\"\"},time={now=\"1375057480.030168\"}\n=shlibs-added,shlib-info={num=\"19\",name=\"libquarantine.dylib\",kind=\"-\",dyld-addr=\"0x7fff906ce000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libquarantine.dylib\",description=\"/usr/lib/system/libquarantine.dylib\",loaded_addr=\"0x7fff906ce000\",slide=\"0x7fff906ce000\",prefix=\"\"},time={now=\"1375057480.030305\"}\n=shlibs-added,shlib-info={num=\"20\",name=\"libremovefile.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f5c3000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libremovefile.dylib\",description=\"/usr/lib/system/libremovefile.dylib\",loaded_addr=\"0x7fff8f5c3000\",slide=\"0x7fff8f5c3000\",prefix=\"\"},time={now=\"1375057480.030455\"}\n=shlibs-added,shlib-info={num=\"21\",name=\"libsystem_blocks.dylib\",kind=\"-\",dyld-addr=\"0x7fff906d1000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_blocks.dylib\",description=\"/usr/lib/system/libsystem_blocks.dylib\",loaded_addr=\"0x7fff906d1000\",slide=\"0x7fff906d1000\",prefix=\"\"},time={now=\"1375057480.030599\"}\n=shlibs-added,shlib-info={num=\"22\",name=\"libsystem_c.dylib\",kind=\"-\",dyld-addr=\"0x7fff93013000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_c.dylib\",description=\"/usr/lib/system/libsystem_c.dylib\",loaded_addr=\"0x7fff93013000\",slide=\"0x7fff93013000\",prefix=\"\"},time={now=\"1375057480.030729\"}\n=shlibs-added,shlib-info={num=\"23\",name=\"libsystem_dnssd.dylib\",kind=\"-\",dyld-addr=\"0x7fff96fff000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_dnssd.dylib\",description=\"/usr/lib/system/libsystem_dnssd.dylib\",loaded_addr=\"0x7fff96fff000\",slide=\"0x7fff96fff000\",prefix=\"\"},time={now=\"1375057480.030864\"}\n=shlibs-added,shlib-info={num=\"24\",name=\"libsystem_info.dylib\",kind=\"-\",dyld-addr=\"0x7fff928bb000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_info.dylib\",description=\"/usr/lib/system/libsystem_info.dylib\",loaded_addr=\"0x7fff928bb000\",slide=\"0x7fff928bb000\",prefix=\"\"},time={now=\"1375057480.031011\"}\n=shlibs-added,shlib-info={num=\"25\",name=\"libsystem_kernel.dylib\",kind=\"-\",dyld-addr=\"0x7fff9683d000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_kernel.dylib\",description=\"/usr/lib/system/libsystem_kernel.dylib\",loaded_addr=\"0x7fff9683d000\",slide=\"0x7fff9683d000\",prefix=\"\"},time={now=\"1375057480.031143\"}\n=shlibs-added,shlib-info={num=\"26\",name=\"libsystem_m.dylib\",kind=\"-\",dyld-addr=\"0x7fff9636b000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_m.dylib\",description=\"/usr/lib/system/libsystem_m.dylib\",loaded_addr=\"0x7fff9636b000\",slide=\"0x7fff9636b000\",prefix=\"\"},time={now=\"1375057480.031273\"}\n=shlibs-added,shlib-info={num=\"27\",name=\"libsystem_network.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f553000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_network.dylib\",description=\"/usr/lib/system/libsystem_network.dylib\",loaded_addr=\"0x7fff8f553000\",slide=\"0x7fff8f553000\",prefix=\"\"},time={now=\"1375057480.031415\"}\n=shlibs-added,shlib-info={num=\"28\",name=\"libsystem_notify.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f89b000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_notify.dylib\",description=\"/usr/lib/system/libsystem_notify.dylib\",loaded_addr=\"0x7fff8f89b000\",slide=\"0x7fff8f89b000\",prefix=\"\"},time={now=\"1375057480.031562\"}\n=shlibs-added,shlib-info={num=\"29\",name=\"libsystem_sandbox.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f17f000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libsystem_sandbox.dylib\",description=\"/usr/lib/system/libsystem_sandbox.dylib\",loaded_addr=\"0x7fff8f17f000\",slide=\"0x7fff8f17f000\",prefix=\"\"},time={now=\"1375057480.031701\"}\n=shlibs-added,shlib-info={num=\"30\",name=\"libunc.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f1ce000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libunc.dylib\",description=\"/usr/lib/system/libunc.dylib\",loaded_addr=\"0x7fff8f1ce000\",slide=\"0x7fff8f1ce000\",prefix=\"\"},time={now=\"1375057480.031823\"}\n=shlibs-added,shlib-info={num=\"31\",name=\"libunwind.dylib\",kind=\"-\",dyld-addr=\"0x7fff9023d000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libunwind.dylib\",description=\"/usr/lib/system/libunwind.dylib\",loaded_addr=\"0x7fff9023d000\",slide=\"0x7fff9023d000\",prefix=\"\"},time={now=\"1375057480.031948\"}\n=shlibs-added,shlib-info={num=\"32\",name=\"libxpc.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f738000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libxpc.dylib\",description=\"/usr/lib/system/libxpc.dylib\",loaded_addr=\"0x7fff8f738000\",slide=\"0x7fff8f738000\",prefix=\"\"},time={now=\"1375057480.032183\"}\n=shlibs-added,shlib-info={num=\"33\",name=\"libcorecrypto.dylib\",kind=\"-\",dyld-addr=\"0x7fff8f128000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/system/libcorecrypto.dylib\",description=\"/usr/lib/system/libcorecrypto.dylib\",loaded_addr=\"0x7fff8f128000\",slide=\"0x7fff8f128000\",prefix=\"\"},time={now=\"1375057480.032353\"}\n=shlibs-added,shlib-info={num=\"34\",name=\"libobjc.A.dylib\",kind=\"-\",dyld-addr=\"0x7fff95a67000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libobjc.A.dylib\",description=\"/usr/lib/libobjc.A.dylib\",loaded_addr=\"0x7fff95a67000\",slide=\"0x7fff95a67000\",prefix=\"\"},time={now=\"1375057480.032477\"}\n=shlibs-added,shlib-info={num=\"35\",name=\"libauto.dylib\",kind=\"-\",dyld-addr=\"0x7fff8dcec000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libauto.dylib\",description=\"/usr/lib/libauto.dylib\",loaded_addr=\"0x7fff8dcec000\",slide=\"0x7fff8dcec000\",prefix=\"\"},time={now=\"1375057480.032603\"}\n=shlibs-added,shlib-info={num=\"36\",name=\"libc++.1.dylib\",kind=\"-\",dyld-addr=\"0x7fff8dd39000\",reason=\"dyld\",requested-state=\"Y\",state=\"Y\",path=\"/usr/lib/libc++.1.dylib\",description=\"/usr/lib/libc++.1.dylib\",loaded_addr=\"0x7fff8dd39000\",slide=\"0x7fff8dd39000\",prefix=\"\"},time={now=\"1375057480.032728\"}\n16*stopped,time={wallclock=\"0.13292\",user=\"0.06384\",system=\"0.02630\",start=\"1375057479.925861\",end=\"1375057480.058781\"},reason=\"signal-received\",signal-name=\"EXC_BAD_ACCESS\",signal-meaning=\"Could not access memory\",access-reason=\"KERN_PROTECTION_FAILURE\",address=\"0x00007fff5f3fffdc\",thread-id=\"1\"\n17-thread-select 1\n(gdb)\n17^done,new-thread-id=\"1\",thread-name=\"com.apple.main-thread\",frame={addr=\"0x00007fff9304d781\",fp=\"0x00007fff5f400080\",func=\"szone_malloc_should_clear\",optimized=\"0\",args={},shlibname=\"/usr/lib/system/libsystem_c.dylib\"},time={wallclock=\"0.00059\",user=\"0.00030\",system=\"0.00025\",start=\"1375057480.085673\",end=\"1375057480.086263\"}\n(gdb)\n18-stack-info-frame\n18^done,frame={level=\"0\",addr=\"0x00007fff9304d781\",fp=\"0x00007fff5f400080\",func=\"szone_malloc_should_clear\",optimized=\"0\",shlibname=\"/usr/lib/system/libsystem_c.dylib\"},time={wallclock=\"0.00010\",user=\"0.00009\",system=\"0.00001\",start=\"1375057480.108878\",end=\"1375057480.108975\"}\n(gdb)\n19-stack-list-frames\n20-gdb-exit\n21-gdb-exit\n",
 			"settings":
 			{
-				"buffer_size": 22817,
+				"buffer_size": 15416,
+				"line_ending": "Unix",
+				"name": "GDB Session",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "GNU gdb 6.3.50-20050815 (Apple version gdb-1824) (Wed Feb  6 22:51:23 UTC 2013)\nCopyright 2004 Free Software Foundation, Inc.\nGDB is free software, covered by the GNU General Public License, and you are\nwelcome to change it and/or distribute copies of it under certain conditions.\nType \"show copying\" to see the conditions.\nThere is absolutely no warranty for GDB.  Type \"show warranty\" for details.\nThis GDB was configured as \"x86_64-apple-darwin\"...\n[Switching to process 64677 thread 0x0]\n[==========] Running 116 tests from 19 test cases.\n[----------] Global test environment set-up.\n[----------] 3 tests from Dragon_Lang_Gc_SmartPointerTest\n[ RUN      ] Dragon_Lang_Gc_SmartPointerTest.New\n[       OK ] Dragon_Lang_Gc_SmartPointerTest.New (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartPointerTest.New2\n[       OK ] Dragon_Lang_Gc_SmartPointerTest.New2 (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartPointerTest.New3\n[       OK ] Dragon_Lang_Gc_SmartPointerTest.New3 (0 ms)\n[----------] 3 tests from Dragon_Lang_Gc_SmartPointerTest (0 ms total)\n\n[----------] 5 tests from Dragon_Lang_Gc_SmartArrayPointerTest\n[ RUN      ] Dragon_Lang_Gc_SmartArrayPointerTest.New\n[       OK ] Dragon_Lang_Gc_SmartArrayPointerTest.New (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartArrayPointerTest.New2\n[       OK ] Dragon_Lang_Gc_SmartArrayPointerTest.New2 (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartArrayPointerTest.New3\n[       OK ] Dragon_Lang_Gc_SmartArrayPointerTest.New3 (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartArrayPointerTest.NewStringArray01\n[       OK ] Dragon_Lang_Gc_SmartArrayPointerTest.NewStringArray01 (0 ms)\n[ RUN      ] Dragon_Lang_Gc_SmartArrayPointerTest.NewStringPointerArray01\n[       OK ] Dragon_Lang_Gc_SmartArrayPointerTest.NewStringPointerArray01 (0 ms)\n[----------] 5 tests from Dragon_Lang_Gc_SmartArrayPointerTest (0 ms total)\n\n[----------] 3 tests from Dragon_Lang_Gc_MemoryAllocTest\n[ RUN      ] Dragon_Lang_Gc_MemoryAllocTest.New\n[       OK ] Dragon_Lang_Gc_MemoryAllocTest.New (0 ms)\n[ RUN      ] Dragon_Lang_Gc_MemoryAllocTest.NewWithType01\n[       OK ] Dragon_Lang_Gc_MemoryAllocTest.NewWithType01 (1 ms)\n[ RUN      ] Dragon_Lang_Gc_MemoryAllocTest.NewWithType02\n[       OK ] Dragon_Lang_Gc_MemoryAllocTest.NewWithType02 (0 ms)\n[----------] 3 tests from Dragon_Lang_Gc_MemoryAllocTest (1 ms total)\n\n[----------] 1 test from Dragon_Lang_ObjectTest\n[ RUN      ] Dragon_Lang_ObjectTest.New\n[       OK ] Dragon_Lang_ObjectTest.New (0 ms)\n[----------] 1 test from Dragon_Lang_ObjectTest (0 ms total)\n\n[----------] 2 tests from Dragon_Lang_Math_Test\n[ RUN      ] Dragon_Lang_Math_Test.Max\n[       OK ] Dragon_Lang_Math_Test.Max (0 ms)\n[ RUN      ] Dragon_Lang_Math_Test.Min\n[       OK ] Dragon_Lang_Math_Test.Min (0 ms)\n[----------] 2 tests from Dragon_Lang_Math_Test (0 ms total)\n\n[----------] 51 tests from Dragon_Lang_String_Test\n[ RUN      ] Dragon_Lang_String_Test.NewWithBasicChar\n[       OK ] Dragon_Lang_String_Test.NewWithBasicChar (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.NewWithChar\n[       OK ] Dragon_Lang_String_Test.NewWithChar (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.NewWithString\n[       OK ] Dragon_Lang_String_Test.NewWithString (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.NewWithStringOffset\n[       OK ] Dragon_Lang_String_Test.NewWithStringOffset (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toChars_01\n[       OK ] Dragon_Lang_String_Test.toChars_01 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toCharArray\n[       OK ] Dragon_Lang_String_Test.toCharArray (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toChars\n[       OK ] Dragon_Lang_String_Test.toChars (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.strEquals\n[       OK ] Dragon_Lang_String_Test.strEquals (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.startsWith_empty_str\n[       OK ] Dragon_Lang_String_Test.startsWith_empty_str (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.startsWith_normal\n[       OK ] Dragon_Lang_String_Test.startsWith_normal (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.startsWith_full_match\n[       OK ] Dragon_Lang_String_Test.startsWith_full_match (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.startsWith_more_lenth_than\n[       OK ] Dragon_Lang_String_Test.startsWith_more_lenth_than (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.startsWith_with_toffet\n[       OK ] Dragon_Lang_String_Test.startsWith_with_toffet (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.endsWith\n[       OK ] Dragon_Lang_String_Test.endsWith (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.NewWithBytes\n[       OK ] Dragon_Lang_String_Test.NewWithBytes (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.getBytes\n[       OK ] Dragon_Lang_String_Test.getBytes (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS4_little\n[       OK ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS4_little (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS4_big\n[       OK ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS4_big (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_little\n[       OK ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_little (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_big\n[       OK ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_big (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_big_FOR_WCHAR\n[       OK ] Dragon_Lang_String_Test.convertBytesFromUTF8ToUCS2_big_FOR_WCHAR (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo01\n[       OK ] Dragon_Lang_String_Test.compareTo01 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo02\n[       OK ] Dragon_Lang_String_Test.compareTo02 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo03\n[       OK ] Dragon_Lang_String_Test.compareTo03 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo04\n[       OK ] Dragon_Lang_String_Test.compareTo04 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo05\n[       OK ] Dragon_Lang_String_Test.compareTo05 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo06\n[       OK ] Dragon_Lang_String_Test.compareTo06 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareTo07\n[       OK ] Dragon_Lang_String_Test.compareTo07 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase01\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase01 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase02\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase02 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase03\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase03 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase04\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase04 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase05\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase05 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase06\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase06 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.compareToIgnoreCase07\n[       OK ] Dragon_Lang_String_Test.compareToIgnoreCase07 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.hashCode\n[       OK ] Dragon_Lang_String_Test.hashCode (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.concat\n[       OK ] Dragon_Lang_String_Test.concat (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.trim\n[       OK ] Dragon_Lang_String_Test.trim (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.trim02\n[       OK ] Dragon_Lang_String_Test.trim02 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.trim03\n[       OK ] Dragon_Lang_String_Test.trim03 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.trim04\n[       OK ] Dragon_Lang_String_Test.trim04 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.trim05\n[       OK ] Dragon_Lang_String_Test.trim05 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toUpperCase\n[       OK ] Dragon_Lang_String_Test.toUpperCase (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toUpperCase02\n[       OK ] Dragon_Lang_String_Test.toUpperCase02 (1 ms)\n[ RUN      ] Dragon_Lang_String_Test.toLowerCase\n[       OK ] Dragon_Lang_String_Test.toLowerCase (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toLowerCase02\n[       OK ] Dragon_Lang_String_Test.toLowerCase02 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.replaceAll\n[       OK ] Dragon_Lang_String_Test.replaceAll (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.toStringInteger\n[       OK ] Dragon_Lang_String_Test.toStringInteger (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.format\n[       OK ] Dragon_Lang_String_Test.format (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.format02\n[       OK ] Dragon_Lang_String_Test.format02 (0 ms)\n[ RUN      ] Dragon_Lang_String_Test.format03\n[       OK ] Dragon_Lang_String_Test.format03 (0 ms)\n[----------] 51 tests from Dragon_Lang_String_Test (2 ms total)\n\n[----------] 2 tests from Dragon_Lang_ThrowableTest\n[ RUN      ] Dragon_Lang_ThrowableTest.New\n[       OK ] Dragon_Lang_ThrowableTest.New (0 ms)\n[ RUN      ] Dragon_Lang_ThrowableTest.NotEmptyMsg\n[       OK ] Dragon_Lang_ThrowableTest.NotEmptyMsg (0 ms)\n[----------] 2 tests from Dragon_Lang_ThrowableTest (0 ms total)\n\n[----------] 1 test from Dragon_Lang_ExceptionTest\n[ RUN      ] Dragon_Lang_ExceptionTest.TryCatchTest\n[       OK ] Dragon_Lang_ExceptionTest.TryCatchTest (0 ms)\n[----------] 1 test from Dragon_Lang_ExceptionTest (0 ms total)\n\n[----------] 1 test from Dragon_Lang_RuntimeExceptionTest\n[ RUN      ] Dragon_Lang_RuntimeExceptionTest.TryCatchTest\n[       OK ] Dragon_Lang_RuntimeExceptionTest.TryCatchTest (0 ms)\n[----------] 1 test from Dragon_Lang_RuntimeExceptionTest (0 ms total)\n\n[----------] 1 test from Dragon_Lang_IllegalArgumentExceptionTest\n[ RUN      ] Dragon_Lang_IllegalArgumentExceptionTest.TryCatchTest\n[       OK ] Dragon_Lang_IllegalArgumentExceptionTest.TryCatchTest (0 ms)\n[----------] 1 test from Dragon_Lang_IllegalArgumentExceptionTest (0 ms total)\n\n[----------] 2 tests from Dragon_Lang_IntegerTest\n[ RUN      ] Dragon_Lang_IntegerTest.New\n[       OK ] Dragon_Lang_IntegerTest.New (0 ms)\n[ RUN      ] Dragon_Lang_IntegerTest.intValue\n[       OK ] Dragon_Lang_IntegerTest.intValue (0 ms)\n[----------] 2 tests from Dragon_Lang_IntegerTest (0 ms total)\n\n[----------] 1 test from Dragon_Lang_LongTest\n[ RUN      ] Dragon_Lang_LongTest.New\n[       OK ] Dragon_Lang_LongTest.New (0 ms)\n[----------] 1 test from Dragon_Lang_LongTest (0 ms total)\n\n[----------] 7 tests from Dragon_Lang_StringBuffer_Test\n[ RUN      ] Dragon_Lang_StringBuffer_Test.BasicNew\n[       OK ] Dragon_Lang_StringBuffer_Test.BasicNew (0 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.BasicNewWithCapcity\n[       OK ] Dragon_Lang_StringBuffer_Test.BasicNewWithCapcity (0 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.AppendString\n[       OK ] Dragon_Lang_StringBuffer_Test.AppendString (0 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.AppendBoolean\n[       OK ] Dragon_Lang_StringBuffer_Test.AppendBoolean (1 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.AppendInt_01\n[       OK ] Dragon_Lang_StringBuffer_Test.AppendInt_01 (0 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.AppendInt_02\n[       OK ] Dragon_Lang_StringBuffer_Test.AppendInt_02 (0 ms)\n[ RUN      ] Dragon_Lang_StringBuffer_Test.AppendInt_03\n[       OK ] Dragon_Lang_StringBuffer_Test.AppendInt_03 (0 ms)\n[----------] 7 tests from Dragon_Lang_StringBuffer_Test (1 ms total)\n\n[----------] 1 test from Dragon_Lang_ClassLoaderTest\n[ RUN      ] Dragon_Lang_ClassLoaderTest.New\n",
+			"settings":
+			{
+				"buffer_size": 11284,
+				"line_ending": "Unix",
+				"name": "GDB Console",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "GDB Variables",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "GDB Callstack",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"file": "dragon/targets/universal-apple-macosx/debug/dragon_test",
+			"settings":
+			{
+				"buffer_size": 3063440,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "GDB Threads",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "GDB Breakpoints",
+				"read_only": true,
+				"scratch": true
 			}
 		}
 	],
@@ -292,43 +462,115 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/dragon.sublime-project",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/targets/universal-apple-macosx/debug/dragon3d-core-test",
-		"/Users/yubing/Develop/GitRepos/dragon/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/SystemClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/ClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/ClassLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Windows).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest(OSX).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Member.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Constructor.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Member.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/SConstruct",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Method.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Method.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Field.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Constructor.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Field.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(OSX).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Class.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/LibraryManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Linux).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/DllLibrary.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/DllLibrary.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/DllLibrary.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Library.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Property.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Property.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/DllLibrary.h",
+		"/usr/include/c++/4.2.1/bits/gthr-default.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegate.h",
+		"/usr/include/c++/4.2.1/bits/stl_vector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/internal/gtest-internal.h",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeGDB/Default.sublime-keymap",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/Demo.cpp",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegateBind.h",
+		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Thread.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fast-delegate/FastDelegate.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fask-delegate/FastDelegate.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test.dSYM/Contents/Resources/DWARF/dragon_test",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/LinkedList.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/default.supp",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/MemoryAllocTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/MemoryAlloc.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/MemoryAlloc.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_linux.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/targets/universal-apple-macosx/debug/dragon3d-core-test",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon.sublime-project",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeGDB/SublimeGDB.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/TestMain.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/SConstruct",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Boot.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Boot.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeGDB.sublime-settings",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/SmartPointer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/game/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/TestMain.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/.gitignore",
 		"/Users/yubing/Develop/GitRepos/dragon/ChangeLog.mk",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Comparable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/SmartPointer.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/SmartArrayPointer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/SmartArrayPointerTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/SmartPointerTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/osgi/src/org/dragon/osgi/framework/ClassLoader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/osgi/src/DllMain.cpp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/default.supp",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/gc.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/CharSequence.h",
 		"/usr/include/c++/4.2.1/bits/stl_tree.h",
@@ -337,89 +579,17 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Map.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/MemoryLeakCheck.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/MemoryLeakCheck.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/MemoryAlloc.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/MemoryAlloc.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.c",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
 		"/Users/yubing/Develop/GitRepos/SublimeDragon/dragon.sublime-build",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IntegerTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Arrays.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/unicode.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Matcher.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/StringBuffer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Long.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Long.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Number.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Number.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Thread.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/SoLibrary.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ThreadTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringBufferTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/StringBuffer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/System.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/regex/PatternSyntaxExceptionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/AbstractStringBuilderTest.cc",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Vintage/Default.sublime-keymap",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Vintage/README.TXT",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/dragon.sublime-build",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Vintage/Default (OSX).sublime-keymap",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/utf8.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/IllegalArgumentException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/PatternSyntaxException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/PatternSyntaxException.cc",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/xfree-3.supp",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/xfree-4.supp",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/bionic.supp",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/glibc-2.X.supp",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/exp-sgcheck.supp",
-		"/Users/yubing/Tools/Develop/valgrind-3.8.1/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/README.md",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Throwable.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ThrowableTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ExceptionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/RuntimeExceptionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IllegalArgumentExceptionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/regex/RegexTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Pattern.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33/pcredemo.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/MatchResult.h",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/regex.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/init.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/utf8conv.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/ucs4.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/utf8.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/testsuite/tinyiconv.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/acconfig.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33/pcre_exec.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/basic_type.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cpp",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33/testdata/saved32BE-1",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33/pcre.h",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Vintage/Vintage.sublime-commands",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/Vintage/Preferences (OSX).sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/RuntimeException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/cppunit-1.10.2/examples/cppunittest/ExceptionTest.cpp",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/SublimeNfft.sublime-settings",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/Default (OSX).sublime-keymap",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/SublimeNFFT.py",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/templates/cpp.tpl",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/moveSelectedCode.sublime-macro",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/Main.sublime-menu",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/SublimeNFFT.sublime-settings",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeNFFT/Default.sublime-commands"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Matcher.h"
 	],
 	"find":
 	{
@@ -438,9 +608,16 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"DllLibrary",
+			"union",
+			"union\n",
+			"\n",
+			"horrible_cast",
+			"Convert",
+			"GlobSources",
 			"cwd",
 			"Modules",
 			"cwd",
@@ -500,6 +677,8 @@
 		"regex": true,
 		"replace_history":
 		[
+			"Library",
+			"GlobTargetSources",
 			"SmartArrayPointer",
 			"k",
 			"t",
@@ -526,32 +705,105 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
+					"file": "dragon.sublime-project",
 					"settings":
 					{
-						"buffer_size": 826,
+						"buffer_size": 438,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								575,
-								575
+								438,
+								438
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"448":
+								"359":
 								{
-									"a": 575.0,
-									"b": 575.0
+									"a": 0.0,
+									"b": 0.0
+								}
+							},
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 15416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15416,
+								15416
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"362":
+								{
+									"a": 15416.0,
+									"b": 15416.0
+								}
+							},
+							"syntax": "Packages/SublimeGDB/gdb_session.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 11284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11284,
+								11284
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"365":
+								{
+									"a": 11284.0,
+									"b": 11284.0
 								}
 							},
 							"syntax": "Packages/Text/Plain text.tmLanguage"
@@ -563,37 +815,172 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "dragon/build/Build.scons",
+					"buffer": 3,
 					"settings":
 					{
-						"buffer_size": 22817,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2616,
-								2623
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"451":
+								"368":
 								{
-									"a": 2129.0,
-									"b": 2129.0
+									"a": 0.0,
+									"b": 0.0
 								}
 							},
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 929.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"371":
+								{
+									"a": 0.0,
+									"b": 0.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "dragon/targets/universal-apple-macosx/debug/dragon_test",
+					"settings":
+					{
+						"buffer_size": 3063440,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16,
+								16
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"374":
+								{
+									"a": 0.0,
+									"b": 0.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"377":
+								{
+									"a": 0.0,
+									"b": 0.0
+								}
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -616,25 +1003,46 @@
 			[
 				0,
 				0,
-				1,
+				3,
 				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			],
+			[
+				2,
+				1,
+				3,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.33,
+			0.66,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.75,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 166.0
+		"height": 269.0
 	},
 	"replace":
 	{
@@ -646,6 +1054,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"dragon_te",
+				"dragon/targets/universal-apple-macosx/debug/dragon_test"
+			],
 			[
 				"string.h",
 				"dragon/include/dragon/lang/String.h"
@@ -861,6 +1273,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 286.0,
+	"side_bar_width": 217.0,
 	"status_bar_visible": true
 }

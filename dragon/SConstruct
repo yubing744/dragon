@@ -33,6 +33,8 @@ project = {
 	'groupID' : 'dragon',
 	'artifactID' : 'dragon',
 	'packaging' : 'lib',
+
+	'name' : 'dragon'
 }
 
 def build():

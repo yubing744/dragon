@@ -17,36 +17,38 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2013/07/25
  **********************************************************************/
 
-#ifndef Library_Reflect_Lang_Dragon_H 
-#define Library_Reflect_Lang_Dragon_H
+
+#ifndef Member_Reflect_Lang_Dragon_H
+#define Member_Reflect_Lang_Dragon_H
 
 #include <dragon/config.h>
 
+BeginPackage2(dragon, lang)
+	class Class;
+	class Object;
+EndPackage2//(dragon, lang)
+
 BeginPackage3(dragon, lang, reflect)
 
-interface _DragonExport Library
-{
+Import dragon::lang;
+
+class _DragonExport Member {
 public:
-	virtual ~Library(){};
+	Member(const Class* clazz, const char* name);
+	virtual ~Member();
 
 public:
-	virtual void free() =0;
-	virtual void load(String libPath) =0;
+	virtual const Class* getDeclaringClass();
+	virtual const char* getName();
 
-	virtual P<Class<Object>> getClassForName(String className) =0;
-	virtual bool updateClass(Class<Object>* clazz)=0;
-	virtual bool containsClass(String className) =0;
-	virtual int getClassCount()=0;
+protected:
+	const Class* clazz;	
+	char* name;
+};//Member
 
-	virtual FARPROC getClassProc(String methodName) =0;
-	virtual P<Method> getClassMethod(String methodName) =0;
-	virtual P<Array<P<Method>>> getClassMethods()=0;
-	virtual int getMethodCount()=0;
-};
+EndPackage3 //(dragon, lang, reflect)
 
-EndPackage3//(dragon, lang, reflect)
-
-#endif//Library_Reflect_Lang_Dragon_H
+#endif //Member_Reflect_Lang_Dragon_H

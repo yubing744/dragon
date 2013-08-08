@@ -800,3 +800,11 @@
    fun:__vfprintf
    ...
 }
+
+{
+   dlsym
+   Memcheck:Cond
+   ...
+   fun:_ZN4dyld9mkstringfEPKcz
+   ...
+}
