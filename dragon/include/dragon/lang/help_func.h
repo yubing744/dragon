@@ -21,7 +21,7 @@
 
 class dragon::lang::Object;
 
-BeginPackage2(dragon,lang)
+BeginPackage2(dragon, lang)
 
 
 template <typename E, int N>
@@ -29,24 +29,21 @@ inline int Lenth(E (&arr)[N]){
     return N;
 }     
 
-inline int Lenth(void* p)
-{
+inline int Lenth(void* p) {
 	int* pSize=(int*)p;
 	pSize--;
 	return *pSize;
 }
 
 template<class Type>
-inline bool InstanceOf(Object* pObj)
-{
+inline bool InstanceOf(Object* pObj) {
 	Type* pType = dynamic_cast<Type*>(pObj);
 	return pType?true:false;
 }
 
 template<class Type>
-void* ployCast(Type* p)
-{
-	void* pObj=dynamic_cast<void*>(p);
+void* PloyCast(Type* p) {
+	void* pObj = dynamic_cast<void*>(p);
 	if(pObj==null) pObj=p;
 	return pObj;
 }

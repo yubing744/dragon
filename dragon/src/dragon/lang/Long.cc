@@ -23,6 +23,7 @@
 
 #include <dragon/lang/Long.h>
 #include <dragon/lang/Integer.h>
+#include <dragon/lang/String.h>
 
 Import dragon::lang;
 

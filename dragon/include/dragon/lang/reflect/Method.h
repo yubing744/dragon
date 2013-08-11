@@ -52,6 +52,8 @@ public:
 	virtual void* invoke(void* pThis);
 	virtual void* invoke(void* pThis, const Array<void*>& args);
 
+	virtual Object* invoke(Object* obj, const Array<Object*>& args);
+
 protected:
 	void* procAddress;
 	const Type* returnType;

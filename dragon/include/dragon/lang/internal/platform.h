@@ -62,12 +62,7 @@ inline OutputClass horrible_void_cast(void* funcPtr){
 template <class OutputClass>
 inline OutputClass void_cast(void* funcPtr){
     detail::horrible_union<OutputClass, void*> u;
-
-    typedef int ERROR_CantUseHorrible_cast[sizeof(void*)==sizeof(u) 
-        && sizeof(void*)==sizeof(OutputClass) ? 1 : -1];
-
     u.in = funcPtr;
-
     return u.out;
 }
 
@@ -78,90 +73,137 @@ inline void* cast_void(InputClass anyClass){
     return u.out;
 }
 
+/**
+ * Get a type's size
+ * 
+ * @param  name [description]
+ * @return      [description]
+ */
+size_t GetBasicTypeSize(const char* name);
+
 
 typedef int (DRAGON_STDCALL *Func_FarProc)();
 typedef int (DRAGON_STDCALL *Func_GetClassSize)(void);
 
+
+/**
+ * Get Type Category
+ */
+#define CATEGORY_INTEGER 0
+#define CATEGORY_SSE 1
+#define CATEGORY_SSEUP 2
+#define CATEGORY_X87 3
+#define CATEGORY_X87UP 4
+#define CATEGORY_COMPLEX_X87 5
+#define CATEGORY_NO_CLASS 6
+#define CATEGORY_MEMORY 7
+
+int GetBasicTypeCategory(const char* name);
+
+
+static const size_t CPU_BYTE_LEN = sizeof(void*);
+
 class ParamInfo {
 public:
-    int category; //0: int; 1: floating; 2:struct/class; 3:pointer
+    int category; 
     size_t size;
     const char* typeName;
     void* value;
 
 public:
     ParamInfo(bool boolVal) 
-      :category(0), typeName("bool"), size(sizeof(bool))
+      :category(CATEGORY_INTEGER), typeName("bool"), size(sizeof(bool))
     {
         this->value = cast_void<bool>(boolVal);
     }
 
     ParamInfo(char charVal) 
-      :category(0), typeName("char"), size(sizeof(char))
+      :category(CATEGORY_INTEGER), typeName("char"), size(sizeof(char))
     {
         this->value = cast_void<char>(charVal);
     }
 
     ParamInfo(short shortVal) 
-      :category(0), typeName("short"), size(sizeof(short))
+      :category(CATEGORY_INTEGER), typeName("short"), size(sizeof(short))
     {
         this->value = cast_void<short>(shortVal);
     }
 
     ParamInfo(int intVal)
-      :category(0), typeName("int"), size(sizeof(int))
+      :category(CATEGORY_INTEGER), typeName("int"), size(sizeof(int))
     {
         this->value = cast_void<int>(intVal);
     }
 
     ParamInfo(long longVal)
-      :category(0), typeName("long"), size(sizeof(long))
+      :category(CATEGORY_INTEGER), typeName("long"), size(sizeof(long))
     {
         this->value = cast_void<long>(longVal);
     }
 
+    ParamInfo(long long llVal)
+      :category(CATEGORY_INTEGER), typeName("long long"), size(sizeof(long long))
+    {
+        this->value = cast_void<long long>(llVal);
+    }
+
+    ParamInfo(size_t sizeTVal) 
+      :category(CATEGORY_INTEGER), typeName("size_t"), size(sizeof(size_t))
+    {
+        this->value = cast_void<size_t>(sizeTVal);
+    }
+
     ParamInfo(float floatVal)  
-      :category(1), typeName("float"), size(sizeof(float))
+      :category(CATEGORY_SSE), typeName("float"), size(sizeof(float))
     {
         this->value = cast_void<float>(floatVal);
     }
 
     ParamInfo(double doubleVal)
-      :category(1), typeName("double"), size(sizeof(double))
+      :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
     {
         this->value = cast_void<double>(doubleVal);
     }
 
-    ParamInfo(size_t sizeTVal) 
-      :category(0), typeName("size_t"), size(sizeof(size_t))
-    {
-        this->value = cast_void<size_t>(sizeTVal);
-    }
-
     ParamInfo(const char* typeName, void* ptrVal)
-      :category(3), typeName(typeName), size(sizeof(void*))
+      :category(CATEGORY_INTEGER), typeName(typeName), size(sizeof(void*))
     {
         this->value = (void*)ptrVal;
     }
 
     template<class T>
     ParamInfo(T* ptrVal)
-      :category(3), typeName(typeid(T*).name()), size(sizeof(T*))
+      :category(CATEGORY_INTEGER), typeName(typeid(T*).name()), size(sizeof(T*))
     {
         this->value = (void*)ptrVal;
     }
-
-    template<class T>
-    ParamInfo(T val)       
-      :category(2), typeName(typeid(T).name()), size(sizeof(T))
-    {
-        size_t size = this->size;
-        T* t = (T*)malloc(size);
-        memcpy(t, &val, size);
-        this->value = (void*)t;
-    }
 };
 
+/**
+ * return type
+ */
+class ReturnInfo {
+public:
+    int category;
+    size_t size;
+    const char* typeName;
+    void* value;
+
+public:
+    ReturnInfo(const char* typeName)
+      :typeName(typeName), value(NULL)
+    {
+        this->size = GetBasicTypeSize(this->typeName);
+        this->category = GetBasicTypeCategory(this->typeName);
+    }
+
+public:
+    template<class T>
+    T getValue() {
+        return horrible_void_cast<T>(this->value);
+    }
+
+};
 
 const int SINGLE_MEMFUNCPTR_SIZE = sizeof(void (detail::GenericClass::*)());
 
@@ -261,6 +303,8 @@ RetType Invoke(void* pthis, void* func, Param1 p1) {
  * @param argv args
  * @param argc args count
  */
+_DragonExport void Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc);
+
 _DragonExport void* Invoke(void* pthis, void* func, ParamInfo *argv, int argc);
 
 /**

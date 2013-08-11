@@ -25,11 +25,15 @@
 #define Integer_Lang_Dragon_H
 
 #include <dragon/config.h>
-#include <dragon/lang/String.h>
+#include <dragon/lang/Number.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport Integer {
+class String;
+
+class _DragonExport Integer 
+    extends(Number) 
+{
 public:
 	/**
      * A constant holding the minimum value an <code>dg_int</code> can

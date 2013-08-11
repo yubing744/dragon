@@ -26,52 +26,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <string>
-#include <map>
+#include <dragon/lang/internal/platform.h>
 
 Import std;
 Import dragon::lang::reflect;
-
-static map<string, size_t> type_size_map;
-static bool is_init_primitive_type_size_map = false;
-
-static void init_primitive_type_size_map() {
-	//c++ primitive
-	type_size_map["char"] = sizeof(char);
-	type_size_map["short"] = sizeof(short);
-	type_size_map["int"] = sizeof(int);
-	type_size_map["long"] = sizeof(long);
-	type_size_map["long long"] = sizeof(long long);
-	type_size_map["float"] = sizeof(float);
-	type_size_map["double"] = sizeof(double);
-	type_size_map["bool"] = sizeof(bool);
-
-	type_size_map["unsigned short"] = sizeof(unsigned short);
-	type_size_map["unsigned int"] = sizeof(unsigned int);
-	type_size_map["unsigned long long"] = sizeof(unsigned long long);
-
-	type_size_map["size_t"] = sizeof(size_t);
-	type_size_map["void*"] = sizeof(void*);
-
-	//dragon lib primitive
-	type_size_map["dg_short"] = sizeof(dg_short);
-	type_size_map["dg_int"] = sizeof(dg_int);
-	type_size_map["dg_long"] = sizeof(dg_long);
-	type_size_map["dg_float"] = sizeof(dg_float);
-	type_size_map["dg_double"] = sizeof(dg_double);
-	type_size_map["dg_char"] = sizeof(dg_char);
-	type_size_map["dg_boolean"] = sizeof(dg_boolean);
-
-	type_size_map["dg_ushort"] = sizeof(dg_ushort);
-	type_size_map["dg_uint"] = sizeof(dg_uint);
-	type_size_map["dg_ulong"] = sizeof(dg_ulong);
-}
+Import dragon::lang::internal;
 
 Type::Type(const char* name) {
 	size_t n_size = strlen(name);
 	char* buf = (char*)malloc(n_size + 1);
 	strcpy(buf, name);
 	this->name = buf;
+
+	this->size = GetBasicTypeSize(name);
 }
 
 Type::Type(const char* name, int offset, size_t count) {
@@ -79,6 +46,8 @@ Type::Type(const char* name, int offset, size_t count) {
 	memcpy(buf, name + offset, count);
 	buf[count] = '\0';
 	this->name = buf;
+
+	this->size = GetBasicTypeSize(name);
 }
 
 Type::~Type() {
@@ -90,13 +59,7 @@ const char* Type::getName() {
 }
 
 size_t Type::getSize() {
-	map<string, size_t>::iterator it = type_size_map.find(this->name);
-
-	if (it != type_size_map.end()) {
-		return it->second;
-	} else {
-		return sizeof(void*);
-	}
+	return this->size;
 }
 
 dg_boolean Type::equals(const Type* type) {

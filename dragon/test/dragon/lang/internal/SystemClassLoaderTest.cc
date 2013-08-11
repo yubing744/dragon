@@ -26,6 +26,10 @@
 #include <dragon/lang/internal/SystemClassLoader.h>
 #include <dragon/lang/internal/platform.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/Integer.h>
+
+
 Import dragon::lang;
 Import dragon::lang::internal;
 
@@ -44,6 +48,30 @@ TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	int arg1 = 888;
 	Array<void*> args(1);
 	args[0] = cast_void<int>(arg1);
+
+	setTestValMethod->invoke(tb, args);
+
+	Method* getTestValMethod = clazz->getMethod("getTestVal");
+	void* retPtr = getTestValMethod->invoke(tb);
+	//dg_int ret1 = *((dg_int*)retPtr);
+
+	//EXPECT_EQ(888, ret1);
+}
+
+TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New2) {
+	ClassLoader* loader = ClassLoader::getSystemClassLoader();
+	Class* clazz = loader->loadClass("dragon::lang::internal::SymTestBean");
+	ASSERT_TRUE(clazz != NULL);
+
+	Object* tb = (Object*)clazz->newInstance();
+
+	Array<Type*> types(1);
+	types[0] = new Type("int");
+
+	Method* setTestValMethod = clazz->getMethod("setTestVal", types);
+
+	Array<Object*> args(1);
+	args[0] = new Integer(888);
 
 	setTestValMethod->invoke(tb, args);
 

@@ -25,13 +25,14 @@
 #define Long_Lang_Dragon_H
 
 #include <dragon/config.h>
-#include <dragon/lang/String.h>
+#include <dragon/lang/Number.h>
 
 BeginPackage2(dragon, lang)
 
-Import dragon::lang;
+class String;
 
-class _DragonExport Long {
+class _DragonExport Long 
+    extends(Number) {
 public:
     /**
      * A constant holding the minimum value a <code>dg_long</code> can

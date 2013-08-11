@@ -25,12 +25,15 @@
 #define Float_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Number.h>
 
 BeginPackage2(dragon, lang)
 
 Import dragon::lang;
 
-class _DragonExport Float {
+class _DragonExport Float 
+	extends(Number) 
+{
 public:
 	Float(dg_float val);
 	virtual ~Float();

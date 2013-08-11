@@ -38,3 +38,15 @@ TEST(Dragon_Lang_IntegerTest, intValue) {
 	EXPECT_EQ(0, o->intValue());   
 	SafeDelete(o);
 }
+
+TEST(Dragon_Lang_IntegerTest, intValueNum) {
+	Number* o = new Integer(0);
+	SafeDelete(o);
+}
+
+TEST(Dragon_Lang_IntegerTest, intValueNum_cast) {
+	Object* o = new Integer(0);
+	Number* n2 = dynamic_cast<Number*>(o);
+	Integer* o2 = dynamic_cast<Integer*>(n2);
+	SafeDelete(o);
+}

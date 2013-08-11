@@ -17,32 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/08/11
  **********************************************************************/
 
 
-#ifndef Double_Lang_Dragon_H
-#define Double_Lang_Dragon_H
+#ifndef Short_Lang_Dragon_H
+#define Short_Lang_Dragon_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport Double 
+Import dragon::lang;
+
+class _DragonExport Short 
 	extends(Number) 
 {
 public:
-	Double(dg_double val);
-	virtual ~Double();
+	Short(dg_short val);
+	virtual ~Short();
 
 public:
-	dg_double doubleValue();
+	dg_short shortValue();
 
 protected:
-	dg_double value;	
-};//Double
+	dg_short value;
+};//Short
 
 EndPackage2 //(dragon, lang)
 
-#endif //Double_Lang_Dragon_H
+#endif //Short_Lang_Dragon_H

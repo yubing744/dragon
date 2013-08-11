@@ -27,6 +27,9 @@
 #include <mach-o/ldsyms.h>
 #include <cxxabi.h>
 
+#include <string>
+#include <map>
+
 #include <dragon/lang/internal/platform.h>
 
 Import std;
@@ -35,162 +38,114 @@ Import dragon::lang::internal;
 // ----------------------------------------------------------------------------
 // Some Help Func
 
+// type size
+static map<string, size_t> type_size_map;
+static bool is_init_primitive_type_size_map = false;
 
+static void init_primitive_type_size_map() {
+	//c++ primitive
+	type_size_map["char"] = sizeof(char);
+	type_size_map["short"] = sizeof(short);
+	type_size_map["int"] = sizeof(int);
+	type_size_map["long"] = sizeof(long);
+	type_size_map["long long"] = sizeof(long long);
+	type_size_map["float"] = sizeof(float);
+	type_size_map["double"] = sizeof(double);
+	type_size_map["bool"] = sizeof(bool);
 
-//void* dragon::lang::internal::Invoke(void* p, Func_FarProc func, TypeInfo *argv, int argc)
-//{   
-	/*
-	DWORD result;
-	DWORD argSize,tSize,sumSize=0;
-	TypeInfo arg;
+	type_size_map["unsigned short"] = sizeof(unsigned short);
+	type_size_map["unsigned int"] = sizeof(unsigned int);
+	type_size_map["unsigned long long"] = sizeof(unsigned long long);
 
-	//push arg into stack
-	for(int i=argc-1;i>=0;i--)
-	{
-		arg=argv[i];
-		argSize=arg.typeSize;
-		void* value=arg.pValue;
+	type_size_map["size_t"] = sizeof(size_t);
+	type_size_map["void*"] = sizeof(void*);
 
-		sumSize+=argSize;
-		tSize=argSize/4;
+	//dragon lib primitive
+	type_size_map["dg_short"] = sizeof(dg_short);
+	type_size_map["dg_int"] = sizeof(dg_int);
+	type_size_map["dg_long"] = sizeof(dg_long);
+	type_size_map["dg_float"] = sizeof(dg_float);
+	type_size_map["dg_double"] = sizeof(dg_double);
+	type_size_map["dg_char"] = sizeof(dg_char);
+	type_size_map["dg_boolean"] = sizeof(dg_boolean);
 
-		__asm{
-			mov			eax,argSize;
-			sub         esp,eax;
+	type_size_map["dg_ushort"] = sizeof(dg_ushort);
+	type_size_map["dg_uint"] = sizeof(dg_uint);
+	type_size_map["dg_ulong"] = sizeof(dg_ulong);
+}
 
-			mov         ecx,tSize;
-			mov         esi,value;
-			mov         edi,esp;
-			rep movs    dword ptr es:[edi],dword ptr [esi];
-		}
-
+size_t dragon::lang::internal::GetBasicTypeSize(const char* name) {
+	if (!is_init_primitive_type_size_map) {
+		init_primitive_type_size_map();
+		is_init_primitive_type_size_map = true;
 	}
 
-	//call object p's method func
-	__asm{
-			mov			ecx,p; 
-			call		func;
-			mov         result,eax;
+	map<string, size_t>::iterator it = type_size_map.find(name);
+
+	if (it != type_size_map.end()) {
+		return it->second;
+	} else {
+		return sizeof(void*);
+	}
+}
+
+// type category
+static map<string, int> type_category_map;
+static bool is_init_primitive_type_category_map = false;
+
+static void init_primitive_type_categroy_map() {
+	//c++ primitive
+	type_category_map["char"] = CATEGORY_INTEGER;
+	type_category_map["short"] = CATEGORY_INTEGER;
+	type_category_map["int"] = CATEGORY_INTEGER;
+	type_category_map["long"] = CATEGORY_INTEGER;
+	type_category_map["long long"] = CATEGORY_INTEGER;
+	type_category_map["float"] = CATEGORY_SSE;
+	type_category_map["double"] = CATEGORY_SSE;
+	type_category_map["bool"] = CATEGORY_INTEGER;
+
+	type_category_map["unsigned short"] = CATEGORY_INTEGER;
+	type_category_map["unsigned int"] = CATEGORY_INTEGER;
+	type_category_map["unsigned long long"] = CATEGORY_INTEGER;
+
+	type_category_map["size_t"] = CATEGORY_INTEGER;
+	type_category_map["void*"] = CATEGORY_INTEGER;
+
+	//dragon lib primitive
+	type_category_map["dg_short"] = CATEGORY_INTEGER;
+	type_category_map["dg_int"] = CATEGORY_INTEGER;
+	type_category_map["dg_long"] = CATEGORY_INTEGER;
+	type_category_map["dg_float"] = CATEGORY_SSE;
+	type_category_map["dg_double"] = CATEGORY_SSE;
+	type_category_map["dg_char"] = CATEGORY_INTEGER;
+	type_category_map["dg_boolean"] = CATEGORY_INTEGER;
+
+	type_category_map["dg_ushort"] = CATEGORY_INTEGER;
+	type_category_map["dg_uint"] = CATEGORY_INTEGER;
+	type_category_map["dg_ulong"] = CATEGORY_INTEGER;
+}
+
+int dragon::lang::internal::GetBasicTypeCategory(const char* name) {
+	if (!is_init_primitive_type_category_map) {
+		init_primitive_type_categroy_map();
+		is_init_primitive_type_category_map = true;
 	}
 
-	if(p==null)
-	{
-		__asm{
-			mov			eax,sumSize;
-			add         esp,eax;
-		}		
+	map<string, int>::iterator it = type_category_map.find(name);
+
+	if (it != type_category_map.end()) {
+		return it->second;
+	} else {
+		return CATEGORY_MEMORY;
 	}
+}
 
-	return (void*)result;
-	*/
-
-//	return null;
-//} 
-
-
-
-/*
-platformTest_macos.cc:573
-0x000000010002e8bf: mov    -0x68(%rbp),%rax                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+697
-0x000000010002e8c3: movsd  -0x38(%rbp),%xmm0                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+701
-0x000000010002e8c8: movsd  -0x40(%rbp),%xmm1                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+706
-0x000000010002e8cd: movsd  -0x48(%rbp),%xmm2                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+711
-0x000000010002e8d2: movsd  -0x50(%rbp),%xmm3                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+716
-0x000000010002e8d7: movsd  -0x58(%rbp),%xmm4                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+721
-0x000000010002e8dc: movsd  -0x60(%rbp),%xmm5                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+726
-0x000000010002e8e1: mov    -0xc8(%rbp),%rcx                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+731
-0x000000010002e8e8: mov    -0xa0(%rbp),%rdx                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+738
-0x000000010002e8ef: mov    %rsp,%rsi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+745
-0x000000010002e8f2: mov    %rdx,0x18(%rsi)                                       # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+748
-0x000000010002e8f6: mov    -0xa8(%rbp),%rdx                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+752
-0x000000010002e8fd: mov    %rdx,0x10(%rsi)                                       # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+759
-0x000000010002e901: mov    -0xb8(%rbp),%rdx                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+763
-0x000000010002e908: mov    -0xb0(%rbp),%rdi                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+770
-0x000000010002e90f: mov    %rdi,0x8(%rsi)                                        # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+777
-0x000000010002e913: mov    %rdx,(%rsi)                                           # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+781
-0x000000010002e916: mov    %rax,%rdi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+784
-0x000000010002e919: mov    %rcx,%rsi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+787
-0x000000010002e91c: callq  0x10002e4e0 <_Z22invoke_test_mixtype_074mix2ddddddmPv> # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+790
-platformTest_macos.cc:574
-
-0x000000010002dda2: mov    -0x68(%rbp),%rax                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+396
-0x000000010002dda6: mov    -0x14(%rbp),%cx                                       # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+400
-0x000000010002ddaa: movswl %cx,%ecx                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+404
-0x000000010002ddad: mov    -0x11(%rbp),%r8b                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+407
-0x000000010002ddb1: movsbl %r8b,%r8d                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+411
-0x000000010002ddb5: mov    -0x18(%rbp),%r9d                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+415
-0x000000010002ddb9: mov    -0x20(%rbp),%r10                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+419
-0x000000010002ddbd: movsd  -0x28(%rbp),%xmm0                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+423
-0x000000010002ddc2: movsd  -0x30(%rbp),%xmm1                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+428
-0x000000010002ddc7: movsd  -0x38(%rbp),%xmm2                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+433
-0x000000010002ddcc: movsd  -0x40(%rbp),%xmm3                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+438
-0x000000010002ddd1: movsd  -0x48(%rbp),%xmm4                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+443
-0x000000010002ddd6: movsd  -0x50(%rbp),%xmm5                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+448
-0x000000010002dddb: movsd  -0x58(%rbp),%xmm6                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+453
-0x000000010002dde0: movsd  -0x60(%rbp),%xmm7                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+458
-0x000000010002dde5: movsbl %r8b,%r8d                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+463
-0x000000010002dde9: mov    %r8d,%edi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+467
-0x000000010002ddec: movswl %cx,%ecx                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+470
-0x000000010002ddef: mov    %ecx,%esi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+473
-0x000000010002ddf1: mov    %r9d,%edx                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+475
-0x000000010002ddf4: mov    %r10,%rcx                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+478
-0x000000010002ddf7: mov    %rax,%r8                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+481
-0x000000010002ddfa: callq  0x10002d570 <_Z22invoke_test_mixtype_01csimddddddddm> # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+484
-platformTest_macos.cc:571
-0x000000010002ddff: mov    -0x68(%rbp),%rax                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+489
-0x000000010002de03: mov    -0x14(%rbp),%cx                                       # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+493
-0x000000010002de07: movswl %cx,%ecx                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+497
-0x000000010002de0a: mov    -0x11(%rbp),%r8b                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+500
-0x000000010002de0e: movsbl %r8b,%r8d                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+504
-0x000000010002de12: mov    -0x18(%rbp),%r9d                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+508
-0x000000010002de16: mov    -0x20(%rbp),%r10                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+512
-0x000000010002de1a: movsd  -0x28(%rbp),%xmm0                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+516
-0x000000010002de1f: movsd  -0x30(%rbp),%xmm1                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+521
-0x000000010002de24: movsd  -0x38(%rbp),%xmm2                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+526
-0x000000010002de29: movsd  -0x40(%rbp),%xmm3                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+531
-0x000000010002de2e: movsd  -0x48(%rbp),%xmm4                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+536
-0x000000010002de33: movsd  -0x50(%rbp),%xmm5                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+541
-0x000000010002de38: movsd  -0x58(%rbp),%xmm6                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+546
-0x000000010002de3d: movsd  -0x60(%rbp),%xmm7                                     # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+551
-0x000000010002de42: lea    -0x68(%rbp),%r11                                      # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+556
-0x000000010002de46: mov    %r11,%rbx                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+560
-0x000000010002de49: movsbl %r8b,%r8d                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+563
-0x000000010002de4d: mov    %r8d,%edi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+567
-0x000000010002de50: movswl %cx,%ecx                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+570
-0x000000010002de53: mov    %ecx,%esi                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+573
-0x000000010002de55: mov    %r9d,%edx                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+575
-0x000000010002de58: mov    %r10,%rcx                                             # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+578
-0x000000010002de5b: mov    %rax,%r8                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+581
-0x000000010002de5e: mov    %rbx,%r9                                              # _ZN64Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_mixtype_Test8TestBodyEv+584
-0x000000010002de61: mov    %r11,-0xc8(%rbp)    
-
-0x000000010002da58: movsd  -0x10(%rbp),%xmm0                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+380
-0x000000010002da5d: movsd  -0x18(%rbp),%xmm1                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+385
-0x000000010002da62: movsd  -0x20(%rbp),%xmm2                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+390
-0x000000010002da67: movsd  -0x28(%rbp),%xmm3                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+395
-0x000000010002da6c: movsd  -0x30(%rbp),%xmm4                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+400
-0x000000010002da71: movsd  -0x38(%rbp),%xmm5                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+405
-0x000000010002da76: movsd  -0x40(%rbp),%xmm6                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+410
-0x000000010002da7b: movsd  -0x48(%rbp),%xmm7                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+415
-0x000000010002da80: movsd  -0x50(%rbp),%xmm8                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+420
-0x000000010002da86: movsd  -0x58(%rbp),%xmm9                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+426
-0x000000010002da8c: movsd  -0x60(%rbp),%xmm10                                    # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+432
-0x000000010002da92: movsd  -0x68(%rbp),%xmm11                                    # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+438
-0x000000010002da98: movsd  -0x70(%rbp),%xmm12                                    # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+444
-0x000000010002da9e: movsd  %xmm8,(%rsp)                                          # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+450
-0x000000010002daa4: movsd  %xmm9,0x8(%rsp)                                       # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+456
-0x000000010002daab: movsd  %xmm10,0x10(%rsp)                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+463
-0x000000010002dab2: movsd  %xmm11,0x18(%rsp)                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+470
-0x000000010002dab9: movsd  %xmm12,0x20(%rsp)                                     # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+477
-0x000000010002dac0: callq  0x10002d650 <_Z21invoke_test_double_01ddddddddddddd>  # _ZN63Dragon_Lang_Internal_platformTest_Invoke_Multi_Args_double_Test8TestBodyEv+484
-platformTest_macos.cc:449
-
- */
 const static size_t INT_ARGS_COUNT = 5;
 const static size_t FLOATING_ARGS_COUNT = 8;
 
-void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, int argc) {
-	void* result = NULL;
+void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
+	size_t int_result = NULL;
+	double sse_result = 0.0;
 
 	void* int_args[INT_ARGS_COUNT];
 	void* floating_args[FLOATING_ARGS_COUNT];
@@ -206,23 +161,23 @@ void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, i
 		size_t size = param.size;
 		void* val = param.value;
 
-		if (category == 1) {
+		if (category == CATEGORY_SSE) {
 			if (fc < FLOATING_ARGS_COUNT) {
 				floating_args[fc++] = val;
 			} else {
-				stack_args = (void**)realloc(stack_args, sizeof(void*) * (sc + 1));
+				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
 				stack_args[sc++] = val;
 			}
-		} else if (category == 0 || category == 3) {
+		} else if (category == CATEGORY_INTEGER) {
 			if (ic < INT_ARGS_COUNT) {
 				int_args[ic++] = val;
 			} else {
-				stack_args = (void**)realloc(stack_args, sizeof(void*) * (sc + 1));
+				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
 				stack_args[sc++] = val;
 			}
-		} else if (category == 2) {
+		} else if (category == CATEGORY_MEMORY) {
 			size_t w_ss = size / sizeof(void*);
-			stack_args = (void**)realloc(stack_args, sizeof(void*) * (sc + w_ss));
+			stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + w_ss));
 			memcpy(stack_args + sc, val, size);
 			sc+=w_ss;
 		}
@@ -230,8 +185,8 @@ void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, i
 
 
 	if (sc > 0) {
-		__asm__ __volatile__("subq %0, %%rsp"::"a"(sc * sizeof(void*)));
-		
+		__asm__ __volatile__("subq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
+
 		size_t i = 0;
 		while (i < sc) {
 			__asm__ __volatile__("mov %0, %%rbx"::"a"(i));
@@ -259,50 +214,28 @@ void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, i
 		__asm__ __volatile__("mov %0, %%r9"::"a"(int_args[4]));
 	}
 
-
 	__asm__ __volatile__("mov %0, %%rdi"::"a"(pthis));
 	__asm__ __volatile__("call *%0"::"a"(func));
-	__asm__ __volatile__("mov %%rax, %0":"=a"(result));
-
+	__asm__ __volatile__("mov %%rax, %0":"=a"(int_result));
+	__asm__ __volatile__("movsd %%xmm0, %0":"=m"(sse_result));
 
 	if (sc > 0) {
 		free(stack_args);
-		__asm__ __volatile__("addq %0, %%rsp"::"a"(sc * sizeof(void*)));
+		__asm__ __volatile__("addq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
 	}
 
-	return result;
+	if (ret->category == CATEGORY_INTEGER) {
+		ret->value = cast_void<size_t>(int_result);
+	} else if (ret->category == CATEGORY_SSE) {
+		ret->value = cast_void<double>(sse_result);
+	}
 }
 
-//void* dragon::lang::internal::InvokeV(void* p, Func_FarProc func, ...)
-//{
-	/*DWORD result;
-
-	va_list ap;
-	va_start(ap,func);
-
-	__asm{
-		mov			ebx,esp;
-		sub         esp,0x100;
-
-		mov         ecx,0x40;
-		mov         esi,ap;
-		mov         edi,esp;
-		rep movs    dword ptr es:[edi],dword ptr [esi];
-
-		mov			ecx,p; 
-		call		func;
-		mov         result,eax;
-
-		mov			esp,ebx;
-	}
-
-	return (void*)result;
-	*/
-
-//	int result = func();
-//	return (void*)result;
-//}
-
+void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, int argc) {
+	ReturnInfo ret("void*");
+	Invoke(pthis, func, &ret, argv, argc);
+	return ret.getValue<void*>();
+}
 
 // -----------------------------------------------------------------------
 // Copyright 2013 the dragon project authors. All rights reserved.

@@ -23,19 +23,17 @@
 
 #include <dragon/lang/reflect/Method.h>
 #include <dragon/lang/internal/platform.h>
+#include <dragon/lang/help_func.h>
 
+#include <dragon/lang/Short.h>
+#include <dragon/lang/Integer.h>
+#include <dragon/lang/Long.h>
+#include <dragon/lang/Float.h>
+#include <dragon/lang/Double.h>
+
+Import dragon::lang; 
 Import dragon::lang::reflect; 
 Import dragon::lang::internal; 
-
-typedef void* (DRAGON_THISCALL *Method0)();
-typedef void* (DRAGON_THISCALL *Method1)(void* p);
-
-typedef void* (DRAGON_THISCALL *AgrsMethod1)(void* p, void* agr1);
-typedef void* (DRAGON_THISCALL *AgrsMethod2)(void* p, void* agr1, void* agr2);
-typedef void* (DRAGON_THISCALL *AgrsMethod3)(void* p, void* agr1, void* agr2, void* agr3);
-typedef void* (DRAGON_THISCALL *AgrsMethod4)(void* p, void* agr1, void* agr2, void* agr3, void* agr4);
-typedef void* (DRAGON_THISCALL *AgrsMethod5)(void* p, void* agr1, void* agr2, void* agr3, void* agr4, void* agr5);
-typedef void* (DRAGON_THISCALL *AgrsMethod6)(void* p, void* agr1, void* agr2, void* agr3, void* agr4, void* agr5, void* agr6);
 
 Method::Method(const Class* clazz, const char* name, 
 	void* procAddress, const Type* returnType, const Array<Type*>& parameterTypes) 
@@ -86,136 +84,109 @@ void* Method::invoke(void* pThis, const Array<void*>& args) {
 }
 
 
-/*
-Method::Method():self(null){}
+//---------------------------------------------------------------
+// invoke
+// 
+bool is_primitive_type(Type* type) {
+	const char* type_name = type->getName();
+	
+	return strcmp(type_name, "short") == 0x0
+		|| strcmp(type_name, "int") == 0x0
+		|| strcmp(type_name, "long") == 0x0
+		|| strcmp(type_name, "float") == 0x0
+		|| strcmp(type_name, "double") == 0x0
+		|| strcmp(type_name, "bool") == 0x0
+		|| strcmp(type_name, "char") == 0x0
 
-Method::operator const Char*()
-{
-	return this->getFullName().toCharArray();
+		|| strcmp(type_name, "dg_short") == 0x0
+		|| strcmp(type_name, "dg_int") == 0x0
+		|| strcmp(type_name, "dg_long") == 0x0
+		|| strcmp(type_name, "dg_float") == 0x0
+		|| strcmp(type_name, "dg_double") == 0x0
+		|| strcmp(type_name, "dg_bool") == 0x0
+		|| strcmp(type_name, "dg_char") == 0x0;
 }
 
-void Method::setPackageName(String packageName)
-{
-	this->packageName=packageName;
+ParamInfo unpack_to_param_info(Object* obj) {
+	if (InstanceOf<Short>(obj)) {
+		Short* number = dynamic_cast<Short*>(obj);
+		return ParamInfo(number->shortValue());
+	} else if (InstanceOf<Integer>(obj)) {
+		Integer* number = dynamic_cast<Integer*>(obj);
+		return ParamInfo(number->intValue());
+	} else if (InstanceOf<Long>(obj)) {
+		Long* number = dynamic_cast<Long*>(obj);
+		return ParamInfo(number->longValue());
+	} else if (InstanceOf<Float>(obj)) {
+		Float* number = dynamic_cast<Float*>(obj);
+		return ParamInfo(number->floatValue());
+	} else if (InstanceOf<Double>(obj)) {
+		Double* number = dynamic_cast<Double*>(obj);
+		return ParamInfo(number->doubleValue());
+	} else {
+		return ParamInfo(obj);
+	}
 }
 
-void Method::setClassName(String className)
-{
-	this->className=className;
+Object* pack_primitive_type(Type* type, void* obj) {
+	const char* type_name = type->getName();
+
+	if (strcmp(type_name, "dg_short") == 0x0 
+		|| strcmp(type_name, "short") == 0x0) {
+		return new Short(void_cast<dg_short>(obj));
+	} else if (strcmp(type_name, "dg_int") == 0x0 
+		|| strcmp(type_name, "int") == 0x0) {
+		return new Integer(void_cast<dg_int>(obj));
+	} else if (strcmp(type_name, "dg_long") == 0x0 
+		|| strcmp(type_name, "long") == 0x0) {
+		return new Long(void_cast<dg_short>(obj));
+	} else if (strcmp(type_name, "dg_float") == 0x0 
+		|| strcmp(type_name, "float") == 0x0) {
+		return new Float(void_cast<dg_short>(obj));
+	} else if (strcmp(type_name, "dg_double") == 0x0 
+		|| strcmp(type_name, "double") == 0x0) {
+		return new Double(void_cast<dg_short>(obj));
+	} else {
+		return NULL;
+	}
 }
-void Method::setName(String name)
-{
-	this->name=name;
-}
 
-void Method::setParameterTypes(Array<String>* parameterTypes)
-{
-	this->parameterTypes=parameterTypes;
-}
+Object* Method::invoke(Object* obj, const Array<Object*>& args) {
+	Array<Type*> tps = this->parameterTypes;
+	Type* retType = const_cast<Type*>(this->returnType);
 
-void Method::build()
-{
-	String method;
+	Array<Object*> args_in = args;
 
-	method.append(this->packageName);
-	method.append(L"::");
-	method.append(this->className);
-	method.append(L"::");
-	method.append(this->name);
-	method.append(L"(");
+	Object* ret = NULL;
 
-	int len=this->parameterTypes->size();
-	for(int i=0;i<len-1;i++)
-	{
-		method.append(this->parameterTypes->get(i));
-		method.append(L",");
+	if (tps.size() == args_in.size()) {
+		int argc = args_in.size();
+
+		void* pthis = (void*)obj;
+		ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
+		ReturnInfo* retInfo = new ReturnInfo(retType->getName());
+
+		for (int i = 0; i < argc; ++i) {
+			Type* type = tps[i];
+
+			if (is_primitive_type(type)) {
+				params[i] = unpack_to_param_info(args_in[i]);
+			} else {
+				params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
+			}
+		}
+
+		Invoke(pthis, this->procAddress, retInfo, params, argc);
+
+		if (is_primitive_type(retType)) {
+			ret = pack_primitive_type(retType, retInfo->value);
+		} else {
+			ret = (Object*)retInfo->value;
+		}
+
+		SafeDelete(retInfo);
+		SafeDeleteArray(params);
 	}
 
-	if(len>0)
-	{
-		method.append(this->parameterTypes->get(len-1));
-		method.append(L")");
-	}
-	else
-	{
-		method.append(L"void)");
-	}
-
-	this->fullName=method;
+	return ret;
 }
-
-void Method::setFullName(String fullName)
-{
-	this->fullName=fullName;
-}
-
-void Method::setProcAddress(FARPROC procAddress)
-{
-	this->procAddress=procAddress;
-}
-
-FARPROC Method::getProcAddress()
-{
-	return this->procAddress;
-}
-
-String Method::getFullName()
-{
-	if(this->fullName.equals(L""))
-	{
-		this->build();
-	}
-
-	return this->fullName;
-}
-
-void Method::setThis(void* base)
-{
-	this->self=base;
-}
-
-void* Method::getThis()
-{
-	return this->self;
-}
-
-void* Method::invoke()
-{
-	if(self==null)
-	{
-		Method0 method=(Method0)this->procAddress;
-		return method();
-	}
-
-	return invoke(self);
-}
-
-void* Method::invoke(void* pThis)
-{
-	Method1 method=(Method1)this->procAddress;
-	return method(pThis);
-}
-
-void* Method::invoke(void* pThis,Array<void*>& args)
-{
-	int argsNum=args.size()>=6?6:args.size();
-
-	if(argsNum==1)
-	{
-		AgrsMethod1 method1=(AgrsMethod1)this->procAddress;
-		return method1(pThis,args[0]);
-	}
-	else if(argsNum==2)
-	{
-		AgrsMethod2 method2=(AgrsMethod2)this->procAddress;
-		return method2(pThis,args[0],args[1]);
-	}
-	else if(argsNum==3)
-	{
-		AgrsMethod3 method3=(AgrsMethod3)this->procAddress;
-		return method3(pThis,args[0],args[1],args[2]);
-	}
-
-	return null;
-}
-*/

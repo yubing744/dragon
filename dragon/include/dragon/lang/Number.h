@@ -25,18 +25,21 @@
 #define Number_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage2(dragon, lang)
 
 Import dragon::lang;
 
-class _DragonExport Number {
+class _DragonExport Number 
+	extends(Object) 
+{
 public:
 	Number();
 	virtual ~Number();
 
 public:
-	
+		
 protected:
 	
 };//Number
