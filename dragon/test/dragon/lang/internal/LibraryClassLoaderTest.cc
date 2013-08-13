@@ -38,8 +38,10 @@ TEST(Dragon_Lang_Internal_LibraryClassLoaderTest, defineClass) {
 	LibraryClassLoader* o = new LibraryClassLoader();
 	const char* localLib = GetLocalLibPath();
 	o->load(localLib);
+
 	Class* clazz = o->loadClass("dragon::lang::String");
 	dg_boolean equ = (clazz != null);
 	EXPECT_EQ(dg_true, equ);
+
 	SafeDelete(o);
 }

@@ -100,7 +100,7 @@ Array<Type*> make_param_types(const char* sign, const char* className, const cha
 		if (len != 0) {
 			type = new Type(sign, offset, len);
 		} else {
-			type = new Type("void");
+			break;
 		}
 
 		types = (Type**)realloc(types, sizeof(Type*)*(t_count+0x1));
@@ -108,6 +108,7 @@ Array<Type*> make_param_types(const char* sign, const char* className, const cha
 
 		offset = offset + len + 2;
 	} while(token != NULL);
+
 
 	return Array<Type*>(types, t_count);
 }
@@ -176,12 +177,11 @@ Method* make_method(Class* clazz, const char* methodName, Library::ExportSymbol*
 
 	char* sign = Demangle(es->symbol);
 
-	Type* retType = new Type("void*");
 	Array<Type*> parameterTypes = make_param_types(sign, name, methodName);
 	
 	free(sign);
 
-	return new Method(clazz, methodName, es->address, retType, parameterTypes);
+	return new Method(clazz, methodName, es->address, parameterTypes);
 }
 
 Class* LibraryClassLoader::defineClass(const char* name, Library::NameSpace* ns) {
@@ -194,12 +194,10 @@ Class* LibraryClassLoader::defineClass(const char* name, Library::NameSpace* ns)
 	char* packageName = new char[p_size + 1];
 	memcpy(packageName, name, p_size);
 	packageName[p_size] = '\0';
-
-	//const Array<Constructor*> constructors;
-	//const Array<Method*> methods,
-	//const Array<Field*> fields
+	delete[] simpleName;
 
 	Class* clazz = createClass(this, packageName, name);
+	delete[] packageName;
 
 	Constructor** constructors = NULL;
 	size_t cc_count = 0;

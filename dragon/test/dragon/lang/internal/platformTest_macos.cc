@@ -61,11 +61,15 @@ TEST(Dragon_Lang_Internal_SymbolManglingTest, mangling_CC) {
 
 
 TEST(Dragon_Lang_Internal_platformTest, Demanle) {
-	EXPECT_STREQ("dragon::lang::internal::SymTestBean::test(char)", Demangle("_ZN6dragon4lang8internal11SymTestBean4testEc"));
+	char* cc = Demangle("_ZN6dragon4lang8internal11SymTestBean4testEc");
+	EXPECT_STREQ("dragon::lang::internal::SymTestBean::test(char)", cc);
+	free(cc);
 }
 
 TEST(Dragon_Lang_Internal_platformTest, Demanle_CC) {
-	EXPECT_STREQ("dragon::lang::internal::SymTestBean::SymTestBean()", Demangle("_ZN6dragon4lang8internal11SymTestBeanC1Ev"));
+	char* cc = Demangle("_ZN6dragon4lang8internal11SymTestBeanC1Ev");
+	EXPECT_STREQ("dragon::lang::internal::SymTestBean::SymTestBean()", cc);
+	free(cc);
 }
 
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check1) {
@@ -717,6 +721,8 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_mixtype_22) {
 
 	dg_boolean is_true = (dd1 == dd2);
 	EXPECT_EQ(dg_true, is_true);
+
+	SafeFree(params);
 }
 
 //------------------------------------------------------------
@@ -765,6 +771,8 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_double_invoke) {
 
 	dg_boolean is_true = (dd1 == dd2);
 	EXPECT_EQ(dg_true, is_true);
+
+	SafeFree(params);
 
 }
 
@@ -993,4 +1001,6 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_double_ret_invoke) {
 	dg_boolean is_true = (dd1 == dd2);
 	EXPECT_EQ(dg_true, is_true);
 
+	SafeDelete(ret);
+	SafeFree(params);
 }

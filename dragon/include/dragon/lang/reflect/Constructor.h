@@ -39,8 +39,8 @@ public:
 	virtual ~Constructor();
 
 public:
-	virtual void* newInstance();
-	virtual void* newInstance(const Array<Object*>& args);
+	virtual Object* newInstance();
+	virtual Object* newInstance(const Array<Object*>& args);
 
 	virtual const Array<Type*> getParameterTypes();
 

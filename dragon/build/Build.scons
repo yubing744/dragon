@@ -726,6 +726,7 @@ dragon_SOURCES = {
         RuntimeException.cc 
         IllegalArgumentException.cc
 
+        Void.cc
         Number.cc
         Short.cc
         Integer.cc

@@ -67,6 +67,10 @@ ClassLoader::ClassLoader(ClassLoader* parent) {
 
 
 ClassLoader::~ClassLoader() {
+	for(Iterator it=this->loaded->begin();it!=this->loaded->end();it++) { 
+		SafeDelete(it->second);
+	}
+
 	SafeDelete(this->loaded);
 }
 
@@ -87,6 +91,10 @@ Class* ClassLoader::loadClass(const char* name, dg_boolean resolve){
 
 	if (result == null) {
 		result = this->findClass(name);
+		
+		if (result != null) {
+			this->loaded->insert(ClassMap::value_type(name, result));
+		}
 	}
 
 	if (result != null && resolve) {

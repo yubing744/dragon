@@ -23,8 +23,12 @@
 
 #include <dragon/lang/String.h>
 #include <dragon/lang/Integer.h>
+#include <dragon/lang/reflect/Type.h>
 
 Import dragon::lang;
+Import dragon::lang::reflect;
+
+const Type* Integer::TYPE = new Type("int", sizeof(dg_int));
 
 /**
  * All possible dg_chars for representing a number as a String

@@ -17,26 +17,22 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/08/12
  **********************************************************************/
 
 
-#include <dragon/lang/Double.h>
+#include <dragon/lang/Void.h>
 #include <dragon/lang/reflect/Type.h>
 
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Double::TYPE = new Type("double", sizeof(dg_double));
+const Type* Void::TYPE = new Type("void", 0);
 
-Double::Double(dg_double val) {
-	this->value = val;
-}
-
-Double::~Double() {
+Void::Void() {
 
 }
 
-dg_double Double::doubleValue() {
-	return this->value;
+Void::~Void() {
+
 }

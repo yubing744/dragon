@@ -282,4 +282,5 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_With_Multi_Args) {
 	EXPECT_EQ(888, ret1);
 
 	free(tb_mem);
+	SafeDelete(param);
 }

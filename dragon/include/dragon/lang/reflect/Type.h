@@ -34,10 +34,11 @@ class _DragonExport Type
 public:
 	Type(const char* name);
 	Type(const char* name, int offset, size_t count);
+	Type(const char* name, size_t size);
 	virtual ~Type();
 
 public:
-	virtual const char* getName();
+	virtual const char* getName() const;
 	virtual size_t getSize();
     virtual dg_boolean equals(const Type* type);	
 

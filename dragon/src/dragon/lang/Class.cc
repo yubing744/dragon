@@ -47,8 +47,43 @@ Class::Class(const ClassLoader* classLoader,
 	this->packageName = buf;
 }
 
+
 Class::~Class() {
 	SafeFree(this->packageName);
+
+	// release Constructor
+	size_t cc_size = this->constructors.size();
+
+	if (cc_size > 0) {
+		for (int i=0; i<cc_size; i++) {
+			Constructor* c = this->constructors[i];
+			SafeDelete(c);
+		}
+	}
+
+	this->constructors.release();
+
+	// release Method
+	size_t m_size = this->methods.size();
+
+	if (m_size > 0) {
+		for (int i=0; i<m_size; i++) {
+			Method* m = this->methods[i];
+			SafeDelete(m);
+		}
+	}
+
+	this->methods.release();
+	
+	// release Field
+	size_t f_size = this->fields.size();
+
+	if (f_size > 0) {
+		for (int i=0; i<f_size; i++) {
+			Field* f = this->fields[i];
+			SafeDelete(f);
+		}
+	}
 }
 
 const char* Class::getPackageName() {
@@ -59,7 +94,7 @@ const char* Class::getSimpleName() {
 	return this->name + strlen(this->packageName) + 2;
 }
 
-void* Class::newInstance() {
+Object* Class::newInstance() {
 	Constructor* c = this->getConstructor();
 
 	if (c != null) {
@@ -69,7 +104,7 @@ void* Class::newInstance() {
 	return null;
 }
 
-void* Class::newInstance(const Array<Object*>& args) {
+Object* Class::newInstance(const Array<Object*>& args) {
 	Constructor* c = this->getConstructor();
 
 	if (c != null) {
@@ -122,8 +157,8 @@ Constructor* Class::getConstructor(const Array<Type*>& parameterTypes) {
 }
 
 Constructor* Class::getConstructor() {
-	Type* voidType = new Type("void");
-	return this->getConstructor(Array<Type*>(&voidType, 1));
+	Array<Type*> empty_array;
+	return this->getConstructor(empty_array);
 }
 
 Method* Class::getMethod(const char* methodName, const Array<Type*>& parameterTypes) {
@@ -148,8 +183,8 @@ Method* Class::getMethod(const char* methodName, const Array<Type*>& parameterTy
 }
 
 Method* Class::getMethod(const char* methodName) {
-	Type* voidType = new Type("void");
-	return this->getMethod(methodName, Array<Type*>(&voidType, 1));
+	Array<Type*> empty_array;
+	return this->getMethod(methodName, empty_array);
 }
 
 // ------------------------------------------------------------------

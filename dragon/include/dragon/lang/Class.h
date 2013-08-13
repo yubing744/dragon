@@ -26,6 +26,8 @@
 #include <dragon/lang/reflect/Method.h>
 #include <dragon/lang/reflect/Field.h>
 
+#include <dragon/lang/help_func.h>
+
 BeginPackage2(dragon, lang)
 
 Import dragon::lang::reflect;
@@ -52,8 +54,8 @@ public:
 	const char* getPackageName();
 	const char* getSimpleName();
 
-	void* newInstance();
-	void* newInstance(const Array<Object*>& args);
+	Object* newInstance();
+	Object* newInstance(const Array<Object*>& args);
 
 	Constructor* getConstructor();
 	Constructor* getConstructor(const Array<Type*>& parameterTypes);

@@ -28,56 +28,45 @@
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Integer.h>
-
-
+#include <dragon/lang/Void.h>
+#include <dragon/lang/Void.h>
+ 
 Import dragon::lang;
 Import dragon::lang::internal;
 
+
 TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	ClassLoader* loader = ClassLoader::getSystemClassLoader();
+	
 	Class* clazz = loader->loadClass("dragon::lang::internal::SymTestBean");
-	ASSERT_TRUE(clazz != NULL);
+	ASSERT_TRUE(clazz != null);
 
-	void* tb = clazz->newInstance();
+	Object* tb = clazz->newInstance();
 
+	// 1. Setter
 	Array<Type*> types(1);
 	types[0] = new Type("int");
-
-	Method* setTestValMethod = clazz->getMethod("setTestVal", types);
-
-	int arg1 = 888;
-	Array<void*> args(1);
-	args[0] = cast_void<int>(arg1);
-
-	setTestValMethod->invoke(tb, args);
-
-	Method* getTestValMethod = clazz->getMethod("getTestVal");
-	void* retPtr = getTestValMethod->invoke(tb);
-	//dg_int ret1 = *((dg_int*)retPtr);
-
-	//EXPECT_EQ(888, ret1);
-}
-
-TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New2) {
-	ClassLoader* loader = ClassLoader::getSystemClassLoader();
-	Class* clazz = loader->loadClass("dragon::lang::internal::SymTestBean");
-	ASSERT_TRUE(clazz != NULL);
-
-	Object* tb = (Object*)clazz->newInstance();
-
-	Array<Type*> types(1);
-	types[0] = new Type("int");
-
 	Method* setTestValMethod = clazz->getMethod("setTestVal", types);
 
 	Array<Object*> args(1);
 	args[0] = new Integer(888);
+	setTestValMethod->invoke(tb, Void::TYPE, args);
 
-	setTestValMethod->invoke(tb, args);
-
+	// 1. Getter
 	Method* getTestValMethod = clazz->getMethod("getTestVal");
-	void* retPtr = getTestValMethod->invoke(tb);
-	//dg_int ret1 = *((dg_int*)retPtr);
 
-	//EXPECT_EQ(888, ret1);
+	Type* retType02 = new Type("int");
+	Object* retPtr = getTestValMethod->invoke(tb, Integer::TYPE);
+	ASSERT_TRUE(retPtr != null);
+
+	Integer* ret1 = dynamic_cast<Integer*>(retPtr);
+
+	EXPECT_EQ(888, ret1->intValue());
+
+	SafeDelete(retType02);
+	SafeDelete(types[0]);
+	SafeDelete(args[0]);
+
+	SafeDelete(retPtr);
+	SafeDelete(tb);
 }

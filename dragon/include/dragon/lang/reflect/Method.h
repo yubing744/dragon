@@ -42,21 +42,17 @@ class _DragonExport Method
 {
 public:
 	Method(const Class* clazz, const char* name, 
-		void* procAddress, const Type* returnType, const Array<Type*>& parameterTypes);
-	virtual ~Method(){};
+		void* procAddress, const Array<Type*>& parameterTypes);
+	virtual ~Method();
 	
 public:
 	virtual const Array<Type*> getParameterTypes();
-	virtual const Type* getReturnType();
 
-	virtual void* invoke(void* pThis);
-	virtual void* invoke(void* pThis, const Array<void*>& args);
-
-	virtual Object* invoke(Object* obj, const Array<Object*>& args);
+	virtual Object* invoke(Object* obj, const Type* returnType);
+	virtual Object* invoke(Object* obj, const Type* returnType, const Array<Object*>& args);
 
 protected:
 	void* procAddress;
-	const Type* returnType;
 	const Array<Type*> parameterTypes;
 };
 

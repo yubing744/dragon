@@ -26,14 +26,19 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
+#include <dragon/lang/reflect/Type.h>
 
 BeginPackage2(dragon, lang)
 
 Import dragon::lang;
+Import dragon::lang::reflect;
 
 class _DragonExport Float 
 	extends(Number) 
 {
+public:
+    static const Type* TYPE;
+    
 public:
 	Float(dg_float val);
 	virtual ~Float();

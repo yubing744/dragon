@@ -22,8 +22,12 @@
 
 
 #include <dragon/lang/Short.h>
+#include <dragon/lang/reflect/Type.h>
 
 Import dragon::lang;
+Import dragon::lang::reflect;
+
+const Type* Short::TYPE = new Type("short", sizeof(dg_short));
 
 Short::Short(dg_short val) 
 	: value(val) 

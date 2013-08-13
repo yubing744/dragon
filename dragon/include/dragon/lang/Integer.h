@@ -26,14 +26,19 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
+#include <dragon/lang/reflect/Type.h>
 
 BeginPackage2(dragon, lang)
 
 class String;
+Import dragon::lang::reflect;
 
 class _DragonExport Integer 
     extends(Number) 
 {
+public:
+    static const Type* TYPE;
+
 public:
 	/**
      * A constant holding the minimum value an <code>dg_int</code> can

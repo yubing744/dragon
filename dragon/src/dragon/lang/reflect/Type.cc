@@ -50,11 +50,20 @@ Type::Type(const char* name, int offset, size_t count) {
 	this->size = GetBasicTypeSize(name);
 }
 
+Type::Type(const char* name, size_t size) {
+	size_t n_size = strlen(name);
+	char* buf = (char*)malloc(n_size + 1);
+	strcpy(buf, name);
+	this->name = buf;
+
+	this->size = size;
+}
+
 Type::~Type() {
 	SafeFree(this->name);
 }
 
-const char* Type::getName() {
+const char* Type::getName() const {
 	return this->name;
 }
 

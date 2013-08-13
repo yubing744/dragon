@@ -36,45 +36,57 @@ Constructor::Constructor(const Class* clazz, const char* name,
 }
 
 Constructor::~Constructor() {
+	Array<Type*> tps = this->parameterTypes;
+	int p_size = tps.size();
 
+	for (int i = 0; i < p_size; ++i) {
+		Type* type = tps[i];
+		SafeDelete(type);
+	}
+
+	tps.release();
 }
 
-void* Constructor::newInstance() {
-	void* class_mem = malloc(1024);
-	void* self = Invoke<void*>(class_mem, this->procAddress);
-	return self;
-}
+bool is_primitive_type(const Type* type);
+ParamInfo unpack_to_param_info(Object* obj);
 
-void* Constructor::newInstance(const Array<Object*>& args) {
-	void* pThis = malloc(1024);
+Object* Constructor::newInstance(const Array<Object*>& args) {
+	void* obj = malloc(1024);
 
 	Array<Type*> tps = this->parameterTypes;
 	Array<Object*> args_in = args;
 
-	void* ret = NULL;
+	Object* ret = NULL;
 
 	if (tps.size() == args_in.size()) {
 		int argc = args_in.size();
-		
-		if (argc > 0) {
-			ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
 
-			for (int i = 0; i < argc; ++i) {
-				Type* type = tps[i];
-				void* obj = args_in[i];
+		void* pthis = (void*)obj;
+		ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
 
-				params[i] = ParamInfo(obj);
+		for (int i = 0; i < argc; ++i) {
+			Type* type = tps[i];
+
+			if (is_primitive_type(type)) {
+				params[i] = unpack_to_param_info(args_in[i]);
+			} else {
+				params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
 			}
-
-			ret = Invoke(pThis, this->procAddress, params, argc);
-
-			SafeDeleteArray(params);
-		} else {
-			ret = Invoke<void*>(pThis, this->procAddress);
 		}
+
+		Invoke(pthis, this->procAddress, params, argc);
+
+		ret = (Object*)obj;
+
+		SafeDeleteArray(params);
 	}
 
 	return ret;
+}
+
+Object* Constructor::newInstance() {
+	Array<Object*> empty_array;
+	return this->newInstance(empty_array);
 }
 
 const Array<Type*> Constructor::getParameterTypes() {

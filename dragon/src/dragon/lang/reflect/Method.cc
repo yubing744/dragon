@@ -36,60 +36,33 @@ Import dragon::lang::reflect;
 Import dragon::lang::internal; 
 
 Method::Method(const Class* clazz, const char* name, 
-	void* procAddress, const Type* returnType, const Array<Type*>& parameterTypes) 
-	:Member(clazz, name), procAddress(procAddress), returnType(returnType), parameterTypes(parameterTypes)  {
+	void* procAddress, const Array<Type*>& parameterTypes) 
+	:Member(clazz, name), procAddress(procAddress), parameterTypes(parameterTypes)  {
 	//Nothing
+}
+
+Method::~Method() {
+	Array<Type*> tps = this->parameterTypes;
+	int p_size = tps.size();
+
+	for (int i = 0; i < p_size; ++i) {
+		Type* type = tps[i];
+		SafeDelete(type);
+	}
+
+	tps.release();
 }
 
 const Array<Type*> Method::getParameterTypes() {
 	return this->parameterTypes;
 }
 
-const Type* Method::getReturnType() {
-	return this->returnType;
-}
-
-void* Method::invoke(void* pThis) {
-	return Invoke<void*>(pThis, this->procAddress);
-}
-
-void* Method::invoke(void* pThis, const Array<void*>& args) {
-	Array<Type*> tps = this->parameterTypes;
-	Array<void*> args_in = args;
-
-	void* ret = NULL;
-
-	if (tps.size() == args_in.size()) {
-		int argc = args_in.size();
-
-		if (argc > 0) {
-			ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
-
-			for (int i = 0; i < argc; ++i) {
-				Type* type = tps[i];
-				void* obj = args_in[i];
-
-				params[i] = ParamInfo(type->getName(), obj);
-			}
-
-			ret = Invoke(pThis, this->procAddress, params, argc);
-
-			SafeDeleteArray(params);
-		} else {
-			ret = Invoke<void*>(pThis, this->procAddress);
-		}
-	}
-
-	return ret;
-}
-
-
 //---------------------------------------------------------------
 // invoke
 // 
-bool is_primitive_type(Type* type) {
+bool is_primitive_type(const Type* type) {
 	const char* type_name = type->getName();
-	
+
 	return strcmp(type_name, "short") == 0x0
 		|| strcmp(type_name, "int") == 0x0
 		|| strcmp(type_name, "long") == 0x0
@@ -128,7 +101,7 @@ ParamInfo unpack_to_param_info(Object* obj) {
 	}
 }
 
-Object* pack_primitive_type(Type* type, void* obj) {
+Object* pack_primitive_type(const Type* type, void* obj) {
 	const char* type_name = type->getName();
 
 	if (strcmp(type_name, "dg_short") == 0x0 
@@ -151,10 +124,8 @@ Object* pack_primitive_type(Type* type, void* obj) {
 	}
 }
 
-Object* Method::invoke(Object* obj, const Array<Object*>& args) {
+Object* Method::invoke(Object* obj, const Type* returnType, const Array<Object*>& args) {
 	Array<Type*> tps = this->parameterTypes;
-	Type* retType = const_cast<Type*>(this->returnType);
-
 	Array<Object*> args_in = args;
 
 	Object* ret = NULL;
@@ -164,7 +135,7 @@ Object* Method::invoke(Object* obj, const Array<Object*>& args) {
 
 		void* pthis = (void*)obj;
 		ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
-		ReturnInfo* retInfo = new ReturnInfo(retType->getName());
+		ReturnInfo* retInfo = new ReturnInfo(returnType->getName());
 
 		for (int i = 0; i < argc; ++i) {
 			Type* type = tps[i];
@@ -178,8 +149,8 @@ Object* Method::invoke(Object* obj, const Array<Object*>& args) {
 
 		Invoke(pthis, this->procAddress, retInfo, params, argc);
 
-		if (is_primitive_type(retType)) {
-			ret = pack_primitive_type(retType, retInfo->value);
+		if (is_primitive_type(returnType)) {
+			ret = pack_primitive_type(returnType, retInfo->value);
 		} else {
 			ret = (Object*)retInfo->value;
 		}
@@ -189,4 +160,9 @@ Object* Method::invoke(Object* obj, const Array<Object*>& args) {
 	}
 
 	return ret;
+}
+
+Object* Method::invoke(Object* obj, const Type* returnType) {
+	Array<Object*> empty_array;
+	return this->invoke(obj, returnType, empty_array);
 }

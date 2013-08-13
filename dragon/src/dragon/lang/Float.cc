@@ -22,8 +22,12 @@
 
 
 #include <dragon/lang/Float.h>
+#include <dragon/lang/reflect/Type.h>
 
 Import dragon::lang;
+Import dragon::lang::reflect;
+
+const Type* Float::TYPE = new Type("float", sizeof(dg_float));
 
 Float::Float(dg_float val) {
 	this->value = val;

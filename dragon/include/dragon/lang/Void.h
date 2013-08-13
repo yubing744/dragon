@@ -17,26 +17,29 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/08/12
  **********************************************************************/
 
 
-#include <dragon/lang/Double.h>
+#ifndef Void_Lang_Dragon_H
+#define Void_Lang_Dragon_H
+
+#include <dragon/config.h>
 #include <dragon/lang/reflect/Type.h>
 
-Import dragon::lang;
+BeginPackage2(dragon, lang)
+
 Import dragon::lang::reflect;
 
-const Type* Double::TYPE = new Type("double", sizeof(dg_double));
+class _DragonExport Void {
+public:
+	static const Type* TYPE;
 
-Double::Double(dg_double val) {
-	this->value = val;
-}
+public:
+	Void();
+	virtual ~Void();
+};//Void
 
-Double::~Double() {
+EndPackage2 //(dragon, lang)
 
-}
-
-dg_double Double::doubleValue() {
-	return this->value;
-}
+#endif //Void_Lang_Dragon_H
