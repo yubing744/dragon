@@ -33,3 +33,9 @@ Version 0.03 2013-07-09
 1. Implements simple gc
 
 2. Define class SmartPointer and SmartArrayPointer for count ref.
+
+
+Version 0.04 2013-08-13
+-----------------------------
+
+1. MacOS ClassLoader ok.
