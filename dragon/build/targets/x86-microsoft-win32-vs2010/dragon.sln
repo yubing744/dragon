@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unicode", "third_party\unic
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcre32", "third_party\pcre32\pcre32.vcxproj", "{7535152E-0E72-4E27-BFC1-C8DE4B3D2217}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fastdelegate", "third_party\fastdelegate\fastdelegate.vcxproj", "{94F9A5B9-3EEF-426E-9258-774AAECE0E26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{7535152E-0E72-4E27-BFC1-C8DE4B3D2217}.Debug|Win32.Build.0 = Debug|Win32
 		{7535152E-0E72-4E27-BFC1-C8DE4B3D2217}.Release|Win32.ActiveCfg = Release|Win32
 		{7535152E-0E72-4E27-BFC1-C8DE4B3D2217}.Release|Win32.Build.0 = Release|Win32
+		{94F9A5B9-3EEF-426E-9258-774AAECE0E26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{94F9A5B9-3EEF-426E-9258-774AAECE0E26}.Debug|Win32.Build.0 = Debug|Win32
+		{94F9A5B9-3EEF-426E-9258-774AAECE0E26}.Release|Win32.ActiveCfg = Release|Win32
+		{94F9A5B9-3EEF-426E-9258-774AAECE0E26}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,5 +53,6 @@ Global
 		{368D471E-4C5E-45A5-8008-8F421F05E9B7} = {9281F962-1227-43D8-8D2B-B2A6E19B3A83}
 		{1D9A9576-A56A-4037-BABE-0D674F5BCE66} = {9281F962-1227-43D8-8D2B-B2A6E19B3A83}
 		{7535152E-0E72-4E27-BFC1-C8DE4B3D2217} = {9281F962-1227-43D8-8D2B-B2A6E19B3A83}
+		{94F9A5B9-3EEF-426E-9258-774AAECE0E26} = {9281F962-1227-43D8-8D2B-B2A6E19B3A83}
 	EndGlobalSection
 EndGlobal

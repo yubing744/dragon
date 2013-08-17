@@ -35,8 +35,11 @@
 Import std;
 Import dragon::lang::internal;
 
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
 // Some Help Func
+//
 
 // type size
 static map<string, size_t> type_size_map;
@@ -280,9 +283,12 @@ static int LibAdressFlag = 0;
 const char* find_image_path_by_name(const char* name);
 
 const char* dragon::lang::internal::GetLocalLibPath() {
-	//Dl_info info;
-	//dladdr((void*)(&LibAdressFlag), &info);
-	//return info.dli_fname;
+	Dl_info info;
+	dladdr(NULL, &info);
+	return info.dli_fname;
+}
+
+const char* dragon::lang::internal::GetDragonLibPath() {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
 	return local_lib_path;
 }
@@ -307,9 +313,11 @@ void dragon::lang::internal::ShowLocalLibInfo() {
 	dlclose(handle);
 }
 
-//--------------------------------------------------------------------
-//  SymbolMangling Implements 
-//--------------------------------------------------------------------
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// SymbolMangling Implements 
+//
 
 static map<string, string> symbol_code_map;
 static bool is_symbol_code_map_init = false;

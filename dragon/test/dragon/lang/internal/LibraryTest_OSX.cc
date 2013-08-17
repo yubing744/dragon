@@ -31,6 +31,19 @@
 
 Import dragon::lang::internal;
 
+TEST(Dragon_Lang_Internal_LibraryTest, New) {
+	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	Library* o = new Library(local_lib_path);
+	SafeDelete(o);
+}
+
+TEST(Dragon_Lang_Internal_LibraryTest, resolve) {
+	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	Library* o = new Library(local_lib_path);
+	o->resolve();
+	SafeDelete(o);
+}
+
 TEST(Dragon_Lang_Internal_LibraryTest, find_image_num) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
 	size_t image_num = find_image_num(local_lib_path);

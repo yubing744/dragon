@@ -27,6 +27,5 @@
 Import dragon::lang;
 
 TEST(Dragon_Lang_ClassTest, New) {
-	Class* o = new Class();
-	SafeDelete(o);
+
 }

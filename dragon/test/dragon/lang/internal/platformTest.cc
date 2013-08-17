@@ -21,6 +21,8 @@
  **********************************************************************/
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
 #include <dragon/lang/internal/platform.h>
 
 Import dragon::lang::internal;
@@ -48,7 +50,7 @@ TEST(Dragon_Lang_Internal_platformTest, Join) {
 	EXPECT_EQ("dragonlanginternal", results2);
 }
 
-
+/*
 TEST(Dragon_Lang_Internal_platformTest, GetFuncAddress_LocalLib) {
 	SymTestBean_TestByte_MemberMethod setBytePtr = &SymTestBean::test;
 	void* setBytePtr1 = reinterpret_cast<void*>(*(void**)(&setBytePtr));
@@ -56,6 +58,7 @@ TEST(Dragon_Lang_Internal_platformTest, GetFuncAddress_LocalLib) {
 	dg_boolean isTrue = (setBytePtr1 == setBytePtr2);
 	EXPECT_EQ(dg_true, isTrue);
 }
+*/
 
 //-----------------------------------------------------------
 //Test Setter
@@ -125,6 +128,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Getter_Way3) {
 	SafeDelete(tb);
 }
 
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Getter_Way6_My01) {
 	SymTestBean* tb = new SymTestBean(112);
 	SymTestBean_TestGetter_MemberMethod getTestVal = (SymTestBean_TestGetter_MemberMethod)&SymTestBean::getTestVal;
@@ -144,7 +148,9 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Getter_Way6_My01) {
 
 	SafeDelete(tb);
 }
+*/
 
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Getter_Way7) {
 	SymTestBean* tb = new SymTestBean(112);
 
@@ -155,7 +161,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Getter_Way7) {
 	EXPECT_EQ(112, ret4);
 	SafeDelete(tb);
 }
-
+*/
 
 //--------------------------------------------------------------
 // Test Setter
@@ -192,6 +198,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Setter_Way3) {
 	SafeDelete(tb);
 }
 
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Setter_Way4) {
 	SymTestBean* tb = new SymTestBean(112);
 
@@ -203,6 +210,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Setter_Way4) {
 
 	SafeDelete(tb);
 }
+*/
 
 //--------------------------------------------------------------
 // Test Constructor
@@ -217,7 +225,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Constructor_Way1) {
 	SafeDelete(tb);
 }
 
-
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Constructor_Way2) {
 	void* defaultConstructorPtr = GetFuncAddress("dragon::lang::internal::SymTestBean::SymTestBean()");
 	void* tb_mem = malloc(100);
@@ -284,3 +292,4 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_With_Multi_Args) {
 	free(tb_mem);
 	SafeDelete(param);
 }
+*/

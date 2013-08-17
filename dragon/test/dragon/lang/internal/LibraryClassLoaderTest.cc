@@ -20,23 +20,23 @@
  * Created:     2013/08/03
  **********************************************************************/
 
-
 #include <gtest/gtest.h>
- #include <dragon/lang/internal/platform.h>
+#include <dragon.h>
+#include <dragon/lang/internal/platform.h>
 #include <dragon/lang/internal/LibraryClassLoader.h>
 
 Import dragon::lang::internal;
 
 TEST(Dragon_Lang_Internal_LibraryClassLoaderTest, New) {
 	LibraryClassLoader* o = new LibraryClassLoader();
-	const char* localLib = GetLocalLibPath();
+	const char* localLib = GetDragonLibPath();
 	o->load(localLib);
 	SafeDelete(o);
 }
 
 TEST(Dragon_Lang_Internal_LibraryClassLoaderTest, defineClass) {
 	LibraryClassLoader* o = new LibraryClassLoader();
-	const char* localLib = GetLocalLibPath();
+	const char* localLib = GetDragonLibPath();
 	o->load(localLib);
 
 	Class* clazz = o->loadClass("dragon::lang::String");

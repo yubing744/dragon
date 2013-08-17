@@ -97,7 +97,7 @@ def GlobSources(drct, patterns, excluded_files=[]):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
-def ReplaceTargetSource(source_file):
+def AddPlatformTargetSource(source_file):
     target = env['target']
     if TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP.has_key(target):
         suffixs = TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP[target]
@@ -117,16 +117,16 @@ def ReplaceTargetSource(source_file):
             #print 'new_file', new_file
             if os.path.exists(new_file):
                 #print 'replace new_file', new_file
-                return file_path + '/' + name + suffix + ext_name;
+                return [source_file, file_path + '/' + name + suffix + ext_name];
 
-        return source_file
+        return [source_file];
 
 def GlobTargetSources(drct, patterns, excluded_files=[]):
     source_files = GlobSources(drct, patterns, excluded_files)
     new_files = []
 
     for source_file in source_files:
-        new_files.append(ReplaceTargetSource(source_file))
+        new_files += AddPlatformTargetSource(source_file)
 
     return new_files
 

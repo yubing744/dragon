@@ -46,6 +46,9 @@
     <Filter Include="源文件\dragon\util\regex">
       <UniqueIdentifier>{999d984d-d22f-4750-8ba0-eaf6021f46f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\dragon\lang\internal">
+      <UniqueIdentifier>{d4d10a0d-f066-4799-b36d-8d5bb67654ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\dragon.h">
@@ -180,6 +183,48 @@
     <ClInclude Include="..\..\..\..\include\dragon\util\regex\regex.h">
       <Filter>头文件\dragon\util\regex</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\Library.h">
+      <Filter>头文件\dragon\lang\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\LibraryClassLoader.h">
+      <Filter>头文件\dragon\lang\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\platform.h">
+      <Filter>头文件\dragon\lang\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\SystemClassLoader.h">
+      <Filter>头文件\dragon\lang\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Constructor.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Field.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Member.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Method.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Property.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\reflect.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Type.h">
+      <Filter>头文件\dragon\lang\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\ClassLoader.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Short.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Void.h">
+      <Filter>头文件\dragon\lang</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\src\dragon\lang\gc\GarbageCollector.cc">
@@ -235,6 +280,54 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\dragon\lang\Throwable.cc">
       <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Constructor.cc">
+      <Filter>源文件\dragon\lang\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Field.cc">
+      <Filter>源文件\dragon\lang\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Member.cc">
+      <Filter>源文件\dragon\lang\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Method.cc">
+      <Filter>源文件\dragon\lang\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Type.cc">
+      <Filter>源文件\dragon\lang\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_Windows.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\LibraryClassLoader.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform_win32.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\SystemClassLoader.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\ClassLoader.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Number.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Short.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Void.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Class.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

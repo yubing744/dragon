@@ -134,20 +134,27 @@ Object* Method::invoke(Object* obj, const Type* returnType, const Array<Object*>
 		int argc = args_in.size();
 
 		void* pthis = (void*)obj;
-		ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
 		ReturnInfo* retInfo = new ReturnInfo(returnType->getName());
 
-		for (int i = 0; i < argc; ++i) {
-			Type* type = tps[i];
+		if (argc > 0) {
+			ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
+			
+			for (int i = 0; i < argc; ++i) {
+				Type* type = tps[i];
 
-			if (is_primitive_type(type)) {
-				params[i] = unpack_to_param_info(args_in[i]);
-			} else {
-				params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
+				if (is_primitive_type(type)) {
+					params[i] = unpack_to_param_info(args_in[i]);
+				} else {
+					params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
+				}
 			}
-		}
 
-		Invoke(pthis, this->procAddress, retInfo, params, argc);
+			Invoke(pthis, this->procAddress, retInfo, params, argc);
+
+			SafeFree(params);
+		} else {
+			Invoke(pthis, this->procAddress, retInfo, NULL, 0);
+		}
 
 		if (is_primitive_type(returnType)) {
 			ret = pack_primitive_type(returnType, retInfo->value);
@@ -156,7 +163,6 @@ Object* Method::invoke(Object* obj, const Type* returnType, const Array<Object*>
 		}
 
 		SafeDelete(retInfo);
-		SafeDeleteArray(params);
 	}
 
 	return ret;

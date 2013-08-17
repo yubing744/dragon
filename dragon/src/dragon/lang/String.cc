@@ -394,7 +394,7 @@ dg_int String::indexOf(dg_char ch, dg_int fromIndex) {
 }
 
 dg_int String::indexOf(String* str) {
-	return this->indexOf(str);
+	return this->indexOf(str, 0);
 }
 
 dg_int String::indexOf(String* str, dg_int fromIndex) {

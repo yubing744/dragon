@@ -22,18 +22,20 @@
 
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
+
 #include <dragon/lang/Class.h>
+
 #include <dragon/lang/internal/SystemClassLoader.h>
 #include <dragon/lang/internal/platform.h>
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Integer.h>
 #include <dragon/lang/Void.h>
-#include <dragon/lang/Void.h>
  
 Import dragon::lang;
 Import dragon::lang::internal;
-
 
 TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	ClassLoader* loader = ClassLoader::getSystemClassLoader();
@@ -42,6 +44,7 @@ TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	ASSERT_TRUE(clazz != null);
 
 	Object* tb = clazz->newInstance();
+	ASSERT_TRUE(tb != null);
 
 	// 1. Setter
 	Array<Type*> types(1);

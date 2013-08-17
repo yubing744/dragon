@@ -287,6 +287,190 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "dragon/include/dragon/lang/internal/platform.h",
+			"settings":
+			{
+				"buffer_size": 16256,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_macos.cc",
+			"settings":
+			{
+				"buffer_size": 18242,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
+			"settings":
+			{
+				"buffer_size": 6385,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform.cc",
+			"settings":
+			{
+				"buffer_size": 5448,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library_Windows.cc",
+			"settings":
+			{
+				"buffer_size": 7351,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 6258,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library.cc",
+			"settings":
+			{
+				"buffer_size": 3675,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/platformTest.cc",
+			"settings":
+			{
+				"buffer_size": 8901,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/LibraryTest.cc",
+			"settings":
+			{
+				"buffer_size": 967,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+			"settings":
+			{
+				"buffer_size": 2535,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+			"settings":
+			{
+				"buffer_size": 2095,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 1129,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/build/Build.scons",
+			"settings":
+			{
+				"buffer_size": 25919,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/platformTest_win32.cc",
+			"settings":
+			{
+				"buffer_size": 25893,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
+			"settings":
+			{
+				"buffer_size": 26723,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/config.h",
+			"settings":
+			{
+				"buffer_size": 6556,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/String.cc",
+			"settings":
+			{
+				"buffer_size": 18289,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/build/targets/x86-microsoft-win32/Config.scons",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/build/targets/x86-microsoft-win32/Config.scons",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-examples/build/targets/x86-microsoft-win32/Config.scons",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-template/build/targets/x86-microsoft-win32/Config.scons",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/build/Build.scons",
+			"settings":
+			{
+				"buffer_size": 19031,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon.sublime-build",
 	"command_palette":
@@ -623,8 +807,626 @@
 	"groups":
 	[
 		{
+			"selected": 13,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "dragon/include/dragon/lang/internal/platform.h",
+					"settings":
+					{
+						"buffer_size": 16256,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2480,
+								2480
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1325.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/src/dragon/lang/internal/platform_macos.cc",
+					"settings":
+					{
+						"buffer_size": 18242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17610,
+								17610
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
+					"settings":
+					{
+						"buffer_size": 6385,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								847,
+								847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragon/lang/internal/platform.cc",
+					"settings":
+					{
+						"buffer_size": 5448,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1132,
+								1132
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/src/dragon/lang/internal/Library_Windows.cc",
+					"settings":
+					{
+						"buffer_size": 7351,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6433,
+								6433
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3164.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 6258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3860.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "dragon/src/dragon/lang/internal/Library.cc",
+					"settings":
+					{
+						"buffer_size": 3675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1894,
+								1894
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1705.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "dragon/test/dragon/lang/internal/platformTest.cc",
+					"settings":
+					{
+						"buffer_size": 8901,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								965,
+								935
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "dragon/test/dragon/lang/internal/LibraryTest.cc",
+					"settings":
+					{
+						"buffer_size": 967,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+					"settings":
+					{
+						"buffer_size": 2535,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1470,
+								1470
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+					"settings":
+					{
+						"buffer_size": 2095,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 1129,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1082,
+								1082
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "dragon/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 25919,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3529,
+								2449
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1350.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "dragon/test/dragon/lang/internal/platformTest_win32.cc",
+					"settings":
+					{
+						"buffer_size": 25893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2639,
+								2639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 14737.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
+					"settings":
+					{
+						"buffer_size": 26723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1022,
+								1022
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "dragon/include/dragon/config.h",
+					"settings":
+					{
+						"buffer_size": 6556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4588,
+								4572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1665.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "dragon/src/dragon/lang/String.cc",
+					"settings":
+					{
+						"buffer_size": 18289,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8441,
+								8441
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5457.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "dragon/build/targets/x86-microsoft-win32/Config.scons",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								413
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "game/dragon3d-core/build/targets/x86-microsoft-win32/Config.scons",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "game/dragon3d-examples/build/targets/x86-microsoft-win32/Config.scons",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "game/dragon3d-template/build/targets/x86-microsoft-win32/Config.scons",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "game/dragon3d-core/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 19031,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3384,
+								3384
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -892,6 +1694,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 217.0,
+	"side_bar_width": 463.0,
 	"status_bar_visible": true
 }

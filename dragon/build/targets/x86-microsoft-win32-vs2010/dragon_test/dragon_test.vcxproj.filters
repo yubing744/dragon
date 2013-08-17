@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="源文件\dragon">
       <UniqueIdentifier>{13e44793-7de5-472e-a5a5-4cb420f1123f}</UniqueIdentifier>
     </Filter>
@@ -23,6 +19,9 @@
     </Filter>
     <Filter Include="源文件\dragon\util\regex">
       <UniqueIdentifier>{8588fd88-0025-4402-8fda-63a3e46853eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\internal">
+      <UniqueIdentifier>{41245d61-48ca-4704-9e14-bd2783b0c376}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +69,30 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\test\dragon\lang\ThrowableTest.cc">
       <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\SystemClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_Windows.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

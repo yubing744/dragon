@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7535152E-0E72-4E27-BFC1-C8DE4B3D2217}</ProjectGuid>
-    <RootNamespace>pcre32</RootNamespace>
+    <ProjectGuid>{94F9A5B9-3EEF-426E-9258-774AAECE0E26}</ProjectGuid>
+    <RootNamespace>fastdelegate</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -41,8 +41,6 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\..\third_party\pcre-8.33;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;LINK_SIZE=4;HAVE_STRERROR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,32 +60,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_byte_order.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_chartables.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_compile.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_config.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_dfa_exec.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_exec.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_fullinfo.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_get.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_globals.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_jit_compile.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_maketables.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_newline.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_ord2utf32.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_printint.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_refcount.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_string_utils.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_study.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_tables.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_ucd.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_utf32_utils.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_valid_utf32.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_version.c" />
-    <ClCompile Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre32_xclass.c" />
+    <ClInclude Include="..\..\..\..\..\..\third_party\fastdelegate\FastDelegate.h" />
+    <ClInclude Include="..\..\..\..\..\..\third_party\fastdelegate\FastDelegateBind.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\third_party\pcre-8.33\pcre.h" />
+    <ClCompile Include="..\..\..\..\..\..\third_party\fastdelegate\Demo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

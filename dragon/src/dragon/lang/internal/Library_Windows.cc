@@ -1,309 +1,277 @@
-#include <dragon/lang/reflect/Library.h>
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/07/25
+ **********************************************************************/
+
 
 #include <windows.h>
 #include <Dbghelp.h>
-#include <dragon/lang/lang.h>
 
+#include <dragon/lang/internal/Library.h>
 
-Import dragon::lang;
-Import dragon::lang::reflect;
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
 
-#ifdef WIN32
-#pragma comment(lib,"Dbghelp.lib")
-#endif
+#include <dragon/lang/internal/platform.h>
 
-Library::Library()
-{
-	hModule=null;
-	this->methodCount=0;
-	this->methodMap=new HashMap<String,P<Method>>();
-	this->classMap=new HashMap<String,P<Class<Object>>>();
-}
+Import dragon::lang::internal;
 
-Library::Library(HMODULE hModule)
-{
-	this->hModule=hModule;
-	this->methodCount=0;
-	this->methodMap=new HashMap<String,P<Method>>();
-	this->classMap=new HashMap<String,P<Class<Object>>>();
-	this->processLib();
-}
+//-------------------------------------------------------------------
+// Resolve Libary
+// 
 
-Library::Library(String dllPath) throw(FileNotFoundException)
-{
-	File file(dllPath);
-	if(!file.exists())
-	{
-		throw FileNotFoundException();
+struct export_symbol {
+	char* symbol;
+	void* address;
+};
+
+// Process DLL Library
+struct export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_table_size) {
+	HMODULE hModule = LoadLibraryA(path);
+
+	if(hModule == NULL) {
+		return NULL;
 	}
 
-	this->methodCount=0;
-	this->hModule=LoadLibrary(file.getCanonicalPath());
-	this->methodMap=new HashMap<String,P<Method>>();
-	this->classMap=new HashMap<String,P<Class<Object>>>();
-	this->processLib(); 
-}
+	LONG pModuleBase = (LONG)hModule;
 
-Library::~Library()
-{
-	if(this->hModule!=null)
-	{
-		FreeLibrary(this->hModule);
-	}
-}
-
-void Library::free()
-{
-	if(this->hModule!=null)
-	{
-		methodMap->clear();
-		FreeLibrary(this->hModule);
-	}
-}
-
-void Library::load(String libPath) throw(FileNotFoundException)
-{
-	this->free();
-
-	File file(libPath);
-	if(!file.exists())
-	{
-		throw FileNotFoundException();
+	IMAGE_DOS_HEADER* pDosHead = (IMAGE_DOS_HEADER*)pModuleBase;
+	if(pDosHead->e_magic != IMAGE_DOS_SIGNATURE) {
+		return NULL;
 	}
 
-	this->hModule=LoadLibrary(file.getCanonicalPath());
-	this->processLib();
-}
-
-bool Library::processLib()
-{
-	if(this->hModule==null)
-	{
-		return false;
+	IMAGE_NT_HEADERS* pImageNTHead = (IMAGE_NT_HEADERS*)(pModuleBase + pDosHead->e_lfanew);
+	if(pImageNTHead->Signature!=IMAGE_NT_SIGNATURE) {
+		return NULL;
 	}
 
-	LONG pModuleBase=(LONG)this->hModule;
-
-	IMAGE_DOS_HEADER* pDosHead;
-	pDosHead=(IMAGE_DOS_HEADER*)pModuleBase;
-
-	if(pDosHead->e_magic!=IMAGE_DOS_SIGNATURE)
-	{
-		return false;
+	IMAGE_FILE_HEADER imageFileHead = pImageNTHead->FileHeader;
+	if(imageFileHead.Machine != IMAGE_FILE_MACHINE_I386){
+		return NULL;
 	}
 
-	IMAGE_NT_HEADERS* pImageNTHead;
-
-	pImageNTHead=(IMAGE_NT_HEADERS*)(pModuleBase + pDosHead->e_lfanew);
-
-	if(pImageNTHead->Signature!=IMAGE_NT_SIGNATURE)
-	{
-		return false;
-	}
-
-	IMAGE_FILE_HEADER imageFileHead=pImageNTHead->FileHeader;
-
-	if(imageFileHead.Machine!=IMAGE_FILE_MACHINE_I386)
-	{
-		return false;
-	}
-
-	IMAGE_DATA_DIRECTORY exportItem=pImageNTHead->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT];
-	IMAGE_EXPORT_DIRECTORY*  pImageExportDirectory= (IMAGE_EXPORT_DIRECTORY*)(pModuleBase+exportItem.VirtualAddress);
+	IMAGE_DATA_DIRECTORY exportItem = pImageNTHead->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT];
+	IMAGE_EXPORT_DIRECTORY* pImageExportDirectory = (IMAGE_EXPORT_DIRECTORY*)(pModuleBase + exportItem.VirtualAddress);
 
 	DWORD OffsetStart = exportItem.VirtualAddress;
 	DWORD Size = exportItem.Size;
 
-	int numFuncs=pImageExportDirectory->NumberOfFunctions;
+	int numFuncs = pImageExportDirectory->NumberOfFunctions;
 	int numNames = pImageExportDirectory->NumberOfNames;
 
 	LPDWORD pAddressOfFunctions = (LPDWORD)(pImageExportDirectory->AddressOfFunctions + pModuleBase);
-	LPWORD  pAddressOfOrdinals = (LPWORD)(pImageExportDirectory->AddressOfNameOrdinals + pModuleBase);
 	LPDWORD pAddressOfNames = (LPDWORD)(pImageExportDirectory->AddressOfNames + pModuleBase);
 
-	char tName[512];
+	*addr_export_table_size = numNames;
+	struct export_symbol* table = (struct export_symbol *)calloc(numFuncs, sizeof(struct export_symbol));
 
-	DWORD Flags=UNDNAME_COMPLETE;
-	Flags|=UNDNAME_NO_ALLOCATION_LANGUAGE;
-	Flags|=UNDNAME_NO_ACCESS_SPECIFIERS;
-	Flags|=UNDNAME_NO_ALLOCATION_MODEL;
-	Flags|=UNDNAME_NO_FUNCTION_RETURNS;
-	Flags|=UNDNAME_NO_MEMBER_TYPE;
-	Flags|=UNDNAME_NO_MS_KEYWORDS;
-	Flags|=UNDNAME_NO_MS_THISTYPE;
-	Flags|=UNDNAME_NO_THROW_SIGNATURES;
-	Flags|=UNDNAME_NO_THISTYPE;
-	Flags|=UNDNAME_NO_RETURN_UDT_MODEL;
-
-	for(int i=0;i<numFuncs;i++)
-	{
-		char* pName= (char* )(pAddressOfNames[i] + pModuleBase);
-		DWORD len=UnDecorateSymbolName(pName,tName,512,Flags);
-		FARPROC pfn=(FARPROC)(pAddressOfFunctions[i]+pModuleBase);
-		this->processMethod(String::valueOf(tName),pfn);
+	for(int i=0; i<numFuncs; i++) {
+		char* pName= (char*)(pAddressOfNames[i] + pModuleBase);
+		FARPROC pfn = (FARPROC)(pAddressOfFunctions[i] + pModuleBase);
+		
+		table[i].address = (void*)pfn;
+		table[i].symbol = pName;
 	}
 
-	return true;
+	return table;
 }
 
-bool Library::processMethod(String methodSign,FARPROC pfn)
-{
-	int leftBracket=methodSign.indexOf(L'(');
-	if(leftBracket==-1) return false;
-	int rightBracket=methodSign.indexOf(L')',leftBracket);
-	int packageEnd=methodSign.lastIndexOf(L"::",leftBracket);
-	int packageBegin=methodSign.lastIndexOf(L" ",packageEnd);
-	packageBegin=(packageBegin==-1)?0:packageBegin+1;
+Library::NameSpace* find_package(Library::NameSpace* head, const char* str, size_t len) {
+	Library::NameSpace* p = head;
 
-	String className=methodSign.substring(packageBegin,packageEnd-1);
-
-	P<Class<Object>> clazz=null;
-
-	if(this->classMap->containsKey(className))
-	{
-		clazz=this->classMap->get(className);
-	}
-	else
-	{
-		clazz=new Class<Object>(className);
-		this->classMap->put(className,clazz);
+	while(p != NULL && (strlen(p->name)!=len || 
+		memcmp(str, p->name, len)!=0x0)) {
+		p = p->next;
 	}
 
-	String methodName=methodSign.substring(packageEnd+1,leftBracket);
+	return p;
+}
 
-	Method* method=new Method();
-	method->setFullName(methodSign);
+const char* prev_token(const char* str, size_t len, char sep_char) {
+	int i = len - 1;
 
-	method->setName(methodName);
-	method->setProcAddress(pfn);
+	while(i >= 0) {
+		char ch = str[i];
 
-	if(methodName.startsWith(L"set") && methodName.length()>3)
-	{
-		String fieldName;
-
-		String tempName=methodName.substring(3);
-		fieldName.append(tempName.substring(0,1).toLowerCase());
-		fieldName.append(tempName.substring(1));
-
-		String fieldType=methodSign.substring(leftBracket+1,rightBracket);
-
-		Property* prop=(Property*)clazz->getField(fieldName);
-		if(prop==null)
-		{
-			prop=new Property(fieldName,fieldType,method,null);
-		}
-		else
-		{
-			prop->setSetter(method);
+		if (ch == sep_char) {
+			return str + i;
 		}
 
-		clazz->addField(prop);
+		i--;
 	}
-	else if(methodName.startsWith(L"get") && methodName.length()>3)
-	{
-		String fieldName;
+	 
+	return NULL;
+}
 
-		String tempName=methodName.substring(3);
-		fieldName.append(tempName.substring(0,1).toLowerCase());
-		fieldName.append(tempName.substring(1));
+Library::NameSpace* create_package(const char* str, size_t len) {
+	Library::NameSpace* space = (Library::NameSpace*)calloc(0x1, sizeof(Library::NameSpace));
 
-		String fieldType=methodSign.substring(leftBracket+1,rightBracket);
+	if (space != NULL) {
+		space->spaces = NULL;
+		space->symbols = NULL;
+		space->symbolCount = 0;
 
-		Property* prop=(Property*)clazz->getField(fieldName);
-		if(prop==null)
-		{
-			prop=new Property(fieldName,fieldType,null,method);
+		if (len > 0) {
+			char* token = (char*)malloc(len + 1);
+			memcpy(token, str, len);
+			token[len] = '\0';
+			space->name = token;
+		} else {
+			space->name = NULL;
 		}
-		else
-		{
-			prop->setGetter(method);
+	}
+
+	return space;
+}
+
+size_t skip_template_param(const char* str, size_t len) {
+	if (len > 2 && str[len - 1]=='@' && str[len - 2] == '@') {
+		const char* sep = strstr(str, "@V");
+		return sep - str;
+	}
+
+	return len;
+}
+
+void add_to_package(Library::NameSpace* parent, struct export_symbol * es, int offset, size_t len) {
+	if (parent != NULL) {
+		len = skip_template_param(es->symbol + offset, len);
+		const char* token = prev_token(es->symbol + offset, len, '@');
+
+		if (token) {
+			Library::NameSpace* space = find_package(parent->spaces, token + 1, es->symbol + offset + len - token - 1);
+
+			if (space == NULL) {
+				space = create_package(token + 1, es->symbol + offset + len - token - 1);
+
+				space->next = parent->spaces;
+				parent->spaces = space;
+			}
+
+			add_to_package(space, es, offset,  token - es->symbol - offset);
+		} else if ((es->symbol + offset)[0] == '?' && len > 2) { //for Operators, constructors, and destructors
+			// ?0 ?1 ?2 ?3 ?4 ?H ?E
+			offset+=2;
+			len-=2;
+
+			//for ?$
+			if ((es->symbol + offset)[0] == '?') {
+				offset += 2;
+				len-=2;
+			} else if((es->symbol + offset)[0] == '7') { //vtable
+				offset += 1;
+				len-=1;
+			}
+
+			Library::NameSpace* space = find_package(parent->spaces, es->symbol + offset, len);
+
+			if (space == NULL) {
+				space = create_package(es->symbol + offset, len);
+
+				space->next = parent->spaces;
+				parent->spaces = space;
+			}
+
+			add_to_package(space, es, offset,  0);
+		} else if (len > 0) {
+			Library::NameSpace* space = find_package(parent->spaces, es->symbol + offset, len);
+
+			if (space == NULL) {
+				space = create_package(es->symbol + offset, len);
+
+				space->next = parent->spaces;
+				parent->spaces = space;
+			}
+
+			add_to_package(space, es, offset,  0);
+		} else {
+			Library::NameSpace* space = parent;
+
+			size_t symbol_count = space->symbolCount;
+
+			if (space->symbols == NULL) {
+				space->symbols = (Library::ExportSymbol*)malloc(sizeof(Library::ExportSymbol)*(symbol_count + 0x1));
+			} else {
+				space->symbols = (Library::ExportSymbol*)realloc(space->symbols, sizeof(Library::ExportSymbol)*(symbol_count+0x1));
+			}
+
+			space->symbols[symbol_count].address = es->address;
+			space->symbols[symbol_count].symbol = es->symbol;
+
+			space->symbolCount++;
+		}
+	}
+
+}
+
+const char* find_param_sep(const char* str) {
+	const char* sep = strstr(str, "@@");
+
+	while (sep && sep[2] == '@') {
+		sep = strstr(sep + 2, "@@");
+	}
+
+	return sep;
+}
+
+void add_to_tree(Library::ClassTree* tree, struct export_symbol * es, int offset) {
+	const char* sep = find_param_sep(es->symbol + offset);
+	const char* token = prev_token(es->symbol + offset, sep - es->symbol - offset, '@');
+
+	if (token) {
+		Library::NameSpace* space = find_package(tree->spaces, token + 1, sep - token - 1);
+
+		if (space == NULL) {
+			space = create_package(token + 1, sep - token - 1);
+
+			space->next = tree->spaces;
+			tree->spaces = space;
 		}
 
-		clazz->addField(prop);
+		add_to_package(space, es, offset, token - es->symbol - offset);
 	}
-
-	clazz->addMethod(method);
-
-	//methodMap->put(methodSign,method);
-
-	return true;
 }
 
-P<Class<Object>> Library::getClassForName(String className)
-{
-	return this->classMap->get(className);
+void free_export_symbol_table(struct export_symbol* table) {
+	free(table);
 }
 
-bool Library::updateClass(Class<Object>* clazz)
-{
-	if(this->classMap->containsKey(clazz->getName()))
-	{
-		this->classMap->put(clazz->getName(),clazz);
-		return true;
+void Library::resolve() {
+	if (!this->resolved) {
+		size_t symbol_count = 0;
+		struct export_symbol *table = find_symbol_export_table(this->libPath, &symbol_count);
+
+		const char* prefix_symbol = "?";
+		size_t prefix_symbol_size = strlen(prefix_symbol);
+
+		for(int i=0; i<symbol_count; i++) {
+			struct export_symbol *es = table + i;
+			if (memcmp(es->symbol, prefix_symbol, prefix_symbol_size)== 0x0) {
+				add_to_tree(this->classTree, es, prefix_symbol_size);
+			}
+		}
+
+		free_export_symbol_table(table);
+
+		this->resolved = dg_true;
 	}
-
-	return false;
-}
-
-bool Library::containsClass(String className)
-{
-	if(this->classMap->containsKey(className))
-	{
-		return true;
-	}
-
-	return false;
-}
-
-int Library::getClassCount()
-{
-	return this->classMap->size();
-}
-
-FARPROC Library::getClassProc(String methodName)
-{
-	P<Method> method=getClassMethod(methodName);
-
-	if(method!=null)
-	{
-		return method->getProcAddress();
-	}
-
-	return (FARPROC)null;
-}
-
-P<Method> Library::getClassMethod(String methodName)
-{
-	if(methodMap->containsKey(methodName))
-	{
-		return methodMap->get(methodName);
-	}
-
-	return (P<Method>)null;
-}
-
-
-P<Array<P<Method>>> Library::getClassMethods()
-{
-	int size=methodMap->size();
-	P<Array<P<Method>>> methodArray=new Array<P<Method>>(size);
-
-	PIteratorMap(String,P<Method>) it=methodMap->iterator();
-
-	for(int i=0;it->hasNext() && i<size;i++)
-	{
-		PEntryMap(String,P<Method>) entry=it->next();
-
-		String fullName=entry->getKey();
-		P<Method> method=entry->getValue();
-
-		methodArray->set(i,method);
-	}
-
-	return methodArray;
-}
-
-int Library::getMethodCount()
-{
-	return methodMap->size();
 }

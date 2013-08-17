@@ -128,14 +128,15 @@
 #undef interface
 #undef __RPCNDR_H__
 
-#ifndef _WIN32
-	#define interface struct
-#else
-	#ifndef interface
-		#define interface class __declspec(novtable)
+#ifndef interface
+	#ifndef _WIN32
+		#define interface struct
+	#else
+		#ifndef interface
+			#define interface class __declspec(novtable)
+		#endif
 	#endif
 #endif
-
 
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)

@@ -62,23 +62,28 @@ Object* Constructor::newInstance(const Array<Object*>& args) {
 		int argc = args_in.size();
 
 		void* pthis = (void*)obj;
-		ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
 
-		for (int i = 0; i < argc; ++i) {
-			Type* type = tps[i];
+		if (argc > 0) {
+			ParamInfo* params = (ParamInfo*)malloc(sizeof(ParamInfo) * argc);
 
-			if (is_primitive_type(type)) {
-				params[i] = unpack_to_param_info(args_in[i]);
-			} else {
-				params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
+			for (int i = 0; i < argc; ++i) {
+				Type* type = tps[i];
+
+				if (is_primitive_type(type)) {
+					params[i] = unpack_to_param_info(args_in[i]);
+				} else {
+					params[i] = ParamInfo(type->getName(), (void*)args_in[i]);
+				}
 			}
+
+			Invoke(pthis, this->procAddress, params, argc);
+
+			SafeDeleteArray(params);
+		} else {
+			Invoke(pthis, this->procAddress, NULL, 0);
 		}
 
-		Invoke(pthis, this->procAddress, params, argc);
-
-		ret = (Object*)obj;
-
-		SafeDeleteArray(params);
+		ret = (Object*)pthis;
 	}
 
 	return ret;

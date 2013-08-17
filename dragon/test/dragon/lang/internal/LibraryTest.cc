@@ -22,19 +22,9 @@
 
 
 #include <gtest/gtest.h>
+
+#include <dragon.h>
 #include <dragon/lang/internal/Library.h>
 
 Import dragon::lang::internal;
 
-TEST(Dragon_Lang_Internal_LibraryTest, New) {
-	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
-	Library* o = new Library(local_lib_path);
-	SafeDelete(o);
-}
-
-TEST(Dragon_Lang_Internal_LibraryTest, resolve) {
-	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
-	Library* o = new Library(local_lib_path);
-	o->resolve();
-	SafeDelete(o);
-}

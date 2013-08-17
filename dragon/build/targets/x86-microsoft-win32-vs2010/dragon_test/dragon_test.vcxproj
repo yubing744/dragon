@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\third_party\googletest\include;..\..\..\..\..\dragon\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\fastdelegate;..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\third_party\googletest\include;..\..\..\..\..\dragon\include;..\..\..\..\..\dragon\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -73,11 +73,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassLoaderTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\ExceptionTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartArrayPointerTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartPointerTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\IllegalArgumentExceptionTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\IntegerTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryClassLoaderTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_Windows.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\SystemClassLoaderTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\LongTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\MathTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\ObjectTest.cc" />

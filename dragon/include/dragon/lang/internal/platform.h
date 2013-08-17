@@ -79,11 +79,7 @@ inline void* cast_void(InputClass anyClass){
  * @param  name [description]
  * @return      [description]
  */
-size_t GetBasicTypeSize(const char* name);
-
-
-typedef int (DRAGON_STDCALL *Func_FarProc)();
-typedef int (DRAGON_STDCALL *Func_GetClassSize)(void);
+_DragonExport size_t GetBasicTypeSize(const char* name);
 
 
 /**
@@ -98,12 +94,12 @@ typedef int (DRAGON_STDCALL *Func_GetClassSize)(void);
 #define CATEGORY_NO_CLASS 6
 #define CATEGORY_MEMORY 7
 
-int GetBasicTypeCategory(const char* name);
+_DragonExport int GetBasicTypeCategory(const char* name);
 
 
 static const size_t CPU_BYTE_LEN = sizeof(void*);
 
-class ParamInfo {
+class _DragonExport ParamInfo {
 public:
     int category; 
     size_t size;
@@ -159,11 +155,7 @@ public:
         this->value = cast_void<float>(floatVal);
     }
 
-    ParamInfo(double doubleVal)
-      :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
-    {
-        this->value = cast_void<double>(doubleVal);
-    }
+    ParamInfo(double doubleVal);
 
     ParamInfo(const char* typeName, void* ptrVal)
       :category(CATEGORY_INTEGER), typeName(typeName), size(sizeof(void*))
@@ -177,12 +169,14 @@ public:
     {
         this->value = (void*)ptrVal;
     }
+
+	  ~ParamInfo();
 };
 
 /**
  * return type
  */
-class ReturnInfo {
+class _DragonExport ReturnInfo {
 public:
     int category;
     size_t size;
@@ -198,13 +192,19 @@ public:
     }
 
 public:
-    template<class T>
-    T getValue() {
-        return horrible_void_cast<T>(this->value);
-    }
+	void setValue(double doubleVal);
 
+	template<class T>
+	T getValue() {
+		if (sizeof(T) <= CPU_BYTE_LEN) {
+			return horrible_void_cast<T>(this->value);
+		} else {
+			return *(T*)(this->value);
+		} 
+	}
 };
 
+/*
 const int SINGLE_MEMFUNCPTR_SIZE = sizeof(void (detail::GenericClass::*)());
 
 template <int N>
@@ -294,6 +294,8 @@ RetType Invoke(void* pthis, void* func, Param1 p1) {
 
     return (gcThis->*gmf)(p1);
 }
+*/
+
 
 /**
  * Invoke a object's member method
@@ -305,6 +307,15 @@ RetType Invoke(void* pthis, void* func, Param1 p1) {
  */
 _DragonExport void Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc);
 
+
+/**
+ * Invoke a object's member method
+ * 
+ * @param p    the object's adress
+ * @param func the function pointer of member method
+ * @param argv args
+ * @param argc args count
+ */
 _DragonExport void* Invoke(void* pthis, void* func, ParamInfo *argv, int argc);
 
 /**
@@ -383,6 +394,13 @@ typedef dg_int (*SymTestBean_TestGetter_MemberMethod2)(void* pthis);
  *    
  */
 _DragonExport const char* GetLocalLibPath();
+
+
+/**
+ *  get dragon lib's path.
+ *    
+ */
+_DragonExport const char* GetDragonLibPath();
 
 /**
  *  show current lib's laod infomation.

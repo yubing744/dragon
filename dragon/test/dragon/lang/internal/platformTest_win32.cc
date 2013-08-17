@@ -20,15 +20,18 @@
  * Created:     2013/07/13
  **********************************************************************/
 
+#include <windows.h>
+
 #include <gtest/gtest.h>
 
-#include <dragon/lang/internal/platformTest.cc>
-#include <dragon/lang/internal/platform_macos.cc>
+#include <dragon.h>
+#include <dragon/lang/internal/platform.h>
 
 #include <typeinfo>
 
 Import dragon::lang::internal;
 
+/*
 TEST(Dragon_Lang_Internal_SymbolManglingTest, queryPrefixSymbol) {
 	EXPECT_EQ("_ZN", query_prefix_symbol());
 }
@@ -48,7 +51,9 @@ TEST(Dragon_Lang_Internal_SymbolManglingTest, queryBasicTypeSymbol) {
 	EXPECT_EQ("b", query_boolean_symbol());
 	EXPECT_EQ("v", query_void_symbol());
 }
+*/
 
+/*
 TEST(Dragon_Lang_Internal_SymbolManglingTest, mangling_byte) {
 	EXPECT_EQ("_ZN6dragon4lang8internal11SymTestBean4testEc", Mangling("dragon::lang::internal::SymTestBean::test(dg_byte)"));
 }
@@ -73,7 +78,9 @@ TEST(Dragon_Lang_Internal_platformTest, Demanle_CC) {
 	EXPECT_STREQ("dragon::lang::internal::SymTestBean::SymTestBean()", cc);
 	free(cc);
 }
+*/
 
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check1) {
 	void* tb_mem = malloc(2000);
 
@@ -82,6 +89,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check1) {
 
 	free(tb_mem);
 }
+*/
 
 class SymTestBean2{
 public:
@@ -92,7 +100,7 @@ public:
 
 private:
 	dg_int data1;
-	dg_int data2[1024 * 1024 * 1024];
+	dg_int data2[1024];
 };
 
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check2) {
@@ -566,9 +574,14 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_mixtype) {
 	int max_l = sizeof(long);
 	int max_ll = sizeof(long long);
 	int max_void_p = sizeof(void*);
+	int max_float = sizeof(float);
+	int max_double = sizeof(double);
 
 	mix m;
 	mix2 m2;
+
+	memset(&m, 0, sizeof(mix));
+	memset(&m2, 0, sizeof(mix2));
 
 	invoke_test_mixtype_04(a1, b1, c1, d1);
 	invoke_test_mixtype_03(a1, b1, c1, d1, e1, f1);
@@ -589,92 +602,62 @@ void* invoke_test_mixtype_dd_05(void* pthis, char a1, short b1, int c1, size_t d
 }
 
 void InvokeTest(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	size_t int_result = NULL;
+	DWORD result = 0;
 	double sse_result = 0.0;
 
-	void* int_args[INT_ARGS_COUNT];
-	void* floating_args[FLOATING_ARGS_COUNT];
-	void** stack_args = NULL;
+	size_t sum_size = 0;
 
-	size_t ic = 0;
-	size_t fc = 0;
-	size_t sc = 0;
+	// push param to the statck
+	for(int i=argc-1; i>=0; i--){
+		ParamInfo arg = argv[i];
+		size_t arg_size = arg.size;
+		void* value = arg.value;
 
-	for (int i=0; i<argc; i++) {
-		ParamInfo param = argv[i];
-		int category = param.category;
-		size_t size = param.size;
-		void* val = param.value;
+		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
+		size_t t_size = word_count * CPU_BYTE_LEN;
+		sum_size += t_size;
 
-		if (category == CATEGORY_SSE) {
-			if (fc < FLOATING_ARGS_COUNT) {
-				floating_args[fc++] = val;
-			} else {
-				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
-				stack_args[sc++] = val;
-			}
-		} else if (category == CATEGORY_INTEGER) {
-			if (ic < INT_ARGS_COUNT) {
-				int_args[ic++] = val;
-			} else {
-				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
-				stack_args[sc++] = val;
-			}
-		} else if (category == CATEGORY_MEMORY) {
-			size_t w_ss = size / sizeof(void*);
-			stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + w_ss));
-			memcpy(stack_args + sc, val, size);
-			sc+=w_ss;
+		if (word_count == 1) {
+			value = &arg.value;
+		}
+
+		__asm {
+			sub         esp, t_size;
+
+			mov         ecx, word_count;
+			mov         esi, value;
+			mov         edi, esp;
+			rep movs    dword ptr es:[edi], dword ptr [esi];
 		}
 	}
 
+	sum_size += sizeof(void*);
 
-	if (sc > 0) {
-		__asm__ __volatile__("subq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
-
-		size_t i = 0;
-		while (i < sc) {
-			__asm__ __volatile__("mov %0, %%rbx"::"a"(i));
-			__asm__ __volatile__("mov %0, (%%rsp, %%rbx, 8)"::"a"(stack_args[i]));
-			i++;
-		}
+	__asm {
+		mov eax, pthis;
+		push eax;
 	}
 
-	if (fc > 0) {
-		__asm__ __volatile__("movsd %0, %%xmm0"::"m"(floating_args[0]));
-		__asm__ __volatile__("movsd %0, %%xmm1"::"m"(floating_args[1]));
-		__asm__ __volatile__("movsd %0, %%xmm2"::"m"(floating_args[2]));
-		__asm__ __volatile__("movsd %0, %%xmm3"::"m"(floating_args[3]));
-		__asm__ __volatile__("movsd %0, %%xmm4"::"m"(floating_args[4]));
-		__asm__ __volatile__("movsd %0, %%xmm5"::"m"(floating_args[5]));
-		__asm__ __volatile__("movsd %0, %%xmm6"::"m"(floating_args[6]));
-		__asm__ __volatile__("movsd %0, %%xmm7"::"m"(floating_args[7]));
+	//call object p's method func
+	__asm {
+		call		func;
+		mov         result, eax;
+		fstp        sse_result;
 	}
 
-	if (ic > 0) {
-		__asm__ __volatile__("mov %0, %%rsi"::"a"(int_args[0]));
-		__asm__ __volatile__("mov %0, %%rdx"::"a"(int_args[1]));
-		__asm__ __volatile__("mov %0, %%rcx"::"a"(int_args[2]));
-		__asm__ __volatile__("mov %0, %%r8"::"a"(int_args[3]));
-		__asm__ __volatile__("mov %0, %%r9"::"a"(int_args[4]));
-	}
-
-	__asm__ __volatile__("mov %0, %%rdi"::"a"(pthis));
-	__asm__ __volatile__("call *%0"::"a"(func));
-	__asm__ __volatile__("mov %%rax, %0":"=a"(int_result));
-	__asm__ __volatile__("movsd %%xmm0, %0":"=m"(sse_result));
-
-	if (sc > 0) {
-		free(stack_args);
-		__asm__ __volatile__("addq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
-	}
-
+	// restore the statck
+	__asm {
+		mov			eax, sum_size;
+		add         esp, eax;
+	}		
+ 
 	if (ret->category == CATEGORY_INTEGER) {
-		ret->value = cast_void<size_t>(int_result);
+		ret->value = (void*)result;
 	} else if (ret->category == CATEGORY_SSE) {
-		ret->value = cast_void<double>(sse_result);
+		ret->setValue(sse_result);
 	}
 }
+	
 
 void* InvokeTest(void* pthis, void* func, ParamInfo *argv, int argc) {
 	ReturnInfo ret("void*");
@@ -682,6 +665,56 @@ void* InvokeTest(void* pthis, void* func, ParamInfo *argv, int argc) {
 	return ret.getValue<void*>();
 }
 
+void InvokeMethod(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
+	DWORD result = 0;
+	double sse_result = 0.0;
+
+	size_t sum_size = 0;
+
+	// push param to the statck
+	for(int i=argc-1; i>=0; i--){
+		ParamInfo arg = argv[i];
+		size_t arg_size = arg.size;
+		void* value = arg.value;
+
+		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
+		size_t t_size = word_count * CPU_BYTE_LEN;
+		sum_size += t_size;
+
+		if (word_count == 1) {
+			value = &arg.value;
+		}
+
+		__asm {
+			sub         esp, t_size;
+
+			mov         ecx, word_count;
+			mov         esi, value;
+			mov         edi, esp;
+			rep movs    dword ptr es:[edi], dword ptr [esi];
+		}
+	}
+
+	//call object p's method func
+	__asm {
+		mov			ecx, pthis; 
+		call		func;
+		mov         result, eax;
+		fstp        sse_result;
+	}
+
+	// restore the statck
+	__asm {
+		mov			eax, sum_size;
+		add         esp, eax;
+	}		
+ 
+	if (ret->category == CATEGORY_INTEGER) {
+		ret->value = (void*)result;
+	} else if (ret->category == CATEGORY_SSE) {
+		ret->value = cast_void<double>(sse_result);
+	}
+}
 
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_mixtype_22) {
 	char a1 = 1;

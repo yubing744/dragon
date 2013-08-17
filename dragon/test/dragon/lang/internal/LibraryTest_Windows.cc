@@ -17,20 +17,36 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/24
+ * Created:     2013/07/25
  **********************************************************************/
 
 
-#include <dragon/lang/internal/SystemClassLoader.h>
+#include <gtest/gtest.h>
 #include <dragon/lang/internal/platform.h>
+
+#include <dragon/lang/internal/Library.h>
+#include <dragon/lang/internal/Library_Windows.cc>
 
 Import dragon::lang::internal;
 
-SystemClassLoader::SystemClassLoader() {
-	const char* sysLib = GetDragonLibPath();
-	this->load(sysLib);
-}
-
-SystemClassLoader::~SystemClassLoader() {
+TEST(Dragon_Lang_Internal_LibraryTest, New) {
 
 }
+
+TEST(Dragon_Lang_Internal_LibraryTest, resolve) {
+
+}
+
+TEST(Dragon_Lang_Internal_LibraryTest, find_image_num) {
+
+}
+
+TEST(Dragon_Lang_Internal_LibraryTest, create_package) {
+
+}
+
+TEST(Dragon_Lang_Internal_LibraryTest, find_symbol_export_table) {
+
+}
+
+

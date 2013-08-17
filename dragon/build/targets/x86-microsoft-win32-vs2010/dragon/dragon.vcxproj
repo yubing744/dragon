@@ -45,7 +45,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\dragon\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\third_party\fastdelegate;..\..\..\..\..\third_party\libunicode-0.4;..\..\..\..\..\third_party\pcre-8.33;..\..\..\..\..\dragon\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>BUILDING_DRAGON_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -74,6 +74,7 @@
     <ClInclude Include="..\..\..\..\include\dragon\lang\Arrays.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\CharSequence.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Class.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\ClassLoader.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\ClassNotFoundException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Comparable.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Double.h" />
@@ -88,6 +89,10 @@
     <ClInclude Include="..\..\..\..\include\dragon\lang\IllegalArgumentException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\IndexOutOfBoundsException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Integer.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\Library.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\LibraryClassLoader.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\platform.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\internal\SystemClassLoader.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\InterruptedException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\lang.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Long.h" />
@@ -97,15 +102,24 @@
     <ClInclude Include="..\..\..\..\include\dragon\lang\Number.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\NumberFormatException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Object.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Constructor.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Field.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Member.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Method.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Property.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\reflect.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\reflect\Type.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Runnable.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\RuntimeException.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\SecurityException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Short.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\String.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\StringBuffer.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\System.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Thread.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\Throwable.h" />
     <ClInclude Include="..\..\..\..\include\dragon\lang\UnsupportedOperationException.h" />
+    <ClInclude Include="..\..\..\..\include\dragon\lang\Void.h" />
     <ClInclude Include="..\..\..\..\include\dragon\util\regex\Matcher.h" />
     <ClInclude Include="..\..\..\..\include\dragon\util\regex\MatchResult.h" />
     <ClInclude Include="..\..\..\..\include\dragon\util\regex\Pattern.h" />
@@ -114,6 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\src\dragon\lang\AbstractStringBuilder.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Class.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\ClassLoader.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Double.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Exception.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Float.cc" />
@@ -121,18 +137,35 @@
     <ClCompile Include="..\..\..\..\src\dragon\lang\gc\MemoryAlloc.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\IllegalArgumentException.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Integer.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\LibraryClassLoader.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_Windows.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform_win32.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\SystemClassLoader.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Long.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Math.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Number.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Object.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Constructor.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Field.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Member.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Method.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Type.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\RuntimeException.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Short.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\String.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\StringBuffer.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\Throwable.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\Void.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\util\regex\Matcher.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\util\regex\Pattern.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\util\regex\PatternSyntaxException.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\third_party\fastdelegate\fastdelegate.vcxproj">
+      <Project>{94f9a5b9-3eef-426e-9258-774aaece0e26}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\third_party\pcre32\pcre32.vcxproj">
       <Project>{7535152e-0e72-4e27-bfc1-c8de4b3d2217}</Project>
     </ProjectReference>
