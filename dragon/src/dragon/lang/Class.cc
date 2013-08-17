@@ -23,6 +23,9 @@
 
 #include <dragon/lang/Class.h>
 
+#include <stdlib.h>
+#include <string.h>
+
 Import dragon::lang;
 
 Class::Class(const ClassLoader* classLoader, 

@@ -17,18 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/25
+ * Created:     2013/03/31
  **********************************************************************/
 
 
-#include <dragon/lang/internal/Library.h>
+#include <coff.h>
+#include <elf.h>
+#include <cxxabi.h>
 
+#include <string>
+#include <map>
+
+#include <dragon/lang/internal/platform.h>
+
+Import std;
 Import dragon::lang::internal;
-
-void Library::resolve() {
-	if (!this->resolved) {
-		// TO DO
-
-		this->resolved = dg_true;
-	}
-}

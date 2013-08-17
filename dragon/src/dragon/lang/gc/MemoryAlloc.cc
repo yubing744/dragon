@@ -20,7 +20,8 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-
+#include <stdlib.h>
+ 
 #include <dragon/lang/gc/MemoryAlloc.h>
 
 Import dragon::lang::gc;

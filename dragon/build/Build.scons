@@ -62,7 +62,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
    ],
    "x86-unknown-linux" : [
         "(Linux)",
-        "_Windows",
+        "_Linux",
         "_linux",
         "-linux",
         "_posix",
@@ -675,7 +675,7 @@ LibraryModule(
         'LINK_SIZE=4', 
         'HAVE_STRERROR'
     ],     
-    shared                = False,                    
+    shared                = True,                    
     install               = True
 )
 

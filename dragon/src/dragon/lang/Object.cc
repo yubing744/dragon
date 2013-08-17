@@ -20,10 +20,13 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/ClassLoader.h>
 
+#include <typeinfo>
+ 
 Import dragon::lang;
 
 Object::Object() {}

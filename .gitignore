@@ -62,4 +62,6 @@ _*
 *.sdf
 *.opensdf
 *.stackdump
+*.so
+*.a
 -2
