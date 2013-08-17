@@ -4,8 +4,128 @@
 		"selected_items":
 		[
 			[
+				"re",
+				"release"
+			],
+			[
+				"ret",
+				"retType02"
+			],
+			[
+				"type",
+				"type_name"
+			],
+			[
+				"arg",
+				"argv"
+			],
+			[
+				"st",
+				"stack_args"
+			],
+			[
+				"typ",
+				"typeName"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"sign",
+				"sign_size"
+			],
+			[
+				"pa",
+				"parameterTypes"
+			],
+			[
+				"p",
+				"parameterTypes"
+			],
+			[
+				"con",
+				"constructors"
+			],
+			[
+				"me",
+				"methods"
+			],
+			[
+				"co",
+				"constructors"
+			],
+			[
+				"meth",
+				"methodName"
+			],
+			[
+				"si",
+				"sign"
+			],
+			[
+				"ne",
+				"next_param_token"
+			],
+			[
+				"sim",
+				"simpleName"
+			],
+			[
+				"class",
+				"classLoader"
+			],
+			[
+				"lo",
+				"localLib"
+			],
+			[
+				"spa",
+				"spaces"
+			],
+			[
+				"sym",
+				"symbol"
+			],
+			[
+				"def",
+				"defineClass"
+			],
+			[
+				"sy",
+				"symbol"
+			],
+			[
+				"fre",
+				"free_export_symbol"
+			],
+			[
+				"fr",
+				"free_name_space"
+			],
+			[
+				"r",
+				"resolve"
+			],
+			[
+				"cl",
+				"classTree"
+			],
+			[
+				"num",
+				"num_offset"
+			],
+			[
+				"nu",
+				"num_offset"
+			],
+			[
+				"nam",
+				"name_len"
+			],
+			[
 				"im",
-				"image_num"
+				"image_path"
 			],
 			[
 				"is",
@@ -36,10 +156,6 @@
 				"setter_name"
 			],
 			[
-				"ret",
-				"returnType"
-			],
-			[
 				"Sym",
 				"SymTestBean2"
 			],
@@ -68,20 +184,12 @@
 				"demangled"
 			],
 			[
-				"re",
-				"results"
-			],
-			[
 				"it",
 				"iterator"
 			],
 			[
 				"sub",
 				"substr"
-			],
-			[
-				"si",
-				"size_t"
 			],
 			[
 				"vr",
@@ -94,10 +202,6 @@
 			[
 				"qu",
 				"queryByteSymbol"
-			],
-			[
-				"sym",
-				"symbol"
 			],
 			[
 				"setByte",
@@ -150,10 +254,6 @@
 			[
 				"fil",
 				"filterConfig"
-			],
-			[
-				"par",
-				"parentCfg"
 			],
 			[
 				"g",
@@ -236,10 +336,6 @@
 				"MatchResult"
 			],
 			[
-				"ne",
-				"nextSearchIndex"
-			],
-			[
 				"begin",
 				"beginIndex"
 			],
@@ -287,6 +383,102 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+			"settings":
+			{
+				"buffer_size": 2095,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/targets/universal-apple-macosx/debug/dragon_test",
+			"settings":
+			{
+				"buffer_size": 3669702,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/LibraryClassLoaderTest.cc",
+			"settings":
+			{
+				"buffer_size": 1525,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/Class.cc",
+			"settings":
+			{
+				"buffer_size": 11470,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/reflect/Method.cc",
+			"settings":
+			{
+				"buffer_size": 5109,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/ClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 2938,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/include/c++/4.2.1/bits/stl_tree.h",
+			"settings":
+			{
+				"buffer_size": 46957,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 6258,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/include/c++/4.2.1/bits/stl_vector.h",
+			"settings":
+			{
+				"buffer_size": 34563,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+			"settings":
+			{
+				"buffer_size": 2606,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/reflect/Constructor.cc",
+			"settings":
+			{
+				"buffer_size": 2558,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ChangeLog.mk",
+			"settings":
+			{
+				"buffer_size": 722,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon.sublime-build",
 	"command_palette":
@@ -380,65 +572,91 @@
 	},
 	"file_history":
 	[
-		"/E/Develop/GitProject/dragon/dragon.sublime-project",
-		"/E/Develop/GitProject/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/SystemClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassLoaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/ClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/ClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Windows).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest(OSX).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/LibraryClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Member.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Constructor.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Member.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Method.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Method.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Field.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Constructor.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Field.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(OSX).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Method.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Class.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Constructor.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Constructor.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/ClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/ClassLoader.cc",
+		"/usr/include/c++/4.2.1/bits/stl_tree.h",
+		"/usr/include/c++/4.2.1/bits/stl_map.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Type.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Void.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Void.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Short.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Short.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IntegerTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Number.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/help_func.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Long.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Long.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegate.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Field.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Member.cc",
+		"/usr/include/c++/4.2.1/bits/stl_pair.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/SystemClassLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_linux.cc",
+		"/usr/include/c++/4.2.1/bits/stl_vector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Linux.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IllegalArgumentExceptionTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/MathTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon.sublime-workspace",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon.sublime-project",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Windows).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest(OSX).cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Member.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Field.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(OSX).cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/LibraryManager.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Linux).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/DllLibrary.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/DllLibrary.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/DllLibrary.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Library.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Property.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Property.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/DllLibrary.h",
 		"/usr/include/c++/4.2.1/bits/gthr-default.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegate.h",
-		"/usr/include/c++/4.2.1/bits/stl_vector.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/internal/gtest-internal.h",
 		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeGDB/Default.sublime-keymap",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/Demo.cpp",
@@ -454,14 +672,11 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/MemoryAllocTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/MemoryAlloc.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/MemoryAlloc.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_linux.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/targets/universal-apple-macosx/debug/dragon3d-core-test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon.sublime-project",
 		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeGDB/SublimeGDB.sublime-settings",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
@@ -482,32 +697,9 @@
 		"/Users/yubing/Develop/GitRepos/dragon/ChangeLog.mk",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Comparable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/SmartArrayPointer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/SmartArrayPointerTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/SmartPointerTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/osgi/src/org/dragon/osgi/framework/ClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/osgi/src/DllMain.cpp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/gc.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/CharSequence.h",
-		"/usr/include/c++/4.2.1/bits/stl_tree.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/ArrayList.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Math.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Map.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/MemoryLeakCheck.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/MemoryLeakCheck.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.c",
-		"/Users/yubing/Develop/GitRepos/SublimeDragon/dragon.sublime-build",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IntegerTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Arrays.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Comparable.h"
 	],
 	"find":
 	{
@@ -526,9 +718,20 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"getReturnType",
+			"ParamInfo",
+			"float",
+			"char",
+			"size_t",
+			"short",
+			"int",
+			"NameSpace",
+			"packages",
+			"package",
+			"Package",
 			"DllLibrary",
 			"union",
 			"union\n",
@@ -595,6 +798,15 @@
 		"regex": true,
 		"replace_history":
 		[
+			"ReturnInfo",
+			"double",
+			"float",
+			"char",
+			"size_t",
+			"short",
+			"spaces",
+			"space",
+			"NameSpace",
 			"Library",
 			"GlobTargetSources",
 			"SmartArrayPointer",
@@ -625,6 +837,394 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+					"settings":
+					{
+						"buffer_size": 2095,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"929":
+								{
+									"a": 1296.0,
+									"b": 1296.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/targets/universal-apple-macosx/debug/dragon_test",
+					"settings":
+					{
+						"buffer_size": 3669702,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								414,
+								414
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1158":
+								{
+									"a": 415.0,
+									"b": 415.0
+								}
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/test/dragon/lang/internal/LibraryClassLoaderTest.cc",
+					"settings":
+					{
+						"buffer_size": 1525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1161":
+								{
+									"a": 1421.0,
+									"b": 1421.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 286.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragon/lang/Class.cc",
+					"settings":
+					{
+						"buffer_size": 11470,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2079,
+								2079
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1263":
+								{
+									"a": 2080.0,
+									"b": 2080.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 838.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/src/dragon/lang/reflect/Method.cc",
+					"settings":
+					{
+						"buffer_size": 5109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1290":
+								{
+									"a": 1607.0,
+									"b": 1607.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 511.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "dragon/src/dragon/lang/ClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 2938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2067,
+								2067
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 797.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/usr/include/c++/4.2.1/bits/stl_tree.h",
+					"settings":
+					{
+						"buffer_size": 46957,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5818,
+								5818
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2300.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 6258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1164":
+								{
+									"a": 4702.0,
+									"b": 4702.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2983.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/usr/include/c++/4.2.1/bits/stl_vector.h",
+					"settings":
+					{
+						"buffer_size": 34563,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9743,
+								9743
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3574.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+					"settings":
+					{
+						"buffer_size": 2606,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 426.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "dragon/src/dragon/lang/reflect/Constructor.cc",
+					"settings":
+					{
+						"buffer_size": 2558,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1293":
+								{
+									"a": 1476.0,
+									"b": 1476.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 316.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "ChangeLog.mk",
+					"settings":
+					{
+						"buffer_size": 722,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								722,
+								722
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1305":
+								{
+									"a": 722.0,
+									"b": 722.0
+								}
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 83.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -661,7 +1261,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 269.0
+		"height": 107.0
 	},
 	"replace":
 	{
@@ -892,6 +1492,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 217.0,
+	"side_bar_width": 250.0,
 	"status_bar_visible": true
 }

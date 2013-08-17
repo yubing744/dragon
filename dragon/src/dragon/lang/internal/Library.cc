@@ -108,7 +108,7 @@ Library::~Library() {
 // findClassDefine
 //
 
-Library::NameSpace* find_package(Library::NameSpace* head, const char* symbol, int offset, size_t len) {
+Library::NameSpace* find_namespace(Library::NameSpace* head, const char* symbol, int offset, size_t len) {
 	Library::NameSpace* p = head;
 
 	while(p != NULL && (strlen(p->name)!=len || 
@@ -135,7 +135,7 @@ Library::NameSpace* Library::findClassDefine(const char* name) {
 			len = strlen(name) - offset;
 		}
 
-		ret = find_package(spaces, name, offset, len);
+		ret = find_namespace(spaces, name, offset, len);
 		if (ret != NULL) {
 			spaces = ret->spaces;
 		}

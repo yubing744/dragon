@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/yubing/Develop/GitRepos/dragon"
+		}
+	],
+	"settings":
+	{
+		"sublimegdb_commandline": "gdb --interpreter=mi ./dragon/targets/universal-apple-macosx/debug/dragon_test",
+		"sublimegdb_workingdir": "/Users/yubing/Develop/GitRepos/dragon"
+	}
+}

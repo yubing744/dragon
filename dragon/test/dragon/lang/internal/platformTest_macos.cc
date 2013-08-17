@@ -22,7 +22,6 @@
 
 #include <gtest/gtest.h>
 
-#include <dragon/lang/internal/platformTest.cc>
 #include <dragon/lang/internal/platform_macos.cc>
 
 #include <typeinfo>
@@ -74,6 +73,7 @@ TEST(Dragon_Lang_Internal_platformTest, Demanle_CC) {
 	free(cc);
 }
 
+/*
 TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check1) {
 	void* tb_mem = malloc(2000);
 
@@ -82,6 +82,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Class_Size_Check1) {
 
 	free(tb_mem);
 }
+*/
 
 class SymTestBean2{
 public:

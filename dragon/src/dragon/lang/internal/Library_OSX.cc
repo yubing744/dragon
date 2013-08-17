@@ -38,55 +38,6 @@
 
 Import dragon::lang::internal;
 
-Library::Library(const char* libPath) 
-	:resolved(dg_false) {
-	char* buf = (char*)malloc(strlen(libPath) + 1);
-	strcpy(buf, libPath);
-	this->libPath = buf;
-
-	this->classTree = (ClassTree*)malloc(sizeof(ClassTree));
-	this->classTree->spaces = NULL;
-}
-
-// -------------------------------------------------
-// free class tree
-// 
-
-void free_export_symbol(Library::ExportSymbol* es) {
-	if (es != NULL) {
-		free(es);
-	}
-}
-
-void free_name_space(Library::NameSpace* space) {
-	if (space != NULL) {
-		free_name_space(space->spaces);
-		space->spaces = NULL;
-
-		free_name_space(space->next);
-		space->next = NULL;
-
-		SafeFree(space->symbols);
-		SafeFree(space->name);
-
-		SafeFree(space);
-	}
-}
-
-void free_class_tree(Library::ClassTree* tree) {
-	if (tree != NULL) {
-		free_name_space(tree->spaces);
-		free(tree);
-	}
-}
-
-Library::~Library() {
-	SafeFree(this->libPath);
-
-	free_class_tree(this->classTree);
-	this->classTree = NULL;
-}
-
 //-------------------------------------------------------------------
 // Resolve Libary
 // 
@@ -414,29 +365,3 @@ void Library::resolve() {
 	}
 }
 
-Library::NameSpace* Library::findClassDefine(const char* name) {
-	Library::NameSpace* ret = NULL;
-	Library::NameSpace* spaces = this->classTree->spaces;
-
-	int offset = 0;
-	size_t len = 0;
-
-	const char* pch = NULL;
-	do {
-		pch = strstr(name + offset, "::");
-		if (pch != NULL) {
-			len = pch - name - offset;
-		} else {
-			len = strlen(name) - offset;
-		}
-
-		ret = find_package(spaces, name, offset, len);
-		if (ret != NULL) {
-			spaces = ret->spaces;
-		}
-
-		offset=pch - name + 2;
-	} while(pch != NULL);
-
-	return ret;
-}
