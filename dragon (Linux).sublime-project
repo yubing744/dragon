@@ -4,5 +4,10 @@
 		{
 			"path": "/home/yubing/Develop/GitRepos/dragon"
 		}
-	]
+	],
+	"settings":
+	{
+		"sublimegdb_commandline": "gdb --interpreter=mi ./dragon/targets/x86-unknown-linux/debug/dragon_test",
+		"sublimegdb_workingdir": "/home/yubing/Develop/GitRepos/dragon"
+	}
 }

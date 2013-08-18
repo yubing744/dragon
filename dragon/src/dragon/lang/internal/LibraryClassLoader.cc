@@ -120,24 +120,26 @@ Array<Type*> make_param_types(const char* sign, const char* className, const cha
 }
 
 dg_boolean is_constructor(Class* clazz, Library::ExportSymbol* es) {
+	dg_boolean ret = dg_false;
+
 	const char* name = clazz->getName();
 	const char* simpleName = clazz->getSimpleName();
 
 	char* sign = Demangle(es->symbol);
 
-	size_t len = strlen(simpleName);
-	int offset = strlen(name) + 2;
+	if (sign) {
+		size_t len = strlen(simpleName);
+		int offset = strlen(name) + 2;
 
-	dg_boolean ret = dg_false;
+		char* bb = sign + offset;
+		if (offset + len <= strlen(sign) 
+			&& memcmp(sign + offset, simpleName, len)==0x0
+			&& bb[len] == '(') {
+			ret = true;
+		}
 
-	char* bb = sign + offset;
-	if (offset + len <= strlen(sign) 
-		&& memcmp(sign + offset, simpleName, len)==0x0
-		&& bb[len] == '(') {
-		ret = true;
+		free(sign);
 	}
-
-	free(sign);
 
 	return ret;
 }
@@ -156,24 +158,28 @@ Constructor* make_constructor(Class* clazz, Library::ExportSymbol* es) {
 }
 
 dg_boolean is_method(Class* clazz, const char* methodName, Library::ExportSymbol* es) {
+	dg_boolean ret = dg_false;
+
 	const char* name = clazz->getName();
 
 	char* sign = Demangle(es->symbol);
-	size_t sign_size = strlen(sign);
 
-	size_t len = strlen(methodName);
-	int offset = strlen(name) + 2;
+	if (sign) {
+		size_t sign_size = strlen(sign);
 
-	dg_boolean ret = dg_false;
+		size_t len = strlen(methodName);
+		int offset = strlen(name) + 2;
 
-	char* bb = sign + offset;
-	if (offset + len <= sign_size
-		&& memcmp(sign + offset, methodName, len)==0x0
-		&& bb[len] == '(') {
-		ret = true;
+
+		char* bb = sign + offset;
+		if (offset + len <= sign_size
+			&& memcmp(sign + offset, methodName, len)==0x0
+			&& bb[len] == '(') {
+			ret = true;
+		}
+
+		free(sign);
 	}
-
-	free(sign);
 
 	return ret;
 }

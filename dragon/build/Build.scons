@@ -12,6 +12,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"
    ],
@@ -20,6 +21,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"        
    ],
@@ -28,6 +30,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"        
    ],
@@ -36,6 +39,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_Linux",
         "_linux",
         "-linux",
+        "_Posix",        
         "_posix",
         "-posix"        
    ],
@@ -45,6 +49,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_OSX",
         "_macos",
         "-macos",
+        "_Posix",
         "_posix",
         "-posix"             
    ],
@@ -65,6 +70,7 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"       
    ]
@@ -111,15 +117,18 @@ def AddPlatformTargetSource(source_file):
 
         root = GetBuildPath(project.getBase() + '/' + file_path)
 
+        new_files = [];
+        new_files.append(source_file);
+
         for suffix in suffixs:
             new_file = root + '/' + name + suffix + ext_name;
 
             #print 'new_file', new_file
             if os.path.exists(new_file):
                 #print 'replace new_file', new_file
-                return [source_file, file_path + '/' + name + suffix + ext_name];
+                new_files.append(file_path + '/' + name + suffix + ext_name);
 
-        return [source_file];
+        return new_files;
 
 def GlobTargetSources(drct, patterns, excluded_files=[]):
     source_files = GlobSources(drct, patterns, excluded_files)
@@ -779,6 +788,7 @@ LibraryModule(
     ],
     source_root           = 'src',
     included_modules      = ["pcre32", "unicode"], 
+    linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = True,
     install               = True
 )
