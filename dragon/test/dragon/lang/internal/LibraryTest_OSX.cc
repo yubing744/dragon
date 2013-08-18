@@ -52,9 +52,9 @@ TEST(Dragon_Lang_Internal_LibraryTest, find_image_num) {
 
 TEST(Dragon_Lang_Internal_LibraryTest, create_package) {
 	const char* name ="dragon";
-	struct export_symbol * es = NULL;
+	export_symbol * es = NULL;
 
-	es = (struct export_symbol *)malloc(sizeof(struct export_symbol));
+	es = (export_symbol *)malloc(sizeof(export_symbol));
 	es->address = (void*)0x12345678;
 	es->symbol = const_cast<char*>(name);
 
@@ -67,10 +67,10 @@ TEST(Dragon_Lang_Internal_LibraryTest, create_package) {
 TEST(Dragon_Lang_Internal_LibraryTest, find_symbol_export_table) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
 	size_t symbol_count = 0;
-	struct export_symbol *table = find_symbol_export_table(local_lib_path, &symbol_count);
+	export_symbol *table = find_symbol_export_table(local_lib_path, &symbol_count);
 
 	for(int i=0; i<symbol_count; i++) {
-		struct export_symbol *es = table + i;
+		export_symbol *es = table + i;
 		//printf("address: 0x%x, symbol: %s\n", es->address, es->symbol);
 	}
 

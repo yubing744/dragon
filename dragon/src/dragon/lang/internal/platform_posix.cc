@@ -30,7 +30,7 @@
 #include <string>
 #include <map>
 
-#include <dragon/lang/internal/platform.h>
+#include <dragon/lang/internal/platform_posix.h>
 
 Import std;
 Import dragon::lang::internal;
@@ -57,8 +57,6 @@ void ReturnInfo::setValue(double doubleVal) {
 	this->value = cast_void<double>(doubleVal);
 }
 
-const static size_t INT_ARGS_COUNT = 5;
-const static size_t FLOATING_ARGS_COUNT = 8;
 
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
 	size_t int_result = NULL;

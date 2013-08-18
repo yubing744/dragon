@@ -208,7 +208,7 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 					symbol_address = (void*)*n_value;
 				}
 
-				table = (struct export_symbol*)realloc(table, sizeof(struct export_symbol)*(symbol_count+0x1));
+				table = (export_symbol*)realloc(table, sizeof(export_symbol)*(symbol_count+0x1));
 
 				table[symbol_count].address = (char*)symbol_address + _dyld_get_image_vmaddr_slide(image_num);
 				table[symbol_count].symbol = ((char *)str_table + entry->n_un.n_strx) + 1;
@@ -228,7 +228,7 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 	return table;
 }
 
-void free_export_symbol_table(struct export_symbol* table) {
+void free_export_symbol_table(export_symbol* table) {
 	free(table);
 }
 
@@ -236,13 +236,13 @@ void free_export_symbol_table(struct export_symbol* table) {
 void Library::resolve() {
 	if (!this->resolved) {
 		size_t symbol_count = 0;
-		struct export_symbol *table = find_symbol_export_table(this->libPath, &symbol_count);
+		export_symbol *table = find_symbol_export_table(this->libPath, &symbol_count);
 
 		const char* prefix_symbol = "_ZN";
 		size_t prefix_symbol_size = strlen(prefix_symbol);
 
 		for(int i=0; i<symbol_count; i++) {
-			struct export_symbol *es = table + i;
+			export_symbol *es = table + i;
 			if (memcmp(es->symbol, prefix_symbol, prefix_symbol_size)== 0x0 
 				&& isdigit(es->symbol[prefix_symbol_size])) {
 				//printf("address: 0x%x, symbol: %s\n", es->address, es->symbol);

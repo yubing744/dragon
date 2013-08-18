@@ -49,7 +49,6 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_OSX",
         "_macos",
         "-macos",
-        "_Posix",
         "_posix",
         "-posix"             
    ],

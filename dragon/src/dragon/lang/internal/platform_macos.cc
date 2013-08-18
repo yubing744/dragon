@@ -21,6 +21,6 @@
  **********************************************************************/
 
 
-#include <dragon/lang/internal/platform.h>
+#include <dragon/lang/internal/platform_posix.h>
 
 Import dragon::lang::internal;

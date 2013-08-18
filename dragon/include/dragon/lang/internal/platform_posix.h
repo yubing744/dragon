@@ -20,7 +20,38 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+#ifndef PLATFORM_POSIX_Internal_Lang_Dragon_H
+#define PLATFORM_POSIX_Internal_Lang_Dragon_H
 
-#include <dragon/lang/internal/platform_posix.h>
+#include <dragon/lang/internal/platform.h>
 
 Import dragon::lang::internal;
+
+#define INT_ARGS_COUNT 5
+#define FLOATING_ARGS_COUNT 8
+
+string query_prefix_symbol();
+
+string query_name_end_symbol();
+
+string parse_basic_type_symbol(const char* sname);
+
+string query_byte_symbol();
+
+string query_short_symbol();
+
+string query_int_symbol();
+
+string query_long_symbol();
+
+string query_float_symbol();
+
+string query_double_symbol();
+
+string query_char_symbol();
+
+string query_boolean_symbol();
+
+string query_void_symbol();
+
+#endif//PLATFORM_POSIX_Internal_Lang_Dragon_H
