@@ -394,6 +394,86 @@
 				"buffer_size": 1118,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
+			"settings":
+			{
+				"buffer_size": 26681,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_macos.cc",
+			"settings":
+			{
+				"buffer_size": 929,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
+			"settings":
+			{
+				"buffer_size": 14271,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/platform_posix.h",
+			"settings":
+			{
+				"buffer_size": 1501,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/Library_Posix.h",
+			"settings":
+			{
+				"buffer_size": 1765,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library_OSX.cc",
+			"settings":
+			{
+				"buffer_size": 8026,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+			"settings":
+			{
+				"buffer_size": 2496,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_linux.cc",
+			"settings":
+			{
+				"buffer_size": 930,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library_Posix.cc",
+			"settings":
+			{
+				"buffer_size": 3623,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/build/Build.scons",
+			"settings":
+			{
+				"buffer_size": 26124,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon.sublime-build",
@@ -751,7 +831,6 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
@@ -766,8 +845,8 @@
 						"selection":
 						[
 							[
-								1118,
-								0
+								621,
+								621
 							]
 						],
 						"settings":
@@ -778,6 +857,329 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
+					"settings":
+					{
+						"buffer_size": 26681,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16340,
+								16340
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 37.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/src/dragon/lang/internal/platform_macos.cc",
+					"settings":
+					{
+						"buffer_size": 929,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								897,
+								849
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"66":
+								{
+									"a": 894.0,
+									"b": 894.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
+					"settings":
+					{
+						"buffer_size": 14271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1009,
+								1009
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"72":
+								{
+									"a": 1009.0,
+									"b": 1009.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 285.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/include/dragon/lang/internal/platform_posix.h",
+					"settings":
+					{
+						"buffer_size": 1501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1455,
+								1455
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"75":
+								{
+									"a": 1455.0,
+									"b": 1455.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 424.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "dragon/include/dragon/lang/internal/Library_Posix.h",
+					"settings":
+					{
+						"buffer_size": 1765,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1298,
+								1298
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 424.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "dragon/src/dragon/lang/internal/Library_OSX.cc",
+					"settings":
+					{
+						"buffer_size": 8026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7336,
+								7336
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"96":
+								{
+									"a": 7336.0,
+									"b": 7336.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 274.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
+					"settings":
+					{
+						"buffer_size": 2496,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1776,
+								1776
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"99":
+								{
+									"a": 1776.0,
+									"b": 1776.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 500.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "dragon/src/dragon/lang/internal/platform_linux.cc",
+					"settings":
+					{
+						"buffer_size": 930,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								897,
+								897
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"90":
+								{
+									"a": 897.0,
+									"b": 897.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dragon/src/dragon/lang/internal/Library_Posix.cc",
+					"settings":
+					{
+						"buffer_size": 3623,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1648.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "dragon/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 26124,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1065,
+								1064
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"105":
+								{
+									"a": 1065.0,
+									"b": 1065.0
+								}
+							},
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 543.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -818,7 +1220,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 203.0
+		"height": 134.0
 	},
 	"replace":
 	{

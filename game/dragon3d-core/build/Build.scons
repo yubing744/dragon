@@ -7,56 +7,84 @@ from glob import glob
 # target build append source exts config
 #######################################################
 TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
-   "arm-unknown-linux" : [
-        "(Linux)",
-        "_linux",
-        "-linux",
-        "_posix",
-        "-posix"
-   ],
+   "arm-android-linux" : {
+        "os" : [
+            "(Linux)",
+            "_linux",
+            "-linux",
+
+            "-Posix",
+            "_posix"
+        ], 
+        "arch" :  {
+            "path": "arm",
+            "suffixs" : [
+                "_arm"
+            ]
+        }
+   },
    "arm-gp2x-linux" : [
         "(Linux)",
+        "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"        
    ],
    "arm-unknown-linux" : [
         "(Linux)",
+        "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"        
    ],
    "mipsel-psp-linux" : [
         "(Linux)",
+        "_Linux",
         "_linux",
         "-linux",
+        "_Posix",        
         "_posix",
         "-posix"        
    ],
    "ppu-sony-ps3" : [],
-   "universal-apple-macosx" : [
-        "(OSX)",
-        "_macos",
-        "-macos",
-        "_posix",
-        "-posix"             
-   ],
+   "universal-apple-macosx" : {
+        "os" : [
+            "(OSX)",
+            "_OSX",
+            "_macos",
+            "-macos",
+            "_posix",
+            "-posix" 
+        ], 
+        "arch" : {
+            "path": "x64",
+            "suffixs" : [
+                "_x64"
+            ]
+        }
+   },
    "x86-microsoft-win32" : [
         "(Windows)",
+        "_Windows",
         "_win32",
         "-win32"        
    ],
    "x86-unknown-cygwin" : [
-        "(Windows)",   
+        "(Windows)", 
+        "_Windows",
         "_cygwin",
         "-cygwin"        
    ],
    "x86-unknown-linux" : [
         "(Linux)",
+        "_Linux",
         "_linux",
         "-linux",
+        "_Posix",
         "_posix",
         "-posix"       
    ]
@@ -89,11 +117,37 @@ def GlobSources(drct, patterns, excluded_files=[]):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
-
 def AddPlatformTargetSource(source_file):
+    new_files = [];
+    new_files.append(source_file);
+    
     target = env['target']
+    
     if TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP.has_key(target):
-        suffixs = TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP[target]
+        target_config = TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP[target]
+
+        path = "."
+        suffixs = []
+
+        arch_path = "."
+        arch_suffixs = []
+
+        if isinstance(target_config, list) :
+            suffixs = target_config
+        elif isinstance(target_config, dict):
+            arch = target_config["arch"];
+            if isinstance(arch, list):
+                suffixs = arch
+            else:
+                arch_path = arch["path"]
+                arch_suffixs = arch["suffixs"]
+
+            os_cfg = target_config["os"];
+            if isinstance(os_cfg, list):
+                suffixs = os_cfg
+            else:
+                path = os_cfg["path"]
+                suffixs = os_cfg["suffixs"]
 
         segments = os.path.split(source_file)
         file_path = segments[0]
@@ -105,21 +159,27 @@ def AddPlatformTargetSource(source_file):
         root = GetBuildPath(project.getBase() + '/' + file_path)
 
         for suffix in suffixs:
-            new_file = root + '/' + name + suffix + ext_name;
+            new_file = root + '/' + path + "/" + name + suffix + ext_name;
 
-            #print 'new_file', new_file
             if os.path.exists(new_file):
-                #print 'replace new_file', new_file
-                return [source_file, file_path + '/' + name + suffix + ext_name];
+                new_files.append(file_path + '/' + path + "/" + name + suffix + ext_name);
 
-        return [source_file];
+        for arch_suffix in arch_suffixs:
+            new_file = root + '/' + arch_path + "/" + name + arch_suffix + ext_name;
+
+            if os.path.exists(new_file):
+                print "arch_file:", new_file
+                new_files.append(file_path + '/' + arch_path + "/" + name + arch_suffix + ext_name);
+
+    return new_files;
 
 def GlobTargetSources(drct, patterns, excluded_files=[]):
     source_files = GlobSources(drct, patterns, excluded_files)
     new_files = []
 
     for source_file in source_files:
-        new_files += AddPlatformTargetSource(source_file)
+        if source_file:
+            new_files += AddPlatformTargetSource(source_file)
 
     return new_files
 
@@ -314,6 +374,10 @@ def Application(name,
         inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
+
+        if env["test"]:
+            env.Test(target= "#testapp-target", source=inst)
+
 
 class Project:
     def __init__(self, project):

@@ -3,12 +3,100 @@ import sys
 import os
 import imp
 from glob import glob
+#######################################################
+# target build append source exts config
+#######################################################
+TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
+   "arm-android-linux" : {
+        "os" : [
+            "(Linux)",
+            "_linux",
+            "-linux",
+
+            "-Posix",
+            "_posix"
+        ], 
+        "arch" :  {
+            "path": "arm",
+            "suffixs" : [
+                "_arm"
+            ]
+        }
+   },
+   "arm-gp2x-linux" : [
+        "(Linux)",
+        "_Linux",
+        "_linux",
+        "-linux",
+        "_Posix",
+        "_posix",
+        "-posix"        
+   ],
+   "arm-unknown-linux" : [
+        "(Linux)",
+        "_Linux",
+        "_linux",
+        "-linux",
+        "_Posix",
+        "_posix",
+        "-posix"        
+   ],
+   "mipsel-psp-linux" : [
+        "(Linux)",
+        "_Linux",
+        "_linux",
+        "-linux",
+        "_Posix",        
+        "_posix",
+        "-posix"        
+   ],
+   "ppu-sony-ps3" : [],
+   "universal-apple-macosx" : {
+        "os" : [
+            "(OSX)",
+            "_OSX",
+            "_macos",
+            "-macos",
+            "_posix",
+            "-posix" 
+        ], 
+        "arch" : {
+            "path": "x64",
+            "suffixs" : [
+                "_x64"
+            ]
+        }
+   },
+   "x86-microsoft-win32" : [
+        "(Windows)",
+        "_Windows",
+        "_win32",
+        "-win32"        
+   ],
+   "x86-unknown-cygwin" : [
+        "(Windows)", 
+        "_Windows",
+        "_cygwin",
+        "-cygwin"        
+   ],
+   "x86-unknown-linux" : [
+        "(Linux)",
+        "_Linux",
+        "_linux",
+        "-linux",
+        "_Posix",
+        "_posix",
+        "-posix"       
+   ]
+}
 
 #######################################################
 # reusable functions and data structures
 #######################################################
 def LoadTool(name, env, **kw):
-    config_path = GetBuildPath('#/build/tools/scons')
+    #config_path = GetBuildPath('#/build/tools/scons')
+    config_path = GetBuildPath(project.getBase() + '/build/tools/scons')
+    
     file, path, desc = imp.find_module(name, [config_path])
     module = imp.load_module(name, file, path, desc)
     module.generate(env, **kw)
@@ -21,50 +109,140 @@ def MergeItemUnique(item_list, item):
     if not item in item_list: item_list.append(item)
 
 def GlobSources(drct, patterns, excluded_files=[]):
-    root = GetBuildPath('#'+drct)
+    #root = GetBuildPath('#'+drct)
+    root = GetBuildPath(project.getBase() + '/' + drct)
+
     files = []
     for pattern in Split(patterns):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
-def GetDirPath(dir):
-    return '#/'+dir
+def AddPlatformTargetSource(source_file):
+    new_files = [];
+    new_files.append(source_file);
     
+    target = env['target']
+    
+    if TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP.has_key(target):
+        target_config = TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP[target]
+
+        path = "."
+        suffixs = []
+
+        arch_path = "."
+        arch_suffixs = []
+
+        if isinstance(target_config, list) :
+            suffixs = target_config
+        elif isinstance(target_config, dict):
+            arch = target_config["arch"];
+            if isinstance(arch, list):
+                suffixs = arch
+            else:
+                arch_path = arch["path"]
+                arch_suffixs = arch["suffixs"]
+
+            os_cfg = target_config["os"];
+            if isinstance(os_cfg, list):
+                suffixs = os_cfg
+            else:
+                path = os_cfg["path"]
+                suffixs = os_cfg["suffixs"]
+
+        segments = os.path.split(source_file)
+        file_path = segments[0]
+        file_name = segments[1]
+        parts = os.path.splitext(file_name)
+        name = parts[0]
+        ext_name = parts[1]
+
+        root = GetBuildPath(project.getBase() + '/' + file_path)
+
+        for suffix in suffixs:
+            new_file = root + '/' + path + "/" + name + suffix + ext_name;
+
+            if os.path.exists(new_file):
+                new_files.append(file_path + '/' + path + "/" + name + suffix + ext_name);
+
+        for arch_suffix in arch_suffixs:
+            new_file = root + '/' + arch_path + "/" + name + arch_suffix + ext_name;
+
+            if os.path.exists(new_file):
+                print "arch_file:", new_file
+                new_files.append(file_path + '/' + arch_path + "/" + name + arch_suffix + ext_name);
+
+    return new_files;
+
+def GlobTargetSources(drct, patterns, excluded_files=[]):
+    source_files = GlobSources(drct, patterns, excluded_files)
+    new_files = []
+
+    for source_file in source_files:
+        if source_file:
+            new_files += AddPlatformTargetSource(source_file)
+
+    return new_files
+
+def GetDirPath(dir):
+    return project.getBase() + '/' + dir
+    #return '#/' + dir
+
+def GetDirPaths(paths):
+    dirs = []
+    for path in Split(paths):
+        dirs += [GetDirPath(path)]
+    return dirs
+
 def DeclareBuildDir(dir):
     env.VariantDir(dir, GetDirPath(dir), duplicate=0)
     
 def GetIncludeDirs(modules, exclude=None):
     dirs = []
     for module in Split(modules):
-        if Modules.has_key(module) and not module == exclude:
-            dirs += Modules[module].GetIncludeDirs()
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetIncludeDirs()
         else:
             dirs += [GetDirPath(module)]
     return dirs
 
+def GetLibrarieDirs(modules, exclude=None):
+    dirs = []
+    for module in Split(modules):
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetLibrarieDirs()
+    return dirs
+
+
 def GetLibraries(modules):
     libs = []
     for module in Split(modules):
-        if Modules.has_key(module):
-            libs += Modules[module].GetLibraries()
+        if project.hasModule(module):
+            libs += project.getModule(module).GetLibraries()
         else:
             libs += [module]
     return libs
 
-Modules = {}
 class Module:
-    def __init__(self, name, included_modules = [], linked_modules = []):
-        self.name             = name
-        self.included_modules = included_modules
-        self.linked_modules   = linked_modules
-        self.product          = []
+    def __init__(self, name, build_include_dirs = [], included_modules = [], 
+        build_lib_dirs  = [], linked_modules = []):
+        self.name               = name
+        self.build_include_dirs = build_include_dirs
+        self.included_modules   = included_modules
+        self.build_lib_dirs     = build_lib_dirs
+        self.linked_modules     = linked_modules
+        self.product            = []
+    def GetProduct(self):
+        return self.product
 
     def GetLibraries(self):
         return self.product + GetLibraries(self.linked_modules)
         
     def GetIncludeDirs(self):
         return GetIncludeDirs(self.included_modules+self.build_include_dirs, self.name)
-    
+
+    def GetLibrarieDirs(self):
+        return GetDirPaths(self.build_lib_dirs) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
+
 class LibraryModule(Module):
     def __init__(self, name, 
                  build_source_dirs     = ['.'], 
@@ -72,6 +250,7 @@ class LibraryModule(Module):
                  source_root           = 'Source',
                  build_source_pattern  = ['*.c', '*.cpp', '*.cc'], 
                  build_include_dirs    = [], 
+                 build_lib_dirs        = [], 
                  included_modules      = [], 
                  included_only_modules = [],
                  linked_modules        = [],
@@ -84,10 +263,10 @@ class LibraryModule(Module):
         build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
         Module.__init__(self, 
                         name, 
+                        Split(build_include_dirs),
                         Split(included_modules) + Split(included_only_modules) + Split(build_source_dirs), 
+                        Split(build_lib_dirs),
                         Split(linked_modules) + Split(included_modules))
-
-        self.build_include_dirs = build_include_dirs
 
         if environment is None:
             self.env = env.Clone()
@@ -96,8 +275,11 @@ class LibraryModule(Module):
 
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
+        lib_path = self.GetLibrarieDirs()
+        self.env.AppendUnique(LIBPATH = lib_path)
+
         # store this new object in the module dictionary
-        Modules[name] = self
+        project.addModule(name, self)
                 
         # for each source drct to build, create a VariantDir
         # to say where we want the object files to be built,
@@ -105,14 +287,14 @@ class LibraryModule(Module):
         sources = []
         for drct in Split(build_source_dirs):
             DeclareBuildDir(drct)
-            sources += GlobSources(drct, build_source_pattern, excluded_files)
+            sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
             
         # add cherry-picked files
         for drct in build_source_files.keys():
             pattern = build_source_files[drct]
             drct_path = source_root+'/'+drct
             DeclareBuildDir(drct_path)
-            sources += GlobSources(drct_path, pattern)
+            sources += GlobTargetSources(drct_path, pattern)
 
         # calculate our build include path
         cpp_path = GetIncludeDirs(Split(self.build_include_dirs) + Split(build_source_dirs) + self.included_modules + self.linked_modules)
@@ -127,11 +309,10 @@ class LibraryModule(Module):
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
         self.env.Alias(name, self.product)
             
-        
-
         # copy to Targets folder
         if install is True:
-            inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
+            #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
+            inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=self.product)
             if env['build_config'] == 'release' and env.has_key('STRIP'):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
  
@@ -150,13 +331,19 @@ def Application(name,
                 build_source_dirs     = ['.'], 
                 build_source_files    = {}, 
                 build_source_pattern  = ['*.c', '*.cpp'], 
-                excluded_files        = [],                
+                excluded_files        = [],
+                build_include_dirs    = [], 
+                build_lib_dirs        = [],                 
                 deps                  = [], 
                 install               = False):
     build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
-     
+
     libs = GetLibraries(deps)
-    cpp_path = GetIncludeDirs(deps)
+
+    cpp_path = GetIncludeDirs(Split(build_include_dirs) + deps)
+
+    lib_path = GetDirPaths(Split(build_lib_dirs)) + GetLibrarieDirs(deps)
+    env.AppendUnique(LIBPATH = lib_path)
 
     # for each source drct to build, create a VariantDir
     # to say where we want the object files to be built,
@@ -164,14 +351,15 @@ def Application(name,
     sources = []
     for drct in Split(build_source_dirs):
         DeclareBuildDir(drct)
-        sources += GlobSources(drct, build_source_pattern, excluded_files)
+        sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
         
     # add cherry-picked files
     for drct in build_source_files.keys():
         pattern = build_source_files[drct]
         drct_path = source_root+'/'+drct
+
         DeclareBuildDir(drct_path)
-        sources += GlobSources(drct_path, pattern)
+        sources += GlobTargetSources(drct_path, pattern)
 
     prog = env.Program(target=name, 
                        source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
@@ -182,14 +370,170 @@ def Application(name,
     
     # copy to Targets folder
     if install is True:
-        inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
+        if env["test"]:
+            env.Test(target= "#testapp-target", source=inst)
+
+
+class Project:
+    def __init__(self, project):
+        self.config = project
+
+    def init(self):
+        self.config['_Modules_'] = {}
+        self.config['deps'] = self.findDependencies()
+        self.installDependencies()
+
+    def getBase(self):
+        return self.config['cwd']
+
+    def getGroupID(self):
+        return self.config['groupID']
+
+    def getArtifactID(self):
+        return self.config['artifactID']
+
+    def getName(self):
+        return self.config['groupID'] + ":" + self.config['artifactID']
+
+    def getSubProjects(self):
+        if 'children' in self.config:
+            return self.config['children']
+        else:
+            return []
+
+    def parseDependeny(self, dep):
+        if isinstance(dep, str):
+            segs = dep.split(':')
+
+            if len(segs) >= 2:
+                groupID = segs[0]
+                artifactID = segs[1]
+
+                if not groupID:
+                    groupID = self.config['groupID']
+
+            return {
+                'groupID' : groupID,
+                'artifactID' : artifactID
+            }
+        elif isinstance(dep, dict):
+            return dep
+        else:
+            raise 'not support dependency config type!'
+
+    def matchFilterConfig(self, filterConfig):
+        return self.getGroupID() == filterConfig['groupID'] and self.getArtifactID() == filterConfig['artifactID']
+
+    def match(self, project):
+        if project:
+            return self.getGroupID() == project.getGroupID() and self.getArtifactID() == project.getArtifactID()
+
+        return False
+
+    def findDependencyInSubProjects(self, filterConfig, exclude=None):
+        #print 'begin find in subProjects'
+
+        for subProjectCfg in self.getSubProjects():
+            subProject = Project(subProjectCfg)
+            #print 'find in sub project', subProject.getName()
+
+            if subProject.match(exclude):
+                #print 'sub project match exclude and continue'
+                continue
+  
+            if subProject.matchFilterConfig(filterConfig):
+                #print 'subProject match filterConfig'
+                return subProject
+            else:
+                #print 'subProject not match filterConfig'
+                return subProject.findDependencyInSubProjects(filterConfig)
+
+    def findDependencyProject(self, filterConfig):
+        parentCfg = self.config['parent']
+        if parentCfg:
+            project = Project(parentCfg)
+
+            #print 'try find dependencies in', project.getName()
+            
+            result = project.findDependencyInSubProjects(filterConfig, self)
+            if not result == None:
+                return result
+            else:
+                return project.findDependencyProject(filterConfig)
+        else:
+            return None
+
+    def getModules(self):
+        if not '_Modules_' in self.config:
+            self.config['_Modules_'] = {}
+        return self.config['_Modules_']
+
+    def hasModule(self, name):
+        modules = self.getModules()
+        return modules.has_key(name)
+
+    def addModules(self, modules):
+        localModules = self.getModules()
+        for name in modules:
+            localModules[name] = modules[name]
+
+    def addModule(self, name, module):
+        modules = self.getModules()
+        modules[name] = module
+
+    def getModule(self, name):
+        modules = self.getModules()
+        return modules[name]
+
+    def getProducts(self):
+        dirs = []
+        modules = self.getModules()
+        for name in modules:
+            dirs += modules[name].GetProduct()
+
+        return dirs
+
+    def findDependencies(self):
+        deps = []
+        if ('dependencies' in self.config):
+            depDefs = self.config['dependencies']
+            #print 'all deps def:', depDefs
+            for depDef in depDefs:
+                depConfig = self.parseDependeny(depDef)
+                depProject = self.findDependencyProject(depConfig)
+                if depProject:
+                    deps.append(depProject)
+                else:
+                    raise 'not found dependency project'
+
+        return deps
+                           
+    def installDependencies(self):
+        if ('deps' in self.config):
+            deps = self.config['deps']
+            #print 'all deps:', deps
+            for dep in deps:
+                #print 'dep project:', dep.getName()
+
+                #print 'install dep project modules:', dep.getModules()
+                self.addModules(dep.getModules());
+
+                #print 'install dep project product:', dep.getProducts()
+                env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=dep.getProducts())
+  
 #######################################################
 # Main Build
 #######################################################
 Import("env")
+Import('project')
+
+project = Project(project)
+project.init()
 
 ### defaults
 env['DRAGON_EXTRA_LIBS'] = []
@@ -201,7 +545,8 @@ else:
     env.AppendUnique(CPPDEFINES=['NDEBUG', 'DRAGON_CONFIG_ENABLE_LOGGING'])
 
 ### try to read in any target specific configuration
-target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')
+#target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')
+target_config_file = env.GetBuildPath(project.getBase() + '/build/targets/'+env['target']+'/Config.scons')
 if os.path.exists(target_config_file):
     # Load the target-specific config file    
     execfile(target_config_file)
@@ -236,48 +581,17 @@ if os.path.exists(target_config_file):
 DRAGON_SOURCE_ROOT = '../../dragon'
 THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
-
-# dragon3d-core
-dragon3d_core_SOURCES = {
-    "com/dragon3d/framework" : Split("""
-        dg_engine.cpp
-    """)
-}
-
-LibraryModule(
-    name                  = 'dragon3d-core',
-    build_include_dirs    = ['include'],
-    build_source_files    = dragon3d_core_SOURCES,
-    extra_cpp_defines     = [
-        'DRAGON_SHARED', 
-        'BUILDING_DRAGON_SHARED',
-        'ENABLE_LOG'
-    ],
-    source_root           = 'src',
-    included_modules      = [], 
-    shared                = True,
-    install               = True
-)
-
-
 # dragon3d-core-test
-dragon3d_core_test_SOURCES = {
-    "com/dragon3d/framework" : Split("""
-        dg_engine_test.cpp
-    """),
+dragon3d_core_test_SOURCES = { 
     "." : Split("""
         TestMain.cc
     """)
 }
 
 Application(
-    name                  = 'dragon3d-core-test', 
+    name                  = 'dragon3d-examples', 
     source_root           = 'test',
-    build_source_files    = dragon3d_core_test_SOURCES,
-    deps                  = [ 
-        'gtest',
-        'dragon'
-    ],          
+    build_source_files    = dragon3d_core_test_SOURCES,        
     install               = True
 )
 

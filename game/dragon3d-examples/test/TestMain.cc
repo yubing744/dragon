@@ -20,6 +20,7 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+/*
 #include <dragon/config.h>
 #include <gtest/gtest.h>
 
@@ -27,6 +28,7 @@ int main(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
+*/
 
 /*
 #include <dragon/config.h>
@@ -41,10 +43,9 @@ int main(int argc, char** argv) {
 }
 */
 
-/*
+
 #include <stdio.h>
 
 int main(int argc, char** argv) {
 	printf("%s\n", "Hello World\n");
 }
-*/

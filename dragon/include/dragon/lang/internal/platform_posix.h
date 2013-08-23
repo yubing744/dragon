@@ -27,8 +27,7 @@
 
 Import dragon::lang::internal;
 
-#define INT_ARGS_COUNT 5
-#define FLOATING_ARGS_COUNT 8
+
 
 string query_prefix_symbol();
 

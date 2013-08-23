@@ -41,8 +41,8 @@ project = {
 	},
 
 	'modules' : [
-		'dragon'
-		,'game'
+		'dragon',
+		'game'
 	]
 }
 

@@ -589,6 +589,9 @@ void* invoke_test_mixtype_dd_05(void* pthis, char a1, short b1, int c1, size_t d
 	return cast_void<double>(a);
 }
 
+#define INT_ARGS_COUNT 5
+#define FLOATING_ARGS_COUNT 8
+
 void InvokeTest(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
 	size_t int_result = NULL;
 	double sse_result = 0.0;

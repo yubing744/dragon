@@ -37,7 +37,7 @@ project = {
 	'name' : 'dragon-game',
 
 	'modules' : [
-		'dragon3d-core'
+		'dragon3d-examples'
 	]
 }
 
