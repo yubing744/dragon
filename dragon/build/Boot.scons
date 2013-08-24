@@ -50,9 +50,9 @@ if not hasattr(env, 'Clone'): env.Clone = env.Copy ## old scons compatibility
 
 ### Add Test Builder
 def RunTest(target, source, env):
-    ar = env['AR']
+    #ar = env['AR']
     #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-run")
-    os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb " + str(source[0]))
+    #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb " + str(source[0]))
     #os.system(str(source[0]))
     return None
 

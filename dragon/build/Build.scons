@@ -168,7 +168,7 @@ def AddPlatformTargetSource(source_file):
             new_file = root + '/' + arch_path + "/" + name + arch_suffix + ext_name;
 
             if os.path.exists(new_file):
-                print "arch_file:", new_file
+                #print "arch_file:", new_file
                 new_files.append(file_path + '/' + arch_path + "/" + name + arch_suffix + ext_name);
 
     return new_files;
@@ -222,6 +222,10 @@ def GetLibraries(modules):
             libs += [module]
     return libs
 
+def GetBuildTargetDir():
+    return project.getBase() + '/targets/' + env['target'] + "/" + env['build_config']
+
+
 class Module:
     def __init__(self, name, build_include_dirs = [], included_modules = [], 
         build_lib_dirs  = [], linked_modules = []):
@@ -235,13 +239,13 @@ class Module:
         return self.product
 
     def GetLibraries(self):
-        return self.product + GetLibraries(self.linked_modules)
+        return [self.name] + GetLibraries(self.linked_modules)
         
     def GetIncludeDirs(self):
         return GetIncludeDirs(self.included_modules+self.build_include_dirs, self.name)
 
     def GetLibrarieDirs(self):
-        return GetDirPaths(self.build_lib_dirs) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
+        return [GetBuildTargetDir()] + GetDirPaths(self.build_lib_dirs) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
 
 class LibraryModule(Module):
     def __init__(self, name, 
@@ -275,8 +279,10 @@ class LibraryModule(Module):
 
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
-        lib_path = self.GetLibrarieDirs()
-        self.env.AppendUnique(LIBPATH = lib_path)
+        lib_paths = self.GetLibrarieDirs()
+        self.env.AppendUnique(LIBPATH = lib_paths)
+        #for lib_path in lib_paths:
+        #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
 
         # store this new object in the module dictionary
         project.addModule(name, self)
@@ -305,7 +311,8 @@ class LibraryModule(Module):
         if shared is False:
             self.product = self.env.Library(target=name, source=sources)
         else:
-            libs = self.GetLibraries()
+            libs = GetLibraries(self.linked_modules)
+            #print "modules libs:", libs
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
         self.env.Alias(name, self.product)
             
@@ -319,11 +326,11 @@ class LibraryModule(Module):
     def GetLibraries(self):
         if sys.platform == "win32" and self.shared and len(self.product) > 0:
           libs = [];
-          libs.append(self.product[1])
+          libs.append(self.name)
           libs += GetLibraries(self.linked_modules)  
           return libs
         else:
-          return self.product + GetLibraries(self.linked_modules)
+          return [self.name] + GetLibraries(self.linked_modules)
 
 
 def Application(name, 
@@ -339,11 +346,22 @@ def Application(name,
     build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
 
     libs = GetLibraries(deps)
+    #print "libs:", libs
 
-    cpp_path = GetIncludeDirs(Split(build_include_dirs) + deps)
+    cpp_paths = GetIncludeDirs(Split(build_include_dirs) + deps)
+    #print "cpp_paths:", cpp_paths
 
-    lib_path = GetDirPaths(Split(build_lib_dirs)) + GetLibrarieDirs(deps)
-    env.AppendUnique(LIBPATH = lib_path)
+    lib_paths = GetDirPaths(Split(build_lib_dirs)) + GetLibrarieDirs(deps)
+    #print "lib_paths:", lib_paths
+
+    env.AppendUnique(LIBPATH = lib_paths)
+
+    #for lib_path in lib_paths:
+    #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
+
+    #for lib in libs:
+    #    env.AppendUnique(LINKFLAGS = ['-l' + lib])
+
 
     # for each source drct to build, create a VariantDir
     # to say where we want the object files to be built,
@@ -363,7 +381,7 @@ def Application(name,
 
     prog = env.Program(target=name, 
                        source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
-                       LIBS=libs, CPPPATH=cpp_path)
+                       LIBS=libs, CPPPATH=cpp_paths)
     #env.Alias(name, prog)
     if env.has_key('DRAGON_EXECUTABLE_POST_PROCESSOR'):
         env.AddPostAction(prog, env['DRAGON_EXECUTABLE_POST_PROCESSOR'])
@@ -371,7 +389,7 @@ def Application(name,
     # copy to Targets folder
     if install is True:
         #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
-        inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/' + env['target'] + '/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
@@ -670,27 +688,6 @@ libpcre32_SOURCES = Split("""
     pcre32_version.c 
     pcre32_xclass.c
 """)
-
-LibraryModule(
-    name                  = 'pcre',
-    build_include_dirs    = [
-        THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-    ],  
-    source_root           = THIRD_PARTY_SOURCE_ROOT + "/pcre-8.33",
-    build_source_dirs     = [],         
-    build_source_files    = {
-        "." : libpcre_SOURCES
-    },    
-    extra_cpp_defines     = [
-        'HAVE_CONFIG_H', 
-        'LINK_SIZE=4', 
-        'HAVE_STRERROR'
-
-        #'PCRE_STATIC'
-    ],     
-    shared                = True,                    
-    install               = True
-)
 
 LibraryModule(
     name                  = 'pcre32',
