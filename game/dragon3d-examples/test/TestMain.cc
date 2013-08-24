@@ -20,32 +20,27 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-/*
-#include <dragon/config.h>
-#include <gtest/gtest.h>
-
-int main(int argc, char** argv) {
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
-*/
-
-/*
-#include <dragon/config.h>
-#include <dragon/lang/String.h>
 #include <stdio.h>
 
-Import dragon::lang;
+int func(int n) {
+	int sum = 0;
 
-int main(int argc, char** argv) {
-	String* str = new String("Hello World!");
-	printf("%s\n", str);
+	for (int i=0; i<n; i++) {
+		sum += i;
+	}
+
+	return sum;
 }
-*/
 
-
-#include <stdio.h>
 
 int main(int argc, char** argv) {
-	printf("%s\n", "Hello World\n");
+	int i;
+	long result = 0;
+
+	for (i=1; i<=100; i++) {
+		result += i;
+	}
+
+	printf("result [1-100] = %d \n", result);
+	printf("result [1-250] = %d \n", func(250));
 }
