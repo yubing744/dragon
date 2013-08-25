@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"pro",
+				"products"
+			],
+			[
+				"get",
+				"getenv"
+			],
+			[
 				"newf",
 				"new_file"
 			],
@@ -252,10 +260,6 @@
 				"addModule"
 			],
 			[
-				"get",
-				"getModules"
-			],
-			[
 				"mod",
 				"module"
 			],
@@ -286,10 +290,6 @@
 			[
 				"in",
 				"installDependencies"
-			],
-			[
-				"pro",
-				"project"
 			],
 			[
 				"Safe",
@@ -395,70 +395,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "dragon (Arm_Android_Linux).sublime-project",
-			"settings":
-			{
-				"buffer_size": 631,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-template/test/TestMain.cc",
-			"settings":
-			{
-				"buffer_size": 1303,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-examples/test/TestMain.cc",
-			"settings":
-			{
-				"buffer_size": 1154,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 868,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/build/Build.scons",
-			"settings":
-			{
-				"buffer_size": 27294,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "SConstruct",
-			"settings":
-			{
-				"buffer_size": 1645,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/build/Boot.scons",
-			"settings":
-			{
-				"buffer_size": 4010,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/build/targets/arm-android-linux/Config.scons",
-			"settings":
-			{
-				"buffer_size": 4871,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_android.sublime-build",
 	"command_palette":
@@ -552,39 +488,51 @@
 	},
 	"file_history":
 	[
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/arm-android-linux/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_Posix.cc",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Boot.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/.gitignore",
+		"/Users/yubing/Develop/GitRepos/dragon/gdbserver.out",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/arm/platform_arm.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon (Arm_Android_Linux).sublime-project",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon (OSX).sublime-project",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/arm/platformTest_arm.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/tools/arm_debug.sh",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-template/test/TestMain.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/test/TestMain.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/SConstruct",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/ia32/platform_ia32.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/mips/platform_mips.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_win32.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_Posix.cc",
 		"/var/tmp/cc6DUNJU.s",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_posix.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_linux.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/x64/platform_x64.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform_posix.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Boot.scons",
 		"/Users/yubing/Develop/GitRepos/SublimeDragon/SublimeDragon (OSX).sublime-project",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-template/SConstruct",
-		"/Users/yubing/Develop/GitRepos/dragon/SConstruct",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Boot.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/test/TestMain.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/SConstruct",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/SConstruct",
 		"/Users/yubing/Develop/GitRepos/dragon/AUTHORS.mk",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/tools/arm_debug.sh",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon (OSX).sublime-project",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_posix.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library_Posix.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/arm-android-linux/Config.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Method.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Linux.cc",
@@ -604,7 +552,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Constructor.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassLoaderTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/ClassLoader.h",
 		"/usr/include/c++/4.2.1/bits/stl_map.h",
@@ -647,7 +594,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Windows).cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest(OSX).cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Member.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Field.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(OSX).cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
@@ -669,17 +615,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/Demo.cpp",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegateBind.h",
-		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Thread.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fast-delegate/FastDelegate.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fask-delegate/FastDelegate.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test.dSYM/Contents/Resources/DWARF/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/LinkedList.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/MemoryAllocTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc"
+		"/Users/yubing/Develop/GitRepos/dragon/default.supp"
 	],
 	"find":
 	{
@@ -701,6 +637,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"adb",
 			"\n		",
 			"getReturnType",
 			"ParamInfo",
@@ -816,258 +753,8 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "dragon (Arm_Android_Linux).sublime-project",
-					"settings":
-					{
-						"buffer_size": 631,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								631,
-								631
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"502":
-								{
-									"a": 408.0,
-									"b": 408.0
-								}
-							},
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 1336.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "game/dragon3d-template/test/TestMain.cc",
-					"settings":
-					{
-						"buffer_size": 1303,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 255.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "game/dragon3d-examples/test/TestMain.cc",
-					"settings":
-					{
-						"buffer_size": 1154,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								952,
-								952
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 285.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": ".gitignore",
-					"settings":
-					{
-						"buffer_size": 868,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								867,
-								867
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"622":
-								{
-									"a": 867.0,
-									"b": 867.0
-								}
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 413.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "dragon/build/Build.scons",
-					"settings":
-					{
-						"buffer_size": 27294,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12325,
-								12325
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"631":
-								{
-									"a": 12325.0,
-									"b": 12325.0
-								}
-							},
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3303.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "SConstruct",
-					"settings":
-					{
-						"buffer_size": 1645,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1522,
-								1522
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"640":
-								{
-									"a": 1167.0,
-									"b": 1167.0
-								}
-							},
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "dragon/build/Boot.scons",
-					"settings":
-					{
-						"buffer_size": 4010,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "dragon/build/targets/arm-android-linux/Config.scons",
-					"settings":
-					{
-						"buffer_size": 4871,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4561,
-								4086
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1390.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1104,7 +791,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 280.0
+		"height": 217.0
 	},
 	"replace":
 	{
@@ -1335,6 +1022,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 232.0,
+	"side_bar_width": 233.0,
 	"status_bar_visible": true
 }

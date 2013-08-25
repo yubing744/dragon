@@ -7,8 +7,8 @@
 	],
 	"settings":
 	{
-		"exec_cmd": "-exec-continue",
-		"sublimegdb_commandline": "/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb --interpreter=mi --eval-command=\"set solib-search-path ./game/dragon3d-examples/targets/arm-android-linux/debug/debugging/lib\" --eval-command=\"file ./game/dragon3d-examples/targets/arm-android-linux/debug/dragon3d-examples\" --eval-command=\"target remote :12345\"",
+		"sublimegdb_exec_cmd": "-exec-continue",
+		"sublimegdb_commandline": "/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb --interpreter=mi --eval-command=\"set solib-search-path ./dragon/build/targets/arm-android-linux/debug/debugging/lib\" --eval-command=\"file ./dragon/build/targets/arm-android-linux/debug/dragon_test\" --eval-command=\"target remote :12345\"",
 		"sublimegdb_workingdir": "/Users/yubing/Develop/GitRepos/dragon"
 	}
 }

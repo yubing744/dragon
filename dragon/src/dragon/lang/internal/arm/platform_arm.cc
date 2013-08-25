@@ -39,7 +39,7 @@ Import dragon::lang::internal;
 #define FLOATING_ARGS_COUNT 8
 
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	//__asm__ __volatile__("mov r0, r1");
+	__asm__ __volatile__("mov r0, r1");
 
 	/*
 	size_t int_result = NULL;

@@ -1,0 +1,84 @@
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/03/31
+ **********************************************************************/
+
+#include <windows.h>
+#include <Dbghelp.h>
+
+#pragma comment(lib,"Dbghelp.lib")
+
+
+#include <string>
+#include <map>
+
+#include <dragon/lang/internal/platform.h>
+
+Import std;
+Import dragon::lang::internal;
+
+
+const static size_t INT_ARGS_COUNT = 5;
+const static size_t FLOATING_ARGS_COUNT = 8;
+
+void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
+	DWORD result = 0;
+	double sse_result = 0.0;
+
+	size_t sum_size = 0;
+
+	// push param to the statck
+	for(int i=argc-1; i>=0; i--){
+		ParamInfo* arg = &argv[i];
+		size_t arg_size = arg->size;
+		void* value = arg->value;
+
+		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
+		size_t t_size = word_count * CPU_BYTE_LEN;
+		sum_size += t_size;
+
+		if (word_count == 1) {
+			value = &arg->value;
+		}
+
+		__asm {
+			sub         esp, t_size;
+
+			mov         ecx, word_count;
+			mov         esi, value;
+			mov         edi, esp;
+			rep movs    dword ptr es:[edi], dword ptr [esi];
+		}
+	}
+
+	//call object p's method func
+	__asm {
+		mov			ecx, pthis; 
+		call		func;
+		mov         result, eax;
+		fstp        sse_result;
+	}
+
+	if (ret->category == CATEGORY_INTEGER) {
+		ret->value = (void*)result;
+	} else if (ret->category == CATEGORY_SSE) {
+		ret->setValue(sse_result);
+	}
+}

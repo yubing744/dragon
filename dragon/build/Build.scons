@@ -3,6 +3,7 @@ import sys
 import os
 import imp
 from glob import glob
+from SCons.Script import *
 #######################################################
 # target build append source exts config
 #######################################################
@@ -67,12 +68,20 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
             ]
         }
    },
-   "x86-microsoft-win32" : [
-        "(Windows)",
-        "_Windows",
-        "_win32",
-        "-win32"        
-   ],
+   "x86-microsoft-win32" : {
+        "os" : [
+            "(Windows)",
+            "_Windows",
+            "_win32",
+            "-win32"  
+        ], 
+        "arch" :  {
+            "path": "ia32",
+            "suffixs" : [
+                "_ia32"
+            ]
+        }
+   },
    "x86-unknown-cygwin" : [
         "(Windows)", 
         "_Windows",
@@ -221,6 +230,10 @@ def GetLibraries(modules):
         else:
             libs += [module]
     return libs
+
+def GetBuildDirPath():
+    return project.getBase() + '/build/targets/' + env['target'] + "/" + env['build_config']
+
 
 def GetBuildTargetDir():
     return project.getBase() + '/targets/' + env['target'] + "/" + env['build_config']
@@ -393,8 +406,8 @@ def Application(name,
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
-        if env["test"]:
-            env.Test(target= "#testapp-target", source=inst)
+        if env["test"] or env["debug"]:
+            env.RunProgram(target= "#run-target-app", source=inst)
 
 
 class Project:
@@ -543,7 +556,22 @@ class Project:
 
                 #print 'install dep project product:', dep.getProducts()
                 env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=dep.getProducts())
-  
+
+
+### Add Test Builder
+def RunTarget(target, source, env):
+    if env.has_key("BEFORE_RUN_FUNC"):
+        env['BEFORE_RUN_FUNC'](target, source, env)
+
+    if env.has_key('RUN_FUNC'):
+        env["RUN_FUNC"](target, source, env)
+
+    if env.has_key('AFTER_RUN_FUNC'):
+        env['AFTER_RUN_FUNC'](target, source, env)
+
+    return None
+
+
 #######################################################
 # Main Build
 #######################################################
@@ -561,6 +589,12 @@ if (env['build_config'] == 'debug'):
     env.AppendUnique(CPPDEFINES=['DRAGON_DEBUG', 'DRAGON_CONFIG_ENABLE_LOGGING'])
 else:
     env.AppendUnique(CPPDEFINES=['NDEBUG', 'DRAGON_CONFIG_ENABLE_LOGGING'])
+
+### setup test enviriment
+runBuilder = env.Builder(action = RunTarget, 
+    target_factory=SCons.Node.FS.default_fs.Entry,
+    multi=0)
+env['BUILDERS']['RunProgram'] = runBuilder
 
 ### try to read in any target specific configuration
 #target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')

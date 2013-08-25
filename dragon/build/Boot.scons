@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import os
-from SCons.Script import *
+
 
 EnsureSConsVersion(0,98,1)
 
@@ -35,7 +35,8 @@ options.AddVariables(
     EnumVariable('target', 'build target', DefaultTarget(), allowed_values=PLATFORM_TO_TARGET_MAP.values()+CROSS_PLATFORMS+SPECIAL_PLATFORMS),
     BoolVariable('stop_on_warning', 'Stop the build on warnings', False),
     ListVariable('build_config', 'build configurations', 'debug', names=['debug', 'release']),
-    BoolVariable('test', 'try run test builder', False)
+    BoolVariable('test', 'try run test builder', False),
+    BoolVariable('debug', 'try run debug builder', False)
 )
 
 env = Environment(variables=options, TARGET_ARCH='x86')
@@ -47,20 +48,6 @@ if 'CC' in os.environ:
     env['CC'] = os.environ['CC']
     
 if not hasattr(env, 'Clone'): env.Clone = env.Copy ## old scons compatibility
-
-### Add Test Builder
-def RunTest(target, source, env):
-    #ar = env['AR']
-    #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-run")
-    #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb " + str(source[0]))
-    #os.system(str(source[0]))
-    return None
-
-testBuilder = env.Builder(action = RunTest, 
-    target_factory=SCons.Node.FS.default_fs.Entry,
-    multi=0)
-#env.Append(BUILDERS = {'Test' : testBuilder})
-env['BUILDERS']['Test'] = testBuilder
 
 base_env = env
 

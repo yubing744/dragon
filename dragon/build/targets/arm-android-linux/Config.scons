@@ -120,3 +120,70 @@ env['NPT_SYSTEM_SOURCES']={'System/StdC':'NptStdc[!D]*.cpp',
                            'System/Posix':'*.cpp',
                            'System/Null':'NptNullSerialPort.cpp',
                            'System/Android':'*.cpp'}
+
+
+ANDROID_SDK_HOME = os.getenv("ANDROID_SDK_HOME")
+if not ANDROID_SDK_HOME:
+    ANDROID_SDK_HOME = "/Users/yubing/Software/adt-bundle-mac-x86_64-20130522/sdk"
+    #raise Exception('ANDROID_SDK_HOME environment variable not set')
+
+ADB = ANDROID_SDK_HOME + "/platform-tools/adb"
+
+def install_lib(lib_file):
+    cmd = "%s push %s /system/lib" % (ADB, lib_file)
+    print "install lib: ", cmd
+    os.system(cmd)
+
+def install_lib_symbol(lib_file):
+    cmd = "cp %s %s/debugging/lib" % (lib_file, GetBuildDirPath())
+    print "install lib symbol: ", cmd
+    os.system(cmd)
+
+def install_testfile(exe_file):
+    cmd = "%s push %s /data/data" % (ADB, exe_file)
+    print "install exefile: ", cmd
+    os.system(cmd)
+
+def run_testfile(exe_file):
+    cmd = "%s shell /data/data/%s" % (ADB, exe_file)
+    print "install exefile: ", cmd
+    os.system(cmd)
+
+def debug_testfile(exe_file):
+    cmd = "nohup %s shell gdbserver :12345 /data/data/%s >gdbserver.out 2>&1 &" % (ADB, exe_file)
+    print "install exefile: ", cmd
+    os.system(cmd)
+    
+
+def ArmAndroidLinux_testcallback(target, source, env):
+    #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-run")
+    #os.system("/Users/yubing/Software/android-ndk-r8e/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gdb " + str(source[0]))
+
+    print "setup remote debug files"
+
+    install_lib(ANDROID_NDK_ROOT + '/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi/libgnustl_shared.so')
+
+    products = project.getProducts()
+    for lib in products:
+        install_lib(lib)
+        install_lib_symbol(lib)
+
+    install_testfile(str(source[0]))
+
+    if env["test"] == 1:
+        print "start test"
+        run_testfile(source[0].name)
+        print "test ok!"
+
+    if env["debug"] == 1:
+        print "start debug"
+        debug_testfile(source[0].name)
+        print "debug ok!"
+
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = ArmAndroidLinux_testcallback
+

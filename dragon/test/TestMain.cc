@@ -26,27 +26,5 @@
 int main(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);
 	int result = RUN_ALL_TESTS();
-	getchar();
 	return result;
 }
-
-/*
-#include <dragon/config.h>
-#include <dragon/lang/String.h>
-#include <stdio.h>
-
-Import dragon::lang;
-
-int main(int argc, char** argv) {
-	String* str = new String("Hello World!");
-	printf("%s\n", str);
-}
-*/
-
-/*
-#include <stdio.h>
-
-int main(int argc, char** argv) {
-	printf("%s\n", "Hello World\n");
-}
-*/

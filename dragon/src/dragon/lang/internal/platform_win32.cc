@@ -60,53 +60,6 @@ void ReturnInfo::setValue(double doubleVal) {
     this->value = buf;
 }
 
-const static size_t INT_ARGS_COUNT = 5;
-const static size_t FLOATING_ARGS_COUNT = 8;
-
-void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	DWORD result = 0;
-	double sse_result = 0.0;
-
-	size_t sum_size = 0;
-
-	// push param to the statck
-	for(int i=argc-1; i>=0; i--){
-		ParamInfo* arg = &argv[i];
-		size_t arg_size = arg->size;
-		void* value = arg->value;
-
-		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
-		size_t t_size = word_count * CPU_BYTE_LEN;
-		sum_size += t_size;
-
-		if (word_count == 1) {
-			value = &arg->value;
-		}
-
-		__asm {
-			sub         esp, t_size;
-
-			mov         ecx, word_count;
-			mov         esi, value;
-			mov         edi, esp;
-			rep movs    dword ptr es:[edi], dword ptr [esi];
-		}
-	}
-
-	//call object p's method func
-	__asm {
-		mov			ecx, pthis; 
-		call		func;
-		mov         result, eax;
-		fstp        sse_result;
-	}
-
-	if (ret->category == CATEGORY_INTEGER) {
-		ret->value = (void*)result;
-	} else if (ret->category == CATEGORY_SSE) {
-		ret->setValue(sse_result);
-	}
-}
 
 void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, int argc) {
 	ReturnInfo ret("void*");
