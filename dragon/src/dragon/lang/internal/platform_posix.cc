@@ -41,23 +41,6 @@ Import dragon::lang::internal;
 // Some Help Func
 //
 
-ParamInfo::ParamInfo(double doubleVal)
-    :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
-{
-	this->value = cast_void<double>(doubleVal);
-}
-
-ParamInfo::~ParamInfo(){
-	if (this->size > CPU_BYTE_LEN) {
-		//SafeFree(this->value);
-	}
-}
-
-void ReturnInfo::setValue(double doubleVal) {
-	this->value = cast_void<double>(doubleVal);
-}
-
-
 void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, int argc) {
 	ReturnInfo ret("void*");
 	Invoke(pthis, func, &ret, argv, argc);

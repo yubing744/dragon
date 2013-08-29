@@ -131,16 +131,11 @@ public:
         this->value = cast_void<int>(intVal);
     }
 
-    ParamInfo(long longVal)
-      :category(CATEGORY_INTEGER), typeName("long"), size(sizeof(long))
+        
+    ParamInfo(float floatVal)  
+      :category(CATEGORY_SSE), typeName("float"), size(sizeof(float))
     {
-        this->value = cast_void<long>(longVal);
-    }
-
-    ParamInfo(long long llVal)
-      :category(CATEGORY_INTEGER), typeName("long long"), size(sizeof(long long))
-    {
-        this->value = cast_void<long long>(llVal);
+        this->value = cast_void<float>(floatVal);
     }
 
     ParamInfo(size_t sizeTVal) 
@@ -149,12 +144,8 @@ public:
         this->value = cast_void<size_t>(sizeTVal);
     }
 
-    ParamInfo(float floatVal)  
-      :category(CATEGORY_SSE), typeName("float"), size(sizeof(float))
-    {
-        this->value = cast_void<float>(floatVal);
-    }
-
+    ParamInfo(long longVal);
+    ParamInfo(long long llVal);
     ParamInfo(double doubleVal);
 
     ParamInfo(const char* typeName, void* ptrVal)

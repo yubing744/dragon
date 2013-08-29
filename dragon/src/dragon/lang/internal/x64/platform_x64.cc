@@ -35,6 +35,40 @@
 Import std;
 Import dragon::lang::internal;
 
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Some Help Func
+//
+
+ParamInfo::ParamInfo(long longVal)
+  :category(CATEGORY_INTEGER), typeName("long"), size(sizeof(long))
+{
+    this->value = cast_void<long>(longVal);
+}
+    
+ParamInfo::ParamInfo(long long llVal)
+  :category(CATEGORY_INTEGER), typeName("long long"), size(sizeof(long long))
+{
+    this->value = cast_void<long long>(llVal);
+}
+
+ParamInfo::ParamInfo(double doubleVal)
+    :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
+{
+	this->value = cast_void<double>(doubleVal);
+}
+
+ParamInfo::~ParamInfo(){
+	if (this->size > CPU_BYTE_LEN) {
+		//SafeFree(this->value);
+	}
+}
+
+void ReturnInfo::setValue(double doubleVal) {
+	this->value = cast_void<double>(doubleVal);
+}
+
 #define INT_ARGS_COUNT 5
 #define FLOATING_ARGS_COUNT 8
 

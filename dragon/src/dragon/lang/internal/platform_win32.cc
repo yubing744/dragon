@@ -40,27 +40,6 @@ Import dragon::lang::internal;
 // Invoke
 //
 
-ParamInfo::ParamInfo(double doubleVal)
-    :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
-{
-	double* buf = (double*)malloc(sizeof(double));
-	*buf = doubleVal;
-    this->value = buf;
-}
-
-ParamInfo::~ParamInfo(){
-	if (this->size > CPU_BYTE_LEN) {
-		//SafeFree(this->value);
-	}
-}
-
-void ReturnInfo::setValue(double doubleVal) {
-	double* buf = (double*)malloc(sizeof(double));
-	*buf = doubleVal;
-    this->value = buf;
-}
-
-
 void* dragon::lang::internal::Invoke(void* pthis, void* func, ParamInfo *argv, int argc) {
 	ReturnInfo ret("void*");
 	Invoke(pthis, func, &ret, argv, argc);

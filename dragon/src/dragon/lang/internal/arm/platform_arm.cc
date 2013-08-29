@@ -35,97 +35,140 @@
 Import std;
 Import dragon::lang::internal;
 
-#define INT_ARGS_COUNT 5
-#define FLOATING_ARGS_COUNT 8
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Method Invoke
+//
+
+ParamInfo::ParamInfo(long longVal)
+  :category(CATEGORY_INTEGER), typeName("long"), size(sizeof(long))
+{
+	long* buf = (long*)malloc(sizeof(long));
+	*buf = longVal;
+    this->value = buf;
+}
+    
+ParamInfo::ParamInfo(long long llVal)
+  :category(CATEGORY_INTEGER), typeName("long long"), size(sizeof(long long))
+{
+	long long* buf = (long long*)malloc(sizeof(long long));
+	*buf = llVal;
+    this->value = buf;
+}
+
+ParamInfo::ParamInfo(double doubleVal)
+    :category(CATEGORY_SSE), typeName("double"), size(sizeof(double))
+{
+	double* buf = (double*)malloc(sizeof(double));
+	*buf = doubleVal;
+    this->value = buf;
+}
+
+ParamInfo::~ParamInfo(){
+	if (this->size > CPU_BYTE_LEN) {
+		//SafeFree(this->value);
+	}
+}
+
+void ReturnInfo::setValue(double doubleVal) {
+	double* buf = (double*)malloc(sizeof(double));
+	*buf = doubleVal;
+    this->value = buf;
+}
+
+
+#define NCRC_COUNT 4  //The Next Core Register Count
+#define SUPPORT_VFP = 1  //support VFP co-processor
+#define SUPPORT_SIMD = 1 //support the Advanced SIMD Extension
 
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	__asm__ __volatile__("mov r0, r1");
+	size_t int_result[4];
 
-	/*
-	size_t int_result = NULL;
-	double sse_result = 0.0;
-
-	void* int_args[INT_ARGS_COUNT];
-	void* floating_args[FLOATING_ARGS_COUNT];
+	void* int_args[NCRC_COUNT];
 	void** stack_args = NULL;
 
 	size_t ic = 0;
-	size_t fc = 0;
 	size_t sc = 0;
 
-	for (int i=0; i<argc; i++) {
-		ParamInfo param = argv[i];
-		int category = param.category;
-		size_t size = param.size;
-		void* val = param.value;
+	int_args[ic++] = pthis;
 
-		if (category == CATEGORY_SSE) {
-			if (fc < FLOATING_ARGS_COUNT) {
-				floating_args[fc++] = val;
-			} else {
-				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
-				stack_args[sc++] = val;
+	for (int i=0; i<argc; i++) {
+		ParamInfo* arg = &argv[i];
+		int category = arg->category;
+		size_t arg_size = arg->size;
+		void* value = arg->value;
+
+		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
+		size_t t_size = word_count * CPU_BYTE_LEN;
+
+		if (category == CATEGORY_INTEGER || category == CATEGORY_SSE) {
+			if (word_count == 1) {
+				value = &arg->value;
 			}
-		} else if (category == CATEGORY_INTEGER) {
-			if (ic < INT_ARGS_COUNT) {
-				int_args[ic++] = val;
+
+			if (ic + word_count <= NCRC_COUNT - 1) {
+				// if the argument required double-word alignment (8-byte), 
+				// then the NSAA is rounded up to the next double-word address.
+				if (word_count == 2 && ic % 2 != 0) {
+					ic++;
+				}
+
+				memcpy(int_args + ic, value, t_size);
+				ic += word_count;
 			} else {
-				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + 1));
-				stack_args[sc++] = val;
+				stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + word_count));
+				memcpy(stack_args + sc, value, t_size);
+				sc += word_count;
 			}
 		} else if (category == CATEGORY_MEMORY) {
-			size_t w_ss = size / sizeof(void*);
-			stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + w_ss));
-			memcpy(stack_args + sc, val, size);
-			sc+=w_ss;
+			stack_args = (void**)realloc(stack_args, CPU_BYTE_LEN * (sc + word_count));
+			memcpy(stack_args + sc, value, t_size);
+			sc += word_count;
 		}
 	}
 
 
 	if (sc > 0) {
-		__asm__ __volatile__("subq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
+		__asm__ __volatile__("sub sp, %0"::"r"(sc * CPU_BYTE_LEN));
 
 		size_t i = 0;
 		while (i < sc) {
-			__asm__ __volatile__("mov %0, %%rbx"::"a"(i));
-			__asm__ __volatile__("mov %0, (%%rsp, %%rbx, 8)"::"a"(stack_args[i]));
+			__asm__ __volatile__("mov r0, %0"::"r"(i));
+			__asm__ __volatile__("mov r1, %0"::"r"(stack_args[i]));
+			__asm__ __volatile__("str r1, [sp, r0, lsl #2]");
 			i++;
 		}
 	}
 
-	if (fc > 0) {
-		__asm__ __volatile__("movsd %0, %%xmm0"::"m"(floating_args[0]));
-		__asm__ __volatile__("movsd %0, %%xmm1"::"m"(floating_args[1]));
-		__asm__ __volatile__("movsd %0, %%xmm2"::"m"(floating_args[2]));
-		__asm__ __volatile__("movsd %0, %%xmm3"::"m"(floating_args[3]));
-		__asm__ __volatile__("movsd %0, %%xmm4"::"m"(floating_args[4]));
-		__asm__ __volatile__("movsd %0, %%xmm5"::"m"(floating_args[5]));
-		__asm__ __volatile__("movsd %0, %%xmm6"::"m"(floating_args[6]));
-		__asm__ __volatile__("movsd %0, %%xmm7"::"m"(floating_args[7]));
-	}
-
-	if (ic > 0) {
-		__asm__ __volatile__("mov %0, %%rsi"::"a"(int_args[0]));
-		__asm__ __volatile__("mov %0, %%rdx"::"a"(int_args[1]));
-		__asm__ __volatile__("mov %0, %%rcx"::"a"(int_args[2]));
-		__asm__ __volatile__("mov %0, %%r8"::"a"(int_args[3]));
-		__asm__ __volatile__("mov %0, %%r9"::"a"(int_args[4]));
-	}
-
-	__asm__ __volatile__("mov %0, %%rdi"::"a"(pthis));
-	__asm__ __volatile__("call *%0"::"a"(func));
-	__asm__ __volatile__("mov %%rax, %0":"=a"(int_result));
-	__asm__ __volatile__("movsd %%xmm0, %0":"=m"(sse_result));
+	__asm__ __volatile__("mov r4, %0"::"r"(func));
+	__asm__ __volatile__("mov r0, %0"::"r"(int_args[0]));
+	__asm__ __volatile__("mov r1, %0"::"r"(int_args[1]));
+	__asm__ __volatile__("mov r2, %0"::"r"(int_args[2]));
+	__asm__ __volatile__("mov r3, %0"::"r"(int_args[3]));
+	__asm__ __volatile__("blx r4");
+	__asm__ __volatile__("mov %0, r0":"=r"(int_result[0]));
+	__asm__ __volatile__("mov %0, r1":"=r"(int_result[1]));
+	__asm__ __volatile__("mov %0, r2":"=r"(int_result[2]));
+	__asm__ __volatile__("mov %0, r3":"=r"(int_result[3]));
 
 	if (sc > 0) {
 		free(stack_args);
-		__asm__ __volatile__("addq %0, %%rsp"::"a"(sc * CPU_BYTE_LEN));
+		__asm__ __volatile__("add sp, %0"::"r"(sc * CPU_BYTE_LEN));
 	}
 
-	if (ret->category == CATEGORY_INTEGER) {
-		ret->value = cast_void<size_t>(int_result);
-	} else if (ret->category == CATEGORY_SSE) {
-		ret->value = cast_void<double>(sse_result);
+
+	size_t ret_type_size = ret->size;
+	size_t ret_word_count = ((ret_type_size - 1) / CPU_BYTE_LEN + 1);
+	size_t ret_alignment_size = ret_word_count * CPU_BYTE_LEN;
+
+	if (ret->category == CATEGORY_INTEGER || ret->category == CATEGORY_SSE) {
+		if (ret_word_count == 1) {
+			ret->value = (void*)int_result[0];
+		} else if (ret_word_count == 2) {
+			char* buf = (char*)malloc(ret_type_size);
+			memcpy(buf, int_result, ret_type_size);
+		    ret->value = buf;
+		}
 	}
-	*/
 }

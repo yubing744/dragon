@@ -407,7 +407,7 @@
 			"file": "dragon/build/targets/arm-android-linux/Config.scons",
 			"settings":
 			{
-				"buffer_size": 6996,
+				"buffer_size": 6946,
 				"line_ending": "Unix"
 			}
 		}
@@ -823,8 +823,8 @@
 						"selection":
 						[
 							[
-								648,
-								648
+								647,
+								647
 							]
 						],
 						"settings":
@@ -852,15 +852,15 @@
 					"file": "dragon/build/targets/arm-android-linux/Config.scons",
 					"settings":
 					{
-						"buffer_size": 6996,
+						"buffer_size": 6946,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6801,
-								6801
+								6474,
+								6474
 							]
 						],
 						"settings":
@@ -878,7 +878,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2175.0,
+						"translation.y": 2048.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
