@@ -202,6 +202,12 @@ size_t find_max_sym_size(ElfW(Ehdr)* header) {
     return 0;   
 }
 
+/* e_ident */
+#define __IS_ELF(ehdr) ((ehdr).e_ident[EI_MAG0] == ELFMAG0 && \
+                      (ehdr).e_ident[EI_MAG1] == ELFMAG1 && \
+                      (ehdr).e_ident[EI_MAG2] == ELFMAG2 && \
+                      (ehdr).e_ident[EI_MAG3] == ELFMAG3)
+
 export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_table_size) {
     void *handle = dlopen(path, RTLD_LAZY);
 
@@ -212,7 +218,7 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
     }
 
     ElfW(Ehdr)* header = (ElfW(Ehdr)*)dlpi_addr;
-    if (!IS_ELF(*header)) {
+    if (!__IS_ELF(*header)) {
         fprintf(stderr, "Invalidate ELF file\n");
         return NULL;
     }   
