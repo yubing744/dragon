@@ -88,15 +88,23 @@ TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
         "_cygwin",
         "-cygwin"        
    ],
-   "x86-unknown-linux" : [
-        "(Linux)",
-        "_Linux",
-        "_linux",
-        "-linux",
-        "_Posix",
-        "_posix",
-        "-posix"       
-   ]
+   "x86-unknown-linux" : {
+        "os" : [
+            "(Linux)",
+            "_Linux",
+            "_linux",
+            "-linux",
+            "_Posix",
+            "_posix",
+            "-posix" 
+        ], 
+        "arch" : {
+            "path": "x64",
+            "suffixs" : [
+                "_x64"
+            ]
+        }
+   }
 }
 
 #######################################################
@@ -405,6 +413,8 @@ def Application(name,
         inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/' + env['target'] + '/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
+
+        #env.Install(dir="/usr/local/lib", source=project.getProducts())
 
         if env["test"] or env["debug"]:
             env.RunProgram(target= "#run-target-app", source=inst)

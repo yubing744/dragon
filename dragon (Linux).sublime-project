@@ -7,7 +7,7 @@
 	],
 	"settings":
 	{
-		"sublimegdb_commandline": "gdb --interpreter=mi ./dragon/targets/x86-unknown-linux/debug/dragon_test",
+		"sublimegdb_commandline": "gdb --interpreter=mi --eval-command=\"set solib-search-path ./dragon/build/targets/x86-unknown-linux/debug/debugging/lib\" --eval-command=\"file ./dragon/build/targets/x86-unknown-linux/debug/dragon_test\" ./dragon/targets/x86-unknown-linux/debug/dragon_test",
 		"sublimegdb_workingdir": "/home/yubing/Develop/GitRepos/dragon"
 	}
 }

@@ -3,3 +3,38 @@ LoadTool('gcc-generic', env)
 ### Neptune System Files
 env['DRAGON_PLATFORM__SOURCES']={'System/StdC':'*.cpp', 'System/Bsd':'*.cpp', 'System/Posix':'*.cpp'}
 env['DRAGON_EXTRA_LIBS']=['pthread', 'dl']
+
+
+import subprocess
+
+def install_lib(lib_file):
+    cmd = "cp %s /usr/local/lib" % (lib_file)
+    print "install lib: ", cmd
+    os.system(cmd)
+
+def Linux_testcallback(target, source, env):
+    
+    #print "products:", project.getProducts()
+
+    #products = project.getProducts()
+    #for lib in products:
+    #    install_lib(lib)
+
+    #print env.
+    #env.Install(dir="/usr/lib", source=project.getProducts())
+
+    print "setup debug file: ", str(source[0])
+    #os.system(str(source[0]))
+
+    #dl_load_path = os.getenv("DL_LIBRARY_PATH")
+    #print "dl_load_path", dl_load_path
+    #os.environ["DL_LIBRARY_PATH"] = dl_load_path
+
+    subprocess.call(str(source[0]), shell=True)
+    
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Linux_testcallback

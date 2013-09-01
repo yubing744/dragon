@@ -102,7 +102,7 @@ void* find_lib_base_address(const char* path) {
 #ifdef __USE_GNU
     const struct link_map * link_map = 0;
     const int ret = dlinfo(handle, RTLD_DI_LINKMAP, &link_map);
-    return (void*)link_map->dlpi_addr;
+    return (void*)link_map->l_addr;
 #endif//__USE_GNU
 
 #ifndef __arm__
@@ -191,12 +191,12 @@ size_t find_max_sym_size(ElfW(Ehdr)* header) {
     ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);
 
     if (dyn_seg) {
-        ElfW(Dyn)* rel_table_size_dyn = find_dyn(header, dyn_seg, DT_RELSZ);
-        ElfW(Dyn)* rel_entry_size_dyn = find_dyn(header, dyn_seg, DT_RELENT);
+        ElfW(Dyn)* hash_dyn = find_dyn(header, dyn_seg, DT_HASH);
 
-        if (rel_table_size_dyn && rel_entry_size_dyn) {
-            return rel_table_size_dyn->d_un.d_val / rel_entry_size_dyn->d_un.d_val;
-        }
+        if (hash_dyn) {
+            ElfW(Word)* hash = (ElfW(Word)*)hash_dyn->d_un.d_ptr;
+            return hash[1];
+        } 
     }
 
     return 0;   

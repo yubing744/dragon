@@ -26,7 +26,9 @@ def DefaultTarget():
         return PLATFORM_TO_TARGET_MAP[sys.platform]
     else:
         return None
-        
+       
+print "sys_platform:", sys.platform
+
 #######################################################
 # Main Build
 #######################################################
@@ -39,7 +41,7 @@ options.AddVariables(
     BoolVariable('debug', 'try run debug builder', False)
 )
 
-env = Environment(variables=options, TARGET_ARCH='x86')
+env = Environment(variables=options)
 Help(options.GenerateHelpText(env))
 
 if 'CXX' in os.environ:
