@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"find_sym",
+				"find_symbol_count_by_dt_gnu_hash"
+			],
+			[
 				"pro",
 				"project"
 			]
@@ -15,7 +19,7 @@
 			"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
 			"settings":
 			{
-				"buffer_size": 7234,
+				"buffer_size": 9195,
 				"line_ending": "Unix"
 			}
 		},
@@ -195,15 +199,15 @@
 					"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
 					"settings":
 					{
-						"buffer_size": 7234,
+						"buffer_size": 9195,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4877,
-								4877
+								4378,
+								4378
 							]
 						],
 						"settings":
@@ -213,7 +217,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3150.0,
+						"translation.y": 2856.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -230,8 +234,8 @@
 						"selection":
 						[
 							[
-								9161,
-								9161
+								9048,
+								9048
 							]
 						],
 						"settings":
@@ -241,7 +245,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1804.0,
+						"translation.y": 2311.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -258,8 +262,8 @@
 						"selection":
 						[
 							[
-								27,
-								27
+								23,
+								23
 							]
 						],
 						"settings":
@@ -606,7 +610,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 333.0
+		"height": 146.0
 	},
 	"replace":
 	{
@@ -620,6 +624,10 @@
 		[
 			[
 				"",
+				"dragon/src/dragon/lang/internal/Library_Linux.cc"
+			],
+			[
+				"libary_l",
 				"dragon/src/dragon/lang/internal/Library_Linux.cc"
 			],
 			[

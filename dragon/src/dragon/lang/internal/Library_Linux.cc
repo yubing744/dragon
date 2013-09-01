@@ -124,6 +124,25 @@ void* find_lib_base_address(const char* path) {
     return NULL;
 }
 
+int elf_check_addr(ElfW(Ehdr)* header, const void *addr) {
+    void* dlpi_addr = (void*)header;
+
+    ElfW(Phdr)* start_phdr = (ElfW(Phdr)*)((void*)header + header->e_phoff);
+    ElfW(Half) e_phnum = header->e_phnum;
+
+    for (size_t i=0; i<e_phnum; i++) {
+        ElfW(Phdr)* phdr = start_phdr + i;
+
+        if (phdr->p_type == PT_LOAD) {
+            if ((addr < phdr->p_memsz + phdr->p_vaddr + dlpi_addr) &&
+                (addr >= phdr->p_vaddr + dlpi_addr)) {
+                return 0;  
+            }
+        }
+    }
+
+    return 1;
+}
 
 ElfW(Phdr)* find_segment(ElfW(Ehdr)* header, int tag) {
     ElfW(Phdr)* start_phdr = (ElfW(Phdr)*)((void*)header + header->e_phoff);
@@ -161,7 +180,12 @@ char* find_strtab(ElfW(Ehdr)* header) {
         ElfW(Dyn)* str_dyn = find_dyn(header, dyn_seg, DT_STRTAB);
 
         if (str_dyn) {
-            void* str_sec_addr = dlpi_addr + str_dyn->d_un.d_ptr;
+            void* str_sec_addr = (void*)str_dyn->d_un.d_ptr;
+
+            if (elf_check_addr(header, str_sec_addr)) {
+                str_sec_addr = dlpi_addr + str_dyn->d_un.d_ptr;
+            }
+
             return (char*)str_sec_addr;
         }
     }
@@ -177,7 +201,12 @@ ElfW(Sym)* find_sym_base(ElfW(Ehdr)* header) {
         ElfW(Dyn)* sym_dyn = find_dyn(header, dyn_seg, DT_SYMTAB);
 
         if (sym_dyn) {
-            void* sym_sec_addr = dlpi_addr + sym_dyn->d_un.d_ptr;
+            void* sym_sec_addr = (void*)sym_dyn->d_un.d_ptr;
+
+            if (elf_check_addr(header, sym_sec_addr)) {
+                sym_sec_addr = dlpi_addr + sym_dyn->d_un.d_ptr;
+            }
+
             return (ElfW(Sym)*)sym_sec_addr;
         }
     }
@@ -185,7 +214,7 @@ ElfW(Sym)* find_sym_base(ElfW(Ehdr)* header) {
     return NULL;
 }
 
-size_t find_max_sym_size(ElfW(Ehdr)* header) {
+size_t find_symbol_count_by_dt_hash(ElfW(Ehdr)* header) {
     void* dlpi_addr = (void*)header;
 
     ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);
@@ -194,12 +223,88 @@ size_t find_max_sym_size(ElfW(Ehdr)* header) {
         ElfW(Dyn)* hash_dyn = find_dyn(header, dyn_seg, DT_HASH);
 
         if (hash_dyn) {
-            ElfW(Word)* hash = (ElfW(Word)*)(dlpi_addr + hash_dyn->d_un.d_ptr);
+            ElfW(Word)* hash = (ElfW(Word)*)(hash_dyn->d_un.d_ptr);
+
+            if (elf_check_addr(header, hash)) {
+                hash = (ElfW(Word)*)dlpi_addr + hash_dyn->d_un.d_ptr;
+            }
+
             return hash[1];
-        }
+        } 
     }
 
-    return 0;   
+    return 0;
+}
+
+
+#ifdef DT_GNU_HASH
+
+size_t find_symbol_count_by_dt_gnu_hash(ElfW(Ehdr)* header) {
+    void* dlpi_addr = (void*)header;
+
+    Elf32_Word *buckets, *chains, *hasharr;
+    ElfW(Addr) *bitmask, bitmask_word;
+    Elf32_Word symbias, bitmask_nwords, bucket,
+    nbuckets, bitmask_idxbits, shift;
+    Elf32_Word hash, hashbit1, hashbit2;
+    ElfW(Sym) *esym;
+
+    ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);
+
+    if (dyn_seg) {
+        ElfW(Dyn)* gnu_hash_dyn = find_dyn(header, dyn_seg, DT_GNU_HASH);
+
+        if (gnu_hash_dyn) {
+            ElfW(Word)* gnu_hash = (ElfW(Word)*)gnu_hash_dyn->d_un.d_ptr;
+
+            if (elf_check_addr(header, gnu_hash)) {
+                gnu_hash = (ElfW(Word)*)dlpi_addr + gnu_hash_dyn->d_un.d_ptr;
+            }
+
+            nbuckets = gnu_hash[0];
+            symbias = gnu_hash[1];
+            bitmask_nwords = gnu_hash[2]; /* must be power of two */
+            bitmask_idxbits = bitmask_nwords - 1;
+            shift = gnu_hash[3];
+
+            bitmask = (ElfW(Addr) *) &gnu_hash[4];
+            buckets = &gnu_hash[4 + (__ELF_NATIVE_CLASS / 32) * bitmask_nwords];
+            chains = &buckets[nbuckets] - symbias;
+
+            unsigned int last_sym = 0;
+
+            for (size_t index = 0; index < nbuckets; index++) {
+                if (buckets[index] > last_sym) {
+                    last_sym = buckets[index]; 
+                }
+            }
+
+            last_sym++;
+
+            while (!(chains[last_sym] & 1)) {
+                last_sym++;
+            }
+
+            return last_sym;
+        } 
+    }
+
+    return 0;
+}
+
+#endif//DT_GNU_HASH
+
+
+size_t find_symbol_count(ElfW(Ehdr)* header) {
+    size_t size = find_symbol_count_by_dt_hash(header);
+
+#ifdef DT_GNU_HASH
+    if (size == 0) {
+       size = find_symbol_count_by_dt_gnu_hash(header);
+    }
+#endif//DT_GNU_HASH
+
+    return size;   
 }
 
 /* e_ident */
@@ -225,7 +330,7 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 
     char* strtab = find_strtab(header);
 
-    size_t sym_max_count = find_max_sym_size(header);
+    size_t sym_max_count = find_symbol_count(header);
     ElfW(Sym)* sym_base = find_sym_base(header);
 
     size_t symbol_count = 0;
@@ -244,6 +349,7 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
             table[symbol_count].address = symbol_address;
             table[symbol_count].symbol = symbol;
 
+            //printf("address: 0x%x, symbol: %s\n", symbol_address, symbol);
             symbol_count++;
         }
     }
