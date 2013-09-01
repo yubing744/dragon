@@ -194,9 +194,9 @@ size_t find_max_sym_size(ElfW(Ehdr)* header) {
         ElfW(Dyn)* hash_dyn = find_dyn(header, dyn_seg, DT_HASH);
 
         if (hash_dyn) {
-            ElfW(Word)* hash = (ElfW(Word)*)hash_dyn->d_un.d_ptr;
+            ElfW(Word)* hash = (ElfW(Word)*)(dlpi_addr + hash_dyn->d_un.d_ptr);
             return hash[1];
-        } 
+        }
     }
 
     return 0;   
