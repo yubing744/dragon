@@ -76,6 +76,8 @@ void ReturnInfo::setValue(double doubleVal) {
 const static size_t INT_ARGS_COUNT = 5;
 const static size_t FLOATING_ARGS_COUNT = 8;
 
+#ifdef _WIN32
+
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
 	DWORD result = 0;
 	double sse_result = 0.0;
@@ -120,3 +122,51 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 		ret->setValue(sse_result);
 	}
 }
+
+#else
+
+void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
+	DWORD result = 0;
+	double sse_result = 0.0;
+
+	size_t sum_size = 0;
+
+	// push param to the statck
+	for(int i=argc-1; i>=0; i--){
+		ParamInfo* arg = &argv[i];
+		size_t arg_size = arg->size;
+		void* value = arg->value;
+
+		size_t word_count = ((arg_size - 1) / CPU_BYTE_LEN + 1);
+		size_t t_size = word_count * CPU_BYTE_LEN;
+		sum_size += t_size;
+
+		if (word_count == 1) {
+			value = &arg->value;
+		}
+
+		__asm__ __volatile__("sub %0, %%rsp"::"a"(t_size));
+
+		size_t i = 0;
+		while (i < word_count) {
+			__asm__ __volatile__("mov %0, %%ebx"::"a"(i));
+			__asm__ __volatile__("mov %0, (%%esp, %%ebx, 4)"::"a"(value[i]));
+			i++;
+		}
+	}
+
+	//call object p's method func
+	__asm__ __volatile__("mov %0, %%ecx"::"a"(pthis));
+	__asm__ __volatile__("call *%0"::"a"(func));
+	__asm__ __volatile__("mov %%eax, %0":"=a"(result));
+	__asm__ __volatile__("movsd %%xmm0, %0":"=m"(sse_result));
+
+
+	if (ret->category == CATEGORY_INTEGER) {
+		ret->value = (void*)result;
+	} else if (ret->category == CATEGORY_SSE) {
+		ret->setValue(sse_result);
+	}
+}
+
+#endif
