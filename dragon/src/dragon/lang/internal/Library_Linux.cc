@@ -226,7 +226,7 @@ size_t find_symbol_count_by_dt_hash(ElfW(Ehdr)* header) {
             ElfW(Word)* hash = (ElfW(Word)*)(hash_dyn->d_un.d_ptr);
 
             if (elf_check_addr(header, hash)) {
-                hash = (ElfW(Word)*)dlpi_addr + hash_dyn->d_un.d_ptr;
+                hash = (ElfW(Word)*)(dlpi_addr + hash_dyn->d_un.d_ptr);
             }
 
             return hash[1];
