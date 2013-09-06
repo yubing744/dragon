@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="源文件\dragon">
+      <UniqueIdentifier>{13e44793-7de5-472e-a5a5-4cb420f1123f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang">
+      <UniqueIdentifier>{45d359e9-db2c-4abd-a4ed-df367b9de11c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\util">
+      <UniqueIdentifier>{4dd8d6f2-55e7-476a-b276-49b04898340d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\gc">
+      <UniqueIdentifier>{7f8575fb-8a79-4b8a-9099-e4f76ed58137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\util\regex">
+      <UniqueIdentifier>{8588fd88-0025-4402-8fda-63a3e46853eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dragon\lang\internal">
+      <UniqueIdentifier>{41245d61-48ca-4704-9e14-bd2783b0c376}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\test\TestMain.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\util\regex\PatternSyntaxExceptionTest.cc">
+      <Filter>源文件\dragon\util\regex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\util\regex\RegexTest.cc">
+      <Filter>源文件\dragon\util\regex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartArrayPointerTest.cc">
+      <Filter>源文件\dragon\lang\gc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\gc\SmartPointerTest.cc">
+      <Filter>源文件\dragon\lang\gc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ExceptionTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\IllegalArgumentExceptionTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\IntegerTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\LongTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\MathTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ObjectTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\RuntimeExceptionTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\StringBufferTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\StringTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ThrowableTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\SystemClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassLoaderTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\ClassTest.cc">
+      <Filter>源文件\dragon\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_Windows.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
