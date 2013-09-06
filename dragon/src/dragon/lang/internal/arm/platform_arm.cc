@@ -157,11 +157,11 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 		__asm__ __volatile__("add sp, %0"::"r"(sc * CPU_BYTE_LEN));
 	}
 
-	if (ret_type_size <= CPU_BYTE_LEN) {
+	if (ret->size <= CPU_BYTE_LEN) {
 		ret->value = (void*)int_result[0];
 	} else {
-		char* buf = (char*)malloc(ret_type_size);
-		memcpy(buf, int_result, ret_type_size);
+		char* buf = (char*)malloc(ret->size);
+		memcpy(buf, int_result, ret->size);
 	    ret->value = buf;
 	}
 }
