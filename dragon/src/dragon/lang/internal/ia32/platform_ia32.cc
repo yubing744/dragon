@@ -20,11 +20,7 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <windows.h>
-#include <Dbghelp.h>
-
-#pragma comment(lib,"Dbghelp.lib")
-
+#include <stdlib.h>
 
 #include <string>
 #include <map>
@@ -50,7 +46,9 @@ ParamInfo::ParamInfo(long longVal)
 ParamInfo::ParamInfo(long long llVal)
   :category(CATEGORY_INTEGER), typeName("long long"), size(sizeof(long long))
 {
-    this->value = cast_void<long long>(llVal);
+	long long* buf = (long long*)malloc(sizeof(long long));
+	*buf = llVal;
+    this->value = buf;
 }
 
 ParamInfo::ParamInfo(double doubleVal)
@@ -76,10 +74,10 @@ void ReturnInfo::setValue(double doubleVal) {
 const static size_t INT_ARGS_COUNT = 5;
 const static size_t FLOATING_ARGS_COUNT = 8;
 
-#ifdef _WIN32
+#ifdef _WIN32 // Intel asm
 
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	DWORD result = 0;
+	size_t result = 0;
 	double sse_result = 0.0;
 
 	size_t sum_size = 0;
@@ -123,10 +121,10 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 	}
 }
 
-#else
+#else // AT&T Asm
 
 void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
-	DWORD result = 0;
+	size_t result = 0;
 	double sse_result = 0.0;
 
 	size_t sum_size = 0;
@@ -141,30 +139,34 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 		size_t t_size = word_count * CPU_BYTE_LEN;
 		sum_size += t_size;
 
+		__asm__ __volatile__("sub %0, %%esp"::"a"(t_size));
+
 		if (word_count == 1) {
-			value = &arg->value;
-		}
-
-		__asm__ __volatile__("sub %0, %%rsp"::"a"(t_size));
-
-		size_t i = 0;
-		while (i < word_count) {
-			__asm__ __volatile__("mov %0, %%ebx"::"a"(i));
-			__asm__ __volatile__("mov %0, (%%esp, %%ebx, 4)"::"a"(value[i]));
-			i++;
-		}
+			__asm__ __volatile__("mov %0, (%%esp)"::"a"(value));
+		} else {
+			__asm__ __volatile__("mov %0, %%eax"::"a"(value));
+			__asm__ __volatile__("fldl (%eax)");
+			__asm__ __volatile__("fstpl (%esp)");
+		}		
 	}
 
+	sum_size += CPU_BYTE_LEN;
+	__asm__ __volatile__("sub %0, %%esp"::"a"(CPU_BYTE_LEN));
+	__asm__ __volatile__("mov %0, (%%esp)"::"a"(pthis));
+
 	//call object p's method func
-	__asm__ __volatile__("mov %0, %%ecx"::"a"(pthis));
 	__asm__ __volatile__("call *%0"::"a"(func));
 	__asm__ __volatile__("mov %%eax, %0":"=a"(result));
-	__asm__ __volatile__("movsd %%xmm0, %0":"=m"(sse_result));
+	__asm__ __volatile__("fstpl (%0)"::"a"(&sse_result));
 
 
-	if (ret->category == CATEGORY_INTEGER) {
+	//restore stack
+	__asm__ __volatile__("add %0, %%esp"::"a"(sum_size));
+	
+
+	if (ret->size <= CPU_BYTE_LEN) {
 		ret->value = (void*)result;
-	} else if (ret->category == CATEGORY_SSE) {
+	} else {
 		ret->setValue(sse_result);
 	}
 }

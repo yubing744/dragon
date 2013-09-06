@@ -157,18 +157,11 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 		__asm__ __volatile__("add sp, %0"::"r"(sc * CPU_BYTE_LEN));
 	}
 
-
-	size_t ret_type_size = ret->size;
-	size_t ret_word_count = ((ret_type_size - 1) / CPU_BYTE_LEN + 1);
-	size_t ret_alignment_size = ret_word_count * CPU_BYTE_LEN;
-
-	if (ret->category == CATEGORY_INTEGER || ret->category == CATEGORY_SSE) {
-		if (ret_word_count == 1) {
-			ret->value = (void*)int_result[0];
-		} else if (ret_word_count == 2) {
-			char* buf = (char*)malloc(ret_type_size);
-			memcpy(buf, int_result, ret_type_size);
-		    ret->value = buf;
-		}
+	if (ret_type_size <= CPU_BYTE_LEN) {
+		ret->value = (void*)int_result[0];
+	} else {
+		char* buf = (char*)malloc(ret_type_size);
+		memcpy(buf, int_result, ret_type_size);
+	    ret->value = buf;
 	}
 }

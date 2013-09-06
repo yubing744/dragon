@@ -26,78 +26,7 @@
 #include <dragon/lang/internal/platform.h>
 
 Import dragon::lang::internal;
-//----------------------------------------------------------
-// char test
-void* invoke_test_char_01(char a1, char b1, char c1, char d1, char e1, char f1, char g1, char h1, char i1, char j1, char k1, char l1, char m1) {
-	char a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1 + i1 + j1 + k1 + l1 + m1;
-	char* pa = &a;
-	return (void*)pa;
-}
 
-void* invoke_test_char_02(char a1, char b1, char c1, char d1, char e1, char f1, char g1, char h1) {
-	char a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1;
-	char* pa = &a;
-	return (void*)pa;
-}
-
-void* invoke_test_char_03(char a1, char b1, char c1, char d1, char e1, char f1) {
-	char a = a1 + b1 + c1 + d1 + e1 + f1;
-	char* pa = &a;
-	return (void*)pa;
-}
-
-void* invoke_test_char_04(char a1, char b1, char c1, char d1) {
-	char a = a1 + b1 + c1 + d1;
-	char* pa = &a;
-	return (void*)pa;
-}
-
-TEST(Dragon_Lang_Internal_platformTest_arm, Invoke_Multi_Args_char) {
-	char a1 = 1;
-	char b1 = 2;
-	char c1 = 3;
-	char d1 = 4;
-	char e1 = 5;
-	char f1 = 6;
-	char g1 = 7;
-	char h1 = 8;
-	char i1 = 9;
-	char j1 = 10;
-	char k1 = 11;
-	char l1 = 12;
-	char m1 = 13;
-
-	invoke_test_char_04(a1, b1, c1, d1);
-	invoke_test_char_03(a1, b1, c1, d1, e1, f1);
-	invoke_test_char_02(a1, b1, c1, d1, e1, f1, g1, h1);
-	invoke_test_char_01(a1, b1, c1, d1, e1, f1, g1, h1, i1, j1, k1, l1, m1);
-}
-
-//----------------------------------------------------------
-// float test
-void* invoke_test_float_01(float a1, float b1, float c1, float d1, float e1, float f1, float g1, float h1, float i1, float j1, float k1, float l1, float m1) {
-	float a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1 + i1 + j1 + k1 + l1 + m1;
-	float* pa = &a;
-	return (void*)pa;
-}
-
-void* invoke_test_float_02(float a1, float b1, float c1, float d1, float e1, float f1, float g1, float h1) {
-	float a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1;
-	float* pa = &a;
-	return (void*)pa;
-}
-
-void* invoke_test_float_03(float a1, float b1, float c1, float d1, float e1, float f1) {
-	float a = a1 + b1 + c1 + d1 + e1 + f1;
-	float* pa = &a;
-	return (void*)pa;
-}
-
-void* invoke_test_float_04(float a1, float b1, float c1, float d1) {
-	float a = a1 + b1 + c1 + d1;
-	float* pa = &a;
-	return (void*)pa;
-}
 
 /*
 
@@ -157,8 +86,6 @@ dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:119
 0x0003db60: ldr	r3, [r11, #-20]                                                  # Dragon_Lang_Internal_platformTest_arm_Invoke_Multi_Args_float_Test::TestBody()+312
 0x0003db64: bl	0x3d748 <invoke_test_float_01(float, float, float, float, float, float, float, float, float, float, float, float, float)> # Dragon_Lang_Internal_platformTest_arm_Invoke_Multi_Args_float_Test::TestBody()+316
 
-
- */
 TEST(Dragon_Lang_Internal_platformTest_arm, Invoke_Multi_Args_float) {
 	float a1 = 1;
 	float b1 = 2;
@@ -179,16 +106,11 @@ TEST(Dragon_Lang_Internal_platformTest_arm, Invoke_Multi_Args_float) {
 	invoke_test_float_02(a1, b1, c1, d1, e1, f1, g1, h1);
 	invoke_test_float_01(a1, b1, c1, d1, e1, f1, g1, h1, i1, j1, k1, l1, m1);
 }
+*/
 
 //------------------------------------------------------------
 // func pointer invoke test
 // 
-
-typedef int (ADD_FUNC)(int a, int b);
-
-int dd_add(int a, int b) {
-	return a + b;
-}
 
 /*
 dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:193
@@ -221,6 +143,14 @@ dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:200
 0x0003e840: mov	r3, r0                                                           # Dragon_Lang_Internal_platformTest_arm_func_pointer_invoke_test_Test::TestBody()+88
 0x0003e844: str	r3, [r11, #-36]	; 0x24    
  */
+
+/*
+typedef int (ADD_FUNC)(int a, int b);
+
+int dd_add(int a, int b) {
+	return a + b;
+}
+
 TEST(Dragon_Lang_Internal_platformTest_arm, func_pointer_invoke_test) {
 	int a = 1;
 	int b = 2;
@@ -232,6 +162,7 @@ TEST(Dragon_Lang_Internal_platformTest_arm, func_pointer_invoke_test) {
 
 	EXPECT_EQ(true, c1 == c2);
 }
+*/
 
 //------------------------------------------------------------
 // double return invoke test
@@ -326,11 +257,12 @@ dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:242
 0x0003eb10: sub     sp, r11, #4                                                      # invoke_test_double_ret_invoke_01(void*, double, double, double, double, double, double, double, double, double, double, double, double, double)+320
 0x0003eb14: pop     {r11, pc}     
  */
+/*
 double invoke_test_double_ret_invoke_01(void* pthis, double a1, double b1, double c1, double d1, double e1, double f1, double g1, double h1, double i1, double j1, double k1, double l1, double m1) {
 	double a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1 + i1 + j1 + k1 + l1 + m1;
 	return a;
 }
-
+*/
 /*
 
 dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:244
@@ -436,6 +368,8 @@ dragon/test/dragon/lang/internal/arm/platformTest_arm.cc:261
 0x0003ecc4: mov     r3, r1                                                           # Dragon_Lang_Internal_platformTest_arm_Invoke_Multi_Args_double_ret_invoke_Test::TestBody()+348
 0x0003ecc8: strd     r2, [r11, #-156]     ; 0xffffff64  
  */
+
+/*
 TEST(Dragon_Lang_Internal_platformTest_arm, Invoke_Multi_Args_double_ret_invoke) {
 	void* pthis = (void*)(8888);
 
@@ -480,5 +414,4 @@ TEST(Dragon_Lang_Internal_platformTest_arm, Invoke_Multi_Args_double_ret_invoke)
 
 	SafeDelete(ret);
 	SafeFree(params);
-}
-
+*/ 

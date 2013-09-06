@@ -4,54 +4,22 @@
 		"selected_items":
 		[
 			[
-				"find_sym",
-				"find_symbol_count_by_dt_gnu_hash"
+				"linu",
+				"linux-arm"
 			],
 			[
-				"pro",
-				"project"
+				"plat",
+				"platform_id"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
+			"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
 			"settings":
 			{
-				"buffer_size": 9195,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/build/targets/x86-unknown-linux/debug/libdragon.so.elf",
-			"settings":
-			{
-				"buffer_size": 452866,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/yubing/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 27,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/build/Build.scons",
-			"settings":
-			{
-				"buffer_size": 28533,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/internal/x64/platform_x64.cc",
-			"settings":
-			{
-				"buffer_size": 4685,
+				"buffer_size": 11183,
 				"line_ending": "Unix"
 			}
 		},
@@ -59,71 +27,23 @@
 			"file": "dragon/build/Boot.scons",
 			"settings":
 			{
-				"buffer_size": 3428,
+				"buffer_size": 3983,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/build/targets/x86-unknown-linux/Config.scons",
+			"file": "dragon/build/Build.scons",
 			"settings":
 			{
-				"buffer_size": 986,
+				"buffer_size": 28875,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/yubing/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+			"file": "dragon/src/dragon/lang/internal/ia32/platform_ia32.cc",
 			"settings":
 			{
-				"buffer_size": 3,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
-			"settings":
-			{
-				"buffer_size": 26737,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-			"settings":
-			{
-				"buffer_size": 2095,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/ClassLoader.cc",
-			"settings":
-			{
-				"buffer_size": 2938,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
-			"settings":
-			{
-				"buffer_size": 1129,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
-			"settings":
-			{
-				"buffer_size": 6311,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon (Linux).sublime-project",
-			"settings":
-			{
-				"buffer_size": 456,
+				"buffer_size": 4270,
 				"line_ending": "Unix"
 			}
 		}
@@ -131,19 +51,15 @@
 	"build_system": "Packages/SublimeDragon/dragon.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 0.0,
 		"selected_items":
 		[
-			[
-				"pi",
-				"Package Control: Install Package"
-			]
 		],
-		"width": 449.0
+		"width": 0.0
 	},
 	"console":
 	{
-		"height": 139.0
+		"height": 0.0
 	},
 	"distraction_free":
 	{
@@ -173,7 +89,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"cwd"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -191,133 +106,106 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
+					"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
 					"settings":
 					{
-						"buffer_size": 9195,
+						"buffer_size": 11183,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4378,
-								4378
+								3292,
+								3292
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2856.0,
+						"translation.y": 1610.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "dragon/build/targets/x86-unknown-linux/debug/libdragon.so.elf",
+					"file": "dragon/build/Boot.scons",
 					"settings":
 					{
-						"buffer_size": 452866,
+						"buffer_size": 3983,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9048,
-								9048
+								1298,
+								1298
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2311.0,
+						"translation.y": 102.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/home/yubing/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+					"file": "dragon/build/Build.scons",
 					"settings":
 					{
-						"buffer_size": 27,
+						"buffer_size": 28875,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23,
-								23
+								2487,
+								2487
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1663.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "dragon/build/Build.scons",
+					"file": "dragon/src/dragon/lang/internal/ia32/platform_ia32.cc",
 					"settings":
 					{
-						"buffer_size": 28533,
+						"buffer_size": 4270,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13755,
-								13755
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 6983.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "dragon/src/dragon/lang/internal/x64/platform_x64.cc",
-					"settings":
-					{
-						"buffer_size": 4685,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								3630,
+								3630
 							]
 						],
 						"settings":
@@ -326,250 +214,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2091.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "dragon/build/Boot.scons",
-					"settings":
-					{
-						"buffer_size": 3428,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1536,
-								1536
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 510.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "dragon/build/targets/x86-unknown-linux/Config.scons",
-					"settings":
-					{
-						"buffer_size": 986,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								884,
-								884
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 255.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/home/yubing/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
-					"settings":
-					{
-						"buffer_size": 3,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3,
-								3
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "dragon/test/dragon/lang/internal/platformTest_macos.cc",
-					"settings":
-					{
-						"buffer_size": 26737,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-					"settings":
-					{
-						"buffer_size": 2095,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1227,
-								1227
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 436.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "dragon/src/dragon/lang/ClassLoader.cc",
-					"settings":
-					{
-						"buffer_size": 2938,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1155,
-								1155
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 317.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
-					"settings":
-					{
-						"buffer_size": 1129,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1060,
-								1060
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 249.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
-					"settings":
-					{
-						"buffer_size": 6311,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1547,
-								1547
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 640.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "dragon (Linux).sublime-project",
-					"settings":
-					{
-						"buffer_size": 456,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								456,
-								456
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2315.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -583,7 +228,7 @@
 	},
 	"input":
 	{
-		"height": 33.0
+		"height": 0.0
 	},
 	"layout":
 	{
@@ -610,7 +255,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 146.0
+		"height": 290.0
 	},
 	"replace":
 	{
@@ -622,18 +267,6 @@
 		"height": 0.0,
 		"selected_items":
 		[
-			[
-				"",
-				"dragon/src/dragon/lang/internal/Library_Linux.cc"
-			],
-			[
-				"libary_l",
-				"dragon/src/dragon/lang/internal/Library_Linux.cc"
-			],
-			[
-				"librar",
-				"dragon/src/dragon/lang/internal/Library_Linux.cc"
-			]
 		],
 		"width": 0.0
 	},
@@ -649,6 +282,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 211.0,
+	"side_bar_width": 297.0,
 	"status_bar_visible": true
 }
