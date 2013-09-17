@@ -39,7 +39,7 @@ def DefaultTarget():
         if (platform.machine() == 'arm'):
             platform_id = 'linux-arm'
 
-    print 'platform:', platform_id
+    #print 'platform:', platform_id
 
     if PLATFORM_TO_TARGET_MAP.has_key(platform_id):
         return PLATFORM_TO_TARGET_MAP[platform_id]

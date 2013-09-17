@@ -19,17 +19,9 @@
 # Email:       yubing744@163.com
 # Created:     2013/07/09
 # **********************************************************************
-import os
+from dragon import build
 
-try:
-	Import('project')
-except:
-	project = None
-	pass
-
-project = {
-	'parent' : project,
-
+build({
 	'groupID' : 'dragon',
 	'artifactID' : 'dragon-pom',
 	'version' : '0.03',
@@ -41,27 +33,7 @@ project = {
 	},
 
 	'modules' : [
-		'dragon'
-#		'game'
+		'dragon',
+		'game'
 	]
-}
-
-def build():
-	project['cwd'] = os.getcwd()
-	project['children'] = []
-
-	parent = project['parent']
-	if parent:
-		parent['children'].append(project)
-
-	if not project['parent'] and os.path.exists('../SConstruct'):
-		SConscript('../SConstruct')
-	elif 'modules' in project:
-		modules = project['modules']
-
-		for module in Split(modules):
-			SConscript(module + '/SConstruct', exports='project')
-	else:
-		SConscript('./build/Boot.scons', exports='project')
-		
-build()
+})

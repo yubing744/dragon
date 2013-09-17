@@ -9,3 +9,15 @@ env.AppendUnique(CPPDEFINES = ["__APPLE__"])
 
 ### Neptune System Files
 env['NPT_SYSTEM_SOURCES']={'System/StdC':'*.cpp', 'System/Bsd':'*.cpp', 'System/Posix':'*.cpp', 'System/Null':'NptNullSerialPort.cpp', 'System/Null':'NptNullAutoreleasePool.cpp'}
+
+
+def Macosx_testcallback(target, source, env):
+	
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

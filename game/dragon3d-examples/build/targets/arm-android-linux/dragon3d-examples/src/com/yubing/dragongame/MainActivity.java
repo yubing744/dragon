@@ -7,7 +7,11 @@ import android.os.Bundle;
 public class MainActivity extends Activity  {
 
 	static {
-		System.loadLibrary("dg_main_jni");
+		System.loadLibrary("unicode");
+		System.loadLibrary("pcre32");
+		System.loadLibrary("dragon");
+		System.loadLibrary("dragon3d-core");
+		System.loadLibrary("dragon3d-examples");
 	}
 
 	//<<< JNI Interface 

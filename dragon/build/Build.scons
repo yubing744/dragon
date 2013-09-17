@@ -434,7 +434,7 @@ def Application(name,
         #env.Install(dir="/usr/local/lib", source=project.getProducts())
 
         if env["test"] or env["debug"]:
-            env.RunProgram(target= "#run-target-app", source=inst)
+            env.RunProgram(target= "#run-" + name, source=inst)
 
 
 class Project:
@@ -877,6 +877,9 @@ dragon_SOURCES = {
         PatternSyntaxException.cc 
         Pattern.cc 
         Matcher.cc 
+    """),
+    "dragon/util/logging" : Split("""
+        Logger.cc 
     """)
 }
     

@@ -25,7 +25,6 @@
 #ifndef Dragon3D_CORE_H
 #define Dragon3D_CORE_H
 
-#define USING_DRAGON_SHARED
-#include <dragon/config.h>
+#include <dragon.h>
 
 #endif // Dragon3D_CORE_H

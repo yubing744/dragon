@@ -399,7 +399,7 @@
 			"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
 			"settings":
 			{
-				"buffer_size": 1275,
+				"buffer_size": 797,
 				"line_ending": "Unix"
 			}
 		},
@@ -816,15 +816,15 @@
 					"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
 					"settings":
 					{
-						"buffer_size": 1275,
+						"buffer_size": 797,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								647,
-								647
+								0,
+								0
 							]
 						],
 						"settings":
@@ -859,8 +859,8 @@
 						"selection":
 						[
 							[
-								6474,
-								6474
+								6473,
+								6473
 							]
 						],
 						"settings":
