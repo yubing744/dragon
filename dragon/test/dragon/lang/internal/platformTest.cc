@@ -793,6 +793,9 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_mixtype) {
 	mix m;
 	mix2 m2;
 
+	memset(&m, 0, sizeof(mix));
+	memset(&m2, 0, sizeof(mix2));
+
 	invoke_test_mixtype_04(a1, b1, c1, d1);
 	invoke_test_mixtype_03(a1, b1, c1, d1, e1, f1);
 	invoke_test_mixtype_02(a1, b1, c1, d1, e1, f1, g1, h1);
