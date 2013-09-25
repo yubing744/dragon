@@ -69,3 +69,4 @@ bin
 *.apk
 debugging
 *.out
+*.vpp~*
