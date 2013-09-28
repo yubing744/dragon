@@ -17,60 +17,70 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/scene/Component.h>
 
-Import com::dragon3d::framework;
+Import com::dragon3d::scene;
 
-Scene::Scene() {
+Component::Component() {
 
 }
 
-Scene::~Scene() {
+Component::~Component() {
 
 }
 
 /*
 
-#include "dg_scene.h"
+#include "dg_component.h"
+#include "dg_game_object.h"
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
+DGComponent::DGComponent(void){
+	this->name = "DGComponent";
+	this->active = true;
+}
+
+DGComponent::DGComponent(const char* name){
+	this->name = name;
+}
+
+DGComponent::~DGComponent(void){
+
+}
+
+string DGComponent::getName(){
+	return this->name;
+}
+
+DGboolean DGComponent::isActive(){
+	return this->active;
+}
+
+void DGComponent::setActive(DGboolean active){
+	this->active = active;
 }
 
 
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
+void DGComponent::init(DGGameObject* gameObject, DGContext* ctx){
+    this->gameObject = gameObject;
+    this->transform = gameObject->transform;
 }
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
+void DGComponent::update(DGContext* ctx){
 
-	DGGameObject::init(ctx);
 }
 
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
+void DGComponent::draw(DGContext* ctx){
+
 }
 
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
+void DGComponent::destroy(){
+
 }
 
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
 
 
  */

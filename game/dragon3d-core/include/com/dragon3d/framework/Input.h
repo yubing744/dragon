@@ -17,60 +17,55 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#ifndef Input_Framework_Dragon3d_Com_H
+#define Input_Framework_Dragon3d_Com_H
+
+#include <dragon/config.h>
+
+BeginPackage3(com, dragon3d, framework)
 
 Import com::dragon3d::framework;
 
-Scene::Scene() {
+class _DragonExport Input {
+public:
+	Input();
+	virtual ~Input();
 
-}
+public:
+	
+protected:
+	
+};//Input
 
-Scene::~Scene() {
+EndPackage3 //(com, dragon3d, framework)
 
-}
+#endif //Input_Framework_Dragon3d_Com_H
+
 
 /*
 
-#include "dg_scene.h"
+#pragma once
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
-}
+#include "dg_config.h"
 
+#ifndef DG_INPUT
+#define DG_INPUT
 
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
-}
+class DGInput
+{
+public:
+	DGInput(void);
+	virtual ~DGInput(void);
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
+public:
+	virtual DGboolean getKey(char keyCode) = 0;
+	virtual DGboolean getAxis(const char* axis) = 0;
+};
 
-	DGGameObject::init(ctx);
-}
-
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
-
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
-
+#endif
 
  */

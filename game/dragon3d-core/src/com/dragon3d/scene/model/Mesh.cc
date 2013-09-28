@@ -17,59 +17,58 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/scene/model/Mesh.h>
 
-Import com::dragon3d::framework;
+Import com::dragon3d::scene::model;
 
-Scene::Scene() {
+Mesh::Mesh() {
 
 }
 
-Scene::~Scene() {
+Mesh::~Mesh() {
 
 }
 
 /*
 
-#include "dg_scene.h"
+#include "dg_mesh.h"
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
+
+DGMesh::DGMesh(void){
+    this->vertices = NULL;
+    this->normals = NULL;
+    this->uv = NULL;
+    this->uv2 = NULL;
+    this->vertexCount = 0;
+
+    this->indices = NULL;
+    this->indexCount = 0;
+
+	this->matrix = DGMatrix4x4::IDENTITY;
 }
 
+DGMesh::DGMesh(const char* name){
+	this->name = string(name);
 
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
+    this->vertices = NULL;
+    this->normals = NULL;
+    this->uv = NULL;
+    this->uv2 = NULL;
+    this->vertexCount = 0;
+
+    this->indices = NULL;
+    this->indexCount = 0;
+
+	this->matrix = DGMatrix4x4::IDENTITY;
 }
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
-
-	DGGameObject::init(ctx);
-}
-
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
-
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
+DGMesh::~DGMesh(void){
+    this->vertexCount = 0;
+    this->indexCount = 0;
 }
 
 

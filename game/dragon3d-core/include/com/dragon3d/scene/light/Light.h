@@ -17,60 +17,61 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#ifndef Light_Light_Scene_Dragon3d_Com_H
+#define Light_Light_Scene_Dragon3d_Com_H
 
-Import com::dragon3d::framework;
+#include <dragon/config.h>
 
-Scene::Scene() {
+BeginPackage4(com, dragon3d, scene, light)
 
-}
+Import com::dragon3d::scene::light;
 
-Scene::~Scene() {
+class _DragonExport Light {
+public:
+	Light();
+	virtual ~Light();
 
-}
+public:
+	
+protected:
+	
+};//Light
+
+EndPackage4 //(com, dragon3d, scene, light)
+
+#endif //Light_Light_Scene_Dragon3d_Com_H
 
 /*
+ 
+#pragma once
 
-#include "dg_scene.h"
+#include "dg_game.h"
+#include "dg_game_object.h"
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
-}
+#if !defined(DG_LIGHT)
+#define DG_LIGHT
 
+class DGLight : public DGGameObject
+{
+public:
+	DGLight(void);
+	virtual ~DGLight(void);
 
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
-}
+public:
+	virtual void start();
+	virtual void update(DGContext* ctx);
+	virtual void draw();
+	
+private:
+	BOOL light;
+	BOOL lp;
+	BOOL fp;
+};
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
-
-	DGGameObject::init(ctx);
-}
-
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
-
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
-
+#endif
 
  */

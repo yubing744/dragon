@@ -25,7 +25,7 @@
 #define HelloWorld_Dragon3D_H
 
 #include <dragon3d.h>
-#include <com/dragon3d/Application.h>
+#include <com/dragon3d/framework/Application.h>
 
 BeginPackage4(com, dragon3d, examples, helloworld)
 
@@ -36,10 +36,6 @@ public:
 	HelloWorld();
 	virtual ~HelloWorld();
 
-public:
-	
-protected:
-	
 };//HelloWorld
 
 EndPackage4 //(com, dragon3d, examples, helloworld)

@@ -17,60 +17,30 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#ifndef TasteSimulator_Taste_Output_Dragon3d_Com_H
+#define TasteSimulator_Taste_Output_Dragon3d_Com_H
 
-Import com::dragon3d::framework;
+#include <dragon/config.h>
 
-Scene::Scene() {
+BeginPackage4(com, dragon3d, output, taste)
 
-}
+Import com::dragon3d::output::taste;
 
-Scene::~Scene() {
+class _DragonExport TasteSimulator {
+public:
+	TasteSimulator();
+	virtual ~TasteSimulator();
 
-}
+public:
+	
+protected:
+	
+};//TasteSimulator
 
-/*
+EndPackage4 //(com, dragon3d, output, taste)
 
-#include "dg_scene.h"
-
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
-}
-
-
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
-}
-
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
-
-	DGGameObject::init(ctx);
-}
-
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
-
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
-
-
- */
+#endif //TasteSimulator_Taste_Output_Dragon3d_Com_H

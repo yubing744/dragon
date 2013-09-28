@@ -17,59 +17,48 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/output/graphics/Display.h>
 
-Import com::dragon3d::framework;
+Import com::dragon3d::output::graphics;
 
-Scene::Scene() {
+Display::Display() {
 
 }
 
-Scene::~Scene() {
+Display::~Display() {
 
 }
 
 /*
 
-#include "dg_scene.h"
+#include "dg_screen.h"
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
+
+DGScreen::DGScreen(void)
+{
 }
 
 
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
+DGScreen::~DGScreen(void)
+{
 }
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
 
-	DGGameObject::init(ctx);
+DGuint DGScreen::getWidth(){
+	return this->width;
 }
 
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
+DGuint DGScreen::getHeight(){
+	return this->height;
 }
 
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
+void DGScreen::resize(DGuint width, DGuint height) {
+	this->width = width;
+	this->height = height;
 }
 
 

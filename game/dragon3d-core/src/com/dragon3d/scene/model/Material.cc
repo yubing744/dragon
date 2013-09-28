@@ -17,60 +17,45 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/scene/model/Material.h>
 
-Import com::dragon3d::framework;
+Import com::dragon3d::scene::model;
 
-Scene::Scene() {
+Material::Material() {
 
 }
 
-Scene::~Scene() {
+Material::~Material() {
 
 }
 
 /*
 
-#include "dg_scene.h"
+#include "dg_material.h"
 
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
+const DGMaterial DGMaterial::DEFAULT_MATERIAL = DGMaterial(DGColor::white);
+
+DGMaterial::DGMaterial(void){
+	this->color = DGColor::white;
+	this->mainTexture = NULL;
 }
 
-
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
+DGMaterial::DGMaterial(const DGColor& color){
+	this->color = color;
+	this->mainTexture = NULL;
 }
 
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
-
-	DGGameObject::init(ctx);
+DGMaterial::DGMaterial(const DGColor& color, DGTexture* mainTexture){
+	this->color = color;
+	this->mainTexture = mainTexture;
 }
 
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
+DGMaterial::~DGMaterial(void){
 
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
 }
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
-
 
  */
