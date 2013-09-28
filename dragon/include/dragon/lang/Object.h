@@ -24,19 +24,96 @@ BeginPackage2(dragon, lang)
 class Class;
 class String;
 
+/**
+ * Class Object is the root of the class hierarchy. Every class has Object as a superclass. 
+ * All objects, including arrays, implement the methods of this class. 
+ */
 class _DragonExport Object {
 public:
 	Object();
 	virtual ~Object();
 
 public:
+	/**
+	 * Indicates whether some other object is "equal to" this one.
+	 * 
+	 * @param  obj [description]
+	 * @return     [description]
+	 */
 	virtual dg_boolean equals(const Object* obj);
+
+	/**
+	 * Returns a hash code value for the object. This method is supported for the benefit 
+	 * of hashtables such as those provided by dragon.util.Hashtable. 
+	 * @return [description]
+	 */
 	virtual dg_int hashCode();
+
+	/**
+	 * Returns a string representation of the object. 
+	 * 
+	 * @return [description]
+	 */
 	virtual String* toString();
+
+	/**
+	 * Returns the runtime class of this Object. 
+	 * 
+	 * @return [description]
+	 */
 	virtual Class* getClass();
 
+public:
+	/**
+	 * Causes the current thread to wait until another thread invokes the notify() method 
+	 * or the notifyAll() method for this object. In other words, this method behaves exactly
+	 * as if it simply performs the call wait(0). 
+	 * 
+	 */
+	virtual void wait();
+
+	/**
+	 * Causes the current thread to wait until either another thread invokes the notify() 
+	 * method or the notifyAll() method for this object, or a specified amount of time has elapsed. 
+	 * 
+	 * @param timeout [description]
+	 */
+	virtual void wait(long timeout);
+
+	/**
+	 * Wakes up a single thread that is waiting on this object's monitor. If any threads are waiting 
+	 * on this object, one of them is chosen to be awakened. The choice is arbitrary and occurs at 
+	 * the discretion of the implementation. A thread waits on an object's monitor by calling one of 
+	 * the wait methods. 
+	 * 
+	 */
+	virtual void notify();
+
+	/**
+	 * Wakes up all threads that are waiting on this object's monitor. A thread waits on an object's 
+	 * monitor by calling one of the wait methods. 
+	 * 
+	 */
+	virtual void notifyAll();
+
 protected:
+	/**
+	 * Called by the garbage collector on an object when garbage collection determines that there 
+	 * are no more references to the object. A subclass overrides the finalize method to dispose of 
+	 * system resources or to perform other cleanup. 
+	 */
 	virtual void finalize();
+
+// -----------------------------------------
+private:
+	void* getSemaphore();
+
+private:
+	
+	/**
+	 * the handle of semaphore.
+	 */
+	DRAGON_ALIGN(4) void* semaphoreHandle;
 };
 
 EndPackage2//(dragon, lang)

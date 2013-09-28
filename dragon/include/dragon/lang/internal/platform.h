@@ -99,6 +99,9 @@ _DragonExport int GetBasicTypeCategory(const char* name);
 
 static const size_t CPU_BYTE_LEN = sizeof(void*);
 
+/**
+ * param type
+ */
 class _DragonExport ParamInfo {
 public:
     int category; 
@@ -195,99 +198,6 @@ public:
 	}
 };
 
-/*
-const int SINGLE_MEMFUNCPTR_SIZE = sizeof(void (detail::GenericClass::*)());
-
-template <int N>
-struct GenericMemFuncX {
-  template <class GenericMemFuncType>
-  inline static detail::GenericClass *Convert(void* pthis, void* function_to_bind, 
-    GenericMemFuncType &bound_func) { 
-    // Unsupported member function type -- force a compile failure.
-      // (it's illegal to have a array with negative size).
-    typedef char ERROR_Unsupported_member_function_pointer_on_this_compiler[N-100];
-    return 0; 
-  }
-};
-
-template <>
-struct GenericMemFuncX<SINGLE_MEMFUNCPTR_SIZE> {
-  template <class GenericMemFuncType>
-  inline static detail::GenericClass *Convert(void* pthis, void* function_to_bind, 
-    GenericMemFuncType &bound_func) { 
-    
-    union {
-      GenericMemFuncType func;
-      struct {
-        union {
-          void* __pfn;
-          long int __vtable_index;
-        } t;
-        long int __delta;
-      } s;
-    } u;
-
-    typedef char ERROR_Unsupported_member_function_pointer_on_this_compiler[sizeof(u.func)==sizeof(u.s) ? 1 : -1];
-
-    u.s.t.__pfn = function_to_bind;
-    u.s.__delta = 0;
-
-    bound_func = u.func;
-
-    return (detail::GenericClass*)pthis;
-  }
-};
-
-template < class GenericMemFunc, class StaticFuncPtr, class UnvoidStaticFuncPtr>
-class Invoker : public DelegateMemento {
-public:
-    inline void bindmemfunc(void *pthis, void* function_to_bind) {
-        m_pthis= GenericMemFuncX<SINGLE_MEMFUNCPTR_SIZE>::Convert(pthis, function_to_bind, m_pFunction);
-    }
-
-    // These functions are required for invoking the stored function
-    inline detail::GenericClass *GetInvokerThis() const { return m_pthis; }
-    inline GenericMemFunc GetInvokerMemPtr() const { return reinterpret_cast<GenericMemFunc>(m_pFunction); }
-};
-
-template<class RetType>
-RetType Invoke(void* pthis, void* func) {
-    typedef RetType (detail::GenericClass::*GenericMemFn)();
-    
-    typedef typename detail::DefaultVoidToVoid<RetType>::type DesiredRetType;
-    typedef DesiredRetType (*StaticFunctionPtr)();
-    typedef RetType (*UnvoidStaticFunctionPtr)();
-
-    typedef Invoker<GenericMemFn, StaticFunctionPtr, UnvoidStaticFunctionPtr> InvokerType;
-    InvokerType invoker;
-    invoker.bindmemfunc(pthis, func);
-
-    detail::GenericClass* gcThis = invoker.GetInvokerThis();
-    GenericMemFn gmf = invoker.GetInvokerMemPtr();
-
-    return (gcThis->*gmf)();
-}
-
-template<class Param1, class RetType>
-RetType Invoke(void* pthis, void* func, Param1 p1) {
-    typedef typename detail::DefaultVoidToVoid<RetType>::type DesiredRetType;
-    
-    typedef RetType (detail::GenericClass::*GenericMemFn)(Param1 p1);
-    typedef DesiredRetType (*StaticFunctionPtr)(Param1 p1);
-    typedef RetType (*UnvoidStaticFunctionPtr)(Param1 p1);
-
-    typedef Invoker<GenericMemFn, StaticFunctionPtr, UnvoidStaticFunctionPtr> InvokerType;
-    InvokerType invoker;
-    invoker.bindmemfunc(pthis, func);
-
-    detail::GenericClass* gcThis = invoker.GetInvokerThis();
-    GenericMemFn gmf = invoker.GetInvokerMemPtr();
-
-    return (gcThis->*gmf)(p1);
-}
-*/
-
-
 /**
  * Invoke a object's member method
  * 
@@ -298,7 +208,6 @@ RetType Invoke(void* pthis, void* func, Param1 p1) {
  */
 _DragonExport void Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc);
 
-
 /**
  * Invoke a object's member method
  * 
@@ -308,17 +217,6 @@ _DragonExport void Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *a
  * @param argc args count
  */
 _DragonExport void* Invoke(void* pthis, void* func, ParamInfo *argv, int argc);
-
-/**
- * Invoke a object's member method
- * 
- * @param p    the object's adress
- * @param func the function pointer of member method
- * @param argv args
- * @param argc args count
- */
-//_DragonExport void* InvokeV(void* p, Func_FarProc func, ...);
-
 
 
 // -----------------------------------------------------------------------
@@ -385,7 +283,6 @@ typedef dg_int (*SymTestBean_TestGetter_MemberMethod2)(void* pthis);
  *    
  */
 _DragonExport const char* GetLocalLibPath();
-
 
 /**
  *  get dragon lib's path.
@@ -499,118 +396,165 @@ _DragonExport void* GetFuncAddress(const char* libPath, const char* signature);
 _DragonExport void* GetFuncAddress(const char* signature);
 
 
-/*
-const int kMaxInt = 0x7FFFFFFF;
-const int kMinInt = -kMaxInt - 1;
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Time
+// 
 
-// A macro to disallow the evil copy constructor and operator= functions
-// This should be used in the private: declarations for a class
-#define DISALLOW_COPY_AND_ASSIGN(TypeName)      \
-  TypeName(const TypeName&);                    \
-  void operator=(const TypeName&)
+/**
+ * get the system time
+ * 
+ * @return [description]
+ */
+_DragonExport dg_long GetSystemTime();
 
-// ----------------------------------------------------------------------------
-// Copyright 2012 the V8 project authors. All rights reserved.
-//
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Atomic Operation
+// 
+
+/**
+ * atomic compare and set new value.
+ * 
+ * @param  value [description]
+ * @param  valueToCompare [description]
+ * @param  newValue [description]
+ * @return          [description]
+ */
+_DragonExport bool AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_int *value, dg_int valueToCompare, dg_int newValue);
+_DragonExport bool AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_long *value, dg_long valueToCompare, dg_long newValue);
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Lock
+// 
+
+/**
+ * init a mutex object
+ * 
+ * @return [description]
+ */
+_DragonExport void* InitMutex();
+
+/**
+ *  lock the mutex
+ * 
+ * @return [description]
+ */
+_DragonExport void LockMutex(void* mutex);
+
+/**
+ *  try lock the mutex
+ * 
+ * @return [description]
+ */
+_DragonExport bool TryLockMutex(void* mutex);
+
+/**
+ *  unlock the mutex
+ * 
+ * @return [description]
+ */
+_DragonExport void UnlockMutex(void* mutex);
+
+/**
+ * free mutex object
+ * 
+ * @return [description]
+ */
+_DragonExport void FreeMutex(void* mutex);
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Semaphore
+// 
+
+/**
+ * init a mutex object
+ * 
+ * @param count [description]
+ */
+_DragonExport void* InitSemaphore(int count);
+
+/**
+ * wait
+ * 
+ * @param semaphore [description]
+ */
+_DragonExport void WaitSemaphore(void* semaphore);
+
+/**
+ * wait with timeout
+ * 
+ * @param semaphore [description]
+ * @param timeout    [description]
+ * @return 
+ */
+_DragonExport bool WaitSemaphore(void* semaphore, int timeout);
+
+/**
+ * notify continue
+ * 
+ * @param semaphore [description]
+ */
+_DragonExport void SignalSemaphore(void* semaphore);
+
+/**
+ * free semaphore
+ * 
+ * @param semaphore [description]
+ */
+_DragonExport void FreeSemaphore(void* semaphore);
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
 // Thread
-//
-// Thread objects are used for creating and running threads. When the start()
-// method is called the new thread starts running the run() method in the new
-// thread. The Thread object should not be deallocated before the thread has
-// terminated.
+// 
 
-class Thread {
- public:
-  // Opaque data type for thread-local storage keys.
-  // LOCAL_STORAGE_KEY_MIN_VALUE and LOCAL_STORAGE_KEY_MAX_VALUE are specified
-  // to ensure that enumeration type has correct value range (see Issue 830 for
-  // more details).
-  enum LocalStorageKey {
-    LOCAL_STORAGE_KEY_MIN_VALUE = kMinInt,
-    LOCAL_STORAGE_KEY_MAX_VALUE = kMaxInt
-  };
+/**
+ * create a new thread, and return thread handle
+ *
+ * @param stackSize the stack size for thread
+ * @param target the target object for invoke method
+ * @param entryFunc the entry function for thread
+ */
+_DragonExport void* CreateThread(int stackSize, void* target, void* entryFunc);
 
-  class Options {
-   public:
-    Options() : name_("dragon:<unknown>"), stack_size_(0) {}
-    Options(const char* name, int stack_size = 0)
-        : name_(name), stack_size_(stack_size) {}
+/**
+ * join the thread
+ * 
+ * @param threadHandle [description]
+ */
+_DragonExport void JoinThread(void* threadHandle);
 
-    const char* name() const { return name_; }
-    int stack_size() const { return stack_size_; }
+/**
+ * close the thread
+ * 
+ * @param threadHandle [description]
+ */
+_DragonExport void CloseThread(void* threadHandle);
 
-   private:
-    const char* name_;
-    int stack_size_;
-  };
+/**
+ * yield the thread
+ * 
+ * @param threadHandle [description]
+ */
+_DragonExport void YieldThread();
 
-  // Create new thread.
-  explicit Thread(const Options& options);
-  virtual ~Thread();
+/**
+ * sleep current thread
+ * 
+ */
+_DragonExport void SleepThread(long millis);
 
-  // Start new thread by calling the Run() method in the new thread.
-  void Start();
-
-  // Wait until thread terminates.
-  void Join();
-
-  inline const char* name() const {
-    return name_;
-  }
-
-  // Abstract method for run handler.
-  virtual void Run() = 0;
-
-  // Thread-local storage.
-  static LocalStorageKey CreateThreadLocalKey();
-  static void DeleteThreadLocalKey(LocalStorageKey key);
-  static void* GetThreadLocal(LocalStorageKey key);
-  static int GetThreadLocalInt(LocalStorageKey key) {
-    return static_cast<int>(reinterpret_cast<intptr_t>(GetThreadLocal(key)));
-  }
-  static void SetThreadLocal(LocalStorageKey key, void* value);
-  static void SetThreadLocalInt(LocalStorageKey key, int value) {
-    SetThreadLocal(key, reinterpret_cast<void*>(static_cast<intptr_t>(value)));
-  }
-  static bool HasThreadLocal(LocalStorageKey key) {
-    return GetThreadLocal(key) != NULL;
-  }
-
-#ifdef FAST_TLS_SUPPORTED
-  static inline void* GetExistingThreadLocal(LocalStorageKey key) {
-    void* result = reinterpret_cast<void*>(
-        InternalGetExistingThreadLocal(static_cast<intptr_t>(key)));
-    ASSERT(result == GetThreadLocal(key));
-    return result;
-  }
-#else
-  static inline void* GetExistingThreadLocal(LocalStorageKey key) {
-    return GetThreadLocal(key);
-  }
-#endif
-
-  // A hint to the scheduler to let another thread run.
-  static void YieldCPU();
-
-
-  // The thread name length is limited to 16 based on Linux's implementation of
-  // prctl().
-  static const int kMaxThreadNameLength = 16;
-
-  class PlatformData;
-  PlatformData* data() { return data_; }
-
- private:
-  void set_name(const char* name);
-
-  PlatformData* data_;
-
-  char name_[kMaxThreadNameLength];
-  int stack_size_;
-
-  DISALLOW_COPY_AND_ASSIGN(Thread);
-};
-*/
 
 EndPackage3//(dragon, lang, internal)
 

@@ -346,9 +346,11 @@ THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 # dragon3d-core
 dragon3d_core_SOURCES = {
     "com/dragon3d/framework" : Split("""
-        Object.cpp
         Engine.cc
         Application.cc
+    """),
+    "com/dragon3d/util" : Split("""
+        Timer.cc
     """)
 }
 
@@ -374,9 +376,9 @@ LibraryModule(
 
 # dragon3d-core-test
 dragon3d_core_test_SOURCES = {
-    "com/dragon3d/framework" : Split("""
-        ObjectTest.cpp
-    """),
+#    "com/dragon3d/framework" : Split("""
+#        ObjectTest.cpp
+#    """),
     "." : Split("""
         TestMain.cc
     """)

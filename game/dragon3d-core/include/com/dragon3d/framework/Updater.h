@@ -25,20 +25,23 @@
 #define Updater_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <com/dragon3d/util/ReadOnlyTimer.h>
 
 BeginPackage3(com, dragon3d, framework)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::util;
 
-class _DragonExport Updater {
+/**
+ * The purpose of this class is to own the update phase and separate update logic from the view.
+ */
+interface _DragonExport Updater {
 public:
-	Updater();
-	virtual ~Updater();
+	virtual ~Updater(){};
 
 public:
-	
-protected:
-	
+	virtual void init();
+	virtual void update(ReadOnlyTimer* timer);
+
 };//Updater
 
 EndPackage3 //(com, dragon3d, framework)

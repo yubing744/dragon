@@ -18,17 +18,32 @@
 #define System_Lang_Dragon_H
 
 #include <dragon/config.h>
-#include "basic_type.h"
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport System
+class _DragonExport System 
 {
 public:
-	System();
+	/**
+	 * load system library with libname.
+	 * 
+	 * @param libname [description]
+	 */
+	static void loadLibrary(const char* libname);
 
-public:
-	static void load(const Char* filename);
+	/**
+	 * get the current time with ms
+	 * 
+	 * @return [description]
+	 */
+	static dg_long currentTimeMillis();
+
+	/**
+	 * get precision system time
+	 * 
+	 * @return [description]
+	 */
+	static dg_long nanoTime();
 };
 
 EndPackage2//(dragon, lang)

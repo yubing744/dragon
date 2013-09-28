@@ -137,10 +137,26 @@ Integer::~Integer() {
 
 }
 
-dg_int Integer::intValue() {
-    return this->value;
-}
 
 String* Integer::toString() {
     return Integer::toString(this->value);
 }
+
+
+//--------- Implements dragon::lang::Number --------------
+dg_int Integer::intValue() {
+    return this->value;
+}
+
+dg_long Integer::longValue() {
+    return (dg_long)intValue();
+}
+
+dg_float Integer::floatValue() {
+    return (dg_float)intValue();
+}
+
+dg_double Integer::doubleValue() {
+    return (dg_double)intValue();
+}
+

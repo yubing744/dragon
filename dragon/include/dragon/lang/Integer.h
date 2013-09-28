@@ -89,8 +89,13 @@ public:
 	virtual ~Integer();
 
 public:
-	virtual dg_int intValue();
     virtual String* toString();
+
+public: //Implements Number
+    virtual dg_int intValue();
+    virtual dg_long longValue();
+    virtual dg_float floatValue();
+    virtual dg_double doubleValue();
 
 protected:
 	dg_int value;

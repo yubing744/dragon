@@ -22,9 +22,9 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 BeginPackage3(dragon, lang, gc)
+
+Import std;
 
 typedef void (*FnDestructor)(void* pThis);
 
@@ -34,24 +34,6 @@ enum _DragonExport GCMode {
 };
 
 class _DragonExport GarbageCollector {
-public:
-	struct PointerInfo {
-		int refCount;
-		void* memPtr;
-		void* ployPtr;
-		FnDestructor fnDestroy;
-	};
-
-	typedef map<void*, PointerInfo> KeyMap;
-	typedef KeyMap::iterator Iterator;
-
-public:
-	void addRef(void* p);
-	void addRef(void* p, void* tp, FnDestructor fn);
-	void regist(void* p, FnDestructor fn);
-	void regist(void* p, void* tp, FnDestructor fn);
-	void release(void* p);
-
 public:
 	static GarbageCollector* GetInstance();
 	static void Collect();
@@ -64,8 +46,29 @@ private:
 private:
 	static GarbageCollector* gc;
 
+// ----------------------------------------
+public:
+	struct PointerInfo {
+		int refCount;
+		void* memPtr;
+		void* ployPtr;
+		FnDestructor fnDestroy;
+	};
+
+	typedef map<void*, PointerInfo> KeyMap;
+	typedef KeyMap::iterator Iterator;
+
 private:
 	GarbageCollector();
+
+public:
+	void addRef(void* p);
+	void addRef(void* p, void* tp, FnDestructor fn);
+	void regist(void* p, FnDestructor fn);
+	void regist(void* p, void* tp, FnDestructor fn);
+	void release(void* p);
+
+private:
 	KeyMap mpMap;
 	GCMode collectMode;
 };

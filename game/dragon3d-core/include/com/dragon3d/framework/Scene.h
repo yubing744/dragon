@@ -25,19 +25,30 @@
 #define Scene_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <com/dragon3d/math/Ray3.h>
+#include <com/dragon3d/renderer/Renderer.h>
 
 BeginPackage3(com, dragon3d, framework)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::math;
+Import com::dragon3d::renderer;
 
-class _DragonExport Scene {
+/**
+ * Owns all the data that is related to the scene. This class should not really know anything about rendering or the
+ * screen, it's just the scene data.
+ */
+interface _DragonExport Scene {
 public:
-	Scene();
 	virtual ~Scene();
 
 public:
-	
-protected:
+    /**
+     *  render scene.
+     *  
+     * @param renderer
+     * @return true if a render occurred and we should swap the buffers.
+     */
+	virtual bool renderTo(Renderer* renderer);
 	
 };//Scene
 

@@ -24,14 +24,24 @@
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/ClassLoader.h>
+#include <dragon/lang/internal/platform.h>
 
 #include <typeinfo>
- 
-Import dragon::lang;
 
-Object::Object() {}
+Import dragon::lang;
+Import dragon::lang::internal;
+
+
+Object::Object() 
+	:semaphoreHandle(NULL) {
+
+}
 
 Object::~Object() {
+	if (this->semaphoreHandle != NULL) {
+		FreeSemaphore(semaphoreHandle);
+	}
+
 	finalize();
 }
 
@@ -54,3 +64,38 @@ String* Object::toString() {
 }
 
 void Object::finalize(){}
+
+
+// ---------------------------------------------
+#define SEM_TMP_VAL 1
+
+void* Object::getSemaphore() {
+	bool ret = AtomicCompareAndSwap((dg_int*)&this->semaphoreHandle, NULL, SEM_TMP_VAL);
+	
+	if (ret) {
+		this->semaphoreHandle = InitSemaphore(1);
+	}
+
+	// wait semaphoreHandle ok
+	while(this->semaphoreHandle == (void*)SEM_TMP_VAL) {
+		YieldThread();
+	}
+
+	return this->semaphoreHandle;
+}
+
+void Object::wait() {
+	WaitSemaphore(this->getSemaphore());
+}
+
+void Object::wait(long timeout) {
+	WaitSemaphore(this->getSemaphore(), timeout);
+}
+
+void Object::notify() {
+	SignalSemaphore(this->getSemaphore());
+}
+
+void Object::notifyAll() {
+	SignalSemaphore(this->getSemaphore());
+}

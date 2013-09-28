@@ -25,19 +25,40 @@
 #define Canvas_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/util/concurrent/CountDownLatch.h>
 
 BeginPackage3(com, dragon3d, framework)
 
 Import com::dragon3d::framework;
+Import dragon::util::concurrent;
 
-class _DragonExport Canvas {
+/**
+ * This interface defines the View, and should maybe be called the ViewUpdater. It owns the rendering phase, and
+ * controls all interactions with the Renderer.
+ */
+interface _DragonExport Canvas {
 public:
-	Canvas();
 	virtual ~Canvas();
 
 public:
-	
-protected:
+    /**
+     * Do work to initialize this canvas, generally setting up the associated CanvasRenderer, etc.
+     */
+    virtual void init();
+
+    /**
+     * Ask the canvas to render itself. Note that this may occur in another thread and therefore a latch is given so the
+     * caller may know when the draw has completed.
+     * 
+     * @param latch
+     *            a counter that should be decremented once drawing has completed.
+     */
+    virtual void draw(CountDownLatch* latch);
+
+    /**
+     * @return the CanvasRenderer associated with this Canvas.
+     */
+    //virtual CanvasRenderer* getCanvasRenderer();
 	
 };//Canvas
 

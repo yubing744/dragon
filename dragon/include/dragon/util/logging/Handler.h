@@ -17,28 +17,28 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/09/19
  **********************************************************************/
 
 
-#ifndef Application_Framework_Dragon3d_Com_H
-#define Application_Framework_Dragon3d_Com_H
+#ifndef Handler_Logging_Util_Dragon_H
+#define Handler_Logging_Util_Dragon_H
 
 #include <dragon/config.h>
-#include <com/dragon3d/framework/Engine.h>
 
-BeginPackage3(com, dragon3d, framework)
+BeginPackage3(dragon, util, logging)
 
-class _DragonExport Application {
+Import dragon::util::logging;
+
+interface _DragonExport Handler {
 public:
-	Application();
-	virtual ~Application();
-
-public:
-	virtual void startup();
+	virtual ~Handler(){};
 	
-};//Application
+public:
+	virtual void publish(const char* loggerName, const char* msg) = 0;
 
-EndPackage3 //(com, dragon3d, framework)
+};//Handler
 
-#endif //Application_Framework_Dragon3d_Com_H
+EndPackage3 //(dragon, util, logging)
+
+#endif //Handler_Logging_Util_Dragon_H

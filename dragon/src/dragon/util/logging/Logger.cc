@@ -28,64 +28,170 @@
 #include <ctype.h>
  
 #include <dragon/util/logging/Logger.h>
+#include <dragon/util/logging/LogManager.h>
 
 Import dragon::util::logging;
 
-Logger::Logger(const char* tagName, int logLevel) 
+
+Logger* Logger::getLogger(const char* name, int level) {
+	LogManager* logManager = LogManager::getInstance();
+
+	Logger* logger = logManager->getLogger(name);
+
+	if (logger == null) {
+		Array<Handler*> handlers = logManager->getHandlers(name);
+		int initLevel = (level > 0) ? level : logManager->getLogLevel(name);
+
+		logger = new Logger(name, initLevel);
+
+		for (int i=0; i<handlers.size(); i++) {
+			logger->addHandler(handlers[i]);
+		}
+
+		logManager->addLogger(logger);
+	} else {
+		if (level > 0) {
+			logger->setLevel(level);
+		}
+	}
+
+	return logger;	
+}
+
+Logger* Logger::getLogger(const char* name) {
+	return Logger::getLogger(name, 0);
+}
+
+//---------------------------------------------
+Logger::Logger(const char* name, int logLevel) 
 	: level(logLevel) {
-	char* buf = new char[strlen(tagName) + 1];
-	strcpy(buf, tagName);
-	this->tagName = buf;
+	char* buf = new char[strlen(name) + 1];
+	strcpy(buf, name);
+	this->name = buf;
 }
 
 Logger::~Logger() {
-	SafeDeleteArray(this->tagName);
+	SafeDeleteArray(this->name);
+	handlers.clear();
 }
 
-bool Logger::isEnableInfo() {
-	return this->level >= LOGGER_INFO;
+void Logger::log(int level, const char *formatStr, ...) {
+	if (this->isEnabled(level)) {
+		va_list params;
+	    va_start(params, formatStr);
+
+	    this->log_v(level, formatStr, params);
+	    
+	    va_end(params);
+	}
 }
 
-bool Logger::isEnableDebug() {
-	return this->level >= LOGGER_DEBUG;
+void Logger::log_v(int level, const char *formatStr, va_list arg) {
+	if (this->isEnabled(level)) {
+		char msg[BUFSIZ];
+	    vsprintf(msg, formatStr, arg);
+
+	    for (Iterator it = handlers.begin(); it!=handlers.end(); ++it) {
+    		Handler* handler = *it;
+    		handler->publish(this->name, msg);
+    	}
+    }
 }
 
-bool Logger::isEnableError() {
-	return this->level >= LOGGER_ERROR;
+void Logger::trace(const char *formatStr, ...) {
+	va_list params;
+	va_start(params, formatStr);
+
+	this->log_v(LOG_LEVEL_TRACE, formatStr, params);
+
+	va_end(params);
+}
+
+void Logger::debug(const char *formatStr, ...) {
+	va_list params;
+	va_start(params, formatStr);
+
+	this->log_v(LOG_LEVEL_DEBUG, formatStr, params);
+	
+	va_end(params);
 }
 
 void Logger::info(const char *formatStr, ...) {
-	if (this->isEnableInfo()) {
-	    va_list params;
-	    char buf[BUFSIZ];
+	va_list params;
+	va_start(params, formatStr);
 
-	    va_start(params, formatStr);
-	    vsprintf(buf, formatStr, params);
-	    printf("%s: %s\r\n", this->tagName, buf);
-	    va_end(params);
-	}
+	this->log_v(LOG_LEVEL_INFO, formatStr, params);
+	
+	va_end(params);
 }
 
-void Logger::debug(const char *formatStr, ...){
-	if (this->isEnableDebug()) {
-	    va_list params;
-	    char buf[BUFSIZ];
+void Logger::warn(const char *formatStr, ...) {
+	va_list params;
+	va_start(params, formatStr);
 
-	    va_start(params, formatStr);
-	    vsprintf(buf, formatStr, params);
-	    printf("%s: %s\r\n", this->tagName, buf);
-	    va_end(params);
-	}
+	this->log_v(LOG_LEVEL_WARN, formatStr, params);
+	
+	va_end(params);
 }
 
-void Logger::error(const char *formatStr, ...){
-	if (this->isEnableError()) {
-	    va_list params;
-	    char buf[BUFSIZ];
+void Logger::error(const char *formatStr, ...) {
+	va_list params;
+	va_start(params, formatStr);
 
-	    va_start(params, formatStr);
-	    vsprintf(buf, formatStr, params);
-	    printf("%s: %s\r\n", this->tagName, buf);
-	    va_end(params);
-	}
+	this->log_v(LOG_LEVEL_ERROR, formatStr, params);
+	
+	va_end(params);
+}
+
+void Logger::fatal(const char *formatStr, ...) {
+	va_list params;
+	va_start(params, formatStr);
+
+	this->log_v(LOG_LEVEL_FATAL, formatStr, params);
+	
+	va_end(params);
+}
+
+bool Logger::isEnabled(int level) {
+	return this->level <= level;	
+}
+
+bool Logger::isTraceEnabled() {
+	return this->level <= LOG_LEVEL_TRACE;
+}
+
+bool Logger::isDebugEnabled() {
+	return this->level <= LOG_LEVEL_DEBUG;
+}
+
+bool Logger::isInfoEnabled() {
+	return this->level <= LOG_LEVEL_INFO;
+}
+
+bool Logger::isWarnEnabled() {
+	return this->level <= LOG_LEVEL_WARN;
+}
+
+bool Logger::isErrorEnabled() {
+	return this->level <= LOG_LEVEL_ERROR;
+}
+
+bool Logger::isFatalEnabled() {
+	return this->level <= LOG_LEVEL_FATAL;
+}
+
+const char* Logger::getName() {
+	return this->name;
+}
+
+int Logger::getLevel() {
+	return this->level;
+}
+
+void Logger::setLevel(int level) {
+	this->level = level;
+}
+
+void Logger::addHandler(Handler* handler) {
+	this->handlers.push_back(handler);
 }

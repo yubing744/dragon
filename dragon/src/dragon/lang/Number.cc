@@ -17,7 +17,7 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/06/29
+ * Created:     2013/09/19
  **********************************************************************/
 
 
@@ -31,4 +31,12 @@ Number::Number() {
 
 Number::~Number() {
 
+}
+
+dg_byte Number::byteValue() {
+	return (dg_byte)intValue();
+}
+
+dg_short Number::shortValue() {
+	return (dg_short)intValue();
 }

@@ -25,34 +25,76 @@
 #define Logger_Logging_Util_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/util/logging/Handler.h>
 
-#define LOGGER_INFO 0
-#define LOGGER_DEBUG 1
-#define LOGGER_ERROR 2
+#include <vector>
 
 BeginPackage3(dragon, util, logging)
 
+Import std;
 Import dragon::util::logging;
+
+#define LOG_LEVEL_TRACE    1
+#define LOG_LEVEL_DEBUG    2
+#define LOG_LEVEL_INFO     3
+#define LOG_LEVEL_WARN     4 
+#define LOG_LEVEL_ERROR    5
+#define LOG_LEVEL_FATAL    6
+
+#define TRACE       LOG_LEVEL_TRACE
+#define DEBUG       LOG_LEVEL_DEBUG
+#define INFO        LOG_LEVEL_INFO
+#define WARN        LOG_LEVEL_WARN
+#define ERROR       LOG_LEVEL_ERROR
+#define FATAL       LOG_LEVEL_FATAL
 
 class _DragonExport Logger {
 public:
-    Logger(const char* tagName, int level);
+    static Logger* getLogger(const char* name);
+    static Logger* getLogger(const char* name, int level);
+
+public:
+    typedef vector<Handler*> HandlerList;
+    typedef HandlerList::iterator Iterator;
+
+public:
+    Logger(const char* name, int level);
     virtual ~Logger(void);
 
-public:
-    virtual void info(const char *formatStr, ...);
+public:   
+    // check if enabled
+    virtual bool isTraceEnabled();
+    virtual bool isDebugEnabled();
+    virtual bool isInfoEnabled();
+    virtual bool isWarnEnabled();
+    virtual bool isErrorEnabled();
+    virtual bool isFatalEnabled();
+
+    // format msg
+    virtual void trace(const char *formatStr, ...);
     virtual void debug(const char *formatStr, ...);
+    virtual void info(const char *formatStr, ...);
+    virtual void warn(const char *formatStr, ...);
     virtual void error(const char *formatStr, ...);
+    virtual void fatal(const char *formatStr, ...);
 
 public:
-    virtual bool isEnableInfo();
-    virtual bool isEnableDebug();
-    virtual bool isEnableError();
+    virtual bool isEnabled(int lovel);
+    virtual void log(int level, const char *formatStr, ...);
+    virtual void log_v(int level, const char *formatStr, va_list arg);
+
+    virtual const char* getName();
+    virtual int getLevel();
+    virtual void setLevel(int level);
+    
+    virtual void addHandler(Handler* handler);
 
 private:
-    char* tagName;
+    HandlerList handlers;
+
+    char* name;
     int level;
-	
+
 };//Logger
 
 EndPackage3 //(dragon, util, logging)

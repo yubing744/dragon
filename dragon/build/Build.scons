@@ -4,125 +4,12 @@ import os
 import imp
 from glob import glob
 from SCons.Script import *
+from dragon import *
+
 #######################################################
 # target build append source exts config
 #######################################################
-TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = {
-   "arm-android-linux" : {
-        "os" : [
-            "(Linux)",
-            "_linux",
-            "-linux",
-
-            "-Posix",
-            "_posix"
-        ], 
-        "arch" :  {
-            "path": "arm",
-            "suffixs" : [
-                "_arm"
-            ]
-        }
-   },
-   "arm-gp2x-linux" : [
-        "(Linux)",
-        "_Linux",
-        "_linux",
-        "-linux",
-        "_Posix",
-        "_posix",
-        "-posix"        
-   ],
-   "arm-unknown-linux" : [
-        "(Linux)",
-        "_Linux",
-        "_linux",
-        "-linux",
-        "_Posix",
-        "_posix",
-        "-posix"        
-   ],
-   "mipsel-psp-linux" : [
-        "(Linux)",
-        "_Linux",
-        "_linux",
-        "-linux",
-        "_Posix",        
-        "_posix",
-        "-posix"        
-   ],
-   "ppu-sony-ps3" : [],
-   "universal-apple-macosx" : {
-        "os" : [
-            "(OSX)",
-            "_OSX",
-            "_macos",
-            "-macos",
-            "_posix",
-            "-posix" 
-        ], 
-        "arch" : {
-            "path": "x64",
-            "suffixs" : [
-                "_x64"
-            ]
-        }
-   },
-   "x86-microsoft-win32" : {
-        "os" : [
-            "(Windows)",
-            "_Windows",
-            "_win32",
-            "-win32"  
-        ], 
-        "arch" :  {
-            "path": "ia32",
-            "suffixs" : [
-                "_ia32"
-            ]
-        }
-   },
-   "x86-unknown-cygwin" : [
-        "(Windows)", 
-        "_Windows",
-        "_cygwin",
-        "-cygwin"        
-   ],
-   "x86_64-unknown-linux" : {
-        "os" : [
-            "(Linux)",
-            "_Linux",
-            "_linux",
-            "-linux",
-            "_Posix",
-            "_posix",
-            "-posix" 
-        ], 
-        "arch" : {
-            "path": "x64",
-            "suffixs" : [
-                "_x64"
-            ]
-        }
-   },
-   "x86-unknown-linux" : {
-        "os" : [
-            "(Linux)",
-            "_Linux",
-            "_linux",
-            "-linux",
-            "_Posix",
-            "_posix",
-            "-posix" 
-        ], 
-        "arch" : {
-            "path": "ia32",
-            "suffixs" : [
-                "_ia32"
-            ]
-        }
-   } 
-}
+TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = DEFAULT_TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP
 
 #######################################################
 # reusable functions and data structures
@@ -151,69 +38,13 @@ def GlobSources(drct, patterns, excluded_files=[]):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
-def AddPlatformTargetSource(source_file):
-    new_files = [];
-    new_files.append(source_file);
-    
-    target = env['target']
-    
-    if TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP.has_key(target):
-        target_config = TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP[target]
-
-        path = "."
-        suffixs = []
-
-        arch_path = "."
-        arch_suffixs = []
-
-        if isinstance(target_config, list) :
-            suffixs = target_config
-        elif isinstance(target_config, dict):
-            arch = target_config["arch"];
-            if isinstance(arch, list):
-                suffixs = arch
-            else:
-                arch_path = arch["path"]
-                arch_suffixs = arch["suffixs"]
-
-            os_cfg = target_config["os"];
-            if isinstance(os_cfg, list):
-                suffixs = os_cfg
-            else:
-                path = os_cfg["path"]
-                suffixs = os_cfg["suffixs"]
-
-        segments = os.path.split(source_file)
-        file_path = segments[0]
-        file_name = segments[1]
-        parts = os.path.splitext(file_name)
-        name = parts[0]
-        ext_name = parts[1]
-
-        root = GetBuildPath(project.getBase() + '/' + file_path)
-
-        for suffix in suffixs:
-            new_file = root + '/' + path + "/" + name + suffix + ext_name;
-
-            if os.path.exists(new_file):
-                new_files.append(file_path + '/' + path + "/" + name + suffix + ext_name);
-
-        for arch_suffix in arch_suffixs:
-            new_file = root + '/' + arch_path + "/" + name + arch_suffix + ext_name;
-
-            if os.path.exists(new_file):
-                #print "arch_file:", new_file
-                new_files.append(file_path + '/' + arch_path + "/" + name + arch_suffix + ext_name);
-
-    return new_files;
-
 def GlobTargetSources(drct, patterns, excluded_files=[]):
     source_files = GlobSources(drct, patterns, excluded_files)
     new_files = []
 
     for source_file in source_files:
         if source_file:
-            new_files += AddPlatformTargetSource(source_file)
+            new_files += AddPlatformTargetSource(project, source_file)
 
     return new_files
 
@@ -437,154 +268,6 @@ def Application(name,
             env.RunProgram(target= "#run-" + name, source=inst)
 
 
-class Project:
-    def __init__(self, project):
-        self.config = project
-
-    def init(self):
-        self.config['_Modules_'] = {}
-        self.config['deps'] = self.findDependencies()
-        self.installDependencies()
-
-    def getBase(self):
-        return self.config['cwd']
-
-    def getGroupID(self):
-        return self.config['groupID']
-
-    def getArtifactID(self):
-        return self.config['artifactID']
-
-    def getName(self):
-        return self.config['groupID'] + ":" + self.config['artifactID']
-
-    def getSubProjects(self):
-        if 'children' in self.config:
-            return self.config['children']
-        else:
-            return []
-
-    def parseDependeny(self, dep):
-        if isinstance(dep, str):
-            segs = dep.split(':')
-
-            if len(segs) >= 2:
-                groupID = segs[0]
-                artifactID = segs[1]
-
-                if not groupID:
-                    groupID = self.config['groupID']
-
-            return {
-                'groupID' : groupID,
-                'artifactID' : artifactID
-            }
-        elif isinstance(dep, dict):
-            return dep
-        else:
-            raise 'not support dependency config type!'
-
-    def matchFilterConfig(self, filterConfig):
-        return self.getGroupID() == filterConfig['groupID'] and self.getArtifactID() == filterConfig['artifactID']
-
-    def match(self, project):
-        if project:
-            return self.getGroupID() == project.getGroupID() and self.getArtifactID() == project.getArtifactID()
-
-        return False
-
-    def findDependencyInSubProjects(self, filterConfig, exclude=None):
-        #print 'begin find in subProjects'
-
-        for subProjectCfg in self.getSubProjects():
-            subProject = Project(subProjectCfg)
-            #print 'find in sub project', subProject.getName()
-
-            if subProject.match(exclude):
-                #print 'sub project match exclude and continue'
-                continue
-  
-            if subProject.matchFilterConfig(filterConfig):
-                #print 'subProject match filterConfig'
-                return subProject
-            else:
-                #print 'subProject not match filterConfig'
-                return subProject.findDependencyInSubProjects(filterConfig)
-
-    def findDependencyProject(self, filterConfig):
-        parentCfg = self.config['parent']
-        if parentCfg:
-            project = Project(parentCfg)
-
-            #print 'try find dependencies in', project.getName()
-            
-            result = project.findDependencyInSubProjects(filterConfig, self)
-            if not result == None:
-                return result
-            else:
-                return project.findDependencyProject(filterConfig)
-        else:
-            return None
-
-    def getModules(self):
-        if not '_Modules_' in self.config:
-            self.config['_Modules_'] = {}
-        return self.config['_Modules_']
-
-    def hasModule(self, name):
-        modules = self.getModules()
-        return modules.has_key(name)
-
-    def addModules(self, modules):
-        localModules = self.getModules()
-        for name in modules:
-            localModules[name] = modules[name]
-
-    def addModule(self, name, module):
-        modules = self.getModules()
-        modules[name] = module
-
-    def getModule(self, name):
-        modules = self.getModules()
-        return modules[name]
-
-    def getProducts(self):
-        dirs = []
-        modules = self.getModules()
-        for name in modules:
-            dirs += modules[name].GetProduct()
-
-        return dirs
-
-    def findDependencies(self):
-        deps = []
-        if ('dependencies' in self.config):
-            depDefs = self.config['dependencies']
-            #print 'all deps def:', depDefs
-            for depDef in depDefs:
-                depConfig = self.parseDependeny(depDef)
-                depProject = self.findDependencyProject(depConfig)
-                if depProject:
-                    deps.append(depProject)
-                else:
-                    raise 'not found dependency project'
-
-        return deps
-                           
-    def installDependencies(self):
-        if ('deps' in self.config):
-            deps = self.config['deps']
-            #print 'all deps:', deps
-            for dep in deps:
-                #print 'dep project:', dep.getName()
-
-                #print 'install dep project modules:', dep.getModules()
-                self.addModules(dep.getModules());
-
-                #print 'install dep project product:', dep.getProducts()
-                env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=dep.getProducts())
-
-
 ### Add Test Builder
 def RunTarget(target, source, env):
     if env.has_key("BEFORE_RUN_FUNC"):
@@ -605,7 +288,7 @@ def RunTarget(target, source, env):
 Import("env")
 Import('project')
 
-project = Project(project)
+project = Project(env, project)
 project.init()
 
 ### defaults
@@ -823,14 +506,6 @@ LibraryModule(
 
 # dragon c++ class library
 dragon_SOURCES = {
-#        "dragon/lang/Object.cc",
-#        "dragon/lang/Throwable.cc",
-#        "dragon/lang/Exception.cc",
-#        "dragon/lang/RuntimeException.cc",
-#        "dragon/lang/IndexOutOfBoundsException.cc",
-#        "dragon/lang/NullPointerException.cc"
-#        "dragon/lang/internal/platform_win32.cc",
-
     "dragon/lang" : Split("""
         Object.cc
         Math.cc 
@@ -854,6 +529,9 @@ dragon_SOURCES = {
         
         Class.cc
         ClassLoader.cc 
+        System.cc
+
+        Thread.cc
     """),
     "dragon/lang/gc" : Split("""
         GarbageCollector.cc
@@ -880,6 +558,20 @@ dragon_SOURCES = {
     """),
     "dragon/util/logging" : Split("""
         Logger.cc 
+        LogManager.cc
+        ConsoleHandler.cc
+    """),
+     "dragon/util/concurrent" : Split("""
+        Semaphore.cc
+        CountDownLatch.cc  
+    """),   
+    "dragon/util/concurrent/locks" : Split("""
+        SynchLock.cc 
+    """),
+    "dragon/util/concurrent/atomic" : Split("""
+        AtomicBoolean.cc 
+        AtomicInteger.cc 
+        AtomicLong.cc 
     """)
 }
     
@@ -920,6 +612,8 @@ dragon_test_SOURCES = {
         StringBufferTest.cc
 
         ClassLoaderTest.cc 
+        SystemTest.cc
+        ThreadTest.cc
     """),
     "dragon/lang/gc" : Split("""
         SmartPointerTest.cc
@@ -932,10 +626,14 @@ dragon_test_SOURCES = {
         LibraryClassLoaderTest.cc
         SystemClassLoaderTest.cc
     """),
+    "dragon/util" : Split("""
+        ArrayListTest.cc 
+        HashMapTest.cc
+    """),      
     "dragon/util/regex" : Split("""
         PatternSyntaxExceptionTest.cc 
         RegexTest.cc 
-    """),   
+    """),
     "." : Split("""
         TestMain.cc
     """)

@@ -56,7 +56,17 @@
 
 //#define DRAGON_STATIC_LIB
 //#define MEM_CHECK
-//#define ENABLE_LOG
+
+// Log switch
+#define ENABLE_LOG         1 // enable log
+#define ENABLE_LOG_LEVEL   5 // only show error
+
+// Assert
+#ifdef NDEBUG 
+	#define ASSERT
+#else
+	#define ASSERT assert
+#endif
 
 // Define export
 #ifdef _WIN32
@@ -104,11 +114,9 @@
 
 #define _DragonExport DRAGONEXPORT
 
-
 // Define Extends
 #undef extends
 #define extends(super_class) :public super_class	
-
 
 // Define Implements
 #undef implements
@@ -170,6 +178,22 @@
 	#define DRAGON_DEPRECATED(declarator) declarator
 #endif
 
+// Define volatile
+#ifndef _WIN32
+	#define DRAGON_ATOMICS_VOLATILE 
+#else
+	#define DRAGON_ATOMICS_VOLATILE volatile
+#endif
+
+// Byte Align
+#if _WIN32
+  /** This can be placed before a stack or member variable declaration to tell the compiler
+      to align it to the specified number of bytes. */
+  #define DRAGON_ALIGN(bytes)   __declspec (align (bytes))
+#else
+  #define DRAGON_ALIGN(bytes)   __attribute__ ((aligned (bytes)))
+#endif
+
 
 // Define null
 #undef null	
@@ -194,20 +218,34 @@
 
 
 // dragon basic types
-typedef char dg_byte;
-typedef short dg_short;
-typedef int dg_int;
-typedef long long dg_long;
-typedef float dg_float;
-typedef double dg_double;
+#ifdef HAVE_INTTYPES_H
+	#include <inttypes.h>       /* C99 */
+	typedef bool                dg_boolean;       /* unsigned 8 bits */
+	typedef uint8_t             dg_byte;          /* signed 8 bits */
+	typedef int16_t             dg_short;         /* signed 16 bits */
+	typedef uint32_t            dg_char;          /* unsigned 32 bits */
+	typedef int32_t             dg_int;           /* signed 32 bits */
+	typedef int64_t             dg_long;          /* signed 64 bits */
+	typedef float               dg_float;         /* 32-bit IEEE 754 */
+	typedef double              dg_double;        /* 64-bit IEEE 754 */
 
-typedef unsigned int dg_char;
-typedef bool dg_boolean;
+	typedef uint16_t            dg_ushort;
+	typedef uint32_t            dg_uint;
+	typedef uint64_t            dg_ulong;
+#else
+	typedef bool                dg_boolean;       /* unsigned 8 bits */
+	typedef char                dg_byte;          /* signed 8 bits */
+	typedef short               dg_short;         /* signed 16 bits */
+	typedef unsigned int        dg_char;          /* unsigned 32 bits */
+	typedef int                 dg_int;           /* signed 32 bits */
+	typedef long long           dg_long;          /* signed 64 bits */
+	typedef float               dg_float;         /* 32-bit IEEE 754 */
+	typedef double              dg_double;        /* 64-bit IEEE 754 */
 
-// unsigned basic types
-typedef unsigned short dg_ushort;
-typedef unsigned int dg_uint;
-typedef unsigned long long dg_ulong;
+	typedef unsigned short      dg_ushort;
+	typedef unsigned int        dg_uint;
+	typedef unsigned long long  dg_ulong;
+#endif
 
 
 // NULL char
