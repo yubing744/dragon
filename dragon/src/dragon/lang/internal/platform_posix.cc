@@ -24,8 +24,16 @@
 
 #include <cxxabi.h>
 
+#include <pthread.h>
+#include <semaphore.h>
+#include <signal.h>
+
+#include <errno.h>
+
 #include <string.h>
 #include <stdlib.h>
+
+#include <sys/time.h>
 
 #include <string>
 #include <map>
@@ -428,3 +436,157 @@ void* dragon::lang::internal::GetFuncAddress(const char* signature) {
 	dladdr((void*)(&SymTestBean::classLocationFlag), &info);
 	return GetFuncAddress(info.dli_fname, signature);
 }
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Time
+// 
+
+/**
+ * get the system time
+ * 
+ * @return [description]
+ */
+dg_long dragon::lang::internal::GetSystemTime() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return ((dg_long) tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Lock
+// 
+
+/**
+ * init a mutex object
+ * 
+ * @return [description]
+ */
+void* dragon::lang::internal::InitMutex() {
+	pthread_mutex_t* pmutex = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t));
+
+    pthread_mutexattr_t attr;
+    pthread_mutexattr_init(&attr);
+    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+
+    pthread_mutex_init(pmutex, &attr);
+
+    return pmutex;
+}
+
+/**
+ *  lock the mutex
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::LockMutex(void* mutex) {
+	pthread_mutex_t* pmutex = (pthread_mutex_t*)mutex;
+	pthread_mutex_lock(pmutex);
+}
+
+/**
+ *  try lock the mutex
+ * 
+ * @return [description]
+ */
+bool dragon::lang::internal::TryLockMutex(void* mutex) {
+	pthread_mutex_t* pmutex = (pthread_mutex_t*)mutex;
+
+	int result = pthread_mutex_trylock(pmutex);
+    // Return false if the lock is busy and locking failed.
+    if (result == EBUSY) {
+      	return false;
+    }
+
+    return true;
+}
+
+/**
+ *  unlock the mutex
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::UnlockMutex(void* mutex) {
+	pthread_mutex_t* pmutex = (pthread_mutex_t*)mutex;
+	pthread_mutex_unlock(pmutex);
+}
+
+/**
+ * free mutex object
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::FreeMutex(void* mutex) {
+	pthread_mutex_t* pmutex = (pthread_mutex_t*)mutex;
+	pthread_mutex_destroy(pmutex);
+
+	SafeFree(pmutex);
+}
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Thread
+// 
+
+// mine thread handle
+typedef struct ThreadHandle{
+  	pthread_t thread;
+};
+
+// thread entry func
+typedef void*(*ThreadEntryFunc)(void*);
+
+void* dragon::lang::internal::CreateThread(int stackSize, void* target, void* entryFunc) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)malloc(sizeof(struct ThreadHandle*));
+
+ 	pthread_attr_t* attr_ptr = NULL;
+	pthread_attr_t attr;
+
+  	if (stackSize > 0) {
+    	pthread_attr_init(&attr);
+    	pthread_attr_setstacksize(&attr, static_cast<size_t>(stackSize));
+    	attr_ptr = &attr;
+  	}
+
+  	ThreadEntryFunc func = void_cast<ThreadEntryFunc>(entryFunc);
+  	int ret = pthread_create(&handle->thread, attr_ptr, func, target);
+
+  	if (ret != 0) {
+  		printf("can't create thread: %s\n", strerror(ret));
+  		return NULL;
+  	}
+
+  	return handle;
+}
+
+void dragon::lang::internal::JoinThread(void* threadHandle) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)threadHandle;
+
+	pthread_join(handle->thread, NULL);
+}
+
+void dragon::lang::internal::YieldThread() {
+	sched_yield();
+}
+
+void dragon::lang::internal::CloseThread(void* threadHandle) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)threadHandle;
+  	SafeFree(handle);	
+}
+
+void dragon::lang::internal::SleepThread(long millisecs) {
+    struct timespec time;
+
+    time.tv_sec = millisecs / 1000;
+    time.tv_nsec = (millisecs % 1000) * 1000000;
+
+    nanosleep(&time, NULL);
+}
+

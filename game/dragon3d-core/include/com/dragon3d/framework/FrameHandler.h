@@ -25,20 +25,48 @@
 #define FrameHandler_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/util/ArrayList.h>
+#include <dragon/util/logging/Logger.h>
 
 BeginPackage3(com, dragon3d, framework)
 
+Import dragon::util;
+Import dragon::util::logging;
 Import com::dragon3d::framework;
 
+/**
+ * Does the work needed in a given frame.
+ */
 class _DragonExport FrameHandler {
+public:
+	static const Logger* logger;
+
 public:
 	FrameHandler();
 	virtual ~FrameHandler();
 
 public:
+	virtual void init();
+
+	virtual void updateFrame();
+
+	virtual void addUpdater(Updater* updater);
+	virtual void removeUpdater(Updater* updater);
+
+	virtual void addCanvas(Canvas* canvas);
+	virtual bool removeCanvas(Canvas* canvas);
+
+	virtual int getTimeoutSeconds();
+	virtual void setTimeoutSeconds(int timeoutSeconds);
+
+	virtual Timer* getTimer();
 	
 protected:
-	
+	ArrayList<Updater>* updaters;
+	ArrayList<Canvas>* canvases;
+	Timer* timer;
+
+	int timeoutSeconds;
 };//FrameHandler
 
 EndPackage3 //(com, dragon3d, framework)

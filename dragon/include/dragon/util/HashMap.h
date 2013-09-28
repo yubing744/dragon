@@ -1,75 +1,94 @@
-#include "util.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef util_HashMap_Header
-#define util_HashMap_Header
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/09/21
+ **********************************************************************/
 
-#include "Map.h"
 
-#include <hash_map>
+#ifndef HashMap_Util_Dragon_H
+#define HashMap_Util_Dragon_H
 
-BeginPackage2(dragon,util)
+#include <dragon/config.h>
+
+#include <dragon/lang/Object.h>
+#include <dragon/util/Map.h>
+
+#include <map>
+
+BeginPackage2(dragon, util)
 
 Import std;
-Import stdext;
+Import dragon::lang;
 
-template<class K=String,class V=P<Object>>
-class HashMap :public Object,public Map<K,V>
-{
+template<class K, class V>
+class HashMap :public Map<K, V> {
 public:
-	typedef typename hash_map<K,V>::iterator StlIterator;
-	typedef P<typename Map<K,V>::Entry> E;
 
-	class HashMapEntry:public Map<K,V>::Entry
-	{
+	class HashMapEntry implements(Map)<K, V>::Entry {
 	public:
-		HashMapEntry(K key,V value)
-		{
-			this->key=key;
-			this->value=value;
+		HashMapEntry(K key, V* value) {
+			this->key = key;
+			this->value = value;
 		};
+
+		~HashMapEntry(){};
+
 	public:
-		virtual K getKey()
-		{
+		virtual K getKey() {
 			return key;
 		};
 
-		virtual V getValue()
-		{	
+		virtual V* getValue() {	
 			return value;
 		};
 
 	private:
 		K key;
-		V value;
+		V* value;
 	};
 
-	typedef P<HashMapEntry> HME;
+public:
+	typedef typename map<K, V*>::iterator StlIterator;
+	typedef typename Map<K, V>::Entry MapEntry;
 
-	class HashMapIterator:public Iterator<E>
-	{
+	class HashMapIterator implements(Iterator<MapEntry>) {
 	public:
-		HashMapIterator(){};
-		HashMapIterator(StlIterator it,StlIterator itEnd)
-		{
-			this->it=it;
-			this->itEnd=itEnd;
+		HashMapIterator(StlIterator it, StlIterator itEnd) {
+			this->it = it;
+			this->itEnd = itEnd;
 		}
+
+		~HashMapIterator(){};
+
 	public:
-		virtual bool hasNext()
-		{
-			if(it!=itEnd)
-			{
+		virtual bool hasNext() {
+			if(it != itEnd) {
 				return true;
 			}
+
 			return false;
 		};
 
-		virtual E next()
-		{
-			E hmape=new HashMapEntry(it->first,it->second);
+		virtual MapEntry* next() {
+			MapEntry* mapEntry = new HashMapEntry(it->first, it->second);
 			it++;
-			return hmape;
+			return mapEntry;
 		};
 
 	private:
@@ -79,102 +98,88 @@ public:
 
 public:
 	HashMap();
+	virtual ~HashMap();
 
-public:
-	virtual V put(K key,V value);
-	virtual V get(K key);
+public: //Implements Map<K, V> 
+	virtual Iterator<MapEntry>* iterator();
+
+	virtual V* put(K key,V* value);
+	virtual V* get(K key);
 	virtual bool containsKey(K key);
 	virtual void clear();
-	virtual V remove(K key);
+	virtual V* remove(K key);
 	virtual int size();
 	virtual bool isEmpty();
 
-	virtual P<Iterator<E>> iterator();
-
 private:
-	hash_map<K,V> keyMap;
-
+	map<K, V*> keyMap;
 };
 
-template<class K,class V>
-HashMap<K,V>::HashMap(void){}
+template<class K, class V>
+HashMap<K, V>::HashMap(void){}
 
-
-template<class K,class V>
-V HashMap<K,V>::put(K key,V value)
-{
-	keyMap[key]=value;
-	return value;
-}
-
-template<class K,class V>
-V HashMap<K,V>::get(K key)
-{
-	StlIterator it=keyMap.find(key);
-
-	if(it==keyMap.end())
-	{
-		return null;
-	}
-
-	return keyMap[key];
-}
-
-template<class K,class V>
-bool HashMap<K,V>::containsKey(K key)
-{
-	StlIterator it=keyMap.find(key);
-
-	if(it==keyMap.end())
-	{
-		return false;
-	}
-
-	return true;
-}
-
-template<class K,class V>
-void HashMap<K,V>::clear()
-{
+template<class K, class V>
+HashMap<K, V>::~HashMap(void){
 	keyMap.clear();
 }
 
-template<class K,class V>
-V HashMap<K,V>::remove(K key)
-{
-	StlIterator it=keyMap.find(key);
-	StlIterator toDel;
+template<class K, class V>
+V* HashMap<K, V>::put(K key, V* value) {
+	keyMap[key] = value;
+	return value;
+}
 
-	if(it!=keyMap.end())
-	{
-		toDel=keyMap.erase(it);
-		return toDel->second;
+template<class K, class V>
+V* HashMap<K, V>::get(K key) {
+	StlIterator it = keyMap.find(key);
+
+	if(it != keyMap.end()) {
+		return keyMap[key];
 	}
 
-	return (V)null;
+	return null;
 }
 
-template<class K,class V>
-P<Iterator<P<typename Map<K,V>::Entry>>> HashMap<K,V>::iterator()
-{
-	return new HashMapIterator(keyMap.begin(),keyMap.end());
+template<class K, class V>
+bool HashMap<K, V>::containsKey(K key) {
+	StlIterator it = keyMap.find(key);
+	return (it != keyMap.end());
 }
 
-template<class K,class V>
-int HashMap<K,V>::size()
-{
+template<class K, class V>
+void HashMap<K, V>::clear() {
+	keyMap.clear();
+}
+
+template<class K, class V>
+V* HashMap<K, V>::remove(K key) {
+	StlIterator it = keyMap.find(key);
+	V* toDel = null;
+
+	if(it != keyMap.end()) {
+		toDel = it->second;
+		keyMap.erase(it);
+		return toDel;
+	}
+
+	return null;
+}
+
+template<class K, class V>
+Iterator<typename HashMap<K, V>::MapEntry>* HashMap<K, V>::iterator() {
+	return new HashMapIterator(keyMap.begin(), keyMap.end());
+}
+
+template<class K, class V>
+int HashMap<K, V>::size() {
 	return keyMap.size();
 }
 
-template<class K,class V>
-bool HashMap<K,V>::isEmpty()
-{
+template<class K, class V>
+bool HashMap<K,V>::isEmpty() {
 	return keyMap.empty();
 }
 
+EndPackage2//(dragon, util)
 
-typedef HashMap<String,P<Object>> SoHashMap;
-
-EndPackage2
-
-#endif
+#endif//HashMap_Util_Dragon_H

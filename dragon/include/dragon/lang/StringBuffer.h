@@ -40,8 +40,6 @@ public:
 
 public:
     virtual String* toString();
-
-protected:
 	
 };//StringBuffer
 

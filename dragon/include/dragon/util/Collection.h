@@ -1,28 +1,52 @@
-#include "util.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef Util_Collection_H
-#define Util_Collection_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/09/21
+ **********************************************************************/
 
-#include "Iterable.h"
 
-BeginPackage2(dragon,util)
+#ifndef Collection_Util_Dragon_H
+#define Collection_Util_Dragon_H
+
+#include <dragon/config.h>
+#include <dragon/util/Iterable.h>
+
+BeginPackage2(dragon, util)
+
+Import dragon::util;
 
 template<class E>
-interface Collection:public Iterable<E>
+interface Collection extends(Iterable<E>)
 {
 public:
 	virtual ~Collection(){};
 
-public:
-	virtual P<Iterator<E>> iterator() =0;
+public: // extends Iterable<E>
+	virtual Iterator<E>* iterator() = 0;
 
-	virtual void clear()=0;
-	virtual int size()=0;
-	virtual bool isEmpty()=0;
-	virtual bool contains(const E& e)=0;
+public:
+	virtual void clear() = 0;
+	virtual int size() = 0;
+	virtual bool isEmpty() = 0;
+	virtual bool contains(E* e) = 0;
 };
 
-EndPackage2
+EndPackage2//(dragon, util)
 
-#endif
+#endif//Collection_Util_Dragon_H

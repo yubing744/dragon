@@ -21,76 +21,102 @@
  **********************************************************************/
 
 #include <dragon/lang/Thread.h>
-#include <dragon/util/util.h>
-
-#include "internal/platform.h"
+#include <dragon/lang/internal/platform.h>
 
 Import dragon::lang;
-Import dragon::util;
+Import dragon::lang::internal;
 
-typedef dragon::lang::internal::Thread InternalThread;
-
+//typedef dragon::lang::internal::Thread InternalThread;
 //static Map<String, InternalThread*>* defaultThreads = new HashMap<String, InternalThread*>();
-static List<InternalThread*>* DefaultThreads = new ArrayList<InternalThread*>();
-
+//static List<InternalThread*>* DefaultThreads = new ArrayList<InternalThread*>();
+#define DEFAULT_STACK_SIZE 1024 * 1024 * 1
 
 Thread::Thread(){
-	this->target = this;
-	this->name = String(L"Dragon Thread");
-	this->id = DefaultThreads->size();
-	DefaultThreads->add(new InternalThread(InternalThread::Options()));
+	init(null, "Thread", DEFAULT_STACK_SIZE);
 }
 
 Thread::Thread(Runnable* target){
-
+	init(target, "Thread", DEFAULT_STACK_SIZE);
 }
 
-Thread::Thread(const String& name){
-
+Thread::Thread(const char* name){
+	init(null, name, DEFAULT_STACK_SIZE);
 }
 
-Thread::Thread(Runnable* target, const String& name){
-
+Thread::Thread(Runnable* target, const char* name){
+	init(target, name, DEFAULT_STACK_SIZE);
 }
 
-void Thread::getId() {
-
+Thread::Thread(Runnable* target, const char* name, int stackSize){
+	init(target, name, stackSize);
 }
 
-String Thread::getName() {
-
+Thread::~Thread() {
+	SafeDelete(this->name);
 }
 
-void Thread::setName(const String& name) {
-
+void Thread::init(Runnable* target, const char* name, int stackSize) {
+	this->target = target;
+	this->name = new String(name);
+	this->id = 1;
+	this->stackSize = stackSize;
 }
 
+//----------------------------------------------------
+int Thread::getId() {
+	return this->id;
+}
+
+String* Thread::getName() {
+	return this->name;
+}
+
+void Thread::setName(const char* name) {
+	SafeDelete(this->name);
+	this->name = new String(name);
+}
+
+
+//----------------------------------------------------
 void Thread::run() {
+	if (this->target != null) {
+		this->target->run();
+	}
+}
 
+//----------------------------------------------------
+typedef void (*ThreadEntryPoint)(void*);
+
+void Thread::entryPoint(void* userData) {
+	Thread* thread = (Thread*)userData;
+	thread->run();
 }
 
 void Thread::start() {
+	ThreadEntryPoint entryPoint = &Thread::entryPoint;
+	this->threadHandle = CreateThread(this->stackSize, this, cast_void(entryPoint));
+}
+
+void Thread::interrupt() {
 
 }
 
-void Thread::interrupt() throw(InterruptedException) {
+void Thread::join() {
+	JoinThread(this->threadHandle);
+}
+
+void Thread::join(long millis) {
 
 }
 
-void Thread::join() throw(InterruptedException) {
+void Thread::join(long millis, int nanos) {
 
 }
 
-void Thread::join(long millis) throw(InterruptedException) {
 
-}
-
-void Thread::join(long millis,int nanos) throw(InterruptedException) {
-
-}
-
-void Thread::sleep(long millis) throw(InterruptedException){
-
+//----------------------------------------------------
+void Thread::sleep(long millis) {
+	SleepThread(millis);
 }
 
 Thread* Thread::currentThread(){
@@ -98,5 +124,5 @@ Thread* Thread::currentThread(){
 }
 
 void Thread::yield(){
-
+	YieldThread();
 }

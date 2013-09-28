@@ -175,3 +175,4 @@ void SymTestBean::setTestVal(dg_int val) {
 	this->testVal = val;
 }
 
+

@@ -25,6 +25,12 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Math.h>
+#include <dragon/lang/Array.h>
+#include <dragon/lang/Object.h>
+#include <dragon/lang/Comparable.h>
+#include <dragon/lang/CharSequence.h>
+
 #include <iostream>
 #include <cstdlib>
 #include <locale>
@@ -33,16 +39,9 @@
 #include <stdarg.h>
 #include <string.h>
 
-Import std;
-
-#include "Math.h"
-#include "Array.h"
-#include "Object.h"
-#include "Comparable.h"
-#include "CharSequence.h"
-
 BeginPackage2(dragon, lang)
 
+Import std;
 
 /**
  * The <code>String</code> class represents character strings. All
@@ -105,12 +104,14 @@ BeginPackage2(dragon, lang)
 class _DragonExport String extends(Object) 
      implements2(CharSequence, Comparable<String>)
 {
-	/*
-	friend wostream& operator << (wostream& os,const String& str);
-	friend wostream& operator << (wostream& os,String* str);
+public:
+	friend wostream& operator << (wostream& os, const String& str);
+	friend wostream& operator << (wostream& os, String* str);
 	friend size_t hash_value(const String& str);
-	friend dg_boolean operator<(const String& left,const String& right);
-     */
+	friend bool operator<(const String& left,const String& right);
+
+//-------------------------------------------------------------------
+
 private:
 	static const char* LOCAL_UCS4_CHARSET;
 	static const Array<dg_char> EMPTY_CHAR_ARRAY;
@@ -132,6 +133,7 @@ public:
 
 	String(const char* value);
 	String(const wchar_t* value);
+     
      String(const String& value);
 	String(const dg_char* value);
 	String(const String* value);
@@ -679,7 +681,7 @@ public:
 	static String* copyValueOf(const dg_char* data, dg_int offset, dg_int count);
 	static String* copyValueOf(const dg_char* data);
 
-    static String* vformat(String* format, va_list arg);
+     static String* vformat(String* format, va_list arg);
 	static String* format(String* format, ...);
 	static String* format(const char* format, ...);
 	static String* format(const wchar_t* format, ...);
@@ -751,37 +753,31 @@ private:
 	dg_int count;
 };
 
-/*
-inline wostream& operator << (wostream& os,const String& str)
-{
-    os<<str.mstr;
-    return os;
+// suport compare and hash
+inline wostream& operator << (wostream& os,const String& str) {
+     String* theStr = const_cast<String*>(&str);
+     Array<dg_byte> bytes = theStr->getBytes();
+     os << bytes.raw();
+     return os;
 }
 
-inline wostream& operator << (wostream& os,String* str)
-{
-    os<<str->mstr;
-    return os;
+inline wostream& operator << (wostream& os, String* str) {
+     String* theStr = const_cast<String*>(str);
+     Array<dg_byte> bytes = str->getBytes();
+     os << bytes.raw();
+     return os;
 }
 
-inline dg_boolean operator<(const String& left,const String& right)
-{
-	return left.mstr<right.mstr;
+inline bool operator<(const String& left, const String& right) {
+     String* theStr = const_cast<String*>(&left);
+     String* otherStr = const_cast<String*>(&right);
+	return theStr->compareTo(otherStr) > 0;
 }
 
-inline size_t hash_value(const String& str)
-{
-	dg_int n=str.mstr.size();
-	dg_int hc=0;
-
-	for(dg_int i=0;i<n;i++)
-	{
-		hc+=(str.mstr[i]*(dg_int)Math::pow(31.0, n-i+1));
-	}
-
-	return hc;
+inline size_t hash_value(const String& str) {
+     String* theStr = const_cast<String*>(&str);
+	return theStr->hashCode();
 }
-*/
 
 EndPackage2//(dragon, lang)
 

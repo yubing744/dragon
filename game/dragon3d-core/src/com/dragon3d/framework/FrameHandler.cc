@@ -22,13 +22,114 @@
 
 
 #include <com/dragon3d/framework/FrameHandler.h>
+#include <dragon/util/concurrent/CountDownLatch.h>
 
 Import com::dragon3d::framework;
 
-FrameHandler::FrameHandler() {
+Import dragon::util::concurrent;
+Import dragon::util::concurrent::locks;
 
+Logger* FrameHandler::logger = Logger::getLogger("com::dragon3d::framework.FrameHandler");
+
+FrameHandler::FrameHandler() 
+	:timeoutSeconds(3) {
+	this->timer = new Timer();
+	this->updaters = new ArrayList<Updater>();
+	this->canvases = new ArrayList<Canvas>();
 }
 
 FrameHandler::~FrameHandler() {
+	SafeDelete(this->timer);
+	SafeDelete(this->updaters);
+	SafeDelete(this->canvases);
+}
 
+void FrameHandler::init() {
+	// init updaters
+	Iterator<Updater>* it = this->updaters->iterator();
+
+	while (it->hasNext()) {
+		Updater* updater = it->next();
+		updater->init();
+	}
+
+	SafeDelete(it);
+
+	// init canvase
+	Iterator<Canvas>* itc = this->canvases->iterator();
+
+	while (itc->hasNext()) {
+		Canvas* canvase = itc->next();
+		canvase->init();
+	}
+
+	SafeDelete(itc);
+}
+
+
+void FrameHandler::updateFrame() {
+	// 1. update timer
+	this->timer->update();
+
+	// 2. call updater
+	Iterator<Updater>* it = this->updaters->iterator();
+
+	while (it->hasNext()) {
+		Updater* updater = it->next();
+		updater->update(this->timer);
+	}
+
+	SafeDelete(it);
+
+	// 3. draw canvases
+	int numCanvases = this->canvases->size();
+	Iterator<Canvas>* itc = this->canvases->iterator();
+
+	CountDownLatch* latch = new CountDownLatch(numCanvases);
+
+	while (itc->hasNext()) {
+		Canvas* canvase = itc->next();
+		canvase->draw(latch);
+	}
+
+	bool success = latch->await(this->timeoutSeconds * 1000);
+
+    if (!success) {
+        logger->warn("updateFrame Timeout while waiting for renderers");
+    }
+
+    SafeDelete(itc);
+	SafeDelete(latch);
+}
+
+void FrameHandler::addUpdater(Updater* updater) {
+	if (!this->updaters->contains(updater)) {
+		this->updaters->add(updater);
+	}
+}
+
+void FrameHandler::removeUpdater(Updater* updater) {
+	this->updaters->remove(updater);
+}
+
+void FrameHandler::addCanvas(Canvas* canvas){
+	if (!this->canvases->contains(canvas)) {
+		this->canvases->add(canvas);
+	}
+}
+
+bool FrameHandler::removeCanvas(Canvas* canvas){
+	this->canvases->remove(canvas);
+}
+
+int FrameHandler::getTimeoutSeconds(){
+	return this->timeoutSeconds;
+}
+
+void FrameHandler::setTimeoutSeconds(int timeoutSeconds){
+	this->timeoutSeconds = timeoutSeconds;
+}
+
+Timer* FrameHandler::getTimer(){
+	return this->timer;
 }

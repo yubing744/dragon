@@ -41,10 +41,10 @@ public:
 		static void destruct(void* data) {
 			try {
 				T* td=(T*)(data);
-				Log("\n[%s] @%d is destructing...\n", typeid(*td).name(), td);
+				//Log("\n[%s] @%d is destructing...\n", typeid(*td).name(), td);
 				delete td;
 			} catch(...) {
-				Log("\ndelete[%s] @%d error...\n", typeid(*td).name(), td);
+				//Log("\ndelete[%s] @%d error...\n", typeid(*td).name(), td);
 				return;
 			}
 		}
@@ -52,10 +52,10 @@ public:
 		static void destructArray(void* arr) {
 			try {
 				T* data=(T*)(arr);
-				Log("\n[%s] Array @%d is destructing...\n",typeid(*data).name(),data);
+				//Log("\n[%s] Array @%d is destructing...\n",typeid(*data).name(),data);
 				delete[] data;
 			} catch(...) {
-				Log("\ndelete[%s] Array @%d error...\n",typeid(*td).name(),td);
+				//Log("\ndelete[%s] Array @%d error...\n",typeid(*td).name(),td);
 				return;
 			}
 		}

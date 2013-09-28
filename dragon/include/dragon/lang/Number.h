@@ -31,16 +31,58 @@ BeginPackage2(dragon, lang)
 
 Import dragon::lang;
 
+/**
+ * Subclasses of Number must provide methods to convert the represented numeric value to 
+ * byte, double, float, int, long, and short. 
+ */
 class _DragonExport Number 
-	extends(Object) 
-{
+	extends(Object) {
 public:
 	Number();
 	virtual ~Number();
 
 public:
-		
-protected:
+	/**
+	 * Returns the value of the specified number as an int. This may involve rounding or truncation. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type int.
+	 */
+	virtual dg_int intValue() {return 0;};
+
+	/**
+	 * Returns the value of the specified number as a long. This may involve rounding or truncation. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type long.
+	 */
+	virtual dg_long longValue() {return 0;};
+
+	/**
+	 * Returns the value of the specified number as a float. This may involve rounding. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type float.
+	 */
+	virtual dg_float floatValue() {return 0;};
+
+	/**
+	 * Returns the value of the specified number as a double. This may involve rounding. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type double.
+	 */
+	virtual dg_double doubleValue() {return 0;};
+
+	/**
+	 * Returns the value of the specified number as a byte. This may involve rounding or truncation. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type byte.
+	 */
+	virtual dg_byte byteValue();
+
+	/**
+	 * Returns the value of the specified number as a short. This may involve rounding or truncation. 
+	 * 
+	 * @return the numeric value represented by this object after conversion to type short.
+	 */
+	virtual dg_short shortValue();
 	
 };//Number
 

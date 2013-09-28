@@ -20,48 +20,62 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include "lang.h"
-
 #ifndef Thread_Lang_Dragon_H
 #define Thread_Lang_Dragon_H
 
-#include "Runnable.h"
-#include "InterruptedException.h"
+#include <dragon/config.h>
+#include <dragon/lang/Runnable.h>
+#include <dragon/lang/String.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport Thread :public Object, public Runnable
+class _DragonExport Thread 
+	implements(Runnable)
 {
 public:
 	Thread();
 	Thread(Runnable* target);
-	Thread(const String& name);
-	Thread(Runnable* target, const String& name);
+	Thread(const char* name);
+	Thread(Runnable* target, const char* name);
+	Thread(Runnable* target, const char* name, int stackSize);
+
+	virtual ~Thread();
+
+public: // implements interface Runnable
+	virtual void run();
 
 public:
-	virtual void getId() = 0;
-	virtual String getName() = 0;
-	virtual void setName(const String& name) = 0;
+	virtual int getId();
+	virtual String* getName();
+	virtual void setName(const char* name);
 
-	virtual void run() = 0;
+	virtual void start();
+	virtual void interrupt();
 
-	virtual void start() = 0;
-	virtual void interrupt() throw(InterruptedException) = 0;
-
-	virtual void join() throw(InterruptedException) = 0;
-	virtual void join(long millis) throw(InterruptedException) = 0;
-	virtual void join(long millis,int nanos) throw(InterruptedException) = 0;
+	virtual void join();
+	virtual void join(long millis);
+	virtual void join(long millis, int nanos);
 
 public:
-	static void sleep(long millis) throw(InterruptedException);
+	static void sleep(long millis);
 	static Thread* currentThread();
 	static void yield();
 
 protected:
+	void init(Runnable* target, const char* name, int stackSize);
+
+public: // Thread entry point
+	static void entryPoint(void* userData);
+
+protected:
 	Runnable* target;
-	String name;
-	Integer id;
+	String* name;
+	int id;
+	int stackSize;
+
+	void* threadHandle;
 };
+
 
 EndPackage2//(dragon, lang)
 

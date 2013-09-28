@@ -25,13 +25,14 @@
 
 Import dragon::lang;
 
-StringBuffer::StringBuffer() {
+#define DEFAULT_BUFFER_SIZE 10
 
+StringBuffer::StringBuffer() 
+	:AbstractStringBuilder(DEFAULT_BUFFER_SIZE) {
 }
 
 StringBuffer::StringBuffer(dg_int capcity) 
 	:AbstractStringBuilder(capcity) {
-
 }
 
 StringBuffer::~StringBuffer() {

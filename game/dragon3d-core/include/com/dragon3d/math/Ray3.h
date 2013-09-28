@@ -15,28 +15,32 @@
 */
 
 /**********************************************************************
- * Description: base config for all other classes
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/08
+ * Created:     2013/09/20
  **********************************************************************/
 
-#include <com/dragon3d/config.h>
 
+#ifndef Ray3_Math_Dragon3d_Com_H
+#define Ray3_Math_Dragon3d_Com_H
 
-#if !defined(DG_OBJECT)
-#define DG_OBJECT
+#include <dragon/config.h>
 
-BeginPackage3(com, dragon3d, framework)
+BeginPackage3(com, dragon3d, math)
 
-class _DragonExport Object
-{
+Import com::dragon3d::math;
+
+class _DragonExport Ray3 {
 public:
-	Object(void);
-	virtual ~Object(void);
-};
+	Ray3();
+	virtual ~Ray3();
 
-EndPackage3 //(com, dragon3d, framework)
+public:
+	
+protected:
+	
+};//Ray3
 
-#endif
+EndPackage3 //(com, dragon3d, math)
 
+#endif //Ray3_Math_Dragon3d_Com_H

@@ -135,3 +135,17 @@ dg_long Long::longValue(){
 String* Long::toString() {
     return Long::toString(this->value);
 }
+
+
+//--------- Implements dragon::lang::Number --------------
+dg_int Long::intValue() {
+    return (dg_int)longValue();
+}
+
+dg_float Long::floatValue() {
+    return (dg_float)longValue();
+}
+
+dg_double Long::doubleValue() {
+    return (dg_double)longValue();
+}

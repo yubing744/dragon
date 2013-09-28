@@ -28,7 +28,7 @@
 Import dragon::lang::internal;
 
 TEST(Dragon_Lang_Internal_platformTest, New) {
-	ShowLocalLibInfo();
+	//ShowLocalLibInfo();
 }
 
 TEST(Dragon_Lang_Internal_platformTest, Split) {

@@ -17,11 +17,11 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/09/21
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/app/Application.h>
 #include <dragon/util/logging/Logger.h>
 
 Import dragon::util::logging;
@@ -37,8 +37,6 @@ Application::~Application() {
 }
 
 void Application::startup() {
-	/*
 	Timer* timer = new Timer();
 	FrameHandler* frameWork = new FrameHandler(timer);
-	*/
 }

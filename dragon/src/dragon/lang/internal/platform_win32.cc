@@ -21,6 +21,7 @@
  **********************************************************************/
 
 #include <windows.h>
+#include <process.h>
 #include <Dbghelp.h>
 
 #pragma comment(lib,"Dbghelp.lib")
@@ -157,80 +158,248 @@ void* dragon::lang::internal::GetFuncAddress(const char* signature) {
 	return GetFuncAddress(localLibPath, signature);
 }
 
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Time
+// 
 
-// ----------------------------------------------------------------------------
-// Some Help Func
-/*
-void* Invoke(void* p,Func_FarProc func, TypeInfo *argv, int argc)
-{   
-	DWORD result;
-	DWORD argSize,tSize,sumSize=0;
-	TypeInfo arg;
+/**
+ * get the system time
+ * 
+ * @return [description]
+ */
+dg_long dragon::lang::internal::GetSystemTime() {
+	/*
+	struct _timeb t;
 
-	//push arg into stack
-	for(int i=argc-1;i>=0;i--)
-	{
-		arg=argv[i];
-		argSize=arg.typeSize;
-		void* value=arg.pValue;
+	#ifdef _INC_TIME_INL
+	_ftime_s(&t);
+	#else
+	_ftime(&t);
+	#endif
 
-		sumSize+=argSize;
-		tSize=argSize/4;
+	return (((dg_long) t.time) * 1000 + t.millitm) * 1000;
+	*/
 
-		__asm{
-			mov			eax,argSize;
-			sub         esp,eax;
+	LARGE_INTEGER fc;
 
-			mov         ecx,tSize;
-			mov         esi,value;
-			mov         edi,esp;
-			rep movs    dword ptr es:[edi],dword ptr [esi];
-		}
+    if (!QueryPerformanceFrequency(&fc)) {
+        assert(FALSE);
+    }
 
-	}
+    UINT64 frequency = fc.QuadPart;
 
-	//call object p's method func
-	__asm{
-			mov			ecx,p; 
-			call		func;
-			mov         result,eax;
-	}
+    if (!QueryPerformanceCounter(&fc)) {
+        assert(FALSE);
+    }
 
-	if(p==null)
-	{
-		__asm{
-			mov			eax,sumSize;
-			add         esp,eax;
-		}		
-	}
+    UINT64 c = fc.QuadPart;
+    UINT64 s = (c) / (frequency / 1000 / 1000 / 1000);
 
-	return (void*)result;
-} 
-
-
-void* Invoke(void* p, Func_FarProc func, ...)
-{
-	DWORD result;
-
-	va_list ap;
-	va_start(ap,func);
-
-	__asm{
-		mov			ebx,esp;
-		sub         esp,0x100;
-
-		mov         ecx,0x40;
-		mov         esi,ap;
-		mov         edi,esp;
-		rep movs    dword ptr es:[edi],dword ptr [esi];
-
-		mov			ecx,p; 
-		call		func;
-		mov         result,eax;
-
-		mov			esp,ebx;
-	}
-
-	return (void*)result;
+    return s;
 }
-*/
+
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Lock
+// 
+
+/**
+ * init a mutex object
+ * 
+ * @return [description]
+ */
+void* dragon::lang::internal::InitMutex() {
+	CRITICAL_SECTION* pcs = malloc(sizeof(CRITICAL_SECTION));
+	InitializeCriticalSection(pcs);
+	return pcs;
+}
+
+/**
+ *  lock the mutex
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::LockMutex(void* mutex) {
+	CRITICAL_SECTION* pcs = (CRITICAL_SECTION*)mutex;
+	EnterCriticalSection(pcs);
+}
+
+/**
+ *  try lock the mutex
+ * 
+ * @return [description]
+ */
+bool dragon::lang::internal::TryLockMutex(void* mutex) {
+	CRITICAL_SECTION* pcs = (CRITICAL_SECTION*)mutex;
+	return TryEnterCriticalSection(pcs);
+}
+
+/**
+ *  unlock the mutex
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::UnlockMutex(void* mutex) {
+	CRITICAL_SECTION* pcs = (CRITICAL_SECTION*)mutex;
+	LeaveCriticalSection(pcs);
+}
+
+/**
+ * free mutex object
+ * 
+ * @return [description]
+ */
+void dragon::lang::internal::FreeMutex(void* mutex) {
+	CRITICAL_SECTION* pcs = (CRITICAL_SECTION*)mutex;
+	SafeFree(pcs);
+}
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Semaphore
+// 
+
+/**
+ * init a mutex object
+ * 
+ * @return [description]
+ */
+void* dragon::lang::internal::InitSemaphore(int count) {
+	HANDLE* psem = (HANDLE*)malloc(sizeof(HANDLE));
+    *psem = ::CreateSemaphoreA(NULL, count, 0x7fffffff, NULL);
+    return psem;
+}
+
+/**
+ * wait
+ * 
+ * @param semaphore [description]
+ */
+void dragon::lang::internal::WaitSemaphore(void* semaphore) {
+	HANDLE* psem = (HANDLE*)semaphore;
+	WaitForSingleObject(*sem, INFINITE);
+}
+
+/**
+ * wait with timeout
+ * 
+ * @param semaphore [description]
+ * @param timeout    [description]
+ */
+bool dragon::lang::internal::WaitSemaphore(void* semaphore, int timeout) {
+	HANDLE* psem = (HANDLE*)semaphore;
+	DWORD millis_timeout = timeout / 1000;
+    return WaitForSingleObject(*psem, millis_timeout) != WAIT_TIMEOUT;
+}
+
+/**
+ * notify continue
+ * 
+ * @param semaphore [description]
+ */
+void dragon::lang::internal::SignalSemaphore(void* semaphore) {
+	HANDLE* psem = (HANDLE*)semaphore;
+	LONG dummy;
+    ReleaseSemaphore(*psem, 1, &dummy);
+}
+
+/**
+ * free semaphore
+ * 
+ * @param semaphore [description]
+ */
+void dragon::lang::internal::FreeSemaphore(void* semaphore) {
+	HANDLE* psem = (HANDLE*)semaphore;
+	CloseHandle(*psem);
+    SafeFree(psem);
+}
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Thread
+// 
+
+// mine thread handle
+typedef struct ThreadHandle{
+  	HANDLE thread;
+  	unsigned thread_id;
+};
+
+/**
+ * create a new thread, and return thread handle
+ *
+ * @param stackSize the stack size for thread
+ * @param entryFunc the entry function for thread
+ */
+void* dragon::lang::internal::CreateThread(int stackSize, void* target, void* entryFunc) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)malloc(sizeof(struct ThreadHandle*));
+
+  	handle->thread = reinterpret_cast<HANDLE>(
+      _beginthreadex(NULL,
+                     static_cast<unsigned>(stackSize),
+                     entryFunc,
+                     target,
+                     0,
+                     &handle->thread_id));
+  	return handle;
+}
+
+/**
+ * join the thread
+ * 
+ * @param threadHandle [description]
+ */
+void dragon::lang::internal::JoinThread(void* threadHandle) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)threadHandle;
+
+	if (handle->thread_id != GetCurrentThreadId()) {
+	    WaitForSingleObject(handle->thread, INFINITE);
+	}
+}
+
+/**
+ * yield the thread
+ * 
+ * @param threadHandle [description]
+ */
+void dragon::lang::internal::YieldThread() {
+	Sleep(0);
+}
+
+/**
+ * close the thread
+ * 
+ * @param threadHandle [description]
+ */
+void dragon::lang::internal::CloseThread(void* threadHandle) {
+	struct ThreadHandle* handle = (struct ThreadHandle*)threadHandle;
+
+  	if (handle->thread != kNoThread) {
+  		CloseHandle(handle->thread);
+  	}
+
+  	SafeFree(handle);	
+}
+
+
+// -----------------------------------------------------------------------
+// Copyright 2013 the dragon project authors. All rights reserved.
+// 
+// Atomic Operation
+//
+ 
+bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_int *value, dg_int valueToCompare, dg_int newValue) {
+	return InterlockedCompareExchange(volatile long*)value, (long)newValue, (long)valueToCompare);
+}
+
+bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_long *value, dg_long valueToCompare, dg_long newValue) {
+	return InterlockedCompareExchange64 (volatile __int64*)value, (__int64)newValue, (__int64)valueToCompare);
+}

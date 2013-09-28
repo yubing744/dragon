@@ -25,20 +25,48 @@
 #define Timer_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <com/dragon3d/util/ReadOnlyTimer.h>
 
 BeginPackage3(com, dragon3d, util)
 
 Import com::dragon3d::util;
 
-class _DragonExport Timer {
+/**
+ * game timer.
+ * 
+ */
+class _DragonExport Timer 
+	implements(ReadOnlyTimer) {
 public:
 	Timer();
 	virtual ~Timer();
 
+public: // Implements ReadOnlyTimer
+    virtual double getTimeInSeconds();
+    virtual long getTime();
+    virtual long getResolution();
+    virtual double getFrameRate();
+    virtual double getTimePerFrame();	
+
 public:
-	
+	/**
+	 * Update should be called once per frame to correctly update "time per frame" and "frame rate (fps)"
+	 */
+	virtual void update();
+
+	/**
+	 * Reset this timer, so that {@link #getTime()} and {@link #getTimeInSeconds()} reflects the time spend from this
+     * call.
+	 */
+	virtual void reset();
+
 protected:
-	
+	dg_long startTime;
+    dg_long previousTime;
+
+    double fps;
+    double tps;
+
 };//Timer
 
 EndPackage3 //(com, dragon3d, util)
