@@ -20,6 +20,65 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+// Implements AppLauncher 
+// 
+#include <com/dragon3d/launcher/native/mac/AppLauncher.h>
+
+// Launch Helper
+#include "Dragon3DView.mm"
+
+#include <com/dragon3d/framework/Application.h>
+//#include <dragon/util/logging/Logger.h>
+
+//Import dragon::util::logging;
+Import com::dragon3d::framework;
+
+
+@implementation AppLauncher 
+	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification
+	{
+		// create Application
+		Application* _app = new Application();
+
+        // create the window
+		// note that using NSResizableWindowMask causes the window to be a little
+		// smaller and therefore ipad graphics are not loaded
+		NSRect rect = NSMakeRect(0, 0, 320, 480);
+		NSWindow* window = [[NSWindow alloc] initWithContentRect:rect
+			styleMask:( NSClosableWindowMask | NSTitledWindowMask )
+			backing:NSBackingStoreBuffered
+			defer:YES];
+		
+		// allocate our GL view
+		// (isn't there already a shared EAGLView?)
+		Dragon3DView* dgView = [[Dragon3DView alloc] initWithFrame:rect withApp:(void*)app];
+
+		// set window parameters
+		[window becomeFirstResponder];
+		[window setContentView:dgView];
+		[window setTitle:@"dragon3d-examples2"];
+		[window makeKeyAndOrderFront:self];
+		[window setAcceptsMouseMovedEvents:NO];
+
+	    //[dgView setFrameZoomFactor:0.4];
+
+		// start app
+		_app->onStart();
+
+		app = _app;
+	}
+
+	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication {
+		return YES;
+	}
+
+	-(void) dealloc {
+		SafeDelete(app);
+		[super dealloc];
+	}
+
+@end
+
 /*
  *		This Code Was Created By Jeff Molofee 2000
  *		A HUGE Thanks To Fredric Echols For Cleaning Up
@@ -95,6 +154,8 @@ BOOL InitGame() {
 
 	return TRUE;
 }
+
+*/
 /*
 
 GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window

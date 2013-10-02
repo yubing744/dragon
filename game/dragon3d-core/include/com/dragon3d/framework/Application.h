@@ -26,18 +26,96 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/String.h>
+#include <dragon/lang/Thread.h>
+
+#include <dragon/util/concurrent/Semaphore.h>
+#include <dragon/util/concurrent/CountDownLatch.h>
+#include <dragon/util/concurrent/locks/SynchLock.h>
+
+#include <dragon/util/logging/Logger.h>
+
+#include <com/dragon3d/util/Timer.h>
+
+#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/framework/FrameHandler.h>
+
 BeginPackage3(com, dragon3d, framework)
 
-Import com::dragon3d::framework;
+Import dragon::lang;
+Import dragon::util::logging;
+Import dragon::util::concurrent;
+Import dragon::util::concurrent::locks;
 
-class _DragonExport Application {
+Import com::dragon3d::framework;
+Import com::dragon3d::util;
+
+/**
+ * game application.
+ * 
+ */
+class _DragonExport Application extends(Object) 
+	implements4(Runnable, Scene, Updater, Output) {
 public:
 	Application();
 	virtual ~Application();
 
 public:
-	virtual void startup();
-	
+	/**
+	 * callback when app start.
+	 */
+	virtual void onStart();
+
+	/**
+	 * callback when app frame update.
+	 */
+	virtual void onInitGame();
+
+	/**
+	 * callback when app close.
+	 */
+	virtual void onDestroy();
+
+public: // Implements Runnable
+	virtual void run();
+
+public: // Implements Updater
+	virtual void init();
+	virtual void update(Scene* scene, ReadOnlyTimer* timer);
+
+public: // Implements Output
+	virtual void output(Scene* scene, CountDownLatch* latch);
+
+protected:
+	/**
+	 * get the current to render scene.
+	 * 
+	 * @return [description]
+	 */
+	virtual Scene* getCurrentScene();
+
+protected:
+	/**
+	 * application name.
+	 * 
+	 */
+	String* name;
+
+	/**
+	 * the timer to control the fps
+	 */
+	Timer* timer;
+
+	/**
+	 * the game frame handler
+	 */
+	FrameHandler* frameWork;
+
+	/**
+	 * if the app need exit
+	 */
+	bool isExit;
 };//Application
 
 EndPackage3 //(com, dragon3d, framework)

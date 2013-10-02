@@ -17,40 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/10/01
  **********************************************************************/
 
 
-#ifndef Output_Framework_Dragon3d_Com_H
-#define Output_Framework_Dragon3d_Com_H
+#include <com/dragon3d/output/graphics/Screen.h>
 
-#include <dragon/config.h>
-#include <com/dragon3d/framework/Scene.h>
-#include <dragon/util/concurrent/CountDownLatch.h>
+Import com::dragon3d::output::graphics;
 
-Import dragon::util::concurrent;
+Screen::Screen() {
 
-BeginPackage3(com, dragon3d, framework)
+}
 
-Import com::dragon3d::framework;
+Screen::~Screen() {
 
-interface _DragonExport Output {
-public:
-	virtual ~Output(){};
-
-public:
-	/**
-	 * init the output
-	 */
-	virtual void init() = 0;
-
-	/**
-	 * output the scene
-	 */
-	virtual void output(Scene* scene, CountDownLatch* latch) = 0;
-	
-};//Output
-
-EndPackage3 //(com, dragon3d, framework)
-
-#endif //Output_Framework_Dragon3d_Com_H
+}

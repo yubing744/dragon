@@ -23,12 +23,18 @@
 
 #include <com/dragon3d/framework/Application.h>
 #include <dragon/util/logging/Logger.h>
+ 
+#include <dragon/lang/System.h>
+#include <dragon/lang/Throwable.h>
 
+Import dragon::lang;
 Import dragon::util::logging;
 Import com::dragon3d::framework;
 
+static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", DEBUG);
 
-Application::Application() {
+Application::Application() 
+	:isExit(false) {
 
 }
 
@@ -36,11 +42,71 @@ Application::~Application() {
 
 }
 
-void Application::startup() {
-	//Timer* timer = new Timer();
-	//FrameHandler* frameWork = new FrameHandler(timer);
+void Application::onStart() {
+	logger->debug("on start");
+
+	// init frame handler
+	this->timer = new Timer();
+	this->frameWork = new FrameHandler(timer);
+	
+	// init game
+	this->onInitGame();
+
+	// start game thread
+	Thread* o = new Thread(this);
+	o->start();
 }
 
+void Application::onInitGame() {
+	logger->debug("on init game");
+
+	this->frameWork->addUpdater(this);
+	this->frameWork->addOutput(this);
+}
+
+void Application::onDestroy() {
+	logger->debug("on destroy");	
+}
+
+Scene* Application::getCurrentScene() {
+	return this;
+}
+
+void Application::run() {
+	logger->debug("game main thread run ... ");
+
+	try {
+        frameWork->init();
+
+        while (!isExit) {
+        	Scene* scene = this->getCurrentScene();
+            frameWork->updateFrame(scene);
+            Thread::yield();
+        }
+
+        System::exit(0);
+    } catch (Throwable* t) {
+        logger->error("Throwable caught in MainThread - exiting");
+        t->printStackTrace();
+        SafeDelete(t);
+    }
+}
+
+
+// ----------------------- simple game -----------------------
+
+void Application::init() {
+	logger->debug("game init");
+}
+
+void Application::update(Scene* scene, ReadOnlyTimer* timer) {
+	logger->debug("game update");
+	logger->debug("game fps %d", timer->getFrameRate());
+}
+
+void Application::output(Scene* scene, CountDownLatch* latch) {
+	logger->debug("game output");
+}
 
 /*
 

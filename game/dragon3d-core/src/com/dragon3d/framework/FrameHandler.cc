@@ -27,21 +27,27 @@
 Import com::dragon3d::framework;
 
 Import dragon::util::concurrent;
-Import dragon::util::concurrent::locks;
 
-Logger* FrameHandler::logger = Logger::getLogger("com::dragon3d::framework.FrameHandler");
+Logger* FrameHandler::logger = Logger::getLogger("com::dragon3d::framework::FrameHandler");
 
 FrameHandler::FrameHandler() 
 	:timeoutSeconds(3) {
 	this->timer = new Timer();
 	this->updaters = new ArrayList<Updater>();
-	this->canvases = new ArrayList<Canvas>();
+	this->outputs = new ArrayList<Output>();
+}
+
+FrameHandler::FrameHandler(Timer* timer)
+	:timeoutSeconds(3) {
+	this->timer = timer;
+	this->updaters = new ArrayList<Updater>();
+	this->outputs = new ArrayList<Output>();
 }
 
 FrameHandler::~FrameHandler() {
 	SafeDelete(this->timer);
 	SafeDelete(this->updaters);
-	SafeDelete(this->canvases);
+	SafeDelete(this->outputs);
 }
 
 void FrameHandler::init() {
@@ -55,19 +61,19 @@ void FrameHandler::init() {
 
 	SafeDelete(it);
 
-	// init canvase
-	Iterator<Canvas>* itc = this->canvases->iterator();
+	// init outputs
+	Iterator<Output>* itc = this->outputs->iterator();
 
 	while (itc->hasNext()) {
-		Canvas* canvase = itc->next();
-		canvase->init();
+		Output* output = itc->next();
+		output->init();
 	}
 
 	SafeDelete(itc);
 }
 
 
-void FrameHandler::updateFrame() {
+void FrameHandler::updateFrame(Scene* scene) {
 	// 1. update timer
 	this->timer->update();
 
@@ -76,20 +82,20 @@ void FrameHandler::updateFrame() {
 
 	while (it->hasNext()) {
 		Updater* updater = it->next();
-		updater->update(this->timer);
+		updater->update(scene, this->timer);
 	}
 
 	SafeDelete(it);
 
-	// 3. draw canvases
-	int numCanvases = this->canvases->size();
-	Iterator<Canvas>* itc = this->canvases->iterator();
+	// 3. draw outputs
+	int numOutputs = this->outputs->size();
+	Iterator<Output>* itc = this->outputs->iterator();
 
-	CountDownLatch* latch = new CountDownLatch(numCanvases);
+	CountDownLatch* latch = new CountDownLatch(numOutputs);
 
 	while (itc->hasNext()) {
-		Canvas* canvase = itc->next();
-		canvase->draw(latch);
+		Output* output = itc->next();
+		output->output(scene, latch);
 	}
 
 	bool success = latch->await(this->timeoutSeconds * 1000);
@@ -112,14 +118,14 @@ void FrameHandler::removeUpdater(Updater* updater) {
 	this->updaters->remove(updater);
 }
 
-void FrameHandler::addCanvas(Canvas* canvas){
-	if (!this->canvases->contains(canvas)) {
-		this->canvases->add(canvas);
+void FrameHandler::addOutput(Output* output){
+	if (!this->outputs->contains(output)) {
+		this->outputs->add(output);
 	}
 }
 
-bool FrameHandler::removeCanvas(Canvas* canvas){
-	this->canvases->remove(canvas);
+bool FrameHandler::removeOutput(Output* output){
+	this->outputs->remove(output);
 }
 
 int FrameHandler::getTimeoutSeconds(){

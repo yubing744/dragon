@@ -44,6 +44,13 @@ public:
 	 * @return [description]
 	 */
 	static dg_long nanoTime();
+
+	/**
+	 * exit app
+	 * 
+	 * @param code [description]
+	 */
+	static void exit(int code);
 };
 
 EndPackage2//(dragon, lang)

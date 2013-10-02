@@ -17,40 +17,60 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/10/01
  **********************************************************************/
 
 
-#ifndef Output_Framework_Dragon3d_Com_H
-#define Output_Framework_Dragon3d_Com_H
+#ifndef Screen_Graphics_Output_Dragon3d_Com_H
+#define Screen_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
-#include <com/dragon3d/framework/Scene.h>
-#include <dragon/util/concurrent/CountDownLatch.h>
 
-Import dragon::util::concurrent;
+BeginPackage4(com, dragon3d, output, graphics)
 
-BeginPackage3(com, dragon3d, framework)
+Import com::dragon3d::output::graphics;
 
-Import com::dragon3d::framework;
-
-interface _DragonExport Output {
+class _DragonExport Screen {
 public:
-	virtual ~Output(){};
+	Screen();
+	virtual ~Screen();
 
 public:
-	/**
-	 * init the output
-	 */
-	virtual void init() = 0;
-
-	/**
-	 * output the scene
-	 */
-	virtual void output(Scene* scene, CountDownLatch* latch) = 0;
 	
-};//Output
+protected:
+	
+};//Screen
 
-EndPackage3 //(com, dragon3d, framework)
+EndPackage4 //(com, dragon3d, output, graphics)
 
-#endif //Output_Framework_Dragon3d_Com_H
+#endif //Screen_Graphics_Output_Dragon3d_Com_H
+
+/*
+
+#pragma once
+
+#include "dg_config.h"
+
+#if !defined(DG_SCREEN)
+#define DG_SCREEN
+
+class DGScreen
+{
+public:
+	DGScreen(void);
+	virtual ~DGScreen(void);
+
+public:
+	DGuint getWidth();
+	DGuint getHeight();
+
+	void resize(DGuint width, DGuint height);
+
+private:
+	DGuint width;
+	DGuint height;
+};
+
+#endif
+
+ */

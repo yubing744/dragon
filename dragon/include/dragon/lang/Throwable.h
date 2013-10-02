@@ -23,16 +23,12 @@
 #ifndef Throwable_Lang_H
 #define Throwable_Lang_H
 
-
 #include <dragon/config.h>
 #include <dragon/lang/String.h>
 
-//#include "Object.h"
-
 BeginPackage2(dragon, lang)
 
-class _DragonExport Throwable 
-	//:public Object
+class _DragonExport Throwable
 {
 public:
 	Throwable();

@@ -28,33 +28,41 @@
 #include <dragon/util/ArrayList.h>
 #include <dragon/util/logging/Logger.h>
 
+#include <com/dragon3d/util/Timer.h>
+
+#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/framework/Output.h>
+#include <com/dragon3d/framework/Updater.h>
+
 BeginPackage3(com, dragon3d, framework)
 
 Import dragon::util;
 Import dragon::util::logging;
 Import com::dragon3d::framework;
+Import com::dragon3d::util;
 
 /**
  * Does the work needed in a given frame.
  */
 class _DragonExport FrameHandler {
 public:
-	static const Logger* logger;
+	static Logger* logger;
 
 public:
 	FrameHandler();
+	FrameHandler(Timer* timer);
 	virtual ~FrameHandler();
 
 public:
 	virtual void init();
 
-	virtual void updateFrame();
+	virtual void updateFrame(Scene* scene);
 
 	virtual void addUpdater(Updater* updater);
 	virtual void removeUpdater(Updater* updater);
 
-	virtual void addCanvas(Canvas* canvas);
-	virtual bool removeCanvas(Canvas* canvas);
+	virtual void addOutput(Output* output);
+	virtual bool removeOutput(Output* output);
 
 	virtual int getTimeoutSeconds();
 	virtual void setTimeoutSeconds(int timeoutSeconds);
@@ -63,7 +71,7 @@ public:
 	
 protected:
 	ArrayList<Updater>* updaters;
-	ArrayList<Canvas>* canvases;
+	ArrayList<Output>* outputs;
 	Timer* timer;
 
 	int timeoutSeconds;

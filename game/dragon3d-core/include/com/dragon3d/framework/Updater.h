@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 #include <com/dragon3d/util/ReadOnlyTimer.h>
+#include <com/dragon3d/framework/Scene.h>
 
 BeginPackage3(com, dragon3d, framework)
 
@@ -39,8 +40,20 @@ public:
 	virtual ~Updater(){};
 
 public:
-	virtual void init();
-	virtual void update(ReadOnlyTimer* timer);
+	/**
+	 * init the updater
+	 */
+	virtual void init() = 0;
+
+	/**
+	 * update the scene status
+	 * 
+	 * @param scene 
+	 *        	game scene
+	 * @param timer
+	 *        	the timer for game
+	 */
+	virtual void update(Scene* scene, ReadOnlyTimer* timer) = 0;
 
 };//Updater
 

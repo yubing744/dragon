@@ -26,30 +26,19 @@
 Import dragon::lang;
 Import dragon::lang::internal;
 
-/**
- * load system library with libname.
- * 
- * @param libname [description]
- */
 void System::loadLibrary(const char* libname) {
 
 }
 
-/**
- * get the current time with ms
- * 
- * @return [description]
- */
 dg_long System::currentTimeMillis() {
 	dg_long nanoTime = GetSystemTime();
 	return nanoTime / 1000;
 }
 
-/**
- * get precision system time
- * 
- * @return [description]
- */
 dg_long System::nanoTime() {
 	return GetSystemTime();
+}
+
+void System::exit(int code) {
+
 }

@@ -761,9 +761,9 @@ inline wostream& operator << (wostream& os,const String& str) {
      return os;
 }
 
-inline wostream& operator << (wostream& os, String* str) {
+inline wostream& operator << (wostream& os, const String* str) {
      String* theStr = const_cast<String*>(str);
-     Array<dg_byte> bytes = str->getBytes();
+     Array<dg_byte> bytes = theStr->getBytes();
      os << bytes.raw();
      return os;
 }

@@ -345,13 +345,17 @@ THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
 # dragon3d-core
 dragon3d_core_SOURCES = {
+    "com/dragon3d/launcher" : Split("""
+        AppLauncher.cc
+    """),
     "com/dragon3d/framework" : Split("""
-        Engine.cc
         Application.cc
+        FrameHandler.cc
     """),
     "com/dragon3d/util" : Split("""
         Timer.cc
-    """)
+    """),
+
 }
 
 LibraryModule(
@@ -368,8 +372,9 @@ LibraryModule(
     source_root           = 'src',
     included_modules      = [
         'dragon'
-    ], 
-    shared                = True,
+    ],
+    linked_modules        = env['DRAGON_EXTRA_LIBS'], 
+    shared                = False,
     install               = True
 )
 

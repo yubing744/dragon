@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'dragon3d-examples' target in the 'dragon3d-examples' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
