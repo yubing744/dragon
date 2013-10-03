@@ -22,13 +22,63 @@
 
 
 #include <com/dragon3d/output/OutputManager.h>
+#include <com/dragon3d/output/OutputController.h>
 
+#include <dragon/util/HashMap.h>
+#include <dragon/util/ArrayList.h>
+
+#include <dragon/util/logging/Logger.h>
+ 
+#include <dragon/lang/System.h>
+#include <dragon/lang/Throwable.h>
+
+Import dragon::lang;
+Import dragon::util;
 Import com::dragon3d::output;
+Import dragon::util::logging;
+Import com::dragon3d::framework;
+
+static Logger* logger = Logger::getLogger("com::dragon3d::output::OutputManager", INFO);
 
 OutputManager::OutputManager() {
-
+	this->outputDevices = new ArrayList<OutputDevice>();
 }
 
 OutputManager::~OutputManager() {
+	this->outputDevices->clear();
+	SafeDelete(this->outputDevices);
+}
 
+void OutputManager::init() {
+	logger->info("init");
+
+	Iterator<OutputDevice>* it = this->outputDevices->iterator();
+
+	while(it->hasNext()) {
+		OutputDevice* device = it->next();
+		
+		if (device != null) {
+			device->init();
+		}
+	}
+}
+
+void OutputManager::output(Scene* scene, CountDownLatch* latch) {
+	Iterator<OutputDevice>* it = this->outputDevices->iterator();
+
+	while(it->hasNext()) {
+		OutputDevice* device = it->next();
+		
+		if (device != null) {
+			OutputController* controller = device->getOutputController();
+			ASSERT(controller != null);
+			controller->output(scene);
+		}
+	}
+
+	latch->countDown();
+}
+
+void OutputManager::registerDevice(OutputDevice* outputDevice) {
+	this->outputDevices->add(outputDevice);
 }

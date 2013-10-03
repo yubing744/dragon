@@ -26,19 +26,37 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/output/OutputController.h>
+
 BeginPackage3(com, dragon3d, output)
 
-Import com::dragon3d::output;
-
-class _DragonExport OutputDevice {
+/**
+ * interface output device
+ */
+interface _DragonExport OutputDevice {
 public:
-	OutputDevice();
-	virtual ~OutputDevice();
+	virtual ~OutputDevice(){};
 
 public:
-	
-protected:
-	
+	/**
+	 * init the output device
+	 */
+	virtual void init() = 0;	
+
+	/**
+	 * query the output device status by code.
+	 * 
+	 * @param code [description]
+	 */
+	virtual int queryStatus(int code) = 0;
+
+	/**
+	 *  get the ouput controller.
+	 *  
+	 * @return [description]
+	 */
+	virtual OutputController* getOutputController() = 0;
+
 };//OutputDevice
 
 EndPackage3 //(com, dragon3d, output)

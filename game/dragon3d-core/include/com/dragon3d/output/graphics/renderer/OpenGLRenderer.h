@@ -25,19 +25,26 @@
 #define OpenGLRenderer_Renderer_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 
 BeginPackage5(com, dragon3d, output, graphics, renderer)
 
+Import dragon::lang;
+
+Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
-class _DragonExport OpenGLRenderer {
+class _DragonExport OpenGLRenderer extends(Object) 
+	implements1(GraphicsRenderer) {
 public:
 	OpenGLRenderer();
 	virtual ~OpenGLRenderer();
 
 public:
-	
-protected:
+	virtual void init();
+
+	virtual void drawSample();
 	
 };//OpenGLRenderer
 

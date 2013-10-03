@@ -26,18 +26,34 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/framework/Scene.h>
+
 BeginPackage3(com, dragon3d, output)
 
 Import com::dragon3d::output;
+Import com::dragon3d::framework;
 
-class _DragonExport OutputController {
+interface OutputDevice;
+
+/**
+ * ouput controller
+ */
+interface _DragonExport OutputController {
 public:
-	OutputController();
-	virtual ~OutputController();
+	virtual ~OutputController(){};
 
 public:
-	
-protected:
+	/**
+	 * init the output controller
+	 */
+	virtual void init() = 0;
+
+	/**
+	 * control the scene ouput.
+	 * 
+	 * @param scene [description]
+	 */
+	virtual void output(Scene* scene) = 0;
 	
 };//OutputController
 

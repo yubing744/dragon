@@ -25,36 +25,44 @@
 #define GraphicsOutputController_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
+ 
+#include <dragon/lang/Object.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
+
+#include <com/dragon3d/output/OutputController.h>
+#include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
+Import dragon::lang;
+
+Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
-class _DragonExport GraphicsOutputController {
+class _DragonExport GraphicsOutputController extends(Object) 
+    implements1(OutputController){
 public:
 	GraphicsOutputController();
 	virtual ~GraphicsOutputController();
 
-public:
+public: // implements OutputController
     /**
-     * Do work to initialize this canvas, generally setting up the associated CanvasRenderer, etc.
+     * init the output controller
      */
-    //virtual void init();
+    virtual void init();
 
     /**
-     * Ask the canvas to render itself. Note that this may occur in another thread and therefore a latch is given so the
-     * caller may know when the draw has completed.
+     * control the scene ouput.
      * 
-     * @param latch
-     *            a counter that should be decremented once drawing has completed.
+     * @param scene [description]
      */
-    //virtual void draw(CountDownLatch* latch);
+    virtual void output(Scene* scene);
 
+protected:
     /**
-     * @return the CanvasRenderer associated with this Canvas.
+     * graphics renderer.
      */
-    //virtual CanvasRenderer* getCanvasRenderer();
+    GraphicsRenderer* graphicsRenderer;
 	
 };//GraphicsOutputController
 

@@ -36,8 +36,10 @@ public:
 	virtual ~InputManager();
 
 public:
-	
-protected:
+	/**
+	 * init input manager.
+	 */
+	virtual void init();
 	
 };//InputManager
 
@@ -113,5 +115,4 @@ private:
 #endif
 
 
- */
  */

@@ -18,6 +18,13 @@ Import com::dragon3d::framework;
 
 @synthesize isFullScreen = isFullScreen_, frameZoomFactor=frameZoomFactor_;
 
+- (id) initWithFrame:(NSRect)frameRect {
+    NSLog(@"initWithFrame frameRect");
+
+    self = [self initWithFrame:frameRect shareContext:nil withApp:nil];
+    return self;
+}
+
 - (id) initWithFrame:(NSRect)frameRect withApp:(void*) app {
     NSLog(@"initWithFrame frameRect app");
 

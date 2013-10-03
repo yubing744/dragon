@@ -18,6 +18,7 @@
 @property (nonatomic, readonly) BOOL isFullScreen;
 @property (nonatomic, readwrite) float frameZoomFactor;
 
+- (id) initWithFrame:(NSRect)frameRect;
 - (id) initWithFrame:(NSRect)frameRect withApp:(void*) app;
 - (id) initWithFrame:(NSRect)frameRect shareContext:(NSOpenGLContext*)context withApp:(void*) app;
 - (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format withApp:(void*) app;

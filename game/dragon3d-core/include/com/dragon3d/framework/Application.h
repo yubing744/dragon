@@ -41,6 +41,9 @@
 #include <com/dragon3d/framework/Scene.h>
 #include <com/dragon3d/framework/FrameHandler.h>
 
+#include <com/dragon3d/input/InputManager.h>
+#include <com/dragon3d/output/OutputManager.h>
+
 BeginPackage3(com, dragon3d, framework)
 
 Import dragon::lang;
@@ -50,6 +53,8 @@ Import dragon::util::concurrent::locks;
 
 Import com::dragon3d::framework;
 Import com::dragon3d::util;
+Import com::dragon3d::input;
+Import com::dragon3d::output;
 
 /**
  * game application.
@@ -76,6 +81,20 @@ public:
 	 * callback when app close.
 	 */
 	virtual void onDestroy();
+
+	/**
+	 * set input manager.
+	 * 
+	 * @param inputManager [description]
+	 */
+	virtual void setInputManager(InputManager* inputManager);
+
+	/**
+	 * set output manager.
+	 * 
+	 * @param outputManager [description]
+	 */
+	virtual void setOutputManager(OutputManager* outputManager);
 
 public: // Implements Runnable
 	virtual void run();
@@ -116,6 +135,17 @@ protected:
 	 * if the app need exit
 	 */
 	bool isExit;
+
+	/**
+	 * input manager
+	 */
+	InputManager* inputManager;
+
+	/**
+	 * output manager
+	 */
+	OutputManager* outputManager;
+
 };//Application
 
 EndPackage3 //(com, dragon3d, framework)

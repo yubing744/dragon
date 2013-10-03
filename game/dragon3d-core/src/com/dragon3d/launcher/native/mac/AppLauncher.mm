@@ -24,48 +24,40 @@
 // 
 #include <com/dragon3d/launcher/native/mac/AppLauncher.h>
 
-// Launch Helper
-#include "Dragon3DView.mm"
-
 #include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
 //#include <dragon/util/logging/Logger.h>
 
 //Import dragon::util::logging;
 Import com::dragon3d::framework;
-
+Import com::dragon3d::input;
+Import com::dragon3d::output;
+Import com::dragon3d::output::graphics;
 
 @implementation AppLauncher 
-	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification
-	{
+	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification {
 		// create Application
-		Application* _app = new Application();
+		Application* app = new Application();
 
-        // create the window
-		// note that using NSResizableWindowMask causes the window to be a little
-		// smaller and therefore ipad graphics are not loaded
-		NSRect rect = NSMakeRect(0, 0, 320, 480);
-		NSWindow* window = [[NSWindow alloc] initWithContentRect:rect
-			styleMask:( NSClosableWindowMask | NSTitledWindowMask )
-			backing:NSBackingStoreBuffered
-			defer:YES];
-		
-		// allocate our GL view
-		// (isn't there already a shared EAGLView?)
-		Dragon3DView* dgView = [[Dragon3DView alloc] initWithFrame:rect withApp:(void*)app];
+		// input
+       	InputManager* inputManager = new InputManager(); 
+       	app->setInputManager(inputManager);
 
-		// set window parameters
-		[window becomeFirstResponder];
-		[window setContentView:dgView];
-		[window setTitle:@"dragon3d-examples2"];
-		[window makeKeyAndOrderFront:self];
-		[window setAcceptsMouseMovedEvents:NO];
+       	// ouput
+       	OutputManager* outputManager = new OutputManager();
 
-	    //[dgView setFrameZoomFactor:0.4];
+       	{
+       		// add graphics device
+	       	GraphicsDevice* graphicsDevice = new GraphicsDevice();
+	       	outputManager->registerDevice(graphicsDevice);
+        }
+
+       	app->setOutputManager(outputManager);
 
 		// start app
-		_app->onStart();
+		app->onStart();
 
-		app = _app;
+		_app = app;
 	}
 
 	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication {
@@ -73,7 +65,7 @@ Import com::dragon3d::framework;
 	}
 
 	-(void) dealloc {
-		SafeDelete(app);
+		//SafeDelete(_app);
 		[super dealloc];
 	}
 

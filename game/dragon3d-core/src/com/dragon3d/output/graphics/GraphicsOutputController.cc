@@ -22,13 +22,34 @@
 
 
 #include <com/dragon3d/output/graphics/GraphicsOutputController.h>
+#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 
+#include <dragon/util/logging/Logger.h>
+
+Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::graphics::renderer;
+
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
 GraphicsOutputController::GraphicsOutputController() {
-
+	this->graphicsRenderer = new OpenGLRenderer();
 }
 
 GraphicsOutputController::~GraphicsOutputController() {
 
 }
+
+void GraphicsOutputController::init() {
+	logger->info("init");
+
+	this->graphicsRenderer->init();
+}
+
+void GraphicsOutputController::output(Scene* scene) {
+	logger->debug("render scene");
+
+	GraphicsRenderer* gr = this->graphicsRenderer;
+	gr->drawSample();
+}
+

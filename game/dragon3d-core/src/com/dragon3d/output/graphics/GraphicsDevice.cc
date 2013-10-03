@@ -21,17 +21,35 @@
  **********************************************************************/
 
 
-#include <com/dragon3d/output/graphics/Display.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
+
+#include <dragon/util/logging/Logger.h>
+
 
 Import com::dragon3d::output::graphics;
+Import dragon::util::logging;
 
-Display::Display() {
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice", INFO);
 
+GraphicsDevice::GraphicsDevice() {
+	this->controller = new GraphicsOutputController();
 }
 
-Display::~Display() {
-
+GraphicsDevice::~GraphicsDevice() {
+	SafeDelete(this->controller);
 }
+
+//void GraphicsDevice::init();
+
+int GraphicsDevice::queryStatus(int code) {
+	return 0;
+}
+
+OutputController* GraphicsDevice::getOutputController() {
+	return this->controller;
+}
+
 
 /*
 

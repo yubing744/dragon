@@ -30,14 +30,25 @@ BeginPackage4(com, dragon3d, output, graphics)
 
 Import com::dragon3d::output::graphics;
 
-class _DragonExport GraphicsRenderer {
+/**
+ * graphices renderer.
+ */
+interface _DragonExport GraphicsRenderer {
 public:
-	GraphicsRenderer();
-	virtual ~GraphicsRenderer();
+	virtual ~GraphicsRenderer(){};
 
 public:
-	virtual void viewport(int x, int y, int width, int height) = 0;
-    virtual void perspective(float fovy, float aspect, float zNear, float zFar) = 0;
+	/**
+	 * init the graphics renderer.
+	 */
+	virtual void init() = 0;
+	//virtual void viewport(int x, int y, int width, int height) = 0;
+    //virtual void perspective(float fovy, float aspect, float zNear, float zFar) = 0;
+
+	/**
+	 * draw a sample shape.
+	 */
+	virtual void drawSample() = 0;
 
     /*
 	virtual bool init() = 0;

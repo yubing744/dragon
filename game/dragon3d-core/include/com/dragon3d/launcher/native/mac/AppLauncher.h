@@ -27,7 +27,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AppLauncher : NSObject <NSApplicationDelegate> {
-	void* app;
+	void* _app;
 }
 
 @end

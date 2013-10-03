@@ -25,22 +25,58 @@
 #define Display_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
-#include <dragon/util/concurrent/CountDownLatch.h>
+
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/output/OutputDevice.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
+Import dragon::lang;
+Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
-class _DragonExport Display {
+/**
+ * game output display.
+ * 
+ */
+class _DragonExport GraphicsDevice extends(Object) 
+	implements1(OutputDevice) {
 public:
-	Display();
-	virtual ~Display();
+	GraphicsDevice();
+	virtual ~GraphicsDevice();
 
-public:
-	
+public: // implements OutputDevice
+	/**
+	 * init the output device
+	 */
+	virtual void init();	
+
+	/**
+	 * query the output device status by code.
+	 * 
+	 * @param code [description]
+	 */
+	virtual int queryStatus(int code);
+
+	/**
+	 *  get the ouput controller.
+	 *  
+	 * @return [description]
+	 */
+	virtual OutputController* getOutputController();
+
 protected:
-	
-};//Display
+	/**
+	 * display scene output controller.
+	 */
+	OutputController* controller;
+
+	/**
+	 * native display.
+	 */
+	void* nativeDisplay;
+
+};//GraphicsDevice
 
 EndPackage4 //(com, dragon3d, output, graphics)
 

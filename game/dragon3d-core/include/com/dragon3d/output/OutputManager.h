@@ -26,19 +26,55 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/String.h>
+#include <dragon/util/List.h>
+
+#include <com/dragon3d/framework/Output.h>
+#include <com/dragon3d/output/OutputDevice.h>
+
 BeginPackage3(com, dragon3d, output)
 
+Import dragon::util;
+
+Import com::dragon3d::framework;
 Import com::dragon3d::output;
 
-class _DragonExport OutputManager {
+/**
+ * ouput manager
+ */
+class _DragonExport OutputManager extends(Object) 
+	implements1(Output) {
 public:
 	OutputManager();
 	virtual ~OutputManager();
 
+public:// implements Output
+
+	/**
+	 * init the output
+	 */
+	virtual void init();
+
+	/**
+	 * output the scene
+	 */
+	virtual void output(Scene* scene, CountDownLatch* latch);
+
 public:
-	
+	/**
+	 * register a ouput device.
+	 * 
+	 * @param outputDevice [description]
+	 */
+	virtual void registerDevice(OutputDevice* outputDevice);	
+
 protected:
-	
+	/**
+	 * the all game output device.
+	 */
+	List<OutputDevice>* outputDevices;
+
 };//OutputManager
 
 EndPackage3 //(com, dragon3d, output)

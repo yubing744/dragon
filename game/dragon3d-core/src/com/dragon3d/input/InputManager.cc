@@ -23,7 +23,12 @@
 
 #include <com/dragon3d/input/InputManager.h>
 
+#include <dragon/util/logging/Logger.h>
+
+Import dragon::util::logging;
 Import com::dragon3d::input;
+
+static Logger* logger = Logger::getLogger("com::dragon3d::input::InputManager", INFO);
 
 InputManager::InputManager() {
 
@@ -33,6 +38,9 @@ InputManager::~InputManager() {
 
 }
 
+void InputManager::init() {
+	logger->info("init");
+}
 /*
 
 #include "dg_input_manager.h"

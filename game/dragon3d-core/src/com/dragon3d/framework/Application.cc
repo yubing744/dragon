@@ -20,7 +20,6 @@
  * Created:     2013/09/15
  **********************************************************************/
 
-
 #include <com/dragon3d/framework/Application.h>
 #include <dragon/util/logging/Logger.h>
  
@@ -31,24 +30,28 @@ Import dragon::lang;
 Import dragon::util::logging;
 Import com::dragon3d::framework;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", DEBUG);
+static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", INFO);
 
 Application::Application() 
 	:isExit(false) {
-
+	this->inputManager = null;
+	this->outputManager= null;
 }
 
 Application::~Application() {
-
+	this->isExit = true;
 }
 
 void Application::onStart() {
-	logger->debug("on start");
+	logger->info("on start");
 
 	// init frame handler
 	this->timer = new Timer();
 	this->frameWork = new FrameHandler(timer);
 	
+	// init input manager
+	this->inputManager->init();
+
 	// init game
 	this->onInitGame();
 
@@ -58,22 +61,33 @@ void Application::onStart() {
 }
 
 void Application::onInitGame() {
-	logger->debug("on init game");
+	logger->info("on init game");
 
 	this->frameWork->addUpdater(this);
-	this->frameWork->addOutput(this);
+	this->frameWork->addOutput(this->outputManager);
 }
 
 void Application::onDestroy() {
-	logger->debug("on destroy");	
+	logger->info("on destroy");	
 }
+
+void Application::setInputManager(InputManager* inputManager) {
+	SafeDelete(this->inputManager);
+	this->inputManager = inputManager;
+}
+
+void Application::setOutputManager(OutputManager* outputManager) {
+	SafeDelete(this->outputManager);
+	this->outputManager = outputManager;
+}
+
 
 Scene* Application::getCurrentScene() {
 	return this;
 }
 
 void Application::run() {
-	logger->debug("game main thread run ... ");
+	logger->info("game main thread run ... ");
 
 	try {
         frameWork->init();
@@ -96,12 +110,13 @@ void Application::run() {
 // ----------------------- simple game -----------------------
 
 void Application::init() {
-	logger->debug("game init");
+	logger->info("game init");
 }
 
 void Application::update(Scene* scene, ReadOnlyTimer* timer) {
 	logger->debug("game update");
 	logger->debug("game fps %d", timer->getFrameRate());
+	logger->debug("current time %d", System::currentTimeMillis());
 }
 
 void Application::output(Scene* scene, CountDownLatch* latch) {

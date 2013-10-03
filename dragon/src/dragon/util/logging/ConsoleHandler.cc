@@ -36,5 +36,5 @@ ConsoleHandler::~ConsoleHandler() {
 }
 
 void ConsoleHandler::publish(const char* loggerName, const char* msg) {
-	printf("%s %s\n", loggerName, msg);
+	printf("%s: %s\n", loggerName, msg);
 }

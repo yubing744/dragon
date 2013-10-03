@@ -22,8 +22,14 @@
 
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+#include <dragon/util/logging/Logger.h>
 
+#include <OpenGL/gl.h>
+
+Import dragon::util::logging;
 Import com::dragon3d::output::graphics::renderer;
+
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer", INFO);
 
 OpenGLRenderer::OpenGLRenderer() {
 
@@ -31,4 +37,31 @@ OpenGLRenderer::OpenGLRenderer() {
 
 OpenGLRenderer::~OpenGLRenderer() {
 
+}
+
+void OpenGLRenderer::init() {
+	logger->info("init");
+}
+
+void OpenGLRenderer::drawSample() {
+	logger->info("draw sample shape.");
+
+	glClearColor(0, 0, 0, 0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3f(1.0f, 0.85f, 0.35f);
+
+    glBegin(GL_TRIANGLES);
+    
+    {
+
+        glVertex3f(  0.0,  0.6, 0.0);
+        glVertex3f( -0.2, -0.3, 0.0);
+        glVertex3f(  0.2, -0.3 ,0.0);
+
+    }
+
+    glEnd();
+
+    glFlush();
 }
