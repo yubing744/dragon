@@ -26,66 +26,51 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/util/math/Vector2.h>
+#include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Vector4.h>
+#include <com/dragon3d/util/math/Color32.h>
+
+#include <com/dragon3d/scene/model/Material.h>
+ 
 BeginPackage4(com, dragon3d, scene, model)
 
+Import com::dragon3d::util::math;
 Import com::dragon3d::scene::model;
 
+/**
+ * A class that allows creating or modifying meshes from scripts.
+ */
 class _DragonExport Mesh {
 public:
 	Mesh();
 	virtual ~Mesh();
 
 public:
-	
-protected:
-	
+    /**
+     * return the indices buffer of sub mesh
+     * @param  submesh [description]
+     * @return         [description]
+     */
+    int* getIndices(int submesh);
+
+public:
+    Vector3* vertices; // Returns a copy of the vertex positions or assigns a new vertex positions array.
+    int vertexCount; //Returns the number of vertices in the mesh (Read Only).
+
+    Vector2* uv; //The base texture coordinates of the mesh.
+    Vector2* uv2; //The second texture coordinate set of the mesh, if present.
+    Vector3* normals; // The normals of the mesh.
+    Vector4* tangents; // The tangents of the mesh.
+    Color32* colors; //Vertex colors of the mesh.
+
+    int* triangles; //An array containing all triangles in the mesh.
+    int triangleIndexCount; //index count
+
+    int subMeshCount; //The number of submeshes. Every material has a separate triangle list.
+
 };//Mesh
 
 EndPackage4 //(com, dragon3d, scene, model)
 
 #endif //Mesh_Model_Scene_Dragon3d_Com_H
-
-/*
-
-#pragma once
-
-#include "dg_config.h"
-
-#if !defined(DG_MESH)
-#define DG_MESH
-
-#include "dg_vector2.h"
-#include "dg_vector3.h"
-#include "dg_matrix4x4.h"
-
-#include <string>
-using std::string;
-
-
-class DGMesh
-{
-public:
-	DGMesh(void);
-	DGMesh(const char* name);
-	virtual ~DGMesh(void);
-
-public:
-	DGVector3* vertices; //顶点的数据
-    DGVector2* uv; //材质坐标数据
-    DGVector2* uv2; //二级材质坐标数据
-    DGVector3* normals; //法向量数据
-	DGuint vertexCount; //网格顶点个数
-
-
-    DGuint* indices; //索引数据
-    DGuint indexCount; //索引个数
-
-	DGMatrix4x4 matrix; //Transformation matrix for mesh data
-
-private:
-	string name;
-};
-
-#endif
-
- */

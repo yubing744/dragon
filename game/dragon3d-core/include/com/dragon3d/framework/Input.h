@@ -26,18 +26,22 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/reflect/Type.h>
+
 BeginPackage3(com, dragon3d, framework)
 
+Import dragon::lang::reflect;
 Import com::dragon3d::framework;
 
-class _DragonExport Input {
+interface _DragonExport Input {
 public:
-	Input();
-	virtual ~Input();
+	virtual ~Input(){};
 
 public:
-	
-protected:
+    /**
+     * output the scene
+     */
+    virtual int queryStatus(Type* deviceType, int statusType) = 0;
 	
 };//Input
 

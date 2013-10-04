@@ -17,31 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#ifndef Color_Model_Scene_Dragon3d_Com_H
+#define Color_Model_Scene_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+BeginPackage4(com, dragon3d, scene, model)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::scene::model;
 
-class _DragonExport HelloWorld extends(Application) {
+class _DragonExport Color32 {
 public:
-	HelloWorld();
-	virtual ~HelloWorld();
+	Color32();
+	virtual ~Color32();
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+    dg_byte a; //Alpha component of the color.
+    dg_byte b; //Blue component of the color.
+    dg_byte g; //Green component of the color.
+    dg_byte r; //Red component of the color.
+	
+};//Color32
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+EndPackage4 //(com, dragon3d, scene, model)
 
-#endif //HelloWorld_Dragon3D_H
+#endif //Color_Model_Scene_Dragon3d_Com_H

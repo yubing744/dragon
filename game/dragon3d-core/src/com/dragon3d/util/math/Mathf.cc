@@ -17,60 +17,14 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/util/math/Mathf.h>
 
-Import com::dragon3d::framework;
+Import com::dragon3d::util::math;
 
-Scene::Scene() {
+const float Mathf::PI = 3.141592654f;
 
-}
-
-Scene::~Scene() {
-
-}
-
-/*
-
-#include "dg_scene.h"
-
-DGScene::DGScene(void){
-	horizonGrid = new DGHorizonGrid();
-}
-
-
-DGScene::~DGScene(void){
-	dgDelete(horizonGrid);
-}
-
-void DGScene::init(DGContext* ctx){
-	this->addComponent(horizonGrid);
-
-	DGGameObject::init(ctx);
-}
-
-void DGScene::update(DGContext* ctx){
-	DGGameObject::update(ctx);
-}
-
-void DGScene::draw(DGContext* ctx){
-	DGGameObject::draw(ctx);
-}
-
-void DGScene::destroy(){
-	DGGameObject::destroy();
-}
-
-void DGScene::turnOnHorizonGrid(){
-	this->horizonGrid->setActive(true);
-}
-
-void DGScene::turnOffHorizonGrid(){
-	this->horizonGrid->setActive(false);
-}
-
-
- */
+const float Mathf::EPSILON = (1e-8);

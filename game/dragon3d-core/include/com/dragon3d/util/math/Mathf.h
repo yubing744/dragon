@@ -17,18 +17,31 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/17
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#include <com/dragon3d/framework/Updater.h>
+#ifndef Mathf_Math_Util_Dragon3d_Com_H
+#define Mathf_Math_Util_Dragon3d_Com_H
 
-Import com::dragon3d::framework;
+#include <dragon/config.h>
 
-Updater::Updater() {
+BeginPackage4(com, dragon3d, util, math)
 
-}
+Import com::dragon3d::util::math;
 
-Updater::~Updater() {
+class _DragonExport Mathf {
+public:
+    static const float PI;
+    static const float EPSILON;
 
-}
+public:
+    static int min(int x, int y) {
+        return x > y ? y : x;
+    }
+
+};//Mathf
+
+EndPackage4 //(com, dragon3d, util, math)
+
+#endif //Mathf_Math_Util_Dragon3d_Com_H

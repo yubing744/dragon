@@ -17,31 +17,27 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#include <com/dragon3d/util/math/Vector2.h>
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+Import com::dragon3d::util::math;
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+const Vector2 Vector2::ZERO = Vector2(0, 0);
+const Vector2 Vector2::ONE = Vector2(1, 1);
 
-Import com::dragon3d::framework;
+Vector2::Vector2(void){
+    this->x = 0;
+    this->y = 0;
+}
 
-class _DragonExport HelloWorld extends(Application) {
-public:
-	HelloWorld();
-	virtual ~HelloWorld();
+Vector2::Vector2(float x, float y){
+    this->x = x;
+    this->y = y;
+}
 
-public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+Vector2::~Vector2() {
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
-
-#endif //HelloWorld_Dragon3D_H
+}

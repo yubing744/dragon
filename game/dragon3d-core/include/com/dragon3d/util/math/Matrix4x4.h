@@ -17,66 +17,47 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/10/05
  **********************************************************************/
 
 
-#ifndef Behaviour_Scene_Dragon3d_Com_H
-#define Behaviour_Scene_Dragon3d_Com_H
+#ifndef Matrix4x4_Math_Util_Dragon3d_Com_H
+#define Matrix4x4_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
 
-#include <com/dragon3d/scene/Component.h>
+BeginPackage4(com, dragon3d, util, math)
 
-BeginPackage3(com, dragon3d, scene)
+Import com::dragon3d::util::math;
 
-Import com::dragon3d::scene;
-
-class _DragonExport Behaviour 
-    extends(Component) {
+class _DragonExport Matrix4x4 {
 public:
-	Behaviour();
-	virtual ~Behaviour();
+    const static Matrix4x4 IDENTITY;
 
 public:
-    /**
-     * whether enable
-     */
-	bool enabled;
-};//Behaviour
+    static Matrix4x4 multiply(const Matrix4x4& matrixA, const Matrix4x4& matrixB);
 
-EndPackage3 //(com, dragon3d, scene)
-
-#endif //Behaviour_Scene_Dragon3d_Com_H
-
-/*
-#pragma once
-
-#include "dg_component.h"
-
-#if !defined(DG_BEHAVIOR)
-#define DG_BEHAVIOR
-
-class DGBehaviour :
-    public DGComponent
-{
+//---------------------------------------------------
 public:
-    DGBehaviour(void);
-    virtual ~DGBehaviour(void);
+    Matrix4x4(void);
+    Matrix4x4(float* f4x4);
+    Matrix4x4(
+        float x11, float x12, float x13, float x14,
+        float x21, float x22, float x23, float x24,
+        float x31, float x32, float x33, float x34,
+        float x41, float x42, float x43, float x44
+    );
 
 public:
-	virtual void init(DGGameObject* gameObject, DGContext* ctx);
-	virtual void update(DGContext* ctx);
-	virtual void draw(DGContext* ctx);
-	virtual void destroy();
+    void identity();
+    Matrix4x4 multiply(const Matrix4x4& matrix);
+    bool inverse();
 
 public:
-    virtual void start();
+    float m[4][4];
+    
+};//Matrix4x4
 
-public:
-    DGboolean enabled;
-};
+EndPackage4 //(com, dragon3d, util, math)
 
-#endif
-
- */
+#endif //Matrix4x4_Math_Util_Dragon3d_Com_H

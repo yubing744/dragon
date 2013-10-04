@@ -25,8 +25,11 @@
 #define Scene_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <com/dragon3d/scene/GameObject.h>
 
 BeginPackage3(com, dragon3d, framework)
+
+Import com::dragon3d::scene;
 
 /**
  * Owns all the data that is related to the scene. This class should not really know anything about rendering or the
@@ -37,7 +40,13 @@ public:
 	virtual ~Scene(){};
 
 public:
-	
+	/**
+	 * get the root game object.
+	 * 
+	 * @return [description]
+	 */
+	virtual GameObject* getRoot() = 0;
+
 };//Scene
 
 EndPackage3 //(com, dragon3d, framework)

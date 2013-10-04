@@ -17,31 +17,36 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#ifndef Quaternion_Math_Util_Dragon3d_Com_H
+#define Quaternion_Math_Util_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+BeginPackage4(com, dragon3d, util, math)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::util::math;
 
-class _DragonExport HelloWorld extends(Application) {
+class _DragonExport Quaternion {
 public:
-	HelloWorld();
-	virtual ~HelloWorld();
+    static const Quaternion IDENTITY;
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+    Quaternion();
+    Quaternion(float x, float y, float z);
+    Quaternion(float x, float y, float z, float w);
+    virtual ~Quaternion();
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+public:
+    float x;
+    float y;
+    float z;
+    float w;
+};//Quaternion
 
-#endif //HelloWorld_Dragon3D_H
+EndPackage4 //(com, dragon3d, util, math)
+
+#endif //Quaternion_Math_Util_Dragon3d_Com_H

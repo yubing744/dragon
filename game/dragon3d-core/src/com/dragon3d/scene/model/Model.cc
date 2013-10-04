@@ -17,31 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#include <com/dragon3d/scene/model/Model.h>
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+Import com::dragon3d::scene::model;
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+Model::Model() {
 
-Import com::dragon3d::framework;
+}
 
-class _DragonExport HelloWorld extends(Application) {
-public:
-	HelloWorld();
-	virtual ~HelloWorld();
+Model::~Model() {
 
-public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
-
-EndPackage4 //(com, dragon3d, examples, helloworld)
-
-#endif //HelloWorld_Dragon3D_H
+}

@@ -26,11 +26,18 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/framework/Input.h>
+
 BeginPackage3(com, dragon3d, input)
 
-Import com::dragon3d::input;
+Import dragon::lang;
 
-class _DragonExport InputManager {
+Import com::dragon3d::input;
+Import com::dragon3d::framework;
+
+class _DragonExport InputManager extends(Object) 
+	implements1(Input) {
 public:
 	InputManager();
 	virtual ~InputManager();
@@ -45,6 +52,12 @@ public:
 	 * destroy input manager
 	 */
 	virtual void destroy();
+
+public:// Implements Input
+	/**
+     * output the scene
+     */
+    virtual int queryStatus(Type* deviceType, int statusType);
 
 };//InputManager
 

@@ -46,6 +46,10 @@ void InputManager::destroy() {
 	logger->info("destroy");
 }
 
+int InputManager::queryStatus(Type* deviceType, int statusType) {
+	return -1;
+}
+
 /*
 
 #include "dg_input_manager.h"

@@ -50,13 +50,13 @@ Class* Object::getClass() {
 	return classLoader->loadClass(typeid(*this).name());
 }
 
-dg_boolean Object::equals(const Object* obj) {
+bool Object::equals(const Object* obj) {
 	return this == obj;
 }
 
-dg_int Object::hashCode() {
-	dg_int* p = (dg_int*)(this);
-	return (dg_int)(*p);
+int Object::hashCode() {
+	int* p = (int*)(this);
+	return (int)(*p);
 }
 
 String* Object::toString() {

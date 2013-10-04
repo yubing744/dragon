@@ -102,7 +102,9 @@ void Application::onGameInit() {
     this->outputManager->init();
 
 	this->frameWork->addUpdater(this);
-	this->frameWork->addOutput(this->outputManager);
+
+    this->frameWork->addOutput(this);
+    this->frameWork->addOutput(this->outputManager);
 }
 
 void Application::onGameDestroy() {
@@ -152,6 +154,9 @@ void Application::run() {
     }
 }
 
+GameObject* Application::getRoot() {
+    return this->root;
+}
 
 // ----------------------- simple game -----------------------
 
@@ -163,15 +168,25 @@ void Application::update(Scene* scene, ReadOnlyTimer* timer) {
 	logger->debug("game scene update");
 	logger->debug("game scene fps %d", timer->getFrameRate());
 	logger->debug("current time %d", System::currentTimeMillis());
+
+    logger->debug("update all the world");
+    GameObject* root = scene->getRoot();
+    root->update(this->inputManager, timer);
 }
 
 void Application::output(Scene* scene, CountDownLatch* latch) {
 	logger->debug("game scene output");
+
+    latch->countDown();
 }
 
 void Application::destroy() {
     logger->debug("game scene destroy");
 }
+
+// -------------------------------------------------------------
+
+
 
 /*
 

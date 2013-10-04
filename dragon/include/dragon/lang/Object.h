@@ -40,14 +40,14 @@ public:
 	 * @param  obj [description]
 	 * @return     [description]
 	 */
-	virtual dg_boolean equals(const Object* obj);
+	virtual bool equals(const Object* obj);
 
 	/**
 	 * Returns a hash code value for the object. This method is supported for the benefit 
 	 * of hashtables such as those provided by dragon.util.Hashtable. 
 	 * @return [description]
 	 */
-	virtual dg_int hashCode();
+	virtual int hashCode();
 
 	/**
 	 * Returns a string representation of the object. 

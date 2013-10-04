@@ -26,18 +26,45 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Quaternion.h>
+
 BeginPackage3(com, dragon3d, scene)
 
 Import com::dragon3d::scene;
+Import com::dragon3d::util::math;
+
+enum Space {
+    World,
+    Self
+};
 
 class _DragonExport Transform {
 public:
-	Transform();
-	virtual ~Transform();
+    
+public:
+    Transform(void);
+    virtual ~Transform(void);
 
 public:
-	
-protected:
+    void translate(const Vector3& translation, Space relativeTo);
+    void rotate(const Vector3& eulerAngles, Space relativeTo);
+    void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo);
+
+    void translate(const Vector3& translation);
+    void rotate(const Vector3& eulerAngles);
+    void rotate(float xAngle, float yAngle, float zAngle);
+
+public:
+    // transform in world space
+    Vector3 position;
+    Quaternion rotation;
+    Vector3 scale;
+
+    // transform relative to the parent transform.
+    Vector3 localPosition;
+    Quaternion localRotation;
+    Vector3 localScale;
 	
 };//Transform
 

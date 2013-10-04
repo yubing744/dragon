@@ -17,31 +17,36 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#ifndef Vector4_Math_Util_Dragon3d_Com_H
+#define Vector4_Math_Util_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+BeginPackage4(com, dragon3d, util, math)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::util::math;
 
-class _DragonExport HelloWorld extends(Application) {
+class _DragonExport Vector4 {
 public:
-	HelloWorld();
-	virtual ~HelloWorld();
+    static const Vector4 ZERO; //Shorthand for writing Vector4(0, 0, 0, 0)
+    static const Vector4 ONE; //Shorthand for writing Vector4(1, 1, 1, 1)
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+    Vector4();
+    Vector4(float x, float y, float z, float w);
+    virtual ~Vector4();
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+public:
+    float x;
+    float y;
+    float z;
+    float w;
+};//Vector4
 
-#endif //HelloWorld_Dragon3D_H
+EndPackage4 //(com, dragon3d, util, math)
+
+#endif //Vector4_Math_Util_Dragon3d_Com_H

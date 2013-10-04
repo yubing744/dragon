@@ -17,31 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#ifndef Box_Geometry_Model_Scene_Dragon3d_Com_H
+#define Box_Geometry_Model_Scene_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
+#include <com/dragon3d/scene/model/Model.h>
 
-BeginPackage4(com, dragon3d, examples, helloworld)
 
-Import com::dragon3d::framework;
+BeginPackage5(com, dragon3d, scene, model, geometry)
 
-class _DragonExport HelloWorld extends(Application) {
+Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::model::geometry;
+
+class _DragonExport Box 
+    extends(Model) {
 public:
-	HelloWorld();
-	virtual ~HelloWorld();
+    Box();
+    virtual ~Box();
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+    float xSize;
+    float ySize;
+    float zSize; 
+};//Box
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+EndPackage5 //(com, dragon3d, scene, model, geometry)
 
-#endif //HelloWorld_Dragon3D_H
+#endif //Box_Geometry_Model_Scene_Dragon3d_Com_H

@@ -352,9 +352,26 @@ dragon3d_core_SOURCES = {
         Application.cc
         FrameHandler.cc
     """),
+
+    "com/dragon3d/scene" : Split("""
+        GameObject.cc
+        Component.cc
+        Transform.cc
+    """), 
+    "com/dragon3d/scene/model" : Split("""
+        Mesh.cc
+        Texture.cc
+        Material.cc
+        Model.cc
+    """),
+    "com/dragon3d/scene/model/geometry" : Split("""
+        Box.cc
+    """),
+
     "com/dragon3d/input" : Split("""
         inputManager.cc
     """),
+
     "com/dragon3d/output" : Split("""
         OutputManager.cc
     """),
@@ -368,6 +385,18 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/util" : Split("""
         Timer.cc
     """),
+
+    "com/dragon3d/util/math" : Split("""
+        Vector2.cc
+        Vector3.cc
+        Vector4.cc
+        Color.cc
+        Color32.cc
+        Mathf.cc
+        Quaternion.cc
+        Matrix4x4.cc
+        Ray3.cc
+    """)
 
 }
 

@@ -49,3 +49,4 @@ void OpenGLRenderer::flushBuffer() {
     NSOpenGLView* glView = (NSOpenGLView*)data->dgView;
     [[glView openGLContext] flushBuffer];
 }
+

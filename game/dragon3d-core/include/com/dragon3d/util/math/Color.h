@@ -17,12 +17,12 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/20
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef Ray3_Math_Util_Dragon3d_Com_H
-#define Ray3_Math_Util_Dragon3d_Com_H
+#ifndef Color_Math_Util_Dragon3d_Com_H
+#define Color_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
 
@@ -30,17 +30,43 @@ BeginPackage4(com, dragon3d, util, math)
 
 Import com::dragon3d::util::math;
 
-class _DragonExport Ray3 {
+/**
+ * Representation of RGBA colors.
+ */
+class _DragonExport Color {
 public:
-	Ray3();
-	virtual ~Ray3();
+    static const Color WHITE;
+    static const Color RED;
+    static const Color GREEN;
+    static const Color BLUE;
+    static const Color BLACK;
 
 public:
-	
-protected:
-	
-};//Ray3
+    static Color hexColor(const char* hexColor);
+// -----------------------------
+
+public:
+    Color(void);
+
+    Color(float r, float g, float b);
+    Color(float r, float g, float b, float a);
+
+    Color(int r, int g, int b);
+    Color(int r, int g, int b, int a);
+
+    Color(dg_byte r, dg_byte g, dg_byte b);
+    Color(dg_byte r, dg_byte g, dg_byte b, dg_byte a);
+
+    Color(const char* hexColor);
+
+public:
+    float r; //Red component of the color.
+    float g; //Green component of the color.
+    float b; //Blue component of the color.
+    float a; //Alpha component of the color.
+
+};//Color
 
 EndPackage4 //(com, dragon3d, util, math)
 
-#endif //Ray3_Math_Util_Dragon3d_Com_H
+#endif //Color_Math_Util_Dragon3d_Com_H

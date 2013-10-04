@@ -26,9 +26,16 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/framework/Input.h>
+#include <com/dragon3d/util/ReadOnlyTimer.h>
+
 BeginPackage3(com, dragon3d, scene)
 
+Import com::dragon3d::util;
 Import com::dragon3d::scene;
+Import com::dragon3d::framework;
+
+class GameObject;
 
 class _DragonExport Component {
 public:
@@ -36,9 +43,20 @@ public:
 	virtual ~Component();
 
 public:
-	
-protected:
-	
+	/**
+	 * update the game component
+	 * 
+	 * @param input [description]
+	 * @param timer [description]
+	 */
+	virtual void update(Input* input, ReadOnlyTimer* timer);
+
+public:
+	/**
+	 * The game object this component is attached to. A component is always attached to a game object.
+	 */
+	GameObject* gameObject;
+
 };//Component
 
 EndPackage3 //(com, dragon3d, scene)

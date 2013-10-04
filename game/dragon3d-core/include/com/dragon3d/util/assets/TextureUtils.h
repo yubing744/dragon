@@ -17,31 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/05
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#ifndef TextureUtils_Assets_Util_Dragon3d_Com_H
+#define TextureUtils_Assets_Util_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+BeginPackage4(com, dragon3d, util, assets)
 
-Import com::dragon3d::framework;
+Import com::dragon3d::util::assets;
 
-class _DragonExport HelloWorld extends(Application) {
+class _DragonExport TextureUtils {
 public:
-	HelloWorld();
-	virtual ~HelloWorld();
+    TextureUtils();
+    virtual ~TextureUtils();
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+    static void load(const char* strFileName);
+    static void loadBMP(const char *strFileName);
+    static void loadJPG(const char *strFileName);
+    static void loadTGA(const char *strFileName); 
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+};//TextureUtils
 
-#endif //HelloWorld_Dragon3D_H
+EndPackage4 //(com, dragon3d, util, assets)
+
+#endif //TextureUtils_Assets_Util_Dragon3d_Com_H

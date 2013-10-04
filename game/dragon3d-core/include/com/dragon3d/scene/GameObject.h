@@ -26,19 +26,84 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/String.h>
+#include <dragon/util/List.h>
+
+#include <dragon/lang/reflect/Type.h>
+
+#include <com/dragon3d/framework/Input.h>
+#include <com/dragon3d/util/ReadOnlyTimer.h>
+
+#include <com/dragon3d/scene/Component.h>
+#include <com/dragon3d/scene/Transform.h>
+
+
 BeginPackage3(com, dragon3d, scene)
 
-Import com::dragon3d::scene;
+Import dragon::lang;
+Import dragon::util;
 
-class _DragonExport GameObject {
+Import dragon::lang::reflect;
+
+Import com::dragon3d::util;
+Import com::dragon3d::scene;
+Import com::dragon3d::framework;
+
+/**
+ * the game object
+ */
+class _DragonExport GameObject 
+	extends(Object) {
 public:
 	GameObject();
 	virtual ~GameObject();
 
 public:
-	
+	/**
+	 * update the game object
+	 * 
+	 * @param input [description]
+	 * @param timer [description]
+	 */
+	virtual void update(Input* input, ReadOnlyTimer* timer);
+
+	/**
+	 * add component.
+	 * 
+	 * @param component [description]
+	 */
+	virtual void addComponent(Component* component);
+
+	/**
+	 * find the componet by type
+	 * 
+	 * @param  type [description]
+	 * @return      [description]
+	 */
+	virtual Component* getComponent(Type* type);
+
 protected:
-	
+	/**
+	 * the name of game object;
+	 */
+	String* name;
+
+	/**
+	 * if the game object should hide.
+	 */
+	bool hideFlags;
+
+	/**
+	 * The Transform attached to this GameObject. (null if there is none attached).
+	 */
+	Transform* transform;
+
+	/**
+	 * game component.
+	 */
+	List<Component>* components;
+
 };//GameObject
 
 EndPackage3 //(com, dragon3d, scene)

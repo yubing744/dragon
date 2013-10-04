@@ -17,30 +17,54 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef Color_Model_Scene_Dragon3d_Com_H
-#define Color_Model_Scene_Dragon3d_Com_H
+#ifndef Model_Model_Scene_Dragon3d_Com_H
+#define Model_Model_Scene_Dragon3d_Com_H
 
 #include <dragon/config.h>
 
+#include <dragon/util/List.h>
+#include <com/dragon3d/scene/Component.h>
+#include <com/dragon3d/scene/model/Mesh.h>
+
 BeginPackage4(com, dragon3d, scene, model)
 
+Import dragon::util;
 Import com::dragon3d::scene::model;
 
-class _DragonExport Color {
+class _DragonExport Model 
+    extends(Component) {
 public:
-	Color();
-	virtual ~Color();
+    Model();
+    virtual ~Model();
 
 public:
-	
-protected:
-	
-};//Color
+    /**
+     * get the model mesh
+     * 
+     * @return [description]
+     */
+    Mesh* mesh;
+
+    /**
+     * get the model's material
+     * 
+     * @return [description]
+     */
+    Material* material;
+
+    /**
+     * get the model's materials
+     * 
+     * @return [description]
+     */
+    List<Material>* materials;
+    
+};//Model
 
 EndPackage4 //(com, dragon3d, scene, model)
 
-#endif //Color_Model_Scene_Dragon3d_Com_H
+#endif //Model_Model_Scene_Dragon3d_Com_H

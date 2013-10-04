@@ -26,56 +26,31 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/String.h>
+#include <com/dragon3d/util/math/Color.h>
+#include <com/dragon3d/scene/model/Texture.h>
+
 BeginPackage4(com, dragon3d, scene, model)
 
+Import dragon::lang;
+
+Import com::dragon3d::util::math;
 Import com::dragon3d::scene::model;
 
 class _DragonExport Material {
 public:
-	Material();
-	virtual ~Material();
+	Material(void);
+	Material(const Color& color);
+	Material(const Color& color, Texture* mainTexture);
+
+	virtual ~Material(void);
 
 public:
-	
-protected:
-	
+	String* name;
+	Color color;
+	Texture* mainTexture;
 };//Material
 
 EndPackage4 //(com, dragon3d, scene, model)
 
 #endif //Material_Model_Scene_Dragon3d_Com_H
-
-/*
-
-#pragma once
-
-#include "dg_game.h"
-#include "dg_texture.h"
-
-#if !defined(DG_MATERIAL)
-#define DG_MATERIAL
-
-#include <string>
-using std::string;
-
-class DGMaterial
-{
-public:
-	DGMaterial(void);
-	DGMaterial(const DGColor& color);
-	DGMaterial(const DGColor& color, DGTexture* mainTexture);
-
-	virtual ~DGMaterial(void);
-
-public:
-	string name;
-	DGColor color;
-	DGTexture* mainTexture;
-
-public:
-	const static DGMaterial DEFAULT_MATERIAL;
-};
-
-#endif
-
- */

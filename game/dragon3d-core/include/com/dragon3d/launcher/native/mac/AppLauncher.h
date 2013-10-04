@@ -30,6 +30,8 @@
 	void* _app;
 }
 
+-(void) launchApp:(void*) toLaunchApplication;
+
 @end
 
 #endif //AppLauncher_Launcher_Dragon3d_Com_H

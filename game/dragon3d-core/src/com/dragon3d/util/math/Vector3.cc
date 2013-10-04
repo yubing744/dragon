@@ -17,31 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#ifndef HelloWorld_Dragon3D_H
-#define HelloWorld_Dragon3D_H
+#include <com/dragon3d/util/math/Vector3.h>
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+Import com::dragon3d::util::math;
 
-BeginPackage4(com, dragon3d, examples, helloworld)
+const Vector3 Vector3::ZERO = Vector3(0, 0 ,0);
+const Vector3 Vector3::ONE = Vector3(1, 1 ,1);
 
-Import com::dragon3d::framework;
+const Vector3 Vector3::FORWARD = Vector3(0, 0 ,1);
+const Vector3 Vector3::UP = Vector3(0, 1 ,0);
+const Vector3 Vector3::RIGHT = Vector3(1, 0 ,0);
+const Vector3 Vector3::LEFT = Vector3(-1, 0 ,0);
 
-class _DragonExport HelloWorld extends(Application) {
-public:
-	HelloWorld();
-	virtual ~HelloWorld();
+Vector3::Vector3(){
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
+}
 
-public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
-};//HelloWorld
+Vector3::Vector3(float x, float y, float z) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
 
-EndPackage4 //(com, dragon3d, examples, helloworld)
+Vector3::~Vector3() {
 
-#endif //HelloWorld_Dragon3D_H
+}

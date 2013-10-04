@@ -13,7 +13,6 @@
 		465173F617F7A9E30029222A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 465173F417F7A9E30029222A /* Credits.rtf */; };
 		4651740917FA64640029222A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651740817FA64640029222A /* OpenGL.framework */; };
 		4651742B17FA7EFB0029222A /* com in Resources */ = {isa = PBXBuildFile; fileRef = 4651742A17FA7EFB0029222A /* com */; };
-		4651742D17FA7F240029222A /* com in Resources */ = {isa = PBXBuildFile; fileRef = 4651742C17FA7F240029222A /* com */; };
 		4651765017FC17D30029222A /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651764F17FC17D30029222A /* libdragon3d-core.a */; };
 		4651765317FC1F5F0029222A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4651765117FC1F5F0029222A /* AppDelegate.mm */; };
 		4651765817FC3B2D0029222A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4651765617FC3B2D0029222A /* MainMenu.xib */; };
@@ -21,6 +20,10 @@
 		4651769817FC63AB0029222A /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769717FC63AB0029222A /* libdragon.a */; };
 		4651769B17FC6B3D0029222A /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769917FC6B3D0029222A /* libunicode.a */; };
 		4651769C17FC6B3D0029222A /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769A17FC6B3D0029222A /* libpcre32.a */; };
+		465176A217FED3C70029222A /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465176A117FED3C70029222A /* HelloWorld.cc */; };
+		465176A717FEDB580029222A /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 465176A417FEDB580029222A /* scene */; };
+		465176A817FEDB580029222A /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 465176A517FEDB580029222A /* Data */; };
+		465176A917FEDB580029222A /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 465176A617FEDB580029222A /* Textures */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -60,7 +63,6 @@
 		465173F517F7A9E30029222A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4651740817FA64640029222A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4651742A17FA7EFB0029222A /* com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = com; path = ../../../../include/com; sourceTree = "<group>"; };
-		4651742C17FA7F240029222A /* com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = com; path = ../../../../src/com; sourceTree = "<group>"; };
 		4651764F17FC17D30029222A /* libdragon3d-core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdragon3d-core.a"; path = "../../../../targets/universal-apple-macosx/debug/libdragon3d-core.a"; sourceTree = "<group>"; };
 		4651765117FC1F5F0029222A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		4651765217FC1F5F0029222A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +71,10 @@
 		4651769717FC63AB0029222A /* libdragon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdragon.a; path = "../../../../targets/universal-apple-macosx/debug/libdragon.a"; sourceTree = "<group>"; };
 		4651769917FC6B3D0029222A /* libunicode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunicode.a; path = "../../../../targets/universal-apple-macosx/debug/libunicode.a"; sourceTree = "<group>"; };
 		4651769A17FC6B3D0029222A /* libpcre32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre32.a; path = "../../../../targets/universal-apple-macosx/debug/libpcre32.a"; sourceTree = "<group>"; };
+		465176A117FED3C70029222A /* HelloWorld.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorld.cc; sourceTree = "<group>"; };
+		465176A417FEDB580029222A /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
+		465176A517FEDB580029222A /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
+		465176A617FEDB580029222A /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,7 @@
 		465173D917F7A9E30029222A = {
 			isa = PBXGroup;
 			children = (
+				465176A317FEDAE20029222A /* Assets */,
 				4651740217F7AB0F0029222A /* Classes */,
 				465173E417F7A9E30029222A /* Frameworks */,
 				465173E317F7A9E30029222A /* Products */,
@@ -176,9 +183,52 @@
 		4651742717FA7EC00029222A /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4651742C17FA7F240029222A /* com */,
+				4651769D17FED3C70029222A /* com */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		4651769D17FED3C70029222A /* com */ = {
+			isa = PBXGroup;
+			children = (
+				4651769E17FED3C70029222A /* dragon3d */,
+			);
+			name = com;
+			path = ../../../../src/com;
+			sourceTree = "<group>";
+		};
+		4651769E17FED3C70029222A /* dragon3d */ = {
+			isa = PBXGroup;
+			children = (
+				4651769F17FED3C70029222A /* examples */,
+			);
+			path = dragon3d;
+			sourceTree = "<group>";
+		};
+		4651769F17FED3C70029222A /* examples */ = {
+			isa = PBXGroup;
+			children = (
+				465176A017FED3C70029222A /* helloworld */,
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+		465176A017FED3C70029222A /* helloworld */ = {
+			isa = PBXGroup;
+			children = (
+				465176A117FED3C70029222A /* HelloWorld.cc */,
+			);
+			path = helloworld;
+			sourceTree = "<group>";
+		};
+		465176A317FEDAE20029222A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				465176A417FEDB580029222A /* scene */,
+				465176A517FEDB580029222A /* Data */,
+				465176A617FEDB580029222A /* Textures */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,8 +287,10 @@
 				465173F017F7A9E30029222A /* InfoPlist.strings in Resources */,
 				465173F617F7A9E30029222A /* Credits.rtf in Resources */,
 				4651742B17FA7EFB0029222A /* com in Resources */,
-				4651742D17FA7F240029222A /* com in Resources */,
 				4651765817FC3B2D0029222A /* MainMenu.xib in Resources */,
+				465176A717FEDB580029222A /* scene in Resources */,
+				465176A817FEDB580029222A /* Data in Resources */,
+				465176A917FEDB580029222A /* Textures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +303,7 @@
 			files = (
 				465173F217F7A9E30029222A /* main.m in Sources */,
 				4651765317FC1F5F0029222A /* AppDelegate.mm in Sources */,
+				465176A217FED3C70029222A /* HelloWorld.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

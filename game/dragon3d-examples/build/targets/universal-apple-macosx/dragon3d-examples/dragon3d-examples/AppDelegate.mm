@@ -9,16 +9,22 @@
 #import "AppDelegate.h"
 
 #include <com/dragon3d/launcher/native/mac/AppLauncher.h>
+#include <com/dragon3d/examples/helloworld/HelloWorld.h>
+
+Import com::dragon3d::examples::helloworld;
 
 @implementation AppDelegate
     {
         AppLauncher* launcher; // 指针!会在alloc时初始为NULL.
+        HelloWorld* helloworld;
     }
 
 	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification
 	{
+        helloworld = new HelloWorld();
+        
         launcher = [[AppLauncher alloc] init];
-        [launcher applicationDidFinishLaunching:aNotification];
+        [launcher launchApp:helloworld];
 	}
 
 	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
@@ -28,6 +34,7 @@
 
 	-(void) dealloc
 	{
+         SafeDelete(helloworld);
         [launcher dealloc];
 		[super dealloc];
 	}

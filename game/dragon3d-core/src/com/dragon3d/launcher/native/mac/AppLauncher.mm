@@ -34,10 +34,10 @@ Import com::dragon3d::input;
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
-@implementation AppLauncher 
-	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification {
+@implementation AppLauncher
+	-(void) launchApp:(void*) toLaunchApplication {
 		// create Application
-		Application* app = new Application();
+		Application* app = (Application*)toLaunchApplication;
 
 		// input
        	InputManager* inputManager = new InputManager(); 
@@ -68,8 +68,6 @@ Import com::dragon3d::output::graphics;
 	}
 
 	-(void) dealloc {
-		SafeDelete(_app);
-
 		[super dealloc];
 	}
 

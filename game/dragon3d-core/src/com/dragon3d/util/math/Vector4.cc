@@ -17,18 +17,31 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/10/04
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/Color.h>
+#include <com/dragon3d/util/math/Vector4.h>
 
-Import com::dragon3d::scene::model;
+Import com::dragon3d::util::math;
 
-Color::Color() {
+const Vector4 Vector4::ZERO = Vector4(0, 0 ,0, 0);
+const Vector4 Vector4::ONE = Vector4(1, 1 ,1, 1);
 
+Vector4::Vector4(){
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
+    this->w = 0.0f;
 }
 
-Color::~Color() {
+Vector4::Vector4(float x, float y, float z, float w) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
+}
+
+Vector4::~Vector4() {
 
 }

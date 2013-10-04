@@ -25,37 +25,21 @@
 
 Import com::dragon3d::scene::model;
 
-Material::Material() {
-
-}
-
-Material::~Material() {
-
-}
-
-/*
-
-#include "dg_material.h"
-
-const DGMaterial DGMaterial::DEFAULT_MATERIAL = DGMaterial(DGColor::white);
-
-DGMaterial::DGMaterial(void){
-	this->color = DGColor::white;
+Material::Material(void){
+	this->color = Color::WHITE;
 	this->mainTexture = NULL;
 }
 
-DGMaterial::DGMaterial(const DGColor& color){
+Material::Material(const Color& color){
 	this->color = color;
 	this->mainTexture = NULL;
 }
 
-DGMaterial::DGMaterial(const DGColor& color, DGTexture* mainTexture){
+Material::Material(const Color& color, Texture* mainTexture){
 	this->color = color;
 	this->mainTexture = mainTexture;
 }
 
-DGMaterial::~DGMaterial(void){
+Material::~Material(void){
 
 }
-
- */

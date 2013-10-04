@@ -25,10 +25,58 @@
 
 Import com::dragon3d::scene;
 
-Transform::Transform() {
+
+Transform::Transform(void) {
+    this->position = Vector3::ZERO;
+    this->rotation = Quaternion::IDENTITY;
+    this->scale = Vector3::ZERO;
+
+    this->localPosition = Vector3::ZERO;
+    this->localRotation = Quaternion::IDENTITY;
+    this->localScale = Vector3::ZERO;
+}
+
+
+Transform::~Transform(void){
 
 }
 
-Transform::~Transform() {
+void Transform::translate(const Vector3& translation, Space relativeTo){
+    if (World == relativeTo) {
+        this->position.x += translation.x;
+        this->position.y += translation.y;
+        this->position.z += translation.z;
+    } else if (Self == relativeTo) {
+        this->localPosition.x += translation.x;
+        this->localPosition.y += translation.y;
+        this->localPosition.z += translation.z;
+    }
+}
 
+void Transform::translate(const Vector3& translation){
+    this->translate(translation, Self);
+}
+
+void Transform::rotate(float xAngle, float yAngle, float zAngle, com::dragon3d::scene::Space relativeTo){
+    if (World == relativeTo) {
+        this->rotation.x += xAngle;
+        this->rotation.y += yAngle;
+        this->rotation.z += zAngle;
+    } else if (Self == relativeTo) {
+        this->localRotation.x += xAngle;
+        this->localRotation.y += yAngle;
+        this->localRotation.z += zAngle;
+    }
+}
+
+void Transform::rotate(float xAngle, float yAngle, float zAngle){
+    this->rotate(xAngle, yAngle, zAngle, Self);
+}
+
+void Transform::rotate(const Vector3& eulerAngles, com::dragon3d::scene::Space relativeTo){
+    this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, relativeTo);
+}
+
+void Transform::rotate(const Vector3& eulerAngles){
+    this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, Self);
 }

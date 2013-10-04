@@ -25,51 +25,18 @@
 
 Import com::dragon3d::scene::model;
 
-Mesh::Mesh() {
-
-}
-
-Mesh::~Mesh() {
-
-}
-
-/*
-
-#include "dg_mesh.h"
-
-
-DGMesh::DGMesh(void){
+Mesh::Mesh(){
     this->vertices = NULL;
     this->normals = NULL;
     this->uv = NULL;
     this->uv2 = NULL;
     this->vertexCount = 0;
 
-    this->indices = NULL;
-    this->indexCount = 0;
-
-	this->matrix = DGMatrix4x4::IDENTITY;
+    this->triangles = NULL;
+    this->triangleIndexCount = 0;
 }
 
-DGMesh::DGMesh(const char* name){
-	this->name = string(name);
-
-    this->vertices = NULL;
-    this->normals = NULL;
-    this->uv = NULL;
-    this->uv2 = NULL;
+Mesh::~Mesh(){
     this->vertexCount = 0;
-
-    this->indices = NULL;
-    this->indexCount = 0;
-
-	this->matrix = DGMatrix4x4::IDENTITY;
+    this->triangleIndexCount = 0;
 }
-
-DGMesh::~DGMesh(void){
-    this->vertexCount = 0;
-    this->indexCount = 0;
-}
-
-
- */

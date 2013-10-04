@@ -44,6 +44,8 @@
 #include <com/dragon3d/input/InputManager.h>
 #include <com/dragon3d/output/OutputManager.h>
 
+#include <com/dragon3d/scene/GameObject.h>
+
 BeginPackage3(com, dragon3d, framework)
 
 Import dragon::lang;
@@ -55,6 +57,7 @@ Import com::dragon3d::framework;
 Import com::dragon3d::util;
 Import com::dragon3d::input;
 Import com::dragon3d::output;
+Import com::dragon3d::scene;
 
 /**
  * game application.
@@ -126,6 +129,8 @@ public:
 public: // Implements Runnable
 	virtual void run();
 
+public: // Implements Scene
+	virtual GameObject* getRoot();
 
 public: // Implements Updater
 	virtual void init();
@@ -179,6 +184,11 @@ protected:
 	 * output manager
 	 */
 	OutputManager* outputManager;
+
+	/**
+	 * the root gameObject.
+	 */
+	GameObject* root;
 
 };//Application
 

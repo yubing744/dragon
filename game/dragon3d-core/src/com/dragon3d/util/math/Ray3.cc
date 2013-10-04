@@ -21,9 +21,9 @@
  **********************************************************************/
 
 
-#include <com/dragon3d/math/Ray3.h>
+#include <com/dragon3d/util/math/Ray3.h>
 
-Import com::dragon3d::math;
+Import com::dragon3d::util::math;
 
 Ray3::Ray3() {
 

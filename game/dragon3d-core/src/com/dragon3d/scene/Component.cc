@@ -33,6 +33,10 @@ Component::~Component() {
 
 }
 
+void Component::update(Input* input, ReadOnlyTimer* timer) {
+
+}
+
 /*
 
 #include "dg_component.h"
