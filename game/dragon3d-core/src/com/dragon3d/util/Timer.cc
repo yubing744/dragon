@@ -30,7 +30,8 @@ Import com::dragon3d::util;
 #define TIMER_RESOLUTION 1000000000
 #define INVERSE_TIMER_RESOLUTION 1.0/TIMER_RESOLUTION
 
-Timer::Timer() {
+Timer::Timer() 
+	:paused(false) {
 	this->startTime = System::nanoTime();
 }
 
@@ -43,7 +44,12 @@ double Timer::getTimeInSeconds() {
 }
 
 long Timer::getTime() {
-	return System::nanoTime() - this->startTime;
+	if (this->paused) {
+		this->startTime = System::nanoTime() - this->previousTime;
+		return this->previousTime;
+	} else {
+		return System::nanoTime() - this->startTime;
+	}
 }
 
 long Timer::getResolution() {
@@ -66,6 +72,14 @@ void Timer::update() {
 	this->fps = 1.0 / this->tps;
 
 	this->previousTime = curTime;
+}
+
+void Timer::pause() {
+	this->paused = true;
+}
+
+void Timer::resume() {
+	this->paused = false;
 }
 
 void Timer::reset() {

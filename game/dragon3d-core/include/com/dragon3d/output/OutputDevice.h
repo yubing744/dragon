@@ -51,6 +51,11 @@ public:
 	virtual int queryStatus(int code) = 0;
 
 	/**
+	 * destroy the output device
+	 */
+	virtual void destroy() = 0;	
+
+	/**
 	 *  get the ouput controller.
 	 *  
 	 * @return [description]

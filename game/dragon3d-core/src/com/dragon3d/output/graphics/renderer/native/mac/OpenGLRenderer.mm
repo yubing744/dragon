@@ -20,68 +20,32 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#include <OpenGL/gl.h>
+#import <Cocoa/Cocoa.h>
 
+#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+#include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
-#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
 
 #include <dragon/util/logging/Logger.h>
 
-
-Import com::dragon3d::output::graphics;
 Import dragon::util::logging;
+Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::graphics::renderer;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer#mac", INFO);
 
-GraphicsDevice::GraphicsDevice() {
-	this->controller = new GraphicsOutputController(this);
+// mine thread handle
+typedef struct NativeData {
+    NSAutoreleasePool *pool;
+    NSWindow* window;
+    NSOpenGLView* dgView;
+};
+
+void OpenGLRenderer::flushBuffer() {
+    logger->debug("flush buffer");
+
+    NativeData* data = (NativeData*)this->graphicsDevice->getNativeData();
+    NSOpenGLView* glView = (NSOpenGLView*)data->dgView;
+    [[glView openGLContext] flushBuffer];
 }
-
-GraphicsDevice::~GraphicsDevice() {
-	SafeDelete(this->controller);
-}
-
-//native void GraphicsDevice::init();
-
-//native void GraphicsDevice::destroy();
-
-int GraphicsDevice::queryStatus(int code) {
-	return 0;
-}
-
-OutputController* GraphicsDevice::getOutputController() {
-	return this->controller;
-}
-
-void* GraphicsDevice::getNativeData() {
-	return this->nativeData;
-}
-/*
-
-#include "dg_screen.h"
-
-
-DGScreen::DGScreen(void)
-{
-}
-
-
-DGScreen::~DGScreen(void)
-{
-}
-
-
-DGuint DGScreen::getWidth(){
-	return this->width;
-}
-
-DGuint DGScreen::getHeight(){
-	return this->height;
-}
-
-void DGScreen::resize(DGuint width, DGuint height) {
-	this->width = width;
-	this->height = height;
-}
-
-
- */

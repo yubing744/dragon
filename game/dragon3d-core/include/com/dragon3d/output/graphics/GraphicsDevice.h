@@ -65,6 +65,17 @@ public: // implements OutputDevice
 	 */
 	virtual OutputController* getOutputController();
 
+	/**
+	 * get the native data.
+	 * 
+	 */
+	virtual void* getNativeData();
+
+	/**
+	 * destroy the device.
+	 */
+	virtual void destroy();
+
 protected:
 	/**
 	 * display scene output controller.
@@ -72,9 +83,9 @@ protected:
 	OutputController* controller;
 
 	/**
-	 * native display.
+	 * native data.
 	 */
-	void* nativeDisplay;
+	void* nativeData;
 
 };//GraphicsDevice
 

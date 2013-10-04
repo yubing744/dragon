@@ -28,6 +28,10 @@
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 
+BeginPackage4(com, dragon3d, output, graphics)
+    class GraphicsDevice;
+EndPackage4
+
 BeginPackage5(com, dragon3d, output, graphics, renderer)
 
 Import dragon::lang;
@@ -38,14 +42,22 @@ Import com::dragon3d::output::graphics::renderer;
 class _DragonExport OpenGLRenderer extends(Object) 
 	implements1(GraphicsRenderer) {
 public:
-	OpenGLRenderer();
+	OpenGLRenderer(GraphicsDevice* graphicsDevice);
 	virtual ~OpenGLRenderer();
 
-public:
+public: // implements GraphicsRenderer
 	virtual void init();
 
 	virtual void drawSample();
-	
+
+	virtual void flushBuffer();
+
+protected:
+    /**
+     * the graphics device.
+     */
+    GraphicsDevice* graphicsDevice;
+
 };//OpenGLRenderer
 
 EndPackage5 //(com, dragon3d, output, graphics, renderer)

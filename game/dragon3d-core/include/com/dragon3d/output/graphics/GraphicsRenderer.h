@@ -56,8 +56,11 @@ public:
 	virtual void setColor(const Color& color) = 0;
 	virtual void drawLine(const Vector3& startV, const Vector3& endV) = 0;
 	virtual void drawMesh(Mesh* mesh) = 0;
-	virtual void swapBuffers() = 0;
+	*/
 
+	virtual void flushBuffer() = 0;
+
+	/*
 	virtual void translate(float x, float y, float z) = 0;
 	virtual void rotate(float angle, float x, float y, float z) = 0;
 	virtual void scale(float x, float y, float z) = 0;

@@ -55,6 +55,16 @@ public:
 	virtual void update();
 
 	/**
+	 * pause the time
+	 */
+	virtual void pause();
+
+	/**
+	 * resume the time;
+	 */
+	virtual void resume();
+
+	/**
 	 * Reset this timer, so that {@link #getTime()} and {@link #getTimeInSeconds()} reflects the time spend from this
      * call.
 	 */
@@ -66,6 +76,8 @@ protected:
 
     double fps;
     double tps;
+
+    bool paused;
 
 };//Timer
 

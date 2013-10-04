@@ -61,6 +61,11 @@ public:// implements Output
 	 */
 	virtual void output(Scene* scene, CountDownLatch* latch);
 
+	/**
+	 * destroy the output
+	 */
+	virtual void destroy();	
+
 public:
 	/**
 	 * register a ouput device.

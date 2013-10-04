@@ -33,51 +33,93 @@ Import com::dragon3d::framework;
 static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", INFO);
 
 Application::Application() 
-	:isExit(false) {
+	:isPaused(true), isExit(false) {
 	this->inputManager = null;
 	this->outputManager= null;
+
+	this->onCreate();
 }
 
 Application::~Application() {
-	this->isExit = true;
+	
+	this->onDestroy();
+}
+
+// --------------------------------------
+// application life cycle manage
+// 
+
+void Application::onCreate() {
+	logger->info("on create");	
 }
 
 void Application::onStart() {
 	logger->info("on start");
 
 	// init frame handler
+    logger->info("create frame handler"); 
 	this->timer = new Timer();
 	this->frameWork = new FrameHandler(timer);
 	
-	// init input manager
-	this->inputManager->init();
-
-	// init game
-	this->onInitGame();
-
 	// start game thread
+    logger->info("start thread for game");  
 	Thread* o = new Thread(this);
 	o->start();
 }
 
-void Application::onInitGame() {
-	logger->info("on init game");
+void Application::onResume() {
+	logger->info("on resume");
+	
+	this->isPaused = false;
+	this->timer->resume();
+}
 
-	this->frameWork->addUpdater(this);
-	this->frameWork->addOutput(this->outputManager);
+void Application::onPause() {
+	logger->info("on pause");
+
+	this->isPaused = true;
+	this->timer->pause();
+}
+
+void Application::onStop() {
+	logger->info("on stop");
+
+	this->isExit = true;
 }
 
 void Application::onDestroy() {
 	logger->info("on destroy");	
 }
 
+
+// ------------------------------------------
+
+void Application::onGameInit() {
+	logger->info("on game init");
+
+    // init input and output manager
+    this->inputManager->init();
+    this->outputManager->init();
+
+	this->frameWork->addUpdater(this);
+	this->frameWork->addOutput(this->outputManager);
+}
+
+void Application::onGameDestroy() {
+    logger->info("on game destroy");
+    
+    // destroy input and output manager
+    this->inputManager->destroy();
+    this->outputManager->destroy();
+}
+
+// ---------------------------------------
+
 void Application::setInputManager(InputManager* inputManager) {
-	SafeDelete(this->inputManager);
 	this->inputManager = inputManager;
 }
 
 void Application::setOutputManager(OutputManager* outputManager) {
-	SafeDelete(this->outputManager);
 	this->outputManager = outputManager;
 }
 
@@ -87,7 +129,10 @@ Scene* Application::getCurrentScene() {
 }
 
 void Application::run() {
-	logger->info("game main thread run ... ");
+	logger->info("new game thread run ... ");
+
+    // init game
+    this->onGameInit();
 
 	try {
         frameWork->init();
@@ -98,7 +143,8 @@ void Application::run() {
             Thread::yield();
         }
 
-        System::exit(0);
+        // init game
+        this->onGameDestroy();
     } catch (Throwable* t) {
         logger->error("Throwable caught in MainThread - exiting");
         t->printStackTrace();
@@ -110,17 +156,21 @@ void Application::run() {
 // ----------------------- simple game -----------------------
 
 void Application::init() {
-	logger->info("game init");
+	logger->info("game scene init");
 }
 
 void Application::update(Scene* scene, ReadOnlyTimer* timer) {
-	logger->debug("game update");
-	logger->debug("game fps %d", timer->getFrameRate());
+	logger->debug("game scene update");
+	logger->debug("game scene fps %d", timer->getFrameRate());
 	logger->debug("current time %d", System::currentTimeMillis());
 }
 
 void Application::output(Scene* scene, CountDownLatch* latch) {
-	logger->debug("game output");
+	logger->debug("game scene output");
+}
+
+void Application::destroy() {
+    logger->debug("game scene destroy");
 }
 
 /*

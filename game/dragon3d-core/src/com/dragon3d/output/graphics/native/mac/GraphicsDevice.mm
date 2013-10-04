@@ -32,9 +32,20 @@ Import dragon::util::logging;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice#mac", INFO);
 
+// mine thread handle
+typedef struct NativeData {
+  	NSAutoreleasePool *pool;
+  	NSWindow* window;
+  	Dragon3DView* dgView;
+};
+
 void GraphicsDevice::init() {
 	logger->info("init");
-	
+
+	NativeData* data = new NativeData();
+
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];   
+
 	// create the window
 	// note that using NSResizableWindowMask causes the window to be a little
 	// smaller and therefore ipad graphics are not loaded
@@ -55,11 +66,32 @@ void GraphicsDevice::init() {
 	[window makeKeyAndOrderFront:nil];
 	[window setAcceptsMouseMovedEvents:NO];
 
-    //[dgView setFrameZoomFactor:0.4];
+	// store the window to nativeDisplay.
+	data->pool = pool;
+	data->window = window;
+	data->dgView = dgView;
+
+	this->nativeData = data;
     
+
     // init the controller
     this->controller->init();
 }
+
+void GraphicsDevice::destroy() {
+	logger->info("destroy");
+
+	// init the controller
+    this->controller->destroy();
+
+    // destroy native data
+	NativeData* data = (NativeData*)this->nativeData;
+	
+	[data->pool release];
+
+	SafeDelete(this->nativeData);
+}
+
 
 /*
 

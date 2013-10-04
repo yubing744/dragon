@@ -79,6 +79,20 @@ void OutputManager::output(Scene* scene, CountDownLatch* latch) {
 	latch->countDown();
 }
 
+void OutputManager::destroy() {
+	logger->info("destroy");
+
+	Iterator<OutputDevice>* it = this->outputDevices->iterator();
+
+	while(it->hasNext()) {
+		OutputDevice* device = it->next();
+		
+		if (device != null) {
+			device->destroy();
+		}
+	}
+}
+
 void OutputManager::registerDevice(OutputDevice* outputDevice) {
 	this->outputDevices->add(outputDevice);
 }

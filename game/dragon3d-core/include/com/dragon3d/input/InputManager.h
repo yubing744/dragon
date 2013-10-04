@@ -40,7 +40,12 @@ public:
 	 * init input manager.
 	 */
 	virtual void init();
-	
+
+	/**
+	 * destroy input manager
+	 */
+	virtual void destroy();
+
 };//InputManager
 
 EndPackage3 //(com, dragon3d, input)

@@ -32,8 +32,9 @@ Import com::dragon3d::output::graphics::renderer;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
-GraphicsOutputController::GraphicsOutputController() {
-	this->graphicsRenderer = new OpenGLRenderer();
+GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
+    this->graphicsDevice = graphicsDevice;
+	this->graphicsRenderer = new OpenGLRenderer(graphicsDevice);
 }
 
 GraphicsOutputController::~GraphicsOutputController() {
@@ -51,5 +52,11 @@ void GraphicsOutputController::output(Scene* scene) {
 
 	GraphicsRenderer* gr = this->graphicsRenderer;
 	gr->drawSample();
+
+	gr->flushBuffer();
+}
+
+void GraphicsOutputController::destroy() {
+    logger->info("destroy");
 }
 

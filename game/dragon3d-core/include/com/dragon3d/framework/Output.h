@@ -48,6 +48,11 @@ public:
 	 * output the scene
 	 */
 	virtual void output(Scene* scene, CountDownLatch* latch) = 0;
+
+	/**
+	 * destroy the output
+	 */
+	virtual void destroy() = 0;	
 	
 };//Output
 

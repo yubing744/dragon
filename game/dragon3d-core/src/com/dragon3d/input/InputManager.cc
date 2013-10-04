@@ -41,6 +41,11 @@ InputManager::~InputManager() {
 void InputManager::init() {
 	logger->info("init");
 }
+
+void InputManager::destroy() {
+	logger->info("destroy");
+}
+
 /*
 
 #include "dg_input_manager.h"

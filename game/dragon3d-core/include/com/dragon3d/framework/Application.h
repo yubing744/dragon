@@ -66,22 +66,49 @@ public:
 	Application();
 	virtual ~Application();
 
-public:
+public: // application lifecycle 
+	/**
+	 * callback when app create.
+	 */
+	virtual void onCreate();
+
 	/**
 	 * callback when app start.
 	 */
 	virtual void onStart();
 
 	/**
-	 * callback when app frame update.
+	 * callback when app resume.
 	 */
-	virtual void onInitGame();
+	virtual void onResume();
 
 	/**
-	 * callback when app close.
+	 * callback when app pause.
+	 */
+	virtual void onPause();
+
+	/**
+	 * callback when app stop.
+	 */
+	virtual void onStop();
+
+	/**
+	 * callback when app destroy.
 	 */
 	virtual void onDestroy();
 
+public: // game lifecycle
+	/**
+	 * callback when game init.
+	 */
+	virtual void onGameInit();
+
+	/**
+	 * callback when game close.
+	 */
+	virtual void onGameDestroy();
+
+public:
 	/**
 	 * set input manager.
 	 * 
@@ -99,9 +126,11 @@ public:
 public: // Implements Runnable
 	virtual void run();
 
+
 public: // Implements Updater
 	virtual void init();
 	virtual void update(Scene* scene, ReadOnlyTimer* timer);
+	virtual void destroy();	
 
 public: // Implements Output
 	virtual void output(Scene* scene, CountDownLatch* latch);
@@ -132,9 +161,14 @@ protected:
 	FrameHandler* frameWork;
 
 	/**
-	 * if the app need exit
+	 * whether the app need exit
 	 */
 	bool isExit;
+
+	/**
+	 * whether the app is pause.
+	 */
+	bool isPaused;
 
 	/**
 	 * input manager

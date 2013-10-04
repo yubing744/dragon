@@ -55,6 +55,11 @@ public:
 	 */
 	virtual void output(Scene* scene) = 0;
 	
+	/**
+	 * destroy the output controller
+	 */
+	virtual void destroy() = 0;	
+
 };//OutputController
 
 EndPackage3 //(com, dragon3d, output)

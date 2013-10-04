@@ -39,10 +39,12 @@ Import dragon::lang;
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
+class GraphicsDevice;
+
 class _DragonExport GraphicsOutputController extends(Object) 
     implements1(OutputController){
 public:
-	GraphicsOutputController();
+	GraphicsOutputController(GraphicsDevice* graphicsDevice);
 	virtual ~GraphicsOutputController();
 
 public: // implements OutputController
@@ -58,12 +60,22 @@ public: // implements OutputController
      */
     virtual void output(Scene* scene);
 
+    /**
+     * destroy the output controller
+     */
+    virtual void destroy(); 
+
 protected:
     /**
      * graphics renderer.
      */
     GraphicsRenderer* graphicsRenderer;
 	
+    /**
+     * graphics device
+     */
+    GraphicsDevice* graphicsDevice;
+
 };//GraphicsOutputController
 
 EndPackage4 //(com, dragon3d, output, graphics)

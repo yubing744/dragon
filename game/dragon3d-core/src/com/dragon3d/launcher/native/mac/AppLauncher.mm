@@ -61,11 +61,15 @@ Import com::dragon3d::output::graphics;
 	}
 
 	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication {
+		Application* app = (Application*)_app;
+		app->onStop();
+
 		return YES;
 	}
 
 	-(void) dealloc {
-		//SafeDelete(_app);
+		SafeDelete(_app);
+
 		[super dealloc];
 	}
 

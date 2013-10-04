@@ -23,16 +23,18 @@
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
 
 #include <OpenGL/gl.h>
 
 Import dragon::util::logging;
+Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer", INFO);
 
-OpenGLRenderer::OpenGLRenderer() {
-
+OpenGLRenderer::OpenGLRenderer(GraphicsDevice* graphicsDevice) {
+    this->graphicsDevice = graphicsDevice;
 }
 
 OpenGLRenderer::~OpenGLRenderer() {
@@ -43,8 +45,10 @@ void OpenGLRenderer::init() {
 	logger->info("init");
 }
 
+//native void OpenGLRenderer::flushBuffer();
+
 void OpenGLRenderer::drawSample() {
-	logger->info("draw sample shape.");
+	logger->debug("draw sample shape.");
 
 	glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -62,6 +66,4 @@ void OpenGLRenderer::drawSample() {
     }
 
     glEnd();
-
-    glFlush();
 }

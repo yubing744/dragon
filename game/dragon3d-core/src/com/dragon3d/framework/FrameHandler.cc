@@ -60,16 +60,6 @@ void FrameHandler::init() {
 	}
 
 	SafeDelete(it);
-
-	// init outputs
-	Iterator<Output>* itc = this->outputs->iterator();
-
-	while (itc->hasNext()) {
-		Output* output = itc->next();
-		output->init();
-	}
-
-	SafeDelete(itc);
 }
 
 
