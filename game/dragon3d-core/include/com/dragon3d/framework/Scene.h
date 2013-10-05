@@ -41,11 +41,40 @@ public:
 
 public:
 	/**
-	 * get the root game object.
+	 * add a new GameObject
+	 * 
+	 * @param gameObject [description]
+	 */
+	virtual void add(GameObject* gameObject) = 0;
+
+	/**
+	 * remove game object
+	 * 
+	 * @param gameObject [description]
+	 */
+	virtual void remove(GameObject* gameObject) = 0;
+
+	/**
+	 * find game object by name
+	 */
+	virtual GameObject* find(const char* name) = 0;
+
+	/**
+	 * find game object by name
+	 */
+	virtual GameObject* findWithTag(const char* tag) = 0;
+
+	/**
+	 * find game objects by tag
+	 */
+	virtual List<GameObject>* findGameObjectsWithTag(const char* tag) = 0;
+
+	/**
+	 * find all gameobject
 	 * 
 	 * @return [description]
 	 */
-	virtual GameObject* getRoot() = 0;
+	virtual List<GameObject>* getAll() = 0;
 
 };//Scene
 

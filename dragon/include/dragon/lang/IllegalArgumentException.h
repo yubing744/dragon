@@ -25,7 +25,7 @@
 
 #include <dragon/config.h>
 
-#include "RuntimeException.h"
+#include <dragon/lang/RuntimeException.h>
 
 BeginPackage2(dragon, lang)
 

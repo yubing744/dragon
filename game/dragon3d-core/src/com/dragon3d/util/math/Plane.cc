@@ -43,21 +43,21 @@ Plane::~Plane() {
 
 
 float Plane::getDistanceToPoint(Vector3 inPt) {
-
+    return 0.0f;
 }
 
 
 bool Plane::getSide(Vector3 inPt) {
-
+    return false;
 }
 
 
 bool Plane::raycast(Ray3* ray, float* enter) {
-
+    return false;
 }
 
 bool Plane::sameSide(Vector3 inPt0, Vector3 inPt1) {
-
+    return false;
 }
 
 void Plane::set3Points(Vector3 a, Vector3 b, Vector3 c) {
@@ -65,5 +65,5 @@ void Plane::set3Points(Vector3 a, Vector3 b, Vector3 c) {
 }
 
 void Plane::setNormalAndPosition(Vector3 inNormal, Vector3 inPoint) {
-    
+
 }

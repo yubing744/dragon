@@ -25,7 +25,8 @@
 
 Import com::dragon3d::scene;
 
-Behaviour::Behaviour() {
+Behaviour::Behaviour() 
+    :enabled(true) {
 
 }
 

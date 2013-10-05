@@ -25,8 +25,10 @@
  
 #include <dragon/lang/System.h>
 #include <dragon/lang/Throwable.h>
+#include <dragon/util/ArrayList.h>
 
 Import dragon::lang;
+Import dragon::util;
 Import dragon::util::logging;
 Import com::dragon3d::framework;
 
@@ -36,6 +38,8 @@ Application::Application()
 	:isPaused(true), isExit(false) {
 	this->inputManager = null;
 	this->outputManager= null;
+
+    this->gameObjects = new ArrayList<GameObject>();
 
 	this->onCreate();
 }
@@ -154,8 +158,31 @@ void Application::run() {
     }
 }
 
-GameObject* Application::getRoot() {
-    return this->root;
+// ----------------------------------------------------------
+// simple scene
+// 
+void Application::add(GameObject* gameObject) {
+    this->gameObjects->add(gameObject);
+}
+
+void Application::remove(GameObject* gameObject) {
+    this->gameObjects->remove(gameObject);
+}
+
+GameObject* Application::find(const char* name) {
+    return null;
+}
+
+GameObject* Application::findWithTag(const char* tag) {
+    return null;
+}
+
+List<GameObject>* Application::findGameObjectsWithTag(const char* tag) {
+    return null;
+}
+
+List<GameObject>* Application::getAll() {
+    return this->gameObjects;
 }
 
 // ----------------------- simple game -----------------------
@@ -170,8 +197,14 @@ void Application::update(Scene* scene, ReadOnlyTimer* timer) {
 	logger->debug("current time %d", System::currentTimeMillis());
 
     logger->debug("update all the world");
-    GameObject* root = scene->getRoot();
-    root->update(this->inputManager, timer);
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        gameObject->update(this->inputManager, timer);
+    }
 }
 
 void Application::output(Scene* scene, CountDownLatch* latch) {

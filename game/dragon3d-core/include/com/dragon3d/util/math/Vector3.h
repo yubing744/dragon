@@ -56,7 +56,7 @@ public:
      * @param  to   [description]
      * @return      [description]
      */
-    static float angle(Vector3 from, Vector3 to);
+    static float angle(const Vector3& from, const Vector3& to);
 
     /**
      * Returns a copy of vector with its magnitude clamped to maxLength.
@@ -65,7 +65,7 @@ public:
      * @param  maxLength [description]
      * @return           [description]
      */
-    static Vector3 clampMagnitude(Vector3 vector, float maxLength);
+    static Vector3 clampMagnitude(const Vector3& vector, float maxLength);
 
     /**
      * Cross Product of two vectors.
@@ -79,7 +79,7 @@ public:
      * @param  rhs [description]
      * @return     [description]
      */
-    static Vector3 cross(Vector3 lhs, Vector3 rhs);
+    static Vector3 cross(const Vector3& lhs, const Vector3& rhs);
 
     /**
      * Returns the distance between a and b.
@@ -88,22 +88,7 @@ public:
      * @param  b [description]
      * @return   [description]
      */
-    static float distance(Vector3 a, Vector3 b);
-
-    /**
-     * Dot Product of two vectors.
-     *
-     * The dot product is a float value equal to the magnitudes of the two vectors multiplied 
-     * together and then multiplied by the cosine of the angle between them.
-     *
-     * For normalized vectors Dot returns 1 if they point in exactly the same direction, 
-     * -1 if they point in completely opposite directions and zero if the vectors are perpendicular.
-     * 
-     * @param  lhs [description]
-     * @param  rhs [description]
-     * @return     [description]
-     */
-    static float dot(Vector3 lhs, Vector3 rhs);
+    static float distance(const Vector3& a, const Vector3& b);
 
     /**
      * Linearly interpolates between two vectors.
@@ -118,7 +103,7 @@ public:
      * @param  t    [description]
      * @return      [description]
      */
-    static Vector3 lerp(Vector3 from, Vector3 to, float t);
+    static Vector3 lerp(const Vector3& from, const Vector3& to, float t);
 
     /**
      * Returns a vector that is made from the largest components of two vectors.
@@ -127,7 +112,7 @@ public:
      * @param  rhs [description]
      * @return     [description]
      */
-    static Vector3 max(Vector3 lhs, Vector3 rhs);
+    static Vector3 max(const Vector3& lhs, const Vector3& rhs);
 
     /**
      * Returns a vector that is made from the smallest components of two vectors.
@@ -136,7 +121,7 @@ public:
      * @param  rhs [description]
      * @return     [description]
      */
-    static Vector3 min(Vector3 lhs, Vector3 rhs);
+    static Vector3 min(const Vector3& lhs, const Vector3& rhs);
 
     /**
      * Moves a point current in a straight line towards a target point.
@@ -152,7 +137,7 @@ public:
      * @param  maxDistanceDelta [description]
      * @return                  [description]
      */
-    static Vector3 moveTowards(Vector3 current, Vector3 target, float maxDistanceDelta);
+    static Vector3 moveTowards(const Vector3& current, const Vector3& target, float maxDistanceDelta);
 
     /**
      * Makes vectors normalized and orthogonal to each other.
@@ -163,7 +148,7 @@ public:
      * @param normal  [description]
      * @param tangent [description]
      */
-    static void orthoNormalize(Vector3 normal, Vector3 tangent);
+    static void orthoNormalize(const Vector3& normal, const Vector3& tangent);
 
     /**
      * Makes vectors normalized and orthogonal to each other.
@@ -188,7 +173,7 @@ public:
      * @param tangent  [description]
      * @param binormal [description]
      */
-    static void orthoNormalize(Vector3 normal, Vector3 tangent, Vector3 binormal);
+    static void orthoNormalize(const Vector3& normal, const Vector3& tangent, const Vector3& binormal);
 
     /**
      * Projects a vector onto another vector.
@@ -207,7 +192,7 @@ public:
      * @param  onNormal [description]
      * @return          [description]
      */
-    static Vector3 project(Vector3 vector, Vector3 onNormal);
+    static Vector3 project(const Vector3& vector, const Vector3& onNormal);
 
     /**
      * Reflects a vector off the plane defined by a normal.
@@ -220,7 +205,7 @@ public:
      * @param  inNormal    [description]
      * @return             [description]
      */
-    static Vector3 reflect(Vector3 inDirection, Vector3 inNormal);
+    static Vector3 reflect(const Vector3& inDirection, const Vector3& inNormal);
 
     /**
      * Rotates a vector current towards target.
@@ -238,7 +223,7 @@ public:
      * @param  maxMagnitudeDelta [description]
      * @return                   [description]
      */
-    static Vector3 rotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta);
+    static Vector3 rotateTowards(const Vector3& current, const Vector3& target, float maxRadiansDelta, float maxMagnitudeDelta);
 
     /**
      * Multiplies two vectors component-wise.
@@ -249,7 +234,7 @@ public:
      * @param  b [description]
      * @return   [description]
      */
-    static Vector3 scale(Vector3 a, Vector3 b);
+    static Vector3 scale(const Vector3& a, const Vector3& b);
 
     /**
      * Spherically interpolates between two vectors.
@@ -263,7 +248,7 @@ public:
      * @param  t    [description]
      * @return      [description]
      */
-    static Vector3 slerp(Vector3 from, Vector3 to, float t);
+    static Vector3 slerp(const Vector3& from, const Vector3& to, float t);
 
     /**
      * Gradually changes a vector towards a desired goal over time.
@@ -277,16 +262,16 @@ public:
      * @param  smoothTime      [description]
      * @return                 [description]
      */
-    static Vector3 smoothDamp(Vector3 current, Vector3 target, Vector3 currentVelocity, float smoothTime);
-    static Vector3 smoothDamp(Vector3 current, Vector3 target, Vector3 currentVelocity, float smoothTime, float maxSpeed);
-    static Vector3 smoothDamp(Vector3 current, Vector3 target, Vector3 currentVelocity, float smoothTime, float maxSpeed, float deltaTime);
+    static Vector3 smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime);
+    static Vector3 smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime, float maxSpeed);
+    static Vector3 smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime, float maxSpeed, float deltaTime);
 
 //----------------------------------------------------------------
 public:
     Vector3(void);
     Vector3(float x, float y);
     Vector3(float x, float y, float z);
-    virtual ~Vector3();
+    Vector3(const Vector3& a);
 
 public:
     /**
@@ -294,7 +279,7 @@ public:
      * 
      * @return [description]
      */
-    float length();
+    float length() const;
 
     /**
      * Returns the squared length of this vector 
@@ -310,7 +295,7 @@ public:
      * 
      * @return [description]
      */
-    float lengthSquared();
+    float lengthSquared() const;
 
     /**
      * Returns this vector with a magnitude of 1
@@ -322,19 +307,48 @@ public:
      * 
      * @return [description]
      */
-    Vector3 normalized();
+    Vector3 normalize() const;
 
     /**
-     * Makes this vector have a magnitude of 1.
-     *
-     * When normalized, a vector keeps the same direction but its length is 1.0.
-     *
-     * Note that this function will change the current vector. If you want to keep the current vector unchanged, use normalized variable.
-     *
-     * If this vector is too small to be normalized it will be set to zero.
+     * add this vector with a new Vector3 a, and return a new Vector3.
      * 
+     * @param  a [description]
+     * @return   [description]
      */
-    void normalize();
+    Vector3 add(const Vector3& a) const;
+
+    /**
+     * add this vector with a new Vector3 a, and return a new Vector3.
+     * 
+     * @param  a [description]
+     * @return   [description]
+     */
+    Vector3 substract(const Vector3& a) const;
+
+    /**
+     * Multiplies this vector by a number, and return new Vector3.
+     * 
+     * @param  d [description]
+     * @return   [description]
+     */
+    Vector3 multiply(float scalar) const;
+
+
+    /**
+     * Multiplies this vector by a number, and return new Vector3.
+     * 
+     * @param  d [description]
+     * @return   [description]
+     */
+    Vector3 divide(float scalar) const;
+
+    /**
+     * dot multiply
+     * 
+     * @param  b [description]
+     * @return   [description]
+     */
+    float dot(const Vector3& a) const;
 
     /**
      * Set x, y and z components of an existing Vector3.

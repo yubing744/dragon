@@ -26,6 +26,9 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Ray3.h>
+
 BeginPackage4(com, dragon3d, util, math)
 
 Import com::dragon3d::util::math;

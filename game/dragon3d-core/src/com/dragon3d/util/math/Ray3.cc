@@ -27,7 +27,7 @@ Import com::dragon3d::util::math;
 
 Ray3::Ray3(Vector3 origin, Vector3 direction) 
     :origin(origin), direction(direction){
-
+    direction.normalize();
 }
 
 Ray3::~Ray3() {

@@ -25,12 +25,14 @@
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/scene/model/geometry/Box.h>
-
+#include <com/dragon3d/scene/camera/Camera.h>
 
 Import dragon::lang;
 Import dragon::util::logging;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::scene::model::geometry;
+Import com::dragon3d::scene::camera;
+
 
 static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", INFO);
 
@@ -45,13 +47,18 @@ HelloWorld::~HelloWorld() {
 
 void HelloWorld::init() {
     logger->info("init");
-    
-    GameObject* gameObject = new GameObject();
-    
-    Box* box = new Box();
-    gameObject->addComponent(box);
 
-    this->root = gameObject;
+    GameObject* gb1 = new GameObject();
+    Box* box = new Box();
+    gb1->addComponent(box);
+
+
+    GameObject* gb2 = new GameObject();
+    Camera* camera = new Camera();
+    gb2->addComponent(camera);
+
+    this->add(gb1);
+    this->add(gb2);
 }
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {

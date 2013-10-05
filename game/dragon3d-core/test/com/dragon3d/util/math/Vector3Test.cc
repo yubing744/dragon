@@ -17,42 +17,19 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2013/10/05
  **********************************************************************/
 
-#include <gtest/gtest.h>
 
-#include <dragon.h>
-#include <dragon/lang/Throwable.h>
+#include <gtest/gtest.h>
+#include <com/dragon3d/util/math/Vector3.h>
 #include <dragon/lang/String.h>
 
 Import dragon::lang;
+Import com::dragon3d::util::math;
 
-TEST(Dragon_Lang_ThrowableTest, New) {
-	Throwable* t = new Throwable();
-	String* msg = t->getMessage();
-
-	String* emptyStr = new String("");
-	dg_boolean isEqual = msg->equals(emptyStr);
-
-	EXPECT_EQ(dg_true, isEqual);
-
-	SafeDelete(msg);
-	SafeDelete(t);
-	SafeDelete(emptyStr);
-}
-
-TEST(Dragon_Lang_ThrowableTest, NotEmptyMsg) {
-	String* tempStr = new String("abc");
-
-	Throwable* t = new Throwable(tempStr);
-	String* msg = t->getMessage();
-
-	dg_boolean isEqual = msg->equals(tempStr);
-
-	EXPECT_EQ(dg_true, isEqual);
-
-	SafeDelete(msg);
-	SafeDelete(tempStr);
-	SafeDelete(t);
+TEST(Com_Dragon3d_Util_Math_Vector3Test, New) {
+    //Vector3* o = new Vector3(0.0f, 0.0f, 0.0f);
+    //String* str = new String();
+    //SafeDelete(o);
 }

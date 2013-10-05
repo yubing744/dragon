@@ -24,17 +24,20 @@
 #define Throwable_Lang_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport Throwable
+class _DragonExport Throwable 
+	extends(Object)
 {
 public:
 	Throwable();
 	Throwable(String* message);
 	Throwable(Throwable* cause);
 	Throwable(String* message, Throwable* cause);
+
 	virtual ~Throwable();
 
 public:

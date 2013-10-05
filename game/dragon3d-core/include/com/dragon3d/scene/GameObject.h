@@ -55,6 +55,10 @@ Import com::dragon3d::framework;
  */
 class _DragonExport GameObject 
 	extends(Object) {
+
+public:
+	static List<GameObject>* all;
+	
 public:
 	GameObject();
 	virtual ~GameObject();

@@ -26,15 +26,18 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/util/math/Color.h>
 #include <com/dragon3d/util/math/Rect.h>
 #include <com/dragon3d/util/math/Ray3.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Matrix4x4.h>
 #include <com/dragon3d/scene/model/RenderTexture.h>
- 
+#include <com/dragon3d/scene/Behaviour.h>
+
 BeginPackage4(com, dragon3d, scene, camera)
 
 Import com::dragon3d::util::math;
+Import com::dragon3d::scene;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::scene::model;
 
@@ -42,7 +45,8 @@ Import com::dragon3d::scene::model;
  * A Camera is a device through which the player views the world.
  * 
  */
-class _DragonExport Camera {
+class _DragonExport Camera 
+	extends(Behaviour) {
 public:
 	/**
 	 * Values for Camera.clearFlags, determining what to clear when rendering a Camera.
@@ -103,6 +107,16 @@ public:
 	 * Revert the aspect ratio to the screen's aspect ratio.
 	 */
 	void resetAspect();
+
+	/**
+	 * How tall is the camera in pixels (Read Only).
+	 */
+	float pixelHeight(); 
+
+	/**
+	 * How wide is the camera in pixels (Read Only).
+	 */
+	float pixelWidth(); 
 
 	/**
 	 * Make the projection reflect normal camera's parameters.
@@ -281,16 +295,6 @@ public:
 	bool layerCullSpherical;
 
 	/**
-	 * How tall is the camera in pixels (Read Only).
-	 */
-	float pixelHeight; 
-
-	/**
-	 * How wide is the camera in pixels (Read Only).
-	 */
-	float pixelWidth; 
-
-	/**
 	 * Where on the screen is the camera rendered in pixel coordinates.
 	 */
 	Rect pixelRect;
@@ -324,7 +328,7 @@ public:
 	 * Destination render texture.
 	 * 
 	 */
-	RenderTexture targetTexture;
+	RenderTexture* targetTexture;
 
 };//Camera
 

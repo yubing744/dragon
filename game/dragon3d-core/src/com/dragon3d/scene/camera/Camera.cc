@@ -25,14 +25,49 @@
 
 Import com::dragon3d::scene::camera;
 
-Camera::Camera() {
+Camera::Camera() 
+	:orthographic(false), 
+	orthographicSize(1), 
+
+	clearFlags(SolidColor), 
+	backgroundColor(Color::BLACK), 
+
+	cameraToWorldMatrix(Matrix4x4::IDENTITY),
+	projectionMatrix(Matrix4x4::IDENTITY),
+
+	cullingMask(0),
+	eventMask(0),
+
+	depth(0.0f),
+	depthTextureMode(None), 
+
+	fieldOfView(60.0f),
+	aspect(1.0f),
+	nearClipPlane(0.3f),
+	farClipPlane(1000.0f),
+
+	hdr(false),
+
+	layerCullDistances(NULL),
+	layerCount(0),
+	layerCullSpherical(false),
+
+	pixelRect(0, 0, 1, 1),
+
+	rect(0, 0, 1, 1),
+
+	renderingPath(UsePlayerSettings),
+
+	useOcclusionCulling(false),
+
+	velocity(Vector3::ZERO),
+	targetTexture(null) {
 
 }
 
 Camera::~Camera() {
 
 }
-
 
 void Camera::copyFrom(Camera* other) {
 
@@ -42,18 +77,23 @@ void Camera::resetAspect() {
 
 }
 
+float Camera::pixelWidth() {
+	return pixelRect.width;
+}
+
+float Camera::pixelHeight() {
+	return pixelRect.height;
+}
 
 void Camera::resetProjectionMatrix() {
 
 }
 
-
 void Camera::resetWorldToCameraMatrix() {
 
 }
 
-
-Ray* Camera::screenPointToRay(Vector3 position) {
+Ray3* Camera::screenPointToRay(Vector3 position) {
 	return null;
 }
 
@@ -65,7 +105,7 @@ Vector3 Camera::screenToWorldPoint(Vector3 position) {
 	return Vector3::ZERO;
 }
 
-Ray* Camera::viewportPointToRay(Vector3 position) {
+Ray3* Camera::viewportPointToRay(Vector3 position) {
 	return null;
 }
 
@@ -84,44 +124,3 @@ Vector3 Camera::worldToScreenPoint(Vector3 position) {
 Vector3 Camera::worldToViewportPoint(Vector3 position) {
 	return Vector3::ZERO;
 }
-
-
-/*
-
-#include "dg_camera.h"
-#include "dg_engine.h"
-
-DGCamera::DGCamera(){
-	this->log = DGPlatform::getCurrent()->getLogger("dg_camera");
-}
-
-void DGCamera::init(DGGameObject* gameObject, DGContext* ctx){
-	DGComponent::init(gameObject, ctx);
-
-	DGEngine* engine = ctx->getEngine();
-
-	this->fovy = 45.0f;
-	this->aspect = 1.0f;
-
-	this->zNear = 0.1f;
-	this->zFar = 1000.0f;
-
-	this->eye = DGVector3::zero;
-	this->center = DGVector3::forward;
-	this->up = DGVector3::up;
-
-	engine->setupCamera(this);
-}
-
-void DGCamera::setup(DGContext* ctx) {
-	DGGraphicsLib* gl = ctx->getGraphicsLib();
-
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//gluPerspective(fovy, aspect, zNear, zFar);
-
-	gl->lookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
-	//log->debug("lookAt(%.3f,%.3f,%.3f, %.3f,%.3f,%.3f, %.3f,%.3f,%.3f)", eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
-}
-
- */

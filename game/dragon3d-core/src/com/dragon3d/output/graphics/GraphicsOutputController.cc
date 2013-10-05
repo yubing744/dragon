@@ -47,6 +47,33 @@ void GraphicsOutputController::init() {
 	this->graphicsRenderer->init();
 }
 
+List<Camera>* FindAllCameras(Scene* scene) {
+    List<Camera>* cameras = new ArrayList<Camera>();
+
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        Camera* camera = gameObject->getComponent(Camera::TYPE);
+
+        if (camera != null) {
+            cameras->add(camera);
+        }
+    }
+
+    return cameras;
+}
+
+void SortCameras(List<Camera>* cameras) {
+
+}
+
+void RenderSceneToCamera(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
+
+}
+
 void GraphicsOutputController::output(Scene* scene) {
 	logger->debug("render scene");
 
@@ -54,7 +81,17 @@ void GraphicsOutputController::output(Scene* scene) {
     
     gr->clearBuffer();
 
-	gr->drawSample();
+    // find all cameras and sort
+    List<Camera>* cameras = FindAllCameras(scene);
+    SortCameras(cameras);
+
+    // render scene to camera
+    Iterator<Camera>* it = cameras->iterator();
+
+    while(it->hasNext()) {
+        Camera* camera = it->next();
+        RenderSceneToCamera(gr, scene, camera);
+    }
 
 	gr->flushBuffer();
 }

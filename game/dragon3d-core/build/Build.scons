@@ -357,7 +357,13 @@ dragon3d_core_SOURCES = {
         GameObject.cc
         Component.cc
         Transform.cc
-    """), 
+        Behaviour.cc
+    """),
+
+    "com/dragon3d/scene/camera" : Split("""
+        Camera.cc
+    """),
+
     "com/dragon3d/scene/model" : Split("""
         Mesh.cc
         Texture.cc
@@ -397,6 +403,7 @@ dragon3d_core_SOURCES = {
         Matrix4x4.cc
         Ray3.cc
         Rect.cc
+        Plane.cc
     """)
 
 }
@@ -424,9 +431,9 @@ LibraryModule(
 
 # dragon3d-core-test
 dragon3d_core_test_SOURCES = {
-#    "com/dragon3d/framework" : Split("""
-#        ObjectTest.cpp
-#    """),
+    "com/dragon3d/util/math" : Split("""
+        Vector3Test.cc
+    """),
     "." : Split("""
         TestMain.cc
     """)

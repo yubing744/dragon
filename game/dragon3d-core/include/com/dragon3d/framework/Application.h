@@ -30,6 +30,8 @@
 #include <dragon/lang/String.h>
 #include <dragon/lang/Thread.h>
 
+#include <dragon/util/ArrayList.h>
+
 #include <dragon/util/concurrent/Semaphore.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
 #include <dragon/util/concurrent/locks/SynchLock.h>
@@ -49,6 +51,7 @@
 BeginPackage3(com, dragon3d, framework)
 
 Import dragon::lang;
+Import dragon::util;
 Import dragon::util::logging;
 Import dragon::util::concurrent;
 Import dragon::util::concurrent::locks;
@@ -130,7 +133,12 @@ public: // Implements Runnable
 	virtual void run();
 
 public: // Implements Scene
-	virtual GameObject* getRoot();
+	virtual void add(GameObject* gameObject);
+	virtual void remove(GameObject* gameObject);
+	virtual GameObject* find(const char* name);
+	virtual GameObject* findWithTag(const char* tag);
+	virtual List<GameObject>* findGameObjectsWithTag(const char* tag);
+	virtual List<GameObject>* getAll();
 
 public: // Implements Updater
 	virtual void init();
@@ -186,9 +194,9 @@ protected:
 	OutputManager* outputManager;
 
 	/**
-	 * the root gameObject.
+	 * all the gameObject.
 	 */
-	GameObject* root;
+	List<GameObject>* gameObjects;
 
 };//Application
 

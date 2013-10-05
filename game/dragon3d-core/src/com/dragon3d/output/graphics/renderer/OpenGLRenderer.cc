@@ -26,6 +26,7 @@
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
 
 #include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 
 Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
@@ -105,7 +106,24 @@ void OpenGLRendererInitTexture(Texture* texture) {
 void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera) {
     // setup camera
     if (camera != null) {
+        Rect screenRect = camera->pixelRect;
+        Rect nvp = camera->rect;
 
+        glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
+            screenRect.width * nvp.width, screenRect.height * nvp.height);
+
+        if (!camera->orthographic) {
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            gluPerspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
+
+            Vector3 eye = position;
+            Vector3 center = eye.add(Vector3::FORWARD);
+            Vector3 up = Vector3::scale(Vector3::UP, rotation);
+            gluLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
+        } else {
+            glOrtho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
+        }
     }
 
     // setup material
