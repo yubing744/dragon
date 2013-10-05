@@ -17,26 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/20
+ * Created:     2013/10/05
  **********************************************************************/
 
 
-#include <com/dragon3d/util/math/Ray3.h>
+#include <com/dragon3d/scene/model/RenderTexture.h>
 
-Import com::dragon3d::util::math;
+Import com::dragon3d::scene::model;
 
-Ray3::Ray3(Vector3 origin, Vector3 direction) 
-    :origin(origin), direction(direction){
-
-}
-
-Ray3::~Ray3() {
+RenderTexture::RenderTexture() {
 
 }
 
+RenderTexture::~RenderTexture() {
 
-Vector3 Ray3::getPoint(float distance) {
-    return Vector3(origin.x + direction.x * distance, 
-        origin.y + direction.y * distance,
-        origin.z + direction.z * distance);
 }

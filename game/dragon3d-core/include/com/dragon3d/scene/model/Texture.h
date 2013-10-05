@@ -52,7 +52,7 @@ public:
 	virtual ~Texture(void);
 
 public:
-	int getNativeTextureID();
+	dg_uint getNativeTextureID();
 
 public:
 	int width;
@@ -65,7 +65,7 @@ public:
 	float mipMapBias;
 	
 	int channels;
-	int nativeTextureID;
+	dg_uint nativeTextureID;
 
 private:
 	bool isInit;

@@ -77,6 +77,10 @@ double Math::log10(double a){
 	return ::log10(a);
 }
 
+float Math::sqrt(float a) {
+	return ::sqrtf(a);
+}
+
 double Math::sqrt(double a){
 	return ::sqrt(a);
 }

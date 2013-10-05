@@ -51,6 +51,9 @@ void GraphicsOutputController::output(Scene* scene) {
 	logger->debug("render scene");
 
 	GraphicsRenderer* gr = this->graphicsRenderer;
+    
+    gr->clearBuffer();
+
 	gr->drawSample();
 
 	gr->flushBuffer();

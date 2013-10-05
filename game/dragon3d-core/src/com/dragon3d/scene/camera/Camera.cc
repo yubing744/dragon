@@ -33,6 +33,59 @@ Camera::~Camera() {
 
 }
 
+
+void Camera::copyFrom(Camera* other) {
+
+}
+
+void Camera::resetAspect() {
+
+}
+
+
+void Camera::resetProjectionMatrix() {
+
+}
+
+
+void Camera::resetWorldToCameraMatrix() {
+
+}
+
+
+Ray* Camera::screenPointToRay(Vector3 position) {
+	return null;
+}
+
+Vector3 Camera::screenToViewportPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+Vector3 Camera::screenToWorldPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+Ray* Camera::viewportPointToRay(Vector3 position) {
+	return null;
+}
+
+Vector3 Camera::viewportToScreenPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+Vector3 Camera::viewportToWorldPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+Vector3 Camera::worldToScreenPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+Vector3 Camera::worldToViewportPoint(Vector3 position) {
+	return Vector3::ZERO;
+}
+
+
 /*
 
 #include "dg_camera.h"

@@ -26,9 +26,10 @@
 
 #include <dragon/config.h>
 
-BeginPackage4(com, dragon3d, scene, model)
+BeginPackage4(com, dragon3d, util, math)
 
-Import com::dragon3d::scene::model;
+Import com::dragon3d::util::math;
+
 
 class _DragonExport Color32 {
 public:
@@ -43,6 +44,6 @@ public:
 	
 };//Color32
 
-EndPackage4 //(com, dragon3d, scene, model)
+EndPackage4 //(com, dragon3d, util, math)
 
 #endif //Color_Model_Scene_Dragon3d_Com_H

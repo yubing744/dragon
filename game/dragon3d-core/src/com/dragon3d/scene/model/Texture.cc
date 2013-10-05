@@ -40,6 +40,6 @@ Texture::~Texture(void){
 
 }
 
-int Texture::getNativeTextureID(){
+dg_uint Texture::getNativeTextureID(){
 	return this->nativeTextureID;
 }

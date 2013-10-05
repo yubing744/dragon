@@ -21,6 +21,10 @@
 
 BeginPackage2(dragon, lang)
 
+/**
+ * math utils
+ * 
+ */
 class _DragonExport Math
 {
 public:
@@ -42,7 +46,9 @@ public:
 	static double log(double a);
 	static double log10(double a);
 
+	static float sqrt(float a);
 	static double sqrt(double a);
+
 	static double cbrt(double a);
 	static double ceil(double a);
 	static double floor(double a);

@@ -17,26 +17,53 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/20
+ * Created:     2013/10/05
  **********************************************************************/
 
 
-#include <com/dragon3d/util/math/Ray3.h>
+#include <com/dragon3d/util/math/Plane.h>
 
 Import com::dragon3d::util::math;
 
-Ray3::Ray3(Vector3 origin, Vector3 direction) 
-    :origin(origin), direction(direction){
+Plane::Plane(Vector3 inNormal, Vector3 inPoint) {
 
 }
 
-Ray3::~Ray3() {
+Plane::Plane(Vector3 inNormal, float d) {
+
+}
+
+Plane::Plane(Vector3 a, Vector3 b, Vector3 c) {
+
+}
+
+Plane::~Plane() {
 
 }
 
 
-Vector3 Ray3::getPoint(float distance) {
-    return Vector3(origin.x + direction.x * distance, 
-        origin.y + direction.y * distance,
-        origin.z + direction.z * distance);
+float Plane::getDistanceToPoint(Vector3 inPt) {
+
+}
+
+
+bool Plane::getSide(Vector3 inPt) {
+
+}
+
+
+bool Plane::raycast(Ray3* ray, float* enter) {
+
+}
+
+bool Plane::sameSide(Vector3 inPt0, Vector3 inPt1) {
+
+}
+
+void Plane::set3Points(Vector3 a, Vector3 b, Vector3 c) {
+
+}
+
+void Plane::setNormalAndPosition(Vector3 inNormal, Vector3 inPoint) {
+    
 }

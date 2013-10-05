@@ -396,6 +396,7 @@ dragon3d_core_SOURCES = {
         Quaternion.cc
         Matrix4x4.cc
         Ray3.cc
+        Rect.cc
     """)
 
 }

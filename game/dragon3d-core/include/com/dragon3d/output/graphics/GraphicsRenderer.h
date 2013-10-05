@@ -26,8 +26,16 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/scene/model/Mesh.h>
+#include <com/dragon3d/scene/model/Material.h>
+#include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/scene/camera/Camera.h>
+
 BeginPackage4(com, dragon3d, output, graphics)
 
+Import com::dragon3d::util::math;
+Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 
 /**
@@ -42,25 +50,36 @@ public:
 	 * init the graphics renderer.
 	 */
 	virtual void init() = 0;
-	//virtual void viewport(int x, int y, int width, int height) = 0;
-    //virtual void perspective(float fovy, float aspect, float zNear, float zFar) = 0;
+
+	/**
+	 * clear buffer
+	 */
+	virtual void clearBuffer() = 0;
 
 	/**
 	 * draw a sample shape.
 	 */
 	virtual void drawSample() = 0;
 
-    /*
-	virtual bool init() = 0;
+	/**
+	 * draw a mesh with 
+	 */
+	virtual void drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera) = 0;
+
+	/**
+	 * flush the buffer
+	 */
+	virtual void flushBuffer() = 0;
+
+
+	/*
+	virtual void viewport(int x, int y, int width, int height) = 0;
+    virtual void perspective(float fovy, float aspect, float zNear, float zFar) = 0;
+   
 	virtual void reset() = 0;
 	virtual void setColor(const Color& color) = 0;
 	virtual void drawLine(const Vector3& startV, const Vector3& endV) = 0;
-	virtual void drawMesh(Mesh* mesh) = 0;
-	*/
 
-	virtual void flushBuffer() = 0;
-
-	/*
 	virtual void translate(float x, float y, float z) = 0;
 	virtual void rotate(float angle, float x, float y, float z) = 0;
 	virtual void scale(float x, float y, float z) = 0;

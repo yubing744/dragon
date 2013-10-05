@@ -26,7 +26,9 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+ 
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
+#include <com/dragon3d/scene/camera/Camera.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
     class GraphicsDevice;
@@ -36,6 +38,7 @@ BeginPackage5(com, dragon3d, output, graphics, renderer)
 
 Import dragon::lang;
 
+Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
@@ -48,7 +51,11 @@ public:
 public: // implements GraphicsRenderer
 	virtual void init();
 
+    virtual void clearBuffer();
+
 	virtual void drawSample();
+
+    virtual void drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera);
 
 	virtual void flushBuffer();
 
