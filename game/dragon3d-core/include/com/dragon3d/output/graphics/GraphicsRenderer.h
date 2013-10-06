@@ -29,6 +29,7 @@
 #include <com/dragon3d/scene/model/Mesh.h>
 #include <com/dragon3d/scene/model/Material.h>
 #include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Quaternion.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
@@ -64,7 +65,7 @@ public:
 	/**
 	 * draw a mesh with 
 	 */
-	virtual void drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera) = 0;
+	virtual void drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) = 0;
 
 	/**
 	 * flush the buffer

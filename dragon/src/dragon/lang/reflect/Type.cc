@@ -59,22 +59,59 @@ Type::Type(const char* name, size_t size) {
 	this->size = size;
 }
 
+Type::Type(const type_info& info, size_t size) {
+	const char* name = Demangle(info.name());
+
+	size_t n_size = strlen(name);
+	char* buf = (char*)malloc(n_size + 1);
+	strcpy(buf, name);
+	this->name = buf;
+
+	this->size = size;
+}
+
+Type::Type(const Type& type) {
+	const char* name = type.name;
+
+	size_t n_size = strlen(name);
+	char* buf = (char*)malloc(n_size + 1);
+	strcpy(buf, name);
+	this->name = buf;
+
+	this->size = type.size;	
+}
+
 Type::~Type() {
 	SafeFree(this->name);
+}
+
+Type& Type::operator=(const Type& type) {
+	SafeFree(this->name);
+
+	const char* name = type.name;
+
+	size_t n_size = strlen(name);
+	char* buf = (char*)malloc(n_size + 1);
+	strcpy(buf, name);
+	this->name = buf;
+
+	this->size = type.size;	
+
+	return *this;
 }
 
 const char* Type::getName() const {
 	return this->name;
 }
 
-size_t Type::getSize() {
+size_t Type::getSize() const {
 	return this->size;
 }
 
-dg_boolean Type::equals(const Type* type) {
+bool Type::equals(const Type* type) const {
 	if (strcmp(this->name, type->name) == 0x0) {
-		return dg_true;
+		return true;
 	}
 
-	return dg_false;
+	return false;
 }

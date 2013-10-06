@@ -58,7 +58,7 @@ class _DragonExport GameObject
 
 public:
 	static List<GameObject>* all;
-	
+
 public:
 	GameObject();
 	virtual ~GameObject();
@@ -85,9 +85,9 @@ public:
 	 * @param  type [description]
 	 * @return      [description]
 	 */
-	virtual Component* getComponent(Type* type);
+	virtual Component* getComponent(const Type& type);
 
-protected:
+public:
 	/**
 	 * the name of game object;
 	 */
@@ -103,6 +103,7 @@ protected:
 	 */
 	Transform* transform;
 
+protected:
 	/**
 	 * game component.
 	 */

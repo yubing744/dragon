@@ -103,7 +103,7 @@ void OpenGLRendererInitTexture(Texture* texture) {
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
-void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera) {
+void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) {
     // setup camera
     if (camera != null) {
         Rect screenRect = camera->pixelRect;
@@ -117,9 +117,9 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Vector3
             glLoadIdentity();
             gluPerspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
 
-            Vector3 eye = position;
+            Vector3 eye = camera->transform->position;
             Vector3 center = eye.add(Vector3::FORWARD);
-            Vector3 up = Vector3::scale(Vector3::UP, rotation);
+            Vector3 up = Vector3::UP;
             gluLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
         } else {
             glOrtho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
@@ -145,6 +145,21 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Vector3
             }
         }
     }
+
+    // transform mesh
+    glMatrixMode(GL_MODELVIEW); 
+
+    // translate
+    glTranslatef(position.x, position.y, position.z);
+
+    // rotate
+    glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+    glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
+    glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+
+    // scale
+    glScalef(1.0f, 1.0f, 1.0f);
+
 
     // draw mesh
     int vCount = mesh->triangleIndexCount;

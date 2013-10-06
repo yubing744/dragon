@@ -26,18 +26,26 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/reflect/Type.h>
 #include <com/dragon3d/framework/Input.h>
 #include <com/dragon3d/util/ReadOnlyTimer.h>
+#include <com/dragon3d/scene/Transform.h>
 
 BeginPackage3(com, dragon3d, scene)
 
+Import dragon::lang;
 Import com::dragon3d::util;
 Import com::dragon3d::scene;
 Import com::dragon3d::framework;
 
 class GameObject;
 
-class _DragonExport Component {
+class _DragonExport Component 
+	extends(Object) {
+public:
+	const static Type TYPE;
+
 public:
 	Component();
 	virtual ~Component();
@@ -51,11 +59,23 @@ public:
 	 */
 	virtual void update(Input* input, ReadOnlyTimer* timer);
 
+	/**
+	 * return the type of Component
+	 * 
+	 * @return [description]
+	 */
+	virtual const Type& getType();
+
 public:
 	/**
 	 * The game object this component is attached to. A component is always attached to a game object.
 	 */
 	GameObject* gameObject;
+
+	/**
+	 *  The Transform attached to this GameObject (null if there is none attached).
+	 */
+	Transform* transform;
 
 };//Component
 

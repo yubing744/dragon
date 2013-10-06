@@ -26,9 +26,11 @@
 
 #include <dragon3d.h>
 #include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/scene/GameObject.h>
 
 BeginPackage4(com, dragon3d, examples, helloworld)
 
+Import com::dragon3d::scene;
 Import com::dragon3d::framework;
 
 class _DragonExport HelloWorld extends(Application) {
@@ -40,6 +42,11 @@ public:
     virtual void init();
 	virtual void update(Scene* scene, ReadOnlyTimer* timer);
 	virtual void destroy();
+    
+protected:
+    GameObject* myBox;
+    GameObject* mainCamera;
+    
 };//HelloWorld
 
 EndPackage4 //(com, dragon3d, examples, helloworld)

@@ -22,11 +22,19 @@
 
 
 #include <com/dragon3d/output/graphics/GraphicsOutputController.h>
-#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 
+#include <dragon/util/ArrayList.h>
 #include <dragon/util/logging/Logger.h>
 
+#include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/camera/Camera.h>
+#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+
+Import dragon::util;
+
 Import dragon::util::logging;
+Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
@@ -56,7 +64,7 @@ List<Camera>* FindAllCameras(Scene* scene) {
 
     while(it->hasNext()) {
         GameObject* gameObject = it->next();
-        Camera* camera = gameObject->getComponent(Camera::TYPE);
+        Camera* camera = (Camera*)gameObject->getComponent(Camera::TYPE);
 
         if (camera != null) {
             cameras->add(camera);
@@ -71,7 +79,21 @@ void SortCameras(List<Camera>* cameras) {
 }
 
 void RenderSceneToCamera(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
 
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        Model* model = (Model*)gameObject->getComponent(Model::TYPE);
+
+        if (model != null) {
+            Mesh* mesh = model->mesh;
+            Material* material = model->material;
+
+            gr->drawMesh(mesh, gameObject->transform->position, gameObject->transform->rotation, material, camera);
+        }
+    }
 }
 
 void GraphicsOutputController::output(Scene* scene) {

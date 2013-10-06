@@ -358,6 +358,9 @@ dragon3d_core_SOURCES = {
         Component.cc
         Transform.cc
         Behaviour.cc
+
+        AbstractScene.cc
+        SimpleScene.cc
     """),
 
     "com/dragon3d/scene/camera" : Split("""

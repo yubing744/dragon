@@ -17,24 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/04
+ * Created:     2013/10/06
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/Model.h>
+#ifndef SimpleScene_Scene_Dragon3d_Com_H
+#define SimpleScene_Scene_Dragon3d_Com_H
 
-Import com::dragon3d::scene::model;
+#include <dragon/config.h>
+#include <com/dragon3d/scene/AbstractScene.h>
 
-const Type Model::TYPE = Type(typeid(Model), sizeof(Model));
+BeginPackage3(com, dragon3d, scene)
 
-Model::Model() {
+Import com::dragon3d::scene;
 
-}
+/**
+ * simple scene 
+ * 
+ * @param  Object [description]
+ * @return        [description]
+ */
+class _DragonExport SimpleScene 
+    extends(AbstractScene) {
+public:
+    SimpleScene();
+    virtual ~SimpleScene();
+    
+};//SimpleScene
 
-Model::~Model() {
+EndPackage3 //(com, dragon3d, scene)
 
-}
-
-const Type& Model::getType() {
-    return Model::TYPE;
-}
+#endif //SimpleScene_Scene_Dragon3d_Com_H

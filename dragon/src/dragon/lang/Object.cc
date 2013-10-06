@@ -47,7 +47,8 @@ Object::~Object() {
 
 Class* Object::getClass() {
 	ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
-	return classLoader->loadClass(typeid(*this).name());
+	const char* className = Demangle(typeid(*this).name());
+	return classLoader->loadClass(className);
 }
 
 bool Object::equals(const Object* obj) {

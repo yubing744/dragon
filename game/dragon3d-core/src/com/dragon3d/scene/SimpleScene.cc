@@ -17,24 +17,21 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/04
+ * Created:     2013/10/06
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/SimpleScene.h>
+#include <dragon/util/ArrayList.h>
 
-Import com::dragon3d::scene::model;
+Import dragon::util;
+Import com::dragon3d::scene;
 
-const Type Model::TYPE = Type(typeid(Model), sizeof(Model));
-
-Model::Model() {
-
-}
-
-Model::~Model() {
+SimpleScene::SimpleScene() {
 
 }
 
-const Type& Model::getType() {
-    return Model::TYPE;
+SimpleScene::~SimpleScene() {
+
 }
+

@@ -39,7 +39,7 @@ Application::Application()
 	this->inputManager = null;
 	this->outputManager= null;
 
-    this->gameObjects = new ArrayList<GameObject>();
+    this->currentScene = null;
 
 	this->onCreate();
 }
@@ -129,10 +129,18 @@ void Application::setOutputManager(OutputManager* outputManager) {
 	this->outputManager = outputManager;
 }
 
+// --------------------------------------
 
 Scene* Application::getCurrentScene() {
-	return this;
+	return currentScene;
 }
+
+void Application::setNextScene(Scene* scene) {
+    this->currentScene = scene;
+}
+
+// --------------------------------------
+
 
 void Application::run() {
 	logger->info("new game thread run ... ");
@@ -145,7 +153,14 @@ void Application::run() {
 
         while (!isExit) {
         	Scene* scene = this->getCurrentScene();
-            frameWork->updateFrame(scene);
+
+            if (scene != null) {
+                frameWork->updateFrame(scene);
+            } else {
+                logger->warn("Please setup a current scene");
+                Thread::sleep(5000); // wait 5 second
+            }
+
             Thread::yield();
         }
 
@@ -158,32 +173,7 @@ void Application::run() {
     }
 }
 
-// ----------------------------------------------------------
-// simple scene
-// 
-void Application::add(GameObject* gameObject) {
-    this->gameObjects->add(gameObject);
-}
 
-void Application::remove(GameObject* gameObject) {
-    this->gameObjects->remove(gameObject);
-}
-
-GameObject* Application::find(const char* name) {
-    return null;
-}
-
-GameObject* Application::findWithTag(const char* tag) {
-    return null;
-}
-
-List<GameObject>* Application::findGameObjectsWithTag(const char* tag) {
-    return null;
-}
-
-List<GameObject>* Application::getAll() {
-    return this->gameObjects;
-}
 
 // ----------------------- simple game -----------------------
 

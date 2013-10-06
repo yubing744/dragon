@@ -25,12 +25,20 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <dragon/lang/ClassLoader.h>
+
+#include <typeinfo>
 
 Import dragon::lang;
 
+Class::Class(const type_info& info, size_t size) 
+	:Type(info, size){
+	this->classLoader = ClassLoader::getSystemClassLoader();
+}
+
 Class::Class(const ClassLoader* classLoader, 
 		const char* packageName, const char* name) 
-	: Type(name), classLoader(classLoader) 
+	:Type(name), classLoader(classLoader) 
 {
 	size_t p_size = strlen(packageName);
 	char* buf = (char*)malloc(p_size + 1);
@@ -42,7 +50,7 @@ Class::Class(const ClassLoader* classLoader,
 		const char* packageName, const char* name,
 		const Array<Constructor*>& constructors, const Array<Method*>& methods,
 		const Array<Field*>& fields) 
-	: Type(name), classLoader(classLoader), constructors(constructors), methods(methods), fields(fields) 
+	:Type(name), classLoader(classLoader), constructors(constructors), methods(methods), fields(fields) 
 {
 	size_t p_size = strlen(packageName);
 	char* buf = (char*)malloc(p_size + 1);

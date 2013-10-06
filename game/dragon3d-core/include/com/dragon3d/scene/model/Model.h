@@ -27,19 +27,34 @@
 #include <dragon/config.h>
 
 #include <dragon/util/List.h>
+
+#include <dragon/lang/reflect/Type.h>
+
 #include <com/dragon3d/scene/Component.h>
 #include <com/dragon3d/scene/model/Mesh.h>
 
 BeginPackage4(com, dragon3d, scene, model)
 
 Import dragon::util;
+Import dragon::lang::reflect;
 Import com::dragon3d::scene::model;
 
 class _DragonExport Model 
     extends(Component) {
 public:
+    const static Type TYPE;
+
+public:
     Model();
     virtual ~Model();
+
+public:
+    /**
+     * return the type of Component
+     * 
+     * @return [description]
+     */
+    virtual const Type& getType();
 
 public:
     /**

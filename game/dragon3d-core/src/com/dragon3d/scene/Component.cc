@@ -25,6 +25,8 @@
 
 Import com::dragon3d::scene;
 
+const Type Component::TYPE = Type(typeid(Component), sizeof(Component));
+
 Component::Component() {
 
 }
@@ -35,6 +37,10 @@ Component::~Component() {
 
 void Component::update(Input* input, ReadOnlyTimer* timer) {
 
+}
+
+const Type& Component::getType() {
+    return Component::TYPE;
 }
 
 /*

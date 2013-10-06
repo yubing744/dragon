@@ -48,6 +48,12 @@ void* PloyCast(Type* p) {
 	return pObj;
 }
 
+template<class Type>
+inline bool TypeOf(Object* pObj) {
+    
+}
+
+
 EndPackage2
 
 #endif

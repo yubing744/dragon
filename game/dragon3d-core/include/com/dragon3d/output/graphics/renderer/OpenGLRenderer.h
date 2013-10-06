@@ -55,7 +55,7 @@ public: // implements GraphicsRenderer
 
 	virtual void drawSample();
 
-    virtual void drawMesh(Mesh* mesh, const Vector3& position, const Vector3& rotation, Material* material, Camera* camera);
+    virtual void drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera);
 
 	virtual void flushBuffer();
 

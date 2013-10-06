@@ -30,8 +30,6 @@
 #include <dragon/lang/String.h>
 #include <dragon/lang/Thread.h>
 
-#include <dragon/util/ArrayList.h>
-
 #include <dragon/util/concurrent/Semaphore.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
 #include <dragon/util/concurrent/locks/SynchLock.h>
@@ -67,7 +65,7 @@ Import com::dragon3d::scene;
  * 
  */
 class _DragonExport Application extends(Object) 
-	implements4(Runnable, Scene, Updater, Output) {
+	implements3(Runnable, Updater, Output) {
 public:
 	Application();
 	virtual ~Application();
@@ -132,14 +130,6 @@ public:
 public: // Implements Runnable
 	virtual void run();
 
-public: // Implements Scene
-	virtual void add(GameObject* gameObject);
-	virtual void remove(GameObject* gameObject);
-	virtual GameObject* find(const char* name);
-	virtual GameObject* findWithTag(const char* tag);
-	virtual List<GameObject>* findGameObjectsWithTag(const char* tag);
-	virtual List<GameObject>* getAll();
-
 public: // Implements Updater
 	virtual void init();
 	virtual void update(Scene* scene, ReadOnlyTimer* timer);
@@ -155,6 +145,14 @@ protected:
 	 * @return [description]
 	 */
 	virtual Scene* getCurrentScene();
+
+	/**
+	 * set next render scene.
+	 * 
+	 * @param scene [description]
+	 */
+	virtual void setNextScene(Scene* scene);
+
 
 protected:
 	/**
@@ -194,9 +192,9 @@ protected:
 	OutputManager* outputManager;
 
 	/**
-	 * all the gameObject.
+	 * current scene.
 	 */
-	List<GameObject>* gameObjects;
+	Scene* currentScene;
 
 };//Application
 

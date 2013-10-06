@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/reflect/Type.h>
 #include <com/dragon3d/util/math/Color.h>
 #include <com/dragon3d/util/math/Rect.h>
 #include <com/dragon3d/util/math/Ray3.h>
@@ -35,6 +36,8 @@
 #include <com/dragon3d/scene/Behaviour.h>
 
 BeginPackage4(com, dragon3d, scene, camera)
+
+Import dragon::lang::reflect;
 
 Import com::dragon3d::util::math;
 Import com::dragon3d::scene;
@@ -47,6 +50,9 @@ Import com::dragon3d::scene::model;
  */
 class _DragonExport Camera 
 	extends(Behaviour) {
+public:
+	const static Type TYPE;
+
 public:
 	/**
 	 * Values for Camera.clearFlags, determining what to clear when rendering a Camera.
@@ -94,6 +100,14 @@ public:
 public:
 	Camera();
 	virtual ~Camera();
+
+public:
+	/**
+	 * return the type of Component
+	 * 
+	 * @return [description]
+	 */
+	virtual const Type& getType();
 
 public:
 	/**

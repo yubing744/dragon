@@ -25,11 +25,15 @@
 #define Scene_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/util/List.h>
 #include <com/dragon3d/scene/GameObject.h>
+#include <com/dragon3d/util/math/Ray3.h>
 
 BeginPackage3(com, dragon3d, framework)
 
+Import dragon::util;
 Import com::dragon3d::scene;
+Import com::dragon3d::util::math;
 
 /**
  * Owns all the data that is related to the scene. This class should not really know anything about rendering or the
@@ -57,17 +61,26 @@ public:
 	/**
 	 * find game object by name
 	 */
-	virtual GameObject* find(const char* name) = 0;
+	virtual GameObject* findFirstWithName(const char* name) = 0;
+	virtual List<GameObject>* findWithName(const char* name) = 0;
+
+	/**
+	 * find game object by component Type
+	 */
+	virtual GameObject* findFirstWithType(const Type& type) = 0;
+	virtual List<GameObject>* findWithType(const Type& type) = 0;
 
 	/**
 	 * find game object by name
 	 */
-	virtual GameObject* findWithTag(const char* tag) = 0;
+	virtual GameObject* findFirstWithTag(const char* tag) = 0;
+	virtual List<GameObject>* findWithTag(const char* tag) = 0;
 
 	/**
-	 * find game objects by tag
+	 * find game object by ray
 	 */
-	virtual List<GameObject>* findGameObjectsWithTag(const char* tag) = 0;
+	virtual GameObject* findFirstWithRay(Ray3* ray) = 0;
+	virtual List<GameObject>* findWithRay(Ray3* ray) = 0;
 
 	/**
 	 * find all gameobject
@@ -81,39 +94,3 @@ public:
 EndPackage3 //(com, dragon3d, framework)
 
 #endif //Scene_Framework_Dragon3d_Com_H
-
-/*
-#pragma once
-
-#include "dg_config.h"
-
-#ifndef DG_SCENE
-#define DG_SCENE
-
-#include "dg_game_object.h"
-#include "dg_horizon_grid.h"
-
-class DGScene
-	:public DGGameObject
-{
-public:
-	DGScene(void);
-	virtual ~DGScene(void);
-
-public:
-	virtual void init(DGContext* ctx);
-	virtual void update(DGContext* ctx);
-	virtual void draw(DGContext* ctx);
-	virtual void destroy();
-
-public:
-	virtual void turnOnHorizonGrid();
-	virtual void turnOffHorizonGrid();
-
-private:
-	DGHorizonGrid* horizonGrid;
-};
-
-#endif
-
- */

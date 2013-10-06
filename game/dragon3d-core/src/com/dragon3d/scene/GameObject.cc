@@ -22,16 +22,21 @@
 
 
 #include <com/dragon3d/scene/GameObject.h>
+#include <dragon/lang/Class.h>
 #include <dragon/util/ArrayList.h>
 
+Import dragon::lang;
 Import dragon::util;
 Import com::dragon3d::scene;
 
 GameObject::GameObject() {
+	this->transform = new Transform();
 	this->components = new ArrayList<Component>();
 }
 
 GameObject::~GameObject() {
+	SafeDelete(this->transform);
+
 	this->components->clear();
 	SafeDelete(this->components);
 }
@@ -48,10 +53,24 @@ void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 void GameObject::addComponent(Component* component) {
 	if (!this->components->contains(component)) {
 		this->components->add(component);
+
+		// attach some other componet
+		component->gameObject = this;
+		component->transform = this->transform;
 	}
 }
 
-Component* GameObject::getComponent(Type* type) {
+Component* GameObject::getComponent(const Type& type) {
+	Iterator<Component>* it = this->components->iterator();
+
+	while(it->hasNext()) {
+		Component* component = it->next();
+
+		if (component->getType().equals(&type)) {
+			return component;
+		}
+	}
+
 	return null;
 }
 

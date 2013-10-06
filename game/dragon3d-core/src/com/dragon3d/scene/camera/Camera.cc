@@ -25,6 +25,8 @@
 
 Import com::dragon3d::scene::camera;
 
+const Type Camera::TYPE = Type(typeid(Camera), sizeof(Camera));
+
 Camera::Camera() 
 	:orthographic(false), 
 	orthographicSize(1), 
@@ -52,7 +54,7 @@ Camera::Camera()
 	layerCount(0),
 	layerCullSpherical(false),
 
-	pixelRect(0, 0, 1, 1),
+	pixelRect(0, 0, 100, 100),
 
 	rect(0, 0, 1, 1),
 
@@ -67,6 +69,10 @@ Camera::Camera()
 
 Camera::~Camera() {
 
+}
+
+const Type& Camera::getType() {
+	return Camera::TYPE;
 }
 
 void Camera::copyFrom(Camera* other) {

@@ -26,8 +26,11 @@
 #include <dragon/config.h>
 
 #include <stdlib.h>
+#include <typeinfo>
 
 BeginPackage3(dragon, lang, reflect)
+
+Import std;
 
 class _DragonExport Type
 {
@@ -35,12 +38,17 @@ public:
 	Type(const char* name);
 	Type(const char* name, int offset, size_t count);
 	Type(const char* name, size_t size);
-	virtual ~Type();
+    Type(const type_info& info, size_t size);
+    Type(const Type& type);
+    virtual ~Type();
+
+public:
+    Type &operator=(const Type& type);
 
 public:
 	virtual const char* getName() const;
-	virtual size_t getSize();
-    virtual dg_boolean equals(const Type* type);	
+	virtual size_t getSize() const;
+    virtual bool equals(const Type* type) const;	
 
 protected:
 	char* name;

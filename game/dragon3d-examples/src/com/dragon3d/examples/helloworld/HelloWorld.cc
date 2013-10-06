@@ -26,9 +26,12 @@
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/camera/Camera.h>
+#include <com/dragon3d/scene/SimpleScene.h>
 
 Import dragon::lang;
 Import dragon::util::logging;
+
+Import com::dragon3d::scene;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
@@ -38,7 +41,8 @@ static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::
 
 
 HelloWorld::HelloWorld() {
-
+    Scene* scene = new SimpleScene();
+    this->setNextScene(scene);
 }
 
 HelloWorld::~HelloWorld() {
@@ -48,21 +52,31 @@ HelloWorld::~HelloWorld() {
 void HelloWorld::init() {
     logger->info("init");
 
-    GameObject* gb1 = new GameObject();
+    Scene* scene = this->getCurrentScene();
+    
+    myBox = new GameObject();
     Box* box = new Box();
-    gb1->addComponent(box);
+    myBox->addComponent(box);
 
 
-    GameObject* gb2 = new GameObject();
+    mainCamera = new GameObject();
     Camera* camera = new Camera();
-    gb2->addComponent(camera);
+    mainCamera->addComponent(camera);
+    
+    camera->pixelRect = Rect(0, 0, 320, 480);
+    camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
+    camera->transform->position.z = -5;
 
-    this->add(gb1);
-    this->add(gb2);
+
+    scene->add(myBox);
+    scene->add(mainCamera);
 }
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
+    myBox->transform->rotation.x += (timer->getTimePerFrame() * 10000);
+    myBox->transform->rotation.y += (timer->getTimePerFrame() * 10000);
     
+    logger->info("tps: %d", timer->getFrameRate());
 }
 
 void HelloWorld::destroy() {

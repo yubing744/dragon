@@ -26,10 +26,11 @@
 #include <dragon/lang/reflect/Method.h>
 #include <dragon/lang/reflect/Field.h>
 
-#include <dragon/lang/help_func.h>
+#include <typeinfo>
 
 BeginPackage2(dragon, lang)
 
+Import std;
 Import dragon::lang::reflect;
 
 class ClassLoader;
@@ -40,6 +41,7 @@ class _DragonExport Class
 friend class dragon::lang::ClassLoader;
 
 protected:
+	Class(const type_info& info, size_t size);
 	Class(const ClassLoader* classLoader, 
 		const char* packageName, const char* name);
 
@@ -123,6 +125,67 @@ private:
 	P<Map<String,P<Field>>> fields;
 */
 };
+
+
+template <typename E, int N>
+inline int Lenth(E (&arr)[N]){
+    return N;
+}     
+
+inline int Lenth(void* p) {
+	int* pSize=(int*)p;
+	pSize--;
+	return *pSize;
+}
+
+template<class Type>
+inline bool InstanceOf(Object* pObj) {
+	Type* pType = dynamic_cast<Type*>(pObj);
+	return pType ? true : false;
+}
+
+template<class Type>
+void* PloyCast(Type* p) {
+	void* pObj = dynamic_cast<void*>(p);
+	if(pObj==null) pObj=p;
+	return pObj;
+}
+
+// Type of
+
+template<class T>
+inline Type TypeOf() {
+    return Type(typeid(T), sizeof(T));
+}
+
+template<class T>
+inline Type TypeOf(T type) {
+    return Type(typeid(type), sizeof(type));
+}
+
+template<class T>
+inline Type TypeOf(T* type) {
+    return Type(typeid(*type), sizeof(*type));
+}
+
+
+// Class of
+
+template<class T>
+inline Class* ClassOf() {
+    return new Class(typeid(T), sizeof(T));
+}
+
+template<class T>
+inline Class* ClassOf(T type) {
+    return new Class(typeid(type), sizeof(type));
+}
+
+template<class T>
+inline Class* ClassOf(T* type) {
+    return new Class(typeid(*type), sizeof(*type));
+}
+
 
 EndPackage2 //(dragon, lang)
 
