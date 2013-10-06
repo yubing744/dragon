@@ -407,8 +407,11 @@ dragon3d_core_SOURCES = {
         Ray3.cc
         Rect.cc
         Plane.cc
-    """)
+    """),
 
+    "com/dragon3d/util/debug" : Split("""
+        PlacementGrid.cc
+    """)
 }
 
 LibraryModule(

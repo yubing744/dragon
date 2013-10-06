@@ -47,7 +47,8 @@ void OpenGLRenderer::init() {
 
     glShadeModel(GL_SMOOTH);                            // Enable Smooth Shading
 
-    Color c("#474747");
+    //Color c("#474747");
+    Color c("#FF0000");
     glClearColor(c.r, c.g, c.b, 0.5f);                  // Black Background
 
     glClearDepth(1.0f);                                 // Depth Buffer Setup
@@ -95,15 +96,15 @@ void OpenGLRendererInitTexture(Texture* texture) {
     if(texture->channels == 4)
         textureType = GL_RGBA;
     
-    //gluBuild2DMipmaps(GL_TEXTURE_2D, texture->channels, texture->width, 
-    //    texture->height, textureType, GL_UNSIGNED_BYTE, texture->data);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, texture->channels, texture->width, 
+        texture->height, textureType, GL_UNSIGNED_BYTE, texture->data);
     
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);                         
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
-void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) {
+void OpenGLRendererSetupCamera(Camera* camera) {
     // setup camera
     if (camera != null) {
         Rect screenRect = camera->pixelRect;
@@ -125,6 +126,26 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
             glOrtho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
         }
     }
+}
+
+void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {
+    // setup camera
+    OpenGLRendererSetupCamera(camera);
+
+    // set color
+    glColor3f(color.r, color.g, color.b);
+
+    glMatrixMode(GL_MODELVIEW); 
+
+    glBegin(GL_LINES);
+        glVertex3f(startV.x, startV.y, startV.z);
+        glVertex3f(endV.x, endV.y, endV.z);
+    glEnd();
+}
+
+void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) {
+    // setup camera
+    OpenGLRendererSetupCamera(camera);
 
     // setup material
     if (material != null) {
@@ -192,5 +213,65 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
         glDisable(GL_TEXTURE_2D);
     }
 
+}
+
+void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) {
+    // setup camera
+    OpenGLRendererSetupCamera(camera);
+
+    // setup material
+    if (material != null) {
+        // setup color
+        Color c = material->color;
+        glColor3f(c.r, c.g, c.b);
+
+        // setup texture
+        Texture* mainTexture = material->mainTexture;
+
+        if (mainTexture != null) {
+            GLuint textureID = mainTexture->getNativeTextureID();
+
+            if (textureID == 0) {
+                OpenGLRendererInitTexture(mainTexture);
+            } else {
+                glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
+            }
+        }
+    }
+
+    // transform mesh
+    glMatrixMode(GL_MODELVIEW); 
+    glMultMatrixf((float *)matrix.m);
+
+    // draw mesh
+    int vCount = mesh->triangleIndexCount;
+
+    if (mesh->uv || mesh->uv2) {
+        glEnable(GL_TEXTURE_2D);
+    }
+
+    glBegin(GL_TRIANGLES);
+
+        for (int i=0; i< vCount; i++) {
+            int pos = mesh->triangles[i];
+
+            //set texCoord
+            if (mesh->uv) {
+                Vector2* uv = &mesh->uv[pos];
+                glTexCoord2f(uv->x, uv->y);
+            }
+
+            //set vertext
+            if (mesh->vertices) {
+                Vector3* v = &mesh->vertices[pos];
+                glVertex3f(v->x, v->y, v->z);
+            }
+        }
+
+    glEnd();
+
+    if (mesh->uv || mesh->uv2) {
+        glDisable(GL_TEXTURE_2D);
+    }  
 }
 

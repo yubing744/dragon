@@ -50,11 +50,12 @@ public:
 
 public:
     /**
-     * return the type of Component
+     * the component is type of type.
      * 
-     * @return [description]
+     * @param  type [description]
+     * @return      [description]
      */
-    virtual const Type& getType();
+    virtual bool isTypeOf(const Type& type);
 
 public:
     /**

@@ -31,6 +31,7 @@
 
 #include <com/dragon3d/output/OutputController.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
+#include <com/dragon3d/util/debug/PlacementGrid.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
@@ -38,6 +39,7 @@ Import dragon::lang;
 
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::util::debug;
 
 class GraphicsDevice;
 
@@ -67,6 +69,15 @@ public: // implements OutputController
 
 protected:
     /**
+     * render the scene to camera.
+     * 
+     * @param scene  [description]
+     * @param camera [description]
+     */
+    virtual void renderSceneToCamera(Scene* scene, Camera* camera);
+
+protected:
+    /**
      * graphics renderer.
      */
     GraphicsRenderer* graphicsRenderer;
@@ -75,6 +86,18 @@ protected:
      * graphics device
      */
     GraphicsDevice* graphicsDevice;
+
+
+protected:
+    /**
+     * placement grid
+     */
+    PlacementGrid* placementGrid;
+    
+    /**
+     * whether or not to show PlacementGrid
+     */
+    bool showPlacementGrid;
 
 };//GraphicsOutputController
 

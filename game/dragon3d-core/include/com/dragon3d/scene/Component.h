@@ -30,7 +30,6 @@
 #include <dragon/lang/reflect/Type.h>
 #include <com/dragon3d/framework/Input.h>
 #include <com/dragon3d/util/ReadOnlyTimer.h>
-#include <com/dragon3d/scene/Transform.h>
 
 BeginPackage3(com, dragon3d, scene)
 
@@ -40,6 +39,7 @@ Import com::dragon3d::scene;
 Import com::dragon3d::framework;
 
 class GameObject;
+class Transform;
 
 class _DragonExport Component 
 	extends(Object) {
@@ -60,11 +60,12 @@ public:
 	virtual void update(Input* input, ReadOnlyTimer* timer);
 
 	/**
-	 * return the type of Component
+	 * the component is type of type.
 	 * 
-	 * @return [description]
+	 * @param  type [description]
+	 * @return      [description]
 	 */
-	virtual const Type& getType();
+	virtual bool isTypeOf(const Type& type);
 
 public:
 	/**

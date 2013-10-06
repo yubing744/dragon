@@ -55,7 +55,11 @@ public: // implements GraphicsRenderer
 
 	virtual void drawSample();
 
+    virtual void drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera);
+
     virtual void drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera);
+
+    virtual void drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera);
 
 	virtual void flushBuffer();
 

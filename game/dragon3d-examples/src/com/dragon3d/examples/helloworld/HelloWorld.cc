@@ -64,8 +64,8 @@ void HelloWorld::init() {
     mainCamera->addComponent(camera);
     
     camera->pixelRect = Rect(0, 0, 320, 480);
-    camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->transform->position.z = -5;
+    //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
+    camera->transform->position = Vector3(0, 1, -5);
 
 
     scene->add(myBox);

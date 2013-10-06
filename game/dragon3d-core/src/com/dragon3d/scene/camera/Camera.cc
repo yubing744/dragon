@@ -71,8 +71,9 @@ Camera::~Camera() {
 
 }
 
-const Type& Camera::getType() {
-	return Camera::TYPE;
+bool Camera::isTypeOf(const Type& type) {
+    return Camera::TYPE.equals(&type) 
+        || Component::isTypeOf(type);
 }
 
 void Camera::copyFrom(Camera* other) {

@@ -103,11 +103,12 @@ public:
 
 public:
 	/**
-	 * return the type of Component
-	 * 
-	 * @return [description]
-	 */
-	virtual const Type& getType();
+     * the component is type of type.
+     * 
+     * @param  type [description]
+     * @return      [description]
+     */
+    virtual bool isTypeOf(const Type& type);
 
 public:
 	/**

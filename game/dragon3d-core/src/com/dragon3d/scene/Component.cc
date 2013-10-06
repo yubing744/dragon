@@ -39,8 +39,10 @@ void Component::update(Input* input, ReadOnlyTimer* timer) {
 
 }
 
-const Type& Component::getType() {
-    return Component::TYPE;
+bool Component::isTypeOf(const Type& type) {
+    if (Component::TYPE.equals(&type)) {
+        return true;
+    }
 }
 
 /*

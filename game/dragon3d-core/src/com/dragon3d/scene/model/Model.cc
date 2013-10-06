@@ -35,6 +35,7 @@ Model::~Model() {
 
 }
 
-const Type& Model::getType() {
-    return Model::TYPE;
+bool Model::isTypeOf(const Type& type) {
+    return Model::TYPE.equals(&type) 
+        || Component::isTypeOf(type);
 }

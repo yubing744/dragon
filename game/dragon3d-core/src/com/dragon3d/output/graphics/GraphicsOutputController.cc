@@ -43,10 +43,13 @@ static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::Grap
 GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
     this->graphicsDevice = graphicsDevice;
 	this->graphicsRenderer = new OpenGLRenderer(graphicsDevice);
+
+    this->placementGrid = new PlacementGrid();
+    this->showPlacementGrid = true;
 }
 
 GraphicsOutputController::~GraphicsOutputController() {
-
+    SafeDelete(this->placementGrid);
 }
 
 void GraphicsOutputController::init() {
@@ -78,7 +81,15 @@ void SortCameras(List<Camera>* cameras) {
 
 }
 
-void RenderSceneToCamera(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
+void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera) {
+    GraphicsRenderer* gr = this->graphicsRenderer;
+
+    // draw showPlacementGrid
+    if (showPlacementGrid) {
+        placementGrid->renderUnto(gr, scene, camera);
+    }
+
+    // draw game objects
     List<GameObject>* gameObjects = scene->getAll();
     
     Iterator<GameObject>* it = gameObjects->iterator();
@@ -92,6 +103,8 @@ void RenderSceneToCamera(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
             Material* material = model->material;
 
             gr->drawMesh(mesh, gameObject->transform->position, gameObject->transform->rotation, material, camera);
+            
+            //const Matrix4x4& matrix = gameObject->transform->
         }
     }
 }
@@ -112,7 +125,7 @@ void GraphicsOutputController::output(Scene* scene) {
 
     while(it->hasNext()) {
         Camera* camera = it->next();
-        RenderSceneToCamera(gr, scene, camera);
+        this->renderSceneToCamera(scene, camera);
     }
 
 	gr->flushBuffer();

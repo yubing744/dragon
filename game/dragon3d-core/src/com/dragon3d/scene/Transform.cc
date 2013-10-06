@@ -57,7 +57,7 @@ void Transform::translate(const Vector3& translation){
     this->translate(translation, Self);
 }
 
-void Transform::rotate(float xAngle, float yAngle, float zAngle, com::dragon3d::scene::Space relativeTo){
+void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo){
     if (World == relativeTo) {
         this->rotation.x += xAngle;
         this->rotation.y += yAngle;
@@ -73,10 +73,97 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle){
     this->rotate(xAngle, yAngle, zAngle, Self);
 }
 
-void Transform::rotate(const Vector3& eulerAngles, com::dragon3d::scene::Space relativeTo){
+void Transform::rotate(const Vector3& eulerAngles, Space relativeTo){
     this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, relativeTo);
 }
 
 void Transform::rotate(const Vector3& eulerAngles){
     this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, Self);
+}
+
+Transform* Transform::getRoot() {
+    Transform* t = this;
+
+    while(t->parent != null) {
+        t = t->parent;
+    }
+
+    return t;
+}
+
+Vector3 Transform::getUp() {
+    throw "not implement!";
+}
+
+Vector3 Transform::getRight() {
+    throw "not implement!";
+}
+
+Vector3 Transform::getForward() {
+    throw "not implement!";
+}
+
+Vector3 Transform::getEulerAngles() {
+    throw "not implement!";
+}
+
+void Transform::setEulerAngles(const Vector3& angles) {
+    throw "not implement!";
+}
+
+Vector3 Transform::getLocalEulerAngles() {
+    throw "not implement!";
+}
+
+void Transform::setLocalEulerAngles(const Vector3& angles) {
+    throw "not implement!";
+}
+
+Matrix4x4 Transform::getWorldToLocalMatrix() {
+    throw "not implement!";
+}
+
+void Transform::setWorldToLocalMatrix(const Matrix4x4& matrix) {
+    throw "not implement!";
+}
+
+Matrix4x4 Transform::getLocalToWorldMatrix() {
+    throw "not implement!";
+}
+
+void Transform::setLocalToWorldMatrix(const Matrix4x4& matrix) {
+    throw "not implement!";
+}
+
+void Transform::setParent(Transform* parent) {
+    throw "not implement!";
+}
+    
+Transform* Transform::getParent() {
+    return this->parent;
+}
+
+void Transform::detachChildren() {
+    Iterator<Transform>* it = this->children->iterator();
+
+    while(it->hasNext()) {
+        Transform* transform = it->next();
+        transform->setParent(null);
+    }
+}
+
+Transform* Transform::getChild(int index) {
+    if (index >=0 && index<this->children->size()) {
+        return this->children->get(index);
+    }
+
+    return null;
+}
+
+int Transform::childCount() {
+    return this->children->size();
+}
+
+Transform* Transform::find(const String& name) {
+    throw "not implement!";
 }

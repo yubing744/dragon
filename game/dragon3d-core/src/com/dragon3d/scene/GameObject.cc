@@ -66,7 +66,7 @@ Component* GameObject::getComponent(const Type& type) {
 	while(it->hasNext()) {
 		Component* component = it->next();
 
-		if (component->getType().equals(&type)) {
+		if (component->isTypeOf(type)) {
 			return component;
 		}
 	}
