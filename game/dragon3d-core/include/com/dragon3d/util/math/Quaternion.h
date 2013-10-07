@@ -46,7 +46,7 @@ public:
      * @param  z [description]
      * @return   [description]
      */
-    static Quaternion euler(float heading, float attitude, float bank);
+    static Quaternion euler(float x, float y, float z);
     static Quaternion euler(const Vector3& euler);
 
     /**
@@ -77,28 +77,28 @@ public:
      * 
      * @return [description]
      */
-    float magnitudeSquared();
+    float magnitudeSquared() const;
 
     /**
      * return the magnitude of this quaternion. basically sqrt
      * 
      * @return [description]
      */
-    float magnitude();
+    float magnitude() const;
 
     /**
      * normalize
      * 
      * @return [description]
      */
-    Quaternion normalize();
+    Quaternion normalize() const;
 
     /**
      * Returns the euler angle representation of the rotation.
      * 
      * @return [description]
      */
-    Vector3 getEulerAngles();
+    Vector3 getEulerAngles() const;
 
     /**
      * Set x, y, z and w components of an existing Quaternion.
@@ -137,7 +137,39 @@ public:
      * @param angle [description]
      * @param axis  [description]
      */
-    void toAngleAxis(float angle, const Vector3& axis);
+    void toAngleAxis(float angle, const Vector3& axis) const;
+
+    /**
+     * Adds this quaternion to another.
+     * 
+     * @param  q [description]
+     * @return   [description]
+     */
+    Quaternion add(const Quaternion& q) const;
+
+    /**
+     * subtract
+     * 
+     * @param  q [description]
+     * @return   [description]
+     */
+    Quaternion subtract(const Quaternion& q) const;
+
+    /**
+     * multiply
+     * 
+     * @param  scalar [description]
+     * @return        [description]
+     */
+    Quaternion multiply(float scalar) const;
+
+    /**
+     * multiply
+     * 
+     * @param  q [description]
+     * @return   [description]
+     */
+    Quaternion multiply(const Quaternion& q) const;
 
 public:
     float x;

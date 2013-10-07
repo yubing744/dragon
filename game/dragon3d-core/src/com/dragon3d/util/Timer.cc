@@ -27,8 +27,8 @@
 Import dragon::lang;
 Import com::dragon3d::util;
 
-#define TIMER_RESOLUTION 1000000000
-#define INVERSE_TIMER_RESOLUTION 1.0/TIMER_RESOLUTION
+#define TIMER_RESOLUTION 1000000
+#define INVERSE_TIMER_RESOLUTION (1.0/TIMER_RESOLUTION)
 
 Timer::Timer() 
 	:paused(false) {
@@ -43,7 +43,7 @@ double Timer::getTimeInSeconds() {
 	return getTime() * INVERSE_TIMER_RESOLUTION;
 }
 
-long Timer::getTime() {
+dg_long Timer::getTime() {
 	if (this->paused) {
 		this->startTime = System::nanoTime() - this->previousTime;
 		return this->previousTime;
@@ -52,7 +52,7 @@ long Timer::getTime() {
 	}
 }
 
-long Timer::getResolution() {
+dg_long Timer::getResolution() {
 	return TIMER_RESOLUTION;
 }
 
@@ -60,13 +60,13 @@ double Timer::getFrameRate() {
 	return this->fps;
 }
 
-double Timer::getTimePerFrame() {
+double Timer::getDeltaTime() {
 	return this->tps;
 }	
 
 // ---------------------------------------
 void Timer::update() {
-	long curTime = getTime();
+	dg_long curTime = getTime();
 
 	this->tps = (curTime - this->previousTime) * INVERSE_TIMER_RESOLUTION;
 	this->fps = 1.0 / this->tps;

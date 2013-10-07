@@ -57,14 +57,14 @@ public:
      * 
      * @return Time in resolution specified by implementation
      */
-    virtual long getTime() = 0;
+    virtual dg_long getTime() = 0;
 
     /**
      * Get the resolution used by this timer. Nanosecond resolution would return 10^9
      * 
      * @return Timer resolution
      */
-    virtual long getResolution() = 0;
+    virtual dg_long getResolution() = 0;
 
     /**
      * Get the current number of frames per second (fps).
@@ -78,7 +78,7 @@ public:
      * 
      * @return Time between frames, in seconds
      */
-    virtual double getTimePerFrame() = 0;
+    virtual double getDeltaTime() = 0;
 	
 };//ReadOnlyTimer
 

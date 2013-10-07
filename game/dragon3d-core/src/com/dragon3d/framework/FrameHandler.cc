@@ -23,9 +23,10 @@
 
 #include <com/dragon3d/framework/FrameHandler.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
+#include <dragon/lang/Thread.h>
 
 Import com::dragon3d::framework;
-
+Import dragon::lang;
 Import dragon::util::concurrent;
 
 Logger* FrameHandler::logger = Logger::getLogger("com::dragon3d::framework::FrameHandler");
@@ -96,6 +97,8 @@ void FrameHandler::updateFrame(Scene* scene) {
 
     SafeDelete(itc);
 	SafeDelete(latch);
+
+	Thread::sleep(45);
 }
 
 void FrameHandler::addUpdater(Updater* updater) {

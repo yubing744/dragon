@@ -176,9 +176,11 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     glTranslatef(0 - position.x, position.y, position.z);
 
     // rotate
-    glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-    glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-    glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+    Vector3 angles = rotation.getEulerAngles();
+
+    glRotatef(angles.x, 1.0f, 0.0f, 0.0f);
+    glRotatef(angles.y, 0.0f, 1.0f, 0.0f);
+    glRotatef(angles.z, 0.0f, 0.0f, 1.0f);
 
     // scale
     glScalef(1.0f, 1.0f, 1.0f);

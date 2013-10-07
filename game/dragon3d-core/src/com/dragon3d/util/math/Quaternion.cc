@@ -32,12 +32,16 @@ Import com::dragon3d::util::math;
 const Quaternion Quaternion::IDENTITY = Quaternion(0, 0, 0, 1);
 
 
-Quaternion Quaternion::euler(float heading, float attitude, float bank) {
+Quaternion Quaternion::euler(float x, float y, float z ) {
+    float heading = y;
+    float pitch = z;
+    float bank = x;
+
     float angle = heading * 0.5;
     float sinHeading = Math::sin(angle);
     float cosHeading = Math::cos(angle);
 
-    angle = attitude * 0.5;
+    angle = pitch * 0.5;
     float sinAttitude = Math::sin(angle);
     float cosAttitude = Math::cos(angle);
 
@@ -51,13 +55,13 @@ Quaternion Quaternion::euler(float heading, float attitude, float bank) {
     float cosHeadingXsinAttitude = cosHeading * sinAttitude;
     float sinHeadingXcosAttitude = sinHeading * cosAttitude;
 
-    float w = cosHeadingXcosAttitude * cosBank - sinHeadingXsinAttitude * sinBank;
+    float ww = cosHeadingXcosAttitude * cosBank - sinHeadingXsinAttitude * sinBank;
 
-    float x = cosHeadingXcosAttitude * sinBank + sinHeadingXsinAttitude * cosBank;
-    float y = sinHeadingXcosAttitude * cosBank + cosHeadingXsinAttitude * sinBank;
-    float z = cosHeadingXsinAttitude * cosBank - sinHeadingXcosAttitude * sinBank;
+    float xx = cosHeadingXcosAttitude * sinBank + sinHeadingXsinAttitude * cosBank;
+    float yy = sinHeadingXcosAttitude * cosBank + cosHeadingXsinAttitude * sinBank;
+    float zz = cosHeadingXsinAttitude * cosBank - sinHeadingXcosAttitude * sinBank;
 
-    return Quaternion(x, y, z, w).normalize();
+    return Quaternion(xx, yy, zz, ww).normalize();
 }
 
 Quaternion Quaternion::euler(const Vector3& e) {
@@ -115,11 +119,11 @@ Quaternion::~Quaternion() {
 
 // -------------------------------------------
 
-float Quaternion::magnitudeSquared() {
+float Quaternion::magnitudeSquared() const {
     return w * w + x * x + y * y + z * z;
 }
 
-float Quaternion::magnitude() {
+float Quaternion::magnitude() const {
     float magnitudeSQ = magnitudeSquared();
 
     if (magnitudeSQ == 1.0) {
@@ -129,7 +133,7 @@ float Quaternion::magnitude() {
     return Math::sqrt(magnitudeSQ);
 }
 
-Quaternion Quaternion::normalize() {
+Quaternion Quaternion::normalize() const {
     float n = 1.0 / magnitude();
 
     float x = this->x * n;
@@ -140,7 +144,7 @@ Quaternion Quaternion::normalize() {
     return Quaternion(x, y, z, w);  
 }
 
-Vector3 Quaternion::getEulerAngles() {
+Vector3 Quaternion::getEulerAngles() const {
     Vector3 result;
 
     float sqw = w * w;
@@ -186,4 +190,25 @@ void Quaternion::setLookRotation(const Vector3& view) {
 
 void Quaternion::setLookRotation(const Vector3& view, const Vector3& up) {
     throw "not implements!";  
+}
+
+Quaternion Quaternion::add(const Quaternion& q) const {
+    return Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
+}
+
+Quaternion Quaternion::subtract(const Quaternion& q) const {
+    return Quaternion(x - q.x, y - q.y, z - q.z, w - q.w);
+}
+
+Quaternion Quaternion::multiply(float scalar) const {
+    return Quaternion(x * scalar, y * scalar, z * scalar, w * scalar);
+}
+
+Quaternion Quaternion::multiply(const Quaternion& quat) const {
+    float x = x * quat.w + y * quat.z - z * quat.y + w * quat.x;
+    float y = -x * quat.z + y * quat.w + z * quat.x + w * quat.y;
+    float z = x * quat.y - y * quat.x + z * quat.w + w * quat.z;
+    float w = -x * quat.x - y * quat.y - z * quat.z + w * quat.w;
+
+    return Quaternion(x, y, z, w);
 }

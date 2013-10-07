@@ -53,15 +53,16 @@ Transform::~Transform(void){
     SafeDelete(this->children);
 }
 
-void Transform::translate(const Vector3& translation, Space relativeTo){
-    if (World == relativeTo) {
-        this->position.x += translation.x;
-        this->position.y += translation.y;
-        this->position.z += translation.z;
-    } else if (Self == relativeTo) {
-        this->localPosition.x += translation.x;
-        this->localPosition.y += translation.y;
-        this->localPosition.z += translation.z;
+void Transform::translate(const Vector3& translation, Space relativeTo) {
+    if (this->parent != null) {
+        if (World == relativeTo) {
+            this->position = this->position.add(translation);
+        } else if (Self == relativeTo) {
+            this->localPosition = this->localPosition.add(translation);
+        }
+    } else {
+        this->position = this->position.add(translation);
+        this->localPosition = this->position;
     }
 
     this->hasChanged = true;
@@ -72,10 +73,17 @@ void Transform::translate(const Vector3& translation){
 }
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo){
-    if (World == relativeTo) {
-        this->rotation = Quaternion::euler(xAngle, yAngle, zAngle);
-    } else if (Self == relativeTo) {
-        this->localRotation = Quaternion::euler(xAngle, yAngle, zAngle);
+    Quaternion rotateOffset = Quaternion::euler(xAngle, yAngle, zAngle);
+
+    if (this->parent != null) {
+        if (World == relativeTo) {
+            this->rotation = this->rotation.multiply(rotateOffset);
+        } else if (Self == relativeTo) {
+            this->localRotation = this->localRotation.multiply(rotateOffset);
+        }
+    } else {
+        this->rotation = this->rotation.multiply(rotateOffset);
+        this->localRotation = this->rotation;
     }
 
     this->hasChanged = true;
@@ -178,19 +186,21 @@ Vector3 Transform::getForward() {
 }
 
 Vector3 Transform::getEulerAngles() {
-    throw "not implement!";
+    return this->rotation.getEulerAngles();
 }
 
 void Transform::setEulerAngles(const Vector3& angles) {
-    throw "not implement!";
+    this->rotation = Quaternion::euler(angles);
+    this->hasChanged = true;
 }
 
 Vector3 Transform::getLocalEulerAngles() {
-    throw "not implement!";
+    return this->localRotation.getEulerAngles();
 }
 
 void Transform::setLocalEulerAngles(const Vector3& angles) {
-    throw "not implement!";
+    this->localRotation = Quaternion::euler(angles);
+    this->hasChanged = true;
 }
 
 Matrix4x4 Transform::getWorldToLocalMatrix() {
@@ -219,14 +229,16 @@ void Transform::setLocalToWorldMatrix(const Matrix4x4& matrix) {
 
 
 void Transform::recalculatedMatrix() {
-    if (this->hasChanged) {
-        //this->worldToLocalMatrix = Matrix4x4::TRS(position, rotation, scale);
+    if (this->parent != null) {
+        Matrix4x4 temp = Matrix4x4::IDENTITY;
+        temp = temp.multiply(this->parent->getLocalToWorldMatrix());
+        temp = temp.multiply(Matrix4x4::TRS(localPosition, localRotation, localScale));
+        this->localToWorldMatrix = temp;
+    } else {
         this->localToWorldMatrix = Matrix4x4::TRS(position, rotation, scale);
-
-        //this->localToWorldMatrix = Matrix4x4::IDENTITY;
-
-        this->hasChanged = false;
     }
+
+    this->hasChanged = false;
 }
 
 void Transform::setParent(Transform* parent) {

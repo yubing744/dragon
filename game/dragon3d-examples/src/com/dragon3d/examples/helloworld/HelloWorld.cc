@@ -27,6 +27,7 @@
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/scene/SimpleScene.h>
+#include <com/dragon3d/util/math/Mathf.h>
 
 Import dragon::lang;
 Import dragon::util::logging;
@@ -35,7 +36,7 @@ Import com::dragon3d::scene;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
-
+Import com::dragon3d::util::math;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", INFO);
 
@@ -58,7 +59,7 @@ void HelloWorld::init() {
     Box* box = new Box();
     myBox->addComponent(box);
     //myBox->transform->setPosition(Vector3(5, 5, 5));
-    myBox->transform->setPosition(Vector3(0, 2, 2));
+    myBox->transform->setPosition(Vector3(0, 0, 0));
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
@@ -74,11 +75,17 @@ void HelloWorld::init() {
     scene->add(mainCamera);
 }
 
+static double abc = 0.1;
+
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
-    myBox->transform->rotate(0, 45, 0, Transform::Space::World);
-    //myBox->transform->rotation.y += (timer->getTimePerFrame() * 10000);
+    myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5));
+    //myBox->transform->rotate(0, Mathf::PI/6 + timer->getDeltaTime() * 5, 0);
     
-    logger->info("tps: %d", timer->getFrameRate());
+    abc +=  timer->getDeltaTime() * 2;
+    
+    myBox->transform->setEulerAngles(Vector3(0, abc, 0));
+    
+    logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
 void HelloWorld::destroy() {

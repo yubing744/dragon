@@ -43,10 +43,10 @@ public:
 
 public: // Implements ReadOnlyTimer
     virtual double getTimeInSeconds();
-    virtual long getTime();
-    virtual long getResolution();
+    virtual dg_long getTime();
+    virtual dg_long getResolution();
     virtual double getFrameRate();
-    virtual double getTimePerFrame();	
+    virtual double getDeltaTime();	
 
 public:
 	/**
