@@ -51,6 +51,8 @@ public:
 	virtual ~Component();
 
 public:
+
+
 	/**
 	 * update the game component
 	 * 
@@ -67,7 +69,14 @@ public:
 	 */
 	virtual bool isTypeOf(const Type& type);
 
-public:
+public: // helper method for attached GameObject.
+	/**
+	 * get the name of attacehed GameObject.
+	 * 
+	 * @return [description]
+	 */
+	virtual String* getName();
+
 	/**
 	 * The game object this component is attached to. A component is always attached to a game object.
 	 */
@@ -78,54 +87,14 @@ public:
 	 */
 	Transform* transform;
 
+public:
+	/**
+	 * whether this componet is active
+	 */
+	bool active;
+
 };//Component
 
 EndPackage3 //(com, dragon3d, scene)
 
 #endif //Component_Scene_Dragon3d_Com_H
-
-/*
-#pragma once
-
-#include "dg_game.h"
-#include "dg_object.h"
-
-#if !defined(DG_COMPONENT)
-#define DG_COMPONENT
-
-#include <string>
-using std::string;
-
-class DGTransform;
-class DGGameObject;
-
-class DGComponent
-{
-public:
-	DGComponent(void);
-	DGComponent(const char* name);
-
-	virtual ~DGComponent(void);
-
-public:
-	virtual void init(DGGameObject* gameObject, DGContext* ctx);
-	virtual void update(DGContext* ctx);
-	virtual void draw(DGContext* ctx);
-	virtual void destroy();
-
-	virtual string getName();
-	virtual DGboolean isActive();
-	virtual void setActive(DGboolean active);
-
-public:
-    DGGameObject* gameObject;
-    DGTransform* transform;
-	
-protected:
-	string name;
-	DGboolean active;
-};
-
-#endif
-
- */

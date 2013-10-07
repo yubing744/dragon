@@ -22,12 +22,14 @@
 
 
 #include <com/dragon3d/scene/Component.h>
-
+#include <com/dragon3d/scene/GameObject.h>
+ 
 Import com::dragon3d::scene;
 
 const Type Component::TYPE = Type(typeid(Component), sizeof(Component));
 
-Component::Component() {
+Component::Component() 
+    :active(true) {
 
 }
 
@@ -45,54 +47,10 @@ bool Component::isTypeOf(const Type& type) {
     }
 }
 
-/*
+String* Component::getName() {
+    if (this->gameObject != null) {
+        return this->gameObject->name;
+    }
 
-#include "dg_component.h"
-#include "dg_game_object.h"
-
-DGComponent::DGComponent(void){
-	this->name = "DGComponent";
-	this->active = true;
+    return null;
 }
-
-DGComponent::DGComponent(const char* name){
-	this->name = name;
-}
-
-DGComponent::~DGComponent(void){
-
-}
-
-string DGComponent::getName(){
-	return this->name;
-}
-
-DGboolean DGComponent::isActive(){
-	return this->active;
-}
-
-void DGComponent::setActive(DGboolean active){
-	this->active = active;
-}
-
-
-void DGComponent::init(DGGameObject* gameObject, DGContext* ctx){
-    this->gameObject = gameObject;
-    this->transform = gameObject->transform;
-}
-
-void DGComponent::update(DGContext* ctx){
-
-}
-
-void DGComponent::draw(DGContext* ctx){
-
-}
-
-void DGComponent::destroy(){
-
-}
-
-
-
- */

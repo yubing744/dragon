@@ -26,6 +26,8 @@
 
 #include <dragon/config.h>
 
+#include <com/dragon3d/util/math/Vector3.h>
+
 BeginPackage4(com, dragon3d, util, math)
 
 Import com::dragon3d::util::math;
@@ -35,10 +37,107 @@ public:
     static const Quaternion IDENTITY;
 
 public:
+    /**
+     * Returns a rotation that rotates z degrees around the z axis, x degrees around the x axis, 
+     * and y degrees around the y axis (in that order).
+     * 
+     * @param  x [description]
+     * @param  y [description]
+     * @param  z [description]
+     * @return   [description]
+     */
+    static Quaternion euler(float heading, float attitude, float bank);
+    static Quaternion euler(const Vector3& euler);
+
+    /**
+     * Sets the values of this quaternion to the values represented by a given angle and axis of rotation. Note that
+     * this method creates an object, so use fromAngleNormalAxis if your axis is already normalized. If axis == 0,0,0
+     * the quaternion is set to identity.
+     * 
+     * @param angle
+     *            the angle to rotate (in radians).
+     * @param axis
+     *            the axis of rotation.
+     * @return this quaternion for chaining
+     * @throws NullPointerException
+     *             if axis is null
+     */
+    static Quaternion angleAxis(float angle, const Vector3& axis);
+    static Quaternion angleAxis(float angle, float x, float y, float z);
+
+public:
     Quaternion();
     Quaternion(float x, float y, float z);
     Quaternion(float x, float y, float z, float w);
     virtual ~Quaternion();
+
+public:
+    /**
+     * return the squared magnitude of this quaternion.
+     * 
+     * @return [description]
+     */
+    float magnitudeSquared();
+
+    /**
+     * return the magnitude of this quaternion. basically sqrt
+     * 
+     * @return [description]
+     */
+    float magnitude();
+
+    /**
+     * normalize
+     * 
+     * @return [description]
+     */
+    Quaternion normalize();
+
+    /**
+     * Returns the euler angle representation of the rotation.
+     * 
+     * @return [description]
+     */
+    Vector3 getEulerAngles();
+
+    /**
+     * Set x, y, z and w components of an existing Quaternion.
+     * 
+     * @param new_x [description]
+     * @param new_y [description]
+     * @param new_z [description]
+     * @param new_w [description]
+     */
+    void set(float new_x, float new_y, float new_z, float new_w);
+
+    /**
+     * Creates a rotation which rotates from fromDirection to toDirection.
+     * 
+     * @param fromDirection [description]
+     * @param toDirection   [description]
+     */
+    void setFromToRotation(const Vector3& fromDirection, const Vector3& toDirection);
+
+    /**
+     * Creates a rotation with the specified forward and upwards directions.
+     *
+     * The result is applied to this quaternion If used to orient a Transform, 
+     * the Z axis will be aligned with forward and the Y axis with upwards, 
+     * assuming these vectors are orthogonal. Logs an error if the forward direction is zero.
+     * 
+     * @param view 
+     *        The direction to look in.
+     */
+    void setLookRotation(const Vector3& view);
+    void setLookRotation(const Vector3& view, const Vector3& up);
+
+    /**
+     * Converts a rotation to angle-axis representation.
+     * 
+     * @param angle [description]
+     * @param axis  [description]
+     */
+    void toAngleAxis(float angle, const Vector3& axis);
 
 public:
     float x;

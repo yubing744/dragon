@@ -22,23 +22,35 @@
 
 
 #include <com/dragon3d/scene/Transform.h>
+#include <dragon/util/ArrayList.h>
 
+Import dragon::util;
 Import com::dragon3d::scene;
 
 
-Transform::Transform(void) {
+Transform::Transform() 
+    :parent(null) {
+    this->children = new ArrayList<Transform>();
+
     this->position = Vector3::ZERO;
     this->rotation = Quaternion::IDENTITY;
-    this->scale = Vector3::ZERO;
+    this->scale = Vector3::ONE;
 
     this->localPosition = Vector3::ZERO;
     this->localRotation = Quaternion::IDENTITY;
-    this->localScale = Vector3::ZERO;
+    this->localScale = Vector3::ONE;
+
+    this->hasChanged = true;
 }
 
 
 Transform::~Transform(void){
+    if (this->parent != null) {
+        this->parent->children->remove(this);
+    }
 
+    this->detachChildren();
+    SafeDelete(this->children);
 }
 
 void Transform::translate(const Vector3& translation, Space relativeTo){
@@ -51,6 +63,8 @@ void Transform::translate(const Vector3& translation, Space relativeTo){
         this->localPosition.y += translation.y;
         this->localPosition.z += translation.z;
     }
+
+    this->hasChanged = true;
 }
 
 void Transform::translate(const Vector3& translation){
@@ -59,27 +73,87 @@ void Transform::translate(const Vector3& translation){
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo){
     if (World == relativeTo) {
-        this->rotation.x += xAngle;
-        this->rotation.y += yAngle;
-        this->rotation.z += zAngle;
+        this->rotation = Quaternion::euler(xAngle, yAngle, zAngle);
     } else if (Self == relativeTo) {
-        this->localRotation.x += xAngle;
-        this->localRotation.y += yAngle;
-        this->localRotation.z += zAngle;
+        this->localRotation = Quaternion::euler(xAngle, yAngle, zAngle);
     }
-}
 
-void Transform::rotate(float xAngle, float yAngle, float zAngle){
-    this->rotate(xAngle, yAngle, zAngle, Self);
+    this->hasChanged = true;
 }
 
 void Transform::rotate(const Vector3& eulerAngles, Space relativeTo){
     this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, relativeTo);
 }
 
+void Transform::rotate(float xAngle, float yAngle, float zAngle){
+    this->rotate(xAngle, yAngle, zAngle, Self);
+}
+
 void Transform::rotate(const Vector3& eulerAngles){
     this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, Self);
 }
+
+
+// -------------------------------------------------------------
+
+
+void Transform::setPosition(const Vector3& p) {
+    this->position = p;
+    this->hasChanged = true;
+}
+    
+Vector3 Transform::getPosition() {
+    return this->position;
+}
+
+
+
+void Transform::setRotation(const Quaternion& r) {
+    this->rotation = r;
+    this->hasChanged = true;
+}
+
+Quaternion Transform::getRotation() {
+    return this->rotation;
+}
+
+void Transform::setScale(const Vector3& s) {
+    this->scale = s;
+    this->hasChanged = true;
+}
+
+Vector3 Transform::getScale() {
+    return this->scale;
+}
+
+
+void Transform::setLocalPosition(const Vector3& p) {
+    this->localPosition = p;
+    this->hasChanged = true;
+}
+
+Vector3 Transform::getLocalPosition() {
+    return this->localPosition;
+}
+
+void Transform::setLocalRotation(const Quaternion& r) {
+    this->localRotation = r;
+    this->hasChanged = true;
+}
+
+Quaternion Transform::getLocalRotation() {
+    return this->localRotation;
+}
+
+void Transform::setLocalScale(const Vector3& s) {
+    this->localScale = s;
+    this->hasChanged = true;
+}
+
+Vector3 Transform::getLocalScale() {
+    return this->localScale;
+}
+
 
 Transform* Transform::getRoot() {
     Transform* t = this;
@@ -120,7 +194,11 @@ void Transform::setLocalEulerAngles(const Vector3& angles) {
 }
 
 Matrix4x4 Transform::getWorldToLocalMatrix() {
-    throw "not implement!";
+    if (this->hasChanged) {
+        this->recalculatedMatrix();
+    }
+
+    return this->worldToLocalMatrix;
 }
 
 void Transform::setWorldToLocalMatrix(const Matrix4x4& matrix) {
@@ -128,15 +206,35 @@ void Transform::setWorldToLocalMatrix(const Matrix4x4& matrix) {
 }
 
 Matrix4x4 Transform::getLocalToWorldMatrix() {
-    throw "not implement!";
+    if (this->hasChanged) {
+        this->recalculatedMatrix();
+    }
+
+    return this->localToWorldMatrix;
 }
 
 void Transform::setLocalToWorldMatrix(const Matrix4x4& matrix) {
     throw "not implement!";
 }
 
+
+void Transform::recalculatedMatrix() {
+    if (this->hasChanged) {
+        //this->worldToLocalMatrix = Matrix4x4::TRS(position, rotation, scale);
+        this->localToWorldMatrix = Matrix4x4::TRS(position, rotation, scale);
+
+        //this->localToWorldMatrix = Matrix4x4::IDENTITY;
+
+        this->hasChanged = false;
+    }
+}
+
 void Transform::setParent(Transform* parent) {
-    throw "not implement!";
+    this->parent = parent;
+
+    if (parent != null) {
+        parent->children->add(this);
+    }
 }
     
 Transform* Transform::getParent() {
@@ -164,6 +262,50 @@ int Transform::childCount() {
     return this->children->size();
 }
 
+// -----------------------------------------------------------
+// recursion find transform
+// 
+Transform* TransformInternalfind(List<Transform>* children, String* name) {
+    if (children != null) {
+        Iterator<Transform>* it = children->iterator();
+
+        while(it->hasNext()) {
+            Transform* transform = it->next();
+
+            if (transform->getName() != null 
+                && transform->getName()->equals(name)) {
+                SafeDelete(it);
+                return transform;
+            }
+        }
+
+        SafeDelete(it);
+    }
+
+    return null;
+}
+
+Transform* Transform::internalRecursionFind(const String* path) {
+    int pos = path->indexOf('/');
+
+    Transform* finded = null;
+
+    if (pos > 0) {
+        String* first = path->substring(0, pos);
+        Transform* finded = TransformInternalfind(this->children, first);
+        SafeDelete(first);
+
+        if (finded != null && pos < path->length()) {
+            String* lastPath = path->substring(pos);
+            finded = finded->internalRecursionFind(lastPath);
+            SafeDelete(lastPath);
+        }
+    }
+
+    return finded;
+}
+
 Transform* Transform::find(const String& name) {
-    throw "not implement!";
+    const String* path = &name;
+    return this->internalRecursionFind(path);
 }

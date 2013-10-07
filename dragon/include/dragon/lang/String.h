@@ -328,7 +328,7 @@ public:
      *          character sequence represented by this object, or
      *          <code>-1</code> if the character does not occur.
      */
-	dg_int indexOf(dg_char ch);
+	dg_int indexOf(dg_char ch) const;
 
 	/**
      * Returns the index within this string of the first occurrence of the
@@ -369,7 +369,7 @@ public:
      *          than or equal to <code>fromIndex</code>, or <code>-1</code>
      *          if the character does not occur.
      */
-	dg_int indexOf(dg_char ch, dg_int fromIndex);
+	dg_int indexOf(dg_char ch, dg_int fromIndex) const;
 
     /**
      * Returns the index within this string of the first occurrence of the
@@ -386,7 +386,7 @@ public:
      *          such substring is returned; if it does not occur as a
      *          substring, <code>-1</code> is returned.
      */	
-	dg_int indexOf(String* str);
+	dg_int indexOf(String* str) const;
 
     /**
      * Returns the index within this string of the first occurrence of the
@@ -402,7 +402,7 @@ public:
      * @return  the index within this string of the first occurrence of the
      *          specified substring, starting at the specified index.
      */	
-	dg_int indexOf(String* str, dg_int fromIndex);
+	dg_int indexOf(String* str, dg_int fromIndex) const;
 
     /**
      * Returns the index within this string of the last occurrence of
@@ -517,7 +517,7 @@ public:
      *             <code>beginIndex</code> is negative or larger than the
      *             length of this <code>String</code> object.
      */
-	String* substring(dg_int beginIndex);
+	String* substring(dg_int beginIndex) const;
 
     /**
      * Returns a new string that is a substring of this string. The
@@ -541,7 +541,7 @@ public:
      *             <code>beginIndex</code> is larger than
      *             <code>endIndex</code>.
      */	
-	String* substring(dg_int beginIndex, dg_int endIndex);
+	String* substring(dg_int beginIndex, dg_int endIndex) const;
 
     /**
      * Concatenates the specified string to the end of this string.

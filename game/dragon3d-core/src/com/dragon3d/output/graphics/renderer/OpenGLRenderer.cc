@@ -116,9 +116,11 @@ void OpenGLRendererSetupCamera(Camera* camera) {
         if (!camera->orthographic) {
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
+            glOrtho(-1, 1, -1, 1, -1, 1); //change to left handle coordinate system
+
             gluPerspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
 
-            Vector3 eye = camera->transform->position;
+            Vector3 eye = camera->transform->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
             gluLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
@@ -171,7 +173,7 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     glMatrixMode(GL_MODELVIEW); 
 
     // translate
-    glTranslatef(position.x, position.y, position.z);
+    glTranslatef(0 - position.x, position.y, position.z);
 
     // rotate
     glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
@@ -240,7 +242,9 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* mat
     }
 
     // transform mesh
-    glMatrixMode(GL_MODELVIEW); 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity(); 
+    glScalef(-1.0f, 1.0f, 1.0f); //change to left handle coordinate system
     glMultMatrixf((float *)matrix.m);
 
     // draw mesh

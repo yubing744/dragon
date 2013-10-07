@@ -274,6 +274,9 @@ public:
     Vector3(const Vector3& a);
 
 public:
+    bool operator== (const Vector3& a) const;
+    
+public:
     /**
      * Returns the length of this vector 
      * 

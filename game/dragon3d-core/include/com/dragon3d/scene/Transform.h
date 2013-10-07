@@ -56,61 +56,54 @@ public:
     Transform();
     virtual ~Transform();
 
-public:
+public: //Property
     /**
-     * Moves the transform in the direction and distance of translation.
+     * position
      * 
-     * @param translation [description]
+     * @param p [description]
      */
-    void translate(const Vector3& translation);
-    void translate(const Vector3& translation, Space relativeTo);
+    void setPosition(const Vector3& p);
+    Vector3 getPosition();
 
     /**
-     * Applies a rotation of /eulerAngles.z/ degrees around the z axis, /eulerAngles.x/ degrees around the x axis, and /eulerAngles.y/ degrees around the y axis
+     * rotation
      * 
-     * @param eulerAngles [description]
+     * @param r [description]
      */
-    void rotate(const Vector3& eulerAngles);
-    void rotate(const Vector3& eulerAngles, Space relativeTo);
+    void setRotation(const Quaternion& r);
+    Quaternion getRotation();
 
     /**
-     * Applies a rotation of zAngle degrees around the z axis, xAngle degrees around the x axis, and yAngle degrees around the y axis (in that order).
+     * scale
      * 
-     * @param xAngle [description]
-     * @param yAngle [description]
-     * @param zAngle [description]
+     * @param scale [description]
      */
-    void rotate(float xAngle, float yAngle, float zAngle);
-    void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo);
-
+    void setScale(const Vector3& s);
+    Vector3 getScale();
 
     /**
-     * Returns the topmost transform in the hierarchy.
+     * localPosition
      * 
-     * @return [description]
+     * @param p [description]
      */
-    Transform* getRoot();
+    void setLocalPosition(const Vector3& p);
+    Vector3 getLocalPosition();
 
     /**
-     * The green axis of the transform in world space.
+     * localRotation
      * 
-     * @return [description]
+     * @param r [description]
      */
-    Vector3 getUp();
+    void setLocalRotation(const Quaternion& r);
+    Quaternion getLocalRotation();
 
     /**
-     * The red axis of the transform in world space.
+     * localScale
      * 
-     * @return [description]
+     * @param localScale [description]
      */
-    Vector3 getRight();
-
-    /**
-     * The blue axis of the transform in world space.
-     * 
-     * @return [description]
-     */
-    Vector3 getForward();
+    void setLocalScale(const Vector3& s);
+    Vector3 getLocalScale();
 
     /**
      * The rotation as Euler angles in degrees.
@@ -144,6 +137,61 @@ public:
     void setParent(Transform* parent);
     Transform* getParent();
 
+public:
+    /**
+     * Moves the transform in the direction and distance of translation.
+     * 
+     * @param translation [description]
+     */
+    void translate(const Vector3& translation);
+    void translate(const Vector3& translation, Space relativeTo);
+
+    /**
+     * Applies a rotation of /eulerAngles.z/ degrees around the z axis, /eulerAngles.x/ degrees around the x axis, and /eulerAngles.y/ degrees around the y axis
+     * 
+     * @param eulerAngles [description]
+     */
+    void rotate(const Vector3& eulerAngles);
+    void rotate(const Vector3& eulerAngles, Space relativeTo);
+
+    /**
+     * Applies a rotation of zAngle degrees around the z axis, xAngle degrees around the x axis, and yAngle degrees around the y axis (in that order).
+     * 
+     * @param xAngle [description]
+     * @param yAngle [description]
+     * @param zAngle [description]
+     */
+    void rotate(float xAngle, float yAngle, float zAngle);
+    void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo);
+
+    /**
+     * Returns the topmost transform in the hierarchy.
+     * 
+     * @return [description]
+     */
+    Transform* getRoot();
+
+    /**
+     * The green axis of the transform in world space.
+     * 
+     * @return [description]
+     */
+    Vector3 getUp();
+
+    /**
+     * The red axis of the transform in world space.
+     * 
+     * @return [description]
+     */
+    Vector3 getRight();
+
+    /**
+     * The blue axis of the transform in world space.
+     * 
+     * @return [description]
+     */
+    Vector3 getForward();
+
     /**
      * Unparents all children.
      * 
@@ -173,7 +221,21 @@ public:
      */
     Transform* find(const String& name);
 
-public:
+protected:
+    /**
+     * find internal.
+     * 
+     * @param  path [description]
+     * @return      [description]
+     */
+    Transform* internalRecursionFind(const String* path);
+
+    /**
+     * recalculated the localToWorld and worldToLocal matrix
+     */
+    void recalculatedMatrix();
+
+protected:
     // transform in world space
     Vector3 position;
     Quaternion rotation;
@@ -184,7 +246,6 @@ public:
     Quaternion localRotation;
     Vector3 localScale;
 
-protected:
     /**
      * Matrix that transforms a point from local space into world space
      * 
@@ -205,7 +266,6 @@ protected:
      */
     bool hasChanged;
 
-protected:
     /**
      *  The parent of the transform.
      */

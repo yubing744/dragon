@@ -150,6 +150,10 @@ Vector3::Vector3(const Vector3& a)
 
 }
 
+bool Vector3::operator== (const Vector3& a) const {
+    return x==a.x && y==a.y && z==a.z;
+}
+
 float Vector3::length() const {
     return Math::sqrt(lengthSquared());
 }

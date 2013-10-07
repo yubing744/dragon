@@ -368,11 +368,11 @@ dg_int String::hashCode() {
     return h;
 }
 
-dg_int String::indexOf(dg_char ch) {
+dg_int String::indexOf(dg_char ch) const {
 	return this->indexOf(ch, 0);
 }
 
-dg_int String::indexOf(dg_char ch, dg_int fromIndex) {
+dg_int String::indexOf(dg_char ch, dg_int fromIndex) const {
 	dg_int max = this->offset + this->count;
 	dg_char* v = this->value;
 
@@ -393,11 +393,11 @@ dg_int String::indexOf(dg_char ch, dg_int fromIndex) {
 	return -1;
 }
 
-dg_int String::indexOf(String* str) {
+dg_int String::indexOf(String* str) const {
 	return this->indexOf(str, 0);
 }
 
-dg_int String::indexOf(String* str, dg_int fromIndex) {
+dg_int String::indexOf(String* str, dg_int fromIndex) const {
 	dg_char* source = this->value;
 	dg_int sourceOffset = this->offset;
 	dg_int sourceCount = this->count;
@@ -515,11 +515,11 @@ dg_int String::lastIndexOf(String* str, dg_int fromIndex) {
 }
 
 
-String* String::substring(dg_int beginIndex) {
+String* String::substring(dg_int beginIndex) const {
 	return this->substring(beginIndex, beginIndex + this->count);
 }
 
-String* String::substring(dg_int beginIndex, dg_int endIndex) {
+String* String::substring(dg_int beginIndex, dg_int endIndex) const {
 	if (beginIndex < 0 || endIndex > this->count) {
 		return null;
 	}

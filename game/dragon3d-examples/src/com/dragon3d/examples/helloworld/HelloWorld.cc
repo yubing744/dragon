@@ -57,24 +57,26 @@ void HelloWorld::init() {
     myBox = new GameObject();
     Box* box = new Box();
     myBox->addComponent(box);
-
-
+    //myBox->transform->setPosition(Vector3(5, 5, 5));
+    myBox->transform->setPosition(Vector3(0, 2, 2));
+    
     mainCamera = new GameObject();
     Camera* camera = new Camera();
     mainCamera->addComponent(camera);
     
     camera->pixelRect = Rect(0, 0, 320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->transform->position = Vector3(0, 1, -5);
+    camera->transform->setPosition(Vector3(0, 1, -5));
 
+    camera->transform->find("abc/bbb/ccc");
 
     scene->add(myBox);
     scene->add(mainCamera);
 }
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
-    myBox->transform->rotation.x += (timer->getTimePerFrame() * 10000);
-    myBox->transform->rotation.y += (timer->getTimePerFrame() * 10000);
+    myBox->transform->rotate(0, 45, 0, Transform::Space::World);
+    //myBox->transform->rotation.y += (timer->getTimePerFrame() * 10000);
     
     logger->info("tps: %d", timer->getFrameRate());
 }
