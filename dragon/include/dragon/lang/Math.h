@@ -45,8 +45,6 @@ public:
 	static double exp(double a);
 	static double log(double a);
 	static double log10(double a);
-
-	static float sqrt(float a);
 	static double sqrt(double a);
 
 	static double cbrt(double a);

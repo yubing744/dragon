@@ -29,7 +29,6 @@ Import dragon::lang;
 Import com::dragon3d::util::math;
 
 TEST(Com_Dragon3d_Util_Math_Vector3Test, New) {
-    //Vector3* o = new Vector3(0.0f, 0.0f, 0.0f);
-    //String* str = new String();
-    //SafeDelete(o);
+    Vector3* o = new Vector3(0.0f, 0.0f, 0.0f);
+    SafeDelete(o);
 }

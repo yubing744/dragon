@@ -11,3 +11,15 @@ env.AppendUnique(CPPDEFINES = ["__APPLE__"])
 env['DRAGON_EXTRA_LIBS']=['stdc++']
 
 env.AppendUnique(FRAMEWORKS=Split('Cocoa OpenGL'))
+
+
+def Macosx_testcallback(target, source, env):
+    
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

@@ -177,12 +177,13 @@ class LibraryModule(Module):
         # the product is a library
         self.env.AppendUnique(CPPPATH=cpp_path)
 
+        libs = GetLibraries(self.linked_modules)
+
         if shared is False:
-            self.product = self.env.Library(target=name, source=sources)
+            self.product = self.env.Library(target=name, LIBS=libs, source=sources)
         else:
-            libs = GetLibraries(self.linked_modules)
-            #print "modules libs:", libs
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
+
         self.env.Alias(name, self.product)
             
         # copy to Targets folder
@@ -439,6 +440,7 @@ LibraryModule(
 dragon3d_core_test_SOURCES = {
     "com/dragon3d/util/math" : Split("""
         Vector3Test.cc
+        QuaternionTest.cc
     """),
     "." : Split("""
         TestMain.cc

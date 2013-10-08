@@ -75,15 +75,15 @@ void HelloWorld::init() {
     scene->add(mainCamera);
 }
 
-static double abc = 0.1;
+//static double abc = 0.1;
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
-    myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5));
-    //myBox->transform->rotate(0, Mathf::PI/6 + timer->getDeltaTime() * 5, 0);
+    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5));
     
-    abc +=  timer->getDeltaTime() * 2;
+    myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0);
     
-    myBox->transform->setEulerAngles(Vector3(0, abc, 0));
+    //abc += timer->getDeltaTime() * 2;
+    //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
     logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }

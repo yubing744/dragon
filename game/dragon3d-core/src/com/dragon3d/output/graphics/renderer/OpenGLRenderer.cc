@@ -24,6 +24,7 @@
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
+#include <com/dragon3d/util/math/Mathf.h>
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -31,6 +32,7 @@
 Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
+Import com::dragon3d::util::math;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer", INFO);
 
@@ -176,11 +178,10 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     glTranslatef(0 - position.x, position.y, position.z);
 
     // rotate
-    Vector3 angles = rotation.getEulerAngles();
-
-    glRotatef(angles.x, 1.0f, 0.0f, 0.0f);
-    glRotatef(angles.y, 0.0f, 1.0f, 0.0f);
-    glRotatef(angles.z, 0.0f, 0.0f, 1.0f);
+    float angle;
+    Vector3 axis;
+    rotation.toAngleAxis(angle, axis);
+    glRotatef(angle * 180 / Mathf::PI, axis.x, axis.y, axis.z);
 
     // scale
     glScalef(1.0f, 1.0f, 1.0f);

@@ -23,8 +23,45 @@
 
 #include <com/dragon3d/util/math/Mathf.h>
 
+#include <stdlib.h>
+#include <cmath>
+#include <iostream>
+#include <ctime>
+
+Import std;
 Import com::dragon3d::util::math;
 
 const float Mathf::PI = 3.141592654f;
 
 const float Mathf::EPSILON = (1e-8);
+
+float Mathf::max(float x, float y) {
+    return x < y ? y : x;
+}
+
+float Mathf::min(float x, float y) {
+    return x > y ? y : x;
+}
+
+float Mathf::sin(float a){
+    return ::sin(a);
+}
+
+float Mathf::cos(float a){
+    return ::cos(a);
+}
+
+float Mathf::sqrt(float a) {
+    return ::sqrtf(a);
+}
+
+float Mathf::safeAcos(float x) {
+    if (x <= -1.0f) {
+        return Mathf::PI;
+    }
+    if (x >= 1.0f) {
+        return 0.0f;
+    }
+
+    return acos(x);
+}

@@ -33,34 +33,27 @@ const Quaternion Quaternion::IDENTITY = Quaternion(0, 0, 0, 1);
 
 
 Quaternion Quaternion::euler(float x, float y, float z ) {
-    float heading = y;
-    float pitch = z;
-    float bank = x;
+    float heading = y * Mathf::PI / 180; // mapping heading to y axis
+    float pitch = x * Mathf::PI / 180; // mapping pitch to x axis
+    float bank = z * Mathf::PI / 180; // mapping bank to z axis
 
-    float angle = heading * 0.5;
-    float sinHeading = Math::sin(angle);
-    float cosHeading = Math::cos(angle);
-
-    angle = pitch * 0.5;
-    float sinAttitude = Math::sin(angle);
-    float cosAttitude = Math::cos(angle);
-
+    float angle = pitch * 0.5;
+    float sp = Mathf::sin(angle);
+    float cp = Mathf::cos(angle);
+    
     angle = bank * 0.5;
-    float sinBank = Math::sin(angle);
-    float cosBank = Math::cos(angle);
+    float sb = Mathf::sin(angle);
+    float cb = Mathf::cos(angle);
 
-    // variables used to reduce multiplication calls.
-    float cosHeadingXcosAttitude = cosHeading * cosAttitude;
-    float sinHeadingXsinAttitude = sinHeading * sinAttitude;
-    float cosHeadingXsinAttitude = cosHeading * sinAttitude;
-    float sinHeadingXcosAttitude = sinHeading * cosAttitude;
+    angle = heading * 0.5;
+    float sh = Mathf::sin(angle);
+    float ch = Mathf::cos(angle);
 
-    float ww = cosHeadingXcosAttitude * cosBank - sinHeadingXsinAttitude * sinBank;
-
-    float xx = cosHeadingXcosAttitude * sinBank + sinHeadingXsinAttitude * cosBank;
-    float yy = sinHeadingXcosAttitude * cosBank + cosHeadingXsinAttitude * sinBank;
-    float zz = cosHeadingXsinAttitude * cosBank - sinHeadingXcosAttitude * sinBank;
-
+    float ww =  ch*cp*cb + sh*sp*sb;
+    float xx =  ch*sp*cb + sh*cp*sb;
+    float yy = -ch*sp*sb + sh*cp*cb;
+    float zz = -sh*sp*cb + ch*cp*sb;
+   
     return Quaternion(xx, yy, zz, ww).normalize();
 }
 
@@ -192,6 +185,31 @@ void Quaternion::setLookRotation(const Vector3& view, const Vector3& up) {
     throw "not implements!";  
 }
 
+void Quaternion::toAngleAxis(float& angle, Vector3& axis) const {
+    float thetaOver2 = Mathf::safeAcos(w);
+    angle = thetaOver2 * 2.0f;
+
+    float sinThetaOver2Sq = 1.0f - w*w;
+
+    // Protect against numerical imprecision
+    if (sinThetaOver2Sq <= 0.0f) {
+        // Identity quaternion, or numerical imprecision.  Just
+        // return any valid vector, since it doesn't matter
+        axis = Vector3(1.0f, 0.0f, 0.0f);
+        return;
+    }
+
+    // Compute 1 / sin(theta/2)
+    float oneOverSinThetaOver2 = 1.0f / Mathf::sqrt(sinThetaOver2Sq);
+
+    // Return axis of rotation
+    axis = Vector3(
+        x * oneOverSinThetaOver2,
+        y * oneOverSinThetaOver2,
+        z * oneOverSinThetaOver2
+    ); 
+}
+
 Quaternion Quaternion::add(const Quaternion& q) const {
     return Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
 }
@@ -204,11 +222,13 @@ Quaternion Quaternion::multiply(float scalar) const {
     return Quaternion(x * scalar, y * scalar, z * scalar, w * scalar);
 }
 
-Quaternion Quaternion::multiply(const Quaternion& quat) const {
-    float x = x * quat.w + y * quat.z - z * quat.y + w * quat.x;
-    float y = -x * quat.z + y * quat.w + z * quat.x + w * quat.y;
-    float z = x * quat.y - y * quat.x + z * quat.w + w * quat.z;
-    float w = -x * quat.x - y * quat.y - z * quat.z + w * quat.w;
+Quaternion Quaternion::multiply(const Quaternion& a) const {
+    Quaternion result;
 
-    return Quaternion(x, y, z, w);
+    result.w = w*a.w - x*a.x - y*a.y - z*a.z;
+    result.x = w*a.x + x*a.w + z*a.y - y*a.z;
+    result.y = w*a.y + y*a.w + x*a.z - z*a.x;
+    result.z = w*a.z + z*a.w + y*a.x - x*a.y;
+
+    return result;
 }

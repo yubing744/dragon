@@ -137,7 +137,7 @@ public:
      * @param angle [description]
      * @param axis  [description]
      */
-    void toAngleAxis(float angle, const Vector3& axis) const;
+    void toAngleAxis(float& angle, Vector3& axis) const;
 
     /**
      * Adds this quaternion to another.
@@ -169,7 +169,7 @@ public:
      * @param  q [description]
      * @return   [description]
      */
-    Quaternion multiply(const Quaternion& q) const;
+    Quaternion multiply(const Quaternion& a) const;
 
 public:
     float x;

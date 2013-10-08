@@ -98,7 +98,7 @@ void FrameHandler::updateFrame(Scene* scene) {
     SafeDelete(itc);
 	SafeDelete(latch);
 
-	Thread::sleep(45);
+	Thread::sleep(20);
 }
 
 void FrameHandler::addUpdater(Updater* updater) {

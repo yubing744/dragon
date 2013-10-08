@@ -212,7 +212,7 @@ Matrix4x4 Transform::getWorldToLocalMatrix() {
 }
 
 void Transform::setWorldToLocalMatrix(const Matrix4x4& matrix) {
-    throw "not implement!";
+    this->worldToLocalMatrix = matrix;
 }
 
 Matrix4x4 Transform::getLocalToWorldMatrix() {
@@ -224,15 +224,17 @@ Matrix4x4 Transform::getLocalToWorldMatrix() {
 }
 
 void Transform::setLocalToWorldMatrix(const Matrix4x4& matrix) {
-    throw "not implement!";
+    this->localToWorldMatrix = matrix;
 }
 
 
 void Transform::recalculatedMatrix() {
     if (this->parent != null) {
         Matrix4x4 temp = Matrix4x4::IDENTITY;
+
         temp = temp.multiply(this->parent->getLocalToWorldMatrix());
         temp = temp.multiply(Matrix4x4::TRS(localPosition, localRotation, localScale));
+        
         this->localToWorldMatrix = temp;
     } else {
         this->localToWorldMatrix = Matrix4x4::TRS(position, rotation, scale);

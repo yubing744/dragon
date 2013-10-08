@@ -77,10 +77,6 @@ double Math::log10(double a){
 	return ::log10(a);
 }
 
-float Math::sqrt(float a) {
-	return ::sqrtf(a);
-}
-
 double Math::sqrt(double a){
 	return ::sqrt(a);
 }
@@ -97,16 +93,15 @@ double Math::floor(double a){
 	return ::floor(a);
 }
 
-
-double Math::atan2(double y,double x){
+double Math::atan2(double y, double x){
 	return ::atan2(y,x);
 }
 
-double Math::pow(double a,double b){
+double Math::pow(double a, double b){
 	return ::pow(a,b);
 }
 
-double Math::pow(double a,int b){
+double Math::pow(double a, int b){
 	return ::pow(a,b);
 }
 
@@ -175,33 +170,25 @@ double Math::min(double a,double b){
 }
 
 double Math::signum(double d){
-	if(d>0)
-	{
+	if(d>0) {
 		return 1.0;
-	}
-	else if(d<0)
-	{
+	} else if(d<0) {
 		return -1.0;
 	}
 
 	return 0;
 }
 
-float Math::signum(float f)
-{
-	if(f>0)
-	{
+float Math::signum(float f) {
+	if(f>0) {
 		return 1.0f;
-	}
-	else if(f<0)
-	{
+	} else if(f<0) {
 		return -1.0f;
 	}
 
 	return 0;
 }
 
-double Math::hypot(double x,double y)
-{
+double Math::hypot(double x,double y) {
 	return Math::sqrt(x*x + y*y);
 }

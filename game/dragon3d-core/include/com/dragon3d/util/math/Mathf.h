@@ -36,9 +36,17 @@ public:
     static const float EPSILON;
 
 public:
-    static int min(int x, int y) {
-        return x > y ? y : x;
-    }
+    static float max(float x, float y);
+
+    static float min(float x, float y);
+
+    static float sin(float a);
+
+    static float cos(float a);
+
+    static float sqrt(float a);
+
+    static float safeAcos(float x);
 
 };//Mathf
 
