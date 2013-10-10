@@ -182,6 +182,22 @@ public:
     Matrix4x4 scale(float x, float y, float z) const;
     Matrix4x4 scale(const Vector3& v) const;
 
+
+public:
+    /**
+     * get translation
+     * 
+     * @return [description]
+     */
+    Vector3 getTranslation() const;
+
+    /**
+     * get quaternion
+     * 
+     * @return [description]
+     */
+    Quaternion getQuaternion() const;
+
 public:
     float m[4][4];
     

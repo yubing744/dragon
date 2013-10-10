@@ -221,6 +221,13 @@ public:
      */
     Transform* find(const String& name);
 
+    /**
+     * Has the transform changed since the last time the flag was set to 'false'?
+     * 
+     * @return [description]
+     */
+    bool hasChanged();
+
 protected:
     /**
      * find internal.
@@ -231,10 +238,10 @@ protected:
     Transform* internalRecursionFind(const String* path);
 
     /**
-     * recalculated the localToWorld and worldToLocal matrix
+     * recalculate the matrix
      */
     void recalculatedMatrix();
-
+    
 protected:
     // transform in world space
     Vector3 position;
@@ -264,7 +271,7 @@ protected:
      * 
      * @return [description]
      */
-    bool hasChanged;
+    bool changed;
 
     /**
      *  The parent of the transform.

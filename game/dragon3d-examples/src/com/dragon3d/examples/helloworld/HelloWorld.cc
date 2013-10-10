@@ -58,8 +58,18 @@ void HelloWorld::init() {
     myBox = new GameObject();
     Box* box = new Box();
     myBox->addComponent(box);
-    //myBox->transform->setPosition(Vector3(5, 5, 5));
-    myBox->transform->setPosition(Vector3(0, 0, 0));
+    
+    myBox->transform->setPosition(Vector3(-2, 0, 3));
+    myBox->transform->setLocalPosition(Vector3(0, 0, 0));
+    
+    child = new GameObject();
+    Box* box2 = new Box();
+    child->addComponent(box2);
+    
+    child->transform->setPosition(Vector3(0, 0, 10));
+    child->transform->setLocalPosition(Vector3(0, 2, 0));
+    //child->transform->setLocalPosition(Vector3(1, 2, 0));
+    child->transform->setParent(myBox->transform);
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
@@ -72,15 +82,24 @@ void HelloWorld::init() {
     camera->transform->find("abc/bbb/ccc");
 
     scene->add(myBox);
+    scene->add(child);
     scene->add(mainCamera);
 }
 
 //static double abc = 0.1;
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
-    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5));
+    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);
+    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
-    myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0);
+    //myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, Transform::Space::World);
+    myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
+    
+    child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);
+    //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
+    
+    //child->transform->rotate(0, timer->getDeltaTime() * 40, 0, Transform::Space::World);
+    //child->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));

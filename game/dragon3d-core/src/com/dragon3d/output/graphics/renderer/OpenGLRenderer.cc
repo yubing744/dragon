@@ -57,6 +57,19 @@ void OpenGLRenderer::init() {
     glEnable(GL_DEPTH_TEST);                            // Enables Depth Testing
     glDepthFunc(GL_LEQUAL);                             // The Type Of Depth Testing To Do
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Really Nice Perspective Calculations
+
+    glPointSize(8);  
+    glLineWidth(5); 
+
+    // The following commands should induce OpenGL to create round points and   
+    // antialias points and lines.  (This is implementation dependent unfortunately).  
+    //RGBA mode antialias need cooperate with blend function.  
+    glEnable(GL_POINT_SMOOTH);  
+    glEnable(GL_LINE_SMOOTH);  
+    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST); // Make round points, not square points  
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);  // Antialias the lines  
+    glEnable(GL_BLEND);  
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void OpenGLRenderer::clearBuffer() {
@@ -173,7 +186,8 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
 
     // transform mesh
     glMatrixMode(GL_MODELVIEW); 
-
+    glLoadIdentity();
+    
     // translate
     glTranslatef(0 - position.x, position.y, position.z);
 

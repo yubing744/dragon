@@ -210,6 +210,19 @@ void Quaternion::toAngleAxis(float& angle, Vector3& axis) const {
     ); 
 }
 
+Quaternion Quaternion::conjugate() {
+    Quaternion result;
+    
+    result.w = w;
+
+    // Opposite axis of rotation
+    result.x = -x;
+    result.y = -y;
+    result.z = -z;
+
+    return result;
+}
+
 Quaternion Quaternion::add(const Quaternion& q) const {
     return Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
 }

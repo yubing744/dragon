@@ -71,22 +71,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "402857172.085389"
+         timestampString = "402993961.938203"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80">
+         startingLineNumber = "90"
+         endingLineNumber = "90">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "402850965.423355"
+         timestampString = "402993961.938203"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "72"
-         endingLineNumber = "72"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "HelloWorld::init()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -134,11 +134,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "402929915.338193"
+         timestampString = "403004200.20967"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
+         landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
+         timestampString = "403004200.20967"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>

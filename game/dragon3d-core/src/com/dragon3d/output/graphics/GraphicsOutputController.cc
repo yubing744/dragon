@@ -102,10 +102,10 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
             Mesh* mesh = model->mesh;
             Material* material = model->material;
 
-            gr->drawMesh(mesh, gameObject->transform->getPosition(), gameObject->transform->getRotation(), material, camera);
+            //gr->drawMesh(mesh, gameObject->transform->getPosition(), gameObject->transform->getRotation(), material, camera);
             
-            //const Matrix4x4& matrix = gameObject->transform->getLocalToWorldMatrix();
-            //gr->drawMesh(mesh, matrix, material, camera);
+            const Matrix4x4& matrix = gameObject->transform->getLocalToWorldMatrix();
+            gr->drawMesh(mesh, matrix, material, camera);
         }
     }
 }

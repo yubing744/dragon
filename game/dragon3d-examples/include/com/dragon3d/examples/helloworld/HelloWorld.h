@@ -46,6 +46,7 @@ public:
 protected:
     GameObject* myBox;
     GameObject* mainCamera;
+    GameObject* child;
     
 };//HelloWorld
 

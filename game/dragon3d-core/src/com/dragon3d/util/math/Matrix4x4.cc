@@ -457,6 +457,61 @@ Matrix4x4 Matrix4x4::scale(const Vector3& v) const {
     return this->scale(v.x, v.y, v.z);
 }
 
+// -------------------------------------
+Vector3 Matrix4x4::getTranslation() const {
+    return Vector3(m[3][0], m[3][1], m[3][2]);
+}
+
+
+Quaternion Matrix4x4::getQuaternion() const {
+    // Uses the Graphics Gems code, from
+    // ftp://ftp.cis.upenn.edu/pub/graphics/shoemake/quatut.ps.Z
+    // *NOT* the "Matrix and Quaternions FAQ", which has errors!
+
+    // the trace is the sum of the diagonal elements; see
+    // http://mathworld.wolfram.com/MatrixTrace.html
+    float m00 = m[0][0], m01 = m[0][1], m02 = m[0][2];
+    float m10 = m[1][0], m11 = m[1][1], m12 = m[1][2];
+    float m20 = m[2][0], m21 = m[2][1], m22 = m[2][2];
+
+    float x, y, z, w;
+    
+    float t = m00 + m11 + m22;
+
+    // we protect the division by s by ensuring that s>=1
+    if (t >= 0) { // |w| >= .5
+        float s = Mathf::sqrt(t + 1); // |s|>=1 ...
+        w = 0.5 * s;
+        s = 0.5 / s; // so this division isn't bad
+        x = (m21 - m12) * s;
+        y = (m02 - m20) * s;
+        z = (m10 - m01) * s;
+    } else if (m00 > m11 && m00 > m22) {
+        float s = Mathf::sqrt(1.0 + m00 - m11 - m22); // |s|>=1
+        x = s * 0.5; // |x| >= .5
+        s = 0.5 / s;
+        y = (m10 + m01) * s;
+        z = (m02 + m20) * s;
+        w = (m21 - m12) * s;
+    } else if (m11 > m22) {
+        float s = Mathf::sqrt(1.0 + m11 - m00 - m22); // |s|>=1
+        y = s * 0.5; // |y| >= .5
+        s = 0.5 / s;
+        x = (m10 + m01) * s;
+        z = (m21 + m12) * s;
+        w = (m02 - m20) * s;
+    } else {
+        float s = Mathf::sqrt(1.0 + m22 - m00 - m11); // |s|>=1
+        z = s * 0.5; // |z| >= .5
+        s = 0.5 / s;
+        x = (m02 + m20) * s;
+        y = (m21 + m12) * s;
+        w = (m10 - m01) * s;
+    }
+
+    return Quaternion(x, y, z, w);
+}
+
 /*
 string Matrix4x4::toString(){
     char buf[256];

@@ -140,6 +140,13 @@ public:
     void toAngleAxis(float& angle, Vector3& axis) const;
 
     /**
+     * Compute the quaternion conjugate.  This is the quaternian with 
+     * the opposite rotation as the original quaternian.
+     * @return [description]
+     */
+    Quaternion conjugate();
+
+    /**
      * Adds this quaternion to another.
      * 
      * @param  q [description]
