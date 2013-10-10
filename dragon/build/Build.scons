@@ -491,7 +491,7 @@ LibraryModule(
     },
     extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],              
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
-    shared                = True,
+    shared                = False,
     install               = True
 )
 

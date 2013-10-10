@@ -222,7 +222,7 @@
 #ifdef HAVE_INTTYPES_H
 	#include <inttypes.h>       /* C99 */
 	typedef bool                dg_boolean;       /* unsigned 8 bits */
-	typedef uint8_t             dg_byte;          /* signed 8 bits */
+	typedef char                dg_byte;          /* signed 8 bits */
 	typedef int16_t             dg_short;         /* signed 16 bits */
 	typedef uint32_t            dg_char;          /* unsigned 32 bits */
 	typedef int32_t             dg_int;           /* signed 32 bits */
@@ -247,7 +247,7 @@
 	typedef unsigned int        dg_uint;
 	typedef unsigned long long  dg_ulong;
 #endif
-
+	
 
 // NULL char
 #define NULL_CHAR (dg_char)null;

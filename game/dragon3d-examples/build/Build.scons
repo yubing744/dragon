@@ -370,7 +370,7 @@ LibraryModule(
         'dragon',
         'dragon3d-core'
     ], 
-    shared                = True,
+    shared                = False,
     install               = True
 )
 

@@ -390,7 +390,7 @@ dragon3d_core_SOURCES = {
         GraphicsOutputController.cc
     """),
     "com/dragon3d/output/graphics/renderer" : Split("""
-        OpenGLRenderer.cc
+        support_graphics_renderer.cc
     """),
     "com/dragon3d/util" : Split("""
         Timer.cc

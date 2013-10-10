@@ -27,7 +27,7 @@
 #include <dragon/lang/internal/Library.h>
 
 #include <dragon/lang/internal/Library.cc>
-#include <dragon/lang/internal/Library_OSX.cc>
+#include <dragon/lang/internal/Library_mac.cc>
 
 Import dragon::lang::internal;
 

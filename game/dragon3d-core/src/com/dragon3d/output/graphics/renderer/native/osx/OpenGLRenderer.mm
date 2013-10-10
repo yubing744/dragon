@@ -50,3 +50,6 @@ void OpenGLRenderer::flushBuffer() {
     [[glView openGLContext] flushBuffer];
 }
 
+// include commons
+#include "../../OpenGLRenderer.cc"
+

@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include <dragon/lang/internal/Library_Posix.h>
+#include <dragon/lang/internal/Library_posix.h>
 
 Import dragon::lang::internal;
 

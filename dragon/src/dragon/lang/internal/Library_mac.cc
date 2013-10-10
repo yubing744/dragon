@@ -21,7 +21,7 @@
  **********************************************************************/
 
 
-#include <dragon/lang/internal/Library_Posix.h>
+#include <dragon/lang/internal/Library_posix.h>
 
 #include <stdlib.h>
 #include <string.h>

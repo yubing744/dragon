@@ -34,8 +34,6 @@ Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 Import com::dragon3d::util::math;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer", INFO);
-
 OpenGLRenderer::OpenGLRenderer(GraphicsDevice* graphicsDevice) {
     this->graphicsDevice = graphicsDevice;
 }
@@ -122,8 +120,8 @@ void OpenGLRendererInitTexture(Texture* texture) {
 void OpenGLRendererSetupCamera(Camera* camera) {
     // setup camera
     if (camera != null) {
-        Rect screenRect = camera->pixelRect;
-        Rect nvp = camera->rect;
+        com::dragon3d::util::math::Rect screenRect = camera->pixelRect;
+        com::dragon3d::util::math::Rect nvp = camera->rect;
 
         glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
             screenRect.width * nvp.width, screenRect.height * nvp.height);
@@ -187,7 +185,7 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     // transform mesh
     glMatrixMode(GL_MODELVIEW); 
     glLoadIdentity();
-    
+
     // translate
     glTranslatef(0 - position.x, position.y, position.z);
 

@@ -1,0 +1,22 @@
+LoadTool('gcc-generic', env)
+
+### Special for the ios: i386 flags
+i386_flags =  [('-arch', 'i386'), ('-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk')]
+env.AppendUnique(CCFLAGS   = i386_flags + ['-fno-common', '-fno-stack-protector'])
+env.AppendUnique(LINKFLAGS = i386_flags + [])
+
+env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
+env.AppendUnique(CPPDEFINES = ["__APPLE__", "HAVE_INTTYPES_H=1"])
+
+env['DRAGON_EXTRA_LIBS']=['stdc++']
+
+def Macosx_testcallback(target, source, env):
+	
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

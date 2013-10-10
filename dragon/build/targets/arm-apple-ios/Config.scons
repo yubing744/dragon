@@ -1,0 +1,22 @@
+LoadTool('gcc-generic', env)
+
+### Special for the MAC: universal flags
+universal_flags =  [('-arch', 'x86_64'), ('-arch', 'i386'), ('-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk'), '-mmacosx-version-min=10.5']
+#env.AppendUnique(CCFLAGS   = universal_flags + ['-fno-common', '-fno-stack-protector'])
+#env.AppendUnique(LINKFLAGS = universal_flags + [('-framework', 'SystemConfiguration'), ('-framework', 'Cocoa'), '-mmacosx-version-min=10.5'])
+
+env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
+env.AppendUnique(CPPDEFINES = ["__APPLE__"])
+
+env['DRAGON_EXTRA_LIBS']=['stdc++']
+
+def Macosx_testcallback(target, source, env):
+	
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

@@ -38,13 +38,13 @@ public:
      * A constant holding the minimum value a <code>dg_long</code> can
      * have, -2<sup>63</sup>.
      */
-    static const dg_long MIN_VALUE = 0x8000000000000000L;
+    static const dg_long MIN_VALUE = 0x8000000000000000LL;
 
     /**
      * A constant holding the maximum value a <code>dg_long</code> can
      * have, 2<sup>63</sup>-1.
      */
-    static const dg_long MAX_VALUE = 0x7fffffffffffffffL;
+    static const dg_long MAX_VALUE = 0x7fffffffffffffffLL;
 
     /**
      * Places characters representing the integer i into the

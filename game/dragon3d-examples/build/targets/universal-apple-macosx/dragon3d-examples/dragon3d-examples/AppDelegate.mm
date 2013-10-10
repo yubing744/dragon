@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#include <com/dragon3d/launcher/native/mac/AppLauncher.h>
+#include <com/dragon3d/launcher/native/osx/AppLauncher.h>
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 
 Import com::dragon3d::examples::helloworld;
