@@ -41,7 +41,3 @@ Vector4::Vector4(float x, float y, float z, float w) {
     this->z = z;
     this->w = w;
 }
-
-Vector4::~Vector4() {
-
-}

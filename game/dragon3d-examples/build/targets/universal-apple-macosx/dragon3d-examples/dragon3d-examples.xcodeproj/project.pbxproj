@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		465173E617F7A9E30029222A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465173E517F7A9E30029222A /* Cocoa.framework */; };
 		465173F017F7A9E30029222A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465173EE17F7A9E30029222A /* InfoPlist.strings */; };
 		465173F217F7A9E30029222A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465173F117F7A9E30029222A /* main.m */; };
 		465173F617F7A9E30029222A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 465173F417F7A9E30029222A /* Credits.rtf */; };
@@ -24,6 +23,8 @@
 		465176A717FEDB580029222A /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 465176A417FEDB580029222A /* scene */; };
 		465176A817FEDB580029222A /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 465176A517FEDB580029222A /* Data */; };
 		465176A917FEDB580029222A /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 465176A617FEDB580029222A /* Textures */; };
+		465626AE18084463007DEB0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626AD18084463007DEB0E /* QuartzCore.framework */; };
+		465D59381806C7E700A9BF94 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465173E517F7A9E30029222A /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -75,6 +76,7 @@
 		465176A417FEDB580029222A /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
 		465176A517FEDB580029222A /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
 		465176A617FEDB580029222A /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
+		465626AD18084463007DEB0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,13 +84,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				465626AE18084463007DEB0E /* QuartzCore.framework in Frameworks */,
+				465D59381806C7E700A9BF94 /* Cocoa.framework in Frameworks */,
 				4651769B17FC6B3D0029222A /* libunicode.a in Frameworks */,
 				4651769C17FC6B3D0029222A /* libpcre32.a in Frameworks */,
 				4651769817FC63AB0029222A /* libdragon.a in Frameworks */,
 				4651765C17FC429D0029222A /* libstdc++.6.dylib in Frameworks */,
 				4651765017FC17D30029222A /* libdragon3d-core.a in Frameworks */,
 				4651740917FA64640029222A /* OpenGL.framework in Frameworks */,
-				465173E617F7A9E30029222A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +125,7 @@
 				4651769717FC63AB0029222A /* libdragon.a */,
 				4651765B17FC429D0029222A /* libstdc++.6.dylib */,
 				4651764F17FC17D30029222A /* libdragon3d-core.a */,
+				465626AD18084463007DEB0E /* QuartzCore.framework */,
 				4651740817FA64640029222A /* OpenGL.framework */,
 				465173E517F7A9E30029222A /* Cocoa.framework */,
 				465173E717F7A9E30029222A /* Other Frameworks */,
@@ -424,9 +428,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "dragon3d-examples/dragon3d-examples-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"HAVE_CONFIG_H=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "HAVE_CONFIG_H=1";
 				HEADER_SEARCH_PATHS = (
 					"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4",
 					"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33",
@@ -460,6 +462,7 @@
 				4651740117F7A9E40029222A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

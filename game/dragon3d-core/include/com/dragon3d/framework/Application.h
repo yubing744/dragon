@@ -65,7 +65,7 @@ Import com::dragon3d::scene;
  * 
  */
 class _DragonExport Application extends(Object) 
-	implements3(Runnable, Updater, Output) {
+	implements2(Updater, Output) {
 public:
 	Application();
 	virtual ~Application();
@@ -127,8 +127,23 @@ public:
 	 */
 	virtual void setOutputManager(OutputManager* outputManager);
 
-public: // Implements Runnable
-	virtual void run();
+public:
+	/**
+	 * whether app should exit.
+	 * 
+	 * @return [description]
+	 */
+	virtual bool isExit();
+
+	/**
+	 * app main loop
+	 */
+	virtual void runLoop();
+
+	/**
+	 * exit app
+	 */
+	virtual void exit();
 
 public: // Implements Updater
 	virtual void init();
@@ -153,7 +168,6 @@ protected:
 	 */
 	virtual void setNextScene(Scene* scene);
 
-
 protected:
 	/**
 	 * application name.
@@ -174,12 +188,12 @@ protected:
 	/**
 	 * whether the app need exit
 	 */
-	bool isExit;
+	bool exited;
 
 	/**
 	 * whether the app is pause.
 	 */
-	bool isPaused;
+	bool paused;
 
 	/**
 	 * input manager

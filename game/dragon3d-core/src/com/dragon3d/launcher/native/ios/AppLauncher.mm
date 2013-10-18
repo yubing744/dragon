@@ -22,52 +22,84 @@
 
 // Implements AppLauncher 
 // 
-#include <com/dragon3d/launcher/native/ios/AppLauncher.h>
+#import <QuartzCore/QuartzCore.h>
+
+#include "AppLauncher.h"
+#include <com/dragon3d/launcher/AppLauncher.h>
 
 #include <com/dragon3d/framework/Application.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
-//#include <dragon/util/logging/Logger.h>
+#include <dragon/util/logging/Logger.h>
 
-//Import dragon::util::logging;
+Import dragon::util::logging;
 Import com::dragon3d::framework;
 Import com::dragon3d::input;
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
-@implementation AppLauncher
-	-(void) launchApp:(void*) toLaunchApplication {
-		// create Application
-		Application* app = (Application*)toLaunchApplication;
+static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#ios", INFO);
 
-		// input
-       	InputManager* inputManager = new InputManager(); 
-       	app->setInputManager(inputManager);
+@implementation GameLoop
 
-       	// ouput
-       	OutputManager* outputManager = new OutputManager();
+- (id) initWithApp:(void*)app {
+    if ((self = [super init])) {
+        _app = app;
+    }
 
-       	{
-       		// add graphics device
-	       	GraphicsDevice* graphicsDevice = new GraphicsDevice();
-	       	outputManager->registerDevice(graphicsDevice);
-        }
+    return self;
+}
 
-       	app->setOutputManager(outputManager);
-
-		// start app
-		app->onStart();
-
-		_app = app;
-	}
-
-	- (void)applicationWillTerminate:(UIApplication *)application
-	{
-	    Application* app = (Application*)_app;
-		app->onStop();
-	}
-
-	-(void) dealloc {
-		[super dealloc];
-	}
+- (void) runLoop {    
+    Application* app = (Application*)_app;
+    app->runLoop();
+}
 
 @end
+
+
+void Dragon3DLaunchApp(Application* app) {
+    logger->info("launch app");
+
+    // input
+    InputManager* inputManager = new InputManager(); 
+    app->setInputManager(inputManager);
+
+    // ouput
+    OutputManager* outputManager = new OutputManager();
+
+    {
+        // add graphics device
+        GraphicsDevice* graphicsDevice = new GraphicsDevice();
+        outputManager->registerDevice(graphicsDevice);
+    }
+
+    app->setOutputManager(outputManager);
+
+    // start app
+    app->onStart();
+
+
+    GameLoop* loop = [[GameLoop alloc] initWithApp: app];
+
+    NSString *reqSysVer = @"3.1";
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+
+    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending) {
+        CADisplayLink* displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:loop selector:@selector(runLoop)];
+        [displayLink setFrameInterval:1];
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    } else {
+        NSTimer* animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * 1) target:loop selector:@selector(runLoop) userInfo:nil repeats:TRUE];
+    }
+}
+
+/**
+ * terminate a app.
+ * 
+ * @param app [description]
+ */
+void Dragon3DTerminateApp(Application* app) {
+    logger->info("terminate app");
+    app->onStop();
+}
+

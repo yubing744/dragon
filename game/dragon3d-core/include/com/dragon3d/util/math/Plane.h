@@ -26,11 +26,13 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Ray3.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 /**
@@ -41,12 +43,10 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Plane {
 public:
-    Plane(Vector3 inNormal, Vector3 inPoint);
-    Plane(Vector3 inNormal, float d);
-    Plane(Vector3 a, Vector3 b, Vector3 c);
-
-    virtual ~Plane();
-
+    Plane(const Vector3& inNormal, const Vector3& inPoint);
+    Plane(const Vector3& inNormal, float d);
+    Plane(const Vector3& a, const Vector3& b, const Vector3& c);
+    
 public:
     /**
      * Returns a signed distance from plane to point.
@@ -56,7 +56,7 @@ public:
      * @param  inPt [description]
      * @return      [description]
      */
-    float getDistanceToPoint(Vector3 inPt);
+    float getDistanceToPoint(const Vector3& inPt);
 
     /**
      * Is a point on the positive side of the plane?
@@ -64,7 +64,7 @@ public:
      * @param  inPt [description]
      * @return      [description]
      */
-    bool getSide(Vector3 inPt);
+    bool getSide(const Vector3& inPt);
 
     /**
      * Intersects a ray with the plane.
@@ -78,7 +78,7 @@ public:
      * @param  enter [description]
      * @return       [description]
      */
-    bool raycast(Ray3* ray, float* enter);
+    bool raycast(const Ray3* ray, float* enter);
 
     /**
      * Are two points on the same side of the plane?
@@ -87,7 +87,7 @@ public:
      * @param  inPt1 [description]
      * @return       [description]
      */
-    bool sameSide(Vector3 inPt0, Vector3 inPt1);
+    bool sameSide(const Vector3& inPt0, const Vector3& inPt1);
 
     /**
      * Sets a plane using three points that lie within it. The points go around clockwise as 
@@ -97,7 +97,7 @@ public:
      * @param b [description]
      * @param c [description]
      */
-    void set3Points(Vector3 a, Vector3 b, Vector3 c);
+    void set3Points(const Vector3& a, const Vector3& b, const Vector3& c);
 
     /**
      * Sets a plane using a point that lies within it plus a normal to orient it (note that the 
@@ -106,7 +106,7 @@ public:
      * @param inNormal [description]
      * @param inPoint  [description]
      */
-    void setNormalAndPosition(Vector3 inNormal, Vector3 inPoint);
+    void setNormalAndPosition(const Vector3& inNormal, const Vector3& inPoint);
 
 public:
     /**

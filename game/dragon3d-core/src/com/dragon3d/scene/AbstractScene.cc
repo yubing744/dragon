@@ -48,35 +48,35 @@ void AbstractScene::remove(GameObject* gameObject) {
 }
 
 GameObject* AbstractScene::findFirstWithName(const char* name) {
-
-}
+    return null;
+}   
 
 List<GameObject>* AbstractScene::findWithName(const char* name) {
-
+    return null;
 }
 
 GameObject* AbstractScene::findFirstWithType(const Type& type) {
-
+    return null;
 }
 
 List<GameObject>* AbstractScene::findWithType(const Type& type) {
-
+    return null;
 }
 
 GameObject* AbstractScene::findFirstWithTag(const char* tag) {
-
+    return null;
 }
 
 List<GameObject>* AbstractScene::findWithTag(const char* tag) {
-
+    return null;
 }
 
 GameObject* AbstractScene::findFirstWithRay(Ray3* ray) {
-
+    return null;
 }
 
 List<GameObject>* AbstractScene::findWithRay(Ray3* ray) {
-
+    return null;
 }
 
 List<GameObject>* AbstractScene::getAll() {

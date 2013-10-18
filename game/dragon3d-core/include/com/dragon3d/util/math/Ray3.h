@@ -25,16 +25,17 @@
 #define Ray3_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 class _DragonExport Ray3 {
 public:
     Ray3(Vector3 origin, Vector3 direction);
-	virtual ~Ray3();
 
 public:
     /**

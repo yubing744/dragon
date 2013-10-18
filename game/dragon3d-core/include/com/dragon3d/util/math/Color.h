@@ -25,9 +25,11 @@
 #define Color_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 /**
@@ -58,6 +60,9 @@ public:
     Color(dg_byte r, dg_byte g, dg_byte b, dg_byte a);
 
     Color(const char* hexColor);
+
+public:
+    const float* getData() const;
 
 public:
     float r; //Red component of the color.

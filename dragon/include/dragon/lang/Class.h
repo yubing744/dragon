@@ -40,8 +40,10 @@ class _DragonExport Class
 {
 friend class dragon::lang::ClassLoader;
 
-protected:
+public:
 	Class(const type_info& info, size_t size);
+	
+protected:
 	Class(const ClassLoader* classLoader, 
 		const char* packageName, const char* name);
 

@@ -25,10 +25,12 @@
 #define Rect_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector2.h>
  
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 /**
@@ -42,7 +44,6 @@ public:
 public:
     Rect();
     Rect(float x, float y, float width, float height);
-    virtual ~Rect();
 
 public:
     Vector2 getCenter();

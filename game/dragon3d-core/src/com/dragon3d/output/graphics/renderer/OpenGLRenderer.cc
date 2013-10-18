@@ -128,20 +128,24 @@ void OpenGLRendererSetupCamera(Camera* camera) {
 
         if (!camera->orthographic) {
             glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            glOrtho(-1, 1, -1, 1, -1, 1); //change to left handle coordinate system
-
-            gluPerspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
+            glLoadIdentity(); 
+            
+            Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
 
             Vector3 eye = camera->transform->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
-            gluLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
+            projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
+            
+            projMatrix = projMatrix.multiply(Matrix4x4::perspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
+
+            glMultMatrixf((float *)&projMatrix.m[0][0]);
         } else {
             glOrtho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
         }
     }
 }
+
 
 void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {
     // setup camera
@@ -158,47 +162,7 @@ void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const 
     glEnd();
 }
 
-void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) {
-    // setup camera
-    OpenGLRendererSetupCamera(camera);
-
-    // setup material
-    if (material != null) {
-        // setup color
-        Color c = material->color;
-        glColor3f(c.r, c.g, c.b);
-
-        // setup texture
-        Texture* mainTexture = material->mainTexture;
-
-        if (mainTexture != null) {
-            GLuint textureID = mainTexture->getNativeTextureID();
-
-            if (textureID == 0) {
-                OpenGLRendererInitTexture(mainTexture);
-            } else {
-                glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
-            }
-        }
-    }
-
-    // transform mesh
-    glMatrixMode(GL_MODELVIEW); 
-    glLoadIdentity();
-
-    // translate
-    glTranslatef(0 - position.x, position.y, position.z);
-
-    // rotate
-    float angle;
-    Vector3 axis;
-    rotation.toAngleAxis(angle, axis);
-    glRotatef(angle * 180 / Mathf::PI, axis.x, axis.y, axis.z);
-
-    // scale
-    glScalef(1.0f, 1.0f, 1.0f);
-
-
+void OpenGLRendererDrawMeshData(Mesh* mesh) {
     // draw mesh
     int vCount = mesh->triangleIndexCount;
 
@@ -209,7 +173,7 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     glBegin(GL_TRIANGLES);
 
         for (int i=0; i< vCount; i++) {
-            int pos = mesh->triangles[i];
+            int pos = mesh->triangleIndexs[i];
 
             //set texCoord
             if (mesh->uv) {
@@ -229,7 +193,6 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Vector3& position, const Quatern
     if (mesh->uv || mesh->uv2) {
         glDisable(GL_TEXTURE_2D);
     }
-
 }
 
 void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) {
@@ -263,34 +226,6 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* mat
     glMultMatrixf((float *)matrix.m);
 
     // draw mesh
-    int vCount = mesh->triangleIndexCount;
-
-    if (mesh->uv || mesh->uv2) {
-        glEnable(GL_TEXTURE_2D);
-    }
-
-    glBegin(GL_TRIANGLES);
-
-        for (int i=0; i< vCount; i++) {
-            int pos = mesh->triangles[i];
-
-            //set texCoord
-            if (mesh->uv) {
-                Vector2* uv = &mesh->uv[pos];
-                glTexCoord2f(uv->x, uv->y);
-            }
-
-            //set vertext
-            if (mesh->vertices) {
-                Vector3* v = &mesh->vertices[pos];
-                glVertex3f(v->x, v->y, v->z);
-            }
-        }
-
-    glEnd();
-
-    if (mesh->uv || mesh->uv2) {
-        glDisable(GL_TEXTURE_2D);
-    }  
+    OpenGLRendererDrawMeshData(mesh);
 }
 

@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		465626BB18103E50007DEB0E /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B718103E50007DEB0E /* libdragon3d-core.a */; };
+		465626BC18103E50007DEB0E /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B818103E50007DEB0E /* libunicode.a */; };
+		465626BD18103E50007DEB0E /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B918103E50007DEB0E /* libpcre32.a */; };
+		465626BE18103E50007DEB0E /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626BA18103E50007DEB0E /* libdragon.a */; };
+		465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465D590018063ACA00A9BF94 /* InfoPlist.strings */; };
+		465D590418063ACA00A9BF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D590318063ACA00A9BF94 /* main.m */; };
+		465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D590718063ACA00A9BF94 /* AppDelegate.mm */; };
+		465D590A18063ACA00A9BF94 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 465D590918063ACA00A9BF94 /* Default.png */; };
+		465D590C18063ACA00A9BF94 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 465D590B18063ACA00A9BF94 /* Default@2x.png */; };
+		465D590E18063ACA00A9BF94 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 465D590D18063ACA00A9BF94 /* Default-568h@2x.png */; };
+		465D591118063ACA00A9BF94 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D591018063ACA00A9BF94 /* ViewController.mm */; };
+		465D591418063ACA00A9BF94 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 465D591218063ACA00A9BF94 /* ViewController_iPhone.xib */; };
+		465D591718063ACA00A9BF94 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 465D591518063ACA00A9BF94 /* ViewController_iPad.xib */; };
+		465D592118063C2100A9BF94 /* com in Resources */ = {isa = PBXBuildFile; fileRef = 465D592018063C2100A9BF94 /* com */; };
+		465D5934180665A200A9BF94 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5933180665A200A9BF94 /* libstdc++.6.dylib */; };
+		465D59601806EFAA00A9BF94 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D595F1806EFAA00A9BF94 /* QuartzCore.framework */; };
+		465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D58F718063ACA00A9BF94 /* UIKit.framework */; };
+		465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5929180663F700A9BF94 /* OpenGLES.framework */; };
+		465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59631806EFCA00A9BF94 /* Foundation.framework */; };
+		465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465D592618063C3400A9BF94 /* HelloWorld.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		465626B718103E50007DEB0E /* libdragon3d-core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdragon3d-core.a"; path = "../../../../targets/arm-apple-ios/debug/libdragon3d-core.a"; sourceTree = "<group>"; };
+		465626B818103E50007DEB0E /* libunicode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunicode.a; path = "../../../../targets/arm-apple-ios/debug/libunicode.a"; sourceTree = "<group>"; };
+		465626B918103E50007DEB0E /* libpcre32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre32.a; path = "../../../../targets/arm-apple-ios/debug/libpcre32.a"; sourceTree = "<group>"; };
+		465626BA18103E50007DEB0E /* libdragon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdragon.a; path = "../../../../targets/arm-apple-ios/debug/libdragon.a"; sourceTree = "<group>"; };
+		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		465D58F718063ACA00A9BF94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dragon3d-examples-Info.plist"; sourceTree = "<group>"; };
+		465D590118063ACA00A9BF94 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		465D590318063ACA00A9BF94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		465D590518063ACA00A9BF94 /* dragon3d-examples-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dragon3d-examples-Prefix.pch"; sourceTree = "<group>"; };
+		465D590618063ACA00A9BF94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		465D590718063ACA00A9BF94 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		465D590918063ACA00A9BF94 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		465D590B18063ACA00A9BF94 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		465D590D18063ACA00A9BF94 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		465D590F18063ACA00A9BF94 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		465D591018063ACA00A9BF94 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		465D591318063ACA00A9BF94 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		465D591618063ACA00A9BF94 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		465D592018063C2100A9BF94 /* com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = com; path = ../../../../include/com; sourceTree = "<group>"; };
+		465D592618063C3400A9BF94 /* HelloWorld.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorld.cc; sourceTree = "<group>"; };
+		465D5929180663F700A9BF94 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		465D5933180665A200A9BF94 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		465D595F1806EFAA00A9BF94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		465D59631806EFCA00A9BF94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		465D58F118063ACA00A9BF94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				465626BB18103E50007DEB0E /* libdragon3d-core.a in Frameworks */,
+				465626BC18103E50007DEB0E /* libunicode.a in Frameworks */,
+				465626BD18103E50007DEB0E /* libpcre32.a in Frameworks */,
+				465626BE18103E50007DEB0E /* libdragon.a in Frameworks */,
+				465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */,
+				465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */,
+				465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */,
+				465D59601806EFAA00A9BF94 /* QuartzCore.framework in Frameworks */,
+				465D5934180665A200A9BF94 /* libstdc++.6.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		465D58EB18063ACA00A9BF94 = {
+			isa = PBXGroup;
+			children = (
+				465626B718103E50007DEB0E /* libdragon3d-core.a */,
+				465626B818103E50007DEB0E /* libunicode.a */,
+				465626B918103E50007DEB0E /* libpcre32.a */,
+				465626BA18103E50007DEB0E /* libdragon.a */,
+				465D591D18063BF200A9BF94 /* classes */,
+				465D58FD18063ACA00A9BF94 /* ios */,
+				465D58F618063ACA00A9BF94 /* Frameworks */,
+				465D58F518063ACA00A9BF94 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		465D58F518063ACA00A9BF94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				465D58F418063ACA00A9BF94 /* dragon3d-examples.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		465D58F618063ACA00A9BF94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				465D5933180665A200A9BF94 /* libstdc++.6.dylib */,
+				465D59631806EFCA00A9BF94 /* Foundation.framework */,
+				465D595F1806EFAA00A9BF94 /* QuartzCore.framework */,
+				465D5929180663F700A9BF94 /* OpenGLES.framework */,
+				465D58F718063ACA00A9BF94 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		465D58FD18063ACA00A9BF94 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				465D590618063ACA00A9BF94 /* AppDelegate.h */,
+				465D590718063ACA00A9BF94 /* AppDelegate.mm */,
+				465D590F18063ACA00A9BF94 /* ViewController.h */,
+				465D591018063ACA00A9BF94 /* ViewController.mm */,
+				465D591218063ACA00A9BF94 /* ViewController_iPhone.xib */,
+				465D591518063ACA00A9BF94 /* ViewController_iPad.xib */,
+				465D58FE18063ACA00A9BF94 /* Supporting Files */,
+			);
+			name = ios;
+			path = "dragon3d-examples";
+			sourceTree = "<group>";
+		};
+		465D58FE18063ACA00A9BF94 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */,
+				465D590018063ACA00A9BF94 /* InfoPlist.strings */,
+				465D590318063ACA00A9BF94 /* main.m */,
+				465D590518063ACA00A9BF94 /* dragon3d-examples-Prefix.pch */,
+				465D590918063ACA00A9BF94 /* Default.png */,
+				465D590B18063ACA00A9BF94 /* Default@2x.png */,
+				465D590D18063ACA00A9BF94 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		465D591D18063BF200A9BF94 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				465D591F18063C0700A9BF94 /* src */,
+				465D591E18063C0100A9BF94 /* include */,
+			);
+			name = classes;
+			sourceTree = "<group>";
+		};
+		465D591E18063C0100A9BF94 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				465D592018063C2100A9BF94 /* com */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		465D591F18063C0700A9BF94 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				465D592218063C3400A9BF94 /* com */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		465D592218063C3400A9BF94 /* com */ = {
+			isa = PBXGroup;
+			children = (
+				465D592318063C3400A9BF94 /* dragon3d */,
+			);
+			name = com;
+			path = ../../../../src/com;
+			sourceTree = "<group>";
+		};
+		465D592318063C3400A9BF94 /* dragon3d */ = {
+			isa = PBXGroup;
+			children = (
+				465D592418063C3400A9BF94 /* examples */,
+			);
+			path = dragon3d;
+			sourceTree = "<group>";
+		};
+		465D592418063C3400A9BF94 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+				465D592518063C3400A9BF94 /* helloworld */,
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+		465D592518063C3400A9BF94 /* helloworld */ = {
+			isa = PBXGroup;
+			children = (
+				465D592618063C3400A9BF94 /* HelloWorld.cc */,
+			);
+			path = helloworld;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		465D58F318063ACA00A9BF94 /* dragon3d-examples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 465D591A18063ACA00A9BF94 /* Build configuration list for PBXNativeTarget "dragon3d-examples" */;
+			buildPhases = (
+				465D58F018063ACA00A9BF94 /* Sources */,
+				465D58F118063ACA00A9BF94 /* Frameworks */,
+				465D58F218063ACA00A9BF94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "dragon3d-examples";
+			productName = "dragon3d-examples";
+			productReference = 465D58F418063ACA00A9BF94 /* dragon3d-examples.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		465D58EC18063ACA00A9BF94 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Wu CongWen";
+			};
+			buildConfigurationList = 465D58EF18063ACA00A9BF94 /* Build configuration list for PBXProject "dragon3d-examples" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 465D58EB18063ACA00A9BF94;
+			productRefGroup = 465D58F518063ACA00A9BF94 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				465D58F318063ACA00A9BF94 /* dragon3d-examples */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		465D58F218063ACA00A9BF94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */,
+				465D590A18063ACA00A9BF94 /* Default.png in Resources */,
+				465D590C18063ACA00A9BF94 /* Default@2x.png in Resources */,
+				465D590E18063ACA00A9BF94 /* Default-568h@2x.png in Resources */,
+				465D591418063ACA00A9BF94 /* ViewController_iPhone.xib in Resources */,
+				465D591718063ACA00A9BF94 /* ViewController_iPad.xib in Resources */,
+				465D592118063C2100A9BF94 /* com in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		465D58F018063ACA00A9BF94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */,
+				465D590418063ACA00A9BF94 /* main.m in Sources */,
+				465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */,
+				465D591118063ACA00A9BF94 /* ViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		465D590018063ACA00A9BF94 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				465D590118063ACA00A9BF94 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		465D591218063ACA00A9BF94 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				465D591318063ACA00A9BF94 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		465D591518063ACA00A9BF94 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				465D591618063ACA00A9BF94 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		465D591818063ACA00A9BF94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		465D591918063ACA00A9BF94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		465D591B18063ACA00A9BF94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dragon3d-examples/dragon3d-examples-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33",
+					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
+					"/Users/yubing/Workspace/xcode-static-lib-demo",
+				);
+				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
+					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
+					"\"$(SRCROOT)/../../../../targets/arm-apple-ios/debug\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		465D591C18063ACA00A9BF94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dragon3d-examples/dragon3d-examples-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/pcre-8.33",
+					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
+					"/Users/yubing/Workspace/xcode-static-lib-demo",
+				);
+				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
+					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
+					"\"$(SRCROOT)/../../../../targets/arm-apple-ios/debug\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		465D58EF18063ACA00A9BF94 /* Build configuration list for PBXProject "dragon3d-examples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				465D591818063ACA00A9BF94 /* Debug */,
+				465D591918063ACA00A9BF94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		465D591A18063ACA00A9BF94 /* Build configuration list for PBXNativeTarget "dragon3d-examples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				465D591B18063ACA00A9BF94 /* Debug */,
+				465D591C18063ACA00A9BF94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 465D58EC18063ACA00A9BF94 /* Project object */;
+}

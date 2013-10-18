@@ -20,18 +20,4 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
-#ifndef AppLauncher_Launcher_Dragon3d_Com_H
-#define AppLauncher_Launcher_Dragon3d_Com_H
-
-#import <Cocoa/Cocoa.h>
-
-@interface AppLauncher : NSObject <NSApplicationDelegate> {
-	void* _app;
-}
-
--(void) launchApp:(void*) toLaunchApplication;
-
-@end
-
-#endif //AppLauncher_Launcher_Dragon3d_Com_H
+ #include "OpenGLES2Renderer.mm"

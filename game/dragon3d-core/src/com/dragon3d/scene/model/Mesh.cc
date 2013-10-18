@@ -32,7 +32,7 @@ Mesh::Mesh(){
     this->uv2 = NULL;
     this->vertexCount = 0;
 
-    this->triangles = NULL;
+    this->triangleIndexs = NULL;
     this->triangleIndexCount = 0;
 }
 

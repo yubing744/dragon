@@ -25,9 +25,11 @@
 #define Vector3_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 /**

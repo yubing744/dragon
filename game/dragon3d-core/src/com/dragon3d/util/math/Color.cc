@@ -131,3 +131,8 @@ Color::Color(dg_byte r, dg_byte g, dg_byte b, dg_byte a){
 Color::Color(const char* hexColor){
     *this = Color::hexColor(hexColor);
 }
+
+
+const float* Color::getData() const {
+    return (float*)(&this->r);
+}

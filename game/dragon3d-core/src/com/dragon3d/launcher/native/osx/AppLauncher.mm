@@ -22,53 +22,87 @@
 
 // Implements AppLauncher 
 // 
-#include <com/dragon3d/launcher/native/osx/AppLauncher.h>
+#include <com/dragon3d/launcher/AppLauncher.h>
 
 #include <com/dragon3d/framework/Application.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
-//#include <dragon/util/logging/Logger.h>
+#include <dragon/lang/Throwable.h>
+#include <dragon/util/ArrayList.h>
+#include <dragon/util/logging/Logger.h>
 
-//Import dragon::util::logging;
+Import dragon::lang;
+Import dragon::util::logging;
 Import com::dragon3d::framework;
 Import com::dragon3d::input;
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
 
-@implementation AppLauncher
-	-(void) launchApp:(void*) toLaunchApplication {
-		// create Application
-		Application* app = (Application*)toLaunchApplication;
+static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#osx", INFO);
 
-		// input
-       	InputManager* inputManager = new InputManager(); 
-       	app->setInputManager(inputManager);
+/**
+ * game loop
+ */
+class GameLoop implements(Runnable){
+public:
+    GameLoop(Application* app) {
+        this->app = app;
+    }
 
-       	// ouput
-       	OutputManager* outputManager = new OutputManager();
+public:
+    void run() {
+        try {
+            // start app
+            app->onStart();
 
-       	{
-       		// add graphics device
-	       	GraphicsDevice* graphicsDevice = new GraphicsDevice();
-	       	outputManager->registerDevice(graphicsDevice);
+            while (!app->isExit()) {
+                app->runLoop();
+            }
+
+            // stop app
+            app->onStop();
+        } catch (Throwable* t) {
+            logger->error("Throwable caught in MainThread - exiting");
+            t->printStackTrace();
+            SafeDelete(t);
         }
+    }
 
-       	app->setOutputManager(outputManager);
+protected:
+    Application* app;
+};
 
-		// start app
-		app->onStart();
+/**
+ * launch a app.
+ * 
+ * @param app [description]
+ */
+void Dragon3DLaunchApp(Application* app) {
+    // input
+    InputManager* inputManager = new InputManager(); 
+    app->setInputManager(inputManager);
 
-		_app = app;
-	}
+    // ouput
+    OutputManager* outputManager = new OutputManager();
 
-	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication {
-		Application* app = (Application*)_app;
-		app->onStop();
+    {
+        // add graphics device
+        GraphicsDevice* graphicsDevice = new GraphicsDevice();
+        outputManager->registerDevice(graphicsDevice);
+    }
 
-		return YES;
-	}
+    app->setOutputManager(outputManager);
 
-	-(void) dealloc {
-		[super dealloc];
-	}
+    // start new thread to run game.
+    GameLoop* loop = new GameLoop(app);
+    Thread* thread = new Thread(loop);
+    thread->start();
+}
 
-@end
+/**
+ * terminate a app.
+ * 
+ * @param app [description]
+ */
+void Dragon3DTerminateApp(Application* app) {
+    app->exit();
+}

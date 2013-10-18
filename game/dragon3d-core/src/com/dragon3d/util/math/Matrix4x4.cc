@@ -54,17 +54,7 @@ Matrix4x4 Matrix4x4::ortho(float left, float right, float bottom, float top, flo
     float deltaY = top - bottom;
     float deltaZ = farZ - nearZ;
 
-    Matrix4x4 ortho;
-
-    if ((deltaX == 0.0f) || (deltaY == 0.0f) || (deltaZ == 0.0f))
-        return Matrix4x4::ZERO;
-
-    memset(&ortho, 0x0, sizeof(Matrix4x4));
-
-    ortho.m[0][0] = 1.0f;
-    ortho.m[1][1] = 1.0f;
-    ortho.m[2][2] = 1.0f;
-    ortho.m[3][3] = 1.0f;
+    Matrix4x4 ortho = Matrix4x4::IDENTITY;
 
     ortho.m[0][0] = 2.0f / deltaX;
     ortho.m[3][0] = -(right + left) / deltaX;
@@ -86,8 +76,6 @@ Matrix4x4 Matrix4x4::frustum(float left, float right, float bottom, float top, f
     if ((nearZ <= 0.0f) || (farZ <= 0.0f) ||
          (deltaX <= 0.0f) || (deltaY <= 0.0f) || (deltaZ <= 0.0f))
          return Matrix4x4::ZERO;
-
-    memset(&frust, 0x0, sizeof(Matrix4x4));
 
     frust.m[0][0] = 2.0f * nearZ / deltaX;
     frust.m[0][1] = frust.m[0][2] = frust.m[0][3] = 0.0f;
@@ -113,6 +101,50 @@ Matrix4x4 Matrix4x4::perspective(float fovy, float aspect, float zNear, float zF
    frustumW = frustumH * aspect;
 
    return frustum(-frustumW, frustumW, -frustumH, frustumH, zNear, zFar);
+}
+
+
+Matrix4x4 Matrix4x4::lookAt(float eyex, float eyey, float eyez, float centerx,
+    float centery, float centerz, float upx, float upy, float upz)
+{
+    Matrix4x4 result = Matrix4x4::IDENTITY;
+
+    
+    Vector3 forward;
+    Vector3 side;
+    Vector3 up;
+
+    Matrix4x4 view = Matrix4x4::IDENTITY;
+
+    forward.x = centerx - eyex;
+    forward.y = centery - eyey;
+    forward.z = centerz - eyez;
+
+    up.x = upx;
+    up.y = upy;
+    up.z = upz;
+
+    forward = forward.normalize();
+
+    // Side = forward x up
+    side = Vector3::cross(forward, up);
+    side = side.normalize();
+
+    // Recompute up as: up = side x forward
+    up = Vector3::cross(side, forward);
+
+    view.m[0][0] = side.x; view.m[1][0] = side.y; view.m[2][0] = side.z;
+    view.m[0][1] = up.x; view.m[1][1] = up.y; view.m[2][1] = up.z;
+    view.m[0][2] = -forward.x; view.m[1][2] = -forward.y; view.m[2][2] = -forward.z;
+
+    result = result.translate(-eyex, -eyey, -eyez);
+    result = result.multiply(view);
+   
+    return result;
+}
+
+Matrix4x4 Matrix4x4::lookAt(const Vector3& eye, const Vector3& center, const Vector3& up) {
+    return lookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
 }
 
 Matrix4x4 Matrix4x4::TRS(const Vector3& pos, const Quaternion& q, const Vector3& s) {
@@ -431,6 +463,17 @@ Matrix4x4 Matrix4x4::rotate(const Quaternion& q) const {
 
     return multiply(rotMat);;
 }
+
+Matrix4x4 Matrix4x4::rotate(const Vector3& xAxis, const Vector3& yAxis, const Vector3& zAxis) const {
+    Matrix4x4 temp = Matrix4x4::IDENTITY;
+
+    temp.m[0][0] = xAxis.x; temp.m[0][1] = yAxis.x; temp.m[0][2] = zAxis.x;
+    temp.m[1][0] = xAxis.y; temp.m[1][1] = yAxis.y; temp.m[1][2] = zAxis.y;
+    temp.m[2][0] = xAxis.z; temp.m[2][1] = yAxis.z; temp.m[2][2] = zAxis.z;
+
+    return multiply(temp);;
+}
+
 
 Matrix4x4 Matrix4x4::scale(float sx, float sy, float sz) const {
     Matrix4x4 scaleMat = Matrix4x4::IDENTITY;

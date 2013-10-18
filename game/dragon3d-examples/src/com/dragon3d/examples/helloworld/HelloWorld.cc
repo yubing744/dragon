@@ -20,7 +20,6 @@
  * Created:     2013/09/15
  **********************************************************************/
 
-
 #include <dragon/lang/String.h>
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 #include <dragon/util/logging/Logger.h>
@@ -59,7 +58,7 @@ void HelloWorld::init() {
     Box* box = new Box();
     myBox->addComponent(box);
     
-    myBox->transform->setPosition(Vector3(-2, 0, 3));
+    myBox->transform->setPosition(Vector3(0, 0, 1));
     myBox->transform->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
@@ -104,7 +103,7 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
-    logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
+    //logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
 void HelloWorld::destroy() {

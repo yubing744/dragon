@@ -377,6 +377,9 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/scene/model/geometry" : Split("""
         Box.cc
     """),
+    "com/dragon3d/scene/model/shader" : Split("""
+        Shader.cc
+    """),
 
     "com/dragon3d/input" : Split("""
         inputManager.cc
@@ -441,6 +444,7 @@ dragon3d_core_test_SOURCES = {
     "com/dragon3d/util/math" : Split("""
         Vector3Test.cc
         QuaternionTest.cc
+        Matrix4x4Test.cc
     """),
     "." : Split("""
         TestMain.cc

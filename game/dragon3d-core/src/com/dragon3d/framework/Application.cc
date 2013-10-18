@@ -35,7 +35,7 @@ Import com::dragon3d::framework;
 static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", INFO);
 
 Application::Application() 
-	:isPaused(true), isExit(false) {
+	:paused(true), exited(false) {
 	this->inputManager = null;
 	this->outputManager= null;
 
@@ -65,30 +65,43 @@ void Application::onStart() {
 	this->timer = new Timer();
 	this->frameWork = new FrameHandler(timer);
 	
-	// start game thread
+
+    // init input and output manager
+    this->inputManager->init();
+    this->outputManager->init();
+
+    this->frameWork->addUpdater(this);
+    this->frameWork->addOutput(this);
+    this->frameWork->addOutput(this->outputManager);
+
+    this->frameWork->init();
+    
+    // init game
+    this->onGameInit();
+
+	/* start game thread
     logger->info("start thread for game");  
 	Thread* o = new Thread(this);
 	o->start();
+    */
 }
 
 void Application::onResume() {
 	logger->info("on resume");
 	
-	this->isPaused = false;
+	this->paused = false;
 	this->timer->resume();
 }
 
 void Application::onPause() {
 	logger->info("on pause");
 
-	this->isPaused = true;
+	this->paused = true;
 	this->timer->pause();
 }
 
 void Application::onStop() {
 	logger->info("on stop");
-
-	this->isExit = true;
 }
 
 void Application::onDestroy() {
@@ -100,15 +113,6 @@ void Application::onDestroy() {
 
 void Application::onGameInit() {
 	logger->info("on game init");
-
-    // init input and output manager
-    this->inputManager->init();
-    this->outputManager->init();
-
-	this->frameWork->addUpdater(this);
-
-    this->frameWork->addOutput(this);
-    this->frameWork->addOutput(this->outputManager);
 }
 
 void Application::onGameDestroy() {
@@ -141,39 +145,26 @@ void Application::setNextScene(Scene* scene) {
 
 // --------------------------------------
 
-
-void Application::run() {
-	logger->info("new game thread run ... ");
-
-    // init game
-    this->onGameInit();
-
-	try {
-        frameWork->init();
-
-        while (!isExit) {
-        	Scene* scene = this->getCurrentScene();
-
-            if (scene != null) {
-                frameWork->updateFrame(scene);
-            } else {
-                logger->warn("Please setup a current scene");
-                Thread::sleep(5000); // wait 5 second
-            }
-
-            Thread::yield();
-        }
-
-        // init game
-        this->onGameDestroy();
-    } catch (Throwable* t) {
-        logger->error("Throwable caught in MainThread - exiting");
-        t->printStackTrace();
-        SafeDelete(t);
-    }
+bool Application::isExit() {
+    return this->exited;
 }
 
+void Application::exit() {
+    this->exited = true;
+}
 
+void Application::runLoop() {
+	logger->debug("run loop");
+
+	Scene* scene = this->getCurrentScene();
+
+    if (scene != null) {
+        frameWork->updateFrame(scene);
+    } else {
+        logger->warn("Please setup a current scene");
+        Thread::sleep(5000); // wait 5 second
+    }
+}
 
 // ----------------------- simple game -----------------------
 

@@ -33,14 +33,14 @@ Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer#mac", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer#osx", INFO);
 
 // mine thread handle
-typedef struct NativeData {
+typedef struct {
     NSAutoreleasePool *pool;
     NSWindow* window;
     NSOpenGLView* dgView;
-};
+} NativeData;
 
 void OpenGLRenderer::flushBuffer() {
     logger->debug("flush buffer");

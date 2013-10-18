@@ -1,0 +1,33 @@
+### add the tools to the path
+
+IOS_TOOLCHAIN_BIN='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin'
+IOS_SYSROOT='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk'
+
+env.PrependENVPath('PATH', IOS_TOOLCHAIN_BIN)
+
+env['CC']     = 'clang'
+env['CXX']    = 'clang++'
+env['LINK']   = 'clang++'
+
+### Special for the ios: arm flags
+arm_flags =  [('-arch', 'armv7s'), ('-isysroot', IOS_SYSROOT), ('-miphoneos-version-min=5.0')]
+env.AppendUnique(CCFLAGS   = arm_flags + ['-fno-common', '-fno-stack-protector'])
+env.AppendUnique(LINKFLAGS = arm_flags + [])
+
+env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
+env.AppendUnique(CPPDEFINES = ["__APPLE__", "HAVE_INTTYPES_H=1"])
+
+env['DRAGON_EXTRA_LIBS']=['stdc++']
+
+env.AppendUnique(FRAMEWORKS=Split('Foundation UIKit OpenGLES QuartzCore'))
+
+def Macosx_testcallback(target, source, env):
+    
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

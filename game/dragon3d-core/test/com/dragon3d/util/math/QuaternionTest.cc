@@ -68,7 +68,7 @@ TEST(Com_Dragon3d_Util_Math_QuaternionTest, multiply_01) {
     Quaternion rot2 = Quaternion::euler(30, 30, 30);
 
     Quaternion result = rot1.multiply(rot2);
-    printf("x:%f y:%f z:%f\n", result.x, result.y, result.z);
+    //printf("x:%f y:%f z:%f\n", result.x, result.y, result.z);
 
     ASSERT_FLOAT_EQ(0.5624999, result.x);
     ASSERT_FLOAT_EQ(0.3247595, result.y);

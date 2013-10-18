@@ -17,21 +17,7 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2013/09/28
  **********************************************************************/
 
-
-#ifndef Application_Android_Framework_Dragon3d_Com_H
-#define Application_Android_Framework_Dragon3d_Com_H
-
-#include <dragon/config.h>
-#include <com/dragon3d/framework/Application.h>
-
-BeginPackage3(com, dragon3d, framework)
-
-Import com::dragon3d::framework;
-
-
-EndPackage3 //(com, dragon3d, framework)
-
-#endif //Application_Android_Native_Framework_Dragon3d_Com_H
+ #include "OpenGLRenderer.cc"

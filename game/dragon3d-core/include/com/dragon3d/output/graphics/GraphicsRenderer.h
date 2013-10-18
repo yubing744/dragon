@@ -70,11 +70,6 @@ public:
 	/**
 	 * draw a mesh with 
 	 */
-	virtual void drawMesh(Mesh* mesh, const Vector3& position, const Quaternion& rotation, Material* material, Camera* camera) = 0;
-
-	/**
-	 * draw a mesh with 
-	 */
 	virtual void drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) = 0;
 
 	/**

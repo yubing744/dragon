@@ -29,11 +29,7 @@
 Import com::dragon3d::scene::model::geometry;
 
 Box::Box() {
-    this->mesh = new Mesh();
-    this->material = new Material(Color::GREEN);
 
-    int numVertices = 24;
-    int numIndices = 36;
    
     float cubeVerts[] =
     {
@@ -140,25 +136,47 @@ Box::Box() {
         20, 22, 21
     };
 
+    this->mesh = new Mesh();
+    this->material = new Material(Color::GREEN);
+    
+    int numVertices = 24;
+    int numIndices = 36;
+    
     this->mesh->vertexCount = numVertices;
 
     //Copy vertices data
     this->mesh->vertices = new Vector3[numVertices];
-    memcpy(this->mesh->vertices, cubeVerts, sizeof(cubeVerts));
+
+    for (int i=0; i<numVertices; i++) {
+        this->mesh->vertices[i].x = cubeVerts[i * 3];
+        this->mesh->vertices[i].y = cubeVerts[i * 3 + 1];
+        this->mesh->vertices[i].z = cubeVerts[i * 3 + 2];
+    }
 
     //Copy normals data
     this->mesh->normals = new Vector3[numVertices];
-    memcpy(this->mesh->normals, cubeNormals, sizeof(cubeNormals));
 
-    //Copy vertices data
+    for (int i=0; i<numVertices; i++) {
+        this->mesh->normals[i].x = cubeNormals[i * 3];
+        this->mesh->normals[i].y = cubeNormals[i * 3 + 1];
+        this->mesh->normals[i].z = cubeNormals[i * 3 + 2];
+    }
+
+    //Copy uv data
     this->mesh->uv = new Vector2[numVertices];
-    memcpy(this->mesh->uv, cubeTex, sizeof(cubeTex));
+
+    for (int i=0; i<numVertices; i++) {
+        this->mesh->uv[i].x = cubeTex[i * 2];
+        this->mesh->uv[i].y = cubeTex[i * 2 + 1];
+    }
 
     //Copy indices data
     this->mesh->triangleIndexCount = numIndices;
+    this->mesh->triangleIndexs = new int[numIndices];
 
-    this->mesh->triangles = new int[numIndices];
-    memcpy(this->mesh->triangles, cubeIndices, sizeof(cubeIndices));
+    for (int i=0; i<numIndices; i++) {
+        this->mesh->triangleIndexs[i] = cubeIndices[i];
+    }
 }
 
 Box::~Box() {

@@ -30,14 +30,14 @@
 Import com::dragon3d::output::graphics;
 Import dragon::util::logging;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice#mac", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice#osx", INFO);
 
 // mine thread handle
-typedef struct NativeData {
+typedef struct {
   	NSAutoreleasePool *pool;
   	NSWindow* window;
   	Dragon3DView* dgView;
-};
+} NativeData;
 
 void GraphicsDevice::init() {
 	logger->info("init");
@@ -91,35 +91,3 @@ void GraphicsDevice::destroy() {
 
 	SafeDelete(this->nativeData);
 }
-
-
-/*
-
-#include "dg_screen.h"
-
-
-DGScreen::DGScreen(void)
-{
-}
-
-
-DGScreen::~DGScreen(void)
-{
-}
-
-
-DGuint DGScreen::getWidth(){
-	return this->width;
-}
-
-DGuint DGScreen::getHeight(){
-	return this->height;
-}
-
-void DGScreen::resize(DGuint width, DGuint height) {
-	this->width = width;
-	this->height = height;
-}
-
-
- */

@@ -26,11 +26,13 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Quaternion.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 /**
@@ -103,6 +105,20 @@ public:
     static Matrix4x4 perspective(float fov, float aspect, float zNear, float zFar);
 
     /**
+     * create a lookAt matrix.
+     * 
+     * @param  view [description]
+     * @param  up   [description]
+     * @return      [description]
+     */
+    static Matrix4x4 lookAt(
+        float eyex, float eyey, float eyez, 
+        float centerx,float centery, float centerz, 
+        float upx, float upy, float upz
+    );
+    static Matrix4x4 lookAt(const Vector3& eye, const Vector3& view, const Vector3& up);
+
+    /**
      * Creates a translation, rotation and scaling matrix.
      * 
      * @param  pos [description]
@@ -111,6 +127,7 @@ public:
      * @return     [description]
      */
     static Matrix4x4 TRS(const Vector3& pos, const Quaternion& q, const Vector3& s);
+
 
 //---------------------------------------------------
 public:
@@ -172,6 +189,7 @@ public:
      */
     Matrix4x4 rotate(float angle, float x, float y, float z) const;
     Matrix4x4 rotate(const Quaternion& q) const;
+    Matrix4x4 rotate(const Vector3& xAxis, const Vector3& yAxis, const Vector3& zAxis) const;
 
     /**
      * scale the matrix

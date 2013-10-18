@@ -25,45 +25,40 @@
 
 Import com::dragon3d::util::math;
 
-Plane::Plane(Vector3 inNormal, Vector3 inPoint) {
+Plane::Plane(const Vector3& inNormal, const Vector3& inPoint) {
 
 }
 
-Plane::Plane(Vector3 inNormal, float d) {
+Plane::Plane(const Vector3& inNormal, float d) {
 
 }
 
-Plane::Plane(Vector3 a, Vector3 b, Vector3 c) {
+Plane::Plane(const Vector3& a, const Vector3& b, const Vector3& c) {
 
 }
 
-Plane::~Plane() {
-
-}
-
-
-float Plane::getDistanceToPoint(Vector3 inPt) {
+float Plane::getDistanceToPoint(const Vector3& inPt) {
     return 0.0f;
 }
 
 
-bool Plane::getSide(Vector3 inPt) {
+bool Plane::getSide(const Vector3& inPt) {
     return false;
 }
 
 
-bool Plane::raycast(Ray3* ray, float* enter) {
+bool Plane::raycast(const Ray3* ray, float* enter) {
     return false;
 }
 
-bool Plane::sameSide(Vector3 inPt0, Vector3 inPt1) {
+bool Plane::sameSide(const Vector3& inPt0, const Vector3& inPt1) {
     return false;
 }
 
-void Plane::set3Points(Vector3 a, Vector3 b, Vector3 c) {
+void Plane::set3Points(const Vector3& a, const Vector3& b, const Vector3& c) {
 
 }
 
-void Plane::setNormalAndPosition(Vector3 inNormal, Vector3 inPoint) {
+void Plane::setNormalAndPosition(const Vector3& inNormal, const Vector3& inPoint) {
 
 }

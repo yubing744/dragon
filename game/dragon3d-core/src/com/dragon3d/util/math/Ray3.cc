@@ -30,11 +30,6 @@ Ray3::Ray3(Vector3 origin, Vector3 direction)
     direction.normalize();
 }
 
-Ray3::~Ray3() {
-
-}
-
-
 Vector3 Ray3::getPoint(float distance) {
     return Vector3(origin.x + direction.x * distance, 
         origin.y + direction.y * distance,

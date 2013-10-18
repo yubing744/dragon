@@ -20,14 +20,87 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#import <UIKit/UIKit.h>
+
+#import <QuartzCore/QuartzCore.h>
+
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/EAGLDrawable.h>
+
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
 
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+
+#include <dragon/util/logging/Logger.h>
+
+Import dragon::util::logging;
+Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
+
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLES2Renderer#ios", INFO);
 
 // include commons
 #include "../../OpenGLES2Renderer.cc"
 
+// mine thread handle
+typedef struct {
+    NSAutoreleasePool *pool;
+    UIWindow* window;
+    UIView* dgView;
+} NativeData;
+
+// native implements
+void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice) {
+    logger->info("init");
+
+    // create a EAGLContext
+    EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        
+    if (!context || ![EAGLContext setCurrentContext:context]) {
+        logger->error("init the EAGLContext fail!");
+        return;
+    }
+
+    GLuint defaultFramebuffer, colorRenderbuffer;
+
+    // Create default framebuffer object. The backing will be allocated for the current layer in -resizeFromLayer
+    glGenFramebuffers(1, &defaultFramebuffer);
+    glGenRenderbuffers(1, &colorRenderbuffer);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
+
+
+    // bind framebuffer with CAEAGLLayer
+    NativeData* data = (NativeData*)graphicsDevice->getNativeData();
+    UIView* glView = (UIView*)data->dgView;
+    CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[glView layer];
+
+    GLint backingWidth = 320;
+    GLint backingHeight = 480;
+
+    // Allocate color buffer backing based on the current layer size
+    glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+    [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:eaglLayer];
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+  
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        logger->error("failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+        return;
+    }
+}
+
+void OpenGLES2Renderer::flushBuffer(){
+    EAGLContext* context = [EAGLContext currentContext];
+    [context presentRenderbuffer: GL_RENDERBUFFER];
+}
 
 /*
 
@@ -270,7 +343,6 @@ DGboolean DGOpenGLES20Lib::config(EGLNativeWindowType winType){
    return DG_TRUE;
 }
 
-/*
 ///
 // Load texture from disk
 //
@@ -336,7 +408,6 @@ DGboolean DGOpenGLES20Lib::init(){
 	  "  gl_FragColor = u_color * texture2D( s_texture, v_texCoord);\n"
       "}                                            \n";
 
-	/*
    char fShaderStr[] =  
       "precision mediump float;                            \n"
       "varying vec2 v_texCoord;                            \n"

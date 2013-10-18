@@ -42,11 +42,6 @@ Rect::Rect(float x, float y, float width, float height)
 
 }
 
-Rect::~Rect() {
-
-}
-
-
 Vector2 Rect::getCenter() {
     return Vector2(x + width / 2, y + height / 2);
 }

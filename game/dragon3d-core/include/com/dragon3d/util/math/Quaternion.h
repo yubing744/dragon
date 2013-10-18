@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
 
 BeginPackage4(com, dragon3d, util, math)
@@ -69,7 +70,6 @@ public:
     Quaternion();
     Quaternion(float x, float y, float z);
     Quaternion(float x, float y, float z, float w);
-    virtual ~Quaternion();
 
 public:
     /**

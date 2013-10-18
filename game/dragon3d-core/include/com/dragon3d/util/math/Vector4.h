@@ -25,9 +25,11 @@
 #define Vector4_Math_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
 class _DragonExport Vector4 {
@@ -38,7 +40,6 @@ public:
 public:
     Vector4();
     Vector4(float x, float y, float z, float w);
-    virtual ~Vector4();
 
 public:
     float x;

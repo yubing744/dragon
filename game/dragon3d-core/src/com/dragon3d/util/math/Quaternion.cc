@@ -106,10 +106,6 @@ Quaternion::Quaternion(float x, float y, float z, float w) {
     this->w = w;
 }
 
-Quaternion::~Quaternion() {
-
-}
-
 // -------------------------------------------
 
 float Quaternion::magnitudeSquared() const {
@@ -182,7 +178,7 @@ void Quaternion::setLookRotation(const Vector3& view) {
 }
 
 void Quaternion::setLookRotation(const Vector3& view, const Vector3& up) {
-    throw "not implements!";  
+    throw "not implements!";
 }
 
 void Quaternion::toAngleAxis(float& angle, Vector3& axis) const {

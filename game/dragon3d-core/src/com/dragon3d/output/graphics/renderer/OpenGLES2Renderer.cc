@@ -20,18 +20,396 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
 #include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
+
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+#include <com/dragon3d/util/math/Mathf.h>
 
 Import com::dragon3d::output::graphics::renderer;
 
-OpenGLES2Renderer::OpenGLES2Renderer() {
+const static char defaultVertexShaderStr[] =  
+      "uniform mat4 mvp_matrix;                     \n"
+      "uniform vec4 u_color;                        \n"
+      "attribute vec4 a_position;                   \n"
+      "varying vec4 v_out_color;                    \n"
+      "                                             \n"
+      "void main()                                  \n"
+      "{                                            \n"
+      "   gl_Position = mvp_matrix * a_position;    \n"
+      "   v_out_color = u_color;                    \n"
+      "}                                            \n";
 
+const static char fragmentShaderStr[] =  
+      "precision mediump float;                     \n"
+      "varying vec4 v_out_color;                    \n"
+      "                                             \n"
+      "void main()                                  \n"
+      "{                                            \n"
+      "  gl_FragColor = v_out_color;                \n"
+      "}                                            \n";
+
+OpenGLES2Renderer::OpenGLES2Renderer(GraphicsDevice* graphicsDevice) 
+  :graphicsDevice(graphicsDevice) {
+    this->defaultShader = new Shader(defaultVertexShaderStr, fragmentShaderStr);   
 }
 
 OpenGLES2Renderer::~OpenGLES2Renderer() {
 
 }
+
+void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice);
+void OpenGLES2RendererLoadDefaultShader(Shader* shader);
+
+void OpenGLES2Renderer::init() {
+    OpenGLES2RendererNativeInit(this->graphicsDevice);
+    OpenGLES2RendererLoadDefaultShader(this->defaultShader);
+}
+
+
+void OpenGLES2Renderer::clearBuffer() {
+    glViewport(0, 0, 320, 480);
+    
+    Color c("#474747");
+    //Color c("#FF0000");
+    glClearColor(c.r, c.g, c.b, 0.5f);            // Black Background
+
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT| GL_STENCIL_BUFFER_BIT);
+
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+}
+
+
+//
+///
+/// \brief Load a shader, check for compile errors, print error messages to output log
+/// \param type Type of shader (GL_VERTEX_SHADER or GL_FRAGMENT_SHADER)
+/// \param shaderSrc Shader source string
+/// \return A new shader object on success, 0 on failure
+//
+GLuint OpenGLES2RendererLoadShader(GLenum type, const char *shaderSrc) {
+   GLuint shader;
+   GLint compiled;
+   
+   // Create the shader object
+   shader = glCreateShader ( type );
+
+   if (shader == 0)
+    return 0;
+
+   logger->info("shader code: %s", shaderSrc);
+
+   // Load the shader source
+   glShaderSource(shader, 1, &shaderSrc, NULL);
+   
+   // Compile the shader
+   glCompileShader(shader);
+
+   // Check the compile status
+   glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+
+   if (!compiled) {
+      GLint infoLen = 0;
+
+      glGetShaderiv ( shader, GL_INFO_LOG_LENGTH, &infoLen );
+      
+      if (infoLen > 1){
+         char* infoLog = (char*)malloc(sizeof(char) * infoLen );
+
+         glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );     
+         logger->error("Error compiling shader:\n%s\n", infoLog);
+
+         free(infoLog);
+      }
+
+      glDeleteShader(shader);
+
+      return 0;
+   }
+
+   return shader;
+}
+
+//
+///
+/// \brief Load a vertex and fragment shader, create a program object, link program.
+//         Errors output to log.
+/// \param vertShaderSrc Vertex shader source code
+/// \param fragShaderSrc Fragment shader source code
+/// \return A new program object linked with the vertex/fragment shader pair, 0 on failure
+//
+GLuint OpenGLES2RendererLoadProgram(const char *vertShaderSrc, const char *fragShaderSrc) {
+   GLuint vertexShader;
+   GLuint fragmentShader;
+   GLuint programObject;
+   GLint linked;
+
+   // Load the vertex/fragment shaders
+   vertexShader = OpenGLES2RendererLoadShader(GL_VERTEX_SHADER, vertShaderSrc);
+   if ( vertexShader == 0 )
+      return 0;
+
+   fragmentShader = OpenGLES2RendererLoadShader(GL_FRAGMENT_SHADER, fragShaderSrc);
+   if (fragmentShader == 0){
+      glDeleteShader(vertexShader);
+      return 0;
+   }
+
+   // Create the program object
+   programObject = glCreateProgram();
+   
+   if (programObject == 0)
+      return 0;
+
+   glAttachShader(programObject, vertexShader);
+   glAttachShader(programObject, fragmentShader);
+
+   glBindAttribLocation(programObject, 0, "a_position" );
+   glBindAttribLocation(programObject, 1, "a_texCoord" );
+
+   // Link the program
+   glLinkProgram(programObject);
+
+   // Check the link status
+   glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
+
+   if (!linked){
+      GLint infoLen = 0;
+
+      glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
+      
+      if (infoLen > 1){
+         char* infoLog = (char* )malloc (sizeof(char) * infoLen );
+
+         glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);          
+         logger->error("Error linking program:\n%s\n", infoLog);
+
+         free(infoLog);
+      }
+
+      glDeleteProgram ( programObject );
+      return 0;
+   }
+
+   // Free up no longer needed shader resources
+   glDeleteShader(vertexShader);
+   glDeleteShader(fragmentShader);
+
+   return programObject;
+}
+
+void OpenGLES2RendererLoadDefaultShader(Shader* shader) {
+    // Load the shaders and get a linked program object
+    GLuint programObject = OpenGLES2RendererLoadProgram(shader->vertexShader, shader->fragmentShader);
+    shader->programID = programObject;
+}
+
+void OpenGLES2Renderer::drawSample() {
+    logger->debug("drawSample");
+
+    const GLfloat squareVertices[] = {
+        -0.5f, -0.5f,
+        0.5f,  -0.5f,
+        -0.5f,  0.5f,
+        0.5f,   0.5f,
+    };
+    const GLubyte squareColors[] = {
+        255, 255,   0, 255,
+        0,   255, 255, 255,
+        0,     0,   0,   0,
+        255,   0, 255, 255,
+    };
+
+    char vShaderStr[] =  
+      "uniform mat4 mvp_matrix;                    \n"
+      "attribute vec4 a_position;                  \n"
+      "attribute vec4 a_color;                     \n"
+      "varying vec4 v_out_color;                    \n"
+      //"attribute vec2 a_texCoord;                  \n"
+      //"varying vec2 v_texCoord;                    \n"
+
+      "void main()                                 \n"
+      "{                                           \n"
+      "   gl_Position = mvp_matrix * a_position;   \n"
+      "   v_out_color = a_color;                   \n"
+      //"   v_texCoord = a_texCoord;                 \n"
+      "}                                           \n";
+
+
+    char fShaderStr[] =  
+      "precision mediump float;                     \n"
+      "varying vec4 v_out_color;                    \n"
+      //"uniform vec4 u_color;                        \n"
+
+      //"varying vec2 v_texCoord;                     \n"
+      //"uniform sampler2D s_texture;                 \n"
+
+      "void main()                                  \n"
+      "{                                            \n"
+      "  gl_FragColor = v_out_color;                    \n"
+      //"  gl_FragColor = u_color * texture2D( s_texture, v_texCoord);\n"
+      "}                                            \n";
+
+    // Load the shaders and get a linked program object
+    GLuint programObject = OpenGLES2RendererLoadProgram(vShaderStr, fShaderStr);
+    // Get the attribute locations
+    GLint mvpLoc = glGetUniformLocation(programObject, "mvp_matrix" );
+
+    GLint positionLoc = glGetAttribLocation(programObject, "a_position");
+    GLint colorLoc = glGetUniformLocation(programObject, "u_color");
+
+    // use shader program
+    glUseProgram(programObject);
+
+    // Matrix Stack
+    Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
+    //mvpMatrix.multiply(Matrix4x4::ortho(-1.0f, 1.0f, -1.5f, 1.5f, -1.0f, 1.0f));
+    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &mvpMatrix.m[0][0]);
+
+    // Load the vertex data
+    glVertexAttribPointer(positionLoc, 2, GL_FLOAT, 0, 0, squareVertices);
+    glEnableVertexAttribArray(positionLoc);
+
+    // Load the vertex color data
+    glVertexAttribPointer(colorLoc, 4, GL_UNSIGNED_BYTE, 1, 0, squareColors); //enable the normalized flag
+    glEnableVertexAttribArray(colorLoc);
+
+    // draw
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
+    // setup camera
+    Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
+
+    if (camera != null) {
+        com::dragon3d::util::math::Rect screenRect = camera->pixelRect;
+        com::dragon3d::util::math::Rect nvp = camera->rect;
+
+        glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
+            screenRect.width * nvp.width, screenRect.height * nvp.height);
+
+
+        if (!camera->orthographic) {
+            Vector3 eye = camera->transform->getPosition();
+            Vector3 center = eye.add(Vector3::FORWARD);
+            Vector3 up = Vector3::UP;
+            projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
+            
+            projMatrix = projMatrix.multiply(Matrix4x4::perspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
+        } else {
+            projMatrix = projMatrix.multiply(Matrix4x4::ortho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
+        }
+    } 
+
+    return projMatrix;
+}
+
+void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {
+    Shader* shader = this->defaultShader;
+
+    // Get the attribute locations
+    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix" );
+    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
+
+    // Use the program object
+    glUseProgram(shader->programID);
+
+    // draw objects
+    Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
+    Matrix4x4 projMatrix = OpenGLES2RendererSetupCamera(camera);
+    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &projMatrix.m[0][0]);
+
+    // Load the vertex data
+    float vertices[] = {startV.x, startV.y, startV.z, endV.x, endV.y, endV.z};
+
+    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glEnableVertexAttribArray(positionLoc);
+
+    // Set Draw Color
+    glUniform4fv(colorLoc, 1, (GLfloat*)color.getData());
+
+    glDrawArrays(GL_LINES, 0, 2); 
+}
+
+void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera){
+    Shader* shader = this->defaultShader;
+
+    // Get the attribute locations
+    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix" );
+    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color"); 
+
+    // Use the program object
+    glUseProgram(shader->programID);
+
+    // draw objects
+    Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
+
+    Matrix4x4 projMatrix = OpenGLES2RendererSetupCamera(camera);
+    
+    mvpMatrix = mvpMatrix.multiply(matrix);
+    mvpMatrix = mvpMatrix.multiply(projMatrix);
+
+    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &mvpMatrix.m[0][0]);
+
+    // setup material
+    if (material != null) {
+        // setup color
+        Color color = material->color;
+        glUniform4fv(colorLoc, 1, (GLfloat*)color.getData());
+
+        // setup texture
+        Texture* mainTexture = material->mainTexture;
+
+        if (mainTexture != null) {
+            GLuint textureID = mainTexture->getNativeTextureID();
+
+            /*
+            if (textureID == 0) {
+                OpenGLRendererInitTexture(mainTexture);
+            } else {
+                glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
+            }
+            */
+        }
+    }
+
+    // Enable Texture 2D
+    if (mesh->uv || mesh->uv2) {
+        glEnable(GL_TEXTURE_2D);
+    }
+
+    // Load the vertex data
+    if (mesh->vertices) {
+        glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLfloat*)mesh->vertices);
+        glEnableVertexAttribArray(positionLoc);
+    }
+
+    // Load the texture coordinate
+    /*
+    if (mesh->uv) {
+        glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
+        glEnableVertexAttribArray(texCoordLoc);
+    }
+    */
+   
+    // Draw Elements
+    if (mesh->triangleIndexCount > 0 && mesh->triangleIndexs) {
+        glDrawElements(GL_TRIANGLES, mesh->triangleIndexCount, GL_UNSIGNED_INT, mesh->triangleIndexs);
+    }
+
+    // Disable Texture 2D
+    if (mesh->uv || mesh->uv2) {
+        glDisable(GL_TEXTURE_2D);
+    }
+}
+
+// native void OpenGLES2Renderer::flushBuffer();
+
 
 /*
 
@@ -274,7 +652,6 @@ DGboolean DGOpenGLES20Lib::config(EGLNativeWindowType winType){
    return DG_TRUE;
 }
 
-/*
 ///
 // Load texture from disk
 //
@@ -340,7 +717,6 @@ DGboolean DGOpenGLES20Lib::init(){
 	  "  gl_FragColor = u_color * texture2D( s_texture, v_texCoord);\n"
       "}                                            \n";
 
-	/*
    char fShaderStr[] =  
       "precision mediump float;                            \n"
       "varying vec2 v_texCoord;                            \n"

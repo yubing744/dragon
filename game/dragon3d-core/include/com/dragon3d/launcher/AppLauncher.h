@@ -24,14 +24,23 @@
 #ifndef AppLauncher_Launcher_Dragon3d_Com_H
 #define AppLauncher_Launcher_Dragon3d_Com_H
 
-#import <UIKit/UIKit.h>
+#include <com/dragon3d/framework/Application.h>
 
-@interface AppLauncher : UIResponder <UIApplicationDelegate> {
-	void* _app;
-}
+Import com::dragon3d::framework;
 
--(void) launchApp:(void*) toLaunchApplication;
+/**
+ * launch a app.
+ * 
+ * @param app [description]
+ */
+void Dragon3DLaunchApp(Application* app);
 
-@end
+/**
+ * terminate a app.
+ * 
+ * @param app [description]
+ */
+void Dragon3DTerminateApp(Application* app);
+
 
 #endif //AppLauncher_Launcher_Dragon3d_Com_H

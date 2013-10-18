@@ -34,7 +34,6 @@ Import com::dragon3d::util::math;
 class _DragonExport Color32 {
 public:
 	Color32();
-	virtual ~Color32();
 
 public:
     dg_byte a; //Alpha component of the color.

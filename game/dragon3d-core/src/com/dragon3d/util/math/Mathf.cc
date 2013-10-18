@@ -27,6 +27,7 @@
 #include <cmath>
 #include <iostream>
 #include <ctime>
+#include <cfloat>
 
 Import std;
 Import com::dragon3d::util::math;

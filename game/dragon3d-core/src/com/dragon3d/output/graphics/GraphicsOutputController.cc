@@ -40,18 +40,6 @@ Import com::dragon3d::output::graphics::renderer;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
-GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
-    this->graphicsDevice = graphicsDevice;
-	this->graphicsRenderer = new OpenGLRenderer(graphicsDevice);
-
-    this->placementGrid = new PlacementGrid();
-    this->showPlacementGrid = true;
-}
-
-GraphicsOutputController::~GraphicsOutputController() {
-    SafeDelete(this->placementGrid);
-}
-
 void GraphicsOutputController::init() {
 	logger->info("init");
 
@@ -111,11 +99,13 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
 }
 
 void GraphicsOutputController::output(Scene* scene) {
-	logger->debug("render scene");
+	//logger->info("output scene");
 
 	GraphicsRenderer* gr = this->graphicsRenderer;
     
     gr->clearBuffer();
+
+    //gr->drawSample();
 
     // find all cameras and sort
     List<Camera>* cameras = FindAllCameras(scene);
