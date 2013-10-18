@@ -296,9 +296,6 @@
     <ClCompile Include="..\..\..\..\src\dragon\lang\reflect\Type.cc">
       <Filter>源文件\dragon\lang\reflect</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_Windows.cc">
-      <Filter>源文件\dragon\lang\internal</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\LibraryClassLoader.cc">
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
@@ -327,6 +324,9 @@
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform.cc">
+      <Filter>源文件\dragon\lang\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_win32.cc">
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
   </ItemGroup>

@@ -88,10 +88,10 @@
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest.cc">
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_Windows.cc">
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc">
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc">
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_win32.cc">
       <Filter>源文件\dragon\lang\internal</Filter>
     </ClCompile>
   </ItemGroup>

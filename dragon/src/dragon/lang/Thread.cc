@@ -120,7 +120,7 @@ void Thread::sleep(long millis) {
 }
 
 Thread* Thread::currentThread(){
-
+	return null;
 }
 
 void Thread::yield(){

@@ -25,7 +25,7 @@
 #include <dragon/lang/internal/platform.h>
 
 #include <dragon/lang/internal/Library.h>
-#include <dragon/lang/internal/Library_Windows.cc>
+#include <dragon/lang/internal/Library_win32.cc>
 
 Import dragon::lang::internal;
 

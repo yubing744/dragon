@@ -76,7 +76,10 @@ Logger* LogManager::getLogger(const char* name) {
 bool LogManager::addLogger(Logger* logger) {
 	if (logger != null) {
 		loggerMap[logger->getName()] = logger;
+		return true;
 	}
+
+	return false;
 }
 
 int LogManager::getLogLevel(const char* name) {

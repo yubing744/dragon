@@ -82,7 +82,7 @@
     <ClCompile Include="..\..\..\..\test\dragon\lang\IntegerTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryClassLoaderTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest.cc" />
-    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_Windows.cc" />
+    <ClCompile Include="..\..\..\..\test\dragon\lang\internal\LibraryTest_win32.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\platformTest_win32.cc" />
     <ClCompile Include="..\..\..\..\test\dragon\lang\internal\SystemClassLoaderTest.cc" />
