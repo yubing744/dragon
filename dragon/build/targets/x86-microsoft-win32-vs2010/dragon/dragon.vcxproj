@@ -139,7 +139,7 @@
     <ClCompile Include="..\..\..\..\src\dragon\lang\Integer.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\LibraryClassLoader.cc" />
-    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_Windows.cc" />
+    <ClCompile Include="..\..\..\..\src\dragon\lang\internal\Library_win32.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\platform_win32.cc" />
     <ClCompile Include="..\..\..\..\src\dragon\lang\internal\SystemClassLoader.cc" />

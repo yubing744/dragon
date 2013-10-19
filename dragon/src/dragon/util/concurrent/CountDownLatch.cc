@@ -49,6 +49,8 @@ bool CountDownLatch::await(dg_long timeout) {
 		WaitSemaphore(this->semaphoreHandle, timeout);
 		this->count--;
 	}
+
+	return true;
 }
 
 void CountDownLatch::countDown() {

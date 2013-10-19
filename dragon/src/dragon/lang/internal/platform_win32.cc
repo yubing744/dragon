@@ -214,7 +214,7 @@ dg_long dragon::lang::internal::GetSystemTime() {
  * @return [description]
  */
 void* dragon::lang::internal::InitMutex() {
-	CRITICAL_SECTION* pcs = malloc(sizeof(CRITICAL_SECTION));
+	CRITICAL_SECTION* pcs = (CRITICAL_SECTION*)malloc(sizeof(CRITICAL_SECTION));
 	InitializeCriticalSection(pcs);
 	return pcs;
 }
@@ -283,7 +283,7 @@ void* dragon::lang::internal::InitSemaphore(int count) {
  */
 void dragon::lang::internal::WaitSemaphore(void* semaphore) {
 	HANDLE* psem = (HANDLE*)semaphore;
-	WaitForSingleObject(*sem, INFINITE);
+	WaitForSingleObject(*psem, INFINITE);
 }
 
 /**
@@ -333,6 +333,12 @@ typedef struct ThreadHandle{
   	unsigned thread_id;
 };
 
+// thread entry func
+typedef unsigned int (__stdcall *ThreadEntryFunc)(void *);
+
+// Definition of invalid thread handle and id.
+static const HANDLE kNoThread = INVALID_HANDLE_VALUE;
+
 /**
  * create a new thread, and return thread handle
  *
@@ -342,10 +348,11 @@ typedef struct ThreadHandle{
 void* dragon::lang::internal::CreateThread(int stackSize, void* target, void* entryFunc) {
 	struct ThreadHandle* handle = (struct ThreadHandle*)malloc(sizeof(struct ThreadHandle*));
 
+    ThreadEntryFunc func = void_cast<ThreadEntryFunc>(entryFunc);
   	handle->thread = reinterpret_cast<HANDLE>(
       _beginthreadex(NULL,
                      static_cast<unsigned>(stackSize),
-                     entryFunc,
+                     func,
                      target,
                      0,
                      &handle->thread_id));
@@ -397,9 +404,9 @@ void dragon::lang::internal::CloseThread(void* threadHandle) {
 //
  
 bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_int *value, dg_int valueToCompare, dg_int newValue) {
-	return InterlockedCompareExchange(volatile long*)value, (long)newValue, (long)valueToCompare);
+	return InterlockedCompareExchange((volatile long*)value, (long)newValue, (long)valueToCompare);
 }
 
 bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_long *value, dg_long valueToCompare, dg_long newValue) {
-	return InterlockedCompareExchange64 (volatile __int64*)value, (__int64)newValue, (__int64)valueToCompare);
+	return InterlockedCompareExchange64((volatile __int64*)value, (__int64)newValue, (__int64)valueToCompare);
 }

@@ -43,12 +43,16 @@ bool Semaphore::tryAcquire(int permits) {
 	for (int i=0; i<permits; i++) {
 		WaitSemaphore(this->semaphoreHandle);
 	}
+
+	return true;
 }
 
 bool Semaphore::tryAcquire(int permits, long timeout) {
 	for (int i=0; i<permits; i++) {
 		WaitSemaphore(this->semaphoreHandle, timeout);
 	}
+
+	return true;
 }
 
 void Semaphore::release() {
