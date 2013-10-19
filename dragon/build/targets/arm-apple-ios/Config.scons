@@ -1,7 +1,10 @@
+LoadTool('gcc-generic', env)
+
 ### add the tools to the path
 
-IOS_TOOLCHAIN_BIN='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin'
-IOS_SYSROOT='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk'
+IOS_HOME='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer'
+IOS_TOOLCHAIN_BIN=IOS_HOME + '/usr/bin'
+IOS_SYSROOT=IOS_HOME + '/SDKs/iPhoneOS6.1.sdk'
 
 env.PrependENVPath('PATH', IOS_TOOLCHAIN_BIN)
 
@@ -10,7 +13,7 @@ env['CXX']    = 'clang++'
 env['LINK']   = 'clang++'
 
 ### Special for the ios: arm flags
-arm_flags =  [('-arch', 'armv7s'), ('-isysroot', IOS_SYSROOT), ('-miphoneos-version-min=5.0')]
+arm_flags =  [('-arch', 'armv7'), ('-isysroot', IOS_SYSROOT), ('-miphoneos-version-min=5.0')]
 env.AppendUnique(CCFLAGS   = arm_flags + ['-fno-common', '-fno-stack-protector'])
 env.AppendUnique(LINKFLAGS = arm_flags + [])
 

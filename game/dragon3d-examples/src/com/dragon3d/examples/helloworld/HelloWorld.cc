@@ -91,7 +91,7 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
-    //myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, Transform::Space::World);
+    myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, Transform::Space::World);
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);

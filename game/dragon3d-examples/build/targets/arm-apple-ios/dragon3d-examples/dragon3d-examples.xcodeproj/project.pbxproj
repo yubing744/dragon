@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		465626BB18103E50007DEB0E /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B718103E50007DEB0E /* libdragon3d-core.a */; };
-		465626BC18103E50007DEB0E /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B818103E50007DEB0E /* libunicode.a */; };
-		465626BD18103E50007DEB0E /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626B918103E50007DEB0E /* libpcre32.a */; };
-		465626BE18103E50007DEB0E /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626BA18103E50007DEB0E /* libdragon.a */; };
+		465626CE181231EF007DEB0E /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626CA181231EF007DEB0E /* libunicode.a */; };
+		465626CF181231EF007DEB0E /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626CB181231EF007DEB0E /* libpcre32.a */; };
+		465626D0181231EF007DEB0E /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626CC181231EF007DEB0E /* libdragon.a */; };
+		465626D218123303007DEB0E /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626D118123303007DEB0E /* libdragon3d-core.a */; };
 		465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465D590018063ACA00A9BF94 /* InfoPlist.strings */; };
 		465D590418063ACA00A9BF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D590318063ACA00A9BF94 /* main.m */; };
 		465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D590718063ACA00A9BF94 /* AppDelegate.mm */; };
@@ -30,10 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		465626B718103E50007DEB0E /* libdragon3d-core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdragon3d-core.a"; path = "../../../../targets/arm-apple-ios/debug/libdragon3d-core.a"; sourceTree = "<group>"; };
-		465626B818103E50007DEB0E /* libunicode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunicode.a; path = "../../../../targets/arm-apple-ios/debug/libunicode.a"; sourceTree = "<group>"; };
-		465626B918103E50007DEB0E /* libpcre32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre32.a; path = "../../../../targets/arm-apple-ios/debug/libpcre32.a"; sourceTree = "<group>"; };
-		465626BA18103E50007DEB0E /* libdragon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdragon.a; path = "../../../../targets/arm-apple-ios/debug/libdragon.a"; sourceTree = "<group>"; };
+		465626CA181231EF007DEB0E /* libunicode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunicode.a; path = "../../../../targets/arm-apple-ios/debug/libunicode.a"; sourceTree = "<group>"; };
+		465626CB181231EF007DEB0E /* libpcre32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre32.a; path = "../../../../targets/arm-apple-ios/debug/libpcre32.a"; sourceTree = "<group>"; };
+		465626CC181231EF007DEB0E /* libdragon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdragon.a; path = "../../../../targets/arm-apple-ios/debug/libdragon.a"; sourceTree = "<group>"; };
+		465626D118123303007DEB0E /* libdragon3d-core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdragon3d-core.a"; path = "../../../../targets/arm-apple-ios/debug/libdragon3d-core.a"; sourceTree = "<group>"; };
 		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		465D58F718063ACA00A9BF94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dragon3d-examples-Info.plist"; sourceTree = "<group>"; };
@@ -62,10 +62,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				465626BB18103E50007DEB0E /* libdragon3d-core.a in Frameworks */,
-				465626BC18103E50007DEB0E /* libunicode.a in Frameworks */,
-				465626BD18103E50007DEB0E /* libpcre32.a in Frameworks */,
-				465626BE18103E50007DEB0E /* libdragon.a in Frameworks */,
+				465626D218123303007DEB0E /* libdragon3d-core.a in Frameworks */,
+				465626CE181231EF007DEB0E /* libunicode.a in Frameworks */,
+				465626CF181231EF007DEB0E /* libpcre32.a in Frameworks */,
+				465626D0181231EF007DEB0E /* libdragon.a in Frameworks */,
 				465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */,
 				465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */,
 				465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */,
@@ -80,10 +80,10 @@
 		465D58EB18063ACA00A9BF94 = {
 			isa = PBXGroup;
 			children = (
-				465626B718103E50007DEB0E /* libdragon3d-core.a */,
-				465626B818103E50007DEB0E /* libunicode.a */,
-				465626B918103E50007DEB0E /* libpcre32.a */,
-				465626BA18103E50007DEB0E /* libdragon.a */,
+				465626D118123303007DEB0E /* libdragon3d-core.a */,
+				465626CA181231EF007DEB0E /* libunicode.a */,
+				465626CB181231EF007DEB0E /* libpcre32.a */,
+				465626CC181231EF007DEB0E /* libdragon.a */,
 				465D591D18063BF200A9BF94 /* classes */,
 				465D58FD18063ACA00A9BF94 /* ios */,
 				465D58F618063ACA00A9BF94 /* Frameworks */,
@@ -377,12 +377,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
-					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
 					"\"$(SRCROOT)/../../../../targets/arm-apple-ios/debug\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -405,12 +404,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
-					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
 					"\"$(SRCROOT)/../../../../targets/arm-apple-ios/debug\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

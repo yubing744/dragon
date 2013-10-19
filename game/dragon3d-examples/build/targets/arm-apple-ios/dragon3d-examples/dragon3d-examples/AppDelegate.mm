@@ -38,7 +38,6 @@ Import com::dragon3d::examples::helloworld;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     helloworld = new HelloWorld();
     Dragon3DLaunchApp(helloworld);
     
