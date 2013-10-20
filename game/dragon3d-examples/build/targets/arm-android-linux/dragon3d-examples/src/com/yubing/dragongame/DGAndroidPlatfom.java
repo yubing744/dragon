@@ -15,7 +15,7 @@ public class DGAndroidPlatfom implements GLSurfaceView.Renderer {
 	//<<< JNI Interface 
 	public static native void start();
 	public static native void resize(int width, int height);
-	public static native void draw(long deltaTime);
+	public static native void draw();
 	public static native void pause();
 	public static native void resume();
 	//>>> JNI Interface
@@ -53,11 +53,7 @@ public class DGAndroidPlatfom implements GLSurfaceView.Renderer {
 	
 	@Override
 	public void onDrawFrame(GL10 gl) {
-		long curTime = System.currentTimeMillis();
-		long deltaTime = curTime - lastTime;
-		lastTime = curTime;
-		
-		draw(deltaTime);
+		draw();
 	}
 
 	@Override
@@ -67,8 +63,6 @@ public class DGAndroidPlatfom implements GLSurfaceView.Renderer {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		lastTime = System.currentTimeMillis();
-		
 		start();
 	}
 	

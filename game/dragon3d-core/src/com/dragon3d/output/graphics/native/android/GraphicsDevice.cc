@@ -20,29 +20,34 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+// Launch Helper
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
 
-#include <com/dragon3d/scene/model/Texture.h>
 #include <dragon/util/logging/Logger.h>
 
-#include <stdlib.h>
-#include <string.h>
-
+Import com::dragon3d::output::graphics;
 Import dragon::util::logging;
-Import com::dragon3d::scene::model;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::scene::model::Texture", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice#android", INFO);
 
-Texture::Texture(const char* textureFile) : isInit(false) {
-	size_t p_size = strlen(textureFile);
-	char* buf = (char*)malloc(p_size + 1);
-	strcpy(buf, textureFile);
-	this->textureFile = buf;
+// mine thread handle
+// mine thread handle
+typedef struct {
+    int width;
+    int height;
+} NativeData;
+
+
+void GraphicsDevice::init() {
+	logger->info("init");
+
+    // init the controller
+    this->controller->init();
 }
 
-Texture::~Texture(void){
+void GraphicsDevice::destroy() {
+	logger->info("destroy");
 
-}
-
-dg_uint Texture::getNativeTextureID(){
-	return this->nativeTextureID;
+	// init the controller
+    this->controller->destroy();
 }

@@ -24,6 +24,8 @@
 #include <dragon/util/logging/LogManager.h>
 #include <dragon/util/logging/ConsoleHandler.h>
 
+#include <stdlib.h>
+
 Import dragon::util::logging;
 
 LogManager* LogManager::LM = null;

@@ -78,26 +78,20 @@ void Application::onStart() {
     
     // init game
     this->onGameInit();
-
-	/* start game thread
-    logger->info("start thread for game");  
-	Thread* o = new Thread(this);
-	o->start();
-    */
 }
 
 void Application::onResume() {
 	logger->info("on resume");
 	
-	this->paused = false;
-	this->timer->resume();
+	//this->paused = false;
+	//this->timer->resume();
 }
 
 void Application::onPause() {
 	logger->info("on pause");
 
-	this->paused = true;
-	this->timer->pause();
+	//this->paused = true;
+	//this->timer->pause();
 }
 
 void Application::onStop() {

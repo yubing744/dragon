@@ -54,6 +54,7 @@ options.AddVariables(
     EnumVariable('target', 'build target', DefaultTarget(), allowed_values=PLATFORM_TO_TARGET_MAP.values()+CROSS_PLATFORMS+SPECIAL_PLATFORMS),
     BoolVariable('stop_on_warning', 'Stop the build on warnings', False),
     ListVariable('build_config', 'build configurations', 'debug', names=['debug', 'release']),
+    EnumVariable('lib_type', 'build lib default type', 'shared', allowed_values=['static', 'shared']),
     BoolVariable('test', 'try run test builder', False),
     BoolVariable('debug', 'try run debug builder', False)
 )

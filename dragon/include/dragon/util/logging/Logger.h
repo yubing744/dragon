@@ -28,6 +28,7 @@
 #include <dragon/util/logging/Handler.h>
 
 #include <vector>
+#include <stdarg.h>
 
 BeginPackage3(dragon, util, logging)
 

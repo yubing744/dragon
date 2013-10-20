@@ -33,31 +33,19 @@ Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLES2Renderer#android", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLES2Renderer#android", DEBUG);
 
 // include commons
 #include "../../OpenGLES2Renderer.cc"
 
 // native implements
-void OpenGLES2Renderer::init() {
-    EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        
-    if (!context || ![EAGLContext setCurrentContext:context]) {
-        logger->error("init the EAGLContext fail!");
-        return;
-    }
-
-    GLuint defaultFramebuffer, colorRenderbuffer;
-
-    // Create default framebuffer object. The backing will be allocated for the current layer in -resizeFromLayer
-    glGenFramebuffers(1, &defaultFramebuffer);
-    glGenRenderbuffers(1, &colorRenderbuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
+void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice) {
+    logger->info("native init");
 }
 
-
+void OpenGLES2Renderer::flushBuffer() {
+    logger->debug("flush buffer");
+}
 
 /*
 

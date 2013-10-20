@@ -76,6 +76,10 @@ void GraphicsDevice::init() {
     
     [window makeKeyAndVisible];
 
+    // set default height
+    this->width = screenBounds.size.width;
+    this->height = screenBounds.size.height;
+
 	// store the window to nativeDisplay.
 	data->pool = pool;
 	data->window = window;

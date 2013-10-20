@@ -112,7 +112,10 @@ env.AppendUnique(LINKFLAGS = ['--sysroot', ANDROID_SYSROOT,
                 			  '-lgnustl_shared', 
                 			  '-lm', 
                 			  '-llog', 
-                			  '-ldl'])
+                			  '-ldl',
+                              '-lGLESv1_CM',
+                              '-lGLESv2',
+                              '-lEGL'])
 
 ### Specific System choices
 env['NPT_SYSTEM_SOURCES']={'System/StdC':'NptStdc[!D]*.cpp',

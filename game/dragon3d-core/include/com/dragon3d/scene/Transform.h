@@ -40,18 +40,19 @@ Import dragon::util;
 Import com::dragon3d::scene;
 Import com::dragon3d::util::math;
 
+/**
+ * space
+ */
+enum Space {
+    World,
+    Self
+};
 
 /**
  * Position, rotation and scale of an object.
  */
 class _DragonExport Transform
-    extends(Component) {
-public:
-    enum Space {
-        World,
-        Self
-    };
-    
+    extends(Component) {  
 public:
     Transform();
     virtual ~Transform();

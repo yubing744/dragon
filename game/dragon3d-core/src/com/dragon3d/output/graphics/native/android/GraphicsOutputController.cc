@@ -21,28 +21,34 @@
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/Texture.h>
+#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
+
+#include <dragon/util/ArrayList.h>
 #include <dragon/util/logging/Logger.h>
 
-#include <stdlib.h>
-#include <string.h>
+#include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/camera/Camera.h>
+#include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
+
+Import dragon::util;
 
 Import dragon::util::logging;
 Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::camera;
+Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::graphics::renderer;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::scene::model::Texture", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController#osx", INFO);
 
-Texture::Texture(const char* textureFile) : isInit(false) {
-	size_t p_size = strlen(textureFile);
-	char* buf = (char*)malloc(p_size + 1);
-	strcpy(buf, textureFile);
-	this->textureFile = buf;
+GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
+    this->graphicsDevice = graphicsDevice;
+	this->graphicsRenderer = new OpenGLES2Renderer(graphicsDevice);
+
+    this->placementGrid = new PlacementGrid();
+    this->showPlacementGrid = true;
 }
 
-Texture::~Texture(void){
-
+GraphicsOutputController::~GraphicsOutputController() {
+    SafeDelete(this->placementGrid);
 }
 
-dg_uint Texture::getNativeTextureID(){
-	return this->nativeTextureID;
-}

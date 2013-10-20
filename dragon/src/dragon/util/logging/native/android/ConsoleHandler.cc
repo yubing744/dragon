@@ -17,32 +17,18 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2013/09/19
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/Texture.h>
-#include <dragon/util/logging/Logger.h>
+#include <dragon/util/logging/ConsoleHandler.h>
 
-#include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
+#include <jni.h>
+#include <android/log.h>
 
 Import dragon::util::logging;
-Import com::dragon3d::scene::model;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::scene::model::Texture", INFO);
-
-Texture::Texture(const char* textureFile) : isInit(false) {
-	size_t p_size = strlen(textureFile);
-	char* buf = (char*)malloc(p_size + 1);
-	strcpy(buf, textureFile);
-	this->textureFile = buf;
-}
-
-Texture::~Texture(void){
-
-}
-
-dg_uint Texture::getNativeTextureID(){
-	return this->nativeTextureID;
+void ConsoleHandler::publish(const char* loggerName, const char* msg) {
+    __android_log_print(ANDROID_LOG_INFO, "dragon", "%s: %s\n", loggerName, msg);
 }

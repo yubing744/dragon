@@ -20,4 +20,4 @@
  * Created:     2013/09/28
  **********************************************************************/
 
- #include "OpenGLES2Renderer.mm"
+ #include "OpenGLES2Renderer.cc"

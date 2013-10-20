@@ -99,7 +99,7 @@ GLuint OpenGLES2RendererLoadShader(GLenum type, const char *shaderSrc) {
    if (shader == 0)
     return 0;
 
-   logger->info("shader code: %s", shaderSrc);
+   logger->debug("shader code: %s", shaderSrc);
 
    // Load the shader source
    glShaderSource(shader, 1, &shaderSrc, NULL);
@@ -166,8 +166,8 @@ GLuint OpenGLES2RendererLoadProgram(const char *vertShaderSrc, const char *fragS
    glAttachShader(programObject, vertexShader);
    glAttachShader(programObject, fragmentShader);
 
-   glBindAttribLocation(programObject, 0, "a_position" );
-   glBindAttribLocation(programObject, 1, "a_texCoord" );
+   //glBindAttribLocation(programObject, 0, "a_position" );
+   //glBindAttribLocation(programObject, 1, "a_texCoord" );
 
    // Link the program
    glLinkProgram(programObject);
@@ -258,7 +258,7 @@ void OpenGLES2Renderer::drawSample() {
     GLint mvpLoc = glGetUniformLocation(programObject, "mvp_matrix" );
 
     GLint positionLoc = glGetAttribLocation(programObject, "a_position");
-    GLint colorLoc = glGetUniformLocation(programObject, "u_color");
+    GLint colorLoc = glGetAttribLocation(programObject, "a_color");
 
     // use shader program
     glUseProgram(programObject);
@@ -291,13 +291,15 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
         glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
             screenRect.width * nvp.width, screenRect.height * nvp.height);
 
-
         if (!camera->orthographic) {
             Vector3 eye = camera->transform->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
             projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
-            
+           
+            //const Matrix4x4& cameraMatrix = camera->transform->getLocalToWorldMatrix();
+            //projMatrix = projMatrix.multiply(cameraMatrix);
+
             projMatrix = projMatrix.multiply(Matrix4x4::perspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
         } else {
             projMatrix = projMatrix.multiply(Matrix4x4::ortho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
@@ -310,15 +312,16 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
 void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {
     Shader* shader = this->defaultShader;
 
-    // Get the attribute locations
-    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix" );
-    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
-    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
-
     // Use the program object
     glUseProgram(shader->programID);
 
-    // draw objects
+    // Get the attribute locations
+    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix");
+    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
+
+    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+
+    // transform mesh to camera space
     Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
     Matrix4x4 projMatrix = OpenGLES2RendererSetupCamera(camera);
     glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &projMatrix.m[0][0]);
@@ -336,26 +339,28 @@ void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, con
 }
 
 void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera){
+    //logger->debug("draw mesh");
     Shader* shader = this->defaultShader;
-
-    // Get the attribute locations
-    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix" );
-    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
-    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color"); 
 
     // Use the program object
     glUseProgram(shader->programID);
 
-    // draw objects
-    Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
+    // Get the attribute locations
+    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix");
+    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
 
+    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+
+    // transform mesh to camera space
+    Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
     Matrix4x4 projMatrix = OpenGLES2RendererSetupCamera(camera);
-    
+
     mvpMatrix = mvpMatrix.multiply(matrix);
     mvpMatrix = mvpMatrix.multiply(projMatrix);
 
     glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &mvpMatrix.m[0][0]);
 
+   
     // setup material
     if (material != null) {
         // setup color
@@ -366,15 +371,15 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
         Texture* mainTexture = material->mainTexture;
 
         if (mainTexture != null) {
-            GLuint textureID = mainTexture->getNativeTextureID();
+            //GLuint textureID = mainTexture->getNativeTextureID();
 
-            /*
-            if (textureID == 0) {
-                OpenGLRendererInitTexture(mainTexture);
-            } else {
-                glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
-            }
-            */
+            
+            //if (textureID == 0) {
+            //    OpenGLRendererInitTexture(mainTexture);
+            //} else {
+            //    glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
+            //}
+            
         }
     }
 
@@ -382,7 +387,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     if (mesh->uv || mesh->uv2) {
         glEnable(GL_TEXTURE_2D);
     }
-
+   
     // Load the vertex data
     if (mesh->vertices) {
         glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLfloat*)mesh->vertices);
@@ -390,16 +395,15 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     }
 
     // Load the texture coordinate
-    /*
-    if (mesh->uv) {
-        glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
-        glEnableVertexAttribArray(texCoordLoc);
-    }
-    */
-   
+    //if (mesh->uv) {
+    //    glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
+    //    glEnableVertexAttribArray(texCoordLoc);
+    //}
+    
+  
     // Draw Elements
     if (mesh->triangleIndexCount > 0 && mesh->triangleIndexs) {
-        glDrawElements(GL_TRIANGLES, mesh->triangleIndexCount, GL_UNSIGNED_INT, mesh->triangleIndexs);
+        glDrawElements(GL_TRIANGLES, mesh->triangleIndexCount, GL_UNSIGNED_SHORT, mesh->triangleIndexs);
     }
 
     // Disable Texture 2D

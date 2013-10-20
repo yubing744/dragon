@@ -23,8 +23,6 @@
 
 #include <dragon/util/logging/ConsoleHandler.h>
 
-#include <stdio.h>
-
 Import dragon::util::logging;
 
 ConsoleHandler::ConsoleHandler() {
@@ -33,8 +31,4 @@ ConsoleHandler::ConsoleHandler() {
 
 ConsoleHandler::~ConsoleHandler() {
 
-}
-
-void ConsoleHandler::publish(const char* loggerName, const char* msg) {
-	printf("%s: %s\n", loggerName, msg);
 }

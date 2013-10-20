@@ -7,11 +7,13 @@ import android.os.Bundle;
 public class MainActivity extends Activity  {
 
 	static {
+		System.loadLibrary("gnustl_shared");
 		System.loadLibrary("unicode");
 		System.loadLibrary("pcre32");
 		System.loadLibrary("dragon");
 		System.loadLibrary("dragon3d-core");
 		System.loadLibrary("dragon3d-examples");
+		System.loadLibrary("dg_main_jni");
 	}
 
 	//<<< JNI Interface 
@@ -26,6 +28,7 @@ public class MainActivity extends Activity  {
 		super.onCreate(savedInstanceState);
 		platform = new DGAndroidPlatfom(this);
 		dragonInit(platform, getAssets());
+		platform.createWin();
 	}
 
 	@Override

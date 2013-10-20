@@ -55,17 +55,6 @@ TEST(Com_Dragon3d_Util_Math_Matrix4x4Test, Perspective) {
     );
 }
 
-TEST(Com_Dragon3d_Util_Math_Matrix4x4Test, ortho_inf) {
-    Matrix4x4 mat = Matrix4x4::ortho(10, 10, 330, 330, 10, 100);
-
-    ASSERT_MATRIX4X4_EQ(mat,
-        INFINITY, 0, 0, 0,
-        0, INFINITY, 0,0,
-        0, 0, -0.02222222, 0,
-        -INFINITY, -INFINITY, -1.222222, 1
-    );
-}
-
 TEST(Com_Dragon3d_Util_Math_Matrix4x4Test, ortho_normal) {
     Matrix4x4 mat = Matrix4x4::ortho(10, 330, 10, 330, 10, 100);
 

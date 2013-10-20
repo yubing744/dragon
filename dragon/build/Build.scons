@@ -146,6 +146,7 @@ class LibraryModule(Module):
         else:
             self.env = environment.Clone()
 
+
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
         lib_paths = self.GetLibrarieDirs()
@@ -307,6 +308,14 @@ runBuilder = env.Builder(action = RunTarget,
     multi=0)
 env['BUILDERS']['RunProgram'] = runBuilder
 
+### default library type
+if (env['lib_type'] == 'static'):
+    env['SHARED'] = False
+elif(env['lib_type'] == 'shared'):
+    env['SHARED'] = True
+else:
+    raise Exception('the lib type is not assign!')
+
 ### try to read in any target specific configuration
 #target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')
 target_config_file = env.GetBuildPath(project.getBase() + '/build/targets/'+env['target']+'/Config.scons')
@@ -451,7 +460,7 @@ LibraryModule(
 
         #'PCRE_STATIC'
     ],     
-    shared                = False,                    
+    shared                = env['SHARED'],                    
     install               = True
 )
 
@@ -474,7 +483,7 @@ LibraryModule(
         'LINK_SIZE=4', 
         'HAVE_STRERROR'
     ],     
-    shared                = False,                    
+    shared                = env['SHARED'],                    
     install               = True
 )
 
@@ -491,7 +500,7 @@ LibraryModule(
     },
     extra_cpp_defines     = ['GTEST_CREATE_SHARED_LIBRARY=1'],              
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
-    shared                = False,
+    shared                = env['SHARED'],
     install               = True
 )
 
@@ -591,7 +600,7 @@ LibraryModule(
     source_root           = 'src',
     included_modules      = ["pcre32", "unicode"], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
-    shared                = False,
+    shared                = env['SHARED'],
     install               = True
 )
 

@@ -26,6 +26,10 @@
 #include <semaphore.h>
 #include <signal.h>
 
+#include <errno.h>
+#include <time.h>
+#include <inttypes.h>
+
 Import dragon::lang::internal;
 
 // -----------------------------------------------------------------------
@@ -35,11 +39,15 @@ Import dragon::lang::internal;
 // 
 
 bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_int *value, dg_int valueToCompare, dg_int newValue) {
-	return __sync_bool_compare_and_swap((volatile int32*)value, valueToCompare, newValue);
+	return __sync_bool_compare_and_swap((volatile int32_t*)value, valueToCompare, newValue);
 }
 
 bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_long *value, dg_long valueToCompare, dg_long newValue) {
-	return __sync_bool_compare_and_swap((volatile int64*)value, valueToCompare, newValue);
+#ifdef DRAGON_64BIT_ATOMICS
+	return __sync_bool_compare_and_swap((volatile int64_t*)value, valueToCompare, newValue);
+#else
+	throw "not support 64bit atomics";
+#endif
 }
 
 
@@ -76,6 +84,11 @@ void dragon::lang::internal::WaitSemaphore(void* semaphore) {
 	}
 }
 
+# define DRAGON_TIMEVAL_TO_TIMESPEC(tv, ts) {                                  \
+        (ts)->tv_sec = (tv)->tv_sec;                                    \
+        (ts)->tv_nsec = (tv)->tv_usec * 1000;                           \
+}
+
 /**
  * wait with timeout
  * 
@@ -103,7 +116,7 @@ bool dragon::lang::internal::WaitSemaphore(void* semaphore, int timeout) {
 	timeradd(&current_time, &delta, &end_time);
 
 	struct timespec ts;
-	TIMEVAL_TO_TIMESPEC(&end_time, &ts);
+	DRAGON_TIMEVAL_TO_TIMESPEC(&end_time, &ts);
 
 	// Wait for semaphore signalled or timeout.
 	while (true) {

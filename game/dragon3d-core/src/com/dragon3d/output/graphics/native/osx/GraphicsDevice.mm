@@ -66,6 +66,10 @@ void GraphicsDevice::init() {
 	[window makeKeyAndOrderFront:nil];
 	[window setAcceptsMouseMovedEvents:NO];
 
+	// set default height
+    this->width = rect.size.width;
+    this->height = rect.size.height;
+
 	// store the window to nativeDisplay.
 	data->pool = pool;
 	data->window = window;

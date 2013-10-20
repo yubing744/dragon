@@ -307,6 +307,14 @@ runBuilder = env.Builder(action = RunTarget,
     multi=0)
 env['BUILDERS']['RunProgram'] = runBuilder
 
+### default library type
+if (env['lib_type'] == 'static'):
+    env['SHARED'] = False
+elif(env['lib_type'] == 'shared'):
+    env['SHARED'] = True
+else:
+    raise Exception('the lib type is not assign!')
+    
 ### try to read in any target specific configuration
 #target_config_file = env.GetBuildPath('#/build/targets/'+env['target']+'/Config.scons')
 target_config_file = env.GetBuildPath(project.getBase() + '/build/targets/'+env['target']+'/Config.scons')
@@ -434,7 +442,7 @@ LibraryModule(
         'dragon'
     ],
     linked_modules        = env['DRAGON_EXTRA_LIBS'], 
-    shared                = False,
+    shared                = env['SHARED'],
     install               = True
 )
 

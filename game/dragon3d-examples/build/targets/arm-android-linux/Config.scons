@@ -129,6 +129,12 @@ ANDROID_SDK=os.getenv('ANDROID_SDK')
 if not ANDROID_SDK:
     raise Exception('ANDROID_SDK environment variable not set')
 
+
+def install_lib_to(lib_file, target_dir):
+    cmd = "cp %s %s" % (lib_file, target_dir)
+    print "install lib to: ", cmd
+    os.system(cmd)
+
 def runcallback(target, source, env):
     env = env.Clone()
     android.generate(env) # Add Android Build Tool
@@ -148,17 +154,31 @@ def runcallback(target, source, env):
     print "AAPT           =", env['AAPT']
     print "DX             =", env['DX']
 
-    #lib = env.NdkBuild(
-    #    library=[
-    #        APP_ROOT + '/libs/armeabi/libdg_main_jni.so'
-    #    ],
-    #    inputs=[
-    #        APP_ROOT + '/jni/dg_main_jni.cpp'
-    #    ],
-    #    manifest=APP_ROOT + '/AndroidManifest.xml',
-    #    app_abi='armeabi'
-    #)
+    # dg_main_jni
+    LibraryModule(
+        name                  = 'dg_main_jni',
+        build_include_dirs    = [
+            'include'
+        ],
+        build_source_files    = {
+            "jni" : ["dg_main_jni.cpp"]
+        },
+        extra_cpp_defines     = [
+            'DRAGON_SHARED', 
+            'BUILDING_DRAGON_SHARED',
+            'ENABLE_LOG'
+        ],
+        source_root           = "build/targets/arm-android-linux/dragon3d-examples",
+        included_modules      = [
+            'dragon',
+            'dragon3d-core',
+            'dragon3d-examples'
+        ], 
+        shared                = True,
+        install               = True
+    )
     
+    install_lib_to(ANDROID_NDK_ROOT + '/sources/cxx-stl/gnu-libstdc++/4.4.3/libs/armeabi/libgnustl_shared.so', APP_ROOT + '/libs/armeabi/')
     project.installTo(APP_ROOT + '/libs/armeabi/')
 
 

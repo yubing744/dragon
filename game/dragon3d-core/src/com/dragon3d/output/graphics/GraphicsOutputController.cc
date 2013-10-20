@@ -29,6 +29,8 @@
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+
 
 Import dragon::util;
 
@@ -72,6 +74,9 @@ void SortCameras(List<Camera>* cameras) {
 void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera) {
     GraphicsRenderer* gr = this->graphicsRenderer;
 
+    camera->pixelRect.width = graphicsDevice->width;
+    camera->pixelRect.height = graphicsDevice->height;
+
     // draw showPlacementGrid
     if (showPlacementGrid) {
         placementGrid->renderUnto(gr, scene, camera);
@@ -90,8 +95,6 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
             Mesh* mesh = model->mesh;
             Material* material = model->material;
 
-            //gr->drawMesh(mesh, gameObject->transform->getPosition(), gameObject->transform->getRotation(), material, camera);
-            
             const Matrix4x4& matrix = gameObject->transform->getLocalToWorldMatrix();
             gr->drawMesh(mesh, matrix, material, camera);
         }
