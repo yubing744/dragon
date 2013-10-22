@@ -1,6 +1,21 @@
+from SCons.Tool.mssdk import *
+
+#regenerate tool
+print "begin regenerate tool"
+env['TARGET_ARCH'] = 'x86'
+
+req_target_platform = env.get('TARGET_ARCH')
+print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+
+generate(env)
+
+req_target_platform = env.get('TARGET_ARCH')
+print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+
+print "begin regenerate ok!"
+
 env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
 env.AppendUnique(CCFLAGS = '/EHsc')
-env.AppendUnique(TARGET_ARCH = 'x86')
 
 env.AppendUnique(LINKFLAGS = '/MACHINE:X86')
 #env.AppendUnique(LINKFLAGS = '/MACHINE:X64')
