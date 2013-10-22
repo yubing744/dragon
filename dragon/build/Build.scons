@@ -456,11 +456,11 @@ LibraryModule(
     extra_cpp_defines     = [
         'HAVE_CONFIG_H', 
         'LINK_SIZE=4', 
-        'HAVE_STRERROR'
+        'HAVE_STRERROR',
 
-        #'PCRE_STATIC'
+        'PCRE_STATIC'
     ],     
-    shared                = env['SHARED'],                    
+    shared                = False,                    
     install               = True
 )
 
@@ -483,7 +483,7 @@ LibraryModule(
         'LINK_SIZE=4', 
         'HAVE_STRERROR'
     ],     
-    shared                = env['SHARED'],                    
+    shared                = False,                    
     install               = True
 )
 

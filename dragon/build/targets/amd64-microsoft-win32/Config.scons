@@ -28,7 +28,7 @@ else:
 	env.AppendUnique(CCFLAGS = '/MD')
 
 #LINKFLAGS
-env.AppendUnique(LINKFLAGS = '/MACHINE:x86')
+env.AppendUnique(LINKFLAGS = '/MACHINE:x86_64')
 env.AppendUnique(LINKFLAGS = '/WINMD:NO')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
@@ -43,7 +43,7 @@ env['ENV']['LIB'] = ''
 env['ENV']['LIBPATH'] = ''
 env['ENV']['PATH'] = ''
 
-BATCH_SCRIPT = VC_SDK_HOME + '/bin/vcvars32.bat'
+BATCH_SCRIPT = VC_SDK_HOME + '/bin/x86_amd64/vcvarsx86_amd64.bat'
 
 #def debug(x):
 #    print x
@@ -55,9 +55,9 @@ env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
 msvc_setup_env(env)
 
 env.PrependENVPath('INCLUDE', [VC_SDK_HOME + '/include'])
-env.PrependENVPath('LIB', [VC_SDK_HOME + '/lib'])
-env.PrependENVPath('LIBPATH', [VC_SDK_HOME + '/lib'])
-env.PrependENVPath('PATH', [VC_SDK_HOME + '/bin'])
+env.PrependENVPath('LIB', [VC_SDK_HOME + '/lib/amd64'])
+env.PrependENVPath('LIBPATH', [VC_SDK_HOME + '/lib/amd64'])
+env.PrependENVPath('PATH', [VC_SDK_HOME + '/bin/x86_amd64', VC_SDK_HOME + '/bin/x86_amd64'])
 
 #print '======================================================='
 #print '============ Build for x86-microsoft-win32 ============'
