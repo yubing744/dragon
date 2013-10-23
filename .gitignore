@@ -47,8 +47,6 @@ GTAGS
 GRTAGS
 GSYMS
 GPATH
-Debug
-Release
 _*
 .metadata
 *.os
@@ -64,6 +62,8 @@ _*
 *.stackdump
 *.so
 *.a
+*.dylib
+*.dylib.dSYM*
 -2
 bin
 *.apk
