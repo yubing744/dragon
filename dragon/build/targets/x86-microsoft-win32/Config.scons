@@ -10,6 +10,7 @@ import re
 import sys
 
 from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
+from SCons.Tool.MSCommon.vc import get_default_version, find_vc_pdir
 
 #CPPDEFINES
 env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
@@ -22,10 +23,10 @@ env.AppendUnique(CCFLAGS = '/MD')
 env.AppendUnique(CCFLAGS = '/GS')
 
 if env['build_config'] == 'debug':
-	env.AppendUnique(CCFLAGS = '/MDd')
-	env.AppendUnique(CCFLAGS = '/Zi')
+    env.AppendUnique(CCFLAGS = '/MDd')
+    env.AppendUnique(CCFLAGS = '/Zi')
 else:
-	env.AppendUnique(CCFLAGS = '/MD')
+    env.AppendUnique(CCFLAGS = '/MD')
 
 #LINKFLAGS
 env.AppendUnique(LINKFLAGS = '/MACHINE:x86')
@@ -33,10 +34,24 @@ env.AppendUnique(LINKFLAGS = '/WINMD:NO')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
 
+def find_vc_sdk_dir(env):
+    print('msvc_setup_env()')
 
-#print 'InstalledSDKList', SCons.Tool.MSCommon.sdk.InstalledSDKList
-#print '__INSTALLED_VCS_RUN', SCons.Tool.MSCommon.vc.__INSTALLED_VCS_RUN
-VC_SDK_HOME='D:/Program Files (x86)/Microsoft Visual Studio 11.0/VC'
+    version = get_default_version(env)
+    if version is None:
+        warn_msg = "No version of Visual Studio compiler found - C/C++ " \
+                   "compilers most likely not set correctly"
+        SCons.Warnings.warn(SCons.Warnings.VisualCMissingWarning, warn_msg)
+        return None
+
+    pdir = find_vc_pdir(version)
+    if pdir is None:
+        raise NoVersionFound("No version of Visual Studio found")
+        
+    return pdir
+
+
+VC_SDK_HOME = find_vc_sdk_dir(env)
 
 env['ENV']['INCLUDE'] = ''
 env['ENV']['LIB'] = ''
