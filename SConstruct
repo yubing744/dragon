@@ -33,7 +33,7 @@ build({
 	},
 
 	'modules' : [
-		'dragon',
-		'game'
+		'dragon'
+		#'game'
 	]
 })

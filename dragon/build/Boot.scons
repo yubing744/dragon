@@ -13,14 +13,29 @@ EnsureSConsVersion(0,98,1)
 PLATFORM_TO_TARGET_MAP = { 
     'linux-i386'   : 'x86-unknown-linux',
     'linux2'       : 'x86-unknown-linux',
-    'linux-x86_64' : 'x86_64-unknown-linux',
+    'linux-x86_64' : 'amd64-unknown-linux',
     'linux-arm'    : 'arm-unknown-linux',
     'win32'        : 'x86-microsoft-win32',
     'cygwin'       : 'x86-unknown-cygwin',
     'darwin'       : 'universal-apple-macosx'
 }
   
-CROSS_PLATFORMS   = ['ppu-sony-ps3', 'arm-unknown-linux', 'arm-gp2x-linux', 'arm-android-linux', "x86-apple-ios", "arm-apple-ios"]
+CROSS_PLATFORMS   = [
+    'ppu-sony-ps3', 
+    'arm-unknown-linux',
+    'arm-gp2x-linux',
+
+    'arm-android-linux',
+
+    "x86-apple-ios", 
+    "arm-apple-ios",
+
+    "amd64-microsoft-win32",
+
+    "x86-microsoft-wp8",
+    "arm-microsoft-wp8"
+]
+
 SPECIAL_PLATFORMS = ['universal-apple-macosx-xcode']
   
 def DefaultTarget():

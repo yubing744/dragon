@@ -1,0 +1,37 @@
+from SCons.Tool.mssdk import *
+
+#regenerate tool
+print "begin regenerate tool"
+env['TARGET_ARCH'] = 'x86'
+
+req_target_platform = env.get('TARGET_ARCH')
+print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+
+generate(env)
+
+req_target_platform = env.get('TARGET_ARCH')
+print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+
+print "begin regenerate ok!"
+
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
+env.AppendUnique(CCFLAGS = '/EHsc')
+
+env.AppendUnique(LINKFLAGS = '/MACHINE:X86')
+#env.AppendUnique(LINKFLAGS = '/MACHINE:X64')
+#env.AppendUnique(LINKFLAGS = '/NOENTRY')
+#env.AppendUnique(ARFLAGS = '/MACHINE:X64')
+
+if env['build_config'] == 'debug':
+    env.AppendUnique(CCFLAGS = '/Zi')
+
+#print '======================================================='
+#print '============ Build for x86-microsoft-win32 ============'
+#print 'ENV', env['ENV']
+#print 'ENV PATH', env['ENV']['PATH']
+#print 'AR',env['AR']
+#print 'CC', env['CC']
+#print 'CXX', env['CXX']
+#print 'LINK', env['LINK']
+#print '======================================================='
+#print ''
