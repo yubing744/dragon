@@ -379,6 +379,7 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/scene/model" : Split("""
         Mesh.cc
         Texture.cc
+        RenderTexture.cc
         Material.cc
         Model.cc
     """),

@@ -52,6 +52,7 @@ def find_vc_sdk_dir(env):
 
 
 VC_SDK_HOME = find_vc_sdk_dir(env)
+print "VC_SDK_HOME:", VC_SDK_HOME
 
 env['ENV']['INCLUDE'] = ''
 env['ENV']['LIB'] = ''

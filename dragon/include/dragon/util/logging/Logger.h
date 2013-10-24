@@ -42,6 +42,9 @@ Import dragon::util::logging;
 #define LOG_LEVEL_ERROR    5
 #define LOG_LEVEL_FATAL    6
 
+#undef DEBUG
+#undef ERROR
+
 #define TRACE       LOG_LEVEL_TRACE
 #define DEBUG       LOG_LEVEL_DEBUG
 #define INFO        LOG_LEVEL_INFO

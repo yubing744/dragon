@@ -41,7 +41,7 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader) {
     this->colors = new HashMap<String, Color>();
     this->textures = new HashMap<String, Texture>();
     this->floats = new HashMap<String, Float>();
-    //this->vector3s = new HashMap<String, Vector3>();
+    this->vector3s = new HashMap<String, Vector3>();
     this->matrix4x4s = new HashMap<String, Matrix4x4>();
 }
 
@@ -63,7 +63,7 @@ void Shader::setFloat(const char* name, float val) {
 }
 
 void Shader::setVector3(const char* name, const Vector3& v) {
-    //this->vector3s->put(String(name), new Vector3(v));
+    this->vector3s->put(String(name), new Vector3(v));
 }
 
 void Shader::setMatrix(const char* name, const Matrix4x4& mat) {

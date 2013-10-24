@@ -396,6 +396,10 @@ void dragon::lang::internal::CloseThread(void* threadHandle) {
   	SafeFree(handle);	
 }
 
+void dragon::lang::internal::SleepThread(long millisecs) {
+    Sleep(millisecs);
+}
+
 
 // -----------------------------------------------------------------------
 // Copyright 2013 the dragon project authors. All rights reserved.

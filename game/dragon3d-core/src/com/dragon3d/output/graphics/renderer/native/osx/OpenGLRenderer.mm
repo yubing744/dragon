@@ -21,7 +21,9 @@
  **********************************************************************/
 
 #include <OpenGL/gl.h>
-#import <Cocoa/Cocoa.h>
+#include <OpenGL/glu.h>
+
+#include <Cocoa/Cocoa.h>
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>
@@ -52,4 +54,5 @@ void OpenGLRenderer::flushBuffer() {
 
 // include commons
 #include "../../OpenGLRenderer.cc"
+
 

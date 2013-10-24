@@ -40,8 +40,9 @@ BeginPackage5(com, dragon3d, scene, model, shader)
 
 Import dragon::lang;
 Import dragon::util;
+
 Import com::dragon3d::util::math;
-Import com::dragon3d::scene::model::shader;
+Import com::dragon3d::scene::model;
 
 class _DragonExport Shader {
 public:
@@ -65,7 +66,7 @@ public:
     Map<String, Color>* colors;
     Map<String, Texture>* textures;
     Map<String, Float>* floats;
-    //Map<String, Vector3>* vector3s;
+    Map<String, Vector3>* vector3s;
     Map<String, Matrix4x4>* matrix4x4s;
 };//Shader
 

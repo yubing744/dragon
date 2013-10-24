@@ -119,6 +119,7 @@ void FrameHandler::addOutput(Output* output){
 
 bool FrameHandler::removeOutput(Output* output){
 	this->outputs->remove(output);
+	return true;
 }
 
 int FrameHandler::getTimeoutSeconds(){

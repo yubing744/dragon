@@ -20,8 +20,11 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-#include <OpenGL/gl.h>
-#import <Cocoa/Cocoa.h>
+#define NOMINMAX
+#include <windows.h>
+
+#include <gl\gl.h>			// Header File For The OpenGL32 Library
+#include <gl\glu.h>			// Header File For The GLu32 Library
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>
@@ -33,21 +36,22 @@ Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::renderer;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer#osx", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::renderer::OpenGLRenderer#win32", INFO);
 
-// mine thread handle
+/*
 typedef struct NativeData {
     NSAutoreleasePool *pool;
     NSWindow* window;
     NSOpenGLView* dgView;
 };
+*/
 
 void OpenGLRenderer::flushBuffer() {
     logger->debug("flush buffer");
 
-    NativeData* data = (NativeData*)this->graphicsDevice->getNativeData();
-    NSOpenGLView* glView = (NSOpenGLView*)data->dgView;
-    SwapBuffers(hDC); // Swap Buffers (Double Buffering)
+    //NativeData* data = (NativeData*)this->graphicsDevice->getNativeData();
+    //NSOpenGLView* glView = (NSOpenGLView*)data->dgView;
+    //SwapBuffers(hDC); // Swap Buffers (Double Buffering)
 }
 
 // include commons

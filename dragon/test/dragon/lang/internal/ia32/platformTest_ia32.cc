@@ -38,6 +38,8 @@ void* invoke_test_mixtype_dd_05(void* pthis, char a1, short b1, int c1, size_t d
 
 #ifdef _WIN32
 
+#include <windows.h>
+
 void InvokeTest(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
 	DWORD result = 0;
 	double sse_result = 0.0;

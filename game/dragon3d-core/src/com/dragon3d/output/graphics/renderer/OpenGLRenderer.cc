@@ -20,14 +20,10 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
 #include <com/dragon3d/util/math/Mathf.h>
-
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
 
 Import dragon::util::logging;
 Import com::dragon3d::output::graphics;
@@ -109,8 +105,8 @@ void OpenGLRendererInitTexture(Texture* texture) {
     if(texture->channels == 4)
         textureType = GL_RGBA;
     
-    gluBuild2DMipmaps(GL_TEXTURE_2D, texture->channels, texture->width, 
-        texture->height, textureType, GL_UNSIGNED_BYTE, texture->data);
+    //gluBuild2DMipmaps(GL_TEXTURE_2D, texture->channels, texture->width, 
+    //    texture->height, textureType, GL_UNSIGNED_BYTE, texture->data);
     
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);                         
