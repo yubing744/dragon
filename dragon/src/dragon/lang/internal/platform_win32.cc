@@ -172,6 +172,7 @@ void* dragon::lang::internal::GetFuncAddress(const char* signature) {
 
 static LARGE_INTEGER* frequency = NULL;
 
+// 1s / 10000000
 dg_long dragon::lang::internal::GetSystemTime() {
 	LARGE_INTEGER currentTime;
 
@@ -187,7 +188,7 @@ dg_long dragon::lang::internal::GetSystemTime() {
         assert(FALSE);
     }
 
-    return static_cast<dg_long>(static_cast<double>(currentTime.QuadPart) /static_cast<double>(frequency->QuadPart));
+    return static_cast<dg_long>(static_cast<double>(currentTime.QuadPart) * 1000000/ static_cast<double>(frequency->QuadPart));
 }
 
 

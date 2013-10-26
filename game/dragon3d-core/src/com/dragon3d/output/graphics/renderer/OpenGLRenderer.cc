@@ -48,8 +48,8 @@ void OpenGLRenderer::init() {
 
     glShadeModel(GL_SMOOTH);                            // Enable Smooth Shading
 
-    //Color c("#474747");
-    Color c("#FF0000");
+    Color c("#474747");
+    //Color c("#FF0000");
     glClearColor(c.r, c.g, c.b, 0.5f);                  // Black Background
 
     glClearDepth(1.0f);                                 // Depth Buffer Setup
@@ -57,8 +57,8 @@ void OpenGLRenderer::init() {
     glDepthFunc(GL_LEQUAL);                             // The Type Of Depth Testing To Do
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Really Nice Perspective Calculations
 
-    glPointSize(8);  
-    glLineWidth(5); 
+    glPointSize(2);
+    glLineWidth(2);
 
     // The following commands should induce OpenGL to create round points and   
     // antialias points and lines.  (This is implementation dependent unfortunately).  

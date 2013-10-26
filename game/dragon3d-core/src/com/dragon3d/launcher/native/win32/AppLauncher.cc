@@ -50,7 +50,6 @@ static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#
 void Dragon3DLaunchApp(Application* app) {
     logger->info("launchApp");
 
-    printf("ddd");
     // input
     InputManager* inputManager = new InputManager(); 
     app->setInputManager(inputManager);

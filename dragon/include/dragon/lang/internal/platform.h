@@ -403,7 +403,7 @@ _DragonExport void* GetFuncAddress(const char* signature);
 // 
 
 /**
- * get the system time
+ * get the system time,  unit  us 
  * 
  * @return [description]
  */
