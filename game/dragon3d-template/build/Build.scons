@@ -120,20 +120,27 @@ class LibraryModule(Module):
         # the product is a library
         self.env.AppendUnique(CPPPATH=cpp_path)
 
+        libs = GetLibraries(self.linked_modules)
+
+        #PDB
+        if self.env['build_config'] == "debug":
+            self.env['PDB'] = name + '.pdb'
+
         if shared is False:
-            self.product = self.env.Library(target=name, source=sources)
+            self.product = self.env.Library(target=name, LIBS=libs, source=sources)
         else:
-            libs = self.GetLibraries()
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
-        self.env.Alias(name, self.product)
             
-        
+        self.env.Alias(name, self.product)
 
         # copy to Targets folder
         if install is True:
-            inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
+            #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=self.product)
+            inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/'+env['target']+'/'+env['build_config']), source=self.product)
             if env['build_config'] == 'release' and env.has_key('STRIP'):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
+
+            env.Install(dir=env.GetBuildPath('#/' + LIB_REPO_PATH), source=self.product)
  
     def GetLibraries(self):
         if sys.platform == "win32" and self.shared and len(self.product) > 0:

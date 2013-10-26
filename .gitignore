@@ -70,3 +70,9 @@ bin
 debugging
 *.out
 *.vpp~*
+*.lib
+*.dll
+*.exe
+*.lik
+*.ilk
+*.sdf

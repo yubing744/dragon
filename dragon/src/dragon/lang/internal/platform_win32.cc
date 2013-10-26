@@ -169,35 +169,25 @@ void* dragon::lang::internal::GetFuncAddress(const char* signature) {
  * 
  * @return [description]
  */
+
+static LARGE_INTEGER* frequency = NULL;
+
 dg_long dragon::lang::internal::GetSystemTime() {
-	/*
-	struct _timeb t;
+	LARGE_INTEGER currentTime;
 
-	#ifdef _INC_TIME_INL
-	_ftime_s(&t);
-	#else
-	_ftime(&t);
-	#endif
+	if (frequency == NULL) {
+		frequency = new LARGE_INTEGER();
 
-	return (((dg_long) t.time) * 1000 + t.millitm) * 1000;
-	*/
+		if (!QueryPerformanceFrequency(frequency)) {
+		    assert(FALSE);
+		}
+	}
 
-	LARGE_INTEGER fc;
-
-    if (!QueryPerformanceFrequency(&fc)) {
+    if (!QueryPerformanceCounter(&currentTime)) {
         assert(FALSE);
     }
 
-    UINT64 frequency = fc.QuadPart;
-
-    if (!QueryPerformanceCounter(&fc)) {
-        assert(FALSE);
-    }
-
-    UINT64 c = fc.QuadPart;
-    UINT64 s = (c) / (frequency / 1000 / 1000 / 1000);
-
-    return s;
+    return static_cast<dg_long>(static_cast<double>(currentTime.QuadPart) /static_cast<double>(frequency->QuadPart));
 }
 
 

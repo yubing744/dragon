@@ -38,8 +38,13 @@ OpenGLRenderer::~OpenGLRenderer() {
 
 }
 
+
+void OpenGLRendererNativeInit(GraphicsDevice* graphicsDevice);
+
 void OpenGLRenderer::init() {
 	logger->info("init");
+
+    OpenGLRendererNativeInit(this->graphicsDevice);
 
     glShadeModel(GL_SMOOTH);                            // Enable Smooth Shading
 

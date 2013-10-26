@@ -20,27 +20,22 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#include <Windows.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-#ifndef AppLauncher_Launcher_Dragon3d_Com_H
-#define AppLauncher_Launcher_Dragon3d_Com_H
+#include <com/dragon3d/launcher/AppLauncher.h>
+#include <com/dragon3d/examples/helloworld/HelloWorld.h>
 
-#include <com/dragon3d/framework/Application.h>
+Import com::dragon3d::examples::helloworld;
 
-Import com::dragon3d::framework;
+#pragma warning (disable: 4996)
+#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
-/**
- * launch a app.
- * 
- * @param app [description]
- */
-_DragonExport void Dragon3DLaunchApp(Application* app);
+int main(int argc, char *argv[]) {
+	LPCWSTR dd = L"dddd";
 
-/**
- * terminate a app.
- * 
- * @param app [description]
- */
-_DragonExport void Dragon3DTerminateApp(Application* app);
-
-
-#endif //AppLauncher_Launcher_Dragon3d_Com_H
+	HelloWorld* helloworld = new HelloWorld();
+    Dragon3DLaunchApp(helloworld);
+	SafeDelete(helloworld);
+}

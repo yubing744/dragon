@@ -24,7 +24,6 @@ env.AppendUnique(CCFLAGS = '/GS')
 
 if env['build_config'] == 'debug':
     env.AppendUnique(CCFLAGS = '/MDd')
-    env.AppendUnique(CCFLAGS = '/Zi')
 else:
     env.AppendUnique(CCFLAGS = '/MD')
 
@@ -34,8 +33,14 @@ env.AppendUnique(LINKFLAGS = '/WINMD:NO')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
 
+#PDB
+#if env['build_config'] == 'debug':
+#    env.AppendUnique(CCFLAGS = "/Fd%s_cl.pdb" % (GetBuildDirPath() + "/" + project.getArtifactID()))
+#    env.AppendUnique(LINKFLAGS = "/PDB:\"%s.pdb\"" % (GetBuildDirPath() + "/" + project.getArtifactID()))
+ 
+
 def find_vc_sdk_dir(env):
-    print('msvc_setup_env()')
+    #print('msvc_setup_env()')
 
     version = get_default_version(env)
     if version is None:
@@ -52,7 +57,7 @@ def find_vc_sdk_dir(env):
 
 
 VC_SDK_HOME = find_vc_sdk_dir(env)
-print "VC_SDK_HOME:", VC_SDK_HOME
+#print "VC_SDK_HOME:", VC_SDK_HOME
 
 env['ENV']['INCLUDE'] = ''
 env['ENV']['LIB'] = ''
@@ -89,10 +94,39 @@ env.PrependENVPath('PATH', [VC_SDK_HOME + '/bin'])
 #print '======================================================='
 #print ''
 
+# post handle for create entry program
+def postCallback(target, source, env):
 
-def runcallback(target, source, env):
-    env = env.Clone()
+    # dragon3d-examples-win32
+    Application(
+        name                  = 'dragon3d-examples-win32', 
+        build_source_files    = {
+            "." : ["dragon3d-examples-win32.cpp"]
+        },
+        source_root           = "build/targets/x86-microsoft-win32/dragon3d-examples",
+        deps                  = [ 
+            'dragon3d-examples',
+        ],          
+        install               = True
+    )
 
     return None
 
+# run callback
+def runcallback(target, source, env):
+    exe_file = str(source[0])
+
+    print ""
+    print "start run:", exe_file
+    print ""
+
+    os.system(exe_file)
+
+    print ""
+    print "over!"
+    print ""
+
+    return None
+
+env['POST_HANDLE_FUNC'] = postCallback
 env['RUN_FUNC'] = runcallback

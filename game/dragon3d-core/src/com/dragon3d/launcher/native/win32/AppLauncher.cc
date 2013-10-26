@@ -20,6 +20,9 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#define NOMINMAX
+#include <windows.h>
+ 
 // Implements AppLauncher 
 // 
 #include <com/dragon3d/launcher/AppLauncher.h>
@@ -40,43 +43,14 @@ Import com::dragon3d::output::graphics;
 static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#win32", INFO);
 
 /**
- * game loop
- */
-class GameLoop implements(Runnable){
-public:
-    GameLoop(Application* app) {
-        this->app = app;
-    }
-
-public:
-    void run() {
-        try {
-            // start app
-            app->onStart();
-
-            while (!app->isExit()) {
-                app->runLoop();
-            }
-
-            // stop app
-            app->onStop();
-        } catch (Throwable* t) {
-            logger->error("Throwable caught in MainThread - exiting");
-            t->printStackTrace();
-            SafeDelete(t);
-        }
-    }
-
-protected:
-    Application* app;
-};
-
-/**
  * launch a app.
  * 
  * @param app [description]
  */
 void Dragon3DLaunchApp(Application* app) {
+    logger->info("launchApp");
+
+    printf("ddd");
     // input
     InputManager* inputManager = new InputManager(); 
     app->setInputManager(inputManager);
@@ -92,10 +66,35 @@ void Dragon3DLaunchApp(Application* app) {
 
     app->setOutputManager(outputManager);
 
-    // start new thread to run game.
-    GameLoop* loop = new GameLoop(app);
-    Thread* thread = new Thread(loop);
-    thread->start();
+
+    try {
+        // start app
+        app->onStart();
+
+        MSG msg = {0};
+
+        while (!app->isExit()) {
+            int gotMsg = (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0);
+
+            if (gotMsg) {
+                if (msg.message == WM_QUIT){
+                    Dragon3DTerminateApp(app);
+                } else {
+                    TranslateMessage(&msg); 
+                    DispatchMessage(&msg); 
+                }
+            } else {
+                app->runLoop();
+            }
+        }
+
+        // stop app
+        app->onStop();
+    } catch (Throwable* t) {
+        logger->error("Throwable caught in MainThread - exiting");
+        t->printStackTrace();
+        SafeDelete(t);
+    }
 }
 
 /**
