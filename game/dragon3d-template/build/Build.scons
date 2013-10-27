@@ -3,12 +3,21 @@ import sys
 import os
 import imp
 from glob import glob
+from SCons.Script import *
+from dragon import *
+
+#######################################################
+# target build append source exts config
+#######################################################
+TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP = DEFAULT_TARGET_BUILD_SOURCE_AUTO_APPEND_SUFFIXS_MAP
 
 #######################################################
 # reusable functions and data structures
 #######################################################
 def LoadTool(name, env, **kw):
-    config_path = GetBuildPath('#/build/tools/scons')
+    #config_path = GetBuildPath('#/build/tools/scons')
+    config_path = GetBuildPath(project.getBase() + '/build/tools/scons')
+    
     file, path, desc = imp.find_module(name, [config_path])
     module = imp.load_module(name, file, path, desc)
     module.generate(env, **kw)
@@ -21,50 +30,92 @@ def MergeItemUnique(item_list, item):
     if not item in item_list: item_list.append(item)
 
 def GlobSources(drct, patterns, excluded_files=[]):
-    root = GetBuildPath('#'+drct)
+    #root = GetBuildPath('#'+drct)
+    root = GetBuildPath(project.getBase() + '/' + drct)
+
     files = []
     for pattern in Split(patterns):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
+def GlobTargetSources(drct, patterns, excluded_files=[]):
+    source_files = GlobSources(drct, patterns, excluded_files)
+    new_files = []
+
+    for source_file in source_files:
+        if source_file:
+            new_files += AddPlatformTargetSource(project, source_file)
+
+    return new_files
+
 def GetDirPath(dir):
-    return '#/'+dir
-    
+    return project.getBase() + '/' + dir
+    #return '#/' + dir
+
+def GetDirPaths(paths):
+    dirs = []
+    for path in Split(paths):
+        dirs += [GetDirPath(path)]
+    return dirs
+
 def DeclareBuildDir(dir):
     env.VariantDir(dir, GetDirPath(dir), duplicate=0)
     
 def GetIncludeDirs(modules, exclude=None):
     dirs = []
     for module in Split(modules):
-        if Modules.has_key(module) and not module == exclude:
-            dirs += Modules[module].GetIncludeDirs()
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetIncludeDirs()
         else:
             dirs += [GetDirPath(module)]
     return dirs
 
+def GetLibrarieDirs(modules, exclude=None):
+    dirs = []
+    for module in Split(modules):
+        if project.hasModule(module) and not module == exclude:
+            dirs += project.getModule(module).GetLibrarieDirs()
+    return dirs
+
+
 def GetLibraries(modules):
     libs = []
     for module in Split(modules):
-        if Modules.has_key(module):
-            libs += Modules[module].GetLibraries()
+        if project.hasModule(module):
+            libs += project.getModule(module).GetLibraries()
         else:
             libs += [module]
     return libs
 
-Modules = {}
+def GetBuildDirPath():
+    return project.getBase() + '/build/targets/' + env['target'] + "/" + env['build_config']
+
+
+def GetBuildTargetDir():
+    return project.getBase() + '/targets/' + env['target'] + "/" + env['build_config']
+
+
 class Module:
-    def __init__(self, name, included_modules = [], linked_modules = []):
-        self.name             = name
-        self.included_modules = included_modules
-        self.linked_modules   = linked_modules
-        self.product          = []
+    def __init__(self, name, build_include_dirs = [], included_modules = [], 
+        build_lib_dirs  = [], linked_modules = []):
+        self.name               = name
+        self.build_include_dirs = build_include_dirs
+        self.included_modules   = included_modules
+        self.build_lib_dirs     = build_lib_dirs
+        self.linked_modules     = linked_modules
+        self.product            = []
+    def GetProduct(self):
+        return self.product
 
     def GetLibraries(self):
-        return self.product + GetLibraries(self.linked_modules)
+        return [self.name] + GetLibraries(self.linked_modules)
         
     def GetIncludeDirs(self):
         return GetIncludeDirs(self.included_modules+self.build_include_dirs, self.name)
-    
+
+    def GetLibrarieDirs(self):
+        return [GetBuildTargetDir()] + GetDirPaths(self.build_lib_dirs) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
+
 class LibraryModule(Module):
     def __init__(self, name, 
                  build_source_dirs     = ['.'], 
@@ -72,6 +123,7 @@ class LibraryModule(Module):
                  source_root           = 'Source',
                  build_source_pattern  = ['*.c', '*.cpp', '*.cc'], 
                  build_include_dirs    = [], 
+                 build_lib_dirs        = [], 
                  included_modules      = [], 
                  included_only_modules = [],
                  linked_modules        = [],
@@ -84,20 +136,26 @@ class LibraryModule(Module):
         build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
         Module.__init__(self, 
                         name, 
+                        Split(build_include_dirs),
                         Split(included_modules) + Split(included_only_modules) + Split(build_source_dirs), 
+                        Split(build_lib_dirs),
                         Split(linked_modules) + Split(included_modules))
-
-        self.build_include_dirs = build_include_dirs
 
         if environment is None:
             self.env = env.Clone()
         else:
             self.env = environment.Clone()
 
+
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
+        lib_paths = self.GetLibrarieDirs()
+        self.env.AppendUnique(LIBPATH = lib_paths)
+        #for lib_path in lib_paths:
+        #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
+
         # store this new object in the module dictionary
-        Modules[name] = self
+        project.addModule(name, self)
                 
         # for each source drct to build, create a VariantDir
         # to say where we want the object files to be built,
@@ -105,14 +163,14 @@ class LibraryModule(Module):
         sources = []
         for drct in Split(build_source_dirs):
             DeclareBuildDir(drct)
-            sources += GlobSources(drct, build_source_pattern, excluded_files)
+            sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
             
         # add cherry-picked files
         for drct in build_source_files.keys():
             pattern = build_source_files[drct]
             drct_path = source_root+'/'+drct
             DeclareBuildDir(drct_path)
-            sources += GlobSources(drct_path, pattern)
+            sources += GlobTargetSources(drct_path, pattern)
 
         # calculate our build include path
         cpp_path = GetIncludeDirs(Split(self.build_include_dirs) + Split(build_source_dirs) + self.included_modules + self.linked_modules)
@@ -126,11 +184,21 @@ class LibraryModule(Module):
         if self.env['build_config'] == "debug":
             self.env['PDB'] = name + '.pdb'
 
+        # pre processor
+        if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+            if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+                return;
+
         if shared is False:
             self.product = self.env.Library(target=name, LIBS=libs, source=sources)
         else:
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
             
+        # post processor
+        if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+            if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= self.product, env=env)):
+                return;
+
         self.env.Alias(name, self.product)
 
         # copy to Targets folder
@@ -145,11 +213,11 @@ class LibraryModule(Module):
     def GetLibraries(self):
         if sys.platform == "win32" and self.shared and len(self.product) > 0:
           libs = [];
-          libs.append(self.product[1])
+          libs.append(self.name)
           libs += GetLibraries(self.linked_modules)  
           return libs
         else:
-          return self.product + GetLibraries(self.linked_modules)
+          return [self.name] + GetLibraries(self.linked_modules)
 
 
 def Application(name, 
@@ -157,13 +225,23 @@ def Application(name,
                 build_source_dirs     = ['.'], 
                 build_source_files    = {}, 
                 build_source_pattern  = ['*.c', '*.cpp'], 
-                excluded_files        = [],                
+                excluded_files        = [],
+                build_include_dirs    = [], 
+                build_lib_dirs        = [],                 
                 deps                  = [], 
                 install               = False):
     build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
-     
+
     libs = GetLibraries(deps)
-    cpp_path = GetIncludeDirs(deps)
+    #print "libs:", libs
+
+    cpp_paths = GetIncludeDirs(Split(build_include_dirs) + deps)
+    #print "cpp_paths:", cpp_paths
+
+    lib_paths = GetDirPaths(Split(build_lib_dirs)) + GetLibrarieDirs(deps)
+    #print "lib_paths:", lib_paths
+
+    env.AppendUnique(LIBPATH = lib_paths)
 
     # for each source drct to build, create a VariantDir
     # to say where we want the object files to be built,
@@ -171,27 +249,56 @@ def Application(name,
     sources = []
     for drct in Split(build_source_dirs):
         DeclareBuildDir(drct)
-        sources += GlobSources(drct, build_source_pattern, excluded_files)
+        sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
         
     # add cherry-picked files
     for drct in build_source_files.keys():
         pattern = build_source_files[drct]
         drct_path = source_root+'/'+drct
+
         DeclareBuildDir(drct_path)
-        sources += GlobSources(drct_path, pattern)
+        sources += GlobTargetSources(drct_path, pattern)
+
+    sources = sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS']
+
+    # pre processor
+    if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+        if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+            return;
 
     prog = env.Program(target=name, 
-                       source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
-                       LIBS=libs, CPPPATH=cpp_path)
-    #env.Alias(name, prog)
-    if env.has_key('DRAGON_EXECUTABLE_POST_PROCESSOR'):
-        env.AddPostAction(prog, env['DRAGON_EXECUTABLE_POST_PROCESSOR'])
+                       source= sources,
+                       LIBS=libs, CPPPATH=cpp_paths)
+
+    # post processor
+    if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+        if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= prog, env=env)):
+            return;
     
     # copy to Targets folder
     if install is True:
-        inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        #inst = env.Install(dir=env.GetBuildPath('#/targets/'+env['target']+'/'+env['build_config']), source=prog)
+        inst = env.Install(dir=env.GetBuildPath(project.getBase() + '/targets/' + env['target'] + '/'+env['build_config']), source=prog)
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
+
+    if env["test"] or env["debug"]:
+        env.RunProgram(target= "#run-" + name, source=inst)
+
+
+### Add Test Builder
+def RunTarget(target, source, env):
+    if env.has_key("BEFORE_RUN_FUNC"):
+        env['BEFORE_RUN_FUNC'](target, source, env)
+
+    if env.has_key('RUN_FUNC'):
+        env["RUN_FUNC"](target, source, env)
+
+    if env.has_key('AFTER_RUN_FUNC'):
+        env['AFTER_RUN_FUNC'](target, source, env)
+
+    return None
+
 
 #######################################################
 # Main Build

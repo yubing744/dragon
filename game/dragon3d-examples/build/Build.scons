@@ -38,7 +38,6 @@ def GlobSources(drct, patterns, excluded_files=[]):
         files += glob(root+'/'+pattern)
     return [drct+'/'+os.path.basename(x) for x in  files if os.path.basename(x) not in excluded_files]
 
-
 def GlobTargetSources(drct, patterns, excluded_files=[]):
     source_files = GlobSources(drct, patterns, excluded_files)
     new_files = []
@@ -88,11 +87,9 @@ def GetLibraries(modules):
             libs += [module]
     return libs
 
-def GetBuildOutputPath():
-    return project.getBase() + '/build/targets/' + env['target']
-
 def GetBuildDirPath():
     return project.getBase() + '/build/targets/' + env['target'] + "/" + env['build_config']
+
 
 def GetBuildTargetDir():
     return project.getBase() + '/targets/' + env['target'] + "/" + env['build_config']
@@ -149,6 +146,7 @@ class LibraryModule(Module):
         else:
             self.env = environment.Clone()
 
+
         self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
         
         lib_paths = self.GetLibrarieDirs()
@@ -186,11 +184,21 @@ class LibraryModule(Module):
         if self.env['build_config'] == "debug":
             self.env['PDB'] = name + '.pdb'
 
+        # pre processor
+        if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+            if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+                return;
+
         if shared is False:
             self.product = self.env.Library(target=name, LIBS=libs, source=sources)
         else:
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
             
+        # post processor
+        if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+            if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= self.product, env=env)):
+                return;
+
         self.env.Alias(name, self.product)
 
         # copy to Targets folder
@@ -201,6 +209,7 @@ class LibraryModule(Module):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
             env.Install(dir=env.GetBuildPath('#/' + LIB_REPO_PATH), source=self.product)
+ 
     def GetLibraries(self):
         if sys.platform == "win32" and self.shared and len(self.product) > 0:
           libs = [];
@@ -234,13 +243,6 @@ def Application(name,
 
     env.AppendUnique(LIBPATH = lib_paths)
 
-    #for lib_path in lib_paths:
-    #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
-
-    #for lib in libs:
-    #    env.AppendUnique(LINKFLAGS = ['-l' + lib])
-
-
     # for each source drct to build, create a VariantDir
     # to say where we want the object files to be built,
     # and compute the list of source files to build
@@ -257,12 +259,21 @@ def Application(name,
         DeclareBuildDir(drct_path)
         sources += GlobTargetSources(drct_path, pattern)
 
+    sources = sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS']
+
+    # pre processor
+    if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+        if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+            return;
+
     prog = env.Program(target=name, 
-                       source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
+                       source= sources,
                        LIBS=libs, CPPPATH=cpp_paths)
-    #env.Alias(name, prog)
-    if env.has_key('DRAGON_EXECUTABLE_POST_PROCESSOR'):
-        env.AddPostAction(prog, env['DRAGON_EXECUTABLE_POST_PROCESSOR'])
+
+    # post processor
+    if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+        if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= prog, env=env)):
+            return;
     
     # copy to Targets folder
     if install is True:
@@ -271,10 +282,23 @@ def Application(name,
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
-        #env.Install(dir="/usr/local/lib", source=project.getProducts())
+    if env["test"] or env["debug"]:
+        env.RunProgram(target= "#run-" + name, source=inst)
 
-        if env["test"] or env["debug"]:
-            env.RunProgram(target= "#run-" + name, source=inst)
+
+### Add Test Builder
+def RunTarget(target, source, env):
+    if env.has_key("BEFORE_RUN_FUNC"):
+        env['BEFORE_RUN_FUNC'](target, source, env)
+
+    if env.has_key('RUN_FUNC'):
+        env["RUN_FUNC"](target, source, env)
+
+    if env.has_key('AFTER_RUN_FUNC'):
+        env['AFTER_RUN_FUNC'](target, source, env)
+
+    return None
+
 
 
 ### Add Test Builder

@@ -184,11 +184,21 @@ class LibraryModule(Module):
         if self.env['build_config'] == "debug":
             self.env['PDB'] = name + '.pdb'
 
+        # pre processor
+        if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+            if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+                return;
+
         if shared is False:
             self.product = self.env.Library(target=name, LIBS=libs, source=sources)
         else:
             self.product = self.env.SharedLibrary(target=name, LIBS=libs, source=sources)
             
+        # post processor
+        if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+            if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= self.product, env=env)):
+                return;
+
         self.env.Alias(name, self.product)
 
         # copy to Targets folder
@@ -233,13 +243,6 @@ def Application(name,
 
     env.AppendUnique(LIBPATH = lib_paths)
 
-    #for lib_path in lib_paths:
-    #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
-
-    #for lib in libs:
-    #    env.AppendUnique(LINKFLAGS = ['-l' + lib])
-
-
     # for each source drct to build, create a VariantDir
     # to say where we want the object files to be built,
     # and compute the list of source files to build
@@ -256,12 +259,21 @@ def Application(name,
         DeclareBuildDir(drct_path)
         sources += GlobTargetSources(drct_path, pattern)
 
+    sources = sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS']
+
+    # pre processor
+    if env.has_key('DRAGON_MODULE_PRE_PROCESSOR'):
+        if (not env['DRAGON_MODULE_PRE_PROCESSOR'](target=name, source= sources, env=env)):
+            return;
+
     prog = env.Program(target=name, 
-                       source= sources + env['DRAGON_EXTRA_EXECUTABLE_OBJECTS'],
+                       source= sources,
                        LIBS=libs, CPPPATH=cpp_paths)
-    #env.Alias(name, prog)
-    if env.has_key('DRAGON_EXECUTABLE_POST_PROCESSOR'):
-        env.AddPostAction(prog, env['DRAGON_EXECUTABLE_POST_PROCESSOR'])
+
+    # post processor
+    if env.has_key('DRAGON_MODULE_POST_PROCESSOR'):
+        if (not env['DRAGON_MODULE_POST_PROCESSOR'](target=name, prog= prog, env=env)):
+            return;
     
     # copy to Targets folder
     if install is True:
@@ -270,10 +282,8 @@ def Application(name,
         if env['build_config'] == 'release' and env.has_key('STRIP'):
             env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
-        #env.Install(dir="/usr/local/lib", source=project.getProducts())
-
-        if env["test"] or env["debug"]:
-            env.RunProgram(target= "#run-" + name, source=inst)
+    if env["test"] or env["debug"]:
+        env.RunProgram(target= "#run-" + name, source=inst)
 
 
 ### Add Test Builder
@@ -654,7 +664,8 @@ dragon_test_SOURCES = {
         TestMain.cc
     """)
 }
-             
+ 
+
 Application(
     name                  = 'dragon_test', 
     source_root           = 'test',

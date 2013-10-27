@@ -1722,7 +1722,13 @@ inline char* StrDup(const char* src) { return _strdup(src); }
 # endif  // __BORLANDC__
 
 # if GTEST_OS_WINDOWS_MOBILE
-inline int FileNo(FILE* file) { return reinterpret_cast<int>(_fileno(file)); }
+inline int FileNo(FILE* file) { 
+  #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+      throw "not implements!";
+  #else
+    return reinterpret_cast<int>(_fileno(file)); 
+  #endif
+}
 // Stat(), RmDir(), and IsDir() are not needed on Windows CE at this
 // time and thus not defined there.
 # else
@@ -1767,28 +1773,54 @@ inline const char* StrNCpy(char* dest, const char* src, size_t n) {
 // defined there.
 
 #if !GTEST_OS_WINDOWS_MOBILE
-inline int ChDir(const char* dir) { return chdir(dir); }
+	inline int ChDir(const char* dir) { return chdir(dir); }
+#else
+	inline int ChDir(const char* dir) { return 0; }
 #endif
+
 inline FILE* FOpen(const char* path, const char* mode) {
   return fopen(path, mode);
 }
+
 #if !GTEST_OS_WINDOWS_MOBILE
-inline FILE *FReopen(const char* path, const char* mode, FILE* stream) {
-  return freopen(path, mode, stream);
-}
-inline FILE* FDOpen(int fd, const char* mode) { return fdopen(fd, mode); }
+	inline FILE *FReopen(const char* path, const char* mode, FILE* stream) {
+	  return freopen(path, mode, stream);
+	}
+	inline FILE* FDOpen(int fd, const char* mode) { return fdopen(fd, mode); }
+#else
+	inline FILE *FReopen(const char* path, const char* mode, FILE* stream) {
+	  return NULL;
+	}
+
+	inline FILE* FDOpen(int fd, const char* mode) { return NULL; }	
 #endif
+
+
 inline int FClose(FILE* fp) { return fclose(fp); }
+
 #if !GTEST_OS_WINDOWS_MOBILE
-inline int Read(int fd, void* buf, unsigned int count) {
-  return static_cast<int>(read(fd, buf, count));
-}
-inline int Write(int fd, const void* buf, unsigned int count) {
-  return static_cast<int>(write(fd, buf, count));
-}
-inline int Close(int fd) { return close(fd); }
-inline const char* StrError(int errnum) { return strerror(errnum); }
+	inline int Read(int fd, void* buf, unsigned int count) {
+	  return static_cast<int>(read(fd, buf, count));
+	}
+	inline int Write(int fd, const void* buf, unsigned int count) {
+	  return static_cast<int>(write(fd, buf, count));
+	}
+	inline int Close(int fd) { return close(fd); }
+	inline const char* StrError(int errnum) { return strerror(errnum); }
+
+#else 
+	inline int Read(int fd, void* buf, unsigned int count) {
+	  return 0;
+	}
+	inline int Write(int fd, const void* buf, unsigned int count) {
+	  return 0;
+	}
+	inline int Close(int fd) { return 0; }
+	inline const char* StrError(int errnum) { return NULL; }
+
 #endif
+
+
 inline const char* GetEnv(const char* name) {
 #if GTEST_OS_WINDOWS_MOBILE
   // We are on Windows CE, which has no environment variables.
@@ -1811,9 +1843,9 @@ inline const char* GetEnv(const char* name) {
 // Windows CE has no C library. The abort() function is used in
 // several places in Google Test. This implementation provides a reasonable
 // imitation of standard behaviour.
-void Abort();
+	void Abort();
 #else
-inline void Abort() { abort(); }
+	inline void Abort() { abort(); }
 #endif  // GTEST_OS_WINDOWS_MOBILE
 
 }  // namespace posix

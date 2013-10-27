@@ -3615,7 +3615,13 @@ void UnitTest::AddTestPartResult(
       // Using DebugBreak on Windows allows gtest to still break into a debugger
       // when a failure happens and both the --gtest_break_on_failure and
       // the --gtest_catch_exceptions flags are specified.
-      DebugBreak();
+      
+
+      #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+          throw "not implements!";
+      #else
+        DebugBreak();
+      #endif
 #else
       // Dereference NULL through a volatile pointer to prevent the compiler
       // from removing. We use this rather than abort() or __builtin_trap() for

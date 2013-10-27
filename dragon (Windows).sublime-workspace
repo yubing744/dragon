@@ -287,6 +287,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
+			"settings":
+			{
+				"buffer_size": 2820,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
+			"settings":
+			{
+				"buffer_size": 7207,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
+			"settings":
+			{
+				"buffer_size": 9874,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/platform.h",
+			"settings":
+			{
+				"buffer_size": 12740,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_win32_x86.sublime-build",
 	"command_palette":
@@ -623,8 +655,119 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
+					"settings":
+					{
+						"buffer_size": 2820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1594,
+								1594
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 900.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
+					"settings":
+					{
+						"buffer_size": 7207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2127,
+								2127
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2970.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
+					"settings":
+					{
+						"buffer_size": 9874,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4324,
+								4328
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2340.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/include/dragon/lang/internal/platform.h",
+					"settings":
+					{
+						"buffer_size": 12740,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9639,
+								9639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5745.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -661,7 +804,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 303.0
+		"height": 211.0
 	},
 	"replace":
 	{
@@ -892,6 +1035,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 417.0,
+	"side_bar_width": 272.0,
 	"status_bar_visible": true
 }

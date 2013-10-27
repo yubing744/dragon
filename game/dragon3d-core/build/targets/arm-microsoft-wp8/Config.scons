@@ -1,37 +1,82 @@
-from SCons.Tool.mssdk import *
+#!/usr/bin/env python
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+"""
+SCons Tool to Build Wp8 Applications
+"""
 
-#regenerate tool
-print "begin regenerate tool"
-env['TARGET_ARCH'] = 'x86'
+import os.path
+import re
+import sys
 
-req_target_platform = env.get('TARGET_ARCH')
-print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
+from SCons.Tool.MSCommon.vc import get_default_version, find_vc_pdir
 
-generate(env)
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE", "NOMINMAX"])
+env.AppendUnique(CPPDEFINES = ["PSAPI_VERSION=2", "WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP"])
 
-req_target_platform = env.get('TARGET_ARCH')
-print 'vc.py:get_host_target() req_target_platform:%s'%req_target_platform
+# for gtest
+env.AppendUnique(CPPDEFINES = ["GTEST_OS_WINDOWS_MOBILE"])
 
-print "begin regenerate ok!"
-
-env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
 env.AppendUnique(CCFLAGS = '/EHsc')
+env.AppendUnique(CCFLAGS = '/GS')
 
-env.AppendUnique(LINKFLAGS = '/MACHINE:X86')
-#env.AppendUnique(LINKFLAGS = '/MACHINE:X64')
-#env.AppendUnique(LINKFLAGS = '/NOENTRY')
-#env.AppendUnique(ARFLAGS = '/MACHINE:X64')
+if env['build_config'] == 'debug':
+    env.AppendUnique(CCFLAGS = '/MDd')
+else:
+    env.AppendUnique(CCFLAGS = '/MD')
+
+env.AppendUnique(LINKFLAGS = '/MACHINE:ARM')
+env.AppendUnique(LINKFLAGS = '/WINMD:NO')
+#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
+#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
+
 
 if env['build_config'] == 'debug':
     env.AppendUnique(CCFLAGS = '/Zi')
+    env.AppendUnique(CPPDEFINES = "_DEBUG")
 
-#print '======================================================='
-#print '============ Build for x86-microsoft-win32 ============'
-#print 'ENV', env['ENV']
-#print 'ENV PATH', env['ENV']['PATH']
-#print 'AR',env['AR']
-#print 'CC', env['CC']
-#print 'CXX', env['CXX']
-#print 'LINK', env['LINK']
-#print '======================================================='
-#print ''
+# build config for wp8
+def find_vc_sdk_dir(env):
+    #print('msvc_setup_env()')
+ 
+    version = get_default_version(env)
+    if version is None:
+        warn_msg = "No version of Visual Studio compiler found - C/C++ " \
+                   "compilers most likely not set correctly"
+        SCons.Warnings.warn(SCons.Warnings.VisualCMissingWarning, warn_msg)
+        return None
+
+    pdir = find_vc_pdir(version)
+    if pdir is None:
+        raise NoVersionFound("No version of Visual Studio found")
+        
+    return pdir
+
+
+VC_SDK_HOME = find_vc_sdk_dir(env)
+WP8_SDK_HOME= VC_SDK_HOME + '/WPSDK/WP80'
+
+env['ENV']['INCLUDE'] = ''
+env['ENV']['LIB'] = ''
+env['ENV']['LIBPATH'] = ''
+env['ENV']['PATH'] = ''
+
+BATCH_SCRIPT = WP8_SDK_HOME + '/bin/x86_arm/vcvarsphonex86_arm.bat'
+
+env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
+msvc_setup_env(env)
+
+env.PrependENVPath('INCLUDE', [WP8_SDK_HOME + '/include'])
+env.PrependENVPath('LIB', [WP8_SDK_HOME + '/lib/arm'])
+env.PrependENVPath('LIBPATH', [WP8_SDK_HOME + '/lib/arm'])
+env.PrependENVPath('PATH', [WP8_SDK_HOME + '/bin/x86_arm', WP8_SDK_HOME + '/bin'])
+
+
+def preBuildFunction(target, source, env):
+    if target == "dragon3d-core-test":
+        return False
+    else:
+        return True
+
+env['DRAGON_MODULE_PRE_PROCESSOR'] = preBuildFunction

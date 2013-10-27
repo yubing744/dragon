@@ -11,8 +11,12 @@ import sys
 
 from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
 
-env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
+env.AppendUnique(CPPDEFINES = ["_UNICODE", "UNICODE"])
 env.AppendUnique(CPPDEFINES = ["PSAPI_VERSION=2", "WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP"])
+
+# for gtest
+env.AppendUnique(CPPDEFINES = ["GTEST_OS_WINDOWS_MOBILE"])
+
 
 env.AppendUnique(CCFLAGS = '/EHsc')
 env.AppendUnique(CCFLAGS = '/MD')

@@ -33,10 +33,6 @@ env.AppendUnique(LINKFLAGS = '/WINMD:NO')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
 #env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
 
-#PDB
-#if env['build_config'] == 'debug':
-#    env.AppendUnique(CCFLAGS = "/Fd%s_cl.pdb" % (GetBuildDirPath() + "/" + project.getArtifactID()))
-#    env.AppendUnique(LINKFLAGS = "/PDB:\"%s.pdb\"" % (GetBuildDirPath() + "/" + project.getArtifactID()))
 
 def find_vc_sdk_dir(env):
     #print('msvc_setup_env()')
@@ -54,9 +50,7 @@ def find_vc_sdk_dir(env):
         
     return pdir
 
-
 VC_SDK_HOME = find_vc_sdk_dir(env)
-#print "VC_SDK_HOME:", VC_SDK_HOME
 
 env['ENV']['INCLUDE'] = ''
 env['ENV']['LIB'] = ''
@@ -64,12 +58,6 @@ env['ENV']['LIBPATH'] = ''
 env['ENV']['PATH'] = ''
 
 BATCH_SCRIPT = VC_SDK_HOME + '/bin/vcvars32.bat'
-
-#def debug(x):
-#    print x
-
-#SCons.Tool.MSCommon.common.debug = debug
-#SCons.Tool.MSCommon.vc.debug = debug
 
 env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
 msvc_setup_env(env)

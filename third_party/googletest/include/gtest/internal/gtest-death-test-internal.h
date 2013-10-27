@@ -241,8 +241,13 @@ class InternalRunDeathTestFlag {
         write_fd_(a_write_fd) {}
 
   ~InternalRunDeathTestFlag() {
-    if (write_fd_ >= 0)
-      posix::Close(write_fd_);
+    if (write_fd_ >= 0) {
+      #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+          throw "not implements!";
+      #else
+        posix::Close(write_fd_);
+      #endif
+    }
   }
 
   const std::string& file() const { return file_; }

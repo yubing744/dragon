@@ -20,9 +20,12 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dlfcn.h>
-
-#include <cxxabi.h>
+#ifdef _WIN32
+	#include <windows.h>
+#else 
+	#include <dlfcn.h>
+	#include <cxxabi.h>
+#endif
 
 #include <string.h>
 #include <stdlib.h>
@@ -77,6 +80,13 @@ void ReturnInfo::setValue(double doubleVal) {
     this->value = buf;
 }
 
+#ifdef _WIN32
+
+void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, ParamInfo *argv, int argc) {
+
+}
+
+#else
 
 #define NCRC_COUNT 4  //The Next Core Register Count
 #define SUPPORT_VFP = 1  //support VFP co-processor
@@ -165,3 +175,5 @@ void dragon::lang::internal::Invoke(void* pthis, void* func, ReturnInfo* ret, Pa
 	    ret->value = buf;
 	}
 }
+
+#endif
