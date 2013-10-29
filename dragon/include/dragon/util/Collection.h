@@ -32,7 +32,7 @@ BeginPackage2(dragon, util)
 Import dragon::util;
 
 template<class E>
-interface Collection extends(Iterable<E>)
+__interface Collection extends(Iterable<E>)
 {
 public:
 	virtual ~Collection(){};

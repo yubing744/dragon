@@ -45,6 +45,8 @@ bool Component::isTypeOf(const Type& type) {
     if (Component::TYPE.equals(&type)) {
         return true;
     }
+
+    return false;
 }
 
 String* Component::getName() {

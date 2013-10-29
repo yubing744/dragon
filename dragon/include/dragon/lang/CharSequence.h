@@ -29,7 +29,7 @@ BeginPackage2(dragon, lang)
 
 class String;
 
-interface _DragonExport CharSequence
+__interface _DragonExport CharSequence
 {
 public:
 	virtual ~CharSequence(){};

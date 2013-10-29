@@ -24,9 +24,22 @@
 #include <dragon/util/logging/ConsoleHandler.h>
 
 #include <stdio.h>
+#include <debugapi.h>
+#include <stringapiset.h>
 
 Import dragon::util::logging;
 
 void ConsoleHandler::publish(const char* loggerName, const char* msg) {
-	printf("%s: %s\n", loggerName, msg);
+    char buffer[1024];
+    sprintf(buffer, "%s: %s\n", loggerName, msg);
+
+    size_t nu = strlen(buffer);
+    size_t n = (size_t)MultiByteToWideChar(CP_ACP, 0, (const char *)buffer, (int)nu, NULL, 0);
+
+    wchar_t* output = new wchar_t[n + 1];
+    MultiByteToWideChar(CP_ACP, 0, (const char *)buffer, (int)nu, output, (int)(n + 1));
+    output[n] = L'\0';
+	OutputDebugStringW(output);
+
+    delete[] output;
 }

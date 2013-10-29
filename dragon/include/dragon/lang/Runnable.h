@@ -31,7 +31,7 @@ BeginPackage2(dragon, lang)
  * can run as thread
  * 
  */
-interface _DragonExport Runnable
+__interface _DragonExport Runnable
 {
 public:
 	virtual ~Runnable(){};

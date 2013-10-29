@@ -31,7 +31,7 @@ BeginPackage2(dragon, util)
 
 
 template<class E>
-interface List extends(Collection<E>)
+__interface List extends(Collection<E>)
 {
 public:
 	virtual ~List(){};

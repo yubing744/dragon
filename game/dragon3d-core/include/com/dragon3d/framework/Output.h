@@ -34,7 +34,7 @@ BeginPackage3(com, dragon3d, framework)
 
 Import com::dragon3d::framework;
 
-interface _DragonExport Output {
+__interface _DragonExport Output {
 public:
 	virtual ~Output(){};
 

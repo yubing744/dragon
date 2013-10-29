@@ -42,7 +42,7 @@ Import com::dragon3d::output::graphics;
 /**
  * graphices renderer.
  */
-interface _DragonExport GraphicsRenderer {
+__interface _DragonExport GraphicsRenderer {
 public:
 	virtual ~GraphicsRenderer(){};
 

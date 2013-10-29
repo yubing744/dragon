@@ -33,7 +33,7 @@ BeginPackage3(com, dragon3d, framework)
 Import dragon::lang::reflect;
 Import com::dragon3d::framework;
 
-interface _DragonExport Input {
+__interface _DragonExport Input {
 public:
 	virtual ~Input(){};
 

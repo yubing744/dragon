@@ -39,7 +39,7 @@ Import com::dragon3d::util::math;
  * Owns all the data that is related to the scene. This class should not really know anything about rendering or the
  * screen, it's just the scene data.
  */
-interface _DragonExport Scene {
+__interface _DragonExport Scene {
 public:
 	virtual ~Scene(){};
 

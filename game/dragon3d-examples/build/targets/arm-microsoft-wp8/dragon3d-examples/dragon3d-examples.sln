@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Phone
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dragon3d-examples", "dragon3d-examples\dragon3d-examples.vcxproj", "{5FDA5AF8-290D-4C21-9B22-AF6D15494795}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|Win32 = Debug|Win32
+		Release|ARM = Release|ARM
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|ARM.Build.0 = Debug|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|Win32.Build.0 = Debug|Win32
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Debug|Win32.Deploy.0 = Debug|Win32
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|ARM.ActiveCfg = Release|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|ARM.Build.0 = Release|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|ARM.Deploy.0 = Release|ARM
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|Win32.ActiveCfg = Release|Win32
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|Win32.Build.0 = Release|Win32
+		{5FDA5AF8-290D-4C21-9B22-AF6D15494795}.Release|Win32.Deploy.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

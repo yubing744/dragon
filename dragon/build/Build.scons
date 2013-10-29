@@ -208,7 +208,7 @@ class LibraryModule(Module):
             if env['build_config'] == 'release' and env.has_key('STRIP'):
                 env.AddPostAction(inst, env['STRIP']+' $TARGETS');
 
-            env.Install(dir=env.GetBuildPath('#/' + LIB_REPO_PATH), source=self.product)
+            env.Install(dir=env.GetBuildPath('#/' + LIB_REPO_PATH + '/' + env['target'] + '/' + env['build_config']), source=self.product)
  
     def GetLibraries(self):
         if sys.platform == "win32" and self.shared and len(self.product) > 0:

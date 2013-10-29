@@ -288,39 +288,15 @@
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
+			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
 			"settings":
 			{
-				"buffer_size": 2820,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-			"settings":
-			{
-				"buffer_size": 7207,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
-			"settings":
-			{
-				"buffer_size": 9874,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/lang/internal/platform.h",
-			"settings":
-			{
-				"buffer_size": 12740,
+				"buffer_size": 4917,
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Packages/SublimeDragon/dragon_win32_x86.sublime-build",
+	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -412,33 +388,45 @@
 	},
 	"file_history":
 	[
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_wp8.cc",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/platform.h",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/arm/platform_arm.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-wp8/Config.scons",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_wp8.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/targets/arm-microsoft-wp8/Config.scons",
+		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-port.h",
+		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-string.h",
+		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-death-test-internal.h",
+		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-internal.h",
+		"/E/Develop/GitProject/dragon/third_party/googletest/src/gtest.cc",
+		"/E/Develop/GitProject/dragon/third_party/googletest/src/gtest-death-test.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
+		"/E/Develop/GitProject/dragon/SConstruct",
+		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-win32/Config.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/arm-microsoft-wp8/Config.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/arm-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/shader/Shader.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/Shader.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/x86-microsoft-win32/Config.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Build.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/android/GraphicsOutputController.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/win32/GraphicsDevice.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/win32/GraphicsOutputController.cc",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/x86-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/x86-microsoft-win32/dragon3d-examples/dragon3d-examples-win32.cpp",
-		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Build.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/launcher/AppLauncher.h",
-		"/E/Develop/GitProject/dragon/SConstruct",
-		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-win32/Config.scons",
-		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Build.scons",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/win32/OpenGLRenderer.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Boot.scons",
-		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/build/Boot.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Boot.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Boot.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/x86-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/x86-microsoft-wp8/Config.scons",
-		"/E/Develop/GitProject/dragon/dragon/build/targets/arm-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/build/targets/amd64-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/util/logging/native/win32/ConsoleHandler.cc",
 		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/ia32/platformTest_ia32.cc",
@@ -447,7 +435,6 @@
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/GameObject.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/osx/OpenGLRenderer.mm",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/framework/FrameHandler.cc",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/platform.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
@@ -528,18 +515,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegateBind.h",
 		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Thread.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fast-delegate/FastDelegate.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fask-delegate/FastDelegate.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test.dSYM/Contents/Resources/DWARF/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/LinkedList.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/MemoryAllocTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Thread.h"
 	],
 	"find":
 	{
@@ -550,6 +526,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"<open folders>",
 			"/Users/yubing/Develop/GitRepos/dragon",
 			"/Users/yubing/Develop/GitRepos/dragon/dragon",
 			"/Users/yubing/Software/scons-2.2.0",
@@ -561,6 +538,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"StrError",
+			"posix",
+			"the",
+			"Dbghelp.h",
 			"DllLibrary",
 			"union",
 			"union\n",
@@ -655,105 +636,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
+					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
 					"settings":
 					{
-						"buffer_size": 2820,
+						"buffer_size": 4917,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1594,
-								1594
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 900.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-					"settings":
-					{
-						"buffer_size": 7207,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2127,
-								2127
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2970.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "dragon/src/dragon/lang/internal/platform_win32.cc",
-					"settings":
-					{
-						"buffer_size": 9874,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4324,
-								4328
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2340.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "dragon/include/dragon/lang/internal/platform.h",
-					"settings":
-					{
-						"buffer_size": 12740,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9639,
-								9639
+								847,
+								847
 							]
 						],
 						"settings":
@@ -763,7 +662,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5745.0,
+						"translation.y": 84.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -804,7 +703,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 211.0
+		"height": 302.0
 	},
 	"replace":
 	{
@@ -1035,6 +934,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 272.0,
+	"side_bar_width": 362.0,
 	"status_bar_visible": true
 }

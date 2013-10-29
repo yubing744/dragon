@@ -28,7 +28,6 @@
 
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/scene/camera/Camera.h>
-#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
 
 
@@ -38,7 +37,6 @@ Import dragon::util::logging;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
-Import com::dragon3d::output::graphics::renderer;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
@@ -64,6 +62,8 @@ List<Camera>* FindAllCameras(Scene* scene) {
         }
     }
 
+    SafeDelete(it);
+
     return cameras;
 }
 
@@ -74,6 +74,8 @@ void SortCameras(List<Camera>* cameras) {
 void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera) {
     GraphicsRenderer* gr = this->graphicsRenderer;
 
+    camera->pixelRect.x = 0;
+    camera->pixelRect.y = 0;
     camera->pixelRect.width = graphicsDevice->width;
     camera->pixelRect.height = graphicsDevice->height;
 
@@ -99,6 +101,8 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
             gr->drawMesh(mesh, matrix, material, camera);
         }
     }
+
+    SafeDelete(it);
 }
 
 void GraphicsOutputController::output(Scene* scene) {
@@ -108,7 +112,7 @@ void GraphicsOutputController::output(Scene* scene) {
     
     gr->clearBuffer();
 
-    //gr->drawSample();
+    gr->drawSample();
 
     // find all cameras and sort
     List<Camera>* cameras = FindAllCameras(scene);
@@ -121,6 +125,8 @@ void GraphicsOutputController::output(Scene* scene) {
         Camera* camera = it->next();
         this->renderSceneToCamera(scene, camera);
     }
+
+    SafeDelete(it);
 
 	gr->flushBuffer();
 }

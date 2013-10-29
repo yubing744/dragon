@@ -21,6 +21,9 @@ env.AppendUnique(CPPDEFINES = ["GTEST_OS_WINDOWS_MOBILE"])
 env.AppendUnique(CCFLAGS = '/EHsc')
 env.AppendUnique(CCFLAGS = '/GS')
 
+# C++ Runtime Extend
+env.AppendUnique(CCFLAGS = '/ZW')
+
 if env['build_config'] == 'debug':
     env.AppendUnique(CCFLAGS = '/MDd')
 else:
@@ -28,12 +31,15 @@ else:
 
 env.AppendUnique(LINKFLAGS = '/MACHINE:ARM')
 env.AppendUnique(LINKFLAGS = '/WINMD:NO')
-#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
-#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
+
+# link lib
+env.AppendUnique(LINKFLAGS = 'WindowsPhoneCore.lib')
+env.AppendUnique(LINKFLAGS = 'RuntimeObject.lib')
+env.AppendUnique(LINKFLAGS = 'PhoneAppModelHost.lib')
+env.AppendUnique(LINKFLAGS = 'd3d11.lib')
 
 
 if env['build_config'] == 'debug':
-    env.AppendUnique(CCFLAGS = '/Zi')
     env.AppendUnique(CPPDEFINES = "_DEBUG")
 
 # build config for wp8

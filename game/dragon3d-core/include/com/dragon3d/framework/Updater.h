@@ -35,7 +35,7 @@ Import com::dragon3d::util;
 /**
  * The purpose of this class is to own the update phase and separate update logic from the view.
  */
-interface _DragonExport Updater {
+__interface _DragonExport Updater {
 public:
 	virtual ~Updater(){};
 

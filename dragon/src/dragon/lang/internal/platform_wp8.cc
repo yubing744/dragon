@@ -22,6 +22,10 @@
 
 #include <windows.h>
 
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 	#include <libloaderapi.h>
 	#include <synchapi.h>
@@ -120,8 +124,8 @@ void *PeGetProcAddressA(void *Base, LPCSTR Name) {
 			Ret=(FARPROC)(Functions[(DWORD_PTR)Name-Exp->Base]+(DWORD_PTR)Base);
 	} else {
 		for(DWORD i=0; i<Exp->NumberOfNames && Ret==0; i++) {
-			char *Func=(char*)(Names[i]+(DWORD_PTR)Base);
-			if(Func && strcmp(Func,Name)==0)
+			char *Func = (char*)(Names[i]+(DWORD_PTR)Base);
+			if(Func && strcmp(Func, Name) == 0)
 				Ret=(FARPROC)(Functions[Ordinals[i]]+(DWORD_PTR)Base);
 		}
 	}
@@ -163,8 +167,10 @@ void* DragonGetProcAddressA(LPCSTR funcName) {
 }
 
 
-typedef HMODULE (WINAPI *Func_LoadLibraryA) (
-    _In_ LPCSTR lpLibFileName
+typedef HMODULE (WINAPI *Func_LoadLibraryExA)(
+    _In_ LPCSTR lpLibFileName,
+    _Reserved_ HANDLE hFile,
+    _In_ DWORD dwFlags
     );
 
 typedef DWORD (WINAPI *Func_GetModuleFileNameA) (
@@ -183,19 +189,113 @@ typedef VOID (WINAPI *Func_Sleep) (
     _In_ DWORD dwMilliseconds
     );
 
+typedef char* (*Func_undname)(char*, const char*, int, 
+    void* (*)(size_t), void (*)(void*), 
+    unsigned short
+    );
 
-Func_GetModuleFileNameA GetModuleFileNameA = (Func_GetModuleFileNameA)DragonGetProcAddressA("GetModuleFileNameA");
-Func_GetModuleHandleExA GetModuleHandleExA = (Func_GetModuleHandleExA)DragonGetProcAddressA("GetModuleHandleExA");
-Func_Sleep Sleep = (Func_Sleep)DragonGetProcAddressA("Sleep");
+HMODULE WINAPI LoadLibraryExA(
+    _In_ LPCSTR lpLibFileName,
+    _Reserved_ HANDLE hFile,
+    _In_ DWORD dwFlags) {
+    static Func_LoadLibraryExA funcLoadLibraryExA = NULL;
 
+    if (funcLoadLibraryExA == NULL) {
+        funcLoadLibraryExA= (Func_LoadLibraryExA)DragonGetProcAddressA("LoadLibraryExA");
+        assert(funcLoadLibraryExA != NULL);
+    }
 
-HMODULE WINAPI LoadLibraryA(
-    _In_ LPCSTR lpLibFileName
-    ) {
-	Func_LoadLibraryA funcLoadLibraryA = (Func_LoadLibraryA)DragonGetProcAddressA("LoadLibraryA");
-	return funcLoadLibraryA(lpLibFileName);
+    return funcLoadLibraryExA(lpLibFileName, hFile, dwFlags);
 }
 
+HMODULE WINAPI LoadLibraryA(_In_ LPCSTR lpLibFileName) {
+	return LoadLibraryExA(lpLibFileName, 0, 1);
+}
+
+DWORD WINAPI GetModuleFileNameA(
+    _In_opt_ HMODULE hModule,
+    _Out_writes_to_(nSize, ((return < nSize) ? (return + 1) : nSize)) LPSTR lpFilename,
+    _In_ DWORD nSize) {
+    static Func_GetModuleFileNameA funcGetModuleFileNameA = NULL;
+
+    if (funcGetModuleFileNameA == NULL) {
+        funcGetModuleFileNameA= (Func_GetModuleFileNameA)DragonGetProcAddressA("GetModuleFileNameA");
+        assert(funcGetModuleFileNameA != NULL);
+    }
+
+    return funcGetModuleFileNameA(hModule, lpFilename, nSize);
+}
+
+BOOL WINAPI GetModuleHandleExA (
+    _In_ DWORD dwFlags,
+    _In_opt_ LPCSTR lpModuleName,
+    _Out_ HMODULE * phModule) {
+    static Func_GetModuleHandleExA funcGetModuleHandleExA = NULL;
+
+    if (funcGetModuleHandleExA == NULL) {
+        funcGetModuleHandleExA = (Func_GetModuleHandleExA)DragonGetProcAddressA("GetModuleHandleExA");
+        assert(funcGetModuleHandleExA != NULL);
+    }
+
+    return funcGetModuleHandleExA(dwFlags, lpModuleName, phModule);
+}
+
+VOID WINAPI Sleep (_In_ DWORD dwMilliseconds) {
+    static Func_Sleep funcSleep = NULL;
+
+    if (funcSleep == NULL) {
+        funcSleep = (Func_Sleep)DragonGetProcAddressA("Sleep");
+        assert(funcSleep != NULL);
+    }
+
+    funcSleep(dwMilliseconds);
+}
+
+// -------------------------------------------------------
+//  UnDecorateSymbolName
+#define UNDNAME_COMPLETE                 (0x0000)  // Enable full undecoration
+#define UNDNAME_NO_LEADING_UNDERSCORES   (0x0001)  // Remove leading underscores from MS extended keywords
+#define UNDNAME_NO_MS_KEYWORDS           (0x0002)  // Disable expansion of MS extended keywords
+#define UNDNAME_NO_FUNCTION_RETURNS      (0x0004)  // Disable expansion of return type for primary declaration
+#define UNDNAME_NO_ALLOCATION_MODEL      (0x0008)  // Disable expansion of the declaration model
+#define UNDNAME_NO_ALLOCATION_LANGUAGE   (0x0010)  // Disable expansion of the declaration language specifier
+#define UNDNAME_NO_MS_THISTYPE           (0x0020)  // NYI Disable expansion of MS keywords on the 'this' type for primary declaration
+#define UNDNAME_NO_CV_THISTYPE           (0x0040)  // NYI Disable expansion of CV modifiers on the 'this' type for primary declaration
+#define UNDNAME_NO_THISTYPE              (0x0060)  // Disable all modifiers on the 'this' type
+#define UNDNAME_NO_ACCESS_SPECIFIERS     (0x0080)  // Disable expansion of access specifiers for members
+#define UNDNAME_NO_THROW_SIGNATURES      (0x0100)  // Disable expansion of 'throw-signatures' for functions and pointers to functions
+#define UNDNAME_NO_MEMBER_TYPE           (0x0200)  // Disable expansion of 'static' or 'virtual'ness of members
+#define UNDNAME_NO_RETURN_UDT_MODEL      (0x0400)  // Disable expansion of MS model for UDT returns
+#define UNDNAME_32_BIT_DECODE            (0x0800)  // Undecorate 32-bit decorated names
+#define UNDNAME_NAME_ONLY                (0x1000)  // Crack only the name for primary declaration;
+                                                                                                   //  return just [scope::]name.  Does expand template params
+#define UNDNAME_NO_ARGUMENTS             (0x2000)  // Don't undecorate arguments to function
+#define UNDNAME_NO_SPECIAL_SYMS          (0x4000)  // Don't undecorate special names (v-table, vcall, vector xxx, metatype, etc)
+
+
+static void* und_alloc(size_t len) { return HeapAlloc(GetProcessHeap(), 0, len); }
+static void und_free (void* ptr) { HeapFree(GetProcessHeap(), 0, ptr); }
+
+DWORD WINAPI UnDecorateSymbolName(PCSTR DecoratedName, PSTR UnDecoratedName, 
+    DWORD UndecoratedLength, DWORD Flags) {
+    Func_undname p_undname = NULL;
+    static const char szMsvcrt[] = {'m','s','v','c','r','t','.','d','l','l',0};
+
+    HMODULE hMsvcrt = NULL;
+
+    if (!p_undname){
+        if (!hMsvcrt) hMsvcrt = LoadLibraryA(szMsvcrt);
+        if (hMsvcrt) p_undname = (Func_undname)GetProcAddress(hMsvcrt, "__unDName");
+        if (!p_undname) return 0;
+    }
+
+    if (!UnDecoratedName) return 0;
+
+    if (!p_undname(UnDecoratedName, DecoratedName, UndecoratedLength, und_alloc, und_free, Flags))
+        return 0;
+
+    return strlen(UnDecoratedName);
+}
 
 #endif
 
@@ -261,8 +361,6 @@ const char* dragon::lang::internal::GetDragonLibPath() {
     }
 
 	return szPath;
-
-	throw "not implements!";
 }
 
 
@@ -284,29 +382,25 @@ string dragon::lang::internal::Mangling(const char* fun_signature) {
 }
 
 char* dragon::lang::internal::Demangle(const char* symbol) {
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		throw "not implements!";
-	#else
-		char* szPath =(char*)malloc(1024);
+    char* szPath =(char*)malloc(1024);
 
-		DWORD Flags = UNDNAME_COMPLETE;
-		Flags |= UNDNAME_NO_ALLOCATION_LANGUAGE;
-		Flags |= UNDNAME_NO_ACCESS_SPECIFIERS;
-		Flags |= UNDNAME_NO_ALLOCATION_MODEL;
-		Flags |= UNDNAME_NO_FUNCTION_RETURNS;
-		Flags |= UNDNAME_NO_MEMBER_TYPE;
-		Flags |= UNDNAME_NO_MS_KEYWORDS;
-		Flags |= UNDNAME_NO_MS_THISTYPE;
-		Flags |= UNDNAME_NO_THROW_SIGNATURES;
-		Flags |= UNDNAME_NO_THISTYPE;
-		Flags |= UNDNAME_NO_RETURN_UDT_MODEL;
+    DWORD Flags = UNDNAME_COMPLETE;
+    Flags |= UNDNAME_NO_ALLOCATION_LANGUAGE;
+    Flags |= UNDNAME_NO_ACCESS_SPECIFIERS;
+    Flags |= UNDNAME_NO_ALLOCATION_MODEL;
+    Flags |= UNDNAME_NO_FUNCTION_RETURNS;
+    Flags |= UNDNAME_NO_MEMBER_TYPE;
+    Flags |= UNDNAME_NO_MS_KEYWORDS;
+    Flags |= UNDNAME_NO_MS_THISTYPE;
+    Flags |= UNDNAME_NO_THROW_SIGNATURES;
+    Flags |= UNDNAME_NO_THISTYPE;
+    Flags |= UNDNAME_NO_RETURN_UDT_MODEL;
 
-		if (UnDecorateSymbolName(symbol, szPath, 1024, Flags)) {
-		    return szPath;
-		}
+    if (UnDecorateSymbolName(symbol, szPath, 1024, Flags)) {
+        return szPath;
+    }
 
-		return NULL;
-	#endif
+    return NULL;
 }
 
 
@@ -530,7 +624,7 @@ void dragon::lang::internal::FreeSemaphore(void* semaphore) {
 typedef struct ThreadHandle{
   	HANDLE thread;
   	DWORD thread_id;
-};
+} _ThreadHandle;
 
 // thread entry func
 typedef unsigned int (__stdcall *ThreadEntryFunc)(void *);

@@ -30,7 +30,7 @@
 BeginPackage2(dragon,util)
 
 template<class E>
-interface Iterable
+__interface Iterable
 {
 public:
 	virtual ~Iterable(){};

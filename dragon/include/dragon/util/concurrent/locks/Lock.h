@@ -30,7 +30,7 @@ BeginPackage4(dragon, util, concurrent, locks)
 
 Import dragon::util::concurrent::locks;
 
-interface _DragonExport Lock {
+__interface _DragonExport Lock {
 public:
 	virtual ~Lock(){};
 

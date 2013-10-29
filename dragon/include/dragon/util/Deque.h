@@ -9,7 +9,7 @@
 BeginPackage2(dragon,util)
 
 template<class E>
-interface Deque:public Queue<E>
+__interface Deque:public Queue<E>
 {
 public:
 	virtual ~Deque(){};

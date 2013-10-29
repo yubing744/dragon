@@ -30,7 +30,7 @@ BeginPackage3(dragon, util, logging)
 
 Import dragon::util::logging;
 
-interface _DragonExport Handler {
+__interface _DragonExport Handler {
 public:
 	virtual ~Handler(){};
 	

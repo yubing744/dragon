@@ -12,7 +12,7 @@ import sys
 from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
 from SCons.Tool.MSCommon.vc import get_default_version, find_vc_pdir
 
-env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE", "NOMINMAX"])
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE", "NOMINMAX", "_ARM_"])
 env.AppendUnique(CPPDEFINES = ["PSAPI_VERSION=2", "WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP"])
 
 # for gtest

@@ -28,7 +28,7 @@
 BeginPackage2(dragon, lang)
 
 template<class T>
-interface Comparable {
+__interface Comparable {
 public:
 	virtual ~Comparable(){};
 	

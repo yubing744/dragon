@@ -33,12 +33,12 @@ BeginPackage3(com, dragon3d, output)
 Import com::dragon3d::output;
 Import com::dragon3d::framework;
 
-interface OutputDevice;
+__interface OutputDevice;
 
 /**
  * ouput controller
  */
-interface _DragonExport OutputController {
+__interface _DragonExport OutputController {
 public:
 	virtual ~OutputController(){};
 

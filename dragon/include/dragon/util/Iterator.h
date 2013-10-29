@@ -29,7 +29,7 @@
 BeginPackage2(dragon, util)
 
 template<class E>
-interface Iterator
+__interface Iterator
 {
 public:
 	virtual ~Iterator(){};

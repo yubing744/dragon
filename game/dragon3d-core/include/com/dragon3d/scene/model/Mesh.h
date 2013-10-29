@@ -64,7 +64,7 @@ public:
     Vector4* tangents; // The tangents of the mesh.
     Color32* colors; //Vertex colors of the mesh.
 
-    short* triangleIndexs; //An array containing all triangles in the mesh.
+    unsigned short* triangleIndexs; //An array containing all triangles in the mesh.
     int triangleIndexCount; //index count
 
     int subMeshCount; //The number of submeshes. Every material has a separate triangle list.

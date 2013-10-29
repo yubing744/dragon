@@ -34,7 +34,7 @@ Import com::dragon3d::util;
  * the base of Timer.
  * 
  */
-interface _DragonExport ReadOnlyTimer {
+__interface _DragonExport ReadOnlyTimer {
 public:
 	virtual ~ReadOnlyTimer() {};
 

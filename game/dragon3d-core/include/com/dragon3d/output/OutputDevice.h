@@ -33,7 +33,7 @@ BeginPackage3(com, dragon3d, output)
 /**
  * interface output device
  */
-interface _DragonExport OutputDevice {
+__interface _DragonExport OutputDevice {
 public:
 	virtual ~OutputDevice(){};
 

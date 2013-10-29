@@ -30,9 +30,9 @@
 BeginPackage2(dragon, util)
 
 template<class K, class V>
-interface Map {
+__interface Map {
 public:
-	interface Entry {
+	__interface Entry {
 	public:
 		virtual ~Entry(){};
 

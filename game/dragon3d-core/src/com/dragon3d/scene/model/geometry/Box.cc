@@ -120,7 +120,7 @@ Box::Box() {
       1.0f, 0.0f,
     };
 
-    short cubeIndices[] =
+    unsigned short cubeIndices[] =
     {
         0, 2, 1,
         0, 3, 2, 
@@ -172,7 +172,7 @@ Box::Box() {
 
     //Copy indices data
     this->mesh->triangleIndexCount = numIndices;
-    this->mesh->triangleIndexs = new short[numIndices];
+    this->mesh->triangleIndexs = new unsigned short[numIndices];
 
     for (int i=0; i<numIndices; i++) {
         this->mesh->triangleIndexs[i] = cubeIndices[i];

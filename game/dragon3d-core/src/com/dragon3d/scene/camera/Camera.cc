@@ -65,6 +65,7 @@ Camera::Camera()
 	velocity(Vector3::ZERO),
 	targetTexture(null) {
 
+	this->rect = Rect(0, 0, 1.0f, 1.0f);
 }
 
 Camera::~Camera() {

@@ -28,7 +28,7 @@
 
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/scene/camera/Camera.h>
-#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+#include <com/dragon3d/output/graphics/renderer/DirectX11Renderer.h>
 
 Import dragon::util;
 
@@ -42,7 +42,7 @@ static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::Grap
 
 GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
     this->graphicsDevice = graphicsDevice;
-	this->graphicsRenderer = new OpenGLRenderer(graphicsDevice);
+	this->graphicsRenderer = new DirectX11Renderer(graphicsDevice);
 
     this->placementGrid = new PlacementGrid();
     this->showPlacementGrid = true;

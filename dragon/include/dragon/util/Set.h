@@ -11,7 +11,7 @@ BeginPackage2(dragon,util)
 Import dragon::lang;
 
 template<class E>
-interface Set:public Collection<E>
+__interface Set:public Collection<E>
 {
 public:
 	virtual ~Set(){};

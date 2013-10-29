@@ -9,7 +9,7 @@
 BeginPackage2(dragon,util)
 
 template<class E>
-interface Queue:public List<E>
+__interface Queue:public List<E>
 {
 public:
 	virtual ~Queue(){};

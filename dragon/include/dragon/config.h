@@ -138,12 +138,13 @@
 #undef __RPCNDR_H__
 
 #ifndef interface
-	#ifndef _WIN32
-		#define interface struct
+	#ifdef _WIN32
+		#define __interface class __declspec(novtable)
+		#define DRAGON_INTERFACE class __declspec(novtable)
+		#define interface class __declspec(novtable)
 	#else
-		#ifndef interface
-			#define interface class __declspec(novtable)
-		#endif
+		#define __interface struct
+		#define interface struct
 	#endif
 #endif
 
