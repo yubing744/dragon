@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"renderT",
+				"renderTargetWidth"
+			],
+			[
+				"gra",
+				"GraphicsDevice"
+			],
+			[
+				"In",
+				"Initialize"
+			],
+			[
 				"im",
 				"image_num"
 			],
@@ -288,10 +300,21 @@
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
+			"file": "dragon/src/dragon/lang/internal/Library_mac.cc",
 			"settings":
 			{
-				"buffer_size": 4917,
+				"buffer_size": 8026,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "/*\n* Copyright 2013 the original author or authors.\n* \n* Licensed under the Apache License, Version 2.0 (the \"License\");\n* you may not use this file except in compliance with the License.\n* You may obtain a copy of the License at\n* \n*      http://www.apache.org/licenses/LICENSE-2.0\n* \n* Unless required by applicable law or agreed to in writing, software\n* distributed under the License is distributed on an \"AS IS\" BASIS,\n* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n* See the License for the specific language governing permissions and\n* limitations under the License.\n*/\n\n/**********************************************************************\n * Author:      Owen Wu/wcw/yubing\n * Email:       yubing744@163.com\n * Created:     2013/07/25\n **********************************************************************/\n\n#include <dragon/lang/internal/Library_posix.h>\n\n#include <stdlib.h>\n#include <string.h>\n#include <stdio.h>\n#include <ctype.h>\n\n#include <link.h>\n#include <dlfcn.h>\n#include <elf.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <errno.h>\n#include <assert.h>\n\nImport dragon::lang::internal;\n\n//-------------------------------------------------------------------------------------\n//Blow Code from  https://github.com/shoumikhin/ELF-Hook.git\n//\n//Method of patching the import table in ELF shared libraries.\n//Read more info at CodeProject (http://www.codeproject.com/KB/library/elf-redirect.aspx).\n//\n\n\n/* bionic is currently only 32-bit. */\n#ifdef __x86_64\n    #define ElfW(type) Elf64_##type\n#else\n    #define ElfW(type) Elf32_##type\n#endif\n\n#define SOINFO_NAME_LEN 128\n\n#ifdef __ANDROID__\n\n/*\n    the header part of the soinfo\n */\ntypedef struct {\n    char name[SOINFO_NAME_LEN];\n    const Elf32_Phdr* phdr;\n    size_t phnum;\n    Elf32_Addr entry;\n    Elf32_Addr base;\n    unsigned size;\n} android_soinfo;\n\n#endif // #ifdef __ANDROID__\n\n\n#ifndef __arm__\n\nint dl_iterate_callback(struct dl_phdr_info *info, size_t size, void *data) {\n    int j;\n\n    struct dl_phdr_info* tolookup = (dl_phdr_info*)data; \n\n    for (j = 0; j < info->dlpi_phnum; j++) {\n        if (strcmp(info->dlpi_name, tolookup->dlpi_name) == 0x0) {\n            tolookup->dlpi_addr = info->dlpi_addr;\n            tolookup->dlpi_phdr = info->dlpi_phdr;\n            tolookup->dlpi_phnum = info->dlpi_phnum;\n\n            return j;\n        }\n    }\n         \n    return 0;\n}\n\n#endif //__arm__\n\n\nvoid* find_lib_base_address(const char* path) {\n    assert(path != NULL && \"path is null\");\n\n    void *handle = dlopen(path, RTLD_LAZY);\n\n#ifdef __USE_GNU\n    const struct link_map * link_map = 0;\n    const int ret = dlinfo(handle, RTLD_DI_LINKMAP, &link_map);\n    return (void*)link_map->l_addr;\n#endif//__USE_GNU\n\n#ifndef __arm__\n    struct dl_phdr_info to_lookup;\n    to_lookup.dlpi_addr = NULL;\n    to_lookup.dlpi_name = path;\n\n    dl_iterate_phdr(dl_iterate_callback, &to_lookup);\n    if (to_lookup.dlpi_addr != NULL) {\n        return (void*)to_lookup.dlpi_addr;\n    }\n#endif\n\n#ifdef __ANDROID__\n    android_soinfo* libdl_info = (android_soinfo*)handle;\n    return (void*)libdl_info->base;\n#endif\n\n    return NULL;\n}\n\nint elf_check_addr(ElfW(Ehdr)* header, const void *addr) {\n    void* dlpi_addr = (void*)header;\n\n    ElfW(Phdr)* start_phdr = (ElfW(Phdr)*)((void*)header + header->e_phoff);\n    ElfW(Half) e_phnum = header->e_phnum;\n\n    for (size_t i=0; i<e_phnum; i++) {\n        ElfW(Phdr)* phdr = start_phdr + i;\n\n        if (phdr->p_type == PT_LOAD) {\n            if ((addr < phdr->p_memsz + phdr->p_vaddr + dlpi_addr) &&\n                (addr >= phdr->p_vaddr + dlpi_addr)) {\n                return 0;  \n            }\n        }\n    }\n\n    return 1;\n}\n\nElfW(Phdr)* find_segment(ElfW(Ehdr)* header, int tag) {\n    ElfW(Phdr)* start_phdr = (ElfW(Phdr)*)((void*)header + header->e_phoff);\n    ElfW(Half) e_phnum = header->e_phnum;\n\n    for (size_t i=0; i<e_phnum; i++) {\n        ElfW(Phdr)* phdr = start_phdr + i;\n\n        if (phdr->p_type == tag) {\n            return phdr;\n        }\n    }\n\n    return NULL;\n}\n\nElfW(Dyn)* find_dyn(ElfW(Ehdr)* header, ElfW(Phdr)* p_seg, int tag) {\n    ElfW(Dyn)* dyn = (ElfW(Dyn)*)((void*)header + p_seg->p_vaddr);\n\n    for (; dyn->d_tag != DT_NULL; ++dyn) {\n        if (dyn->d_tag == tag) {\n            return dyn;\n        }\n    }\n\n    return 0;\n}\n\nchar* find_strtab(ElfW(Ehdr)* header) {\n    void* dlpi_addr = (void*)header;\n\n    ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);\n\n    if (dyn_seg) {\n        ElfW(Dyn)* str_dyn = find_dyn(header, dyn_seg, DT_STRTAB);\n\n        if (str_dyn) {\n            void* str_sec_addr = (void*)str_dyn->d_un.d_ptr;\n\n            if (elf_check_addr(header, str_sec_addr)) {\n                str_sec_addr = dlpi_addr + str_dyn->d_un.d_ptr;\n            }\n\n            return (char*)str_sec_addr;\n        }\n    }\n\n    return NULL;\n}\n\nElfW(Sym)* find_sym_base(ElfW(Ehdr)* header) {\n    void* dlpi_addr = (void*)header;\n\n    ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);\n    if (dyn_seg) {\n        ElfW(Dyn)* sym_dyn = find_dyn(header, dyn_seg, DT_SYMTAB);\n\n        if (sym_dyn) {\n            void* sym_sec_addr = (void*)sym_dyn->d_un.d_ptr;\n\n            if (elf_check_addr(header, sym_sec_addr)) {\n                sym_sec_addr = dlpi_addr + sym_dyn->d_un.d_ptr;\n            }\n\n            return (ElfW(Sym)*)sym_sec_addr;\n        }\n    }\n\n    return NULL;\n}\n\nsize_t find_symbol_count_by_dt_hash(ElfW(Ehdr)* header) {\n    void* dlpi_addr = (void*)header;\n\n    ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);\n\n    if (dyn_seg) {\n        ElfW(Dyn)* hash_dyn = find_dyn(header, dyn_seg, DT_HASH);\n\n        if (hash_dyn) {\n            ElfW(Word)* hash = (ElfW(Word)*)(hash_dyn->d_un.d_ptr);\n\n            if (elf_check_addr(header, hash)) {\n                hash = (ElfW(Word)*)(dlpi_addr + hash_dyn->d_un.d_ptr);\n            }\n\n            return hash[1];\n        } \n    }\n\n    return 0;\n}\n\n\n#ifdef DT_GNU_HASH\n\nsize_t find_symbol_count_by_dt_gnu_hash(ElfW(Ehdr)* header) {\n    void* dlpi_addr = (void*)header;\n\n    Elf32_Word *buckets, *chains, *hasharr;\n    ElfW(Addr) *bitmask, bitmask_word;\n    Elf32_Word symbias, bitmask_nwords, bucket,\n    nbuckets, bitmask_idxbits, shift;\n    Elf32_Word hash, hashbit1, hashbit2;\n    ElfW(Sym) *esym;\n\n    ElfW(Phdr)* dyn_seg = find_segment(header, PT_DYNAMIC);\n\n    if (dyn_seg) {\n        ElfW(Dyn)* gnu_hash_dyn = find_dyn(header, dyn_seg, DT_GNU_HASH);\n\n        if (gnu_hash_dyn) {\n            ElfW(Word)* gnu_hash = (ElfW(Word)*)gnu_hash_dyn->d_un.d_ptr;\n\n            if (elf_check_addr(header, gnu_hash)) {\n                gnu_hash = (ElfW(Word)*)dlpi_addr + gnu_hash_dyn->d_un.d_ptr;\n            }\n\n            nbuckets = gnu_hash[0];\n            symbias = gnu_hash[1];\n            bitmask_nwords = gnu_hash[2]; /* must be power of two */\n            bitmask_idxbits = bitmask_nwords - 1;\n            shift = gnu_hash[3];\n\n            bitmask = (ElfW(Addr) *) &gnu_hash[4];\n            buckets = &gnu_hash[4 + (__ELF_NATIVE_CLASS / 32) * bitmask_nwords];\n            chains = &buckets[nbuckets] - symbias;\n\n            unsigned int last_sym = 0;\n\n            for (size_t index = 0; index < nbuckets; index++) {\n                if (buckets[index] > last_sym) {\n                    last_sym = buckets[index]; \n                }\n            }\n\n            last_sym++;\n\n            while (!(chains[last_sym] & 1)) {\n                last_sym++;\n            }\n\n            return last_sym;\n        } \n    }\n\n    return 0;\n}\n\n#endif//DT_GNU_HASH\n\n\nsize_t find_symbol_count(ElfW(Ehdr)* header) {\n    size_t size = find_symbol_count_by_dt_hash(header);\n\n#ifdef DT_GNU_HASH\n    if (size == 0) {\n       size = find_symbol_count_by_dt_gnu_hash(header);\n    }\n#endif//DT_GNU_HASH\n\n    return size;   \n}\n\n/* e_ident */\n#define __IS_ELF(ehdr) ((ehdr).e_ident[EI_MAG0] == ELFMAG0 && \\\n                      (ehdr).e_ident[EI_MAG1] == ELFMAG1 && \\\n                      (ehdr).e_ident[EI_MAG2] == ELFMAG2 && \\\n                      (ehdr).e_ident[EI_MAG3] == ELFMAG3)\n\nexport_symbol* find_symbol_export_table(const char* path, size_t* addr_export_table_size) {\n    void *handle = dlopen(path, RTLD_LAZY);\n\n    void *dlpi_addr = find_lib_base_address(path);\n    if (dlpi_addr == NULL) {\n        fprintf(stderr, \"Failed to get module base addresses\\n\");\n        return NULL;\n    }\n\n    ElfW(Ehdr)* header = (ElfW(Ehdr)*)dlpi_addr;\n    if (!__IS_ELF(*header)) {\n        fprintf(stderr, \"Invalidate ELF file\\n\");\n        return NULL;\n    }   \n\n    char* strtab = find_strtab(header);\n\n    size_t sym_max_count = find_symbol_count(header);\n    ElfW(Sym)* sym_base = find_sym_base(header);\n\n    size_t symbol_count = 0;\n    export_symbol* table = (export_symbol *)calloc(0x1, sizeof(export_symbol));\n\n    for (size_t i=0; i<sym_max_count; i++) {\n        ElfW(Sym)* sym = sym_base + i;\n\n        char* symbol = &strtab[sym->st_name];\n\n        void* symbol_address = dlsym(handle, symbol);\n\n        if (strlen(symbol) > 0 && symbol_address) {\n            table = (export_symbol*)realloc(table, sizeof(export_symbol)*(symbol_count+0x1));\n\n            table[symbol_count].address = symbol_address;\n            table[symbol_count].symbol = symbol;\n\n            symbol_count++;\n        }\n    }\n\n    *addr_export_table_size = symbol_count;\n\n    return table;\n}\n\nvoid Library::resolve() {\n    if (!this->resolved) {\n        size_t symbol_count = 0;\n        export_symbol *table = find_symbol_export_table(this->libPath, &symbol_count);\n\n        const char* prefix_symbol = \"_ZN\";\n        size_t prefix_symbol_size = strlen(prefix_symbol);\n\n        for(int i=0; i<symbol_count; i++) {\n            export_symbol *es = table + i;\n            if (memcmp(es->symbol, prefix_symbol, prefix_symbol_size)== 0x0 \n                && isdigit(es->symbol[prefix_symbol_size])) {\n                //printf(\"address: 0x%x, symbol: %s\\n\", es->address, es->symbol);\n                add_to_tree(this->classTree, es, prefix_symbol_size);\n            }\n        }\n\n        free(table);\n\n        this->resolved = dg_true;\n    }\n}\n",
+			"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
+			"file_size": 10482,
+			"file_write_time": 130265851173407603,
+			"settings":
+			{
+				"buffer_size": 10022,
 				"line_ending": "Windows"
 			}
 		}
@@ -388,28 +411,75 @@
 	},
 	"file_history":
 	[
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/arm-microsoft-wp8/Config.scons",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_wp8.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsOutputController.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/wp8/support_graphics_renderer.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/wp8/DirectX11Renderer.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/DirectX11Renderer.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/util/logging/native/wp8/ConsoleHandler.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/targets/arm-microsoft-wp8/Config.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/DirectX11Renderer.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/Component.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/geometry/Box.cc",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/config.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/wp8/AppLauncher.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Build.scons",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/AppLauncher.cc",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/Comparable.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector2.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/CharSequence.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/framework/Input.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/util/ReadOnlyTimer.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Iterator.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Collection.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Deque.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Iterable.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/LinkedList.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/List.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Map.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Properties.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Queue.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Set.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Stack.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/Templatetype.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/util.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/logging/Handler.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/Runnable.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/framework/Output.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/framework/Scene.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/framework/Updater.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/OutputController.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/OutputDevice.h",
+		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsRenderer.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/concurrent/locks/Lock.h",
+		"/D/Dropbox/Software/Sublime Text 2.0.2 x64/Data/Packages/User/Preferences.sublime-settings",
+		"/D/Dropbox/Software/Sublime Text 2.0.2 x64/Data/Packages/Default/Preferences.sublime-settings",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_wp8.cc",
 		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/platform.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/arm/platform_arm.cc",
 		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_wp8.cc",
-		"/E/Develop/GitProject/dragon/dragon/build/targets/arm-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-port.h",
 		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-string.h",
 		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-death-test-internal.h",
 		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-internal.h",
 		"/E/Develop/GitProject/dragon/third_party/googletest/src/gtest.cc",
 		"/E/Develop/GitProject/dragon/third_party/googletest/src/gtest-death-test.cc",
-		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
 		"/E/Develop/GitProject/dragon/SConstruct",
 		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-win32/Config.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Build.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Build.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Build.scons",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/arm-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/arm-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/shader/Shader.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/Shader.cc",
@@ -447,7 +517,6 @@
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
 		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_win32.cc",
 		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/config.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/String.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon.sublime-project",
@@ -469,53 +538,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassLoaderTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/ClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/ClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Windows).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest(OSX).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/LibraryClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Member.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Constructor.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Member.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Method.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Method.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Field.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Constructor.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Field.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(OSX).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Class.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ClassTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/LibraryManager.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library(Linux).cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/DllLibrary.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/DllLibrary.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/DllLibrary.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Library.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Property.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Property.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/DllLibrary.h",
-		"/usr/include/c++/4.2.1/bits/gthr-default.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegate.h",
-		"/usr/include/c++/4.2.1/bits/stl_vector.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/internal/gtest-internal.h",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeGDB/Default.sublime-keymap",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/Demo.cpp",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/fastdelegate/FastDelegateBind.h",
-		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Thread.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/ClassLoader.cc"
 	],
 	"find":
 	{
@@ -538,6 +561,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"m_constantBuffer",
+			"CubeRenderer",
+			"CaptureUiThreadContext",
 			"StrError",
 			"posix",
 			"the",
@@ -608,6 +634,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"SampleRenderer",
 			"Library",
 			"GlobTargetSources",
 			"SmartArrayPointer",
@@ -636,33 +663,59 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
+					"file": "dragon/src/dragon/lang/internal/Library_mac.cc",
 					"settings":
 					{
-						"buffer_size": 4917,
+						"buffer_size": 8026,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								847,
-								847
+								4585,
+								7304
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2684.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/src/dragon/lang/internal/Library_Linux.cc",
+					"settings":
+					{
+						"buffer_size": 10022,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5499,
+								5509
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 84.0,
+						"translation.y": 2730.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -703,7 +756,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 302.0
+		"height": 328.0
 	},
 	"replace":
 	{
@@ -934,6 +987,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 362.0,
+	"side_bar_width": 454.0,
 	"status_bar_visible": true
 }
