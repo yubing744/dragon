@@ -1,12 +1,12 @@
 /*
 * Copyright 2013 the original author or authors.
-*
+* 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
-*
+* 
 *      http://www.apache.org/licenses/LICENSE-2.0
-*
+* 
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,29 +17,10 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/01
+ * Created:     2013/11/03
  **********************************************************************/
 
 
-#include <gtest/gtest.h>
+#include <dragon/io/FilenameFilter.h>
 
-#include <dragon.h>
-#include <dragon/lang/String.h>
-#include <dragon/lang/gc/SmartPointer.h>
-
-Import dragon::lang;
-Import dragon::lang::gc;
-
-TEST(Dragon_Lang_Gc_SmartPointerTest, New) {
-	P<String> p = new String("abc");
-}
-
-TEST(Dragon_Lang_Gc_SmartPointerTest, New2) {
-	P<String> p = new String("abc");
-	P<String> p2 = p;
-}
-
-TEST(Dragon_Lang_Gc_SmartPointerTest, New3) {
-	P<String> p = new String("abc");
-	P<Object> p2 = p.raw();
-}
+Import dragon::io;

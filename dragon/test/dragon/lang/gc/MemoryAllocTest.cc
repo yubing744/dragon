@@ -23,7 +23,7 @@
 
 #include <gtest/gtest.h>
 #include <dragon/lang/String.h>
-#include <dragon/lang/gc/SmartPointer.h>
+#include <dragon/lang/gc/Reference.h>
 #include <dragon/lang/gc/MemoryAlloc.h>
 
 Import dragon::lang;
@@ -34,7 +34,7 @@ TEST(Dragon_Lang_Gc_MemoryAllocTest, New) {
 }
 
 TEST(Dragon_Lang_Gc_MemoryAllocTest, NewWithType01) {
-	P<String> str = New<String>();
+	Ref<String> str = New<String>();
 }
 
 TEST(Dragon_Lang_Gc_MemoryAllocTest, NewWithType02) {

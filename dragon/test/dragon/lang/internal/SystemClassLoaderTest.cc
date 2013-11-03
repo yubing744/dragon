@@ -72,4 +72,7 @@ TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 
 	SafeDelete(retPtr);
 	SafeDelete(tb);
+
+	types.release();
+	args.release();
 }

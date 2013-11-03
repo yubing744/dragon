@@ -70,7 +70,7 @@ void AbstractStringBuilder::expandCapacity(dg_int minimumCapacity) {
 
 	dg_char* newValue = new dg_char[newCapacity];
 	Arrays<dg_char>::copyOf(value, 0, newValue, 0, count);
-	SafeDeleteArray(this->value);
+	this->value.release();
 
 	this->value = Array<dg_char>(newValue, newCapacity);
 }

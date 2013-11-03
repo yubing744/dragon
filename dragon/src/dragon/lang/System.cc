@@ -22,6 +22,9 @@
 
 #include <dragon/lang/System.h>
 #include <dragon/lang/internal/platform.h>
+#include <dragon/lang/String.h>
+
+#include <stdlib.h>
 
 Import dragon::lang;
 Import dragon::lang::internal;
@@ -40,5 +43,43 @@ dg_long System::nanoTime() {
 }
 
 void System::exit(int code) {
+    exit(code);
+}
 
+// ---------------------------------------
+// system propertys
+// 
+typedef map<string, String*> PropMap;
+typedef PropMap::iterator Iterator;
+
+static bool isSetupClearSysPropMap = false;
+static PropMap sysPropMap;
+
+static void ClearSysPropMap() {
+    for(Iterator it = sysPropMap.begin();sysPropMap.size()>0;it=sysPropMap.begin()) { 
+        String* propVal = it->second;
+        SafeDelete(propVal);
+
+        sysPropMap.erase(it);
+    }
+
+    sysPropMap.clear();
+}
+
+const String* System::getProperty(const char* name) {
+    if (!isSetupClearSysPropMap) {
+        isSetupClearSysPropMap = true;
+
+        atexit(ClearSysPropMap);
+    }
+
+    Iterator it = sysPropMap.find(name);
+
+    if (it != sysPropMap.end()) {
+        return it->second;
+    } else {
+        String* val = new String(getenv(name));
+        sysPropMap[name] = val;
+        return val;
+    }
 }

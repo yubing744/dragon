@@ -46,10 +46,6 @@
 # include <mem.h>
 #endif
 
-#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-  #include <windows.h>
-#endif
-
 #include <string.h>
 #include <string>
 

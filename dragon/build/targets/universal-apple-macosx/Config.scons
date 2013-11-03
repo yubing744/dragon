@@ -8,6 +8,8 @@ universal_flags =  [('-arch', 'x86_64'), ('-arch', 'i386'), ('-isysroot', '/Appl
 env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
 env.AppendUnique(CPPDEFINES = ["__APPLE__"])
 
+env.AppendUnique(FRAMEWORKS=Split('Cocoa'))
+
 env['DRAGON_EXTRA_LIBS']=['stdc++']
 
 def Macosx_testcallback(target, source, env):

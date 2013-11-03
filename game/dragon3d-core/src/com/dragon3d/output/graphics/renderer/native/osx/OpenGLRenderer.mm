@@ -44,6 +44,10 @@ typedef struct {
     NSOpenGLView* dgView;
 } NativeData;
 
+void OpenGLRendererNativeInit(GraphicsDevice* graphicsDevice) {
+    logger->debug("native init");
+}
+
 void OpenGLRenderer::flushBuffer() {
     logger->debug("flush buffer");
 
