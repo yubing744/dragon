@@ -25,10 +25,12 @@
 #define List_Util_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Array.h>
 #include <dragon/util/Collection.h>
 
 BeginPackage2(dragon, util)
 
+Import dragon::lang;
 
 template<class E>
 __interface List extends(Collection<E>)
@@ -51,6 +53,9 @@ public:
 	virtual E* get(int index) = 0;
 	virtual E* set(int index, E* e) = 0;
 
+public:
+	virtual Array<E*> toArray() = 0;
+	virtual Array<E*> toArray(Array<E*>& a) = 0;
 };
 
 EndPackage2//(dragon, util)

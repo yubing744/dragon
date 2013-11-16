@@ -17,48 +17,44 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/26
+ * Created:     2013/11/03
  **********************************************************************/
 
 
-#ifndef LibraryClassLoader_Internal_Lang_Dragon_H
-#define LibraryClassLoader_Internal_Lang_Dragon_H
+#ifndef FilenameFilter_Io_Dragon_H
+#define FilenameFilter_Io_Dragon_H
 
 #include <dragon/config.h>
-#include <dragon/lang/ClassLoader.h>
-#include <dragon/lang/internal/Library.h>
+#include <dragon/lang/String.h>
 
-#include <vector>
+BeginPackage2(dragon, io)
 
-BeginPackage3(dragon, lang, internal)
+class File;
 
+Import dragon::io;
 Import dragon::lang;
-Import std;
 
-class _DragonExport LibraryClassLoader 
-	extends(ClassLoader) {
+/**
+ * Instances of classes that implement this interface are used to filter filenames. 
+ * These instances are used to filter directory listings in the list method of class File, 
+ * and by the Abstract Window Toolkit's file dialog component. 
+ */
+__interface _DragonExport FilenameFilter {
 public:
-	typedef vector<Library*> LibraryList;
-	typedef LibraryList::iterator Iterator;
-
-public:
-	LibraryClassLoader();
-	LibraryClassLoader(const char* libPath);
-	virtual ~LibraryClassLoader();
-
-protected: //Override ClassLoader
-	virtual Class* findClass(const char* name);
+    virtual ~FilenameFilter(){};
 
 public:
-	virtual void load(const char* libPath);
+    /**
+     * Tests if a specified file should be included in a file list.
+     * 
+     * @param  dir  [description]
+     * @param  name [description]
+     * @return      [description]
+     */
+    virtual bool accept(const File* dir, const String* name) const = 0;
+    
+};//FilenameFilter
 
-protected:
-	virtual Class* defineClass(const char* name, Library::NameSpace* space);
+EndPackage2 //(dragon, io)
 
-protected:
-	LibraryList* librarys;	
-};//LibraryClassLoader
-
-EndPackage3 //(dragon, lang, internal)
-
-#endif //LibraryClassLoader_Internal_Lang_Dragon_H
+#endif //FilenameFilter_Io_Dragon_H

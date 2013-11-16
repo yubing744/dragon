@@ -73,6 +73,10 @@ public:
 	virtual E pollLast();
 	virtual E peekLast();
 
+public:
+	virtual Array<E*> toArray();
+	virtual Array<E*> toArray(Array<E*>& a);
+
 private:
 	list<E> mList;
 };

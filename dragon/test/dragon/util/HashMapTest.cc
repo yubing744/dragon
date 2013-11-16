@@ -72,10 +72,10 @@ TEST(Dragon_Util_HashMapTest, IteratorMap) {
 		Object* obj = entry->getValue();
 		SafeDelete(obj);
 
-		//SafeDelete(entry);
+		SafeDelete(entry);
 	}
 
-	//SafeDelete(it);
+	SafeDelete(it);
 	SafeDelete(myMap);
 }
 
@@ -104,9 +104,9 @@ TEST(Dragon_Util_HashMapTest, IteratorStringMap) {
 		Object* obj = entry->getValue();
 		SafeDelete(obj);
 
-		//SafeDelete(entry);
+		SafeDelete(entry);
 	}
 
-	//SafeDelete(it);
+	SafeDelete(it);
 	SafeDelete(myMap);
 }

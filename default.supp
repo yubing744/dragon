@@ -837,3 +837,47 @@
    fun:_pthread_start
    fun:thread_start
 }
+
+{
+   MemCheck
+   Memcheck:Leak
+   fun:malloc_zone_memalign
+   fun:objc_autoreleasePoolPush
+   fun:call_load_methods
+   fun:load_images
+   ...
+}
+
+
+{
+   ImageLoader
+   Memcheck:Leak
+   fun:malloc_zone_malloc
+   ...
+}
+
+{
+   objc_class_create
+   Memcheck:Leak
+   fun:calloc
+   fun:class_createInstance
+   ...
+}
+
+{
+   GetTSD
+   Memcheck:Leak
+   fun:calloc
+   fun:_CFGetTSD
+   fun:CFAllocatorGetDefault
+   fun:_CFRuntimeCreateInstance
+   ...
+}
+
+{
+   ObjectCtoUnicode
+   Memcheck:Leak
+   fun:malloc
+   fun:__NSSetCStringCharToUnichar
+   ...
+}

@@ -53,6 +53,10 @@ Thread::Thread(Runnable* target, const char* name, int stackSize){
 
 Thread::~Thread() {
 	SafeDelete(this->name);
+
+	if (this->threadHandle != NULL) {
+		CloseThread(this->threadHandle);
+	}
 }
 
 void Thread::init(Runnable* target, const char* name, int stackSize) {

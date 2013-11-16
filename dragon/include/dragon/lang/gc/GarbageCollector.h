@@ -33,6 +33,23 @@ enum _DragonExport GCMode {
 	GCMODE_HANDCOLLECT = 1
 };
 
+template <class T>
+struct DestructorNormal {
+	static void notDestruct(void* arr) {
+
+	}
+
+	static void destruct(void* data) {
+		T* td = (T*)(data);
+		delete td;
+	}
+
+	static void destructArray(void* arr) {
+		T* data = (T*)(arr);
+		delete[] data;
+	}
+};
+	
 class _DragonExport GarbageCollector {
 public:
 	static GarbageCollector* GetInstance();

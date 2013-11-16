@@ -24,7 +24,7 @@
 #define Array_Lang_Dragon_H
 
 #include <dragon/config.h>
-#include <dragon/lang/gc/SmartArrayPointer.h>
+#include <dragon/lang/gc/Reference.h>
 
 BeginPackage2(dragon, lang)
 
@@ -32,36 +32,38 @@ Import dragon::lang::gc;
 
 template<class T>
 class Array {
-	struct DestructorNormal {
-		static void NotDestructArray(void* arr) {
-
-		}
-	};
-
-
 public:
 	Array() {
 		this->count = 0;
 		this->data = null;
 	};
 
-	Array(dg_int count) {
+	Array(int count) {
 		this->count = count;
-		this->data = new T[count];
+
+		const T* data = new T[count];
+		this->data = Reference<T>(const_cast<T*>(data), DestructorNormal<T>::notDestruct);
+	};
+
+	Array(const T* data, int count) {
+		this->count = count;
+		this->data = Reference<T>(const_cast<T*>(data), DestructorNormal<T>::notDestruct);
 	};
 
 	Array(const Array& arr) {
 		this->count = arr.count;
-		this->data = arr.data;
+
+		const T* data = arr.data.raw();
+		this->data = Reference<T>(const_cast<T*>(data), DestructorNormal<T>::notDestruct);
 	};
 
-	Array(const T* data, dg_int count, dg_boolean gcData = dg_false) {
+	Array(const T* data, int count, bool gcData) {
 		this->count = count;
 
 		if (gcData) {
-			this->data = const_cast<T*>(data);
+			this->data = Reference<T>(const_cast<T*>(data), DestructorNormal<T>::destructArray);
 		} else {
-			this->data = PArray<T>(const_cast<T*>(data), DestructorNormal::NotDestructArray);
+			this->data = Reference<T>(const_cast<T*>(data), DestructorNormal<T>::notDestruct);
 		}
 	};
 
@@ -86,19 +88,19 @@ public:
 	};
 
 public:
-	const T& get(dg_int index) const {
+	const T& get(int index) const {
 		return this->data[index];
 	};
 
-	void set(dg_int index, const T& t) {
+	void set(int index, const T& t) {
 		this->data[index] = t;
 	};
 
-	dg_int size() {
+	int size() {
 		return this->count;
 	};
 
-	dg_int length() {
+	int length() {
 		return this->count;
 	};
 
@@ -111,8 +113,8 @@ public:
 		SafeDeleteArray(data);
 	}
 private:
-	dg_int count;
-	PArray<T> data;
+	Reference<T> data;
+	int count;
 };
 
 EndPackage2//(dragon, lang)

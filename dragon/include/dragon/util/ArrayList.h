@@ -81,7 +81,11 @@ public: // implements List
 	virtual E* get(int index);
 	virtual E* set(int index, E* e);
 	virtual void clear();
-	
+
+public:
+	virtual Array<E*> toArray();
+	virtual Array<E*> toArray(Array<E*>& a);
+
 	////Stack Interface Method
 	//virtual E push(const E& e);
 	//virtual E pop();
@@ -193,6 +197,25 @@ E* ArrayList<E>::set(int index, E* e)
 template<class E>
 void ArrayList<E>::clear() {
 	mVector.clear();
+}
+
+template<class E>
+Array<E*> ArrayList<E>::toArray(Array<E*>& a) {
+    int size = a.length();
+
+    for(int i=0; i<size; i++) {
+    	E* e = this->get(i);
+        a.set(i, e);
+    }
+
+    return a;
+}
+
+template<class E>
+Array<E*> ArrayList<E>::toArray() {
+	int size = this->size();
+    Array<E*> result(size);
+    return this->toArray(result);
 }
 
 EndPackage2//(dragon, util)

@@ -147,7 +147,7 @@ protected:
 public:
 	String* operator = (const char* str);
 	String* operator = (const wchar_t* str);
-	
+     String& operator = (const String& str); 	
 /*
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
@@ -259,7 +259,7 @@ public:
      *          this->substring(toffset)->startsWith(prefix)
      *          </pre>
      */
-	dg_boolean startsWith(const String* prefix, dg_int toffset);
+	dg_boolean startsWith(const String& prefix, dg_int toffset) const;
 
     /**
      * Tests if this string starts with the specified prefix.
@@ -274,7 +274,7 @@ public:
      *          {@link #equals(Object)} method.
      * @since   1. 0
      */	
-	dg_boolean startsWith(const String* prefix);
+	dg_boolean startsWith(const String& prefix) const;
 
     /**
      * Tests if this string ends with the specified suffix.
@@ -287,7 +287,7 @@ public:
      *          empty string or is equal to this <code>String</code> object
      *          as determined by the {@link #equals(Object)} method.
      */
-	dg_boolean endsWith(const String* suffix);
+	dg_boolean endsWith(const String& suffix) const;
 
     /**
      * Returns a hash code for this string. The hash code for a
@@ -481,7 +481,7 @@ public:
      *          the last such substring is returned. If it does not occur as
      *          a substring, <code>-1</code> is returned.
      */	
-	dg_int lastIndexOf(String* str);
+	dg_int lastIndexOf(const String& str) const;
 
 
     /**
@@ -498,7 +498,7 @@ public:
      * @return  the index within this string of the last occurrence of the
      *          specified substring.
      */	
-	dg_int lastIndexOf(String* str, dg_int fromIndex);
+	dg_int lastIndexOf(const String& str, dg_int fromIndex) const;
     
     /**
      * Returns a new string that is a substring of this string. The
@@ -563,7 +563,7 @@ public:
      * @return  a string that represents the concatenation of this object's
      *          characters followed by the string argument's characters.
      */   
-	String* concat(String* str);
+	String* concat(const String& str) const;
 
 public: // Implements Interface CharSequence
 
@@ -605,10 +605,10 @@ public:
      */    
 	const dg_char* toChars();
 	Array<dg_char> toCharArray();
-	void getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin);
+	void getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) const;
      
-	Array<dg_byte> getBytes();
-	Array<dg_byte> getBytes(const char* charset);
+	const Array<dg_byte> getBytes() const;
+	const Array<dg_byte> getBytes(const char* charset) const;
 
 	dg_boolean matches(String* regex);
 	dg_boolean contains(CharSequence* s);

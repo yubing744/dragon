@@ -38,7 +38,7 @@ Import dragon::util::logging;
 Import dragon::util::concurrent;
 Import dragon::util::concurrent::locks;
 
-static Logger* logger = Logger::getLogger("ThreadTest", DEBUG);
+static Logger* logger = Logger::getLogger("ThreadTest", INFO);
 
 
 TEST(Dragon_Lang_ThreadTest, New) {
@@ -101,6 +101,8 @@ TEST(Dragon_Lang_ThreadTest, ThreadLockTest) {
 	SafeDelete(sem);
 	SafeDelete(synLock);
 	SafeDelete(lockTest);
+
+	threads.release();
 }
 
 // Mulit Semaphore Test
@@ -150,5 +152,7 @@ TEST(Dragon_Lang_ThreadTest, ThreadSemaphoreTest) {
 	SafeDelete(latch);
 	SafeDelete(res);
 	SafeDelete(semaphoreTest);
+
+	threads.release();
 }
 

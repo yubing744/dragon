@@ -21,6 +21,8 @@
 
 BeginPackage2(dragon, lang)
 
+class String;
+
 class _DragonExport System 
 {
 public:
@@ -51,6 +53,14 @@ public:
 	 * @param code [description]
 	 */
 	static void exit(int code);
+
+	/**
+	 * get sys property.
+	 * 
+	 * @param  name [description]
+	 * @return      [description]
+	 */
+	static const String* getProperty(const char* name);
 };
 
 EndPackage2//(dragon, lang)

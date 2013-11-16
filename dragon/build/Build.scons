@@ -598,7 +598,12 @@ dragon_SOURCES = {
         AtomicBoolean.cc 
         AtomicInteger.cc 
         AtomicLong.cc 
+    """),
+
+    "dragon/io" : Split("""
+        File.cc
     """)
+
 }
     
 LibraryModule(
@@ -642,8 +647,7 @@ dragon_test_SOURCES = {
         ThreadTest.cc
     """),
     "dragon/lang/gc" : Split("""
-        SmartPointerTest.cc
-        SmartArrayPointerTest.cc
+        ReferenceTest.cc
         MemoryAllocTest.cc
     """),
     "dragon/lang/internal" : Split("""
@@ -660,6 +664,11 @@ dragon_test_SOURCES = {
         PatternSyntaxExceptionTest.cc 
         RegexTest.cc 
     """),
+
+    "dragon/io" : Split("""
+        FileTest.cc
+    """),
+
     "." : Split("""
         TestMain.cc
     """)

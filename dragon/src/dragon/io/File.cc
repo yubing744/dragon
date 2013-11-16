@@ -1,460 +1,283 @@
-#include "File.h"
-#include <io.h>
-#include <direct.h>
-#include <sys/stat.h>
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
+#include <dragon/io/File.h>
+#include <dragon/util/ArrayList.h>
 
-Import ProjectName::lang;
-Import ProjectName::io;
+Import dragon::lang;
+Import dragon::io;
+Import dragon::util;
 
-File::File(const Char* pathname)
-{
-	mpPathName=new String(pathname);
+const dg_char File::separatorChar = getNativeSeparatorChar();
+const dg_char File::pathSeparatorChar = getNativePathSeparator();
+const String File::separator = getNativeSeparator();
+
+String File::getNativeSeparator() {
+	dg_char sep[] = {getNativeSeparatorChar(), L'\0'};
+    return String(sep);
 }
 
-File::File(P<String> pathname)
-{
-	mpPathName=pathname;
+File::File() {
+	this->path = new String("");
 }
 
-bool File::mkdir()
-{
-	if(_wmkdir(mpPathName->toCharArray())==0)
-	{
-		return true;
+File::File(const String& pathname){
+	this->path = new String(pathname);
+}
+
+File::File(const File& other){
+	this->path = new String(other.path);
+}
+
+File::File(const File* parent, const String& name) {
+	ASSERT(parent != null);
+
+	String* tmp01 = parent->getPath();
+
+	String* tmp02 = tmp01->concat(separator);
+	SafeDelete(tmp01);
+
+	this->path = tmp02->concat(name);
+	SafeDelete(tmp02);
+}
+
+File::File(const String& parent, const String& name) {
+	String* tmp01 = parent.concat(separator);
+	this->path = tmp01->concat(name);
+	SafeDelete(tmp01);
+}
+
+File::~File(){
+	SafeDelete(this->path);
+}
+
+bool FileMkdirInternal(const String* path);
+
+bool File::mkdir() {
+    return FileMkdirInternal(this->path);
+}
+
+bool File::mkdirs() {
+    int index = -1;
+
+	bool isBackslash = false;
+
+	index = this->path->indexOf(L'/', index);
+
+	if(index >= 0) {
+		isBackslash = true;
 	}
 
-	return false;
-}
+	index = 0;
 
-bool File::mkdirs()
-{
-    int index=0;
+	String* sep = new String(L"\\");
 
-	bool isBackslash=false;
-
-	index=mpPathName->indexOf(L'/',index);
-	if(index>0)
-	{
-		isBackslash=true;
-	}
-
-	index=0;
-
-    while(true)
-	{
-		if(isBackslash)
-		{
-			index=mpPathName->indexOf(L'/',index);
-		}
-		else
-		{
-			index=mpPathName->indexOf(new String(L"\\"),index);
+    while(true) {
+		if(isBackslash) {
+			index = this->path->indexOf(L'/', index);
+		} else {
+			index = this->path->indexOf(sep, index);
 		}
 
-		if(index>0)
-		{
-			_wmkdir(mpPathName->substring(0,index).toCharArray());
-		}
-		else
-		{
+		if(index > 0) {
+			String* subDir = this->path->substring(0, index);
+
+			if (!FileMkdirInternal(subDir)) {
+				SafeDelete(subDir);
+				return false;
+			} else {
+				SafeDelete(subDir);
+			}
+		} else if (index == 0) {
+			;
+		} else {
+			if (!FileMkdirInternal(this->path)) {
+				return false;
+			}
+
 			break;
 		}
 
 		index++;
     }
 
-	return true;
-}
-
-bool File::exists()
-{
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result==0)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool File::isDirectory()
-{
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result!=0)
-	{
-		return false;
-	}
-
-	return ((buf.st_mode & S_IFDIR)!=0);
-}
-
-bool File::isHidden()
-{
-	return false;
-}
-
-bool File::del()
-{
-	if(_wrmdir(mpPathName->toCharArray())==0)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool File::remove()
-{
-	if(_wrmdir(mpPathName->toCharArray())==0)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool File::isFile() throw(SecurityException)
-{
-	if(exists())
-	{
-		return false;
-	}
-
-	if(isDirectory())
-	{
-		return false;
-	}
+    SafeDelete(sep);
 
 	return true;
 }
 
-Long File::length()
-{
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result==0)
-	{
-		return buf.st_size;
-	}
-
-	return 0;
-}
-
-bool File::canExecute()
-{
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result!=0)
-	{
-		return false;
-	}
-
-	return ((buf.st_mode & S_IEXEC)!=0);
-}
-
-bool File::canRead()
-{
-
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result!=0)
-	{
-		return false;
-	}
-
-	return ((buf.st_mode & S_IREAD)!=0);
-}
-
-bool File::canWrite()
-{
-	struct _stat buf;
-	int result;
-	result=_wstat(mpPathName->toCharArray(),&buf);
-
-	if(result!=0)
-	{
-		return false;
-	}
-
-	return ((buf.st_mode & S_IWRITE)!=0);
-}
-
-void File::deleteOnExit()
-{
-
-}
-
-bool File::createNewFile()
-{
-	if(!mkdirs())
-	{
-		return false;
-	}
-
-	FILE *file;
-
-	if(_wfopen_s(&file,mpPathName->toCharArray(), L"w")!=0)
-	{
-		return false;
-	}
-
-	if (file)
-	{
-        if(fclose(file)!=0)
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool File::renameTo(File& dest)
-{
-	if(_wrename(mpPathName->toCharArray(),dest.mpPathName->toCharArray())==0)
-	{
+bool File::isFile() {
+	if(exists() && !isDirectory()) {
 		return true;
 	}
 
 	return false;
 }
 
-P<Array<String>> File::list(String filter)
-{
-	P<String> dirPath=new String();
+bool File::createNewFile() {
+    if (exists())
+        return true;
 
-	if(this->isDirectory())
-	{
-		dirPath->append(mpPathName->toCharArray());
-	}
-	else
-	{
-		dirPath->append(this->getParent());
-	}
+    /*
+    const File parentDir (getParentDirectory());
 
-	dirPath->append(L"\\");
-	dirPath->append(filter);
+    if (parentDir == *this)
+        return Result::fail ("Cannot create parent directory");
 
-	struct _wfinddata64i32_t fdata;
-	intptr_t hFile;
+    Result r (parentDir.createDirectory());
 
-	int fileCount=0;
+    if (r.wasOk())
+    {
+        FileOutputStream fo (*this, 8);
+        r = fo.getStatus();
+    }
 
-	if((hFile=_wfindfirst(dirPath->toCharArray(),&fdata))==-1)
-	{
-		return new Array<String>();
-	}
-
-	do
-	{
-		if(wcscmp(fdata.name,L".")==0 || wcscmp(fdata.name,L"..")==0)
-		{
-			continue;
-		}
-
-		fileCount++;
-	}
-	while(_wfindnext( hFile,&fdata) == 0);
-
-	_findclose(hFile);
-
-	P<Array<String>> fileList=new Array<String>(fileCount);
-	fileCount=0;
-
-	if((hFile=_wfindfirst(dirPath->toCharArray(),&fdata))==-1)
-	{
-		return new Array<String>();
-	}
-
-	do
-	{	
-		if(wcscmp(fdata.name,L".")==0 || wcscmp(fdata.name,L"..")==0)
-		{
-			continue;
-		}
-
-		fileList->set(fileCount,fdata.name);
-		fileCount++;
-	}
-	while(_wfindnext( hFile,&fdata) == 0);
-
-	_findclose(hFile);
-
-	return fileList;
+    return r;
+    */
+   
+   return false;
 }
 
-P<Array<String>> File::list()
-{
-	return list(L"*.*");
+String* File::getName() const {
+	dg_int index = path->lastIndexOf(File::separatorChar);
+	return path->substring(index + 1);
 }
 
-
-P<Array<P<File>>> File::listFiles(String filter)
-{
-	P<Array<String>> fl=this->list(filter);
-	int len=fl->size();
-
-	P<Array<P<File>>> afl=new Array<P<File>>(len);
-
-	
-	String dirPath;
-	if(this->isDirectory())
-	{
-		dirPath.append(mpPathName->toCharArray());
-	}
-	else
-	{
-		dirPath.append(this->getParent());
-	}
-
-	for(int i=0;i<len;i++)
-	{
-		String temp(dirPath);
-		temp.append(L"\\");
-		temp.append(fl->get(i));
-		afl->set(i,new File(temp));
-	}
-
-	return afl;
-
+String* File::getPath() const {
+	return new String(this->path);
 }
 
-
-P<Array<P<File>>> File::listFiles()
-{
-	return listFiles(L"*.*");
+String* File::getParent() const {
+	dg_int index = path->lastIndexOf(separatorChar);
+	return path->substring(0, index);
 }
 
-String File::getName()
-{
-	int index=0;
-	int lastPos=mpPathName->length();
-
-	index=mpPathName->lastIndexOf(L"\\",lastPos);
-
-	if(index>0)
-	{
-		return mpPathName->substring(index+1,lastPos);
-	}
-
-	index=0;
-	index=mpPathName->lastIndexOf(L"/",lastPos);
-	
-	if(index>0)
-	{
-		return mpPathName->substring(index+1,lastPos);
-	}
-
-	return String(*mpPathName);
-}
-
-String File::getPath()
-{
-	return *mpPathName;
-}
-
-String File::getParent()
-{
-	int index=0;
-	int lastPos=mpPathName->length();
-
-	index=mpPathName->lastIndexOf(L"\\",lastPos);
-
-	if(index>0)
-	{
-		return mpPathName->substring(0,index);
-	}
-
-	index=0;
-	index=mpPathName->lastIndexOf(L"/",lastPos);
-	
-	if(index>0)
-	{
-		return mpPathName->substring(0,index);
-	}
-
-	return String();
-}
-
-P<File> File::getParentFile()
-{
+File* File::getParentFile() const {
 	return new File(this->getParent());
 }
 
-bool File::isAbsolute()
-{
-	if(mpPathName->substring(2).startsWith(L"\\") || mpPathName->startsWith(L"\\"))
-	{
-		return true;
-	}
-
-	if(mpPathName->substring(2).startsWith(L"\\\\") || mpPathName->startsWith(L"\\\\"))
-	{
-		return true;
-	}
-
-	if(mpPathName->substring(2).startsWith(L"/") || mpPathName->startsWith(L"/"))
-	{
-		return true;
-	}
-
-	if(mpPathName->substring(2).startsWith(L"//") || mpPathName->startsWith(L"//"))
-	{
-		return true;
-	}
-
-	return false;
+bool File::isAbsolute() const {
+    return path->startsWith(separator)
+            || (path->length() > 0 && path->charAt(1) == ':')
+            || path->startsWith("~");
 }
 
-String File::getAbsolutePath()
-{
-	if(isAbsolute())
-	{
-		return String(mpPathName->toCharArray());
-	}
-
-	Char* pResult=_wgetcwd(NULL,0);
-
-	if(pResult!=null)
-	{
-		P<String> path=new String(pResult);
-		path->append(L"\\").append(mpPathName->toCharArray());
-		return String(*path);
-	}
-
-	return String();
-}
-
-P<File> File::getAbsoluteFile()
-{
+File* File::getAbsoluteFile() const {
 	return new File(this->getAbsolutePath());
 }
 
-String File::getCanonicalPath()
-{
-	DWORD retval=0;
-	Char buffer[4096]=L""; 
-    Char* lpPart[4096]={NULL};
+// --------------------travle files----------------------------
+// native const Array<String> File::list() const;
 
-	retval = GetFullPathName(getAbsolutePath().toCharArray(),4096,buffer,lpPart);
-	
-	if(retval!=0)
-	{
-		return String(buffer);
+const Array<String*> File::list(const FilenameFilter* filter) const {
+	Array<String*> names = list();
+
+	if ((names.length() == 0) || (filter == null)) {
+	    return names;
 	}
 
-	return String();
+	ArrayList<String>* v = new ArrayList<String>();
+
+	for (int i = 0 ; i < names.length() ; i++) {
+	    if (filter->accept(this, names[i])) {
+			v->add(new String(names[i]));
+	    } 
+	    
+	    SafeDelete(names[i]);
+	}
+
+	Array<String*> result = v->toArray();
+	
+	SafeDelete(v);
+	names.release();
+
+	return result;
+}
+
+const Array<File*> File::listFiles() const {
+	Array<String*> ss = list();
+
+	if (ss.length() == 0) 
+		return Array<File*>();
+
+	int n = ss.length();
+
+	Array<File*> fs(n);
+
+	for (int i = 0; i < n; i++) {
+	    fs[i] = new File(this, ss[i]);
+	    SafeDelete(ss[i]);
+	}
+
+	ss.release();
+
+	return fs;
+}
+
+const Array<File*> File::listFiles(const FileFilter* filter) const {
+	Array<String*> ss = list();
+
+	if (ss.length() == 0) 
+		return Array<File*>();
+
+	int n = ss.length();
+
+	ArrayList<File>* v = new ArrayList<File>();
+
+	for (int i = 0 ; i < n; i++) {
+		File* file = new File(this, ss[i]);
+
+	    if ((filter == null) || filter->accept(file)) {
+			v->add(new File(this, ss[i]));
+	    } 
+	    
+	    SafeDelete(ss[i]);
+	    SafeDelete(file);
+	}
+
+	Array<File*> result = v->toArray();
+	
+	SafeDelete(v);
+	ss.release();
+
+	return result;
+}
+
+const Array<File*> File::listFiles(const FilenameFilter* filter) const {
+	Array<String*> ss = list();
+
+	if (ss.length() == 0) 
+		return Array<File*>();
+
+	int n = ss.length();
+
+	ArrayList<File>* v = new ArrayList<File>();
+
+	for (int i = 0 ; i < n; i++) {
+	    if ((filter == null) || filter->accept(this, ss[i])) {
+			v->add(new File(this, ss[i]));
+	    } 
+
+	    SafeDelete(ss[i]);
+	}
+
+	Array<File*> result = v->toArray();
+
+	SafeDelete(v);
+	ss.release();
+
+	return result;
 }

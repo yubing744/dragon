@@ -299,6 +299,20 @@ String* String::operator = (const wchar_t* str) {
 	return new String(str);
 }
 
+String& String::operator = (const String& value) {
+	SafeDeleteArray(this->value);
+
+	dg_int size = value.count;
+
+	dg_char* buf = new dg_char[size + 1];	
+	Arrays<dg_char>::copyOf(value.value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = size;
+	this->value = buf;
+}
+
 dg_boolean String::equals(const String* str) const {
 	if (str == null) {
 		return dg_false;
@@ -324,13 +338,13 @@ dg_boolean String::equals(const String* str) const {
 }
 
 
-dg_boolean String::startsWith(const String* prefix, dg_int toffset) {
+dg_boolean String::startsWith(const String& prefix, dg_int toffset) const {
 	dg_char* ta = this->value;
 	dg_int to = offset + toffset;
 
-	dg_char* pa = prefix->value;
-	dg_int po = prefix->offset;
-	dg_int pc = prefix->count;
+	dg_char* pa = prefix.value;
+	dg_int po = prefix.offset;
+	dg_int pc = prefix.count;
 
 	// Note: toffset might be near -1>>>1.
 	if ((toffset < 0) || (toffset + pc > this->count)) {
@@ -346,12 +360,12 @@ dg_boolean String::startsWith(const String* prefix, dg_int toffset) {
 	return dg_true;
 }
 
-dg_boolean String::startsWith(const String* prefix) {
+dg_boolean String::startsWith(const String& prefix) const {
 	return this->startsWith(prefix, 0);
 }
 
-dg_boolean String::endsWith(const String* suffix){
-	return this->startsWith(suffix, this->count - suffix->count);
+dg_boolean String::endsWith(const String& suffix) const {
+	return this->startsWith(suffix, this->count - suffix.count);
 }
 
 dg_int String::hashCode() {
@@ -462,11 +476,13 @@ dg_int String::lastIndexOf(dg_char ch, dg_int fromIndex) {
 	return -1;	
 }
 
-dg_int String::lastIndexOf(String* str) {
+dg_int String::lastIndexOf(const String& str) const {
 	return this->lastIndexOf(str, this->count - 1);
 }
 
-dg_int String::lastIndexOf(String* str, dg_int fromIndex) {
+dg_int String::lastIndexOf(const String& other, dg_int fromIndex) const {
+	const String* str = &other;
+
 	dg_char* source = this->value;
 	dg_int sourceOffset = this->offset;
 	dg_int sourceCount = this->count;
@@ -476,47 +492,56 @@ dg_int String::lastIndexOf(String* str, dg_int fromIndex) {
 	dg_int targetCount = str->count;
 
 
-	if (fromIndex >= sourceCount) {
-        return (targetCount == 0 ? sourceCount : -1);
-	}
-    
-    if (fromIndex < 0) {
-    	fromIndex = 0;
-    }
+	dg_int rightIndex = sourceCount - targetCount;
 
+	if (fromIndex < 0) {
+	    return -1;
+	}
+
+	if (fromIndex > rightIndex) {
+	    fromIndex = rightIndex;
+	}
+	
 	if (targetCount == 0) {
 	    return fromIndex;
 	}
 
-    dg_char first  = target[targetOffset];
-    dg_int max = sourceOffset + (sourceCount - targetCount);
+    dg_int strLastIndex = targetOffset + targetCount - 1;
+	dg_char strLastChar = target[strLastIndex];
+	dg_int min = sourceOffset + targetCount - 1;
+	dg_int i = min + fromIndex;
 
-    for (dg_int i = sourceOffset + fromIndex; i <= max; i++) {
-        /* Look for first character. */
-        if (source[i] != first) {
-            while (++i <= max && source[i] != first) ;
-        }
+    startSearchForLastChar:
 
-        /* Found first character, now look at the rest of v2 */
-        if (i <= max) {
-            dg_int j = i + 1;
-            dg_int end = j + targetCount - 1;
-            for (dg_int k = targetOffset + 1; j < end && source[j] == 
-                     target[k]; j++, k++) ;
+	while (true) {
+	    while (i >= min && source[i] != strLastChar) {
+			i--;
+	    }
 
-            if (j == end) {
-                /* Found whole string. */
-                return i - sourceOffset;
-            }
-        }
-    }
+	    if (i < min) {
+			return -1;
+	    }
+
+	    dg_int j = i - 1;
+	    dg_int start = j - (targetCount - 1);
+	    dg_int k = strLastIndex - 1;
+
+	    while (j > start) {
+	        if (source[j--] != target[k--]) {
+			    i--;
+			    goto startSearchForLastChar;
+			}
+	    }
+
+	    return start - sourceOffset + 1;
+	}
 
     return -1;
 }
 
 
 String* String::substring(dg_int beginIndex) const {
-	return this->substring(beginIndex, beginIndex + this->count);
+	return this->substring(beginIndex, this->count);
 }
 
 String* String::substring(dg_int beginIndex, dg_int endIndex) const {
@@ -531,10 +556,12 @@ String* String::substring(dg_int beginIndex, dg_int endIndex) const {
 	return new String(this->value + this->offset, beginIndex, endIndex - beginIndex);
 }
 
-String* String::concat(String* str) {
+String* String::concat(const String& other) const {
+	const String* str = &other;
+
 	dg_int otherLen = str->length();
 	if (otherLen == 0) {
-	    return this;
+	    return new String(this);
 	}
 
 	dg_char* buf = new dg_char[count + otherLen];
@@ -622,15 +649,15 @@ Array<dg_char> String::toCharArray() {
 	return Array<dg_char>(this->value + offset, this->count);
 }
 
-void String::getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) {
+void String::getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) const {
     Arrays<dg_char>::copyOf(value, offset + srcBegin, dst, dstBegin, srcEnd - srcBegin);
 }
 
-Array<dg_byte> String::getBytes() {
+const Array<dg_byte> String::getBytes() const {
 	return this->getBytes(null);
 }
 
-Array<dg_byte> String::getBytes(const char* charset) {
+const Array<dg_byte> String::getBytes(const char* charset) const {
 	return String::encode(Array<dg_char>(this->value + this->offset, this->count), 0, this->count, charset);
 }
 
