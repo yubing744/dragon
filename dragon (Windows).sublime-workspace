@@ -317,6 +317,54 @@
 				"buffer_size": 10022,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/Class.cc",
+			"settings":
+			{
+				"buffer_size": 11698,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 6311,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/ClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 2938,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library_wp8.cc",
+			"settings":
+			{
+				"buffer_size": 7783,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library.cc",
+			"settings":
+			{
+				"buffer_size": 3679,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/Library.h",
+			"settings":
+			{
+				"buffer_size": 2398,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
@@ -716,6 +764,168 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 2730.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/src/dragon/lang/Class.cc",
+					"settings":
+					{
+						"buffer_size": 11698,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 60.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 6311,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1553,
+								1560
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 139.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/src/dragon/lang/ClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 2938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 924.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "dragon/src/dragon/lang/internal/Library_wp8.cc",
+					"settings":
+					{
+						"buffer_size": 7783,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7651,
+								7662
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3279.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "dragon/src/dragon/lang/internal/Library.cc",
+					"settings":
+					{
+						"buffer_size": 3679,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3522,
+								3536
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1215.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "dragon/include/dragon/lang/internal/Library.h",
+					"settings":
+					{
+						"buffer_size": 2398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 210.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
