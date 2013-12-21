@@ -37,52 +37,53 @@ Import dragon::lang;
 Import dragon::util::regex;
 
 class _DragonExport Matcher 
-	:public MatchResult {
+	implements(MatchResult) {
 public:
 	friend class Pattern;
 	
 protected:
-	Matcher(Pattern* p, String* text);
+	Matcher(Pattern* p, const CharSequence* text);
+	Matcher(Pattern* p, const String* text);
 
 public:
 	virtual ~Matcher();
 
 // Implements interface MatchResult
 public:
-	virtual dg_int end();
-	virtual dg_int end(dg_int group);
+	virtual int end();
+	virtual int end(int group);
 	virtual String* group();
-	virtual dg_int groupCount();
-	virtual dg_int start();
-	virtual dg_int start(dg_int group);
-	virtual String* group(dg_int group);
+	virtual int groupCount();
+	virtual int start();
+	virtual int start(int group);
+	virtual String* group(int group);
 
 public:
-	virtual dg_boolean matches();
-	virtual dg_boolean find();
-	virtual dg_boolean find(dg_int start);
+	virtual bool matches();
+	virtual bool find();
+	virtual bool find(int start);
 	virtual Matcher* appendReplacement(StringBuffer* sb, String* replacement);
 	virtual StringBuffer* appendTail(StringBuffer* sb);
 	virtual String* replaceAll(String* replacement);
 
 protected:
 	virtual void reset();
-	virtual dg_boolean search(dg_int from);
-	virtual dg_int getTextLength();
-	virtual CharSequence* getSubSequence(dg_int beginIndex, dg_int endIndex);
-	virtual dg_char charAt(dg_int i);
+	virtual bool search(int from);
+	virtual int getTextLength();
+	virtual CharSequence* getSubSequence(int beginIndex, int endIndex);
+	virtual wchar_u charAt(int i);
 
 protected:
 	Pattern* parentPattern;
-	String* text;
+	CharSequence* text;
 
-	dg_int* groups;
-	dg_int groupSize;
+	int* groups;
+	int groupSize;
 
-	dg_int first;
-	dg_int last;
+	int first;
+	int last;
 
-	dg_int lastAppendPosition;
+	int lastAppendPosition;
 };//Matcher
 
 EndPackage3 //(dragon, util, regex)

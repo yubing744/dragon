@@ -96,11 +96,11 @@ public:
 		this->data[index] = t;
 	};
 
-	int size() {
+	int size() const {
 		return this->count;
 	};
 
-	int length() {
+	int length() const {
 		return this->count;
 	};
 

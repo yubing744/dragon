@@ -23,13 +23,19 @@
 
 #include <dragon/lang/Double.h>
 #include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/Array.h>
 
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Double::TYPE = new Type("double", sizeof(dg_double));
+const Type* Double::TYPE = new Type("double", sizeof(double));
 
-Double::Double(dg_double val) {
+Double* Double::parseDouble(const String& str) {
+    const Array<byte> data = str.getBytes("UTF-8");
+    return new Double(atof(data.raw()));
+}
+
+Double::Double(double val) {
 	this->value = val;
 }
 
@@ -37,6 +43,6 @@ Double::~Double() {
 
 }
 
-dg_double Double::doubleValue() {
+double Double::doubleValue() {
 	return this->value;
 }

@@ -1,37 +1,52 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_OutputStream_H 
-#define IO_OutputStream_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-#include "Closeable.h"
-#include "Flushable.h"
-#include "IOException.h"
+#ifndef OutputStream_IO_Lang_H 
+#define OutputStream_IO_Lang_H
 
-BeginPackage2(ProjectName,io)
+#include <dragon/config.h>
 
-class _DragonExport OutputStream 
-	:public Object, public Closeable, public Flushable
+#include <dragon/io/Closeable.h>
+#include <dragon/io/Flushable.h>
+#include <dragon/io/IOException.h>
+
+BeginPackage2(dragon, io)
+
+class _DragonExport OutputStream extends(Object) 
+	implements2(Closeable, Flushable)
 {
-protected:
-	OutputStream(){};
+public:
+	virtual ~OutputStream(){};
 
 public:
-	virtual void write(int b) throw(IOException) =0;
-	virtual void close() throw(IOException) =0;
-	virtual void flush() throw(IOException) =0;
+	virtual void write(const byte* b, int num, int off, int len) throw(IOException*) = 0;
+	virtual void flush() throw(IOException*) = 0;
+	virtual void close() throw(IOException*) = 0;
 
 public:
-	virtual void write(byte* b,int num) 
-		throw(IOException,NullPointerException);
-
-	virtual void write(byte* b,int num,int off,int len) 
-		throw(IOException,NullPointerException,IndexOutOfBoundsException);
-
-protected:
-	P<File> baseFile;
+	virtual void write(int b) throw(IOException*);
+	virtual void write(const byte* b, int num) throw(IOException*);
 };
 
-EndPackage2
+EndPackage2//(dragon, io)
 
-#endif
+#endif//OutputStream_IO_Lang_H

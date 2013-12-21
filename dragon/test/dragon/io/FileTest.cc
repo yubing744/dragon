@@ -268,6 +268,32 @@ TEST(Dragon_Io_FileTest, getParent01) {
     SafeDelete(fullPath);
 }
 
+
+TEST(Dragon_Io_FileTest, getCanonicalPath01) {
+    const String* base = System::getProperty("HOME");
+    String* path = new String(L"/dragon_test/./01/../02");
+    String* fullPath = base->concat(path);
+
+    const Array<char> utf8Path = fullPath->getBytes("UTF-8");
+    logger->info(utf8Path.raw());
+
+    File* o = new File(fullPath);
+    ASSERT_TRUE(o->mkdirs());
+
+    String* parentPath = o->getCanonicalPath();
+    String* rpath = parentPath->substring(base->length());
+    const Array<char> utf8Name = rpath->getBytes("UTF-8");
+    EXPECT_STREQ("/dragon_test/02", utf8Name);
+
+    SafeDelete(o);
+
+    SafeDelete(rpath);
+    SafeDelete(parentPath);
+    
+    SafeDelete(path);
+    SafeDelete(fullPath);
+}
+
 // list files
 TEST(Dragon_Io_FileTest, list01) {
     const String* base = System::getProperty("HOME");

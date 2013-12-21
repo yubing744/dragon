@@ -33,12 +33,16 @@ Import dragon::lang::internal;
 
 TEST(Dragon_Lang_Internal_LibraryTest, New) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	ASSERT_TRUE(local_lib_path);
+
 	Library* o = new Library(local_lib_path);
 	SafeDelete(o);
 }
 
 TEST(Dragon_Lang_Internal_LibraryTest, resolve) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	ASSERT_TRUE(local_lib_path);
+
 	Library* o = new Library(local_lib_path);
 	o->resolve();
 	SafeDelete(o);
@@ -46,6 +50,8 @@ TEST(Dragon_Lang_Internal_LibraryTest, resolve) {
 
 TEST(Dragon_Lang_Internal_LibraryTest, find_image_num) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	ASSERT_TRUE(local_lib_path);
+
 	size_t image_num = find_image_num(local_lib_path);
 	EXPECT_EQ(dg_true, image_num > 0);
 }
@@ -66,6 +72,8 @@ TEST(Dragon_Lang_Internal_LibraryTest, create_package) {
 
 TEST(Dragon_Lang_Internal_LibraryTest, find_symbol_export_table) {
 	const char* local_lib_path = find_image_path_by_name("libdragon.dylib");
+	ASSERT_TRUE(local_lib_path);
+	
 	size_t symbol_count = 0;
 	export_symbol *table = find_symbol_export_table(local_lib_path, &symbol_count);
 

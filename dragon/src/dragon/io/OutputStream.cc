@@ -1,35 +1,29 @@
-#include "OutputStream.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
+#include <dragon/io/OutputStream.h>
 
-Import ProjectName::lang;
-Import ProjectName::io;
+Import dragon::lang;
+Import dragon::io;
 
-void OutputStream::write(byte* b,int num) 
-	throw(IOException,NullPointerException)
-{
-	if(b==null)
-	{
-		throw NullPointerException();
-	}
-
-	for(int i=0;i<num;i++)
-	{
-		this->write(*(b++));
-	}
+void OutputStream::write(int b) throw(IOException*) {
+	const byte buf[] = {b};
+	this->write(buf, 1, 0, 1);
 }
 
-void OutputStream::write(byte* b,int num,int off,int len) 
-	throw(IOException,NullPointerException,IndexOutOfBoundsException)
-{
-	if(b==null)
-	{
-		throw NullPointerException();
-	}
-
-	if(off<0 || len<0 || off+len>num)
-	{
-		throw IndexOutOfBoundsException();
-	}
-
-	this->write(b+off,len);
+void OutputStream::write(const byte* b, int num) throw(IOException*) {
+	this->write(b, num, 0, num);
 }

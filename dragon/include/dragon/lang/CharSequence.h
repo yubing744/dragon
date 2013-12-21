@@ -35,10 +35,10 @@ public:
 	virtual ~CharSequence(){};
 
 public:
-	virtual dg_int length() const = 0;
-	virtual dg_char charAt(dg_int index) = 0;
-	virtual CharSequence* subSequence(dg_int start, dg_int end) = 0;
-	virtual String* toString() = 0;
+	virtual int length() const = 0;
+	virtual wchar_u charAt(int index) const = 0;
+	virtual CharSequence* subSequence(int start, int end) const = 0;
+	virtual String* toString() const = 0;
 
 };
 

@@ -22,16 +22,19 @@
 
 #include <dragon/util/regex/Pattern.h>
 #include <dragon/util/regex/Matcher.h>
+#include <dragon/util/ArrayList.h>
+
 
 Import dragon::lang;
+Import dragon::util;
 Import dragon::util::regex;
 
 // static methods
-Pattern* Pattern::compile(String* regex) {
+Pattern* Pattern::compile(const String* regex) {
     return new Pattern(regex, 0);
 }
 
-Pattern* Pattern::compile(String* regex, dg_int flags) {
+Pattern* Pattern::compile(const String* regex, int flags) {
     return new Pattern(regex, flags);
 }
 
@@ -39,18 +42,20 @@ void Pattern::release(Pattern* p) {
     SafeDelete(p);
 }
 
-dg_boolean Pattern::matches(String* regex, String* input) {
+bool Pattern::matches(String* regex, String* input) {
     Pattern* p = Pattern::compile(regex);
+
     Matcher* m = p->matcher(input);
-    dg_boolean result = m->matches();
+    bool result = m->matches();
     SafeDelete(m);
+
     Pattern::release(p);
 
     return result;
 }
 
 // member methods
-Pattern::Pattern(String* regex, dg_int flags) {
+Pattern::Pattern(const String* regex, int flags) {
     this->pattern = new String(regex);
     this->flags = flags;
     this->compiled = dg_false;
@@ -64,7 +69,6 @@ Pattern::~Pattern() {
         this->re = NULL;
     }
 }
-
 
 void Pattern::compile() {
     const char *error;
@@ -86,11 +90,58 @@ void Pattern::compile() {
 }
 
 
-Matcher* Pattern::matcher(String* input) {
+Matcher* Pattern::matcher(const CharSequence* input) {
     if (!this->compiled) {
         this->compile();
     }
 
-    Matcher* m = new Matcher(this, input);
-    return m;
+    return new Matcher(this, input);
+}
+
+Array<String*> Pattern::split(const CharSequence* input) {
+    return split(input, 0);
+}
+
+Array<String*> Pattern::split(const CharSequence* input, int limit) {
+    int index = 0;
+    bool matchLimited = limit > 0;
+    ArrayList<String>* matchList = new ArrayList<String>();
+
+    Matcher* m = matcher(input);
+
+    // Add segments before each match found
+    while(m->find()) {
+        if (!matchLimited || matchList->size() < limit - 1) {
+            String* match = input->subSequence(index, m->start())->toString();
+            matchList->add(match);
+            index = m->end();
+        } else if (matchList->size() == limit - 1) { // last one
+            String* match = input->subSequence(index,
+                                             input->length())->toString();
+            matchList->add(match);
+            index = m->end();
+        }
+    }
+
+    SafeDelete(m);
+
+    // If no match was found, return this
+    if (index == 0) {
+        String** data = new String*[1];
+        data[0] = input->toString();
+        return Array<String*>(data, 1);
+    }
+
+    // Add remaining segment
+    if (!matchLimited || matchList->size() < limit)
+        matchList->add(input->subSequence(index, input->length())->toString());
+
+    // Construct result
+    int resultSize = matchList->size();
+    if (limit == 0)
+        while (resultSize > 0 && matchList->get(resultSize-1)->equals(""))
+            resultSize--;
+
+    List<String>* subList = matchList->subList(0, resultSize);
+    return subList->toArray();
 }

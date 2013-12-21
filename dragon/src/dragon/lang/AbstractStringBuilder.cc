@@ -133,6 +133,13 @@ AbstractStringBuilder* AbstractStringBuilder::append(String* str) {
 	return this;
 }
 
+
+AbstractStringBuilder* AbstractStringBuilder::append(const String& str) {
+    const String* pstr = &str;
+    append(const_cast<String*>(pstr));
+}
+
+
 AbstractStringBuilder* AbstractStringBuilder::append(CharSequence* s) {
     if (s == null)
         return append("null");

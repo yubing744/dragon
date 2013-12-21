@@ -30,7 +30,8 @@ Import dragon::lang::internal;
 
 // ----------------------------------------------------------------------
 // mix invoke test
-// 
+//
+/* 
 void* invoke_test_mixtype_dd_05(void* pthis, char a1, short b1, int c1, size_t d1, double e1, double f1, double g1, double h1, 
 	double i1, double j1, double k1, double l1, size_t m1) {
 	double a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1 + i1 + j1 + k1 + l1 + m1;
@@ -229,6 +230,7 @@ TEST(Dragon_Lang_Internal_platformTest_x64, Invoke_Multi_Args_double_invoke) {
 	SafeFree(params);
 
 }
+*/
 
 //------------------------------------------------------------
 // mix struct invoke test
@@ -408,6 +410,7 @@ TEST(Dragon_Lang_Internal_platformTest, Invoke_Multi_Args_mix_struct_invoke_02) 
 //------------------------------------------------------------
 // double return invoke test
 // 
+/*
 double invoke_test_double_ret_invoke_01(void* pthis, double a1, double b1, double c1, double d1, double e1, double f1, double g1, double h1, double i1, double j1, double k1, double l1, double m1) {
 	double a = a1 + b1 + c1 + d1 + e1 + f1 + g1 + h1 + i1 + j1 + k1 + l1 + m1;
 	return a;
@@ -458,3 +461,4 @@ TEST(Dragon_Lang_Internal_platformTest_x64, Invoke_Multi_Args_double_ret_invoke)
 	SafeDelete(ret);
 	SafeFree(params);
 }
+*/

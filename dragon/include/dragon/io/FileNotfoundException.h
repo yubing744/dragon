@@ -1,20 +1,44 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_FileNotFoundException_H 
-#define IO_FileNotFoundException_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-#include "IOException.h"
+#ifndef FileNotFoundException_IO_Lang_H 
+#define FileNotFoundException_IO_Lang_H
 
-BeginPackage2(ProjectName,io)
+#include <dragon/io/IOException.h>
 
-class _DragonExport FileNotFoundException :public IOException
+BeginPackage2(dragon, io)
+
+class _DragonExport FileNotFoundException extends(IOException)
 {
 public:
-	FileNotFoundException();
-	FileNotFoundException(const Char* message);
+    FileNotFoundException();
+    FileNotFoundException(String* message);
+    FileNotFoundException(const String& message);
+    FileNotFoundException(Throwable* cause);
+    FileNotFoundException(String* message, Throwable* cause);
+
+    virtual ~FileNotFoundException(){};
 };
 
-EndPackage2
+EndPackage2//(dragon, io)
 
-#endif
+#endif//FileNotFoundException_IO_Lang_H

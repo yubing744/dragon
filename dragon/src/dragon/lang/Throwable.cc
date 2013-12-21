@@ -30,6 +30,11 @@ Throwable::Throwable() {
 	this->cause = null;
 }
 
+Throwable::Throwable(const String& message) {
+	this->message = new String(message);
+	this->cause = null;
+}
+
 Throwable::Throwable(String* message) {
 	this->message = new String(message);
 	this->cause = null;
@@ -44,6 +49,11 @@ Throwable::Throwable(String* message, Throwable* cause) {
 	this->message = new String(message);
 	this->cause = cause;
 } 
+
+Throwable::Throwable(const String& message, Throwable* cause) {
+	this->message = new String(message);
+	this->cause = cause;	
+}
 
 Throwable::~Throwable() {
 	SafeDelete(this->message);

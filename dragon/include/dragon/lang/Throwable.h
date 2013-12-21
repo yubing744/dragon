@@ -34,9 +34,11 @@ class _DragonExport Throwable
 {
 public:
 	Throwable();
+	Throwable(const String& message);
 	Throwable(String* message);
 	Throwable(Throwable* cause);
 	Throwable(String* message, Throwable* cause);
+	Throwable(const String& message, Throwable* cause);
 
 	virtual ~Throwable();
 

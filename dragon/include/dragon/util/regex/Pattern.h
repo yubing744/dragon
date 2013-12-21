@@ -38,28 +38,45 @@ public:
 	friend class Matcher;
 
 public:
-	static Pattern* compile(String* regex);
-	static Pattern* compile(String* regex, dg_int flags);
-	static dg_boolean matches(String* regex, String* input);
+	static Pattern* compile(const String* regex);
+	static Pattern* compile(const String* regex, int flags);
+	static bool matches(String* regex, String* input);
 	static void release(Pattern* p);
 
 private:
-	Pattern(String* regex, dg_int flags);
+	Pattern(const String* regex, int flags);
 
 public:
 	virtual ~Pattern();
 
 public:
-	virtual Matcher* matcher(String* input);
+	/**
+	 * Creates a matcher that will match the given input against this pattern.
+	 * 
+	 * @param  input [description]
+	 * @return       [description]
+	 */
+	virtual Matcher* matcher(const CharSequence* input);
+
+	/**
+	 * Splits the given input sequence around matches of this pattern.
+	 */
+	virtual Array<String*> split(const CharSequence* input, int limit);
+
+	virtual Array<String*> split(const CharSequence* input);
 
 protected:
+
+	/**
+	 * Compiles the given regular expression into a pattern. 
+	 */
 	virtual void compile();
 
 protected:
 	pcre32 *re;
 	String* pattern;
-	dg_boolean compiled;
-	dg_int flags;
+	bool compiled;
+	int flags;
 };//Pattern
 
 EndPackage3 //(dragon, util, regex)

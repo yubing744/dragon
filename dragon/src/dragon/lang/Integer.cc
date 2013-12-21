@@ -28,7 +28,7 @@
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Integer::TYPE = new Type("int", sizeof(dg_int));
+const Type* Integer::TYPE = new Type("int", sizeof(int));
 
 /**
  * All possible dg_chars for representing a number as a String
@@ -68,9 +68,9 @@ const char Integer::DigitOnes[] = {
 	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 } ;
 
-void Integer::getChars(dg_int i, dg_int index, dg_char* buf) {
-    dg_int q, r;
-    dg_int dg_charPos = index;
+void Integer::getChars(int i, int index, dg_char* buf) {
+    int q, r;
+    int dg_charPos = index;
     dg_char sign = 0;
     unsigned int k = 0; //TODO fix int
 
@@ -106,20 +106,20 @@ void Integer::getChars(dg_int i, dg_int index, dg_char* buf) {
     }
 }
 
-static dg_int sizeTable[] = { 9, 99, 999, 9999, 99999, 999999, 9999999,
+static int sizeTable[] = { 9, 99, 999, 9999, 99999, 999999, 9999999,
                                   99999999, 999999999, Integer::MAX_VALUE };
 
 // Requires positive x
-static dg_int stringSize(dg_int x) {
-    for (dg_int i=0; ; i++)
+static int stringSize(int x) {
+    for (int i=0; ; i++)
         if (x <= sizeTable[i])
             return i+1;
 }
 
-String* Integer::toString(dg_int i) {
+String* Integer::toString(int i) {
     if (i == Integer::MIN_VALUE)
         return new String("-2147483648");
-    dg_int size = (i < 0) ? stringSize(-i) + 1 : stringSize(i);
+    int size = (i < 0) ? stringSize(-i) + 1 : stringSize(i);
     dg_char* buf = new dg_char[size];
     getChars(i, size, buf);
     String* result = new String(buf, 0, size);
@@ -129,7 +129,7 @@ String* Integer::toString(dg_int i) {
 }
 // member method
 
-Integer::Integer(dg_int val) {
+Integer::Integer(int val) {
     this->value = val;
 }
 
@@ -143,8 +143,15 @@ String* Integer::toString() {
 }
 
 
+Integer* Integer::parseInt(const String& str) {
+    const Array<byte> data = str.getBytes("UTF-8");
+    const char* num = data.raw();
+    int value = atoi(num);
+    return new Integer(value);
+}
+
 //--------- Implements dragon::lang::Number --------------
-dg_int Integer::intValue() {
+int Integer::intValue() {
     return this->value;
 }
 
@@ -152,11 +159,11 @@ dg_long Integer::longValue() {
     return (dg_long)intValue();
 }
 
-dg_float Integer::floatValue() {
-    return (dg_float)intValue();
+float Integer::floatValue() {
+    return (float)intValue();
 }
 
-dg_double Integer::doubleValue() {
-    return (dg_double)intValue();
+double Integer::doubleValue() {
+    return (double)intValue();
 }
 

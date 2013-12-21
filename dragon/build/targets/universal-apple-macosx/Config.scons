@@ -2,8 +2,12 @@ LoadTool('gcc-generic', env)
 
 ### Special for the MAC: universal flags
 universal_flags =  [('-arch', 'x86_64'), ('-arch', 'i386'), ('-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk'), '-mmacosx-version-min=10.5']
+
 #env.AppendUnique(CCFLAGS   = universal_flags + ['-fno-common', '-fno-stack-protector'])
-#env.AppendUnique(LINKFLAGS = universal_flags + [('-framework', 'SystemConfiguration'), ('-framework', 'Cocoa'), '-mmacosx-version-min=10.5'])
+#env.AppendUnique(LINKFLAGS = universal_flags + [('-framework', 'Cocoa'), '-mmacosx-version-min=10.5'])
+
+#env.AppendUnique(CCFLAGS   = universal_flags + ['-F/System/Library/Frameworks/CoreServices.framework/Frameworks', '-F/System/Library/Frameworks/CoreServices.framework/Frameworks'])
+
 
 env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
 env.AppendUnique(CPPDEFINES = ["__APPLE__"])

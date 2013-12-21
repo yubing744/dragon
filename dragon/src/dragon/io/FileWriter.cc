@@ -1,95 +1,44 @@
-#include "FileWriter.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <io.h>
-#include <stdio.h>
+#include <dragon/io/FileWriter.h>
+#include <dragon/io/FileOutputStream.h>
 
-Import IO;
+Import dragon::io;
 
-FileWriter::FileWriter(const Char* fileName) throw(IOException)
-{
-	mBaseFile=new File(fileName);
-
-	if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),_O_BINARY|_O_WRONLY|_O_WTEXT,_SH_DENYNO,0)!=0)
-	{
-		throw FileNotFoundException();
-	}
+FileWriter::FileWriter(const wchar_u* fileName) throw(IOException*) {
+	this->charsetName = new String(L"UTF-8");
+	this->innerStream = new FileOutputStream(fileName);
 }
 
-FileWriter::FileWriter(const Char* fileName,bool append) throw(IOException)
-{
-	mBaseFile=new File(fileName);
-
-	int oflag=_O_BINARY|_O_WRONLY|_O_WTEXT;
-	if(append) oflag=_O_BINARY|_O_WRONLY|_O_APPEND|_O_WTEXT;
-
-	if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),oflag,_SH_DENYNO,0)!=0)
-	{
-		throw FileNotFoundException();
-	}
+FileWriter::FileWriter(const wchar_u* fileName, bool append) throw(IOException*) {
+	this->charsetName = new String(L"UTF-8");
+	this->innerStream = new FileOutputStream(fileName, append);
 }
 
-FileWriter::FileWriter(File* file) throw(IOException)
-{
-	mBaseFile=file;
-
-	if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),_O_BINARY|_O_WRONLY|_O_WTEXT,_SH_DENYNO,0)!=0)
-	{
-		throw FileNotFoundException();
-	}
+FileWriter::FileWriter(File* file) throw(IOException*) {
+	this->charsetName = new String(L"UTF-8");
+	this->innerStream = new FileOutputStream(file, true);
 }
 
-FileWriter::FileWriter(File* file,bool append) throw(IOException)
-{
-	mBaseFile=file;
-
-	int oflag=_O_BINARY|_O_WRONLY|_O_WTEXT;
-	if(append) oflag=_O_BINARY|_O_WRONLY|_O_APPEND|_O_WTEXT;
-
-	if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),oflag,_SH_DENYNO,0)!=0)
-	{
-		throw FileNotFoundException();
-	}
+FileWriter::FileWriter(File* file, bool append) throw(IOException*) {
+	this->charsetName = new String(L"UTF-8");
+	this->innerStream = new FileOutputStream(file, append);
 }
 
-void FileWriter::write(const Char* cbuf,int off,int len) 
-					throw(IOException,NullPointerException,IndexOutOfBoundsException)
-{
-	if(cbuf==null)
-	{
-		throw NullPointerException();
-	}
-
-	if(off<0 || len<0 || size_t(off+len)>wcslen(cbuf))
-	{
-		throw IndexOutOfBoundsException();
-	}
-
-	if(_write(mhFile,cbuf+off*2,len*2)==-1)
-	{
-		throw IOException();
-	}	
-}
-
-void FileWriter::close() throw(IOException)
-{
-	if(mhFile!=0)
-	{
-		if(_close(mhFile)==-1)
-		{
-			throw IOException();
-		}
-
-		mhFile=0;
-	}
-}
-
-void FileWriter::flush() throw(IOException)
-{
-	if(_commit(mhFile))
-	{
-		throw IOException();
-	}
+FileWriter::~FileWriter(){
+	close();
 }

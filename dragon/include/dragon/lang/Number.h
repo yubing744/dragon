@@ -47,7 +47,7 @@ public:
 	 * 
 	 * @return the numeric value represented by this object after conversion to type int.
 	 */
-	virtual dg_int intValue() {return 0;};
+	virtual int intValue() {return 0;};
 
 	/**
 	 * Returns the value of the specified number as a long. This may involve rounding or truncation. 
@@ -61,14 +61,14 @@ public:
 	 * 
 	 * @return the numeric value represented by this object after conversion to type float.
 	 */
-	virtual dg_float floatValue() {return 0;};
+	virtual float floatValue() {return 0;};
 
 	/**
 	 * Returns the value of the specified number as a double. This may involve rounding. 
 	 * 
 	 * @return the numeric value represented by this object after conversion to type double.
 	 */
-	virtual dg_double doubleValue() {return 0;};
+	virtual double doubleValue() {return 0;};
 
 	/**
 	 * Returns the value of the specified number as a byte. This may involve rounding or truncation. 

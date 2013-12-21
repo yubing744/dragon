@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"key",
+				"key_length"
+			],
+			[
+				"u",
+				"utf8Path"
+			],
+			[
+				"na",
+				"nativeFileHandle"
+			],
+			[
+				"tok",
+				"tokens"
+			],
+			[
+				"to",
+				"tokens"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"sys",
+				"sysPropMapInit"
+			],
+			[
+				"fil",
+				"fileNames"
+			],
+			[
+				"Safe",
+				"SafeDeleteArray"
+			],
+			[
+				"thr",
+				"threads"
+			],
+			[
 				"sha",
 				"shaderSrc"
 			],
@@ -158,10 +198,6 @@
 			[
 				"doubl",
 				"doubleVal"
-			],
-			[
-				"re",
-				"release"
 			],
 			[
 				"ret",
@@ -388,10 +424,6 @@
 				"exclude"
 			],
 			[
-				"fil",
-				"filterConfig"
-			],
-			[
 				"g",
 				"groupID"
 			],
@@ -410,10 +442,6 @@
 			[
 				"pro",
 				"project"
-			],
-			[
-				"Safe",
-				"SafeDelete"
 			],
 			[
 				"cop",
@@ -486,61 +514,21 @@
 			[
 				"NULL",
 				"NULL_CHAR"
-			],
-			[
-				"De",
-				"DEFAULT_CHARSET_NAME"
-			],
-			[
-				"le",
-				"length"
-			],
-			[
-				"by",
-				"bytes"
-			],
-			[
-				"charset",
-				"charsetName"
-			],
-			[
-				"Patt",
-				"pattern"
-			],
-			[
-				"to",
-				"ToChar"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "dragon/build/targets/arm-apple-ios/Config.scons",
+			"file": "dragon/test/dragonx/json/JSONObjectTest.cc",
 			"settings":
 			{
-				"buffer_size": 1112,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/build/targets/arm-apple-ios/Config.scons",
-			"settings":
-			{
-				"buffer_size": 1110,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-examples/build/targets/arm-apple-ios/Config.scons",
-			"settings":
-			{
-				"buffer_size": 1110,
+				"buffer_size": 2615,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/SublimeDragon/dragon_android.sublime-build",
+	"build_system": "Packages/SublimeDragon/dragon_osx.sublime-build",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -619,7 +607,7 @@
 	},
 	"console":
 	{
-		"height": 125.0
+		"height": 261.0
 	},
 	"distraction_free":
 	{
@@ -632,134 +620,134 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/targets/x86-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/x86-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Color.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Color.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/x86-apple-ios/debug/test/com/dragon3d/util/math/Vector3Test.o",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/ios/GraphicsDevice.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/geometry/Box.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/geometry/Box.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/x86-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/ios/support_graphics_renderer.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/shader/Shader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/Shader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Map.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/ios/OpenGLES2Renderer.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/android/OpenGLES2Renderer.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/osx/OpenGLRenderer.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/win32/support_graphics_renderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/win32/OpenGLRenderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/ios/GraphicsOutputController.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/launcher/native/ios/AppLauncher.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/ios/AppLauncher.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/ios/Dragon3DView.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/ios/Dragon3DView.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/osx/GraphicsDevice.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/framework/Application.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/osx/AppLauncher.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/launcher/AppLauncher.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/launcher/native/osx/AppLauncher.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Quaternion.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Ray3.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Rect.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Matrix4x4.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/Matrix4x4Test.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Matrix4x4.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/AbstractScene.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/QuaternionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Quaternion.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Mathf.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Mathf.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Material.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Model.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Plane.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Plane.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Ray3.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Rect.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector2.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/Vector3Test.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector4.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector2.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector4.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsRenderer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLRenderer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Color32.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/arm-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/arm-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/targets/arm-apple-ios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/osx/GraphicsOutputController.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Math.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/FrameHandler.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/NativeGraphicsRenderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Math.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Transform.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Transform.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/targets/universal-apple-macios/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Long.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_mac.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_ios.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-template/build/Boot.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/support_graphics_renderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/osx/support_graphics_renderer.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/launcher/native/ios/AppLauncher.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_linux.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_mac.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_mac.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_win32.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_osx.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_osx.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_IOS.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/ios/support_graphics_renderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/NativeGraphicsRenderer",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_macios.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/Timer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/Timer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/ReadOnlyTimer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Component.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Component.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONObject.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/debug/PlacementGrid.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/debug/PlacementGrid.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/AbstractScene.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsOutputController.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/camera/Camera.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/win32/dg_opengl_v15_lib.cpp"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONObject.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Number.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Number.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStreamReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Boolean.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/JSONObjectTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Null.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Null.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Boolean.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/jsonlint.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONArray.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jconfig.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jmemdos.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/makefile.wat",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/ApplicationServices.framework/Frameworks/QD.framework/Headers/Quickdraw.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/lpng167/pngpriv.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/lpng167/scripts/pnglibconf.h.prebuilt",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/zlib-1.2.3/zlib.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/jsonTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONArray.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/RuntimeExceptionTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/RuntimeException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/targets/arm-apple-ios/dragon3d-examples/dragon3d-examples/AppDelegate.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/documentation",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jmemsys.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStreamWriter.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_mac.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/OutputStreamWriter.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileWriter.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileWriter.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileWriterTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Writer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileReaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jinclude.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Reader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Reader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStreamReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Appendable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Writer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/File_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Reference.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Arrays.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/UnsupportedEncodingException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/UnsupportedEncodingException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/IOException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jconfig.mac",
+		"/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Headers/Files.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/x64/platformTest_x64.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileOutputStreamTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileOutputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/File.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Flushable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/OutputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/NullPointerException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/NullPointerException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileNotfoundException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Throwable.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ThrowableTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Exception.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Exception.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ExceptionTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IOException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileNotFoundException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/RuntimeException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/IndexOutOfBoundsException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/IndexOutOfBoundsException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileNotfoundException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/File.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_mac.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/osx/FileInputStream.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Closeable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileOutputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IoException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/System.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FilenameFilter.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/StringBuffer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/ArrayList.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Stack.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/PriorityQueue.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Matcher.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Pattern.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/CharSequence.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h"
 	],
 	"find":
 	{
@@ -781,6 +769,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"json_printer",
+			"JSON_ERROR_BAD_CHAR",
+			"dg_double",
+			"dg_float",
+			"dg_int",
+			"dg_float",
+			"dg_double",
+			"dg_float",
+			"dg_int",
+			"printchannel",
+			".o",
+			"jmemdos.c",
+			"dg_byte",
+			"dg_char",
+			"dg_boolean",
+			"dg_int",
+			"dg_boolean",
 			"Vector3",
 			"hasChanged",
 			"double",
@@ -888,6 +893,19 @@
 		"regex": false,
 		"replace_history":
 		[
+			"double",
+			"float",
+			"int",
+			"float",
+			"double",
+			"float",
+			"int",
+			".c",
+			"byte",
+			"wchar_u",
+			"bool",
+			"int",
+			"bool",
 			"const Vector3&",
 			"changed",
 			"float",
@@ -945,107 +963,45 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/build/targets/arm-apple-ios/Config.scons",
+					"file": "dragon/test/dragonx/json/JSONObjectTest.cc",
 					"settings":
 					{
-						"buffer_size": 1112,
+						"buffer_size": 2615,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1110,
-								0
+								2243,
+								2250
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"1807":
+								"2546":
 								{
-									"a": 29.0,
-									"b": 29.0
+									"a": 1764.0,
+									"b": 1764.0
+								},
+								"2862":
+								{
+									"a": 1461.0,
+									"b": 1461.0
 								}
 							},
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "game/dragon3d-core/build/targets/arm-apple-ios/Config.scons",
-					"settings":
-					{
-						"buffer_size": 1110,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1110,
-								0
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1810":
-								{
-									"a": 1110.0,
-									"b": 1110.0
-								}
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "game/dragon3d-examples/build/targets/arm-apple-ios/Config.scons",
-					"settings":
-					{
-						"buffer_size": 1110,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								756,
-								756
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1825":
-								{
-									"a": 1110.0,
-									"b": 1110.0
-								}
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 819.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1086,7 +1042,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 313.0
+		"height": 209.0
 	},
 	"replace":
 	{
@@ -1099,6 +1055,10 @@
 		"selected_items":
 		[
 			[
+				"",
+				"dragon/src/dragon/util/regex/Matcher.cc"
+			],
+			[
 				"thro",
 				"dragon/src/dragon/lang/Throwable.cc"
 			],
@@ -1109,10 +1069,6 @@
 			[
 				"system",
 				"dragon/src/dragon/lang/System.cc"
-			],
-			[
-				"",
-				".gitignore"
 			],
 			[
 				"dragon_te",
@@ -1321,6 +1277,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 241.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true
 }

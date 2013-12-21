@@ -248,7 +248,14 @@
 	typedef unsigned int        dg_uint;
 	typedef unsigned long long  dg_ulong;
 #endif
-	
+
+// simple type
+typedef dg_byte wbyte_u;
+typedef dg_char wchar_u;
+typedef dg_long wlong_u;	
+
+typedef dg_byte byte;
+
 
 // NULL char
 #define NULL_CHAR (dg_char)null;

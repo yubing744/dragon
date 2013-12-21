@@ -20,16 +20,17 @@
  * Created:     2013/06/29
  **********************************************************************/
 
-
+#include <dragon/lang/String.h>
+#include <dragon/lang/Array.h>
 #include <dragon/lang/Float.h>
 #include <dragon/lang/reflect/Type.h>
 
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Float::TYPE = new Type("float", sizeof(dg_float));
+const Type* Float::TYPE = new Type("float", sizeof(float));
 
-Float::Float(dg_float val) {
+Float::Float(float val) {
 	this->value = val;
 }
 
@@ -37,6 +38,11 @@ Float::~Float() {
 
 }
 
-dg_float Float::floatValue() {
+float Float::floatValue() {
 	return this->value;
+}
+
+Float* Float::parseFloat(const String& str) {
+    const Array<byte> data = str.getBytes("UTF-8");
+    return new Float((float)atof(data.raw()));
 }

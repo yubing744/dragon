@@ -47,6 +47,7 @@ public:
 	File(const String& pathname);
 	File(const File* parent, const String& name);
 	File(const String& parent, const String& name);
+	File(const File* other);
 	File(const File& other);
 	~File();
 
@@ -208,10 +209,13 @@ public:
 	 */
 	virtual File* getAbsoluteFile() const;
 
-	/*
-	virtual String getCanonicalPath() throw(IOException);
-	*/
-
+	/**
+	 * Returns the canonical pathname string of this abstract pathname.
+	 * 
+	 * @return [description]
+	 */
+	virtual String* getCanonicalPath() const;
+	
 private:
 	String* path;
 };

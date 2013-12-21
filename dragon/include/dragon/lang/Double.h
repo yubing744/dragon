@@ -27,6 +27,8 @@
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
 #include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/String.h>
+
 
 BeginPackage2(dragon, lang)
 
@@ -39,14 +41,17 @@ public:
     static const Type* TYPE;
     
 public:
-	Double(dg_double val);
+    static Double* parseDouble(const String& str);
+
+public:
+	Double(double val);
 	virtual ~Double();
 
 public:
-	dg_double doubleValue();
+	double doubleValue();
 
 protected:
-	dg_double value;	
+	double value;	
 };//Double
 
 EndPackage2 //(dragon, lang)

@@ -33,6 +33,11 @@ Exception::Exception(String* message)
 	:Throwable(message){
 }
 
+Exception::Exception(const String& message) 
+    :Throwable(message){
+
+}
+
 Exception::Exception(Throwable* cause)
 	:Throwable(cause) {
 }
@@ -40,3 +45,8 @@ Exception::Exception(Throwable* cause)
 Exception::Exception(String* message, Throwable* cause)
 	:Throwable(message, cause){
 } 
+
+Exception::Exception(const String& message, Throwable* cause) 
+    :Throwable(message, cause){
+
+}

@@ -1,39 +1,59 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_FileInputStream_H 
-#define IO_FileInputStream_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-#include "InputStream.h"
-#include "IOException.h"
-#include "FileNotFoundException.h"
+#ifndef FileInputStream_IO_Lang_H 
+#define FileInputStream_IO_Lang_H
 
-BeginPackageIO
+#include <dragon/lang/String.h>
 
-class _DragonExport FileInputStream :public InputStream
+#include <dragon/io/File.h>
+#include <dragon/io/InputStream.h>
+#include <dragon/io/IOException.h>
+#include <dragon/io/FileNotFoundException.h>
+
+BeginPackage2(dragon, io)
+
+Import dragon::lang;
+
+class _DragonExport FileInputStream extends(InputStream)
 {
 public:
-	FileInputStream(String& name) throw(FileNotFoundException);
-	FileInputStream(File* file) throw(FileNotFoundException);
-	~FileInputStream();
+	FileInputStream(const String& name) throw(FileNotFoundException*);
+	FileInputStream(File* file) throw(FileNotFoundException*);
+	virtual ~FileInputStream();
+
+protected:
+	virtual void open() throw(IOException*);
 
 public:
-	virtual int read() throw(IOException);
+	virtual wlong_u skip(wlong_u n) throw(IOException*);
+    virtual int read(byte* b, int num, int off, int len) throw(IOException*);
+    virtual void close() throw(IOException*);
 
-	virtual int read(byte* b,int num) throw(IOException,NullPointerException);
-
-	virtual int read(byte* b,int num,int off,int len) throw(IOException,NullPointerException,IndexOutOfBoundsException);
-
-	virtual Long skip(Long n) throw(IOException);
-
-	virtual int available() throw(IOException);
-
-	virtual void close() throw(IOException);
-
-private:
-	int mhFile;
+protected:
+	File* file;
+	void* nativeFileHandle;
 };
 
-EndPackageIO
+EndPackage2//(dragon, io)
 
-#endif
+#endif//FileInputStream_IO_Lang_H

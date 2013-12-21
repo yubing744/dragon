@@ -216,6 +216,8 @@ public:
      */
     virtual AbstractStringBuilder* append(String* str);
 
+    virtual AbstractStringBuilder* append(const String& str);
+
     // Documentation in subclasses because of synchro difference
     virtual AbstractStringBuilder* append(CharSequence* seq);
 

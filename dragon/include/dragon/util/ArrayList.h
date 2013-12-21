@@ -83,20 +83,11 @@ public: // implements List
 	virtual void clear();
 
 public:
+	List<E>* subList(int fromIndex, int toIndex);
+
+public:
 	virtual Array<E*> toArray();
 	virtual Array<E*> toArray(Array<E*>& a);
-
-	////Stack Interface Method
-	//virtual E push(const E& e);
-	//virtual E pop();
-	//virtual E peek();
-	//virtual bool empty();
-	//virtual int search(const E& e);
-
-	////PriorityQueue Interface Method
-	//virtual bool offer(const E& e);
-	//virtual E poll();
-	//virtual E peek();
 
 private:
 	vector<E*> mVector;
@@ -169,6 +160,7 @@ Iterator<E>* ArrayList<E>::iterator() {
 template<class E>
 bool ArrayList<E>::contains(E* e) {
 	StlIterator ibegin,iend;
+
 	ibegin = mVector.begin();
 	iend = mVector.end();
 
@@ -216,6 +208,30 @@ Array<E*> ArrayList<E>::toArray() {
 	int size = this->size();
     Array<E*> result(size);
     return this->toArray(result);
+}
+
+template<class E>
+List<E>* ArrayList<E>::subList(int fromIndex, int toIndex) {
+	int size = this->size();
+
+	if (fromIndex < 0)
+		fromIndex = 0;
+
+	if (toIndex > size)
+		toIndex = size;
+
+	if (fromIndex >= toIndex) {
+		return new ArrayList<E>();
+	}
+
+	ArrayList<E>* sub = new ArrayList<E>();
+
+	for (int i=fromIndex; i<toIndex; i++) {
+		E* e = this->get(i);
+		sub->add(e);
+	}
+
+	return sub;
 }
 
 EndPackage2//(dragon, util)

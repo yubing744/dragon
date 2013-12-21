@@ -4,7 +4,7 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "dragon3d-examples/AppDelegate.h"
@@ -190,9 +190,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "115"
-         endingLineNumber = "115"
-         landmarkName = "add(E* e)"
-         landmarkType = "7">
+         endingLineNumber = "115">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -236,7 +234,7 @@
    </FileBreakpoints>
    <SymbolicBreakpoints>
       <AddressBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          symbolName = "*0x10008c033">

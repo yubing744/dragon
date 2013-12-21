@@ -1,19 +1,46 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_Appendable_H 
-#define IO_Appendable_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-BeginPackage2(ProjectName,io)
+#ifndef Appendable_IO_Lang_H 
+#define Appendable_IO_Lang_H
 
-interface _DragonExport Appendable
+#include <dragon/config.h>
+#include <dragon/lang/CharSequence.h>
+
+BeginPackage2(dragon, io)
+
+Import dragon::lang;
+
+__interface _DragonExport Appendable
 {
 public:
-	virtual Appendable* append(Char c) throw(IOException) =0;
-	virtual Appendable* append(CharSequence* csq) throw(IOException) =0;
-	virtual Appendable* append(CharSequence* csq,int start,int end) throw(IOException) =0;
+    virtual ~Appendable(){};
+
+public:
+	virtual Appendable* append(wchar_u c) = 0;
+	virtual Appendable* append(CharSequence* csq) = 0;
+	virtual Appendable* append(CharSequence* csq, int start, int end) = 0;
 };
 
-EndPackage2
+EndPackage2//(dragon, io)
 
-#endif
+#endif//Appendable_IO_Lang_H

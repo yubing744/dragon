@@ -23,18 +23,20 @@
 #ifndef IndexOutOfBoundsException_Lang_Dragon_H
 #define IndexOutOfBoundsException_Lang_Dragon_H
 
-#include "RuntimeException.h"
+#include <dragon/lang/RuntimeException.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport IndexOutOfBoundsException :public RuntimeException
+class _DragonExport IndexOutOfBoundsException 
+    extends(RuntimeException)
 {
 public: 
 	IndexOutOfBoundsException();
 	IndexOutOfBoundsException(const String& message);
 	IndexOutOfBoundsException(Throwable* cause);
 	IndexOutOfBoundsException(const String& message, Throwable* cause);
-	~IndexOutOfBoundsException();
+
+	virtual ~IndexOutOfBoundsException();
 };
 
 EndPackage2//(dragon, lang)

@@ -33,8 +33,11 @@ class _DragonExport Exception
 public:
 	Exception();
 	Exception(String* message);
+    Exception(const String& message);
 	Exception(Throwable* cause);
 	Exception(String* message, Throwable* cause);
+    Exception(const String& message, Throwable* cause);
+
 	virtual ~Exception(){};
 };
 

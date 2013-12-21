@@ -378,11 +378,11 @@ THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
 
 # zip lib
-#LibraryModule(name                  = 'z',
-#              source_root           = THIRD_PARTY_SOURCE_ROOT,
-#              build_source_dirs     = ['zlib-1.2.3'],
-#              shared                = True,
-#              install               = True)
+LibraryModule(name                  = 'z',
+              source_root           = THIRD_PARTY_SOURCE_ROOT,
+              build_source_dirs     = ['zlib-1.2.3'],
+              shared                = True,
+              install               = True)
 
 # pcre lib
 libpcre_SOURCES = Split("""
@@ -480,6 +480,7 @@ LibraryModule(
     install               = True
 )
 
+
 # lib unicode 
 LibraryModule(
     name                  = 'unicode',
@@ -499,6 +500,100 @@ LibraryModule(
         'LINK_SIZE=4', 
         'HAVE_STRERROR'
     ],     
+    shared                = False,                    
+    install               = True
+)
+
+
+# lib jpeg 
+libjpeg_SOURCES = Split("""
+    jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolor.c \
+    jcdctmgr.c jchuff.c jcinit.c jcmainct.c jcmarker.c jcmaster.c \
+    jcomapi.c jcparam.c jcprepct.c jcsample.c jctrans.c jdapimin.c \
+    jdapistd.c jdarith.c jdatadst.c jdatasrc.c jdcoefct.c jdcolor.c \
+    jddctmgr.c jdhuff.c jdinput.c jdmainct.c jdmarker.c jdmaster.c \
+    jdmerge.c jdpostct.c jdsample.c jdtrans.c jerror.c jfdctflt.c \
+    jfdctfst.c jfdctint.c jidctflt.c jidctfst.c jidctint.c jquant1.c \
+    jquant2.c jutils.c jmemmgr.c
+
+    jmemnobs.c
+""")
+
+LibraryModule(
+    name                  = 'jpeg',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/jpeg-9",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/jpeg-9",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : libjpeg_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+
+
+# lib png 
+libpng_SOURCES = Split("""
+    png.c pngset.c pngget.c pngrutil.c pngtrans.c pngwutil.c \
+    pngread.c pngrio.c pngwio.c pngwrite.c pngrtran.c \
+    pngwtran.c pngmem.c pngerror.c pngpread.c
+""")
+
+LibraryModule(
+    name                  = 'png',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/lpng167",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/lpng167",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : libpng_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+# lib bmp
+libbmp_SOURCES = Split("""
+    bmpfile.c
+""")
+
+LibraryModule(
+    name                  = 'bmp',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libbmp-0.1.3",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libbmp-0.1.3",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "src" : libbmp_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+# lib json
+libjson_SOURCES = Split("""
+    json.c
+""")
+
+LibraryModule(
+    name                  = 'json',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libjson",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libjson",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : libjson_SOURCES
+    },    
+    extra_cpp_defines     = [],     
     shared                = False,                    
     install               = True
 )
@@ -558,6 +653,12 @@ dragon_SOURCES = {
         System.cc
 
         Thread.cc
+
+        NullPointerException.cc
+        IndexOutOfBoundsException.cc
+
+        Null.cc
+        Boolean.cc
     """),
     "dragon/lang/gc" : Split("""
         GarbageCollector.cc
@@ -602,6 +703,29 @@ dragon_SOURCES = {
 
     "dragon/io" : Split("""
         File.cc
+
+        InputStream.cc
+        FileInputStream.cc
+
+        OutputStream.cc
+        FileOutputStream.cc
+
+        IOException.cc
+        FileNotFoundException.cc
+
+        Writer.cc
+        OutputStreamWriter.cc
+        FileWriter.cc
+
+        Reader.cc
+        InputStreamReader.cc
+        FileReader.cc
+    """),
+
+    "dragonx/json" : Split("""
+        JSONException.cc 
+        JSONArray.cc 
+        JSONObject.cc 
     """)
 
 }
@@ -619,7 +743,7 @@ LibraryModule(
         'ENABLE_LOG'
     ],
     source_root           = 'src',
-    included_modules      = ["pcre32", "unicode"], 
+    included_modules      = ["pcre32", "unicode", "json"], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True
@@ -667,6 +791,15 @@ dragon_test_SOURCES = {
 
     "dragon/io" : Split("""
         FileTest.cc
+        FileInputStreamTest.cc
+        FileOutputStreamTest.cc
+
+        FileWriterTest.cc
+        FileReaderTest.cc
+    """),
+
+    "dragonx/json" : Split("""
+        JSONObjectTest.cc 
     """),
 
     "." : Split("""

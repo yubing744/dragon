@@ -1,20 +1,43 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_UnsupportedEncodingException_H 
-#define IO_UnsupportedEncodingException_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-#include "IOException.h"
 
-BeginPackage2(ProjectName,io)
+#ifndef UnsupportedEncodingException_Io_Lang_H 
+#define UnsupportedEncodingException_Io_Lang_H
 
-class _DragonExport UnsupportedEncodingException :public IOException
+#include <dragon/io/IOException.h>
+
+
+BeginPackage2(dragon, io)
+
+class _DragonExport UnsupportedEncodingException 
+    extends(IOException)
 {
 public:
 	UnsupportedEncodingException();
-	UnsupportedEncodingException(const Char* message);
+	UnsupportedEncodingException(const wchar_u* message);
 };
 
-EndPackage2
 
-#endif
+EndPackage2//(dragon, io)
+
+#endif//UnsupportedEncodingException_Io_Lang_H

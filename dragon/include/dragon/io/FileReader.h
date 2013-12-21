@@ -1,32 +1,45 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_FileReader_H 
-#define IO_FileReader_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-#include "InputStreamReader.h"
+#ifndef FileReader_IO_Dragon_H 
+#define FileReader_IO_Dragon_H
 
-BeginPackageIO
+#include <dragon/io/FileInputStream.h>
+#include <dragon/io/InputStreamReader.h>
 
-class _DragonExport FileReader :public InputStreamReader
+BeginPackage2(dragon, io)
+
+class _DragonExport FileReader 
+    extends(InputStreamReader)
 {
 public:
-	FileReader(String& fileName) throw(FileNotFoundException);
-	FileReader(File* file) throw(FileNotFoundException);
-	~FileReader(){close();};
+	FileReader(const String& fileName) throw(FileNotFoundException*);
+	FileReader(File* file) throw(FileNotFoundException*);
+	virtual ~FileReader(){close();};
 
-public:
-	virtual void close() throw(IOException);
-	virtual int read(Char* cbuf,int num,int off,int len) 
-					throw(IOException,NullPointerException,IndexOutOfBoundsException);
-
-	virtual Long skip(Long n) throw(IOException);
-	virtual bool ready() throw(IOException);
-private:
-	int mhFile;
-
+protected:
+    File* file;
 };
 
-EndPackageIO
+EndPackage2//(dragon, io)
 
-#endif
+#endif//FileReader_IO_Dragon_H

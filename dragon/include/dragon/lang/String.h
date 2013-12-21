@@ -114,35 +114,38 @@ public:
 
 private:
 	static const char* LOCAL_UCS4_CHARSET;
-	static const Array<dg_char> EMPTY_CHAR_ARRAY;
-	static const Array<dg_byte> EMPTY_BYTE_ARRAY;
+	static const Array<wchar_u> EMPTY_CHAR_ARRAY;
+	static const Array<byte> EMPTY_BYTE_ARRAY;
 
 private:
 	static char* DEFAULT_CHARSET_NAME;
 	static char* init();
-	static Array<dg_char> decode(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
-	static Array<dg_byte> encode(Array<dg_char> chars, dg_int offset, dg_int length, const char* charset);
+	static Array<wchar_u> decode(Array<byte> bytes, int offset, int length, const char* charset);
+	static Array<byte> encode(Array<wchar_u> chars, int offset, int length, const char* charset);
 	static void destroy();
 
 public:
 	String();
 
-	String(Array<dg_byte> bytes, dg_int length);
-	String(Array<dg_byte> bytes, dg_int offset, dg_int length);
-	String(Array<dg_byte> bytes, dg_int offset, dg_int length, const char* charset);
+	String(Array<byte> bytes, int length);
+	String(Array<byte> bytes, int offset, int length);
+	String(Array<byte> bytes, int offset, int length, const char* charset);
 
 	String(const char* value);
+     String(const char* value, int length);
+
 	String(const wchar_t* value);
-     
+     String(const wchar_t* value, int length);
+
      String(const String& value);
-	String(const dg_char* value);
+	String(const wchar_u* value);
 	String(const String* value);
-   	String(const dg_char* value, dg_int offset, dg_int count);
+   	String(const wchar_u* value, int offset, int count);
 	~String();
 
 protected:
 	// Package private constructor which shares value array for speed.
-	String(dg_int offset, dg_int count, dg_char* value);
+	String(int offset, int count, wchar_u* value);
 
 public:
 	String* operator = (const char* str);
@@ -151,8 +154,8 @@ public:
 /*
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
-	dg_boolean operator==(const dg_char* str);
-	dg_boolean operator==(const String& str);
+	bool operator==(const wchar_u* str);
+	bool operator==(const String& str);
 
 	operator wstring();
 	operator string();
@@ -203,7 +206,7 @@ public:
      *          value greater than <code>0</code> if this string is
      *          lexicographically greater than the string argument.
      */
-	dg_int compareTo(String* str);
+	int compareTo(String* str);
 
 	/**
      * Compares two strings lexicographically, ignoring case
@@ -225,7 +228,7 @@ public:
      * @see     java.text.Collator#compare(String, String)
      * @since   1.2
      */
-    dg_int compareToIgnoreCase(String* str);
+    int compareToIgnoreCase(String* str);
 
     /**
      * Compares this string to the specified object.
@@ -240,7 +243,8 @@ public:
      * @see     dragon.lang.String#compareTo(const dragon.lang.String*)
      * @see     dragon.lang.String#equalsIgnoreCase(const dragon.lang.String*)
      */
-	dg_boolean equals(const String* str) const;
+	bool equals(const String* str) const;
+     bool equals(const String& str) const;
 
 	/**
      * Tests if this string starts with the specified prefix beginning
@@ -259,7 +263,7 @@ public:
      *          this->substring(toffset)->startsWith(prefix)
      *          </pre>
      */
-	dg_boolean startsWith(const String& prefix, dg_int toffset) const;
+	bool startsWith(const String& prefix, int toffset) const;
 
     /**
      * Tests if this string starts with the specified prefix.
@@ -274,7 +278,7 @@ public:
      *          {@link #equals(Object)} method.
      * @since   1. 0
      */	
-	dg_boolean startsWith(const String& prefix) const;
+	bool startsWith(const String& prefix) const;
 
     /**
      * Tests if this string ends with the specified suffix.
@@ -287,7 +291,7 @@ public:
      *          empty string or is equal to this <code>String</code> object
      *          as determined by the {@link #equals(Object)} method.
      */
-	dg_boolean endsWith(const String& suffix) const;
+	bool endsWith(const String& suffix) const;
 
     /**
      * Returns a hash code for this string. The hash code for a
@@ -302,7 +306,7 @@ public:
      *
      * @return  a hash code value for this object.
      */
-	dg_int hashCode();
+	int hashCode();
 
     /**
      * Returns the index within this string of the first occurrence of
@@ -328,7 +332,7 @@ public:
      *          character sequence represented by this object, or
      *          <code>-1</code> if the character does not occur.
      */
-	dg_int indexOf(dg_char ch) const;
+	int indexOf(wchar_u ch) const;
 
 	/**
      * Returns the index within this string of the first occurrence of the
@@ -369,7 +373,7 @@ public:
      *          than or equal to <code>fromIndex</code>, or <code>-1</code>
      *          if the character does not occur.
      */
-	dg_int indexOf(dg_char ch, dg_int fromIndex) const;
+	int indexOf(wchar_u ch, int fromIndex) const;
 
     /**
      * Returns the index within this string of the first occurrence of the
@@ -386,7 +390,7 @@ public:
      *          such substring is returned; if it does not occur as a
      *          substring, <code>-1</code> is returned.
      */	
-	dg_int indexOf(String* str) const;
+	int indexOf(String* str) const;
 
     /**
      * Returns the index within this string of the first occurrence of the
@@ -402,7 +406,7 @@ public:
      * @return  the index within this string of the first occurrence of the
      *          specified substring, starting at the specified index.
      */	
-	dg_int indexOf(String* str, dg_int fromIndex) const;
+	int indexOf(String* str, int fromIndex) const;
 
     /**
      * Returns the index within this string of the last occurrence of
@@ -427,7 +431,7 @@ public:
      *          character sequence represented by this object, or
      *          <code>-1</code> if the character does not occur.
      */
-	dg_int lastIndexOf(dg_char ch);
+	int lastIndexOf(wchar_u ch);
 
     /**
      * Returns the index within this string of the last occurrence of
@@ -463,7 +467,7 @@ public:
      *          than or equal to <code>fromIndex</code>, or <code>-1</code>
      *          if the character does not occur before that point.
      */	
-	dg_int lastIndexOf(dg_char ch, dg_int fromIndex);
+	int lastIndexOf(wchar_u ch, int fromIndex);
 
     /**
      * Returns the index within this string of the rightmost occurrence
@@ -481,7 +485,7 @@ public:
      *          the last such substring is returned. If it does not occur as
      *          a substring, <code>-1</code> is returned.
      */	
-	dg_int lastIndexOf(const String& str) const;
+	int lastIndexOf(const String& str) const;
 
 
     /**
@@ -498,7 +502,7 @@ public:
      * @return  the index within this string of the last occurrence of the
      *          specified substring.
      */	
-	dg_int lastIndexOf(const String& str, dg_int fromIndex) const;
+	int lastIndexOf(const String& str, int fromIndex) const;
     
     /**
      * Returns a new string that is a substring of this string. The
@@ -517,7 +521,7 @@ public:
      *             <code>beginIndex</code> is negative or larger than the
      *             length of this <code>String</code> object.
      */
-	String* substring(dg_int beginIndex) const;
+	String* substring(int beginIndex) const;
 
     /**
      * Returns a new string that is a substring of this string. The
@@ -541,7 +545,7 @@ public:
      *             <code>beginIndex</code> is larger than
      *             <code>endIndex</code>.
      */	
-	String* substring(dg_int beginIndex, dg_int endIndex) const;
+	String* substring(int beginIndex, int endIndex) const;
 
     /**
      * Concatenates the specified string to the end of this string.
@@ -575,7 +579,7 @@ public: // Implements Interface CharSequence
      * @return  the length of the sequence of characters represented by this
      *          object.
      */
-	virtual dg_int length() const;
+	virtual int length() const;
 
     /**
      * Returns the <code>char</code> value at the
@@ -595,36 +599,37 @@ public: // Implements Interface CharSequence
      *             argument is negative or not less than the length of this
      *             string.
      */	
-	virtual dg_char charAt(dg_int index);
-	virtual CharSequence* subSequence(dg_int start,dg_int end);
-	virtual String* toString();
+	virtual wchar_u charAt(int index) const;
+	virtual CharSequence* subSequence(int start, int end) const;
+	virtual String* toString() const;
 
 public:
     /**
      * return the pointer of string,
      */    
-	const dg_char* toChars();
-	Array<dg_char> toCharArray();
-	void getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin) const;
+	const wchar_u* toChars();
+	Array<wchar_u> toCharArray() const;
+	void getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin) const;
      
-	const Array<dg_byte> getBytes() const;
-	const Array<dg_byte> getBytes(const char* charset) const;
+	const Array<byte> getBytes() const;
+	const Array<byte> getBytes(const char* charset) const;
 
-	dg_boolean matches(String* regex);
-	dg_boolean contains(CharSequence* s);
+	bool matches(String* regex);
+	bool contains(CharSequence* s);
 
-	String* replace(dg_char oldChar, dg_char newChar);
+	String* replace(wchar_u oldChar, wchar_u newChar);
 	String* replace(CharSequence* target, CharSequence* replacement);
 	String* replaceAll(String* regex, String* replacement);
 	String* replaceFirst(String* regex, String* replacement);
 
-	Array<String*> split(dg_char ch);
-	Array<String*> split(String* regex);
+     Array<String*> split(const String& regex) const;
+	Array<String*> split(const String* regex) const;
+     Array<String*> split(const String* regex, int limit) const;
 
 	String* toLowerCase();
 
 	/**
-     * Converts all of the dg_characters in this <code>String</code> to upper
+     * Converts all of the wchar_uacters in this <code>String</code> to upper
      * case using the rules of the default locale. This method is equivalent to
      * <code>toUpperCase(Locale.getDefault())</code>.
      * <p>
@@ -669,17 +674,17 @@ public:
 
 public:
 	/**
-     * Returns a String that represents the dg_character sequence in the
+     * Returns a String that represents the wchar_uacter sequence in the
      * array specified.
      *
-     * @param   data     the dg_character array.
+     * @param   data     the wchar_uacter array.
      * @param   offset   initial offset of the subarray.
      * @param   count    length of the subarray.
-     * @return  a <code>String</code> that contains the dg_characters of the
-     *          specified subarray of the dg_character array.
+     * @return  a <code>String</code> that contains the wchar_uacters of the
+     *          specified subarray of the wchar_uacter array.
      */
-	static String* copyValueOf(const dg_char* data, dg_int offset, dg_int count);
-	static String* copyValueOf(const dg_char* data);
+	static String* copyValueOf(const wchar_u* data, int offset, int count);
+	static String* copyValueOf(const wchar_u* data);
 
      static String* vformat(String* format, va_list arg);
 	static String* format(String* format, ...);
@@ -688,82 +693,82 @@ public:
 
     /**
      * Returns the string representation of a specific subarray of the
-     * <code>dg_char</code> array argument.
+     * <code>wchar_u</code> array argument.
      * <p>
      * The <code>offset</code> argument is the index of the first
-     * dg_character of the subarray. The <code>count</code> argument
+     * wchar_uacter of the subarray. The <code>count</code> argument
      * specifies the length of the subarray. The contents of the subarray
-     * are copied; subsequent modification of the dg_character array does not
+     * are copied; subsequent modification of the wchar_uacter array does not
      * affect the newly created string.
      *
-     * @param   data     the dg_character array.
-     * @param   offset   the initial offset dg_into the value of the
+     * @param   data     the wchar_uacter array.
+     * @param   offset   the initial offset into the value of the
      *                  <code>String</code>.
      * @param   count    the length of the value of the <code>String</code>.
-     * @return  a string representing the sequence of dg_characters contained 
-     *          in the subarray of the dg_character array argument.
+     * @return  a string representing the sequence of wchar_uacters contained 
+     *          in the subarray of the wchar_uacter array argument.
      * @exception IndexOutOfBoundsException if <code>offset</code> is
      *          negative, or <code>count</code> is negative, or
      *          <code>offset+count</code> is larger than
      *          <code>data.length</code>.
      */
-	static String* valueOf(const dg_char* data, dg_int offset, dg_int count);
-	static String* valueOf(const dg_char* data);
+	static String* valueOf(const wchar_u* data, int offset, int count);
+	static String* valueOf(const wchar_u* data);
 	static String* valueOf(const char* value);
 	static String* valueOf(const wchar_t* value);
 
 	/**
-     * Returns the string representation of the <code>dg_boolean</code> argument.
+     * Returns the string representation of the <code>bool</code> argument.
      *
-     * @param   b   a <code>dg_boolean</code>.
+     * @param   b   a <code>bool</code>.
      * @return  if the argument is <code>dg_true</code>, a string equal to
      *          <code>"dg_true"</code> is returned; otherwise, a string equal to
      *          <code>"dg_false"</code> is returned.
      */
-	static String* valueOf(dg_boolean b);
+	static String* valueOf(bool b);
 
 	/**
-     * Returns the string representation of the <code>dg_char</code>
+     * Returns the string representation of the <code>wchar_u</code>
      * argument.
      *
-     * @param   c   a <code>dg_char</code>.
+     * @param   c   a <code>wchar_u</code>.
      * @return  a string of length <code>1</code> containing
-     *          as its single dg_character the argument <code>c</code>.
+     *          as its single wchar_uacter the argument <code>c</code>.
      */
-	static String* valueOf(dg_char c);
+	static String* valueOf(wchar_u c);
 
     /**
-     * Returns the string representation of the <code>dg_int</code> argument.
+     * Returns the string representation of the <code>int</code> argument.
      * <p>
      * The representation is exactly the one returned by the
      * <code>Integer.toString</code> method of one argument.
      *
-     * @param   i   an <code>dg_int</code>.
-     * @return  a string representation of the <code>dg_int</code> argument.
-     * @see     java.lang.Integer#toString(dg_int, dg_int)
+     * @param   i   an <code>int</code>.
+     * @return  a string representation of the <code>int</code> argument.
+     * @see     java.lang.Integer#toString(int, int)
      */
-	static String* valueOf(dg_int i);
+	static String* valueOf(int i);
 	static String* valueOf(dg_long l);
 	static String* valueOf(dg_float f);
 	static String* valueOf(dg_double d);
 
 private:
-	dg_char* value;
-	dg_int offset;
-	dg_int count;
+	wchar_u* value;
+	int offset;
+	int count;
 };
 
 // suport compare and hash
 inline wostream& operator << (wostream& os,const String& str) {
      String* theStr = const_cast<String*>(&str);
-     Array<dg_byte> bytes = theStr->getBytes();
+     Array<byte> bytes = theStr->getBytes();
      os << bytes.raw();
      return os;
 }
 
 inline wostream& operator << (wostream& os, const String* str) {
      String* theStr = const_cast<String*>(str);
-     Array<dg_byte> bytes = theStr->getBytes();
+     Array<byte> bytes = theStr->getBytes();
      os << bytes.raw();
      return os;
 }

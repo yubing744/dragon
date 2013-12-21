@@ -41,16 +41,16 @@ public:
 
 public:
 	/**
-     * A constant holding the minimum value an <code>dg_int</code> can
+     * A constant holding the minimum value an <code>int</code> can
      * have, -2<sup>31</sup>.
      */
-	static const dg_int MIN_VALUE = 0x80000000;
+	static const int MIN_VALUE = 0x80000000;
 
     /**
-     * A constant holding the maximum value an <code>dg_int</code> can
+     * A constant holding the maximum value an <code>int</code> can
      * have, 2<sup>31</sup>-1.
      */	
-	static const dg_int MAX_VALUE = 0x7fffffff;
+	static const int MAX_VALUE = 0x7fffffff;
 
     /**
      * All possible dg_chars for representing a number as a String
@@ -62,43 +62,51 @@ public:
     const static char DigitOnes[];
 
 	/**
-     * Places dg_characters representing the dg_integer i dg_into the
-     * dg_character array buf. The dg_characters are placed dg_into
+     * Places dg_characters representing the integer i into the
+     * dg_character array buf. The dg_characters are placed into
      * the buffer backwards starting with the least significant
      * digit at the specified index (exclusive), and working
      * backwards from there.
      *
      * Will fail if i == Integer.MIN_VALUE
      */
-    static void getChars(dg_int i, dg_int index, dg_char* buf);
+    static void getChars(int i, int index, dg_char* buf);
 
     /**
      * Returns a <code>String</code> object representing the
-     * specified dg_integer. The argument is converted to signed decimal
+     * specified integer. The argument is converted to signed decimal
      * representation and returned as a string, exactly as if the
      * argument and radix 10 were given as arguments to the {@link
-     * #toString(dg_int, dg_int)} method.
+     * #toString(int, int)} method.
      *
-     * @param   i   an dg_integer to be converted.
+     * @param   i   an integer to be converted.
      * @return  a string representation of the argument in base&nbsp;10.
      */
-    static String* toString(dg_int i);
+    static String* toString(int i);
+
+    /**
+     * parse string as int
+     * 
+     * @param  str [description]
+     * @return     [description]
+     */
+    static Integer* parseInt(const String& str);
 
 public:
-	Integer(dg_int val);
+	Integer(int val);
 	virtual ~Integer();
 
 public:
     virtual String* toString();
 
 public: //Implements Number
-    virtual dg_int intValue();
+    virtual int intValue();
     virtual dg_long longValue();
     virtual dg_float floatValue();
-    virtual dg_double doubleValue();
+    virtual double doubleValue();
 
 protected:
-	dg_int value;
+	int value;
 	
 };//Integer
 

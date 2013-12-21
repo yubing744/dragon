@@ -81,7 +81,6 @@ const char* find_image_path_by_name(const char* name) {
 		const char* end_part = image_path + (ip_len - name_len);
 		if (strcmp(end_part, name) == 0x0) {
 			return image_path;
-			break;
 		}
 	}
 

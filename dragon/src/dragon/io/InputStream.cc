@@ -1,66 +1,35 @@
-#include "InputStream.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+#include <dragon/io/InputStream.h>
+
+Import dragon::lang;
+Import dragon::io;
 
 
-Import ProjectName::lang;
-Import ProjectName::io;
-
-
-int InputStream::read(byte* b,int num)
-{
-	int byteRead=-1;
-	if(b==null)
-	{
-		throw NullPointerException(L"InputStream::read(byte* b,int len) b==null !");
-	}
-	
-	int i;
-
-	for(i=0;i<num;i++)
-	{
-		if((*(b++)=this->read())==-1)
-		{
-			break;
-		}
-	}
-
-	return i;
+int InputStream::read(byte* b, int num) throw(IOException*) {
+	return read(b, num, 0, num);
 }
 
-int InputStream::read(byte* b,int num,int off,int len)
-{
-	if(len==0) return 0;
+int InputStream::read() throw(IOException*) {
+	byte buf[1];
 
-	int tb=this->read();
-	if(tb==-1)
-	{
+	if (read(buf, 1)) {
+		return (int)buf[0];
+	} else {
 		return -1;
 	}
-	else
-	{
-		*(b+off)=(byte)tb;
-	}
-
-	if(off<0 || len<0 || off+len>num)
-	{
-		throw IndexOutOfBoundsException(L"FileInputStream::read(byte* b,int off,int len)");
-	}
-
-	return this->read(b+off+1,len-1);
-}
-
-
-
-Long InputStream::skip(Long n)
-{
-	Long i;
-
-	for(i=0;i<n;i++)
-	{
-		if(this->read()==-1)
-		{
-			break;
-		}
-	}
-
-	return i;
 }

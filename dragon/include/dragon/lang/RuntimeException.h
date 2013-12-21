@@ -23,19 +23,22 @@
 #ifndef RuntimeException_Lang_Dragon_H
 #define RuntimeException_Lang_Dragon_H
 
-#include "Exception.h"
+#include <dragon/lang/Exception.h>
 
 BeginPackage2(dragon, lang)
 
 class _DragonExport RuntimeException 
-	:public Exception
+	extends(Exception)
 {
 public:
 	RuntimeException();
 	RuntimeException(String* message);
+    RuntimeException(const String& message);
 	RuntimeException(Throwable* cause);
 	RuntimeException(String* message, Throwable* cause);
-	virtual ~RuntimeException(){};
+    RuntimeException(const String& message, Throwable* cause);
+
+	virtual ~RuntimeException();
 };
 
 EndPackage2//(dragon, lang)

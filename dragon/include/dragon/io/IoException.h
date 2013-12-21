@@ -1,18 +1,46 @@
-#include "io.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-#ifndef IO_IOException_H 
-#define IO_IOException_H
-#pragma once
+/**********************************************************************
+ * Author:      Owen Wu/wcw/yubing
+ * Email:       yubing744@163.com
+ * Created:     2013/06/26
+ **********************************************************************/
 
-BeginPackageIO
+#ifndef IOException_IO_Lang_H 
+#define IOException_IO_Lang_H
 
-class _DragonExport IOException :public Exception
+#include <dragon/lang/Exception.h>
+
+BeginPackage2(dragon, io)
+
+Import dragon::lang;
+
+class _DragonExport IOException extends(Exception)
 {
 public:
-	IOException();
-	IOException(const Char* message);
+    IOException();
+    IOException(String* message);
+    IOException(const String& message);
+    IOException(Throwable* cause);
+    IOException(String* message, Throwable* cause);
+
+    virtual ~IOException(){};
 };
 
-EndPackageIO
+EndPackage2//(dragon, io)
 
-#endif
+#endif//IOException_IO_Lang_H

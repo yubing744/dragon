@@ -15,7 +15,8 @@
 */
 
 #include <dragon/io/File.h>
-#include <dragon/util/ArrayList.h>
+#include <dragon/util/Stack.h>
+#include <dragon/lang/StringBuffer.h>
 
 Import dragon::lang;
 Import dragon::io;
@@ -36,6 +37,10 @@ File::File() {
 
 File::File(const String& pathname){
 	this->path = new String(pathname);
+}
+
+File::File(const File* other){
+	this->path = new String(other->path);
 }
 
 File::File(const File& other){
@@ -278,6 +283,56 @@ const Array<File*> File::listFiles(const FilenameFilter* filter) const {
 
 	SafeDelete(v);
 	ss.release();
+
+	return result;
+}
+
+String* File::getCanonicalPath() const {
+	Array<String*> tokens = this->path->split(separator);
+
+	Stack<String>* stack = new Stack<String>();
+
+	int size = tokens.length();
+
+	if (size > 0) {
+		for (int i=0; i<size; i++) {
+			String* token = tokens[i];
+
+			if (token->equals(".")) {
+				;// ignore
+			} else if(token->equals("..")) {
+				stack->pop();
+			} else {
+				stack->push(new String(token));
+			}
+
+			SafeDelete(token);
+		}
+	}
+
+	tokens.release();
+
+	StringBuffer* sb = new StringBuffer();
+
+	Iterator<String>* it = stack->iterator();
+
+    while(it->hasNext()) {
+        String* tok = it->next();
+        
+        sb->append(tok);
+        sb->append(separator);
+
+        SafeDelete(tok);
+    }
+
+    SafeDelete(it);
+
+    if (stack->size() > 0) {
+    	sb->setLength(sb->length() - 1);
+    }
+    
+	String* result = sb->toString();
+	SafeDelete(sb);
 
 	return result;
 }

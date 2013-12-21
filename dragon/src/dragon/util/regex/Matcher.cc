@@ -28,9 +28,22 @@ Import dragon::util::regex;
 
 #define OVECCOUNT 30    /* should be a multiple of 3 */
 
-Matcher::Matcher(Pattern* parent, String* text) {
+Matcher::Matcher(Pattern* parent, const String* text) {
     this->parentPattern = parent;
     this->text = new String(text);
+
+    this->groups = NULL;
+    this->groupSize = 0;
+
+    this->first = -1;
+    this->last = 0;
+
+    this->lastAppendPosition = 0;
+}
+
+Matcher::Matcher(Pattern* parent, const CharSequence* text) {
+    this->parentPattern = parent;
+    this->text = text->toString();
 
     this->groups = NULL;
     this->groupSize = 0;
@@ -59,12 +72,12 @@ void Matcher::reset() {
 }
 
 
-dg_boolean Matcher::matches() {
+bool Matcher::matches() {
     return this->find(0);
 }
 
-dg_boolean Matcher::find() {
-    dg_int nextSearchIndex = last;
+bool Matcher::find() {
+    int nextSearchIndex = last;
     if (nextSearchIndex == first)
         nextSearchIndex++;
 
@@ -81,8 +94,8 @@ dg_boolean Matcher::find() {
     return this->search(nextSearchIndex);
 }
 
-dg_boolean Matcher::find(dg_int start) {
-    //dg_int limit = getTextLength();
+bool Matcher::find(int start) {
+    //int limit = getTextLength();
     //if ((start < 0) || (start > limit))
     //    throw new IndexOutOfBoundsException("Illegal start index");
 
@@ -90,8 +103,8 @@ dg_boolean Matcher::find(dg_int start) {
     return this->search(start);
 }
 
-dg_boolean Matcher::search(dg_int from) {
-    dg_int subject_length = this->text->length();
+bool Matcher::search(int from) {
+    int subject_length = this->text->length();
  
     int count = OVECCOUNT;
 
@@ -102,7 +115,7 @@ dg_boolean Matcher::search(dg_int from) {
         return dg_false;
     }
 
-    const dg_char* subject = this->text->toChars();
+    const wchar_u* subject = this->text->toString()->toChars();
 
     while(rc == 0) {
       if (ovector != NULL) {
@@ -131,14 +144,14 @@ dg_boolean Matcher::search(dg_int from) {
         this->first = this->start();
         this->last = this->end();
 
-        return dg_true;
+        return true;
     }
 
-    return dg_false;
+    return false;
 }
 
 
-dg_int Matcher::start(dg_int group) {
+int Matcher::start(int group) {
     if (group < 0 || group >= this->groupSize) {
         return 0;
     }
@@ -146,7 +159,7 @@ dg_int Matcher::start(dg_int group) {
     return this->groups[group * 2];
 }
 
-dg_int Matcher::end(dg_int group){
+int Matcher::end(int group){
     if (group < 0 || group >= this->groupSize) {
         return 0;
     }
@@ -154,26 +167,27 @@ dg_int Matcher::end(dg_int group){
     return this->groups[group * 2 + 1];
 }
 
-String* Matcher::group(dg_int group) {
+String* Matcher::group(int group) {
     if (group < 0 || group >= this->groupSize) {
         return null;
     }
 
-    dg_int startIndex = this->start(group);
-    dg_int endIndex = this->end(group);
-    return this->text->substring(startIndex, endIndex);
+    int startIndex = this->start(group);
+    int endIndex = this->end(group);
+
+    return this->text->toString()->substring(startIndex, endIndex);
 }
 
 
-dg_int Matcher::groupCount() {
+int Matcher::groupCount() {
     return this->groupSize;
 }
 
-dg_int Matcher::start(){
+int Matcher::start(){
     return this->start(0);
 }
 
-dg_int Matcher::end() {
+int Matcher::end() {
     return this->end(0);
 }
 
@@ -187,7 +201,7 @@ Matcher* Matcher::appendReplacement(StringBuffer* sb, String* replacement) {
     //    throw new IllegalStateException("No match available");
 
     // Process substitution string to replace group references with groups
-    dg_int cursor = 0;
+    int cursor = 0;
     String* s = replacement;
     StringBuffer* result = new StringBuffer();
 
@@ -203,23 +217,23 @@ Matcher* Matcher::appendReplacement(StringBuffer* sb, String* replacement) {
             cursor++;
 
             // The first number is always a group
-            dg_int refNum = (dg_int)replacement->charAt(cursor) - '0';
+            int refNum = (int)replacement->charAt(cursor) - '0';
             //if ((refNum < 0)||(refNum > 9))
             //    throw new IllegalArgumentException(
             //        "Illegal group reference");
             cursor++;
 
             // Capture the largest legal group string
-            dg_boolean done = dg_false;
+            bool done = dg_false;
             while (!done) {
                 if (cursor >= replacement->length()) {
                     break;
                 }
-                dg_int nextDigit = replacement->charAt(cursor) - '0';
+                int nextDigit = replacement->charAt(cursor) - '0';
                 if ((nextDigit < 0)||(nextDigit > 9)) { // not a number
                     break;
                 }
-                dg_int newRefNum = (refNum * 10) + nextDigit;
+                int newRefNum = (refNum * 10) + nextDigit;
                 if (groupCount() < newRefNum) {
                     done = dg_true;
                 } else {
@@ -237,7 +251,7 @@ Matcher* Matcher::appendReplacement(StringBuffer* sb, String* replacement) {
         }
     }
 
-    // Append the dg_intervening text
+    // Append the intervening text
     CharSequence* head = getSubSequence(lastAppendPosition, first);
     sb->append(head);
     SafeDelete(head);
@@ -264,33 +278,38 @@ StringBuffer* Matcher::appendTail(StringBuffer* sb) {
 
 String* Matcher::replaceAll(String* replacement) {
     reset();
-    dg_boolean result = find();
+
+    bool result = find();
 
     if (result) {
         String* ret = null;
+
         StringBuffer* sb = new StringBuffer();
+
         do {
             appendReplacement(sb, replacement);
             result = find();
         } while (result);
+
         appendTail(sb);
+
         ret = sb->toString();
         SafeDelete(sb);
 
         return ret;
+    } else {
+        return text->toString();
     }
-
-    return text->toString();
 }
 
-dg_int Matcher::getTextLength() {
+int Matcher::getTextLength() {
     return text->length();
 }
 
-CharSequence* Matcher::getSubSequence(dg_int beginIndex, dg_int endIndex) {
+CharSequence* Matcher::getSubSequence(int beginIndex, int endIndex) {
     return text->subSequence(beginIndex, endIndex);
 }
 
-dg_char Matcher::charAt(dg_int i) {
+wchar_u Matcher::charAt(int i) {
     return text->charAt(i);
 }
