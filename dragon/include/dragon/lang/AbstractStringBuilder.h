@@ -34,13 +34,13 @@ BeginPackage2(dragon, lang)
 Import dragon::lang;
 
 /**
- * A mutable sequence of dg_characters.
+ * A mutable sequence of wchar_uacters.
  * <p>
- * Implements a modifiable string. At any podg_int in time it contains some 
- * particular sequence of dg_characters, but the length and content of the 
+ * Implements a modifiable string. At any point in time it contains some 
+ * particular sequence of wchar_uacters, but the length and content of the 
  * sequence can be changed through certain method calls.
  */
-class _DragonExport AbstractStringBuilder {
+DragonClass AbstractStringBuilder {
 public:
 
     /** 
@@ -51,7 +51,7 @@ public:
     /** 
      * Creates an AbstractStringBuilder of the specified capacity.
      */
-	AbstractStringBuilder(dg_int capcity);
+	AbstractStringBuilder(int capcity);
 
     /** 
      * This deconstructor.
@@ -65,7 +65,7 @@ public:
      * @return  the length of the sequence of characters currently 
      *          represented by this object
      */
-	virtual dg_int length();
+	virtual int length();
 
 
     /**
@@ -75,7 +75,7 @@ public:
      *
      * @return  the current capacity
      */	
-	virtual dg_int capcity();
+	virtual int capcity();
 
     /**
      * Ensures that the capacity is at least equal to the specified minimum.
@@ -91,7 +91,7 @@ public:
      *
      * @param   minimumCapacity   the minimum desired capacity.
      */
-	virtual void ensureCapacity(dg_int minimumCapacity);
+	virtual void ensureCapacity(int minimumCapacity);
 
 	/**
      * Attempts to reduce storage used for the character sequence.
@@ -106,17 +106,17 @@ public:
      * Sets the length of the character sequence.
      * The sequence is changed to a new character sequence 
      * whose length is specified by the argument. For every nonnegative 
-     * index <i>k</i> less than <code>newLength</code>, the dg_character at 
-     * index <i>k</i> in the new dg_character sequence is the same as the 
+     * index <i>k</i> less than <code>newLength</code>, the wchar_uacter at 
+     * index <i>k</i> in the new wchar_uacter sequence is the same as the 
      * character at index <i>k</i> in the old sequence if <i>k</i> is less 
-     * than the length of the old dg_character sequence; otherwise, it is the 
-     * null dg_character <code>'&#92;u0000'</code>. 
+     * than the length of the old wchar_uacter sequence; otherwise, it is the 
+     * null wchar_uacter <code>'&#92;u0000'</code>. 
      *  
      * In other words, if the <code>newLength</code> argument is less than 
      * the current length, the length is changed to the specified length.
      * <p>
      * If the <code>newLength</code> argument is greater than or equal 
-     * to the current length, sufficient null dg_characters 
+     * to the current length, sufficient null wchar_uacters 
      * (<code>'&#92;u0000'</code>) are appended so that 
      * length becomes the <code>newLength</code> argument. 
      * <p>
@@ -127,34 +127,34 @@ public:
      * @throws     IndexOutOfBoundsException  if the
      *               <code>newLength</code> argument is negative.
      */
-    virtual void setLength(dg_int newLength);
+    virtual void setLength(int newLength);
 
    /**
-     * Returns the <code>dg_char</code> value in this sequence at the specified index.
-     * The first <code>dg_char</code> value is at index <code>0</code>, the next at index
+     * Returns the <code>wchar_u</code> value in this sequence at the specified index.
+     * The first <code>wchar_u</code> value is at index <code>0</code>, the next at index
      * <code>1</code>, and so on, as in array indexing.
      * <p>
      * The index argument must be greater than or equal to
      * <code>0</code>, and less than the length of this sequence.
      *
-     * <p>If the <code>dg_char</code> value specified by the index is a
+     * <p>If the <code>wchar_u</code> value specified by the index is a
      * <a href="Character.html#unicode">surrogate</a>, the surrogate
      * value is returned.
      *
-     * @param      index   the index of the desired <code>dg_char</code> value.
-     * @return     the <code>dg_char</code> value at the specified index.
+     * @param      index   the index of the desired <code>wchar_u</code> value.
+     * @return     the <code>wchar_u</code> value at the specified index.
      * @throws     IndexOutOfBoundsException  if <code>index</code> is 
      *             negative or greater than or equal to <code>length()</code>.
      */
-    virtual dg_char charAt(dg_int index);
+    virtual wchar_u charAt(int index);
 
     /**
-     * Characters are copied from this sequence dg_into the 
-     * destination dg_character array <code>dst</code>. The first dg_character to 
-     * be copied is at index <code>srcBegin</code>; the last dg_character to 
+     * Characters are copied from this sequence into the 
+     * destination wchar_uacter array <code>dst</code>. The first wchar_uacter to 
+     * be copied is at index <code>srcBegin</code>; the last wchar_uacter to 
      * be copied is at index <code>srcEnd-1</code>. The total number of 
-     * dg_characters to be copied is <code>srcEnd-srcBegin</code>. The 
-     * dg_characters are copied dg_into the subarray of <code>dst</code> starting 
+     * wchar_uacters to be copied is <code>srcEnd-srcBegin</code>. The 
+     * wchar_uacters are copied into the subarray of <code>dst</code> starting 
      * at index <code>dstBegin</code> and ending at index:
      * <p><blockquote><pre>
      * dstbegin + (srcEnd-srcBegin) - 1
@@ -162,9 +162,9 @@ public:
      *
      * @param      srcBegin   start copying at this offset.
      * @param      srcEnd     stop copying at this offset.
-     * @param      dst        the array to copy the data dg_into.
-     * @param      dstBegin   offset dg_into <code>dst</code>.
-     * @throws     NullPodg_interException if <code>dst</code> is 
+     * @param      dst        the array to copy the data into.
+     * @param      dstBegin   offset into <code>dst</code>.
+     * @throws     NullPointerException if <code>dst</code> is 
      *             <code>null</code>.
      * @throws     IndexOutOfBoundsException  if any of the following is dg_true:
      *             <ul>
@@ -178,13 +178,13 @@ public:
      *             <code>dst.length</code>
      *             </ul>
      */
-    virtual void getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin);  
+    virtual void getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin);  
 
 	/**
      * The character at the specified index is set to <code>ch</code>. This 
      * sequence is altered to represent a new character sequence that is 
      * identical to the old character sequence, except that it contains the 
-     * dg_character <code>ch</code> at position <code>index</code>. 
+     * wchar_uacter <code>ch</code> at position <code>index</code>. 
      * <p>
      * The index argument must be greater than or equal to 
      * <code>0</code>, and less than the length of this sequence. 
@@ -194,21 +194,21 @@ public:
      * @throws     IndexOutOfBoundsException  if <code>index</code> is 
      *             negative or greater than or equal to <code>length()</code>.
      */
-    virtual void setCharAt(dg_int index, dg_char ch) ;
+    virtual void setCharAt(int index, wchar_u ch) ;
 
     /**
-     * Appends the specified string to this dg_character sequence.
+     * Appends the specified string to this wchar_uacter sequence.
      * <p>
-     * The dg_characters of the <code>String</code> argument are appended, in 
+     * The wchar_uacters of the <code>String</code> argument are appended, in 
      * order, increasing the length of this sequence by the length of the 
      * argument. If <code>str</code> is <code>null</code>, then the four 
-     * dg_characters <code>"null"</code> are appended.
+     * wchar_uacters <code>"null"</code> are appended.
      * <p>
-     * Let <i>n</i> be the length of this dg_character sequence just prior to 
-     * execution of the <code>append</code> method. Then the dg_character at 
-     * index <i>k</i> in the new dg_character sequence is equal to the dg_character 
-     * at index <i>k</i> in the old dg_character sequence, if <i>k</i> is less 
-     * than <i>n</i>; otherwise, it is equal to the dg_character at index 
+     * Let <i>n</i> be the length of this wchar_uacter sequence just prior to 
+     * execution of the <code>append</code> method. Then the wchar_uacter at 
+     * index <i>k</i> in the new wchar_uacter sequence is equal to the wchar_uacter 
+     * at index <i>k</i> in the old wchar_uacter sequence, if <i>k</i> is less 
+     * than <i>n</i>; otherwise, it is equal to the wchar_uacter at index 
      * <i>k-n</i> in the argument <code>str</code>.
      *
      * @param   str   a string.
@@ -230,16 +230,16 @@ public:
      * this sequence up to the (exclusive) index <code>end</code>. The length
      * of this sequence is increased by the value of <code>end - start</code>.
      * <p>
-     * Let <i>n</i> be the length of this dg_character sequence just prior to
-     * execution of the <code>append</code> method. Then the dg_character at
-     * index <i>k</i> in this dg_character sequence becomes equal to the
-     * dg_character at index <i>k</i> in this sequence, if <i>k</i> is less than
-     * <i>n</i>; otherwise, it is equal to the dg_character at index 
+     * Let <i>n</i> be the length of this wchar_uacter sequence just prior to
+     * execution of the <code>append</code> method. Then the wchar_uacter at
+     * index <i>k</i> in this wchar_uacter sequence becomes equal to the
+     * wchar_uacter at index <i>k</i> in this sequence, if <i>k</i> is less than
+     * <i>n</i>; otherwise, it is equal to the wchar_uacter at index 
      * <i>k+start-n</i> in the argument <code>s</code>.
      * <p>
      * If <code>s</code> is <code>null</code>, then this method appends
-     * dg_characters as if the s parameter was a sequence containing the four
-     * dg_characters <code>"null"</code>.
+     * wchar_uacters as if the s parameter was a sequence containing the four
+     * wchar_uacters <code>"null"</code>.
      *
      * @param   s the sequence to append.
      * @param   start   the starting index of the subsequence to be appended.
@@ -250,89 +250,91 @@ public:
      *             <code>start</code> is greater than <code>end</code> or
      *             <code>end</code> is greater than <code>s.length()</code>
      */
-    virtual AbstractStringBuilder* append(CharSequence* s, dg_int start, dg_int end);
+    virtual AbstractStringBuilder* append(CharSequence* s, int start, int end);
 
     // Documentation in subclasses because of synchro difference
     virtual AbstractStringBuilder* append(AbstractStringBuilder* sb);
 
     /**
-     * Appends the string representation of the <code>dg_char</code> array 
+     * Appends the string representation of the <code>wchar_u</code> array 
      * argument to this sequence. 
      * <p>
-     * The dg_characters of the array argument are appended, in order, to 
+     * The wchar_uacters of the array argument are appended, in order, to 
      * the contents of this sequence. The length of this sequence
      * increases by the length of the argument. 
      * <p>
      * The overall effect is exactly as if the argument were converted to 
-     * a string by the method {@link String#valueOf(dg_char[])} and the 
-     * dg_characters of that string were then {@link #append(String) appended} 
-     * to this dg_character sequence.
+     * a string by the method {@link String#valueOf(wchar_u[])} and the 
+     * wchar_uacters of that string were then {@link #append(String) appended} 
+     * to this wchar_uacter sequence.
      *
-     * @param   str   the dg_characters to be appended.
+     * @param   str   the wchar_uacters to be appended.
      * @return  a reference to this object.
      */
+    virtual AbstractStringBuilder* append(const char* str, int offset, int length);
+    virtual AbstractStringBuilder* append(const char* str, int length);
     virtual AbstractStringBuilder* append(const char* str);
-
+    
     /**
-     * Appends the string representation of the <code>dg_char</code> array 
+     * Appends the string representation of the <code>wchar_u</code> array 
      * argument to this sequence. 
      * <p>
-     * The dg_characters of the array argument are appended, in order, to 
+     * The wchar_uacters of the array argument are appended, in order, to 
      * the contents of this sequence. The length of this sequence
      * increases by the length of the argument. 
      * <p>
      * The overall effect is exactly as if the argument were converted to 
-     * a string by the method {@link String#valueOf(dg_char[])} and the 
-     * dg_characters of that string were then {@link #append(String) appended} 
-     * to this dg_character sequence.
+     * a string by the method {@link String#valueOf(wchar_u[])} and the 
+     * wchar_uacters of that string were then {@link #append(String) appended} 
+     * to this wchar_uacter sequence.
      *
-     * @param   str   the dg_characters to be appended.
+     * @param   str   the wchar_uacters to be appended.
      * @return  a reference to this object.
      */
     virtual AbstractStringBuilder* append(const wchar_t* str);
 
     /**
-     * Appends the string representation of the <code>dg_boolean</code> 
+     * Appends the string representation of the <code>bool</code> 
      * argument to the sequence.
      * <p>
      * The argument is converted to a string as if by the method 
-     * <code>String.valueOf</code>, and the dg_characters of that 
+     * <code>String.valueOf</code>, and the wchar_uacters of that 
      * string are then appended to this sequence. 
      *
-     * @param   b   a <code>dg_boolean</code>.
+     * @param   b   a <code>bool</code>.
      * @return  a reference to this object.
      */
-    virtual AbstractStringBuilder* append(dg_boolean b);
+    virtual AbstractStringBuilder* append(bool b);
 
     /**
-     * Appends the string representation of the <code>dg_char</code> 
+     * Appends the string representation of the <code>wchar_u</code> 
      * argument to this sequence. 
      * <p>
      * The argument is appended to the contents of this sequence. 
      * The length of this sequence increases by <code>1</code>. 
      * <p>
      * The overall effect is exactly as if the argument were converted to 
-     * a string by the method {@link String#valueOf(dg_char)} and the dg_character 
+     * a string by the method {@link String#valueOf(wchar_u)} and the wchar_uacter 
      * in that string were then {@link #append(String) appended} to this 
-     * dg_character sequence.
+     * wchar_uacter sequence.
      *
-     * @param   c   a <code>dg_char</code>.
+     * @param   c   a <code>wchar_u</code>.
      * @return  a reference to this object.
      */
-    virtual AbstractStringBuilder* append(dg_char c);
+    virtual AbstractStringBuilder* append(wchar_u c);
 
     /**
-     * Appends the string representation of the <code>dg_int</code> 
+     * Appends the string representation of the <code>int</code> 
      * argument to this sequence. 
      * <p>
      * The argument is converted to a string as if by the method 
      * <code>String.valueOf</code>, and the characters of that 
      * string are then appended to this sequence. 
      *
-     * @param   i   an <code>dg_int</code>.
+     * @param   i   an <code>int</code>.
      * @return  a reference to this object.
      */
-    virtual AbstractStringBuilder* append(dg_int i);
+    virtual AbstractStringBuilder* append(int i);
 
     /**
      * Appends the string representation of the <code>dg_long</code> 
@@ -352,12 +354,12 @@ public:
     /**
      * Returns a string representing the data in this sequence.
      * A new <code>String</code> object is allocated and initialized to 
-     * contain the dg_character sequence currently represented by this 
+     * contain the wchar_uacter sequence currently represented by this 
      * object. This <code>String</code> is then returned. Subsequent 
      * changes to this sequence do not affect the contents of the 
      * <code>String</code>.
      *
-     * @return  a string representation of this sequence of dg_characters.
+     * @return  a string representation of this sequence of wchar_uacters.
      */
     virtual String* toString() = 0;
 
@@ -367,18 +369,18 @@ protected:
      * This implements the expansion semantics of ensureCapacity with no
      * size check or synchronization.
      */
-	virtual void expandCapacity(dg_int minimumCapacity);
+	virtual void expandCapacity(int minimumCapacity);
 
 protected:
     /**
      * The value is used for character storage.
      */
-	Array<dg_char> value;
+	Array<wchar_u> value;
 
     /** 
      * The count is the number of characters used.
      */
-	dg_int count;
+	int count;
 	
 };//AbstractStringBuilder
 

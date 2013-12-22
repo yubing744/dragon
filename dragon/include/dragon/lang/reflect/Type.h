@@ -40,6 +40,7 @@ public:
 	Type(const char* name, size_t size);
     Type(const type_info& info, size_t size);
     Type(const Type& type);
+
     virtual ~Type();
 
 public:
@@ -55,6 +56,21 @@ protected:
 	size_t size;
 };
 
+
+template<class T>
+inline Type* TypeOf() {
+    return new Type(typeid(T), sizeof(T));
+}
+
+template<class T>
+inline Type* TypeOf(T type) {
+    return Type(typeid(type), sizeof(type));
+}
+
+template<class T>
+inline Type* TypeOf(T* type) {
+    return new Type(typeid(*type), sizeof(*type));
+}
 
 EndPackage3//(dragon, lang, reflect)
 

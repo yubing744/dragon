@@ -15,7 +15,7 @@ Import std;
 Import stdext;
 
 template<class E>
-class HashSet:public Object,public Set<E>
+class HashSet:public Object, public Set<E>
 {
 public:
 	typedef typename hash_set<E>::iterator StlIterator;

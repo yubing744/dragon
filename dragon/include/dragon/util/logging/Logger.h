@@ -25,6 +25,7 @@
 #define Logger_Logging_Util_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <dragon/util/logging/Handler.h>
 
 #include <vector>
@@ -33,6 +34,7 @@
 BeginPackage3(dragon, util, logging)
 
 Import std;
+Import dragon::lang;
 Import dragon::util::logging;
 
 #define LOG_LEVEL_TRACE    1
@@ -52,10 +54,15 @@ Import dragon::util::logging;
 #define ERROR       LOG_LEVEL_ERROR
 #define FATAL       LOG_LEVEL_FATAL
 
-class _DragonExport Logger {
+DragonClass Logger extends(Object) {
+public:
+    static const Type* TYPE;
+
 public:
     static Logger* getLogger(const char* name);
     static Logger* getLogger(const char* name, int level);
+    static Logger* getLogger(const Type* type);
+    static Logger* getLogger(const Type* type, int level);
 
 public:
     typedef vector<Handler*> HandlerList;

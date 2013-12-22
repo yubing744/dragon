@@ -32,6 +32,7 @@
 
 Import dragon::util::logging;
 
+const Type* Logger::TYPE = TypeOf<Logger>();
 
 Logger* Logger::getLogger(const char* name, int level) {
 	LogManager* logManager = LogManager::getInstance();
@@ -59,7 +60,15 @@ Logger* Logger::getLogger(const char* name, int level) {
 }
 
 Logger* Logger::getLogger(const char* name) {
-	return Logger::getLogger(name, 0);
+	return Logger::getLogger(name, INFO);
+}
+
+Logger* Logger::getLogger(const Type* type, int level) {
+	return Logger::getLogger(type->getName());
+}
+
+Logger* Logger::getLogger(const Type* type) {
+	return Logger::getLogger(type->getName(), INFO);
 }
 
 //---------------------------------------------

@@ -27,7 +27,8 @@
 
 BeginPackage2(dragon, io)
 
-class _DragonExport FileNotFoundException extends(IOException)
+class _DragonExport FileNotFoundException 
+    extends(IOException)
 {
 public:
     FileNotFoundException();

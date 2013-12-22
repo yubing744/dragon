@@ -59,7 +59,7 @@ TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	Method* getTestValMethod = clazz->getMethod("getTestVal");
 
 	Type* retType02 = new Type("int");
-	Object* retPtr = getTestValMethod->invoke(tb, Integer::TYPE);
+	Object* retPtr = getTestValMethod->invoke(tb, Integer::INNER_TYPE);
 	ASSERT_TRUE(retPtr != null);
 
 	Integer* ret1 = dynamic_cast<Integer*>(retPtr);

@@ -37,7 +37,7 @@ Import std;
 Import dragon::lang;
 
 template<class K, class V>
-class HashMap :public Map<K, V> {
+class HashMap :public Object, public Map<K, V> {
 public:
 
 	class HashMapEntry implements(Map)<K, V>::Entry {

@@ -38,6 +38,9 @@ Import dragonx::json;
 class _DragonExport JSONArray 
     extends(ArrayList<JSONObject>) {
 public:
+    static const Type* TYPE;
+    
+public:
     JSONArray();
     virtual ~JSONArray();
 };//JSONArray

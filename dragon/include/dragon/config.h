@@ -148,6 +148,12 @@
 	#endif
 #endif
 
+
+// Define dragon class
+#define DragonClass class _DragonExport
+#define DragonInterface __interface _DragonExport
+
+
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)
 	#define DRAGON_INLINE(declarator) inline __attribute__((always_inline)) declarator

@@ -33,6 +33,7 @@ BeginPackage2(dragon, lang)
 Import std;
 Import dragon::lang::reflect;
 
+class Object;
 class ClassLoader;
 
 class _DragonExport Class 
@@ -78,54 +79,6 @@ protected:
 	Array<Method*> methods;
 	Array<Field*> fields;
 	const ClassLoader* classLoader;
-
-/*
-public:
-	Class();
-	Class(const type_info* typeInfo);
-
-public:
-	bool operator==(const Class<Type>& cls);
-	bool operator!=(const Class<Type>& cls);
-
-public:
-	String getName();
-	String getRawName();
-	int getSize();
-	Type* cast(Object* obj);
-	
-	Func_FarProc getMethodAddress(String methodName);
-	Field* getField(String fieldName);
-	Method* getMethod(String methodName);
-	P<List<P<Method>>> lookupMethods(String keyword);
-	P<Method> lookupMethod(String keyword);
-	Func_FarProc lookupMethodAddress(String keyword);
-
-	P<Map<String,P<Method>>> getMethodMap();
-	P<Map<String,P<Field>>> getFieldMap();
-
-private:
-	Class(String name);
-	void addField(Field* field);
-	void addMethod(Method* method);
-	void setName(String name);
-	void mergeWith(P<Class<Object>> clazz);
-
-public: 
-	static P<Class<Type>> ForName(String name);
-	static P<Class<Type>> ForName(String libPath,String name);
-	static P<Class<Type>> ForName(Library* lib,String name);
-	static String GetName();
-	static String GetName(const Type* p);
-
-private:
-	const type_info* mpTypeInfo;
-	int mSize;
-	P<Constructor> constructor;
-	String name;
-	P<Map<String,P<Method>>> methods;
-	P<Map<String,P<Field>>> fields;
-*/
 };
 
 
@@ -135,7 +88,7 @@ inline int Lenth(E (&arr)[N]){
 }     
 
 inline int Lenth(void* p) {
-	int* pSize=(int*)p;
+	int* pSize = (int*)p;
 	pSize--;
 	return *pSize;
 }
@@ -153,26 +106,6 @@ void* PloyCast(Type* p) {
 	return pObj;
 }
 
-// Type of
-
-template<class T>
-inline Type TypeOf() {
-    return Type(typeid(T), sizeof(T));
-}
-
-template<class T>
-inline Type TypeOf(T type) {
-    return Type(typeid(type), sizeof(type));
-}
-
-template<class T>
-inline Type TypeOf(T* type) {
-    return Type(typeid(*type), sizeof(*type));
-}
-
-
-// Class of
-
 template<class T>
 inline Class* ClassOf() {
     return new Class(typeid(T), sizeof(T));
@@ -187,7 +120,6 @@ template<class T>
 inline Class* ClassOf(T* type) {
     return new Class(typeid(*type), sizeof(*type));
 }
-
 
 EndPackage2 //(dragon, lang)
 

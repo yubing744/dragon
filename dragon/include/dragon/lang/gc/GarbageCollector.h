@@ -36,7 +36,7 @@ enum _DragonExport GCMode {
 template <class T>
 struct DestructorNormal {
 	static void notDestruct(void* arr) {
-
+		arr;
 	}
 
 	static void destruct(void* data) {

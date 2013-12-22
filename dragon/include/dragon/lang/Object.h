@@ -18,11 +18,14 @@
 #define Object_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/reflect/Type.h>
 
 BeginPackage2(dragon, lang)
 
 class Class;
 class String;
+
+Import dragon::lang::reflect;
 
 /**
  * Class Object is the root of the class hierarchy. Every class has Object as a superclass. 
@@ -54,14 +57,14 @@ public:
 	 * 
 	 * @return [description]
 	 */
-	virtual String* toString();
+	virtual String* toString() const;
 
 	/**
 	 * Returns the runtime class of this Object. 
 	 * 
 	 * @return [description]
 	 */
-	virtual Class* getClass();
+	virtual const Class* getClass() const;
 
 public:
 	/**

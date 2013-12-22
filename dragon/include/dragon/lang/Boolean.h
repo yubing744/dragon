@@ -29,10 +29,20 @@
 
 BeginPackage2(dragon, lang)
 
-Import dragon::lang;
+Import dragon::lang::reflect;
 
-class _DragonExport Boolean 
+DragonClass Boolean
     extends(Object) {
+public:
+    static const Type* TYPE;
+    static const Boolean* TRUE;
+    static const Boolean* FALSE;
+
+public:
+    static const Boolean* parseBoolean(const String& str);
+    static const Boolean* valueOf(const String* str);
+    static const Boolean* valueOf(bool val);
+
 public:
     Boolean();
     Boolean(bool val);
@@ -40,11 +50,11 @@ public:
 
 public:
     void setBoolean(bool value);
-    bool boolValue();
+    bool booleanValue() const;
 
 protected:
    bool value; 
-};//Boolean
+};
 
 EndPackage2 //(dragon, lang)
 

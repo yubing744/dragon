@@ -38,16 +38,19 @@ class _DragonExport Float
 {
 public:
     static const Type* TYPE;
-   
+    static const Type* INNER_TYPE;
+       
 public:
     static Float* parseFloat(const String& str);
-
+    static String* toString(float val);
+    
 public:
 	Float(float val);
 	virtual ~Float();
 
 public:
 	virtual float floatValue();
+    virtual String* toString() const;
 
 protected:
 	float value;

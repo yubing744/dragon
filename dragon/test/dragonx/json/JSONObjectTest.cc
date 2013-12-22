@@ -22,6 +22,7 @@
 
 
 #include <gtest/gtest.h>
+#include <dragonx/json/JSONArray.h>
 #include <dragonx/json/JSONObject.h>
 #include <dragonx/json/JSONException.h>
 
@@ -31,6 +32,8 @@
 #include <dragon/io/FileWriter.h>
 
 #include <dragon/lang/Integer.h>
+#include <dragon/lang/Float.h>
+#include <dragon/lang/Long.h>
 #include <dragon/lang/System.h>
 #include <dragon/io/File.h>
 #include <dragon/util/logging/Logger.h>
@@ -98,3 +101,241 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson) {
     
     SafeDelete(o);
 }
+
+TEST(Dragonx_Json_JSONObjectTest, testParseJson2) {
+    String* myWriteStr = new String(L"{\"abc\": {\"ddd\":123}}");
+
+    try {
+        JSONObject* jsonObj = JSONObject::parse(myWriteStr);
+
+        JSONObject* v2 = jsonObj->getJSONObject("abc");
+        ASSERT_TRUE(v2 != null);
+
+
+        int value = v2->getInt("ddd");
+        EXPECT_EQ(123, value);
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+}
+
+TEST(Dragonx_Json_JSONObjectTest, testParseJson3) {
+    String* myWriteStr = new String(L"{\"abc\": [{\"ddd\":123}]}");
+
+    try {
+        JSONObject* jsonObj = JSONObject::parse(myWriteStr);
+
+        JSONArray* jsonArray = jsonObj->getJSONArray("abc");
+        ASSERT_TRUE(jsonArray != null);
+
+        JSONObject* v2 = jsonArray->get(0);
+        int value = v2->getInt("ddd");
+        EXPECT_EQ(123, value);
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString) {
+    JSONObject* jsonObj = new JSONObject();
+    jsonObj->put("abc", new Integer(123));
+
+    try {
+        String* json = jsonObj->toString();
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"abc\": 123\n}", data.raw());
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString2) {
+    JSONObject* jsonObj = new JSONObject();
+    jsonObj->put("abc", new Integer(123));
+    jsonObj->put("bcd", new Float(123.22));
+
+    try {
+        String* json = jsonObj->toString();
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", data.raw());
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString3) {
+    JSONObject* jsonObj = new JSONObject();
+
+    jsonObj->put("abc", new Integer(123));
+    jsonObj->put("bcd", new Float(123.22));
+    jsonObj->put("efg", new String("Hello World!"));
+
+    try {
+        String* json = jsonObj->toString();
+        EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", json->toUTF8String());
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString4) {
+    JSONObject* jsonObj = new JSONObject();
+    
+    jsonObj->put("abc", new Integer(123));
+    jsonObj->put("bcd", new Float(123.22));
+    jsonObj->put("efg", new String("Hello World!"));
+
+    JSONObject* subJsonObj = new JSONObject();
+    subJsonObj->put("bbb", new Integer(234));
+
+    jsonObj->put("sub", subJsonObj);
+
+    try {
+        String* json = jsonObj->toString();
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"sub\": {\n\t\t\"bbb\": 234\n\t},\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", data.raw());
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(subJsonObj);
+    SafeDelete(jsonObj);
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString5) {
+    JSONObject* jsonObj = new JSONObject();
+    
+    jsonObj->put("abc", new Integer(123));
+    jsonObj->put("bcd", new Float(123.22));
+    jsonObj->put("efg", new String("Hello World!"));
+
+    JSONObject* subJsonObj1 = new JSONObject();
+    subJsonObj1->put("bbb", new Integer(234));
+
+    JSONObject* subJsonObj2 = new JSONObject();
+    subJsonObj2->put("bbb", new Float(234.33));
+
+    JSONArray* array = new JSONArray();
+    array->add(subJsonObj1);
+    array->add(subJsonObj2);
+    
+    jsonObj->put("array", array);
+
+    try {
+        String* json = jsonObj->toString();
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"array\": [\n\t\t{\n\t\t\t\"bbb\": 234\n\t\t},\n\t\t{\n\t\t\t\"bbb\": 234.33\n\t\t}\n\t],\n\t\"abc\": 123\n}", data.raw());
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(subJsonObj1);
+    SafeDelete(subJsonObj2);
+    //SafeDelete(array);
+
+    SafeDelete(jsonObj);
+}
+
+
+TEST(Dragonx_Json_JSONObjectTest, toStringSaveAsFile) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/json_test/save_json_01.txt");
+
+    File* file = new File(base, filePath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    FileWriter* o = new FileWriter(file, false);
+    
+
+
+    JSONObject* jsonObj = new JSONObject();
+    
+    jsonObj->put("abc", new Integer(123));
+    jsonObj->put("bcd", new Float(123.22));
+    jsonObj->put("efg", new String("Hello World!"));
+
+    JSONObject* subJsonObj1 = new JSONObject();
+    subJsonObj1->put("bbb", new Integer(234));
+
+    JSONObject* subJsonObj2 = new JSONObject();
+    subJsonObj2->put("bbb", new Float(234.33));
+
+    JSONArray* array = new JSONArray();
+    array->add(subJsonObj1);
+    array->add(subJsonObj2);
+    
+    jsonObj->put("array", array);
+
+    try {
+        String* json = jsonObj->toString();
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"array\": [\n\t\t{\n\t\t\t\"bbb\": 234\n\t\t},\n\t\t{\n\t\t\t\"bbb\": 234.33\n\t\t}\n\t],\n\t\"abc\": 123\n}", data.raw());
+
+        o->append(json);
+    } catch(JSONException* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(o);
+
+    //SafeDelete(subJsonObj1);
+    //SafeDelete(subJsonObj2);
+    //SafeDelete(array);
+
+    SafeDelete(jsonObj);
+}
+
+

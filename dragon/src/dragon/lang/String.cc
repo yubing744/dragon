@@ -151,18 +151,13 @@ void String::destroy() {
 
 // -------------------------- Member method --------------------------------------
 
+const Type* String::TYPE = TypeOf<String>();
+
 String::String(){
    this->offset = 0;
    this->count = 0;
    this->value = NULL;
 }
-
-String::~String(){
-	SafeDeleteArray(this->value);
-	this->offset = 0;
-	this->count = 0;
-}
-
 
 String::String(Array<byte> bytes, int offset) {
 	Array<wchar_u> v = String::decode(bytes, offset, bytes.size(), null);
@@ -188,23 +183,6 @@ String::String(Array<byte> bytes, int offset, int length, const char* charset) {
 	this->value = const_cast<wchar_u*>(v.raw());
 }
 
-
-String::String(const wchar_u* value){
-	int size = 0;
-	wchar_u* cur = const_cast<wchar_u*>(value);
-	while(*(cur++) != null) {
-		size++;
-	}
-	
-	wchar_u* buf = new wchar_u[size + 1];	
-	Arrays<wchar_u>::copyOf(value, 0, buf, 0, size);
-	buf[size] = NULL_CHAR;
-
-	this->offset = 0;
-	this->count = size;
-	this->value = buf;
-}
-
 String::String(const char* value){
 	int count = strlen(value);
 	int len = count;
@@ -227,9 +205,31 @@ String::String(const char* value){
 
 String::String(const char* value, int length) {
 	int count = strlen(value);
-	int len = (count>length) ? length : count;
+	count = (count>length) ? length : count;
+	int len = count;
 
 	char* p = const_cast<char*>(value);
+
+    wchar_u* buf = new wchar_u[count + 1];	
+	wchar_u* pp = buf;
+
+	if (len > 0) {
+		while(len-- >0) *pp++ = *p++;
+	}
+
+	buf[count] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = count;
+	this->value = buf;	
+}
+
+String::String(const char* value, int offset, int length) {
+	int count = strlen(value);
+	count = (count > offset + length) ? length : count - offset;
+	int len = count;
+
+	char* p = const_cast<char*>(value) + offset;
 
     wchar_u* buf = new wchar_u[count + 1];	
 	wchar_u* pp = buf;
@@ -267,8 +267,9 @@ String::String(const wchar_t* value){
 
 String::String(const wchar_t* value, int length){
 	int count = wcslen(value);
-	int len = (count>length) ? length : count;
-	
+	count = (count>length) ? length : count;
+	int len = count;
+
 	wchar_t* p = const_cast<wchar_t*>(value);
 
     wchar_u* buf = new wchar_u[count + 1];	
@@ -283,6 +284,67 @@ String::String(const wchar_t* value, int length){
 	this->offset = 0;
 	this->count = count;
 	this->value = buf;	
+}
+
+String::String(const wchar_t* value, int offset, int length){
+	int count = wcslen(value);
+	count = (count > offset + length) ? length : count - offset;
+	int len = count;
+
+	wchar_t* p = const_cast<wchar_t*>(value) + offset;
+
+    wchar_u* buf = new wchar_u[count + 1];	
+	wchar_u* pp = buf;
+
+	if (len > 0) {
+		while(len-- >0) *pp++ = *p++;
+	}
+
+	buf[count] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = count;
+	this->value = buf;	
+}
+
+String::String(const wchar_u* value){
+	int size = 0;
+	wchar_u* cur = const_cast<wchar_u*>(value);
+	while(*(cur++) != null) {
+		size++;
+	}
+	
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = size;
+	this->value = buf;
+}
+
+String::String(const wchar_u* value, int count){
+	int size = count;
+
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, 0, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = size;
+	this->value = buf;
+}
+
+String::String(const wchar_u* value, int offset, int count){
+	int size = count;
+
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, offset, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->offset = 0;
+	this->count = size;
+	this->value = buf;
 }
 
 String::String(const String& value){
@@ -309,26 +371,19 @@ String::String(const String* value) {
 	this->value = buf;
 }
 
-String::String(const wchar_u* value, int offset, int count){
-	int size = count;
-
-	wchar_u* buf = new wchar_u[size + 1];	
-	Arrays<wchar_u>::copyOf(value, offset, buf, 0, size);
-	buf[size] = NULL_CHAR;
-
-	this->offset = 0;
-	this->count = size;
-	this->value = buf;
-}
-
 String::String(int offset, int count, wchar_u* value) {
 	this->value = value;
 	this->offset = offset;
 	this->count = count;
 }
 
-// ----------------------------------------------------------------------
+String::~String(){
+	SafeDeleteArray(this->value);
+	this->offset = 0;
+	this->count = 0;
+}
 
+// ----------------------------------------------------------------------
 
 String* String::operator = (const char* str) {
 	return new String(str);
@@ -350,6 +405,8 @@ String& String::operator = (const String& value) {
 	this->offset = 0;
 	this->count = size;
 	this->value = buf;
+
+	return *this;
 }
 
 bool String::equals(const String* str) const {
@@ -683,7 +740,7 @@ String* String::toString() const {
 	return new String(this);
 }
 
-const wchar_u* String::toChars() {
+const wchar_u* String::toChars() const {
 	return this->value + offset;
 }
 
@@ -701,6 +758,16 @@ const Array<byte> String::getBytes() const {
 
 const Array<byte> String::getBytes(const char* charset) const {
 	return String::encode(Array<wchar_u>(this->value + this->offset, this->count), 0, this->count, charset);
+}
+
+char* String::toUTF8String() const {
+	const Array<byte> data = this->getBytes("UTF-8");
+	
+	char* utf8Data = (char*)malloc(data.size() + 1);
+	memcpy(utf8Data, data.raw(), data.size());
+	utf8Data[data.size()] = '\0';
+
+	return utf8Data;
 }
 
 bool String::matches(String* regex) {
@@ -944,11 +1011,11 @@ String* String::valueOf(dg_long l){
 	return Long::toString(l);
 }
 
-String* String::valueOf(dg_float f){
+String* String::valueOf(float f){
 	return null;
 }
 
-String* String::valueOf(dg_double d){
+String* String::valueOf(double d){
 	return null;
 }
 

@@ -28,7 +28,8 @@
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Integer::TYPE = new Type("int", sizeof(int));
+const Type* Integer::TYPE = TypeOf<Integer>();
+const Type* Integer::INNER_TYPE = TypeOf<int>();
 
 /**
  * All possible dg_chars for representing a number as a String
@@ -138,7 +139,7 @@ Integer::~Integer() {
 }
 
 
-String* Integer::toString() {
+String* Integer::toString() const {
     return Integer::toString(this->value);
 }
 

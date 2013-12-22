@@ -38,6 +38,7 @@ class _DragonExport Integer
 {
 public:
     static const Type* TYPE;
+    static const Type* INNER_TYPE;
 
 public:
 	/**
@@ -97,7 +98,7 @@ public:
 	virtual ~Integer();
 
 public:
-    virtual String* toString();
+    virtual String* toString() const;
 
 public: //Implements Number
     virtual int intValue();

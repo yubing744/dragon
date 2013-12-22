@@ -20,13 +20,13 @@
  * Created:     2013/03/31
  **********************************************************************/
 
+#include <typeinfo>
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/ClassLoader.h>
-#include <dragon/lang/internal/platform.h>
 
-#include <typeinfo>
+#include <dragon/lang/internal/platform.h>
 
 Import dragon::lang;
 Import dragon::lang::internal;
@@ -45,7 +45,7 @@ Object::~Object() {
 	finalize();
 }
 
-Class* Object::getClass() {
+const Class* Object::getClass() const {
 	ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
 	const char* className = Demangle(typeid(*this).name());
 	return classLoader->loadClass(className);
@@ -60,7 +60,7 @@ int Object::hashCode() {
 	return (int)(*p);
 }
 
-String* Object::toString() {
+String* Object::toString() const {
 	return String::format(L"@%d", this);
 }
 

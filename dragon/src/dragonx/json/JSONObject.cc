@@ -35,19 +35,22 @@
 #include <dragon/lang/Integer.h>
 #include <dragon/lang/Float.h>
 #include <dragon/lang/Double.h>
+#include <dragon/lang/StringBuffer.h>
 
 #include <dragon/util/HashMap.h>
 #include <dragon/util/logging/Logger.h>
+
 #include <dragonx/json/JSONObject.h>
 #include <dragonx/json/JSONArray.h>
 #include <dragonx/json/JSONException.h>
 
-
 Import dragon::lang;
+Import dragon::util;
 Import dragonx::json;
 Import dragon::util::logging;
 
-static Logger* logger = Logger::getLogger("dragonx::json::JSONObject", ERROR);
+const Type* JSONObject::TYPE = TypeOf<JSONObject>();
+static Logger* logger = Logger::getLogger(JSONObject::TYPE, ERROR);
 
 char *indent_string = NULL;
 
@@ -217,6 +220,148 @@ JSONObject* JSONObject::parse(const String& json) {
     return jsonObj;
 }
 
+
+static int print_with_string_buffer(void *userdata, const char *data, uint32_t length) {
+    StringBuffer* sb = (StringBuffer*)userdata;
+    sb->append(data, length);
+    return 1;
+}
+
+static int print_json_int(json_printer* printer, const Integer* val) {
+    String* str = val->toString();
+    const Array<byte> data = str->getBytes("UTF-8");
+    json_print_pretty(printer, JSON_INT, data.raw(), data.size());
+    SafeDelete(str);
+}
+
+static int print_json_float(json_printer* printer, const Float* val) {
+    String* str = val->toString();
+    const Array<byte> data = str->getBytes("UTF-8");
+    json_print_pretty(printer, JSON_FLOAT, data.raw(), data.size());  
+    SafeDelete(str);  
+}
+
+static int print_json_string(json_printer* printer, const String* val) {
+    const Array<byte> data = val->getBytes("UTF-8");
+    json_print_pretty(printer, JSON_STRING, data.raw(), data.size());  
+}
+
+static int print_json_bool(json_printer* printer, const Boolean* val) {
+    bool boolValue = val->booleanValue();
+
+    if (boolValue) {
+        json_print_pretty(printer, JSON_TRUE, "true", 4);  
+    } else {
+        json_print_pretty(printer, JSON_FALSE, "false", 5); 
+    }
+}
+
+static void print_json_object(json_printer* printer, JSONObject* jsonObj);
+static void print_json_array(json_printer* printer, JSONArray* jsonArray);
+
+static int print_json_value(json_printer* printer, const Object* obj) {
+    if (obj != null) {
+        const Type* objType = (const Type*)obj->getClass();
+
+        if (Integer::TYPE->equals(objType)) {
+            print_json_int(printer, (Integer*)obj);
+        } else if(Float::TYPE->equals(objType)) {
+            print_json_float(printer, (Float*)obj);
+        } else if(String::TYPE->equals(objType)) {
+            print_json_string(printer, (String*)obj); 
+        } else if (Boolean::TYPE->equals(objType)) {
+            print_json_bool(printer, (Boolean*)obj);
+        } else if (JSONObject::TYPE->equals(objType)) {
+            print_json_object(printer, (JSONObject*)obj);
+        } else if (JSONArray::TYPE->equals(objType)){
+            print_json_array(printer, (JSONArray*)obj);
+        } else {
+            String* msg = String::format("not support type %s!", objType->getName());
+            JSONException* e = new JSONException(msg);
+            SafeDelete(msg);
+            throw e;
+        }
+    } else {
+        json_print_pretty(printer, JSON_NULL, "null", 4);
+    }
+}
+
+static void print_json_object(json_printer* printer, JSONObject* jsonObj) {
+    json_print_pretty(printer, JSON_OBJECT_BEGIN, NULL, 0);
+
+    Iterator<Map<String, Object>::Entry>* it = jsonObj->iterator();
+
+    while(it->hasNext()) {
+        Map<String, Object>::Entry* entry = it->next();
+
+        String key = entry->getKey();
+        const Array<byte> data = key.getBytes("UTF-8");
+        json_print_pretty(printer, JSON_KEY, data.raw(), data.size());
+
+        Object* obj = entry->getValue();
+        print_json_value(printer, obj);
+        SafeDelete(obj);
+
+        SafeDelete(entry);
+    }
+
+    json_print_pretty(printer, JSON_OBJECT_END, NULL, 0);
+}
+
+static void print_json_array(json_printer* printer, JSONArray* jsonArray) {
+    json_print_pretty(printer, JSON_ARRAY_BEGIN, NULL, 0);
+
+    Iterator<JSONObject>* it = jsonArray->iterator();
+
+    while(it->hasNext()) {
+        JSONObject* jsonObject = it->next();
+        print_json_object(printer, jsonObject);
+        SafeDelete(jsonObject);
+    }
+
+    SafeDelete(it);
+
+    json_print_pretty(printer, JSON_ARRAY_END, NULL, 0);
+}
+
+String* JSONObject::print(const Object* obj) {
+    StringBuffer* sb = new StringBuffer();
+
+    json_printer printer;
+    int ret;
+
+    /* initialize printer and parser structures */
+    ret = json_print_init(&printer, print_with_string_buffer, sb);
+    if (ret) {
+        String* msg = String::format("error: initializing printer failed: [code=%d] %s\n", ret, string_of_errors[ret]);
+        JSONException* e = new JSONException(msg);
+        SafeDelete(msg);
+        throw e;
+    }
+
+    if (obj != null) {
+        const Type* objType = (const Type*)obj->getClass();
+
+        if (JSONObject::TYPE->equals(objType)) {
+            print_json_object(&printer, (JSONObject*)obj);
+        } else if (JSONArray::TYPE->equals(objType)){
+            print_json_array(&printer, (JSONArray*)obj);
+        } else {
+            String* msg = String::format("not support type %s!", objType->getName());
+            JSONException* e = new JSONException(msg);
+            SafeDelete(msg);
+            throw e;
+        }
+    }
+
+    json_print_free(&printer);
+
+    String* result = sb->toString(); 
+    SafeDelete(sb);
+
+    return result;
+}
+
 JSONObject::JSONObject() {
 
 }
@@ -256,10 +401,20 @@ double JSONObject::getDouble(const String& key) {
 
 bool JSONObject::getBoolean(const String& key) {
     Boolean* val = (Boolean*)this->getObject(key);
-    return val->boolValue();
+    return val->booleanValue();
 }
 
 JSONObject* JSONObject::getJSONObject(const String& key) {
     JSONObject* val = (JSONObject*)this->getObject(key);
     return val;    
+}
+
+JSONArray* JSONObject::getJSONArray(const String& key) {
+    JSONArray* val = (JSONArray*)this->getObject(key);
+    return val;     
+}
+
+String* JSONObject::toString() {
+    const Object* obj = (Object*)this;
+    return JSONObject::print(obj);
 }

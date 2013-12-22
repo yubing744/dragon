@@ -22,8 +22,38 @@
 
 
 #include <dragon/lang/Boolean.h>
+#include <dragon/lang/String.h>
+
 
 Import dragon::lang;
+
+const Type* Boolean::TYPE = TypeOf<Boolean>();
+const Boolean* Boolean::TRUE = new Boolean(true);
+const Boolean* Boolean::FALSE = new Boolean(false);
+
+const Boolean* Boolean::parseBoolean(const String& str) {
+    const Array<byte> data = str.getBytes("UTF-8");
+
+    if (strcmp("true", data.raw()) == 0) {
+        return Boolean::TRUE;
+    } else if (strcmp("false", data.raw()) == 0) {
+        return Boolean::FALSE;
+    }
+
+    return null;
+}
+
+const Boolean* Boolean::valueOf(const String* str) {
+    return Boolean::parseBoolean(str);
+}
+
+const Boolean* Boolean::valueOf(bool val) {
+    if (val) {
+        return Boolean::TRUE;
+    } else {
+        return Boolean::FALSE;
+    }
+}   
 
 Boolean::Boolean() 
     :value(false) {
@@ -43,6 +73,6 @@ void Boolean::setBoolean(bool value) {
     this->value = value;
 }
 
-bool Boolean::boolValue() {
+bool Boolean::booleanValue() const {
     return this->value;
 }

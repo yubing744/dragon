@@ -39,9 +39,11 @@ class _DragonExport Double
 {
 public:
     static const Type* TYPE;
+    static const Type* PRIMARY_TYPE;
     
 public:
     static Double* parseDouble(const String& str);
+    static String* toString(double val);
 
 public:
 	Double(double val);
@@ -49,6 +51,7 @@ public:
 
 public:
 	double doubleValue();
+    String* toString() const;
 
 protected:
 	double value;	

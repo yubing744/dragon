@@ -34,10 +34,16 @@ BeginPackage2(dragonx, json)
 Import dragon::util;
 Import dragon::lang;
 
+class JSONArray;
+
 class _DragonExport JSONObject 
     :public HashMap<String, Object> {
 public:
+    static const Type* TYPE;
+
+public:
     static JSONObject* parse(const String& json);
+    static String* print(const Object* obj);
 
 public:
     JSONObject();
@@ -52,9 +58,12 @@ public:
     double getDouble(const String& key);
 
     bool getBoolean(const String& key);
-    JSONObject* getJSONObject(const String& key);
     Object* getObject(const String& key);
 
+    JSONObject* getJSONObject(const String& key);
+    JSONArray* getJSONArray(const String& key);
+
+    String* toString();
 };//JSONObject
 
 EndPackage2 //(dragonx, json)

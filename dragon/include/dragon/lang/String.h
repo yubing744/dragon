@@ -111,6 +111,8 @@ public:
 	friend bool operator<(const String& left,const String& right);
 
 //-------------------------------------------------------------------
+public:
+     static const Type* TYPE;
 
 private:
 	static const char* LOCAL_UCS4_CHARSET;
@@ -127,20 +129,25 @@ private:
 public:
 	String();
 
+     String(const char* value);
+     String(const char* value, int length);
+     String(const char* value, int offset, int length);
+
+     String(const wchar_t* value);
+     String(const wchar_t* value, int length);
+     String(const wchar_t* value, int offset, int length);
+
+     String(const wchar_u* value);
+     String(const wchar_u* value, int length);
+     String(const wchar_u* value, int offset, int length);
+     
 	String(Array<byte> bytes, int length);
 	String(Array<byte> bytes, int offset, int length);
 	String(Array<byte> bytes, int offset, int length, const char* charset);
 
-	String(const char* value);
-     String(const char* value, int length);
-
-	String(const wchar_t* value);
-     String(const wchar_t* value, int length);
-
      String(const String& value);
-	String(const wchar_u* value);
-	String(const String* value);
-   	String(const wchar_u* value, int offset, int count);
+     String(const String* value);
+
 	~String();
 
 protected:
@@ -607,12 +614,15 @@ public:
     /**
      * return the pointer of string,
      */    
-	const wchar_u* toChars();
+	const wchar_u* toChars() const;
 	Array<wchar_u> toCharArray() const;
 	void getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin) const;
      
 	const Array<byte> getBytes() const;
 	const Array<byte> getBytes(const char* charset) const;
+
+     char* toUTF8String() const;
+     
 
 	bool matches(String* regex);
 	bool contains(CharSequence* s);

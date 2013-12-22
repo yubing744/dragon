@@ -25,6 +25,8 @@
 
 Import dragonx::json;
 
+const Type* JSONArray::TYPE = TypeOf<JSONArray>();
+
 JSONArray::JSONArray() {
 
 }

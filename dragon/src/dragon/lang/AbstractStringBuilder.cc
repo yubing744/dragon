@@ -29,12 +29,12 @@
 Import dragon::lang;
 
 AbstractStringBuilder::AbstractStringBuilder() {
-	this->value = Array<dg_char>();
+	this->value = Array<wchar_u>();
 	this->count = 0;
 }
 
-AbstractStringBuilder::AbstractStringBuilder(dg_int capcity) {
-	this->value = Array<dg_char>(new dg_char[capcity], capcity);
+AbstractStringBuilder::AbstractStringBuilder(int capcity) {
+	this->value = Array<wchar_u>(new wchar_u[capcity], capcity);
 	this->count = 0;
 }
 
@@ -43,24 +43,24 @@ AbstractStringBuilder::~AbstractStringBuilder() {
 	this->count = 0;
 }
 
-dg_int AbstractStringBuilder::length(){
+int AbstractStringBuilder::length(){
 	return this->count;
 }
 
-dg_int AbstractStringBuilder::capcity() {
+int AbstractStringBuilder::capcity() {
 	return this->value.length();
 }
 
 
-void AbstractStringBuilder::ensureCapacity(dg_int minimumCapacity) {
+void AbstractStringBuilder::ensureCapacity(int minimumCapacity) {
 	if (minimumCapacity > this->value.length()) {
 	    this->expandCapacity(minimumCapacity);
 	}
 }
 
 
-void AbstractStringBuilder::expandCapacity(dg_int minimumCapacity) {
-	dg_int newCapacity = (this->value.length() + 1) * 2;
+void AbstractStringBuilder::expandCapacity(int minimumCapacity) {
+	int newCapacity = (this->value.length() + 1) * 2;
 
     if (newCapacity < 0) {
         newCapacity = 0;
@@ -68,24 +68,24 @@ void AbstractStringBuilder::expandCapacity(dg_int minimumCapacity) {
     	newCapacity = minimumCapacity;
 	}	
 
-	dg_char* newValue = new dg_char[newCapacity];
-	Arrays<dg_char>::copyOf(value, 0, newValue, 0, count);
+	wchar_u* newValue = new wchar_u[newCapacity];
+	Arrays<wchar_u>::copyOf(value, 0, newValue, 0, count);
 	this->value.release();
 
-	this->value = Array<dg_char>(newValue, newCapacity);
+	this->value = Array<wchar_u>(newValue, newCapacity);
 }
 
 
 void AbstractStringBuilder::trimToSize() {
     if (this->count < this->value.length()) {
-        dg_char* newValue = new dg_char[count];
-        Arrays<dg_char>::copyOf(value, 0, newValue, 0, count); 
-		this->value = Array<dg_char>(newValue, count);
+        wchar_u* newValue = new wchar_u[count];
+        Arrays<wchar_u>::copyOf(value, 0, newValue, 0, count); 
+		this->value = Array<wchar_u>(newValue, count);
     }
 }
 
 
-void AbstractStringBuilder::setLength(dg_int newLength) {
+void AbstractStringBuilder::setLength(int newLength) {
 	if (newLength < 0)
     	newLength = 0;
 
@@ -100,15 +100,15 @@ void AbstractStringBuilder::setLength(dg_int newLength) {
     }
 }
 
-dg_char AbstractStringBuilder::charAt(dg_int index) {
+wchar_u AbstractStringBuilder::charAt(int index) {
 	return this->value[index];
 }
 
-void AbstractStringBuilder::getChars(dg_int srcBegin, dg_int srcEnd, dg_char* dst, dg_int dstBegin){
-	Arrays<dg_char>::copyOf(value, srcBegin, dst, dstBegin, srcEnd - srcBegin);
+void AbstractStringBuilder::getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin){
+	Arrays<wchar_u>::copyOf(value, srcBegin, dst, dstBegin, srcEnd - srcBegin);
 }
 
-void AbstractStringBuilder::setCharAt(dg_int index, dg_char ch) {
+void AbstractStringBuilder::setCharAt(int index, wchar_u ch) {
 	value[index] = ch;
 }
 
@@ -116,17 +116,17 @@ AbstractStringBuilder* AbstractStringBuilder::append(String* str) {
 	if (str == null) 
 		return append("null");
     
-    dg_int len = str->length();
+    int len = str->length();
 
 	if (len == 0) 
 		return this;
 
-	dg_int newCount = count + len;
+	int newCount = count + len;
 
 	if (newCount > value.length())
 	    expandCapacity(newCount);
 
-	dg_char* dest = const_cast<dg_char*>(this->value.raw());
+	wchar_u* dest = const_cast<wchar_u*>(this->value.raw());
 	str->getChars(0, len, dest, count);
 
 	count = newCount;
@@ -147,7 +147,7 @@ AbstractStringBuilder* AbstractStringBuilder::append(CharSequence* s) {
     return this->append(s, 0, s->length());
 }
 
-AbstractStringBuilder* AbstractStringBuilder::append(CharSequence* s, dg_int start, dg_int end) {
+AbstractStringBuilder* AbstractStringBuilder::append(CharSequence* s, int start, int end) {
     if (s == null)
         return append("null");
 
@@ -156,15 +156,15 @@ AbstractStringBuilder* AbstractStringBuilder::append(CharSequence* s, dg_int sta
     //            "start " + start + ", end " + end + ", s.length() " 
     //            + s->length());
 
-    dg_int len = end - start;
+    int len = end - start;
     if (len == 0)
         return this;
 
-    dg_int newCount = count + len;
+    int newCount = count + len;
     if (newCount > value.length())
         expandCapacity(newCount);
 
-    for (dg_int i=start; i<end; i++)
+    for (int i=start; i<end; i++)
         value[count++] = s->charAt(i);
 
     count = newCount;
@@ -175,24 +175,32 @@ AbstractStringBuilder* AbstractStringBuilder::append(AbstractStringBuilder* sb) 
     if (sb == null)
         return append("null");
 
-    dg_int len = sb->length();
-    dg_int newCount = count + len;
+    int len = sb->length();
+    int newCount = count + len;
 
     if (newCount > value.length())
         expandCapacity(newCount);
 
-    sb->getChars(0, len, const_cast<dg_char*>(value.raw()), count);
+    sb->getChars(0, len, const_cast<wchar_u*>(value.raw()), count);
 
     count = newCount;
     return this;
 }
 
-AbstractStringBuilder* AbstractStringBuilder::append(const char* str) {
-	String* s = new String(str);
+AbstractStringBuilder* AbstractStringBuilder::append(const char* str, int offset, int length) {
+	String* s = new String(str, offset, length);
 	this->append(s);
 	SafeDelete(s);
 
 	return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const char* str, int length) {
+    return append(str, 0, length);
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const char* str) {
+    return append(str, 0, strlen(str));
 }
 
 AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str) {
@@ -203,9 +211,9 @@ AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str) {
 	return this;
 }
 
-AbstractStringBuilder* AbstractStringBuilder::append(dg_boolean b) {
+AbstractStringBuilder* AbstractStringBuilder::append(bool b) {
     if (b) {
-        dg_int newCount = count + 4;
+        int newCount = count + 4;
         if (newCount > value.length())
             expandCapacity(newCount);
         value[count++] = 't';
@@ -213,7 +221,7 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_boolean b) {
         value[count++] = 'u';
         value[count++] = 'e';
     } else {
-        dg_int newCount = count + 5;
+        int newCount = count + 5;
         if (newCount > value.length())
             expandCapacity(newCount);
         value[count++] = 'f';
@@ -226,8 +234,8 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_boolean b) {
 	return this;
 }
 
-AbstractStringBuilder* AbstractStringBuilder::append(dg_char c) {
-    dg_int newCount = count + 1;
+AbstractStringBuilder* AbstractStringBuilder::append(wchar_u c) {
+    int newCount = count + 1;
 
 	if (newCount > value.length())
 	    expandCapacity(newCount);
@@ -236,29 +244,29 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_char c) {
 	return this;
 }
 
-static dg_int sizeTable[] = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer::MAX_VALUE };
+static int sizeTable[] = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer::MAX_VALUE };
 
 // Requires positive x
-static dg_int stringSizeOfInt(dg_int x) {
-    for (dg_int i=0; ; i++)
+static int stringSizeOfInt(int x) {
+    for (int i=0; ; i++)
         if (x <= sizeTable[i])
             return i+1;
 }
 
-AbstractStringBuilder* AbstractStringBuilder::append(dg_int i) {
+AbstractStringBuilder* AbstractStringBuilder::append(int i) {
     if (i == Integer::MIN_VALUE) {
         append("-2147483648");
         return this;
     }
 
-    dg_int appendedLength = (i < 0) ? stringSizeOfInt(-i) + 1 
+    int appendedLength = (i < 0) ? stringSizeOfInt(-i) + 1 
                                  : stringSizeOfInt(i);
 
-    dg_int spaceNeeded = count + appendedLength;
+    int spaceNeeded = count + appendedLength;
     if (spaceNeeded > value.length())
         expandCapacity(spaceNeeded);
 
-	Integer::getChars(i, spaceNeeded, const_cast<dg_char*>(value.raw()));
+	Integer::getChars(i, spaceNeeded, const_cast<wchar_u*>(value.raw()));
 
     count = spaceNeeded;
     
@@ -266,9 +274,9 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_int i) {
 }
 
 // Requires positive x
-static dg_int stringSizeOfLong(dg_long x) {
+static int stringSizeOfLong(dg_long x) {
     dg_long p = 10;
-    for (dg_int i=1; i<19; i++) {
+    for (int i=1; i<19; i++) {
         if (x < p)
             return i;
         p = 10*p;
@@ -283,14 +291,14 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_long l) {
         return this;
     }
 
-    dg_int appendedLength = (l < 0) ? stringSizeOfLong(-l) + 1 
+    int appendedLength = (l < 0) ? stringSizeOfLong(-l) + 1 
                                  : stringSizeOfLong(l);
 
-    dg_int spaceNeeded = count + appendedLength;
+    int spaceNeeded = count + appendedLength;
     if (spaceNeeded > value.length())
         expandCapacity(spaceNeeded);
 
-	Long::getChars(l, spaceNeeded, const_cast<dg_char*>(value.raw()));
+	Long::getChars(l, spaceNeeded, const_cast<wchar_u*>(value.raw()));
     count = spaceNeeded;
 
     return this;

@@ -20,6 +20,9 @@
  * Created:     2013/06/29
  **********************************************************************/
 
+#include <iostream>
+#include <sstream>
+#include <string>
 
 #include <dragon/lang/Double.h>
 #include <dragon/lang/reflect/Type.h>
@@ -28,11 +31,18 @@
 Import dragon::lang;
 Import dragon::lang::reflect;
 
-const Type* Double::TYPE = new Type("double", sizeof(double));
+const Type* Double::TYPE = TypeOf<double>();
+const Type* Double::PRIMARY_TYPE = TypeOf<Double>();
 
 Double* Double::parseDouble(const String& str) {
     const Array<byte> data = str.getBytes("UTF-8");
     return new Double(atof(data.raw()));
+}
+
+String* Double::toString(double val) {
+    stringstream ostr("");
+    ostr << val;
+    return new String(ostr.str().c_str());
 }
 
 Double::Double(double val) {
@@ -45,4 +55,8 @@ Double::~Double() {
 
 double Double::doubleValue() {
 	return this->value;
+}
+
+String* Double::toString() const {
+    return Double::toString(this->value);
 }

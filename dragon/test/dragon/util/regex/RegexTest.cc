@@ -41,9 +41,8 @@ TEST(Dragon_Util_Regex_RegexTest, BasicTest) {
 
     Pattern* p = Pattern::compile(regex);
     Matcher* m = p->matcher(subject);
-    dg_boolean b = m->matches();
 
-    EXPECT_EQ(dg_true, b);
+    EXPECT_TRUE(m->matches());
 
     SafeDelete(m);
     SafeDelete(p);
@@ -75,9 +74,8 @@ TEST(Dragon_Util_Regex_RegexTest, MatchSimpleNum) {
 
     Pattern* p = Pattern::compile(regex);
     Matcher* m = p->matcher(subject);
-    dg_boolean b = m->matches();
 
-    EXPECT_EQ(dg_true, b);
+    EXPECT_TRUE(m->matches());
 
     SafeDelete(m);
     SafeDelete(p);
