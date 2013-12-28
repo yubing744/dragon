@@ -20,8 +20,6 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/lang/String.h>
-
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
@@ -30,14 +28,13 @@
 #include <unicode.h>
 #include <convert.h>
 
+#include <dragon/lang/String.h>
 #include <dragon/lang/Arrays.h>
 #include <dragon/lang/Integer.h>
 #include <dragon/lang/Long.h>
-
-//#include <dragon/lang/NullPointerException.h>
-//#include <dragon/lang/IndexOutOfBoundsException.h>
-
-//#include "internal/platform.h"
+#include <dragon/lang/NullPointerException.h>
+#include <dragon/lang/IndexOutOfBoundsException.h>
+#include <dragon/lang/UnsupportedEncodingException.h>
 
 #include <dragon/util/regex/regex.h>
 
@@ -72,7 +69,7 @@ char* String::init() {
 
 Array<wchar_u> String::decode(Array<byte> bytes, int offset, int length, const char* charset) {
 	if (length<0 || offset<0 || offset + length > bytes.size()) {
-		return EMPTY_CHAR_ARRAY;
+		throw new IndexOutOfBoundsException();
 	}
 
 	const char* fromcode = charset;
@@ -85,7 +82,7 @@ Array<wchar_u> String::decode(Array<byte> bytes, int offset, int length, const c
 	unicode_iconv_t ic;
 
     if ((ic = unicode_iconv_open(tocode, fromcode)) == (unicode_iconv_t) -1){
-     	return EMPTY_CHAR_ARRAY;
+     	throw new UnsupportedEncodingException();
     }
 
 	const byte* from = bytes.raw() + offset;
@@ -97,7 +94,7 @@ Array<wchar_u> String::decode(Array<byte> bytes, int offset, int length, const c
 
 	int rt = unicode_iconv(ic, (const char **) &from, &from_size, &to, &to_size);
 	if (rt == -1){
-		return EMPTY_CHAR_ARRAY;
+		throw new UnsupportedEncodingException();
 	}
 
 	unicode_iconv_close(ic);
@@ -411,26 +408,26 @@ String& String::operator = (const String& value) {
 
 bool String::equals(const String* str) const {
 	if (str == null) {
-		return dg_false;
+		return false;
 	}
 
 	if (this == str) {
-		return dg_true;
+		return true;
 	}
 
 	if (this->count != str->count) {
-		return dg_false;
+		return false;
 	}
 
 	int size = str->count;
 	
 	for (int i=0; i<size; i++) {
 		if (this->value[i] != str->value[i]) {
-			return dg_false;
+			return false;
 		}
 	}
 
-	return dg_true;
+	return true;
 }
 
 bool String::equals(const String& str) const {
@@ -448,16 +445,16 @@ bool String::startsWith(const String& prefix, int toffset) const {
 
 	// Note: toffset might be near -1>>>1.
 	if ((toffset < 0) || (toffset + pc > this->count)) {
-	    return dg_false;
+	    return false;
 	}
 
 	while (--pc >= 0) {
 	    if (ta[to++] != pa[po++]) {
-	        return dg_false;
+	        return false;
 	    }
 	}
 	
-	return dg_true;
+	return true;
 }
 
 bool String::startsWith(const String& prefix) const {
@@ -744,7 +741,7 @@ const wchar_u* String::toChars() const {
 	return this->value + offset;
 }
 
-Array<wchar_u> String::toCharArray() const {
+const Array<wchar_u> String::toCharArray() const {
 	return Array<wchar_u>(this->value + offset, this->count);
 }
 
@@ -760,8 +757,26 @@ const Array<byte> String::getBytes(const char* charset) const {
 	return String::encode(Array<wchar_u>(this->value + this->offset, this->count), 0, this->count, charset);
 }
 
+const Array<byte> String::getBytes(const String& charset) const {
+	char* charsetStr = charset.toCString();
+	const Array<byte> result = String::encode(Array<wchar_u>(this->value + this->offset, this->count), 0, this->count, charsetStr);
+	free(charsetStr);
+
+	return result;
+}
+
 char* String::toUTF8String() const {
 	const Array<byte> data = this->getBytes("UTF-8");
+	
+	char* utf8Data = (char*)malloc(data.size() + 1);
+	memcpy(utf8Data, data.raw(), data.size());
+	utf8Data[data.size()] = '\0';
+
+	return utf8Data;
+}
+
+char* String::toCString() const {
+	const Array<byte> data = this->getBytes("ISO-8859-1");
 	
 	char* utf8Data = (char*)malloc(data.size() + 1);
 	memcpy(utf8Data, data.raw(), data.size());
@@ -774,9 +789,8 @@ bool String::matches(String* regex) {
 	return Pattern::matches(regex, this);
 }
 
-
 bool String::contains(CharSequence* s) {
-	bool result = dg_false;
+	bool result = false;
 	String* str = s->toString();
 	result = this->indexOf(str) > -1;
 	SafeDelete(str);
@@ -913,26 +927,28 @@ String* String::copyValueOf(const wchar_u* data, int offset, int count) {
 }
 
 String* String::vformat(String* format, va_list args) {
-	Array<byte> data = format->getBytes("ISO-8859-1");
-	int bufSize = data.size();
+	char* data = format->toCString();
+	int bufSize = strlen(data) * 4;
 
-	int ret = 0;
-	byte* buf = null;
-
+	int ret = bufSize;
+	char* buf = null;
+	
 	do {
-		bufSize*=2;
-		SafeDeleteArray(buf);
-		buf = new byte[bufSize];
-		memset(buf, '\0', bufSize);
-		ret = vsnprintf(buf, bufSize - 1, data.raw(), args);
-	} while(ret < 0 || ret>bufSize);
+		bufSize = ret + 1;
 
-	String* result = new String(buf);
+		SafeDeleteArray(buf);
+		buf = new char[bufSize];
+		memset(buf, 0, bufSize);
+
+		ret = vsnprintf(buf, bufSize - 1, data, args);
+	} while(ret < 0 || ret > bufSize-1);
+
+	String* result = new String(buf, 0, ret);
 	SafeDeleteArray(buf);
+	free(data);
 
 	return result;
 }
-
 
 String* String::format(String* format, ...) {
 	String* result = null;
@@ -941,6 +957,16 @@ String* String::format(String* format, ...) {
 	va_start(args, format);
 		result = String::vformat(format, args);
 	va_end(args);
+
+	return result;
+}
+
+String* String::vformat(const char* format, va_list arg) {
+	String* result = null;
+
+	String* fmt = new String(format);
+	result = String::vformat(fmt, arg);
+	SafeDelete(fmt);
 
 	return result;
 }
@@ -955,6 +981,16 @@ String* String::format(const char* format, ...) {
 		result = String::vformat(fmt, ap);
 	va_end(ap);
 	
+	SafeDelete(fmt);
+
+	return result;
+}
+
+String* String::vformat(const wchar_t* format, va_list arg) {
+	String* result = null;
+
+	String* fmt = new String(format);
+	result = String::vformat(fmt, arg);
 	SafeDelete(fmt);
 
 	return result;

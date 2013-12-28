@@ -28,9 +28,8 @@ class _DragonExport OutputStreamWriter
 	extends(Writer)
 {
 public:
-	OutputStreamWriter();
-	OutputStreamWriter(OutputStream* out);
-	OutputStreamWriter(OutputStream* out, const String& charsetName);
+	OutputStreamWriter(const OutputStream* out);
+	OutputStreamWriter(const OutputStream* out, const String& charsetName);
 	virtual ~OutputStreamWriter(){close();}
 
 public:

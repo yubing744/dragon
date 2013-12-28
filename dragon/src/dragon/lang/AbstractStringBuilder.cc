@@ -187,20 +187,29 @@ AbstractStringBuilder* AbstractStringBuilder::append(AbstractStringBuilder* sb) 
     return this;
 }
 
+
+AbstractStringBuilder* AbstractStringBuilder::append(const char* str) {
+    String* s = new String(str);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const char* str, int length) {
+    String* s = new String(str, length);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
 AbstractStringBuilder* AbstractStringBuilder::append(const char* str, int offset, int length) {
 	String* s = new String(str, offset, length);
 	this->append(s);
 	SafeDelete(s);
 
 	return this;
-}
-
-AbstractStringBuilder* AbstractStringBuilder::append(const char* str, int length) {
-    return append(str, 0, length);
-}
-
-AbstractStringBuilder* AbstractStringBuilder::append(const char* str) {
-    return append(str, 0, strlen(str));
 }
 
 AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str) {
@@ -210,6 +219,47 @@ AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str) {
 
 	return this;
 }
+
+AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str, int length) {
+    String* s = new String(str, length);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const wchar_t* str, int offset, int length) {
+    String* s = new String(str, offset, length);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const wchar_u* str) {
+    String* s = new String(str);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const wchar_u* str, int length) {
+    String* s = new String(str, length);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(const wchar_u* str, int offset, int length) {
+    String* s = new String(str, offset, length);
+    this->append(s);
+    SafeDelete(s);
+
+    return this;
+}
+
 
 AbstractStringBuilder* AbstractStringBuilder::append(bool b) {
     if (b) {

@@ -18,13 +18,13 @@
 
 Import dragon::io;
 
-int Reader::read() throw(IOException*) {
+int Reader::read() const throw(IOException*) {
 	wchar_u ch;
 	this->read(&ch, 1, 0, 1);
 	return (int)ch;
 }
 
-int Reader::read(wchar_u* cbuf, int num) throw(IOException*) {
+int Reader::read(wchar_u* cbuf, int num) const throw(IOException*) {
 	return this->read(cbuf, num, 0, num);
 }
 

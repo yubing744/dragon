@@ -610,19 +610,17 @@ public: // Implements Interface CharSequence
 	virtual CharSequence* subSequence(int start, int end) const;
 	virtual String* toString() const;
 
-public:
-    /**
-     * return the pointer of string,
-     */    
+public: 
 	const wchar_u* toChars() const;
-	Array<wchar_u> toCharArray() const;
-	void getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin) const;
+     const Array<wchar_u> toCharArray() const;
+     void getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin) const;
      
-	const Array<byte> getBytes() const;
-	const Array<byte> getBytes(const char* charset) const;
+     const Array<byte> getBytes() const;
+     const Array<byte> getBytes(const char* charset) const;
+     const Array<byte> getBytes(const String& charset) const;
 
      char* toUTF8String() const;
-     
+     char* toCString() const; 
 
 	bool matches(String* regex);
 	bool contains(CharSequence* s);
@@ -637,68 +635,20 @@ public:
      Array<String*> split(const String* regex, int limit) const;
 
 	String* toLowerCase();
-
-	/**
-     * Converts all of the wchar_uacters in this <code>String</code> to upper
-     * case using the rules of the default locale. This method is equivalent to
-     * <code>toUpperCase(Locale.getDefault())</code>.
-     * <p>
-     * @return  the <code>String</code>, converted to uppercase.
-     * @see     java.lang.String#toUpperCase(Locale)
-     */	
 	String* toUpperCase();
-
-	/**
-     * Returns a copy of the string, with leading and trailing whitespace
-     * omitted.
-     * <p>
-     * If this <code>String</code> object represents an empty character
-     * sequence, or the first and last characters of character sequence
-     * represented by this <code>String</code> object both have codes
-     * greater than <code>'&#92;u0020'</code> (the space character), then a
-     * reference to this <code>String</code> object is returned.
-     * <p>
-     * Otherwise, if there is no character with a code greater than
-     * <code>'&#92;u0020'</code> in the string, then a new
-     * <code>String</code> object representing an empty string is created
-     * and returned.
-     * <p>
-     * Otherwise, let <i>k</i> be the index of the first character in the
-     * string whose code is greater than <code>'&#92;u0020'</code>, and let
-     * <i>m</i> be the index of the last character in the string whose code
-     * is greater than <code>'&#92;u0020'</code>. A new <code>String</code>
-     * object is created, representing the substring of this string that
-     * begins with the character at index <i>k</i> and ends with the
-     * character at index <i>m</i>-that is, the result of
-     * <code>this.substring(<i>k</i>,&nbsp;<i>m</i>+1)</code>.
-     * <p>
-     * This method may be used to trim whitespace (as defined above) from
-     * the beginning and end of a string.
-     *
-     * @return  A copy of this string with leading and trailing white
-     *          space removed, or this string if it has no leading or
-     *          trailing white space.
-     */
 	String* trim();
 
-
 public:
-	/**
-     * Returns a String that represents the wchar_uacter sequence in the
-     * array specified.
-     *
-     * @param   data     the wchar_uacter array.
-     * @param   offset   initial offset of the subarray.
-     * @param   count    length of the subarray.
-     * @return  a <code>String</code> that contains the wchar_uacters of the
-     *          specified subarray of the wchar_uacter array.
-     */
 	static String* copyValueOf(const wchar_u* data, int offset, int count);
 	static String* copyValueOf(const wchar_u* data);
 
      static String* vformat(String* format, va_list arg);
 	static String* format(String* format, ...);
+
+     static String* vformat(const char* format, va_list arg);
 	static String* format(const char* format, ...);
+
+     static String* vformat(const wchar_t* format, va_list arg);
 	static String* format(const wchar_t* format, ...);
 
     /**

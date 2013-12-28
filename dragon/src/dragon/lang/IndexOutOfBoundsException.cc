@@ -32,10 +32,6 @@ IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message)
 	:RuntimeException(message){
 }
 
-IndexOutOfBoundsException::IndexOutOfBoundsException(Throwable* cause)
-	:RuntimeException(cause){
-}
-
 IndexOutOfBoundsException::IndexOutOfBoundsException(const String& message, Throwable* cause)
 	:RuntimeException(message, cause){
 } 

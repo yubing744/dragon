@@ -28,6 +28,7 @@
 
 #include <dragon/lang/Array.h>
 #include <dragon/lang/String.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage2(dragon, lang)
 
@@ -40,7 +41,8 @@ Import dragon::lang;
  * particular sequence of wchar_uacters, but the length and content of the 
  * sequence can be changed through certain method calls.
  */
-DragonClass AbstractStringBuilder {
+class_ AbstractStringBuilder 
+    extends(Object) {
 public:
 
     /** 
@@ -215,10 +217,7 @@ public:
      * @return  a reference to this object.
      */
     virtual AbstractStringBuilder* append(String* str);
-
     virtual AbstractStringBuilder* append(const String& str);
-
-    // Documentation in subclasses because of synchro difference
     virtual AbstractStringBuilder* append(CharSequence* seq);
 
     /**
@@ -251,8 +250,6 @@ public:
      *             <code>end</code> is greater than <code>s.length()</code>
      */
     virtual AbstractStringBuilder* append(CharSequence* s, int start, int end);
-
-    // Documentation in subclasses because of synchro difference
     virtual AbstractStringBuilder* append(AbstractStringBuilder* sb);
 
     /**
@@ -271,9 +268,9 @@ public:
      * @param   str   the wchar_uacters to be appended.
      * @return  a reference to this object.
      */
-    virtual AbstractStringBuilder* append(const char* str, int offset, int length);
-    virtual AbstractStringBuilder* append(const char* str, int length);
     virtual AbstractStringBuilder* append(const char* str);
+    virtual AbstractStringBuilder* append(const char* str, int length);
+    virtual AbstractStringBuilder* append(const char* str, int offset, int length);
     
     /**
      * Appends the string representation of the <code>wchar_u</code> array 
@@ -292,6 +289,28 @@ public:
      * @return  a reference to this object.
      */
     virtual AbstractStringBuilder* append(const wchar_t* str);
+    virtual AbstractStringBuilder* append(const wchar_t* str, int length);
+    virtual AbstractStringBuilder* append(const wchar_t* str, int offset, int length);
+
+    /**
+     * Appends the string representation of the <code>wchar_u</code> array 
+     * argument to this sequence. 
+     * <p>
+     * The wchar_uacters of the array argument are appended, in order, to 
+     * the contents of this sequence. The length of this sequence
+     * increases by the length of the argument. 
+     * <p>
+     * The overall effect is exactly as if the argument were converted to 
+     * a string by the method {@link String#valueOf(wchar_u[])} and the 
+     * wchar_uacters of that string were then {@link #append(String) appended} 
+     * to this wchar_uacter sequence.
+     *
+     * @param   str   the wchar_uacters to be appended.
+     * @return  a reference to this object.
+     */
+    virtual AbstractStringBuilder* append(const wchar_u* str);
+    virtual AbstractStringBuilder* append(const wchar_u* str, int length);
+    virtual AbstractStringBuilder* append(const wchar_u* str, int offset, int length);
 
     /**
      * Appends the string representation of the <code>bool</code> 
@@ -304,49 +323,9 @@ public:
      * @param   b   a <code>bool</code>.
      * @return  a reference to this object.
      */
-    virtual AbstractStringBuilder* append(bool b);
-
-    /**
-     * Appends the string representation of the <code>wchar_u</code> 
-     * argument to this sequence. 
-     * <p>
-     * The argument is appended to the contents of this sequence. 
-     * The length of this sequence increases by <code>1</code>. 
-     * <p>
-     * The overall effect is exactly as if the argument were converted to 
-     * a string by the method {@link String#valueOf(wchar_u)} and the wchar_uacter 
-     * in that string were then {@link #append(String) appended} to this 
-     * wchar_uacter sequence.
-     *
-     * @param   c   a <code>wchar_u</code>.
-     * @return  a reference to this object.
-     */
     virtual AbstractStringBuilder* append(wchar_u c);
-
-    /**
-     * Appends the string representation of the <code>int</code> 
-     * argument to this sequence. 
-     * <p>
-     * The argument is converted to a string as if by the method 
-     * <code>String.valueOf</code>, and the characters of that 
-     * string are then appended to this sequence. 
-     *
-     * @param   i   an <code>int</code>.
-     * @return  a reference to this object.
-     */
+    virtual AbstractStringBuilder* append(bool b);
     virtual AbstractStringBuilder* append(int i);
-
-    /**
-     * Appends the string representation of the <code>dg_long</code> 
-     * argument to this sequence.
-     * <p>
-     * The argument is converted to a string as if by the method 
-     * <code>String.valueOf</code>, and the characters of that 
-     * string are then appended to this sequence.
-     *
-     * @param   l   a <code>dg_long</code>.
-     * @return  a reference to this object.
-     */
     virtual AbstractStringBuilder* append(dg_long l);
 
 public:

@@ -32,10 +32,6 @@ NullPointerException::NullPointerException(const String& message)
 	:RuntimeException(message){
 }
 
-NullPointerException::NullPointerException(Throwable* cause)
-	:RuntimeException(cause){
-}
-
 NullPointerException::NullPointerException(const String& message, Throwable* cause)
 	:RuntimeException(message, cause){
 } 

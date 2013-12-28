@@ -21,21 +21,21 @@
 Import dragon::lang;
 Import dragon::io;
 
-InputStreamReader::InputStreamReader(InputStream* in) {
-	this->innerStream = in;
+InputStreamReader::InputStreamReader(const InputStream* in) {
+	this->innerStream = const_cast<InputStream*>(in);
 	this->charsetName = new String(L"UTF-8");
 }
 
-InputStreamReader::InputStreamReader(InputStream* in, const char* charsetName) throw(UnsupportedEncodingException*) {
-    this->innerStream = in;
-    this->charsetName = new String(charsetName);
+InputStreamReader::InputStreamReader(const InputStream* in, const String& charset) throw(UnsupportedEncodingException*) {
+    this->innerStream = const_cast<InputStream*>(in);
+    this->charsetName = new String(charset);
 }
 
 void InputStreamReader::close() throw(IOException*) {
 	this->innerStream->close();
 }
 
-int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) 
+int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
 					throw(IOException*, IndexOutOfBoundsException*) {
     if(off<0 || len<0 || off+len>num) {
         throw new IndexOutOfBoundsException("the write buffer argments");

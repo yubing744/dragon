@@ -30,15 +30,15 @@ BeginPackage2(dragon, io)
 
 Import dragon::lang;
 
-__interface _DragonExport Appendable
+interface_ Appendable
 {
 public:
     virtual ~Appendable(){};
 
 public:
 	virtual Appendable* append(wchar_u c) = 0;
-	virtual Appendable* append(CharSequence* csq) = 0;
-	virtual Appendable* append(CharSequence* csq, int start, int end) = 0;
+	virtual Appendable* append(const CharSequence* csq) = 0;
+	virtual Appendable* append(const CharSequence* csq, int start, int end) = 0;
 };
 
 EndPackage2//(dragon, io)

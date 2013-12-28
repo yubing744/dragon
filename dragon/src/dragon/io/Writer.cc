@@ -23,23 +23,13 @@ Writer* Writer::append(wchar_u c) throw(IOException*) {
 	return this;
 }
 
-Writer* Writer::append(CharSequence* csq) throw(IOException*) {
-	String* str = csq->toString();
-	this->write(str);
-	SafeDelete(str);
-
+Writer* Writer::append(const CharSequence* csq) throw(IOException*) {
+	this->write(csq);
 	return this;
 }
 
-Writer* Writer::append(CharSequence* csq, int start, int end) throw(IOException*) {
-	String* str = csq->toString();
-	String* newStr = str->substring(start, end);
-
-	this->write(newStr);
-
-	SafeDelete(newStr);
-	SafeDelete(str);
-
+Writer* Writer::append(const CharSequence* csq, int start, int end) throw(IOException*) {
+	this->write(csq, start, end);
 	return this;
 }
 
@@ -49,12 +39,7 @@ Writer* Writer::append(const String& str) throw(IOException*) {
 }
 
 Writer* Writer::append(const String& str, int off, int len) throw(IOException*, IndexOutOfBoundsException*) {
-	String* newStr = str.substring(off, off + len);
-
-	this->write(newStr);
-
-	SafeDelete(newStr);
-
+	this->write(str, off, len);
 	return this;
 }
 
@@ -77,10 +62,26 @@ void Writer::write(const wchar_u* cbuf) throw(IOException*) {
 	this->write(cbuf, 0, size);
 }
 
+void Writer::write(const CharSequence* csq) throw(IOException*) {
+	String* str = csq->toString();
+	this->write(str->toChars(), 0, str->length());
+	SafeDelete(str);
+}
+
+void Writer::write(const CharSequence* csq, int start, int end) throw(IOException*) {
+	String* str = csq->toString();
+	String* newStr = str->substring(start, end);
+
+	this->write(newStr->toCharArray(), 0, newStr->length());
+
+	SafeDelete(newStr);
+	SafeDelete(str);	
+}
+
 void Writer::write(const String& str) throw(IOException*) {
-	this->write(str.toCharArray(), 0, str.length());
+	this->write(str.toChars(), 0, str.length());
 }
 
 void Writer::write(const String& str, int off, int len) throw(IOException*, IndexOutOfBoundsException*) {
-	this->write(str.toCharArray(), off, len);
+	this->write(str.toChars(), off, len);
 }

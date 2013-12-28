@@ -19,24 +19,20 @@
 
 Import dragon::io;
 
-FileWriter::FileWriter(const wchar_u* fileName) throw(IOException*) {
-	this->charsetName = new String(L"UTF-8");
-	this->innerStream = new FileOutputStream(fileName);
+FileWriter::FileWriter(const wchar_u* fileName) throw(IOException*) 
+    :OutputStreamWriter(new FileOutputStream(fileName), "UTF-8") {
 }
 
-FileWriter::FileWriter(const wchar_u* fileName, bool append) throw(IOException*) {
-	this->charsetName = new String(L"UTF-8");
-	this->innerStream = new FileOutputStream(fileName, append);
+FileWriter::FileWriter(const wchar_u* fileName, bool append) throw(IOException*) 
+    :OutputStreamWriter(new FileOutputStream(fileName, append), "UTF-8") {
 }
 
-FileWriter::FileWriter(File* file) throw(IOException*) {
-	this->charsetName = new String(L"UTF-8");
-	this->innerStream = new FileOutputStream(file, true);
+FileWriter::FileWriter(File* file) throw(IOException*) 
+    :OutputStreamWriter(new FileOutputStream(file, true), "UTF-8") {
 }
 
-FileWriter::FileWriter(File* file, bool append) throw(IOException*) {
-	this->charsetName = new String(L"UTF-8");
-	this->innerStream = new FileOutputStream(file, append);
+FileWriter::FileWriter(File* file, bool append) throw(IOException*) 
+    :OutputStreamWriter(new FileOutputStream(file, append), "UTF-8") {
 }
 
 FileWriter::~FileWriter(){

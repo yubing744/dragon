@@ -766,3 +766,59 @@ TEST(Dragon_Lang_String_Test, format03) {
 }
 
 
+TEST(Dragon_Lang_String_Test, format04) {
+    String* result = new String("<Parent");
+
+    String* ret = String::format("<%s", "Parent");
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+    
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, format05) {
+    String* result = new String("<Parent");
+    String* format = new String("<%s");
+
+    String* ret = String::format(format, "Parent");
+    ASSERT_EQ(dg_true, ret!=null);
+    dg_boolean isEqual = ret->equals(result);
+    EXPECT_EQ(dg_true, isEqual);
+    SafeDelete(ret);
+    
+    SafeDelete(format);
+    SafeDelete(result);
+}
+
+TEST(Dragon_Lang_String_Test, format06) {
+    String* result = new String("<Parent");
+    String* format = new String("<%s");
+
+    String* ret = String::format(format, "Parent");
+
+    ASSERT_TRUE(ret != null);
+    EXPECT_TRUE(ret->equals(result));
+
+    String* newStr = new String(ret->toCharArray(), 0, ret->length());
+    EXPECT_TRUE(newStr->equals(result));
+
+    String* charset = new String("UTF-8");
+    const Array<byte> charsetArray = charset->getBytes("UTF-8");
+    ASSERT_STREQ("UTF-8", charsetArray.raw());
+    
+    const Array<byte> data = newStr->getBytes(charset);
+    ASSERT_STREQ("<Parent", data.raw());
+    
+    SafeDelete(charset);
+    SafeDelete(newStr);
+
+    SafeDelete(ret);
+    
+    SafeDelete(format);
+    SafeDelete(result);
+}
+
+
+

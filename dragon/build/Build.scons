@@ -504,6 +504,26 @@ LibraryModule(
     install               = True
 )
 
+# lib tinyxml2
+tinyxml2_SOURCES = Split("""
+    tinyxml2.cpp
+""")
+
+LibraryModule(
+    name                  = 'tinyxml2',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/tinyxml2",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/tinyxml2",
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "." : tinyxml2_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
 
 # lib jpeg 
 libjpeg_SOURCES = Split("""
@@ -656,7 +676,8 @@ dragon_SOURCES = {
 
         NullPointerException.cc
         IndexOutOfBoundsException.cc
-
+        UnsupportedEncodingException.cc
+        
         Null.cc
         Boolean.cc
     """),
@@ -726,6 +747,19 @@ dragon_SOURCES = {
         JSONException.cc 
         JSONArray.cc 
         JSONObject.cc 
+    """),
+
+    "dragonx/xml" : Split("""
+        DocumentException.cc
+        DocumentFactory.cc
+        DocumentHelper.cc
+    """),
+
+    "dragonx/xml/io" : Split("""
+        OutputFormat.cc
+
+        XMLReader.cc 
+        XMLWriter.cc
     """)
 
 }
@@ -743,7 +777,7 @@ LibraryModule(
         'ENABLE_LOG'
     ],
     source_root           = 'src',
-    included_modules      = ["pcre32", "unicode", "json"], 
+    included_modules      = ["pcre32", "unicode", "json", "tinyxml2"], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True
@@ -800,6 +834,11 @@ dragon_test_SOURCES = {
 
     "dragonx/json" : Split("""
         JSONObjectTest.cc 
+    """),
+
+    "dragonx/xml/io" : Split("""
+        XMLReaderTest.cc 
+        XMLWriterTest.cc
     """),
 
     "." : Split("""

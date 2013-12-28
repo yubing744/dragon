@@ -42,14 +42,18 @@ public:
 public:
 	virtual Writer* append(wchar_u c) throw(IOException*);
 
-	virtual Writer* append(CharSequence* csq) throw(IOException*);
-	virtual Writer* append(CharSequence* csq, int start, int end) throw(IOException*);
+	virtual Writer* append(const CharSequence* csq) throw(IOException*);
+	virtual Writer* append(const CharSequence* csq, int start, int end) throw(IOException*);
 
 	virtual Writer* append(const String& str) throw(IOException*);
 	virtual Writer* append(const String& str, int off, int len) throw(IOException*, IndexOutOfBoundsException*);
 	
 	virtual void write(int c) throw(IOException*);
 	virtual void write(const wchar_u* cbuf) throw(IOException*);
+
+	virtual void write(const CharSequence* csq) throw(IOException*);
+	virtual void write(const CharSequence* csq, int start, int end) throw(IOException*);
+
 	virtual void write(const String& str) throw(IOException*);
 	virtual void write(const String& str, int off, int len) throw(IOException*, IndexOutOfBoundsException*);
 };

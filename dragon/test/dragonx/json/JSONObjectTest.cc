@@ -270,7 +270,7 @@ TEST(Dragonx_Json_JSONObjectTest, toString5) {
     }
 
     SafeDelete(subJsonObj1);
-    SafeDelete(subJsonObj2);
+    //SafeDelete(subJsonObj2);
     //SafeDelete(array);
 
     SafeDelete(jsonObj);

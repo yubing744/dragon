@@ -24,18 +24,13 @@
 
 Import dragon::io;
 
-OutputStreamWriter::OutputStreamWriter() {
-	this->innerStream = NULL;
+OutputStreamWriter::OutputStreamWriter(const OutputStream* out) {
+	this->innerStream = const_cast<OutputStream*>(out);
 	this->charsetName = new String(L"UTF-8");
 }
 
-OutputStreamWriter::OutputStreamWriter(OutputStream* out) {
-	this->innerStream = out;
-	this->charsetName = new String(L"UTF-8");
-}
-
-OutputStreamWriter::OutputStreamWriter(OutputStream* out, const String& charsetName) {
-	this->innerStream = out;
+OutputStreamWriter::OutputStreamWriter(const OutputStream* out, const String& charsetName) {
+	this->innerStream = const_cast<OutputStream*>(out);
 	this->charsetName = new String(charsetName);
 }
 
@@ -52,23 +47,14 @@ void OutputStreamWriter::flush() throw(IOException*) {
 }
 
 void OutputStreamWriter::write(const wchar_u* cbuf, int off, int len) 
-		throw(IOException*, IndexOutOfBoundsException*)
+	throw(IOException*, IndexOutOfBoundsException*)
 {
-	byte* b = (byte*)cbuf;
-
-	size_t size =0;
-	wchar_u* p = const_cast<wchar_u*>(cbuf);
-
-	while(*(p++) != 0) {
-		size++;
-	}
-
-	const Array<byte> charset = this->charsetName->getBytes("UTF-8");
-
 	String* text = new String(cbuf, off, len);
 
+	char* charset = this->charsetName->toCString();
 	const Array<byte> data = text->getBytes(charset);
 	this->innerStream->write(data.raw(), data.size(), 0, data.size());
+	free(charset);
 
 	SafeDelete(text);
 }

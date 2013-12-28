@@ -152,7 +152,8 @@
 // Define dragon class
 #define DragonClass class _DragonExport
 #define DragonInterface __interface _DragonExport
-
+#define class_ DragonClass
+#define interface_ DragonInterface
 
 // Define inline
 #if defined(__GNUC__) && !defined(DEBUG)

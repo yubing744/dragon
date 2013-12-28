@@ -33,7 +33,6 @@ class _DragonExport IndexOutOfBoundsException
 public: 
 	IndexOutOfBoundsException();
 	IndexOutOfBoundsException(const String& message);
-	IndexOutOfBoundsException(Throwable* cause);
 	IndexOutOfBoundsException(const String& message, Throwable* cause);
 
 	virtual ~IndexOutOfBoundsException();

@@ -23,16 +23,16 @@
 #ifndef NullPointerException_Lang_Dragon_H
 #define NullPointerException_Lang_Dragon_H
 
-#include "RuntimeException.h"
+#include <dragon/lang/RuntimeException.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport NullPointerException :public RuntimeException
+class_ NullPointerException 
+    extends(RuntimeException)
 {
 public:
 	NullPointerException();
 	NullPointerException(const String& message);
-	NullPointerException(Throwable* cause);
 	NullPointerException(const String& message, Throwable* cause);
 };
 

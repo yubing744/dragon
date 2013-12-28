@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"json",
+				"jsonObj"
+			],
+			[
+				"sub",
+				"subJsonObj2"
+			],
+			[
 				"key",
 				"key_length"
 			],
@@ -360,10 +368,6 @@
 				"demangled"
 			],
 			[
-				"sub",
-				"substr"
-			],
-			[
 				"vr",
 				"vector	std::vector"
 			],
@@ -510,20 +514,64 @@
 			[
 				"mat",
 				"matches"
-			],
-			[
-				"NULL",
-				"NULL_CHAR"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "dragon/src/dragonx/json/JSONObject.cc",
+			"settings":
+			{
+				"buffer_size": 11436,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "dragon/test/dragonx/json/JSONObjectTest.cc",
 			"settings":
 			{
-				"buffer_size": 2615,
+				"buffer_size": 9075,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/String.cc",
+			"settings":
+			{
+				"buffer_size": 20834,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/test/dragon/lang/StringTest.cc",
+			"settings":
+			{
+				"buffer_size": 18306,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/String.h",
+			"settings":
+			{
+				"buffer_size": 33298,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libjson/json.h",
+			"settings":
+			{
+				"buffer_size": 7579,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libjson/jsonlint.c",
+			"settings":
+			{
+				"buffer_size": 13948,
 				"line_ending": "Unix"
 			}
 		}
@@ -620,33 +668,60 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONObject.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONObject.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONObject.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Type.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashSet.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/JSONObjectTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
+		"/usr/include/c++/4.2.1/bits/stl_function.h",
+		"/usr/include/c++/4.2.1/bits/stl_tree.h",
+		"/usr/include/c++/4.2.1/bits/stl_map.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/regex/RegexTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/include/gtest/gtest.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest-internal-inl.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Boolean.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONObject.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/HashMapTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/ArrayListTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONArray.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONArray.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Boolean.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/logging/Logger.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/logging/Logger.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileNotfoundException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Exception.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.c",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Number.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Number.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStreamReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Boolean.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONException.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/JSONObjectTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Null.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Null.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Boolean.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/jsonlint.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONArray.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jconfig.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jmemdos.c",
@@ -656,7 +731,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/lpng167/scripts/pnglibconf.h.prebuilt",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/zlib-1.2.3/zlib.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/jsonTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONArray.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/RuntimeExceptionTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/RuntimeException.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/targets/arm-apple-ios/dragon3d-examples/dragon3d-examples/AppDelegate.mm",
@@ -672,13 +746,11 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileWriterTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Writer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileReaderTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jinclude.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Reader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Reader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStreamReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Appendable.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Writer.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
@@ -686,7 +758,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/File_posix.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Reference.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileReader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Arrays.h",
@@ -706,11 +777,8 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/NullPointerException.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/NullPointerException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileNotfoundException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Throwable.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Throwable.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ThrowableTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Exception.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Exception.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ExceptionTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IOException.h",
@@ -727,27 +795,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/osx/FileInputStream.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Closeable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileOutputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IoException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/System.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FilenameFilter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/StringBuffer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/ArrayList.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Stack.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/PriorityQueue.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Matcher.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Pattern.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/CharSequence.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc"
 	],
 	"find":
 	{
@@ -755,7 +803,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"/Users/yubing/Develop/GitRepos/dragon",
@@ -769,6 +817,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"dg_boolean",
+			"dg_char",
+			"dg_int",
+			"prettyprint",
 			"json_printer",
 			"JSON_ERROR_BAD_CHAR",
 			"dg_double",
@@ -893,6 +945,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"bool",
+			"wchar_u",
+			"int",
 			"double",
 			"float",
 			"int",
@@ -963,37 +1018,33 @@
 	"groups":
 	[
 		{
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/test/dragonx/json/JSONObjectTest.cc",
+					"file": "dragon/src/dragonx/json/JSONObject.cc",
 					"settings":
 					{
-						"buffer_size": 2615,
+						"buffer_size": 11436,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2243,
-								2250
+								11399,
+								11399
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"2546":
+								"3987":
 								{
-									"a": 1764.0,
-									"b": 1764.0
-								},
-								"2862":
-								{
-									"a": 1461.0,
-									"b": 1461.0
+									"a": 7626.0,
+									"b": 7626.0
 								}
 							},
 							"syntax": "Packages/C++/C++.tmLanguage",
@@ -1001,7 +1052,210 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 819.0,
+						"translation.y": 5469.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/test/dragonx/json/JSONObjectTest.cc",
+					"settings":
+					{
+						"buffer_size": 9075,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8964,
+								8964
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"4053":
+								{
+									"a": 8964.0,
+									"b": 8964.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4265.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/src/dragon/lang/String.cc",
+					"settings":
+					{
+						"buffer_size": 20834,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15696,
+								15696
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"4122":
+								{
+									"a": 15696.0,
+									"b": 15696.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 10788.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/test/dragon/lang/StringTest.cc",
+					"settings":
+					{
+						"buffer_size": 18306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/include/dragon/lang/String.h",
+					"settings":
+					{
+						"buffer_size": 33298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								26388,
+								26388
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"4150":
+								{
+									"a": 26388.0,
+									"b": 26388.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8425.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "third_party/libjson/json.h",
+					"settings":
+					{
+						"buffer_size": 7579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3321,
+								3330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1493.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "third_party/libjson/jsonlint.c",
+					"settings":
+					{
+						"buffer_size": 13948,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4858,
+								4869
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"3391":
+								{
+									"a": 0.0,
+									"b": 0.0
+								}
+							},
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1684.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1026,11 +1280,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.328311797968,
 			1.0
 		],
 		"rows":
@@ -1042,7 +1303,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 209.0
+		"height": 89.0
 	},
 	"replace":
 	{
@@ -1054,6 +1315,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"float.h",
+				"dragon/include/dragon/lang/Float.h"
+			],
 			[
 				"",
 				"dragon/src/dragon/util/regex/Matcher.cc"
@@ -1277,6 +1542,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 277.0,
+	"side_bar_width": 231.0,
 	"status_bar_visible": true
 }
