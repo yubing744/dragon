@@ -743,25 +743,48 @@ dragon_SOURCES = {
         FileReader.cc
     """),
 
+    # json
     "dragonx/json" : Split("""
         JSONException.cc 
         JSONArray.cc 
         JSONObject.cc 
     """),
 
+    # xml
     "dragonx/xml" : Split("""
         DocumentException.cc
         DocumentFactory.cc
         DocumentHelper.cc
     """),
-
     "dragonx/xml/io" : Split("""
         OutputFormat.cc
 
         XMLReader.cc 
         XMLWriter.cc
-    """)
+    """),
 
+    # imageio
+    "dragonx/imageio" : Split("""
+        ColorModel.cc
+        RenderedImage.cc
+        BufferedImage.cc
+        ImageIO.cc
+    """),
+    "dragonx/imageio/spi" : Split("""
+        ImageIORegistry.cc
+    """),
+    "dragonx/imageio/stream" : Split("""
+        ImageInputStream.cc
+        ImageOutputStream.cc
+    """),
+    "dragonx/imageio/plugins" : Split("""
+        AbstractImageReader.cc
+        AbstractImageWriter.cc
+    """),
+    "dragonx/imageio/plugins/jpeg" : Split("""
+        JPEGImageReader.cc
+        JPEGImageWriter.cc
+    """)
 }
     
 LibraryModule(
@@ -777,7 +800,7 @@ LibraryModule(
         'ENABLE_LOG'
     ],
     source_root           = 'src',
-    included_modules      = ["pcre32", "unicode", "json", "tinyxml2"], 
+    included_modules      = ["pcre32", "unicode", "json", "tinyxml2", "jpeg"], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True
@@ -839,6 +862,10 @@ dragon_test_SOURCES = {
     "dragonx/xml/io" : Split("""
         XMLReaderTest.cc 
         XMLWriterTest.cc
+    """),
+
+    "dragonx/imageio" : Split("""
+        ImageIOTest.cc 
     """),
 
     "." : Split("""
