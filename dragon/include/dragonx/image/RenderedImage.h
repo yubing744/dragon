@@ -45,6 +45,11 @@ public:
     virtual int getBlue(int x, int y) const = 0;
     virtual int getAlpha(int x, int y) const = 0;
 
+    virtual int getRed(int index) const = 0;
+    virtual int getGreen(int index) const = 0;
+    virtual int getBlue(int index) const = 0;
+    virtual int getAlpha(int index) const = 0;
+    
     virtual const ColorModel* getColorModel() const = 0;
     
 };//RenderedImage

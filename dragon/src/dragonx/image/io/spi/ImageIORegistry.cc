@@ -32,10 +32,16 @@
 #include <dragonx/image/io/plugins/png/PNGImageReader.h>
 #include <dragonx/image/io/plugins/png/PNGImageWriter.h>
 
+#include <dragonx/image/io/plugins/gif/GIFImageReader.h>
+#include <dragonx/image/io/plugins/gif/GIFImageWriter.h>
+
 Import dragon::util;
 Import dragonx::image::io::spi;
+
 Import dragonx::image::io::plugins::jpeg;
 Import dragonx::image::io::plugins::bmp;
+Import dragonx::image::io::plugins::png;
+Import dragonx::image::io::plugins::gif;
 
 const Type* ImageIORegistry::TYPE = TypeOf<ImageIORegistry>();
 
@@ -70,8 +76,12 @@ void ImageIORegistry::init() {
     registerImageWriter("BMP", new BMPImageWriter());
 
     // PNG
-    registerImageReader("PNG", new BMPImageReader());
-    registerImageWriter("PNG", new BMPImageWriter());
+    registerImageReader("PNG", new PNGImageReader());
+    registerImageWriter("PNG", new PNGImageWriter());
+
+    // GIF
+    registerImageReader("GIF", new GIFImageReader());
+    registerImageWriter("GIF", new GIFImageWriter());
 }
 
 void ImageIORegistry::registerImageReader(const String& imageType, ImageReader* reader) {

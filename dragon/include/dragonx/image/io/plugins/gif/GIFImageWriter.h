@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/image/io/plugins/AbstractImageWriter.h>
 
 BeginPackage5(dragonx, image, io, plugins, gif)
 
 Import dragon::lang;
+Import dragonx::image::io::plugins;
 
-class_ GIFImageWriter extends(Object) {
+class_ GIFImageWriter extends(AbstractImageWriter) {
 public:
     static const Type* TYPE;
     
@@ -40,8 +42,7 @@ public:
     virtual ~GIFImageWriter();
 
 public:
-    
-protected:
+    virtual void write(const RenderedImage* image, OutputStream* output) throw(IOException*);
     
 };//GIFImageWriter
 

@@ -62,12 +62,17 @@ const Array<byte> BufferedImage::getData() const {
     return Array<byte>(this->data, this->size());
 }
 
-const byte* BufferedImage::getPixelData(int x, int y) const {
+const byte* BufferedImage::getPixelData(int index) const {
     const ColorModel* cm = this->getColorModel();
     int pixelByteCount = cm->getBitCount() / 8;
-    int offset = (this->getWidth() * pixelByteCount * (y - 1)) + (pixelByteCount * (x - 1));
+    int offset = index * pixelByteCount;
     byte* data = this->data + offset;
     return data;
+}
+
+const byte* BufferedImage::getPixelData(int x, int y) const {
+    int index = (this->getWidth() * (y - 1)) + (x - 1);
+    return getPixelData(index);
 }
 
 void BufferedImage::setPixel(int x, int y, uint32_t val) {
@@ -98,6 +103,26 @@ int BufferedImage::getBlue(int x, int y) const {
 int BufferedImage::getAlpha(int x, int y) const {
     const byte* data = getPixelData(x, y);
     return this->getColorModel()->getAlpha(data);  
+}
+
+int BufferedImage::getRed(int index) const {
+    const byte* data = getPixelData(index);
+    return this->getColorModel()->getRed(data);  
+}
+
+int BufferedImage::getGreen(int index) const {
+    const byte* data = getPixelData(index);
+    return this->getColorModel()->getGreen(data);  
+}
+
+int BufferedImage::getBlue(int index) const {
+    const byte* data = getPixelData(index);
+    return this->getColorModel()->getBlue(data);  
+}
+
+int BufferedImage::getAlpha(int index) const {
+    const byte* data = getPixelData(index);
+    return this->getColorModel()->getAlpha(data);    
 }
 
 const ColorModel* BufferedImage::getColorModel() const {

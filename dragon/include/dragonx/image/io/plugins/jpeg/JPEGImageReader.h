@@ -33,8 +33,7 @@
 BeginPackage5(dragonx, image, io, plugins, jpeg)
 
 Import dragon::lang;
-Import dragonx::image;
-Import dragonx::image::io;
+Import dragonx::image::io::plugins;
 
 class_ JPEGImageReader extends(AbstractImageReader) {
 public:

@@ -1,0 +1,16 @@
+LibTga 1.0.1:
+
+Matthias Brueckner <matbrc@users.sourceforge.net>  Maintainer
+
+Special thanks to:
+	Raphael FRANCOIS and Gordon Matzigkeit
+		I took parts of the code from their TGA filter for The Gimp
+		
+	Paul Cohen <paco@users.sourceforge.net>
+		for his ideas and suggestions
+
+		
+LibTgaEx 1.0.0 (based on LibTga 1.0.1):
+
+Alexander Azhevsky                                 Vertical-flipping support, RLE compression bugfixes etc
+Andrey Antsut                                      User-defined IO support

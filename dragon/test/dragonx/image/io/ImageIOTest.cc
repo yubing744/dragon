@@ -385,7 +385,7 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadBMPAndWriteJPEG) {
 TEST(Dragonx_Image_IO_ImageIOTest, ReadPNGAndWritePNG) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_png_01.png");
-    String* outputPath = new String(L"/dragon_test/image_test/write_png_01.bmp");
+    String* outputPath = new String(L"/dragon_test/image_test/write_png_01.png");
 
     File* file = new File(base, filePath);
     File* outFile = new File(base, outputPath);
@@ -427,5 +427,48 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadPNGAndWritePNG) {
 }
 
 
+TEST(Dragonx_Image_IO_ImageIOTest, ReadGIFAndWriteGIF) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_gif_01.gif");
+    String* outputPath = new String(L"/dragon_test/image_test/write_gif_01.gif");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "GIF");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "GIF", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
 
 

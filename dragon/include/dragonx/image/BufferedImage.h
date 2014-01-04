@@ -63,9 +63,15 @@ public:
     virtual int getBlue(int x, int y) const;
     virtual int getAlpha(int x, int y) const;
 
+    virtual int getRed(int index) const;
+    virtual int getGreen(int index) const;
+    virtual int getBlue(int index) const;
+    virtual int getAlpha(int index) const;
+
     virtual const ColorModel* getColorModel() const;
     
 protected:
+    virtual const byte* getPixelData(int index) const;
     virtual const byte* getPixelData(int x, int y) const;
 
 protected:

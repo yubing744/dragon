@@ -26,10 +26,12 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/image/io/plugins/AbstractImageWriter.h>
 
 BeginPackage5(dragonx, image, io, plugins, tga)
 
 Import dragon::lang;
+Import dragonx::image::io::plugins;
 
 class_ TGAImageWriter extends(Object) {
 public:
@@ -40,8 +42,7 @@ public:
     virtual ~TGAImageWriter();
 
 public:
-    
-protected:
+    virtual void write(const RenderedImage* image, OutputStream* output) throw(IOException*);
     
 };//TGAImageWriter
 

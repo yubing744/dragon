@@ -368,15 +368,6 @@ if os.path.exists(target_config_file):
 # Neptune
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
-# endian lib
-#LibraryModule(name                  = 'endian2',
-#              source_root           = THIRD_PARTY_SOURCE_ROOT,
-#              build_include_dirs    = ['endian2'],
-#              build_source_dirs     = ['endian2'],
-#              shared                = False,
-#              install               = True)
-
-
 # zip lib
 LibraryModule(name                  = 'z',
               source_root           = THIRD_PARTY_SOURCE_ROOT,
@@ -578,20 +569,47 @@ LibraryModule(
     install               = True
 )
 
-# lib bmp
-libbmp_SOURCES = Split("""
-    bmpfile.c
+# lib gif
+libgif_SOURCES = Split("""
+    dgif_lib.c  \
+    egif_lib.c  \
+    gif_font.c  \
+    gif_hash.c  \
+    gif_hash.h  \
+    gifalloc.c  \
+    gif_err.c   \
+    gif_lib_private.h
 """)
 
 LibraryModule(
-    name                  = 'bmp',
+    name                  = 'gif',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/giflib-4.2.3",
     build_include_dirs    = [
-        THIRD_PARTY_SOURCE_ROOT + "/libbmp-0.1.3",
+        THIRD_PARTY_SOURCE_ROOT + "/giflib-4.2.3/lib",
     ],  
-    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libbmp-0.1.3",
     build_source_dirs     = [],         
     build_source_files    = {
-        "src" : libbmp_SOURCES
+        "lib" : libgif_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+# lib tga
+libtga_SOURCES = Split("""
+    tgaio.c tga.c tgaread.c tgawrite.c  
+""")
+
+LibraryModule(
+    name                  = 'tga',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libtga-ex-1.0.0",
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libtga-ex-1.0.0/src",
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "src" : libtga_SOURCES
     },    
     extra_cpp_defines     = [],     
     shared                = False,                    
@@ -634,15 +652,6 @@ LibraryModule(
     shared                = env['SHARED'],
     install               = True
 )
-
-# lib cppunit           
-#LibraryModule(name                  = 'cppunit',
-#              source_root           = THIRD_PARTY_SOURCE_ROOT,
-#              build_include_dirs    = [THIRD_PARTY_SOURCE_ROOT + '/cppunit-1.10.2/include'],
-#              build_source_dirs     = ['/cppunit-1.10.2/src/cppunit'],
-#              shared                = True,
-#              install               = True)
-
 
 
 # dragon c++ class library
@@ -796,6 +805,10 @@ dragon_SOURCES = {
     "dragonx/image/io/plugins/png" : Split("""
         PNGImageReader.cc
         PNGImageWriter.cc
+    """),
+    "dragonx/image/io/plugins/gif" : Split("""
+        GIFImageReader.cc
+        GIFImageWriter.cc
     """)
 }
     
@@ -814,7 +827,7 @@ LibraryModule(
     source_root           = 'src',
     included_modules      = [
         "pcre32", "unicode", "json", "tinyxml2", 
-        "jpeg", "z", "png"], 
+        "z", "jpeg", "png", "gif", "tga"], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True

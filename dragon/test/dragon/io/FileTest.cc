@@ -33,7 +33,7 @@ Import dragon::io;
 Import dragon::util::logging;
 Import dragon::lang::gc;
 
-static Logger* logger = Logger::getLogger("dragon::io::FileTest", DEBUG);
+static Logger* logger = Logger::getLogger("dragon::io::FileTest", INFO);
 
 TEST(Dragon_Io_FileTest, New) {
     File* o = new File();

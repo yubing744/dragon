@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/image/io/plugins/AbstractImageReader.h>
 
 BeginPackage5(dragonx, image, io, plugins, tga)
 
 Import dragon::lang;
+Import dragonx::image::io::plugins;
 
-class_ TGAImageReader extends(Object) {
+class_ TGAImageReader extends(AbstractImageReader) {
 public:
     static const Type* TYPE;
     
@@ -40,8 +42,7 @@ public:
     virtual ~TGAImageReader();
 
 public:
-    
-protected:
+    virtual BufferedImage* read(InputStream* input) throw(IOException*);
     
 };//TGAImageReader
 
