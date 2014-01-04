@@ -33,7 +33,7 @@ void FileOutputStream::open(bool append) throw(IOException*) {
     if (append) {
         f = fopen(utf8Name, "ab+");
     } else {
-        f = fopen(utf8Name, "wb+");
+        f = fopen(utf8Name, "wb");
     }
 
     SafeDelete(path);

@@ -226,6 +226,20 @@
 #endif //_WIN32
 
 
+#if defined(_MSC_VER) || defined(__INTEL_COMPILER)
+    typedef unsigned __int32 uint32_t;
+    typedef unsigned __int16 uint16_t;
+    typedef unsigned __int8 uint8_t;
+    typedef __int32 int32_t;
+#elif defined(__GNUC__) || defined(__CYGWIN__) || defined(__MWERKS__) || defined(__WATCOMC__) || defined(__PGI) || defined(__LCC__)
+    #include <stdint.h>
+#else
+    typedef unsigned int uint32_t;
+    typedef unsigned short int uint16_t;
+    typedef unsigned char uint8_t;
+    typedef int int32_t;
+#endif
+
 // dragon basic types
 #ifdef HAVE_INTTYPES_H
 	#include <inttypes.h>       /* C99 */
@@ -260,6 +274,10 @@
 typedef dg_byte wbyte_u;
 typedef dg_char wchar_u;
 typedef dg_long wlong_u;	
+
+typedef dg_char char_u;
+typedef dg_long long_u;
+typedef dg_int int_u;
 
 typedef dg_byte byte;
 
