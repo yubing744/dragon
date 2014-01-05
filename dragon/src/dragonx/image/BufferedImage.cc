@@ -77,7 +77,47 @@ const byte* BufferedImage::getPixelData(int x, int y) const {
 
 void BufferedImage::setPixel(int x, int y, uint32_t val) {
     const byte* data = getPixelData(x, y);
-    this->getColorModel()->setPixel(const_cast<byte*>(data), val);
+    this->colorModel->setPixel(const_cast<byte*>(data), val);
+}
+
+void BufferedImage::setRed(int x, int y, int val) {
+    const byte* data = getPixelData(x, y);
+    this->colorModel->setRed(data, val); 
+}
+
+void BufferedImage::setGreen(int x, int y, int val) {
+    const byte* data = getPixelData(x, y);
+    this->colorModel->setGreen(data, val); 
+}
+
+void BufferedImage::setBlue(int x, int y, int val) {
+    const byte* data = getPixelData(x, y);
+    this->colorModel->setBlue(data, val); 
+}
+
+void BufferedImage::setAlpha(int x, int y, int val) {
+    const byte* data = getPixelData(x, y);
+    this->colorModel->setAlpha(data, val); 
+}
+
+void BufferedImage::setRed(int index, int val) {
+    const byte* data = getPixelData(index);
+    this->colorModel->setRed(data, val); 
+}
+
+void BufferedImage::setGreen(int index, int val) {
+    const byte* data = getPixelData(index);
+    this->colorModel->setGreen(data, val); 
+}
+
+void BufferedImage::setBlue(int index, int val) {
+    const byte* data = getPixelData(index);
+    this->colorModel->setBlue(data, val); 
+}
+
+void BufferedImage::setAlpha(int index, int val) {
+    const byte* data = getPixelData(index);
+    this->colorModel->setAlpha(data, val); 
 }
 
 uint32_t BufferedImage::getPixel(int x, int y) const {

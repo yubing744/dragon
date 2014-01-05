@@ -33,7 +33,7 @@ BeginPackage5(dragonx, image, io, plugins, tga)
 Import dragon::lang;
 Import dragonx::image::io::plugins;
 
-class_ TGAImageWriter extends(Object) {
+class_ TGAImageWriter extends(AbstractImageWriter) {
 public:
     static const Type* TYPE;
     

@@ -41,68 +41,118 @@ TGAImageWriter::~TGAImageWriter() {
 
 }
 
+typedef struct _OutputStreamFile {
+    OutputStream* output;
+    long current;
+} OutputStreamFile;
 
-void make_header(TGA *src, TGA *dest) {
-    dest->hdr.id_len    = src->hdr.id_len;
-    dest->hdr.map_t     = src->hdr.map_t;
-    dest->hdr.img_t     = src->hdr.img_t;
-    dest->hdr.map_first     = src->hdr.map_first;
-    dest->hdr.map_entry     = src->hdr.map_entry;
-    dest->hdr.map_len   = src->hdr.map_len;
-    dest->hdr.x         = src->hdr.x;
-    dest->hdr.y         = src->hdr.y;
-    dest->hdr.width     = src->hdr.width;
-    dest->hdr.height    = src->hdr.height;
-    dest->hdr.depth     = src->hdr.depth;
-    dest->hdr.vert          = src->hdr.vert;
-    dest->hdr.horz          = src->hdr.horz;
-    dest->hdr.alpha         = src->hdr.alpha;
+int tga_output_stream_putc(TGA* tga, int c) {
+    OutputStreamFile* osf = (OutputStreamFile*)tga->fd;
+    OutputStream* output = (OutputStream*)osf->output;
+
+    output->write(c);
+    osf->current++;
+
+    return 1;
+}
+
+size_t tga_output_stream_write(TGA* tga, const void* buffer, size_t size, size_t count) {
+    OutputStreamFile* osf = (OutputStreamFile*)tga->fd;
+    OutputStream* output = (OutputStream*)osf->output;
+
+    int n = count;
+    int wc = 0;
+
+    byte* ptr = (byte*)buffer;
+
+    while((n--) > 0) {
+        output->write(ptr, size, 0, size);
+        osf->current += size;
+        ptr += size;
+    }
+
+    return count;
+}
+
+void tga_output_stream_seek(TGA* tga, long offset, int origin) {
+    OutputStreamFile* osf = (OutputStreamFile*)tga->fd;
+    OutputStream* output = (OutputStream*)osf->output;
+
+    int count = offset - osf->current;
+
+    byte* buffer = (byte*)malloc(count);
+    memset(buffer, 0, count);
+
+    output->write((byte*)buffer, count, 0, count);
+    osf->current += count;
+}
+
+long tga_output_stream_tell(TGA* tga) {
+    OutputStreamFile* osf = (OutputStreamFile*)tga->fd;
+    return osf->current;
+}
+
+void init_tga_header(TGA *dest, const RenderedImage* image) {
+    const ColorModel* colorModel = image->getColorModel();
+
+    dest->hdr.id_len = 0;//src->hdr.id_len;
+    dest->hdr.map_t = 0;//src->hdr.map_t;
+    dest->hdr.img_t = 2;//src->hdr.img_t; // 2 = rgb, 3 = b&w
+    dest->hdr.map_first = 0;//src->hdr.map_first;
+    dest->hdr.map_entry = 0;//src->hdr.map_entry;
+    dest->hdr.map_len = 0;//src->hdr.map_len;
+    dest->hdr.x = 0;
+    dest->hdr.y = 0;
+    dest->hdr.width = image->getWidth();
+    dest->hdr.height = image->getHeight();
+    dest->hdr.depth = colorModel->getBitCount();//src->hdr.depth;
+    dest->hdr.vert = 0;
+    dest->hdr.horz = 0;
+    dest->hdr.alpha = colorModel->hasAlpha() ? 1 : 0;//src->hdr.alpha;
 }
 
 void TGAImageWriter::write(const RenderedImage* image, OutputStream* output) throw(IOException*) {
-    TGA *in, *out;
-    TGAData *data;
-    int encode;
+    const ColorModel* colorModel = image->getColorModel();
+    const byte* pData = (byte*)image->getRawData();
 
-    if(argc < 3) {
-        printf("Not enough arguments supplied!\n");
-        return 0;
-    }
-    
+    int width = image->getWidth();
+    int height = image->getHeight();
+    int bitCount = colorModel->getBitCount();
+    bool hasAlpha = colorModel->hasAlpha();
+
+    TGA *out;
+    TGAData *data;
+
+    // malloc data
     data = (TGAData*)malloc(sizeof(TGAData));
     if(!data) {
-        TGA_ERROR((TGA*)NULL, TGA_OOM);
-        return 0;
+        throw new IOException("error in malloc tag data!");
     }
 
-        in = TGAOpen(argv[1], "r");
-    printf("[open] name=%s, mode=%s\n", argv[1], "r");
+    // open tag
+    OutputStreamFile osf;
+    osf.output = output;
+    osf.current = 0;
 
-    out = TGAOpen(argv[2], "w");
-        printf("[open] name=%s, mode=%s\n", argv[2], "w");
+    out = TGAOpenUserDef(&osf, NULL, NULL, 
+        tga_output_stream_putc, tga_output_stream_write,
+        tga_output_stream_seek, tga_output_stream_tell);
+    if (!out) {
+        throw new IOException("error in open tag data to write!");
+    }
     
+    // set data
+    init_tga_header(out, image);
+    data->cmap = NULL;
+    data->img_data = (tbyte*)const_cast<byte*>(pData);
+    data->flags |= TGA_IMAGE_DATA;
 
-    data->flags = TGA_IMAGE_ID | TGA_IMAGE_DATA | TGA_RGB;
-    TGAReadImage(in, data);
-    if (in->last != TGA_OK) {
-        TGA_ERROR(in, in->last);
-        return 0;
-    }
-
-    make_header(in, out);
-
+    // write tag
     data->flags |= TGA_RLE_ENCODE;
     TGAWriteImage(out, data);
     if (out->last != TGA_OK) {
-        TGA_ERROR(out, out->last);
-        return 0;
+        throw new IOException("error in write tag data!");
     }
 
-    printf("[close]\n[close]\n");
-        TGAClose(in);
     TGAClose(out);
-
-        printf("[exit] main\n");
-
-    return EXIT_SUCCESS;
 }

@@ -175,7 +175,7 @@ TEST(Dragon_Io_FileTest, canExecute02) {
     String* fullPath = base->concat(path);
 
     Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path);
+    logger->debug(utf8Path);
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->canExecute());
@@ -192,7 +192,7 @@ TEST(Dragon_Io_FileTest, delete01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path);
+    logger->debug(utf8Path);
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -209,7 +209,7 @@ TEST(Dragon_Io_FileTest, lenght01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path);
+    logger->debug(utf8Path);
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -226,7 +226,7 @@ TEST(Dragon_Io_FileTest, getName01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -249,7 +249,7 @@ TEST(Dragon_Io_FileTest, getParent01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -275,7 +275,7 @@ TEST(Dragon_Io_FileTest, getCanonicalPath01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -301,7 +301,7 @@ TEST(Dragon_Io_FileTest, list01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -352,7 +352,7 @@ TEST(Dragon_Io_FileTest, listWithFilter01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
@@ -376,7 +376,7 @@ TEST(Dragon_Io_FileTest, listWithFilter01) {
         String* name = fileNames[i];
 
         const Array<char> utf8Name = name->getBytes("UTF-8");
-        logger->info("release fileName: %s", utf8Name.raw());
+        logger->debug("release fileName: %s", utf8Name.raw());
 
         SafeDelete(name);
     }
@@ -413,7 +413,7 @@ TEST(Dragon_Io_FileTest, listWithFileFilter01) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());

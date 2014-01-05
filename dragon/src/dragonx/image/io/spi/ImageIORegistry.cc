@@ -35,6 +35,9 @@
 #include <dragonx/image/io/plugins/gif/GIFImageReader.h>
 #include <dragonx/image/io/plugins/gif/GIFImageWriter.h>
 
+#include <dragonx/image/io/plugins/tga/TGAImageReader.h>
+#include <dragonx/image/io/plugins/tga/TGAImageWriter.h>
+
 Import dragon::util;
 Import dragonx::image::io::spi;
 
@@ -42,6 +45,7 @@ Import dragonx::image::io::plugins::jpeg;
 Import dragonx::image::io::plugins::bmp;
 Import dragonx::image::io::plugins::png;
 Import dragonx::image::io::plugins::gif;
+Import dragonx::image::io::plugins::tga;
 
 const Type* ImageIORegistry::TYPE = TypeOf<ImageIORegistry>();
 
@@ -82,6 +86,10 @@ void ImageIORegistry::init() {
     // GIF
     registerImageReader("GIF", new GIFImageReader());
     registerImageWriter("GIF", new GIFImageWriter());
+
+    // TGA
+    registerImageReader("TGA", new TGAImageReader());
+    registerImageWriter("TGA", new TGAImageWriter());
 }
 
 void ImageIORegistry::registerImageReader(const String& imageType, ImageReader* reader) {

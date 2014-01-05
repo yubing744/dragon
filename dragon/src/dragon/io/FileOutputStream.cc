@@ -23,7 +23,7 @@ Import dragon::io;
 
 FileOutputStream::FileOutputStream(const wchar_u* name) throw(FileNotFoundException*) {
     this->file = new File(name);
-    this->open(true);
+    this->open(false);
 }
 
 FileOutputStream::FileOutputStream(const wchar_u* name, bool append) throw(FileNotFoundException*) {
@@ -33,7 +33,7 @@ FileOutputStream::FileOutputStream(const wchar_u* name, bool append) throw(FileN
 
 FileOutputStream::FileOutputStream(File* file) throw(FileNotFoundException*) {
     this->file = new File(file);
-    this->open(true);
+    this->open(false);
 }
 
 FileOutputStream::FileOutputStream(File* file, bool append) throw(FileNotFoundException*) {

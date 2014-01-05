@@ -809,6 +809,10 @@ dragon_SOURCES = {
     "dragonx/image/io/plugins/gif" : Split("""
         GIFImageReader.cc
         GIFImageWriter.cc
+    """),
+    "dragonx/image/io/plugins/tga" : Split("""
+        TGAImageReader.cc
+        TGAImageWriter.cc
     """)
 }
     

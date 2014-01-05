@@ -33,7 +33,7 @@ Import dragon::io;
 Import dragon::util::logging;
 Import dragon::lang::gc;
 
-static Logger* logger = Logger::getLogger("dragon::io::FileInputStreamTest", DEBUG);
+static Logger* logger = Logger::getLogger("dragon::io::FileInputStreamTest", INFO);
 
 TEST(Dragon_Io_FileInputStreamTest, New) {
     const String* base = System::getProperty("HOME");
@@ -41,7 +41,7 @@ TEST(Dragon_Io_FileInputStreamTest, New) {
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");
-    logger->info(utf8Path.raw());
+    logger->debug(utf8Path.raw());
 
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());

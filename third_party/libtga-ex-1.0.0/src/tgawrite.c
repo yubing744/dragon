@@ -51,29 +51,37 @@ int TGAWriteImage(TGA 	  *tga,
 			TGA_ERROR(tga, tga->last);
 			tga->hdr.id_len = 0;
 		}
-	}	
+	}
+
 	if (data->flags & TGA_IMAGE_DATA) {
 		if (data->cmap) {
-			if (!TGAWriteColorMap(tga, data->cmap, data->flags)) {
-				data->flags &= ~TGA_COLOR_MAP;
-				TGA_ERROR(tga, tga->last);
-				tga->hdr.map_t = 0;
-			}
 			tga->hdr.img_t = 1;
 			tga->hdr.map_t = 1;
 		} else {
 			tga->hdr.map_t = 0;
 		}
 
+		if (data->flags & TGA_RLE_ENCODE) {
+			tga->hdr.img_t += 8;
+		} 
+	}
+
+	if (TGAWriteHeader(tga) != TGA_OK) {
+		TGA_ERROR(tga, tga->last);
+	}
+
+	if (data->flags & TGA_IMAGE_DATA) {
+		if (data->cmap) {
+			if (!TGAWriteColorMap(tga, data->cmap, data->flags)) {
+				data->flags &= ~TGA_COLOR_MAP;
+				TGA_ERROR(tga, tga->last);
+			}
+		} 
+
 		if (TGAWriteScanlines(tga, data->img_data, 0, tga->hdr.height, data->flags) != tga->hdr.height) {
 			data->flags &= ~TGA_IMAGE_DATA;
 			TGA_ERROR(tga, tga->last);
-			tga->hdr.img_t = 0;
 		}
-	}
-	
-	if (TGAWriteHeader(tga) != TGA_OK) {
-		TGA_ERROR(tga, tga->last);
 	}
 	
 	return tga->last;
@@ -263,13 +271,14 @@ TGAWriteScanlines(TGA 	  *tga,
 		  size_t   n,
 		  tuint32  flags)
 {
-	tlong off;
+	tlong off, data_off;
 	size_t wrote, sln_size;
 
 	if (!tga || !buf) return 0;
 
 	sln_size = TGA_SCANLINE_SIZE(tga);
-	off = TGA_IMG_DATA_OFF(tga) + (sln * sln_size);
+	data_off = TGA_IMG_DATA_OFF(tga);
+	off = data_off + (sln * sln_size);
 	
 	if (tga->off != off) __TGASeek(tga, off, SEEK_SET);
 	if (tga->off != off) {
@@ -286,7 +295,6 @@ TGAWriteScanlines(TGA 	  *tga,
 			if(TGAWriteRLE(tga, buf + ((sln + wrote)*sln_size)) !=
 				TGA_OK) break;
 		}
-		tga->hdr.img_t += 8;
 	} else {
 		wrote = TGAWrite(tga, buf, sln_size, n);
 	}

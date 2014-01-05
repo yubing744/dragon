@@ -55,7 +55,22 @@ public:
 
     virtual const Array<byte> getData() const;
 
+    virtual const ColorModel* getColorModel() const;
+
+public:
     virtual void setPixel(int x, int y, uint32_t val);
+
+    virtual void setRed(int x, int y, int val);
+    virtual void setGreen(int x, int y, int val);
+    virtual void setBlue(int x, int y, int val);
+    virtual void setAlpha(int x, int y, int val);
+
+    virtual void setRed(int index, int val);
+    virtual void setGreen(int index, int val);
+    virtual void setBlue(int index, int val);
+    virtual void setAlpha(int index, int val);
+
+public:       
     virtual uint32_t getPixel(int x, int y) const;
 
     virtual int getRed(int x, int y) const;
@@ -68,8 +83,6 @@ public:
     virtual int getBlue(int index) const;
     virtual int getAlpha(int index) const;
 
-    virtual const ColorModel* getColorModel() const;
-    
 protected:
     virtual const byte* getPixelData(int index) const;
     virtual const byte* getPixelData(int x, int y) const;

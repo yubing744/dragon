@@ -471,4 +471,92 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadGIFAndWriteGIF) {
     SafeDelete(outputPath);
 }
 
+TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteTGA) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_tga_02.tga");
+    String* outputPath = new String(L"/dragon_test/image_test/write_tga_01.tga");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "TGA");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "TGA", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_tga_02.tga");
+    String* outputPath = new String(L"/dragon_test/image_test/write_jpg_06.jpg");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "TGA");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "JPEG", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
 

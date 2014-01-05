@@ -44,90 +44,141 @@ TGAImageReader::~TGAImageReader() {
 
 }
 
-void make_header(TGA *src, TGA *dest) {
-    dest->hdr.id_len    = src->hdr.id_len;
-    dest->hdr.map_t     = src->hdr.map_t;
-    dest->hdr.img_t     = src->hdr.img_t;
-    dest->hdr.map_first     = src->hdr.map_first;
-    dest->hdr.map_entry     = src->hdr.map_entry;
-    dest->hdr.map_len   = src->hdr.map_len;
-    dest->hdr.x         = src->hdr.x;
-    dest->hdr.y         = src->hdr.y;
-    dest->hdr.width     = src->hdr.width;
-    dest->hdr.height    = src->hdr.height;
-    dest->hdr.depth     = src->hdr.depth;
-    dest->hdr.vert          = src->hdr.vert;
-    dest->hdr.horz          = src->hdr.horz;
-    dest->hdr.alpha         = src->hdr.alpha;
+typedef struct _InputStreamFile {
+    InputStream* input;
+    long current;
+} InputStreamFile;
+
+int tga_input_stream_getc(TGA* tga) {
+    InputStreamFile* isf = (InputStreamFile*)tga->fd;
+    InputStream* input = (InputStream*)isf->input;
+
+    int rt = input->read();
+    isf->current++;
+    return rt;
 }
 
-int tga_stream_getc(TGA* tga) {
-    InputStream* input = (InputStream*)tag->fd;
-    return input->read();
+size_t tga_input_stream_read(TGA* tga, void* buffer, size_t size, size_t count) {
+    InputStreamFile* isf = (InputStreamFile*)tga->fd;
+    InputStream* input = (InputStream*)isf->input;
+
+    int rt = input->read((byte*)buffer, size, 0, size);
+    isf->current += size;
+    return rt;
 }
 
-size_t tga_stream_read(TGA* tga, void* buffer, size_t size, size_t count)
-{
-    return tga->freadFunc ? tga->freadFunc(tga, buffer, size, count) : fread(buffer, size, count, (FILE*)tga->fd);
+void tga_input_stream_seek(TGA* tga, long offset, int origin) {
+    InputStreamFile* isf = (InputStreamFile*)tga->fd;
+    InputStream* input = (InputStream*)isf->input;
+
+    int count = offset - isf->current;
+
+    byte* buffer = (byte*)malloc(count);
+    input->read(buffer, count, 0, count);
+    free(buffer);
+
+    isf->current += count;
 }
 
-int tga_fputc(TGA* tga, int c)
-{
-    return tga->fputcFunc ? tga->fputcFunc(tga, c) : fputc(c, (FILE*)tga->fd);
+long tga_input_stream_tell(TGA* tga) {
+    InputStreamFile* isf = (InputStreamFile*)tga->fd;
+    return isf->current;
 }
 
-size_t tga_fwrite(TGA* tga, const void* buffer, size_t size, size_t count)
-{
-    return tga->fwriteFunc ? tga->fwriteFunc(tga, buffer, size, count) : fwrite(buffer, size, count, (FILE*)tga->fd);
+void copy_colormap32bit_8bit_data(BufferedImage* image, TGA* tga, TGAData* data) {
+    int width = tga->hdr.width;
+    int height = tga->hdr.height;
+
+    tbyte* colorMap = data->cmap;
+
+    for (int i=0; i<height; i++) {
+        for (int j=0; i<width; i++) {
+            int index = data->img_data[i * width + j];
+            tbyte* color = &colorMap[index * 3];
+
+            image->setRed(i + 1, j + 1, (int)color[0]);
+            image->setGreen(i + 1, j + 1, (int)color[1]);
+            image->setBlue(i + 1, j + 1, (int)color[2]);
+        }
+    }
 }
 
-void tga_fseek(TGA* tga, long offset, int origin)
-{
-    tga->fseekFunc ? tga->fseekFunc(tga, offset, origin) : fseek((FILE*)tga->fd, offset, origin);
-}
+void copy_colormap32bit_16bit_data(BufferedImage* image, TGA* tga, TGAData* data) {
+    int width = tga->hdr.width;
+    int height = tga->hdr.height;
 
-long tga_ftell(TGA* tga)
-{
-    return tga->ftellFunc ? tga->ftellFunc(tga) : ftell((FILE*)tga->fd);
+    tbyte* colorMap = data->cmap;
+
+    for (int i=0; i<height; i++) {
+        for (int j=0; i<width; i++) {
+            int index = data->img_data[i * width * 2 + j] + data->img_data[i * width * 2 + j + 1] * 256;
+            tbyte* color = &colorMap[index * 3];
+
+            image->setRed(i + 1, j + 1, color[0]);
+            image->setGreen(i + 1, j + 1, color[1]);
+            image->setBlue(i + 1, j + 1, color[2]);
+        }
+    }
 }
 
 BufferedImage* TGAImageReader::read(InputStream* input) throw(IOException*) {
     TGA *in;
     TGAData *data;
-    int encode;
 
+    // malloc buffer
     data = (TGAData*)malloc(sizeof(TGAData));
     if(!data) {
-        TGA_ERROR((TGA*)NULL, TGA_OOM);
-        return 0;
+        throw new IOException("error in malloc tag data!");
     }
 
-    in = TGAOpenUserDef(input, );
-    if (in != NULL) {
-        throw new IOException("error in open tga!");
+    // open tag stream
+    InputStreamFile isf;
+    isf.input = input;
+    isf.current = 0;
+
+    in = TGAOpenUserDef(&isf, tga_input_stream_getc, tga_input_stream_read, 
+        NULL, NULL, 
+        tga_input_stream_seek, tga_input_stream_tell);
+    if (in == NULL) {
+        throw new IOException("error in open tga to read!");
     }
 
+    // read tag data
     data->flags = TGA_IMAGE_ID | TGA_IMAGE_DATA | TGA_RGB;
     TGAReadImage(in, data);
-
     if (in->last != TGA_OK) {
-        TGA_ERROR(in, in->last);
-        return 0;
+        throw new IOException("error in read tga data!");
     }
 
-    make_header(in, out);
+    BufferedImage* image = null;
 
-    TGAWriteImage(out, data);
-    if (out->last != TGA_OK) {
-        TGA_ERROR(out, out->last);
-        return 0;
+    if (in->hdr.depth == 8) {
+        if (TGA_IS_MAPPED(in)) {
+            image = new BufferedImage(in->hdr.width, in->hdr.height, ColorModel::TYPE_24_RGB);
+            copy_colormap32bit_8bit_data(const_cast<BufferedImage*>(image), in, data);
+        } else {
+            throw new IOException("not support tga color depth 8!");
+        }
+    } else if (in->hdr.depth == 16) {
+        if (TGA_IS_MAPPED(in)) {
+            image = new BufferedImage(in->hdr.width, in->hdr.height, ColorModel::TYPE_24_RGB);
+            copy_colormap32bit_16bit_data(const_cast<BufferedImage*>(image), in, data);
+        } else {
+            throw new IOException("not support tga color depth 16!");
+        }
+    } else if (in->hdr.depth == 24) {
+        image = new BufferedImage(in->hdr.width, in->hdr.height, ColorModel::TYPE_24_RGB);
+        byte* dest = const_cast<byte*>(image->getRawData());
+        memcpy(dest, data->img_data, in->hdr.width * in->hdr.height * 3);
+    } else if (in->hdr.depth == 32) {
+        image = new BufferedImage(in->hdr.width, in->hdr.height, ColorModel::TYPE_32_RGBA);
+        byte* dest = const_cast<byte*>(image->getRawData());
+        memcpy(dest, data->img_data, in->hdr.width * in->hdr.height * 4);
+    } else {
+        throw new IOException("not support tga color depth!");
     }
 
-    printf("[close]\n[close]\n");
-        TGAClose(in);
-    TGAClose(out);
+    TGAClose(in);
 
-        printf("[exit] main\n");
-
-    return EXIT_SUCCESS;  
+    return image;
 }

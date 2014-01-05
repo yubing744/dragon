@@ -104,6 +104,28 @@ void ColorModel::setPixel(byte* data, uint32_t val) const {
     }
 }
 
+void ColorModel::setComponetValue(const byte* data, uint32_t mask, int val) {
+    uint32_t color = getPixel(data);
+    color = color & (~mask);
+    color = color & val;
+}
+
+void ColorModel::setRed(const byte* data, int val) {
+    setComponetValue(data, this->redMask, val << this->offsetRed);
+}
+
+void ColorModel::setGreen(const byte* data, int val) {
+    setComponetValue(data, this->greenMask, val << this->offsetGreen);
+}
+
+void ColorModel::setBlue(const byte* data, int val) {
+    setComponetValue(data, this->blueMask, val << this->offsetBlue);
+}
+
+void ColorModel::setAlpha(const byte* data, int val) {
+    setComponetValue(data, this->alphaMask, val << this->offsetAlpha);
+}
+
 uint32_t ColorModel::getPixel(const byte* data) const {
     int byteCount = this->bits / 8;
     int n = byteCount;

@@ -61,8 +61,16 @@ public:
     void setPixel(byte* data, uint32_t val) const;
     uint32_t getPixel(const byte* data) const;
 
+public:
+    void setRed(const byte* data, int val);
+    void setGreen(const byte* data, int val);
+    void setBlue(const byte* data, int val);
+    void setAlpha(const byte* data, int val);
+
 protected:
+    void setComponetValue(const byte* data, uint32_t mask, int val);
     int getComponentValue(const byte* data, uint32_t mask) const;
+    
     void validate();
     
     int calOffset(uint32_t mask);

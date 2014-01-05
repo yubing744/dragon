@@ -204,7 +204,7 @@ TGAReadColorMap (TGA 	  *tga,
 		return 0;
 	}
 
-	if ((read = TGARead(tga, *buf, n, 1)) != 1) {
+	if ((read = TGARead(tga, *buf, n, 1)) != n) {
 		TGA_ERROR(tga, TGA_READ_FAIL);
 		return 0;
 	}	

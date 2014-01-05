@@ -47,7 +47,12 @@ int TGAWriteImage(TGA 	  *tga,
 			TGA_ERROR(tga, tga->last);
 			tga->hdr.id_len = 0;
 		}
-	}	
+	}
+
+	if (TGAWriteHeader(tga) != TGA_OK) {
+		TGA_ERROR(tga, tga->last);
+	}
+
 	if (data->flags & TGA_IMAGE_DATA) {
 		if (data->cmap) {
 			if (!TGAWriteColorMap(tga, data->cmap, data->flags)) {
@@ -66,10 +71,6 @@ int TGAWriteImage(TGA 	  *tga,
 			TGA_ERROR(tga, tga->last);
 			tga->hdr.img_t = 0;
 		}
-	}
-	
-	if (TGAWriteHeader(tga) != TGA_OK) {
-		TGA_ERROR(tga, tga->last);
 	}
 	
 	return tga->last;
