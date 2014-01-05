@@ -43,9 +43,9 @@ BufferedImage* ImageIO::read(const InputStream* input, const String& formatType)
 
     if (reader != null) {
         return reader->read(const_cast<InputStream*>(input));
+    } else {
+        throw new IOException("not found support reader!");
     }
-
-    return null;
 }
 
 void ImageIO::write(const RenderedImage* image, const String& formatType, const OutputStream* output) throw(IOException*) {
@@ -53,5 +53,7 @@ void ImageIO::write(const RenderedImage* image, const String& formatType, const 
 
     if (writer != null) {
         writer->write(image, const_cast<OutputStream*>(output));
-    } 
+    } else {
+        throw new IOException("not found support writer!");
+    }
 }

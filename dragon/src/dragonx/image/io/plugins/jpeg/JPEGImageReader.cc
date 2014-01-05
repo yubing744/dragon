@@ -164,7 +164,7 @@ BufferedImage* JPEGImageReader::read(InputStream* input) throw(IOException*) {
     struct jpeg_decompress_struct cinfo;
     struct my_error_mgr jerr;
 
-    JSAMPARRAY buffer;    /* Output row buffer */
+    JSAMPROW row_pointer[1] = {0};   /* Output row buffer */
     int row_stride;       /* physical row width in output buffer */
 
     do {
@@ -192,18 +192,29 @@ BufferedImage* JPEGImageReader::read(InputStream* input) throw(IOException*) {
         jpeg_start_decompress(&cinfo);
 
         row_stride = cinfo.output_width * cinfo.output_components;
-        buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
+        row_pointer[0] = (JSAMPLE*)malloc(row_stride);
 
-        BufferedImage* image = new BufferedImage(cinfo.output_width, cinfo.output_height, ColorModel::TYPE_24_RGB);
-        const byte* dest = image->getRawData();
-        byte* p = const_cast<byte*>(dest);
+        int width = cinfo.output_width;
+        int height = cinfo.output_height;
 
-        while (cinfo.output_scanline < cinfo.output_height) {
-            jpeg_read_scanlines(&cinfo, buffer, 1);
-            memcpy(p, buffer[0], row_stride);
-            p += row_stride;
+        BufferedImage* image = new BufferedImage(width, height, ColorModel::TYPE_24_RGB);
+
+        while (cinfo.output_scanline < height) {
+            jpeg_read_scanlines(&cinfo, row_pointer, 1);
+
+            const byte* rowData = (byte*)row_pointer[0];
+
+            int row = cinfo.image_height - cinfo.output_scanline - 1;
+
+            for (int col=0; col<width; col++) {
+                image->setRed(col, row, rowData[col * 3]);
+                image->setGreen(col, row, rowData[col * 3 + 1]);
+                image->setBlue(col, row, rowData[col * 3 + 2]);
+            }
         }
 
+        free(row_pointer[0]);
+        
         jpeg_finish_decompress(&cinfo);
         jpeg_destroy_decompress(&cinfo);
 

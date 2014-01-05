@@ -294,6 +294,94 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteJPEG) {
     SafeDelete(outputPath);
 }
 
+TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteJPEG02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_jpg_02.jpg");
+    String* outputPath = new String(L"/dragon_test/image_test/write_jpeg_10.jpg");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "JPEG");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "JPEG", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteTGA02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_jpg_02.jpg");
+    String* outputPath = new String(L"/dragon_test/image_test/write_tga_10.jpg");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "JPEG");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "TGA", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
 TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteBMP) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_jpeg_01.jpg");
@@ -515,6 +603,52 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteTGA) {
     SafeDelete(outputPath);
 }
 
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteTGA_02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_tga_01.tga");
+    String* outputPath = new String(L"/dragon_test/image_test/write_tga_02.tga");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "TGA");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "TGA", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
+
 TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_tga_02.tga");
@@ -559,4 +693,137 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG) {
     SafeDelete(outputPath);
 }
 
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_tga_01.tga");
+    String* outputPath = new String(L"/dragon_test/image_test/write_jpg_07.jpg");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "TGA");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "JPEG", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadPngAndWritePng02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_png_02.png");
+    String* outputPath = new String(L"/dragon_test/image_test/write_png_02.png");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "PNG");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "PNG", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
+
+
+TEST(Dragonx_Image_IO_ImageIOTest, ReadPngAndWriteJPG02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/image_test/read_png_02.png");
+    String* outputPath = new String(L"/dragon_test/image_test/write_jpg_12.jpg");
+
+    File* file = new File(base, filePath);
+    File* outFile = new File(base, outputPath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+        FileOutputStream* fos = new FileOutputStream(outFile);
+
+        BufferedImage* image = ImageIO::read(fis, "PNG");
+        ASSERT_TRUE(image != null);
+
+        ImageIO::write(image, "JPEG", fos);
+
+        SafeDelete(fis);
+        SafeDelete(fos);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+
+    SafeDelete(outFile);
+    SafeDelete(outputPath);
+}
 

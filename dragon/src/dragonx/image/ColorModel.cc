@@ -106,8 +106,11 @@ void ColorModel::setPixel(byte* data, uint32_t val) const {
 
 void ColorModel::setComponetValue(const byte* data, uint32_t mask, int val) {
     uint32_t color = getPixel(data);
+
     color = color & (~mask);
-    color = color & val;
+    color = color | val;
+
+    setPixel(const_cast<byte*>(data), color);
 }
 
 void ColorModel::setRed(const byte* data, int val) {

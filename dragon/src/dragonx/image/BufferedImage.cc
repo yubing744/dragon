@@ -71,7 +71,7 @@ const byte* BufferedImage::getPixelData(int index) const {
 }
 
 const byte* BufferedImage::getPixelData(int x, int y) const {
-    int index = (this->getWidth() * (y - 1)) + (x - 1);
+    int index = (this->getWidth() * y) + x;
     return getPixelData(index);
 }
 

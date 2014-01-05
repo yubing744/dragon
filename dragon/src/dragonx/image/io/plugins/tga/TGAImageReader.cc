@@ -92,13 +92,13 @@ void copy_colormap32bit_8bit_data(BufferedImage* image, TGA* tga, TGAData* data)
     tbyte* colorMap = data->cmap;
 
     for (int i=0; i<height; i++) {
-        for (int j=0; i<width; i++) {
+        for (int j=0; j<width; j++) {
             int index = data->img_data[i * width + j];
             tbyte* color = &colorMap[index * 3];
 
-            image->setRed(i + 1, j + 1, (int)color[0]);
-            image->setGreen(i + 1, j + 1, (int)color[1]);
-            image->setBlue(i + 1, j + 1, (int)color[2]);
+            image->setRed(j, i, color[0]);
+            image->setGreen(j, i, color[1]);
+            image->setBlue(j, i, color[2]);
         }
     }
 }
@@ -110,13 +110,13 @@ void copy_colormap32bit_16bit_data(BufferedImage* image, TGA* tga, TGAData* data
     tbyte* colorMap = data->cmap;
 
     for (int i=0; i<height; i++) {
-        for (int j=0; i<width; i++) {
+        for (int j=0; j<width; j++) {
             int index = data->img_data[i * width * 2 + j] + data->img_data[i * width * 2 + j + 1] * 256;
             tbyte* color = &colorMap[index * 3];
 
-            image->setRed(i + 1, j + 1, color[0]);
-            image->setGreen(i + 1, j + 1, color[1]);
-            image->setBlue(i + 1, j + 1, color[2]);
+            image->setRed(j, i, color[0]);
+            image->setGreen(j, i, color[1]);
+            image->setBlue(j, i, color[2]);
         }
     }
 }

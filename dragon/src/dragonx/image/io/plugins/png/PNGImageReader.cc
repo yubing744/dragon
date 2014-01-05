@@ -158,7 +158,7 @@ BufferedImage* PNGImageReader::read(InputStream* input) throw(IOException*) {
 
         for(unsigned short i = 0; i < height; i++) { 
             for(unsigned int j = 0; j < rowbytes; j += 4) { 
-                *tmp++ = RGB_PREMULTIPLY_APLHA( row_pointers[i][j], row_pointers[i][j + 1],  
+                *tmp++ = RGB_PREMULTIPLY_APLHA(row_pointers[i][j], row_pointers[i][j + 1],  
                                                   row_pointers[i][j + 2], row_pointers[i][j + 3] ); 
             } 
         } 

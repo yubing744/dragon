@@ -160,10 +160,14 @@ void JPEGImageWriter::write(const RenderedImage* image, OutputStream* output) th
   while (cinfo.next_scanline < cinfo.image_height) {
       JSAMPLE* sample = (JSAMPLE*)malloc(row_stride);
 
+      int row = cinfo.image_height - cinfo.next_scanline - 1;
+
       for(int i=0; i<imageWidth; i++) {
-          sample[i * 3] = (JSAMPLE)image->getRed(i + 1, cinfo.next_scanline + 1);
-          sample[i * 3 + 1] = (JSAMPLE)image->getGreen(i + 1, cinfo.next_scanline + 1);
-          sample[i * 3 + 2] = (JSAMPLE)image->getBlue(i + 1, cinfo.next_scanline + 1);
+          int col = i;
+
+          sample[i * 3] = (JSAMPLE)image->getRed(col, row);
+          sample[i * 3 + 1] = (JSAMPLE)image->getGreen(col, row);
+          sample[i * 3 + 2] = (JSAMPLE)image->getBlue(col, row);
       }
 
       jpeg_write_scanlines(&cinfo, &sample, 1);

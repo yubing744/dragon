@@ -57,8 +57,6 @@ int TGAWriteImage(TGA 	  *tga,
 		if (data->cmap) {
 			tga->hdr.img_t = 1;
 			tga->hdr.map_t = 1;
-		} else {
-			tga->hdr.map_t = 0;
 		}
 
 		if (data->flags & TGA_RLE_ENCODE) {
@@ -232,9 +230,10 @@ TGAWriteRLE(TGA   *tga,
 				direct = 0;
 				repeat = 1;
 			} else {
-			      repeat += 1;
+			    repeat += 1;
 			}
 		}
+
 		if (repeat == 128) {
 			tga_fputc(tga, 255);
 			tga_fwrite(tga, from, bytes, 1);
@@ -248,6 +247,7 @@ TGAWriteRLE(TGA   *tga,
 			direct = 0;
 			repeat = 0;
 		}
+
 		buf += bytes;
 	}
 
@@ -298,6 +298,7 @@ TGAWriteScanlines(TGA 	  *tga,
 	} else {
 		wrote = TGAWrite(tga, buf, sln_size, n);
 	}
+
 	if (wrote != n) {
 		TGA_ERROR(tga, TGA_WRITE_FAIL);
 		return wrote;
