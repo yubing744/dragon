@@ -17,26 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/05
+ * Created:     2014/01/06
  **********************************************************************/
 
 
-#ifndef AudioReader_Io_Audio_Dragonx_H
-#define AudioReader_Io_Audio_Dragonx_H
+#include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
+#include <dragon/util/logging/Logger.h>
 
-#include <dragon/config.h>
+Import dragonx::audio::io::plugins::wav;
+Import dragon::util::logging;
 
-BeginPackage3(dragonx, audio, io)
+const Type* WavAudioReader::TYPE = TypeOf<WavAudioReader>();
+static Logger* logger = Logger::getLogger(WavAudioReader::TYPE, ERROR);
 
-interface_ AudioReader {
-public:
-    virtual ~AudioReader(){};
+WavAudioReader::WavAudioReader() {
 
-public:
-    virtual AudioClip* read(const InputStream* input) const = 0;
+}
 
-};//AudioReader
+WavAudioReader::~WavAudioReader() {
 
-EndPackage3 //(dragonx, audio, io)
-
-#endif //AudioReader_Io_Audio_Dragonx_H
+}

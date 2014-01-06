@@ -17,26 +17,45 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/05
+ * Created:     2014/01/06
  **********************************************************************/
 
 
-#ifndef AudioReader_Io_Audio_Dragonx_H
-#define AudioReader_Io_Audio_Dragonx_H
+#ifndef AudioClipIORegistry_Spi_Io_Audio_Dragonx_H
+#define AudioClipIORegistry_Spi_Io_Audio_Dragonx_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-BeginPackage3(dragonx, audio, io)
+BeginPackage4(dragonx, audio, io, spi)
 
-interface_ AudioReader {
+Import dragon::lang;
+
+class_ AudioClipIORegistry extends(Object) {
 public:
-    virtual ~AudioReader(){};
+    static const Type* TYPE;
+
+private:
+    static AudioClipIORegistry* singleton;
+public:
+    static AudioClipIORegistry* getInstance();
 
 public:
-    virtual AudioClip* read(const InputStream* input) const = 0;
+    AudioClipIORegistry();
+    virtual ~AudioClipIORegistry();
 
-};//AudioReader
+protected:
+    void init();
 
-EndPackage3 //(dragonx, audio, io)
+public:
+    void registerAudioReader(const String& audioType, AudioReader* reader);
+    
+    const AudioReader* getAudioReader(const String& audioType);
 
-#endif //AudioReader_Io_Audio_Dragonx_H
+protected:
+    Map<String, AudioReader>* readerMap;
+};//AudioClipIORegistry
+
+EndPackage4 //(dragonx, audio, io, spi)
+
+#endif //AudioClipIORegistry_Spi_Io_Audio_Dragonx_H

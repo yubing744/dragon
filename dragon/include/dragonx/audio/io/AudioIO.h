@@ -17,25 +17,33 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/05
+ * Created:     2014/01/07
  **********************************************************************/
 
 
-#ifndef AudioWriter_Io_Audio_Dragonx_H
-#define AudioWriter_Io_Audio_Dragonx_H
+#ifndef AudioIO_Io_Audio_Dragonx_H
+#define AudioIO_Io_Audio_Dragonx_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage3(dragonx, audio, io)
 
-interface_ AudioWriter {
+Import dragon::lang;
+
+class_ AudioIO extends(Object) {
 public:
-    virtual ~AudioWriter(){};
+    static const Type* TYPE;
 
 public:
+    static AudioClip* read(const InputStream* input, const String& audioType) const;
     
-};//AudioWriter
+public:
+    AudioIO();
+    virtual ~AudioIO();
+        
+};//AudioIO
 
 EndPackage3 //(dragonx, audio, io)
 
-#endif //AudioWriter_Io_Audio_Dragonx_H
+#endif //AudioIO_Io_Audio_Dragonx_H

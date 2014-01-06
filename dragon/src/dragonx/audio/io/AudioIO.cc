@@ -17,26 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/05
+ * Created:     2014/01/07
  **********************************************************************/
 
 
-#ifndef AudioReader_Io_Audio_Dragonx_H
-#define AudioReader_Io_Audio_Dragonx_H
+#include <dragonx/audio/io/AudioIO.h>
+#include <dragon/util/logging/Logger.h>
 
-#include <dragon/config.h>
+Import dragonx::audio::io;
+Import dragon::util::logging;
 
-BeginPackage3(dragonx, audio, io)
+const Type* AudioIO::TYPE = TypeOf<AudioIO>();
+static Logger* logger = Logger::getLogger(AudioIO::TYPE, ERROR);
 
-interface_ AudioReader {
-public:
-    virtual ~AudioReader(){};
+AudioIO::AudioIO() {
 
-public:
-    virtual AudioClip* read(const InputStream* input) const = 0;
+}
 
-};//AudioReader
+AudioIO::~AudioIO() {
 
-EndPackage3 //(dragonx, audio, io)
-
-#endif //AudioReader_Io_Audio_Dragonx_H
+}

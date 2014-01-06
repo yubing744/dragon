@@ -17,26 +17,38 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/05
+ * Created:     2014/01/06
  **********************************************************************/
 
 
-#ifndef AudioReader_Io_Audio_Dragonx_H
-#define AudioReader_Io_Audio_Dragonx_H
+#ifndef AudioClip_Audio_Dragonx_H
+#define AudioClip_Audio_Dragonx_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-BeginPackage3(dragonx, audio, io)
+BeginPackage2(dragonx, audio)
 
-interface_ AudioReader {
+Import dragon::lang;
+
+class_ AudioClip extends(Object) {
 public:
-    virtual ~AudioReader(){};
+    static const Type* TYPE;
+    
+public:
+    AudioClip();
+    virtual ~AudioClip();
 
 public:
-    virtual AudioClip* read(const InputStream* input) const = 0;
+    AudioFormat* getAudioFormat() const;
+    const byte* getAudioData() const;
+    int getAudioDataSize() const;
 
-};//AudioReader
+protected:
+    AudioFormat* format; 
+    byte* data;
+};//AudioClip
 
-EndPackage3 //(dragonx, audio, io)
+EndPackage2 //(dragonx, audio)
 
-#endif //AudioReader_Io_Audio_Dragonx_H
+#endif //AudioClip_Audio_Dragonx_H
