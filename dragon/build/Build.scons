@@ -369,11 +369,13 @@ if os.path.exists(target_config_file):
 THIRD_PARTY_SOURCE_ROOT = '../third_party'
 
 # zip lib
-LibraryModule(name                  = 'z',
-              source_root           = THIRD_PARTY_SOURCE_ROOT,
-              build_source_dirs     = ['zlib-1.2.3'],
-              shared                = True,
-              install               = True)
+LibraryModule(
+    name                  = 'z',
+    source_root           = THIRD_PARTY_SOURCE_ROOT,
+    build_source_dirs     = ['zlib-1.2.3'],
+    shared                = False,
+    install               = True
+)
 
 # pcre lib
 libpcre_SOURCES = Split("""
@@ -465,9 +467,9 @@ LibraryModule(
         'LINK_SIZE=4', 
         'HAVE_STRERROR'
 
-        #'PCRE_STATIC'
+        'PCRE_STATIC'
     ],     
-    shared                = env['SHARED'],                    
+    shared                = False,                    
     install               = True
 )
 
@@ -612,6 +614,115 @@ LibraryModule(
         "src" : libtga_SOURCES
     },    
     extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+# lib ogg
+libogg_SOURCES = Split("""
+    framing.c bitwise.c
+""")
+
+LibraryModule(
+    name                  = 'ogg',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libogg-1.3.1",
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libogg-1.3.1/include",
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "src" : libogg_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
+
+# lib vorbis
+vorbis_SOURCES = Split("""
+    mdct.c smallft.c block.c envelope.c window.c lsp.c \
+    lpc.c analysis.c synthesis.c psy.c info.c \
+    floor1.c floor0.c\
+    res0.c mapping0.c registry.c codebook.c sharedbook.c\
+    lookup.c bitrate.c\
+    envelope.h lpc.h lsp.h codebook.h misc.h psy.h\
+    masking.h os.h mdct.h smallft.h highlevel.h\
+    registry.h scales.h window.h lookup.h lookup_data.h\
+    codec_internal.h backends.h bitrate.h
+""")
+
+LibraryModule(
+    name                  = 'vorbis',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/libvorbis-1.3.3",
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/libvorbis-1.3.3/include",
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "lib" : vorbis_SOURCES
+    },    
+    extra_cpp_defines     = [],   
+    included_modules      = ["ogg"], 
+    shared                = False,                    
+    install               = True
+)
+
+# lib mpg123
+mpg123_SOURCES = Split("""
+    intsym.h \
+    compat.c \
+    compat.h \
+    mpeghead.h \
+    parse.c \
+    parse.h \
+    frame.c \
+    format.c \
+    frame.h \
+    reader.h \
+    debug.h \
+    decode.h \
+    sample.h \
+    dct64.c \
+    synth.h \
+    synth_mono.h \
+    synth_ntom.h \
+    synth_8bit.h \
+    synths.h \
+    equalizer.c \
+    huffman.h \
+    newhuffman.h \
+    icy.h \
+    icy2utf8.h \
+    id3.h \
+    id3.c \
+    true.h \
+    getbits.h \
+    optimize.h \
+    optimize.c \
+    readers.c \
+    tabinit.c \
+    libmpg123.c \
+    gapless.h \
+    mpg123lib_intern.h \
+    abi_align.h \
+    mangle.h \
+    getcpuflags.h \
+    index.h \
+    index.c
+""")
+
+LibraryModule(
+    name                  = 'mpg123',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.17.0",
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.17.0/src/libmpg123",
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "src/libmpg123" : mpg123_SOURCES
+    },    
+    extra_cpp_defines     = [], 
     shared                = False,                    
     install               = True
 )
@@ -831,7 +942,8 @@ LibraryModule(
     source_root           = 'src',
     included_modules      = [
         "pcre32", "unicode", "json", "tinyxml2", 
-        "z", "jpeg", "png", "gif", "tga"], 
+        "z", "jpeg", "png", "gif", "tga"
+    ], 
     linked_modules        = env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True

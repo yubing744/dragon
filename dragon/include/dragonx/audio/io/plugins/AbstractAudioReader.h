@@ -17,27 +17,37 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/06
+ * Created:     2014/01/07
  **********************************************************************/
 
 
-#include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
-#include <dragon/util/logging/Logger.h>
+#ifndef AbstractAudioReader_Plugins_Io_Audio_Dragonx_H
+#define AbstractAudioReader_Plugins_Io_Audio_Dragonx_H
 
-Import dragonx::audio::io::plugins::wav;
-Import dragon::util::logging;
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-const Type* WavAudioReader::TYPE = TypeOf<WavAudioReader>();
-static Logger* logger = Logger::getLogger(WavAudioReader::TYPE, ERROR);
+#include <dragonx/audio/io/AudioReader.h>
 
-WavAudioReader::WavAudioReader() {
+BeginPackage4(dragonx, audio, io, plugins)
 
-}
+Import dragon::lang;
+Import dragonx::audio::io;
 
-WavAudioReader::~WavAudioReader() {
-
-}
-
-AudioClip* WavAudioReader::read(const InputStream* input) const {
+class_ AbstractAudioReader extends(Object) 
+    implements1(AudioReader) {
+public:
+    static const Type* TYPE;
     
-}
+public:
+    AbstractAudioReader();
+    virtual ~AbstractAudioReader();
+
+public:
+    virtual AudioClip* read(const InputStream* input) const;
+    
+};//AbstractAudioReader
+
+EndPackage4 //(dragonx, audio, io, plugins)
+
+#endif //AbstractAudioReader_Plugins_Io_Audio_Dragonx_H

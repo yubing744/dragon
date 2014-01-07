@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 
 BeginPackage5(dragonx, audio, io, plugins, wav)
 
 Import dragon::lang;
+Import dragonx::audio::io::plugins;
 
-class_ WavAudioReader extends(Object) {
+class_ WavAudioReader extends(AbstractAudioReader) {
 public:
     static const Type* TYPE;
     
@@ -40,8 +42,7 @@ public:
     virtual ~WavAudioReader();
 
 public:
-    
-protected:
+    virtual AudioClip* read(const InputStream* input) const;
     
 };//WavAudioReader
 

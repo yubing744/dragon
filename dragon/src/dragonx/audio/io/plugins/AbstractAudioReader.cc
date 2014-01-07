@@ -17,27 +17,27 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/06
+ * Created:     2014/01/07
  **********************************************************************/
 
 
-#include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
+#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 #include <dragon/util/logging/Logger.h>
 
-Import dragonx::audio::io::plugins::wav;
+Import dragonx::audio::io::plugins;
 Import dragon::util::logging;
 
-const Type* WavAudioReader::TYPE = TypeOf<WavAudioReader>();
-static Logger* logger = Logger::getLogger(WavAudioReader::TYPE, ERROR);
+const Type* AbstractAudioReader::TYPE = TypeOf<AbstractAudioReader>();
+static Logger* logger = Logger::getLogger(AbstractAudioReader::TYPE, ERROR);
 
-WavAudioReader::WavAudioReader() {
-
-}
-
-WavAudioReader::~WavAudioReader() {
+AbstractAudioReader::AbstractAudioReader() {
 
 }
 
-AudioClip* WavAudioReader::read(const InputStream* input) const {
-    
+AbstractAudioReader::~AbstractAudioReader() {
+
+}
+
+AudioClip* AbstractAudioReader::read(const InputStream* input) const {
+    return null;
 }
