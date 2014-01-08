@@ -37,16 +37,26 @@ public:
     
 public:
     AudioClip();
+    AudioClip(const AudioFormat* format);
+    AudioClip(const AudioFormat* format, byte* data, size_t size);
+
     virtual ~AudioClip();
 
 public:
-    AudioFormat* getAudioFormat() const;
+    const AudioFormat* getAudioFormat() const;
+
     const byte* getAudioData() const;
     int getAudioDataSize() const;
 
+    void setAudioFormat(const AudioFormat* format);
+    void setAudioData(byte* data, size_t size);
+
 protected:
-    AudioFormat* format; 
+    AudioFormat* format;
+
     byte* data;
+    size_t size;
+
 };//AudioClip
 
 EndPackage2 //(dragonx, audio)

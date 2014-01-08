@@ -47,6 +47,11 @@ public:
     virtual void close() throw(IOException*) = 0;
 
 public:
+    virtual void mark(int readlimit);
+    virtual void reset() throw(IOException*);
+    virtual bool markSupported();
+
+public:
     virtual int read() throw(IOException*);
     virtual int read(byte* b, int num) throw(IOException*);
 };

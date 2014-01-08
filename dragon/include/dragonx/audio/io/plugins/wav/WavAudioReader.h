@@ -20,7 +20,6 @@
  * Created:     2014/01/06
  **********************************************************************/
 
-
 #ifndef WavAudioReader_Wav_Plugins_Io_Audio_Dragonx_H
 #define WavAudioReader_Wav_Plugins_Io_Audio_Dragonx_H
 

@@ -15,6 +15,7 @@
 */
 
 #include <dragon/io/InputStream.h>
+#include <dragon/lang/UnsupportedOperationException.h>
 
 Import dragon::lang;
 Import dragon::io;
@@ -32,4 +33,16 @@ int InputStream::read() throw(IOException*) {
 	} else {
 		return -1;
 	}
+}
+
+void InputStream::mark(int readlimit) {
+    throw new UnsupportedOperationException("this input stream not support mark!");
+}
+
+void InputStream::reset() throw(IOException*) {
+    throw new UnsupportedOperationException("this input stream not support mark!");
+}
+
+bool InputStream::markSupported() {
+    return false;
 }

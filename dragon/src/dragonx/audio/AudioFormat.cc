@@ -30,10 +30,72 @@ Import dragon::util::logging;
 const Type* AudioFormat::TYPE = TypeOf<AudioFormat>();
 static Logger* logger = Logger::getLogger(AudioFormat::TYPE, ERROR);
 
-AudioFormat::AudioFormat() {
+AudioFormat::AudioFormat() :
+    sampleRate(0), sampleSizeInBits(0), channels(0), 
+    frameSize(0), frameRate(0), bigEndian(false) {
+
+}
+
+AudioFormat::AudioFormat(const AudioFormat& format) :
+    sampleRate(format.sampleRate), sampleSizeInBits(format.sampleSizeInBits), channels(format.channels), 
+    frameSize(format.frameSize), frameRate(format.frameRate), bigEndian(format.bigEndian) {
+
+}
+
+AudioFormat::AudioFormat(const AudioFormat* format) :
+    sampleRate(format->sampleRate), sampleSizeInBits(format->sampleSizeInBits), channels(format->channels), 
+    frameSize(format->frameSize), frameRate(format->frameRate), bigEndian(format->bigEndian) {
 
 }
 
 AudioFormat::~AudioFormat() {
 
+}
+
+float AudioFormat::getSampleRate() const {
+    return this->sampleRate;
+}
+
+int AudioFormat::getSampleSizeInBits() const {
+    return this->sampleSizeInBits;
+}
+
+int AudioFormat::getChannels() const {
+    return this->channels;
+}
+
+int AudioFormat::getFrameSize() const {
+    return this->frameSize;
+}
+
+float AudioFormat::getFrameRate() const {
+    return this->frameRate;
+}
+
+bool AudioFormat::isBigEndian() const {
+    return bigEndian;
+}
+
+void AudioFormat::setSampleRate(float sampleRate) {
+    this->sampleRate = sampleRate;
+}
+
+void AudioFormat::setSampleSizeInBits(int sampleBitsSize) {
+    this->sampleSizeInBits = sampleBitsSize;
+}
+
+void AudioFormat::setChannels(int channels) {
+    this->channels = channels;
+}
+
+void AudioFormat::setFrameSize(int frameSize) {
+    this->frameSize = frameSize;
+}
+
+void AudioFormat::setFrameRate(int frameRate) {
+    this->frameRate = frameRate;
+}
+
+void AudioFormat::setBigEndian(bool isBigEndian) {
+    this->bigEndian = isBigEndian;
 }

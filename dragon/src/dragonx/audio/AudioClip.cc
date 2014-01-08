@@ -30,10 +30,44 @@ Import dragon::util::logging;
 const Type* AudioClip::TYPE = TypeOf<AudioClip>();
 static Logger* logger = Logger::getLogger(AudioClip::TYPE, ERROR);
 
-AudioClip::AudioClip() {
 
+AudioClip::AudioClip(const AudioFormat* format) {
+    this->format = new AudioFormat(format);
+    this->data = NULL;
+    this->size = 0;
+}
+
+AudioClip::AudioClip(const AudioFormat* format, byte* data, size_t size) {
+    this->format = new AudioFormat(format);
+    this->data = data;
+    this->size = size;
 }
 
 AudioClip::~AudioClip() {
+    SafeDelete(this->format);
 
+    SafeFree(this->data);
+    this->size = 0;
+}
+
+const AudioFormat* AudioClip::getAudioFormat() const {
+    return this->audioFormat;
+}
+
+const byte* AudioClip::getAudioData() const {
+    return this->data;
+}
+
+int AudioClip::getAudioDataSize() const {
+    return this->size;
+}
+
+void AudioClip::setAudioFormat(const AudioFormat* format) {
+    SafeDelete(this->format);
+    this->format = new AudioFormat(format);
+}
+
+void AudioClip::setAudioData(byte* data, size_t size) {
+    this->data = data;
+    this->size = size;
 }

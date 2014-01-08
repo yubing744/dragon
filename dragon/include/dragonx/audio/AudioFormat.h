@@ -37,12 +37,57 @@ public:
     
 public:
     AudioFormat();
+    AudioFormat(const AudioFormat& format);
+    AudioFormat(const AudioFormat* format);
+
     virtual ~AudioFormat();
 
 public:
-    
+    float getSampleRate() const;
+    int getSampleSizeInBits() const;
+    int getChannels() const;
+    int getFrameSize() const;
+    float getFrameRate() const;
+    bool isBigEndian() const;
+
+    void setSampleRate(float sampleRate);
+    void setSampleSizeInBits(int sampleBitsSize);
+    void setChannels(int channels);
+    void setFrameSize(int frameSize);
+    void setFrameRate(int frameRate);
+    void setBigEndian(bool isBigEndian);
+
 protected:
-    
+    /**
+     * The number of samples played or recorded per second, for sounds that have this format.
+     */
+    float sampleRate;
+
+    /**
+     * The number of bits in each sample of a sound that has this format.
+     */
+    int sampleSizeInBits;
+
+    /**
+     * The number of audio channels in this format (1 for mono, 2 for stereo).
+     */
+    int channels;
+
+    /**
+     * The number of bytes in each frame of a sound that has this format.
+     */
+    int frameSize;
+
+    /**
+     * The number of frames played or recorded per second, for sounds that have this format.
+     */
+    float frameRate;
+
+    /**
+     * Indicates whether the audio data is stored in big-endian or little-endian order.
+     */
+    bool bigEndian;
+
 };//AudioFormat
 
 EndPackage2 //(dragonx, audio)
