@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 
 BeginPackage5(dragonx, audio, io, plugins, mp3)
 
 Import dragon::lang;
+Import dragonx::audio::io::plugins;
 
-class_ Mp3AudioReader extends(Object) {
+class_ Mp3AudioReader extends(AbstractAudioReader) {
 public:
     static const Type* TYPE;
     
@@ -40,8 +42,7 @@ public:
     virtual ~Mp3AudioReader();
 
 public:
-    
-protected:
+    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
     
 };//Mp3AudioReader
 

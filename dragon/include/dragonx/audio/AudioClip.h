@@ -26,10 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
+#include <dragonx/audio/AudioFormat.h>
+
 
 BeginPackage2(dragonx, audio)
 
 Import dragon::lang;
+Import dragonx::audio;
 
 class_ AudioClip extends(Object) {
 public:
@@ -43,13 +47,14 @@ public:
     virtual ~AudioClip();
 
 public:
-    const AudioFormat* getAudioFormat() const;
+    AudioFormat* getAudioFormat() const;
 
     const byte* getAudioData() const;
     int getAudioDataSize() const;
 
     void setAudioFormat(const AudioFormat* format);
-    void setAudioData(byte* data, size_t size);
+    void setAudioData(const byte* data, size_t size);
+    void setAudioData(const Array<byte> data);
 
 protected:
     AudioFormat* format;

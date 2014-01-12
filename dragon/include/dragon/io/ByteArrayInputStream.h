@@ -37,13 +37,27 @@ public:
     static const Type* TYPE;
     
 public:
-    ByteArrayInputStream();
+    ByteArrayInputStream(const Array<byte> buf);
+    ByteArrayInputStream(const Array<byte> buf, int offset, int length);
     virtual ~ByteArrayInputStream();
 
 public:
+    virtual wlong_u skip(wlong_u n) throw(IOException*);
+    virtual int read(byte* b, int num, int off, int len) throw(IOException*);
+    virtual void close() throw(IOException*);
+
+public:
+    virtual void mark(int readlimit);
+    virtual void reset() throw(IOException*);
+    virtual bool markSupported();
+    virtual int available();
     
 protected:
-    
+    Array<byte> buf;
+    int pos;
+    int _mark;
+    int count;
+
 };//ByteArrayInputStream
 
 EndPackage2 //(dragon, io)

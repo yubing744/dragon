@@ -26,23 +26,34 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
+#include <dragon/io/OutputStream.h>
 
 BeginPackage2(dragon, io)
 
 Import dragon::lang;
 
-class_ ByteArrayOutputStream extends(Object) {
+class_ ByteArrayOutputStream extends(OutputStream) {
 public:
     static const Type* TYPE;
     
 public:
     ByteArrayOutputStream();
+    ByteArrayOutputStream(int size);
     virtual ~ByteArrayOutputStream();
 
 public:
-    
+    virtual void write(const byte* b, int num, int off, int len) throw(IOException*);
+    virtual void flush() throw(IOException*);
+    virtual void close() throw(IOException*);
+
+public:
+    virtual Array<byte> toByteArray() const;
+    virtual void writeTo(OutputStream* out);
+
 protected:
-    
+    Array<byte> buf;
+    size_t count;
 };//ByteArrayOutputStream
 
 EndPackage2 //(dragon, io)

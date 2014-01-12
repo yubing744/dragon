@@ -24,21 +24,18 @@
 #define IllegalArgumentException_Lang_H
 
 #include <dragon/config.h>
-
+#include <dragon/lang/String.h>
 #include <dragon/lang/RuntimeException.h>
 
 BeginPackage2(dragon, lang)
 
-
-class _DragonExport IllegalArgumentException 
-	:public RuntimeException
-{
+class_ IllegalArgumentException extends(RuntimeException) {
 public:
 	IllegalArgumentException();
-	IllegalArgumentException(String* message);
-	IllegalArgumentException(Throwable* cause);
-	IllegalArgumentException(String* message, Throwable* cause);
-	virtual ~IllegalArgumentException(){};
+	IllegalArgumentException(const String& message);
+	IllegalArgumentException(const String& message, Throwable* cause);
+
+	virtual ~IllegalArgumentException();
 };
 
 EndPackage2//(dragon,lang)

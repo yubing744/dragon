@@ -112,7 +112,7 @@ P<InputStream> ZipFile::getInputStream(P<ZipEntry> entry) throw(IOException)
 String ZipFile::getName()
 {
 	return String(pathName);
-}
+t }
 
 P<List<P<ZipEntry>>> ZipFile::entries()
 {

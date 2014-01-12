@@ -38,6 +38,6 @@ AbstractAudioReader::~AbstractAudioReader() {
 
 }
 
-AudioClip* AbstractAudioReader::read(const InputStream* input) const {
+AudioClip* AbstractAudioReader::read(const InputStream* input) const throw(IOException*) {
     return null;
 }

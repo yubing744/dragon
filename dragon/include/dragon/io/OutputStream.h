@@ -25,11 +25,16 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
+
 #include <dragon/io/Closeable.h>
 #include <dragon/io/Flushable.h>
 #include <dragon/io/IOException.h>
 
 BeginPackage2(dragon, io)
+
+Import dragon::lang;
 
 class _DragonExport OutputStream extends(Object) 
 	implements2(Closeable, Flushable)
@@ -43,8 +48,11 @@ public:
 	virtual void close() throw(IOException*) = 0;
 
 public:
+    virtual void reset();
 	virtual void write(int b) throw(IOException*);
 	virtual void write(const byte* b, int num) throw(IOException*);
+    virtual void write(const Array<byte> b) throw(IOException*);
+    virtual void write(const Array<byte> b, int off, int len) throw(IOException*);
 };
 
 EndPackage2//(dragon, io)

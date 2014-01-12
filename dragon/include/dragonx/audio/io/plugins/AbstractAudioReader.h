@@ -44,7 +44,7 @@ public:
     virtual ~AbstractAudioReader();
 
 public:
-    virtual AudioClip* read(const InputStream* input) const;
+    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
     
 };//AbstractAudioReader
 

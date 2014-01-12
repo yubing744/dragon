@@ -30,10 +30,22 @@ Import dragon::util::logging;
 const Type* AudioIO::TYPE = TypeOf<AudioIO>();
 static Logger* logger = Logger::getLogger(AudioIO::TYPE, ERROR);
 
+AudioClipIORegistry* AudioIO::theRegistry = AudioClipIORegistry::getInstance();
+
 AudioIO::AudioIO() {
 
 }
 
 AudioIO::~AudioIO() {
 
+}
+
+AudioClip* AudioIO::read(const InputStream* input, const String& audioType) {
+    AudioReader* reader = const_cast<AudioReader*>(theRegistry->getAudioReader(audioType));
+
+    if (reader != null) {
+        return reader->read(const_cast<InputStream*>(input));
+    } else {
+        throw new IOException("not found support audio reader!");
+    }
 }

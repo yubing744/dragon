@@ -19,6 +19,10 @@
 Import dragon::lang;
 Import dragon::io;
 
+void OutputStream::reset() {
+
+}
+
 void OutputStream::write(int b) throw(IOException*) {
 	const byte buf[] = {b};
 	this->write(buf, 1, 0, 1);
@@ -26,4 +30,12 @@ void OutputStream::write(int b) throw(IOException*) {
 
 void OutputStream::write(const byte* b, int num) throw(IOException*) {
 	this->write(b, num, 0, num);
+}
+
+void OutputStream::write(const Array<byte> b) throw(IOException*) {
+    this->write(b.raw(), b.length(), 0, b.length());
+}
+
+void OutputStream::write(const Array<byte> b, int off, int len) throw(IOException*) {
+    this->write(b.raw(), b.length(), off, len);
 }

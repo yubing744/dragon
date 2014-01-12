@@ -29,10 +29,12 @@
 
 #define BUFFER_LEN          4096
 
-#include <dragon/lang/UnsupportedOperationException.h>
 #include <dragon/util/logging/Logger.h>
+#include <dragon/io/BufferedInputStream.h>
+#include <dragon/lang/UnsupportedOperationException.h>
 #include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
 
+Import dragon::io;
 Import dragon::lang;
 Import dragon::util::logging;
 Import dragonx::audio::io::plugins::wav;
@@ -49,28 +51,82 @@ WavAudioReader::~WavAudioReader() {
 
 }
 
+typedef struct _StreamContext {
+    InputStream* input;
+    size_t current;
+} StreamContext;
+
 sf_count_t stream_get_filelen(void *user_data) {
-    throw new UnsupportedOperationException("stream_get_filelen not support!");
+    StreamContext* ctx = (StreamContext*)user_data;
+    InputStream* input = ctx->input;
+    return input->available();
+}
+
+long force_skip(InputStream* input, size_t n) {
+    size_t skiped = 0;
+
+    while (skiped < n) {
+        skiped += input->skip(n - skiped);
+    }
+
+    return skiped;
 }
 
 sf_count_t stream_seek(sf_count_t offset, int whence, void *user_data) {
-    throw new UnsupportedOperationException("stream_get_filelen not support!");
+    StreamContext* ctx = (StreamContext*)user_data;
+    InputStream* input = ctx->input;
+
+    if (whence == SEEK_SET) {
+        input->reset();
+
+        if (offset > 0) {
+            force_skip(input, offset);
+        }
+
+        ctx->current = offset;
+
+        return 0;
+    } else if (whence == SEEK_CUR) {
+        if (offset > 0) {
+            force_skip(input, offset);
+            ctx->current += offset;
+        } else {
+            input->reset();
+            force_skip(input, ctx->current + offset);
+            ctx->current = ctx->current + offset;
+        }
+
+        return 0;
+    } else if (whence == SEEK_END) {
+        int available = input->available();
+        force_skip(input, available + offset);
+        ctx->current += (available + offset);
+
+        return 0;
+    } else {
+        return -1;
+    }
 }
 
 sf_count_t stream_read(void *ptr, sf_count_t count, void *user_data) {
-    InputStream* input = (InputStream*)user_data;
-    return input->read(ptr, count);
+    StreamContext* ctx = (StreamContext*)user_data;
+    InputStream* input = ctx->input;
+    size_t read = input->read((byte*)ptr, count);
+    ctx->current += read;
+    return read;
+}
+
+sf_count_t stream_tell(void *user_data) {
+    StreamContext* ctx = (StreamContext*)user_data;
+    return ctx->current;
 }
 
 sf_count_t stream_write(const void *ptr, sf_count_t count, void *user_data) {
     throw new UnsupportedOperationException("stream_write not support!");
 }
 
-sf_count_t stream_tell(void *user_data) {
-    throw new UnsupportedOperationException("stream_tell not support!");
-}
 
-AudioClip* WavAudioReader::read(const InputStream* input) const {
+AudioClip* WavAudioReader::read(const InputStream* input) const throw(IOException*) {
     float buffer[BUFFER_LEN];
 
     AudioClip   *clip;
@@ -81,17 +137,27 @@ AudioClip* WavAudioReader::read(const InputStream* input) const {
 
     int filetype = SF_FORMAT_WAV | SF_FORMAT_PCM_16;
 
+    BufferedInputStream* bis = new BufferedInputStream(const_cast<InputStream*>(input));
+
+    int max = input->available();
+    bis->mark(max + 1);
+
     SF_VIRTUAL_IO vio;
+    memset(&vio, 0, sizeof(SF_VIRTUAL_IO));
 
     vio.get_filelen = stream_get_filelen;
     vio.seek = stream_seek;
     vio.read = stream_read;
-    vio.write = stream_write;
     vio.tell = stream_tell;
+    //vio.write = stream_write;
 
-    if (!(infile = sf_open_virtual(&vio, SFM_READ, &sfinfo, input))) {   
+    StreamContext ctx;
+    ctx.input = bis;
+    ctx.current = 0;
+
+    if (!(infile = sf_open_virtual(&vio, SFM_READ, &sfinfo, (void*)&ctx))) {   
         String* msg = String::format("Error : could not open file : %s", sf_strerror(NULL));
-        IOExceptoin* e = new IOException(msg);
+        IOException* e = new IOException(msg);
         SafeDelete(msg);
 
         throw e;
@@ -119,12 +185,13 @@ AudioClip* WavAudioReader::read(const InputStream* input) const {
     while ((readcount = sf_read_float (infile, buffer, BUFFER_LEN)) > 0) {
         int readByte = readcount * sizeof(float);
         memcpy(wp, (byte*)buffer, readByte);
-        wp += readByte；
+        wp += readByte;
     }
 
     clip->setAudioData(data, size);
 
-    sf_close (infile);
+    SafeDelete(bis);
+    sf_close(infile);
 
     return clip;
 }

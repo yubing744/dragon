@@ -26,10 +26,16 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/String.h>
+#include <dragon/util/Map.h>
+#include <dragonx/audio/io/AudioReader.h>
+
 
 BeginPackage4(dragonx, audio, io, spi)
 
 Import dragon::lang;
+Import dragon::util;
+Import dragonx::audio::io;
 
 class_ AudioClipIORegistry extends(Object) {
 public:

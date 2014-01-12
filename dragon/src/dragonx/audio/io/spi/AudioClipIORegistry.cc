@@ -20,12 +20,19 @@
  * Created:     2014/01/06
  **********************************************************************/
 
-
-#include <dragonx/audio/io/spi/AudioClipIORegistry.h>
+#include <dragon/util/HashMap.h>
 #include <dragon/util/logging/Logger.h>
+#include <dragonx/audio/io/spi/AudioClipIORegistry.h>
+#include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
+#include <dragonx/audio/io/plugins/mp3/Mp3AudioReader.h>
+#include <dragonx/audio/io/plugins/ogg/OggAudioReader.h>
 
-Import dragonx::audio::io::spi;
+Import dragon::util;
 Import dragon::util::logging;
+Import dragonx::audio::io::spi;
+Import dragonx::audio::io::plugins::wav;
+Import dragonx::audio::io::plugins::mp3;
+Import dragonx::audio::io::plugins::ogg;
 
 const Type* AudioClipIORegistry::TYPE = TypeOf<AudioClipIORegistry>();
 static Logger* logger = Logger::getLogger(AudioClipIORegistry::TYPE, ERROR);
@@ -40,7 +47,8 @@ AudioClipIORegistry* AudioClipIORegistry::getInstance() {
     return AudioClipIORegistry::singleton;
 }
 
-AudioClipIORegistry::AudioClipIORegistry() {
+AudioClipIORegistry::AudioClipIORegistry() 
+    :readerMap(new HashMap<String, AudioReader>()) {
     init();
 }
 
@@ -50,13 +58,13 @@ AudioClipIORegistry::~AudioClipIORegistry() {
 
 void AudioClipIORegistry::init() {
     // WAV
-    //registerAudioReader("WAV", new WavAudioReader());
+    registerAudioReader("WAV", new WavAudioReader());
 
     // MP3
-    //registerAudioReader("MP3", new Mp3AudioReader());
+    registerAudioReader("MP3", new Mp3AudioReader());
 
     // OGG
-    //registerAudioReader("OGG", new OggAudioReader());
+    registerAudioReader("OGG", new OggAudioReader());
 }
 
 void AudioClipIORegistry::registerAudioReader(const String& audioType, AudioReader* reader) {

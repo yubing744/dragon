@@ -46,3 +46,7 @@ void InputStream::reset() throw(IOException*) {
 bool InputStream::markSupported() {
     return false;
 }
+
+int InputStream::available() const {
+    return -1;
+}

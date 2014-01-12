@@ -36,13 +36,17 @@ void FileOutputStream::open(bool append) throw(IOException*) {
         f = fopen(utf8Name, "wb");
     }
 
-    SafeDelete(path);
+    if(f != NULL) {
+        SafeDelete(path);
+        this->nativeFileHandle = (void*)f;
+    } else {
+        String* msg = String::format("the file not found, path: %s!", utf8Name.raw());
+        FileNotFoundException* e = new FileNotFoundException(msg);
+        SafeDelete(msg);
+        SafeDelete(path);
 
-    if(f == NULL) {
-        throw new FileNotFoundException("the file not found!");
+        throw e;
     }
-
-    this->nativeFileHandle = (void*)f;
 }
 
 void FileOutputStream::write(const byte* b, int num, int off, int len) throw(IOException*) {

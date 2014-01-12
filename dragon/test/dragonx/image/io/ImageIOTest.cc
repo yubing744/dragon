@@ -42,7 +42,7 @@ Import dragonx::image::io;
 
 Import dragon::util::logging;
 
-static Logger* logger = Logger::getLogger("dragonx::image::io::ImageIOTest", DEBUG);
+static Logger* logger = Logger::getLogger("dragonx::image::io::ImageIOTest", INFO);
 
 TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEG) {
     const String* base = System::getProperty("HOME");

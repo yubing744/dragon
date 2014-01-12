@@ -50,7 +50,8 @@ public:
     virtual void mark(int readlimit);
     virtual void reset() throw(IOException*);
     virtual bool markSupported();
-
+    virtual int available() const;
+    
 public:
     virtual int read() throw(IOException*);
     virtual int read(byte* b, int num) throw(IOException*);

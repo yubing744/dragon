@@ -18,6 +18,7 @@
 #define System_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage2(dragon, lang)
 
@@ -61,6 +62,26 @@ public:
 	 * @return      [description]
 	 */
 	static const String* getProperty(const char* name);
+
+	/**
+	 * copy array data
+	 * 
+	 * @param  name [description]
+	 * @return      [description]
+	 */
+	static native void arraycopy(const byte* src, int srcPos,
+                                        const byte* dest, int destPos,
+                                        int length);
+
+	/**
+	 * copy array data
+	 * 
+	 * @param  name [description]
+	 * @return      [description]
+	 */
+	static native void arraycopy(const Array<byte> src, int srcPos,
+                                        const Array<byte> dest, int destPos,
+                                        int length);
 };
 
 EndPackage2//(dragon, lang)

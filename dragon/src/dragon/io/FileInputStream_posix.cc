@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <dragon/io/FileInputStream.h>
+#include <dragon/io/FileNotFoundException.h>
 
 Import dragon::io;
 
@@ -27,9 +28,15 @@ void FileInputStream::open() throw(IOException*) {
 
     if (f != NULL) {
         this->nativeFileHandle = (void*)f;
-    }
+        SafeDelete(path);
+    } else {
+        String* msg = String::format("the file not found, path: %s!", utf8Name.raw());
+        FileNotFoundException* e = new FileNotFoundException(msg);
+        SafeDelete(msg);
+        SafeDelete(path);
 
-    SafeDelete(path);
+        throw e;
+    }
 }
 
 wlong_u FileInputStream::skip(wlong_u n) throw(IOException*) {
@@ -65,4 +72,21 @@ void FileInputStream::close() throw(IOException*) {
         fclose(f);
         this->nativeFileHandle = NULL;
     }
+}
+
+int FileInputStream::available() throw(IOException*) {
+    FILE* f = (FILE*)this->nativeFileHandle;
+
+    if (f != NULL) {
+        long old = ftell(f);
+
+        fseek(f, 0L, SEEK_END); 
+        long flen = ftell(f); 
+
+        fseek(f, old, SEEK_SET);
+
+        return flen - old;
+    }   
+
+    return 0;
 }

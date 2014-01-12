@@ -24,18 +24,21 @@
 
 Import dragon::lang;
 
-IllegalArgumentException::IllegalArgumentException()
-	:RuntimeException(){
+IllegalArgumentException::IllegalArgumentException() 
+    :RuntimeException() {
+
 }
 
-IllegalArgumentException::IllegalArgumentException(String* message)
-	:RuntimeException(message){
- }
+IllegalArgumentException::IllegalArgumentException(const String& message) 
+    :RuntimeException(message) {
 
-IllegalArgumentException::IllegalArgumentException(Throwable* cause)
-	:RuntimeException(cause){
 }
 
-IllegalArgumentException::IllegalArgumentException(String* message, Throwable* cause)
-	:RuntimeException(message, cause){
+IllegalArgumentException::IllegalArgumentException(const String& message, Throwable* cause) 
+    :RuntimeException(message, cause) {
+
+}
+
+IllegalArgumentException::~IllegalArgumentException() {
+    
 }

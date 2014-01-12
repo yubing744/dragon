@@ -203,6 +203,8 @@
   #define DRAGON_ALIGN(bytes)   __attribute__ ((aligned (bytes)))
 #endif
 
+// Define native
+#define native 
 
 // Define null
 #undef null	

@@ -20,12 +20,13 @@
  * Created:     2013/03/31
  **********************************************************************/
 
-#include <dragon/lang/System.h>
-#include <dragon/lang/internal/platform.h>
-#include <dragon/lang/String.h>
-
 #include <stdlib.h>
 
+#include <dragon/lang/System.h>
+#include <dragon/lang/String.h>
+#include <dragon/lang/Arrays.h>
+#include <dragon/lang/internal/platform.h>
+ 
 Import dragon::lang;
 Import dragon::lang::internal;
 
@@ -82,4 +83,17 @@ const String* System::getProperty(const char* name) {
         sysPropMap[name] = val;
         return val;
     }
+}
+
+
+void System::arraycopy(const byte* src, int srcPos,
+                    const byte* dest, int destPos, int length) {
+    Arrays<byte>::copyOf(src, srcPos, const_cast<byte*>(dest), destPos, length);
+}
+
+
+void System::arraycopy(const Array<byte> src, int srcPos,
+                                        const Array<byte> dest, int destPos,
+                                        int length) {
+    Arrays<byte>::copyOf(src.raw(), srcPos, const_cast<byte*>(dest.raw()), destPos, length);
 }

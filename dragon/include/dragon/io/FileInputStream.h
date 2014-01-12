@@ -48,6 +48,7 @@ public:
 	virtual wlong_u skip(wlong_u n) throw(IOException*);
     virtual int read(byte* b, int num, int off, int len) throw(IOException*);
     virtual void close() throw(IOException*);
+    virtual int available() throw(IOException*);
 
 protected:
 	File* file;

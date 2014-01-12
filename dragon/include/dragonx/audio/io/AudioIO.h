@@ -26,17 +26,24 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/io/InputStream.h>
+#include <dragonx/audio/AudioClip.h>
+#include <dragonx/audio/io/spi/AudioClipIORegistry.h>
 
 BeginPackage3(dragonx, audio, io)
 
+Import dragon::io;
 Import dragon::lang;
+Import dragonx::audio;
+Import dragonx::audio::io::spi;
 
 class_ AudioIO extends(Object) {
 public:
     static const Type* TYPE;
+    static AudioClipIORegistry* theRegistry;
 
 public:
-    static AudioClip* read(const InputStream* input, const String& audioType) const;
+    static AudioClip* read(const InputStream* input, const String& audioType);
     
 public:
     AudioIO();

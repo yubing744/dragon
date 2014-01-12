@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 
 BeginPackage5(dragonx, audio, io, plugins, ogg)
 
 Import dragon::lang;
+Import dragonx::audio::io::plugins;
 
-class_ OggAudioReader extends(Object) {
+class_ OggAudioReader extends(AbstractAudioReader) {
 public:
     static const Type* TYPE;
     
@@ -40,9 +42,8 @@ public:
     virtual ~OggAudioReader();
 
 public:
-    
-protected:
-    
+    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
+
 };//OggAudioReader
 
 EndPackage5 //(dragonx, audio, io, plugins, ogg)
