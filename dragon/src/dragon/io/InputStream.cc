@@ -48,5 +48,5 @@ bool InputStream::markSupported() {
 }
 
 int InputStream::available() const {
-    return -1;
+    throw new UnsupportedOperationException("this input stream not support available!");
 }

@@ -31,7 +31,7 @@ const Type* AudioClip::TYPE = TypeOf<AudioClip>();
 static Logger* logger = Logger::getLogger(AudioClip::TYPE, ERROR);
 
 AudioClip::AudioClip() {
-    this->format = null;
+    this->format = new AudioFormat();
     this->data = NULL;
     this->size = 0;
 }

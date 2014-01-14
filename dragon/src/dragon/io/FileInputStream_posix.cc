@@ -74,7 +74,7 @@ void FileInputStream::close() throw(IOException*) {
     }
 }
 
-int FileInputStream::available() throw(IOException*) {
+int FileInputStream::available() const throw(IOException*) {
     FILE* f = (FILE*)this->nativeFileHandle;
 
     if (f != NULL) {
