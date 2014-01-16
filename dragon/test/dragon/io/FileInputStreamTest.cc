@@ -46,7 +46,7 @@ TEST(Dragon_Io_FileInputStreamTest, New) {
     File* o = new File(fullPath);
     ASSERT_TRUE(o->mkdirs());
 
-    File* newFile = new File(o, "test.txt");
+    File* newFile = new File(o, "test1.txt");
 
     FileInputStream* fis = new FileInputStream(newFile);
     SafeDelete(fis);

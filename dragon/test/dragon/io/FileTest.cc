@@ -188,7 +188,7 @@ TEST(Dragon_Io_FileTest, canExecute02) {
 
 TEST(Dragon_Io_FileTest, delete01) {
     const String* base = System::getProperty("HOME");
-    String* path = new String(L"/dragon_test/01");
+    String* path = new String(L"/dragon_test/011");
     String* fullPath = base->concat(path);
 
     const Array<char> utf8Path = fullPath->getBytes("UTF-8");

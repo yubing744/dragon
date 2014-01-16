@@ -45,18 +45,26 @@ OggAudioReader::~OggAudioReader() {
 
 }
 
+#define OGG_BUFFER_SIZE 4096
+
 static size_t ogg_stream_read_func(void *ptr, size_t size, size_t nmemb, void *datasource) {
     InputStream* input = (InputStream*)datasource;
 
     int n = 0;
+    int bytes = 0;
     byte* p = (byte*)ptr;
 
-    while(n < nmemb) {
-        input->read(p + (size * n), size);
+    while(n < size) {
+        int read = input->read(p + (nmemb * n), nmemb);
+
+        if (read > 0) {
+            bytes += read;
+        } 
+        
         n++;
     }
 
-    return n;
+    return bytes;
 }
 
 static ov_callbacks OV_CALLBACKS_INPUTSTREAM = {
@@ -74,7 +82,7 @@ AudioClip* OggAudioReader::read(const InputStream* input) const throw(IOExceptio
     OggVorbis_File vf;
     int eof = 0;
     int current_section;
-    char pcmout[4096]; /* take 4k out of the data segment, not the stack */
+    char pcmout[OGG_BUFFER_SIZE]; /* take 4k out of the data segment, not the stack */
 
     if(ov_open_callbacks((void*)input, &vf, NULL, 0, OV_CALLBACKS_INPUTSTREAM) < 0) {
         throw new IOException("Input does not appear to be an Ogg bitstream!");
@@ -90,10 +98,10 @@ AudioClip* OggAudioReader::read(const InputStream* input) const throw(IOExceptio
             ++ptr;
         }
 
-        logger->debug("\nBitstream is %d channel, %ldHz\n",vi->channels,vi->rate);
+        logger->debug("\nBitstream is %d channel, %ldHz\n", vi->channels, vi->rate);
         logger->debug("\nDecoded length: %ld samples\n",
-                (long)ov_pcm_total(&vf,-1));
-        logger->debug("Encoded by: %s\n\n",ov_comment(&vf,-1)->vendor);
+                (long)ov_pcm_total(&vf, -1));
+        logger->debug("Encoded by: %s\n\n", ov_comment(&vf, -1)->vendor);
 
         fmt->setSampleRate((int)vi->rate);
         fmt->setChannels(vi->channels);
@@ -110,7 +118,7 @@ AudioClip* OggAudioReader::read(const InputStream* input) const throw(IOExceptio
                 throw new IOException("Corrupt bitstream section! Exiting.\n");
             }
         } else {
-            baos->write(pcmout, 4096, 0, (int)ret);
+            baos->write(pcmout, OGG_BUFFER_SIZE, 0, (int)ret);
         }
     }
 
