@@ -369,6 +369,56 @@ if os.path.exists(target_config_file):
 # Build Config
 THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
+# lib openal
+OpenAL32_SOURCES = Split("""
+    alAuxEffectSlot.c
+    alBuffer.c
+    alEffect.c
+    alError.c
+    alExtension.c
+    alFilter.c
+    alListener.c
+    alSource.c
+    alState.c
+    alThunk.c
+""")
+
+Alc_SOURCES = Split("""
+    ALc.c
+    ALu.c
+    alcConfig.c
+    alcDedicated.c
+    alcEcho.c
+    alcModulator.c
+    alcReverb.c
+    alcRing.c
+    alcThread.c
+    bs2b.c
+    helpers.c
+    panning.c
+    hrtf.c
+    mixer.c
+    mixer_c.c
+""")
+
+LibraryModule(
+    name                  = 'openal',
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1",
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/build",
+        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/include",
+        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/OpenAL32/include"
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "OpenAL32" : OpenAL32_SOURCES,
+        "Alc" : Alc_SOURCES
+    },    
+    extra_cpp_defines     = [],     
+    shared                = False,                    
+    install               = True
+)
+
 
 # dragon3d-core
 dragon3d_core_SOURCES = {

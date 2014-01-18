@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"include"
+			],
+			[
+				"by",
+				"bytes"
+			],
+			[
 				"sk",
 				"skiped"
 			],
@@ -70,10 +78,6 @@
 			[
 				"row",
 				"row_stride"
-			],
-			[
-				"by",
-				"byteCount"
 			],
 			[
 				"getPi",
@@ -510,68 +514,64 @@
 			[
 				"sour",
 				"source_file"
-			],
-			[
-				"new",
-				"new_files"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
+			"file": "game/dragon3d-core/build/Build.scons",
 			"settings":
 			{
-				"buffer_size": 5099,
+				"buffer_size": 17470,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/libsndfile-1.0.25/src/sndfile.h",
+			"file": "third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
 			"settings":
 			{
-				"buffer_size": 21664,
+				"buffer_size": 1937,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/libsndfile-1.0.25/examples/generate.c",
+			"file": "third_party/openal-soft-1.15.1/CMakeLists.txt",
 			"settings":
 			{
-				"buffer_size": 4394,
+				"buffer_size": 28589,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/mpg123-1.17.0/doc/examples/mpg123_to_wav.c",
+			"file": "third_party/openal-soft-1.15.1/Alc/ALc.c",
 			"settings":
 			{
-				"buffer_size": 3915,
+				"buffer_size": 90244,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/audio/AudioFormat.cc",
+			"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alMain.h",
 			"settings":
 			{
-				"buffer_size": 2769,
+				"buffer_size": 26457,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/include/dragonx/audio/AudioFormat.h",
+			"file": "game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
 			"settings":
 			{
-				"buffer_size": 2532,
+				"buffer_size": 970,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/libsndfile-1.0.25/src/Makefile.am",
+			"file": "third_party/openal-soft-1.15.1/build/Makefile",
 			"settings":
 			{
-				"buffer_size": 4524,
+				"buffer_size": 26200,
 				"line_ending": "Unix"
 			}
 		}
@@ -668,11 +668,28 @@
 	},
 	"file_history":
 	[
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioIO.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioReader.cc",
+		"/usr/include/c++/4.2.1/iostream",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/vorbisfile.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libogg-1.3.1/src/framing.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/os.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/block.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/sndfile.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/examples/generate.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/doc/examples/mpg123_to_wav.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/Makefile.am",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioClip.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/wav.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/pcm.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/common.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioIO.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/sndfile.c",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/wav/WavAudioReader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
@@ -682,8 +699,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/BufferedInputStream.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileInputStream.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/BufferedOutputStream.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/BufferedOutputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FilterInputStream.h",
@@ -707,7 +722,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/minimad.c",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/fixed.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioClip.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/mad.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/ByteArrayOutputStream.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/ByteArrayOutputStream.cc",
@@ -716,12 +730,9 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/SystemTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/ogg/OggAudioReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/spi/AudioClipIORegistry.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioIO.h",
-		"/usr/include/c++/4.2.1/iostream",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/io/ImageIOTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/ImageIO.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/AbstractAudioReader.h",
@@ -773,8 +784,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/png/PNGImageWriter.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageWriter.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/portaudio_v19/include/portaudio.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioWriter.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/examples/encode.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaread.c",
@@ -785,17 +794,8 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tgawrite.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgawrite.c",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileOutputStreamTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/BufferedImage.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/BufferedImageTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/BufferedImage.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/ColorModel.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/ColorModelTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/ColorModel.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/AbstractImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jpeglib.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jmorecfg.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/BufferedImageTest.cc"
 	],
 	"find":
 	{
@@ -824,6 +824,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"alGenFilters",
+			"Alc/",
+			"OpenAL32/",
 			"int",
 			"_FILE_OFFSET_BITS",
 			"libmpg123/",
@@ -948,10 +951,7 @@
 			"strEqua",
 			"toChars",
 			"int",
-			"dylib",
-			"shared",
-			"-shared",
-			"dynamiclib"
+			"dylib"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1041,36 +1041,64 @@
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
+					"file": "game/dragon3d-core/build/Build.scons",
 					"settings":
 					{
-						"buffer_size": 5099,
+						"buffer_size": 17470,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4345,
-								4345
+								14485,
+								14485
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"1754":
+								"972":
 								{
-									"a": 3787.0,
-									"b": 3787.0
+									"a": 14485.0,
+									"b": 14485.0
 								}
 							},
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2191.0,
+						"translation.y": 5472.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
+					"settings":
+					{
+						"buffer_size": 1937,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								943,
+								943
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1078,193 +1106,148 @@
 			]
 		},
 		{
-			"selected": 5,
 			"sheets":
 			[
 				{
-					"buffer": 1,
-					"file": "third_party/libsndfile-1.0.25/src/sndfile.h",
-					"settings":
-					{
-						"buffer_size": 21664,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11135,
-								11141
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4425.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 2,
-					"file": "third_party/libsndfile-1.0.25/examples/generate.c",
+					"file": "third_party/openal-soft-1.15.1/CMakeLists.txt",
 					"settings":
 					{
-						"buffer_size": 4394,
+						"buffer_size": 28589,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1775,
-								1750
+								21626,
+								21631
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1153.0,
+						"translation.y": 1754.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "third_party/mpg123-1.17.0/doc/examples/mpg123_to_wav.c",
+					"file": "third_party/openal-soft-1.15.1/Alc/ALc.c",
 					"settings":
 					{
-						"buffer_size": 3915,
+						"buffer_size": 90244,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2401,
-								2408
+								6068,
+								6080
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 707.0,
+						"translation.y": 230.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "dragon/src/dragonx/audio/AudioFormat.cc",
+					"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alMain.h",
 					"settings":
 					{
-						"buffer_size": 2769,
+						"buffer_size": 26457,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1245,
-								1245
+								16795,
+								16796
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"1180":
-								{
-									"a": 1747.0,
-									"b": 1747.0
-								}
-							},
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 837.0,
+						"translation.y": 11920.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "dragon/include/dragonx/audio/AudioFormat.h",
+					"file": "game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
 					"settings":
 					{
-						"buffer_size": 2532,
+						"buffer_size": 970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1936,
-								1936
+								673,
+								673
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"1183":
+								"1031":
 								{
-									"a": 1219.0,
-									"b": 1219.0
+									"a": 673.0,
+									"b": 673.0
 								}
 							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 767.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "third_party/libsndfile-1.0.25/src/Makefile.am",
+					"file": "third_party/openal-soft-1.15.1/build/Makefile",
 					"settings":
 					{
-						"buffer_size": 4524,
+						"buffer_size": 26200,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2478,
-								2501
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"313":
-								{
-									"a": 2164.0,
-									"b": 2164.0
-								}
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 25192.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1300,7 +1283,7 @@
 		"cols":
 		[
 			0.0,
-			0.953271028037,
+			0.679845861486,
 			1.0
 		],
 		"rows":
@@ -1312,7 +1295,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 323.0
+		"height": 246.0
 	},
 	"replace":
 	{
@@ -1551,6 +1534,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 260.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true
 }
