@@ -785,6 +785,16 @@ char* String::toCString() const {
 	return utf8Data;
 }
 
+wchar_t* String::toWCHARString() const {
+	const Array<byte> data = this->getBytes("UCS-2");
+	
+	wchar_t* wcharData = (wchar_t*)malloc(data.size() / 2 + 2);
+	memcpy(wcharData, data.raw(), data.size());
+	wcharData[data.size() / 2] = '\0';
+
+	return wcharData;
+}
+
 bool String::matches(String* regex) {
 	return Pattern::matches(regex, this);
 }

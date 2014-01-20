@@ -1,4 +1,20 @@
-#include "FileInputStream.h"
+/*
+* Copyright 2013 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+#include <dragon/io/FileInputStream.h>
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -6,114 +22,79 @@
 #include <io.h>
 #include <stdio.h>
 
-Import IO;
+Import dragon::io;
 
-FileInputStream::FileInputStream(String& name) throw(FileNotFoundException)
-{
-    mBaseFile=new File(name);
+void FileInputStream::open() throw(IOException*) {
+    int fh, numread;
+    char buffer[40];
 
-    if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),_O_RDONLY,_SH_DENYNO,0)!=0)
-    {
-        throw FileNotFoundException();
+    String* path = this->file->getCanonicalPath();
+    wchar_t* wcharPath = path->toWCHARString();
+
+    errno_t err = _wsopen_s(&fh, wcharPath, _O_RDONLY, _SH_DENYNO, 
+                          _S_IREAD | _S_IWRITE );
+
+    if (err == 0) {
+        this->nativeFileHandle = (void*)fh;
+        SafeFree(wcharPath);
+        SafeDelete(path);
+    } else {
+        FileNotFoundException* e = new FileNotFoundException("the file not found");
+        SafeFree(wcharPath);
+        SafeDelete(path);
+
+        throw e;
     }
 }
 
-FileInputStream::FileInputStream(File* file) throw(FileNotFoundException)
-{
-    mBaseFile=file;
+wlong_u FileInputStream::skip(wlong_u n) throw(IOException*) {
+    int fh = (int)this->nativeFileHandle;
 
-    if(_wsopen_s(&mhFile,mBaseFile->getCanonicalPath(),_O_RDONLY,_SH_DENYNO,0)!=0)
-    {
-        throw FileNotFoundException(L"File not found!");
-    }
-}
-
-FileInputStream::~FileInputStream() 
-{
-    this->close();
-}
-
-int FileInputStream::read() throw(IOException)
-{
-    byte b;
-
-    if(_eof(mhFile)==1) return -1;
-
-    int byteRead=-1;
-    if((byteRead =_read(mhFile,&b,1))<= 0)
-    {
-        throw IOException(L"Problem reading file!");
+    if (fh > 0 && _lseek(fh, n, SEEK_SET) == n) {
+        return n;
     }
 
-    return (int)b;
+    return -1;
 }
 
-int FileInputStream::read(byte* b,int num) 
-    throw(IOException,NullPointerException)
-{
-    int byteRead=-1;
-    if(b==null)
-    {
-        throw NullPointerException();
-    }
+int FileInputStream::read(byte* b, int num, int off, int len) throw(IOException*) {
+    int result = 0;
 
-    if((byteRead =_read(mhFile,b,num))<= 0)
-    {
-        throw IOException();
-    }
+    int fh = (int)this->nativeFileHandle;
 
-    return byteRead;
-}
+    if (fh >= 0) {
+        result = _read(fh, b + off, len);
 
-int FileInputStream::read(byte* b,int num,int off,int len)
-    throw(IOException,NullPointerException,IndexOutOfBoundsException)
-{
-    if(len==0) return 0;
-
-    if(_eof(mhFile)==1) return -1;
-
-    if(b==null)
-    {
-        throw NullPointerException();
-    }
-
-    if(off<0 || len<0 || off+len>num)
-    {
-        throw IndexOutOfBoundsException();
-    }
-
-    return this->read(b+off,len);
-}
-
-Long FileInputStream::skip(Long n) throw(IOException)
-{
-    if(n<0) return 0L;
-
-    Long newPos=-1L;
-
-    newPos=_lseeki64(mhFile,n,SEEK_CUR);
-    if(newPos==-1L)
-    {
-        throw IOException(L"Problem reading file!");
-    }
-
-    return newPos;
-}
-
-int FileInputStream::available()
-{
-    return _filelength(mhFile)-_tell(mhFile);
-}
-
-void FileInputStream::close() throw(IOException)
-{
-    if(mhFile!=0)
-    {
-        if(_close(mhFile)==-1)
-        {
-            throw IOException();
+        if (result < 0) {
+            result = 0;
         }
-
-        mhFile=0;
     }
+
+    return (int) result;
+}
+
+void FileInputStream::close() throw(IOException*) {
+    int fh = (int)this->nativeFileHandle;
+
+    if (fh != NULL) {
+        _close(fh);
+        this->nativeFileHandle = NULL;
+    }
+}
+
+int FileInputStream::available() const throw(IOException*) {
+    int fh = (int)this->nativeFileHandle;
+
+    if (fh != NULL) {
+        long old = _tell(fh);
+
+        _lseek(fh, 0L, SEEK_END); 
+        long flen = _tell(fh); 
+
+        _lseek(fh, old, SEEK_SET);
+
+        return flen - old;
+    }   
+
+    return 0;
 }

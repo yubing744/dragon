@@ -21,6 +21,7 @@
  **********************************************************************/
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include <dragon/lang/System.h>
 #include <dragon/lang/String.h>

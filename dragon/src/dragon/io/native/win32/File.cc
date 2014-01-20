@@ -25,26 +25,33 @@ Import dragon::io;
 
 
 bool FileMkdirInternal(const String* path) {
-    Array<char> utf8Path = path->getBytes("UTF-8");
-    result = _wstat(utf8Path.raw(), &buf);
+    struct _stat buf;
+    int result;
+    bool rtn = false;
 
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    
     if(result == 0) {
-        return true;
+        rtn = true;
     }
 
-    if(_wmkdir(utf8Path.raw())==0) {
-        return true;
+    if(_wmkdir(wcharPath) == 0) {
+        rtn = true;
     }
 
-    return false;
+    SafeFree(wcharPath);
+
+    return rtn;
 }
 
 bool File::exists() {
     struct _stat buf;
     int result;
 
-    Array<char> utf8Path = this->path->getBytes("UTF-8");
-    result = _wstat(utf8Path.raw(), &buf);
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    SafeFree(wcharPath);
 
     if(result == 0) {
         return true;
@@ -57,23 +64,27 @@ bool File::isDirectory() {
     struct _stat buf;
     int result;
 
-    Array<char> utf8Path = this->path->getBytes("UTF-8");
-    result=_wstat(utf8Path.raw(), &buf);
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    SafeFree(wcharPath);
 
     if(result != 0) {
         return false;
     }
 
-    return ((buf.st_mode & S_IFDIR)!=0);
+    return ((buf.st_mode & S_IFDIR) != 0);
 }
 
 
 bool File::canExecute() {
     struct _stat buf;
     int result;
-    result=_wstat(mpPathName->toCharArray(),&buf);
 
-    if(result!=0) {
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    SafeFree(wcharPath);
+
+    if(result != 0) {
         return false;
     }
 
@@ -83,9 +94,12 @@ bool File::canExecute() {
 bool File::canRead() {
     struct _stat buf;
     int result;
-    result=_wstat(mpPathName->toCharArray(),&buf);
 
-    if(result!=0) {
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    SafeFree(wcharPath);
+
+    if(result != 0) {
         return false;
     }
 
@@ -95,8 +109,11 @@ bool File::canRead() {
 bool File::canWrite() {
     struct _stat buf;
     int result;
-    result=_wstat(mpPathName->toCharArray(),&buf);
 
+    wchar_t* wcharPath = path->toWCHARString();
+    result = _wstat(wcharPath, &buf);
+    SafeFree(wcharPath);
+    
     if(result!=0) {
         return false;
     }

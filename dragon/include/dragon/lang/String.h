@@ -621,6 +621,7 @@ public:
 
      char* toUTF8String() const;
      char* toCString() const; 
+     wchar_t* toWCHARString() const;
 
 	bool matches(String* regex);
 	bool contains(CharSequence* s);

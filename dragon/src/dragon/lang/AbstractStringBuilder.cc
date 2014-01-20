@@ -137,6 +137,7 @@ AbstractStringBuilder* AbstractStringBuilder::append(String* str) {
 AbstractStringBuilder* AbstractStringBuilder::append(const String& str) {
     const String* pstr = &str;
     append(const_cast<String*>(pstr));
+    return this;
 }
 
 

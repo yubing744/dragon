@@ -31,31 +31,27 @@ Import dragonx::xml::io;
 class XMLStreamWriterPrinter 
     extends(XMLPrinter) {
 public:
-    XMLStreamWriterPrinter(Writer* writer, bool compact, int depth);
+    XMLStreamWriterPrinter(Writer* writer, bool compact, int depth)
+        : XMLPrinter(NULL, compact, depth){
+        this->writer = writer;
+    }
 
 public:
-    virtual void Print(const char* format, ...);
+    virtual void Print(const char* format, ...) {
+        va_list va;
+        va_start(va, format);
+
+        String* text = String::vformat(format, va);
+        const Array<byte> data = text->getBytes("UTF-8");
+        this->writer->write(text);
+        SafeDelete(text);
+
+        va_end(va);
+    }
 
 protected:
     Writer* writer;
 };
-
-XMLStreamWriterPrinter::XMLStreamWriterPrinter(Writer* writer, bool compact, int depth ) 
-    : XMLPrinter(NULL, compact, depth){
-    this->writer = writer;
-}
-
-void XMLStreamWriterPrinter::XMLStreamWriterPrinter::Print(const char* format, ...) {
-    va_list va;
-    va_start(va, format);
-
-    String* text = String::vformat(format, va);
-    const Array<byte> data = text->getBytes("UTF-8");
-    this->writer->write(text);
-    SafeDelete(text);
-
-    va_end(va);
-}
 
 XMLWriter::XMLWriter(const OutputStream* os, const OutputFormat* format) 
     :outputStream(os), outputFormat(format) {
