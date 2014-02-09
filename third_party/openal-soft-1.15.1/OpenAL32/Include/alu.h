@@ -1,6 +1,7 @@
 #ifndef _ALU_H_
 #define _ALU_H_
 
+#include "config.h"
 #include "alMain.h"
 
 #include <limits.h>
@@ -19,7 +20,6 @@
 #ifndef FLT_EPSILON
 #define FLT_EPSILON (1.19209290e-07f)
 #endif
-
 
 #ifdef __cplusplus
 extern "C" {

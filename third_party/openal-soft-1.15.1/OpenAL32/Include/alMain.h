@@ -11,9 +11,13 @@
 #include <fenv.h>
 #endif
 
+#include "config.h"
+
 #include "AL/al.h"
 #include "AL/alc.h"
 #include "AL/alext.h"
+#include "AL/efx.h"
+
 
 #ifndef AL_SOFT_deferred_updates
 #define AL_SOFT_deferred_updates 1

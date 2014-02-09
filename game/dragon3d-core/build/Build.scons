@@ -406,15 +406,15 @@ LibraryModule(
     source_root           = THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1",
     build_include_dirs    = [
         THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/build",
-        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/include",
-        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/OpenAL32/include"
+        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/OpenAL32/include",
+        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/include"
     ],  
     build_source_dirs     = [],         
     build_source_files    = {
         "OpenAL32" : OpenAL32_SOURCES,
         "Alc" : Alc_SOURCES
     },    
-    extra_cpp_defines     = [],     
+    extra_cpp_defines     = ["AL_ALEXT_PROTOTYPES"],     
     shared                = False,                    
     install               = True
 )

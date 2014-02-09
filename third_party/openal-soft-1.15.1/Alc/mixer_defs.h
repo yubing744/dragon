@@ -1,6 +1,8 @@
 #ifndef MIXER_DEFS_H
 #define MIXER_DEFS_H
 
+#include "config.h"
+
 #include "AL/alc.h"
 #include "AL/al.h"
 #include "alMain.h"
