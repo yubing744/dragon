@@ -17,29 +17,53 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/11
  **********************************************************************/
 
 
-#ifndef AudioRenderer_Audio_Output_Dragon3d_Com_H
-#define AudioRenderer_Audio_Output_Dragon3d_Com_H
+#ifndef AudioOutputController_Audio_Output_Dragon3d_Com_H
+#define AudioOutputController_Audio_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/output/OutputController.h>
 
 BeginPackage4(com, dragon3d, output, audio)
 
-Import com::dragon3d::output::audio;
+Import dragon::lang;
 
-class _DragonExport AudioRenderer {
+class_ AudioOutputController extends(Object) 
+    implements1(OutputController) {
 public:
-	AudioRenderer();
-	virtual ~AudioRenderer();
+    static const Type* TYPE;
+    
+public:
+    AudioOutputController();
+    virtual ~AudioOutputController();
 
-public:
-    virtual void render(AudioListener* listener, List<AudioSource>* ases);
-	
-};//AudioRenderer
+public: // implements OutputController
+    /**
+     * init the output controller
+     */
+    virtual void init();
+
+    /**
+     * control the scene ouput.
+     * 
+     * @param scene [description]
+     */
+    virtual void output(Scene* scene);
+
+    /**
+     * destroy the output controller
+     */
+    virtual void destroy(); 
+    
+protected:
+    AudioRenderer* render;
+    
+};//AudioOutputController
 
 EndPackage4 //(com, dragon3d, output, audio)
 
-#endif //AudioRenderer_Audio_Output_Dragon3d_Com_H
+#endif //AudioOutputController_Audio_Output_Dragon3d_Com_H

@@ -33,7 +33,6 @@ BeginPackage4(com, dragon3d, output, graphics)
 
 Import dragon::lang;
 Import com::dragon3d::output;
-Import com::dragon3d::output::graphics;
 
 #define STATUS_DISPLAY_WIDTH 0x333000
 #define STATUS_DISPLAY_HEIGHT 0x333001

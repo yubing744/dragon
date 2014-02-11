@@ -26,9 +26,29 @@
 Import com::dragon3d::output::audio;
 
 Speaker::Speaker() {
-
+    this->controller = new AudioOutputController();
 }
 
 Speaker::~Speaker() {
+    SafeDelete(this->controller);
+}
+
+void Speaker::init() {
+
+}
+
+int Speaker::queryStatus(int code) {
+    return -1;
+}
+
+OutputController* Speaker::getOutputController() {
+    return this->controller;
+}
+
+void* Speaker::getNativeData() {
+
+}
+
+void Speaker::destroy() {
 
 }

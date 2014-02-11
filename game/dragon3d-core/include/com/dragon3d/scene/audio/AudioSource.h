@@ -26,19 +26,36 @@
 
 #include <dragon/config.h>
 
+#include <dragonx/audio/AudioClip.h>
+#include <com/dragon3d/scene/Behaviour.h>
+
 BeginPackage4(com, dragon3d, scene, audio)
 
+Import dragonx::audio;
 Import com::dragon3d::scene::audio;
 
-class _DragonExport AudioSource {
+class _DragonExport AudioSource extends(Behaviour) {
 public:
 	AudioSource();
 	virtual ~AudioSource();
 
 public:
-	
+	virtual bool isPlaying();
+    virtual bool isLoop();
+    virtual void setAudioClip(AudioClip* clip);
+    
+public:
+    virtual void play();
+    virtual void playDelayed(float delay);
+    virtual void pause();
+    virtual void stop();
+
 protected:
-	
+	AudioClip* clip;
+    bool playing;
+    bool loop;
+    bool mute;
+    float volume;
 };//AudioSource
 
 EndPackage4 //(com, dragon3d, scene, audio)

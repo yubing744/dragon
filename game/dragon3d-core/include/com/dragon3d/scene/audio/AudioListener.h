@@ -25,12 +25,14 @@
 #define AudioListener_Audio_Scene_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <com/dragon3d/scene/Behaviour.h>
 
 BeginPackage4(com, dragon3d, scene, audio)
 
+Import com::dragon3d::scene;
 Import com::dragon3d::scene::audio;
 
-class _DragonExport AudioListener {
+class _DragonExport AudioListener extends(Behaviour) {
 public:
 	AudioListener();
 	virtual ~AudioListener();

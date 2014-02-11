@@ -22,10 +22,6 @@
 		465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D58F718063ACA00A9BF94 /* UIKit.framework */; };
 		465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5929180663F700A9BF94 /* OpenGLES.framework */; };
 		465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59631806EFCA00A9BF94 /* Foundation.framework */; };
-		465D59651806EFE100A9BF94 /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59311806655000A9BF94 /* libdragon3d-core.a */; };
-		465D59661806EFE100A9BF94 /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592B1806654300A9BF94 /* libunicode.a */; };
-		465D59671806EFE100A9BF94 /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592C1806654300A9BF94 /* libpcre32.a */; };
-		465D59681806EFE100A9BF94 /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592D1806654300A9BF94 /* libdragon.a */; };
 		465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465D592618063C3400A9BF94 /* HelloWorld.cc */; };
 /* End PBXBuildFile section */
 
@@ -62,10 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				465D59651806EFE100A9BF94 /* libdragon3d-core.a in Frameworks */,
-				465D59661806EFE100A9BF94 /* libunicode.a in Frameworks */,
-				465D59671806EFE100A9BF94 /* libpcre32.a in Frameworks */,
-				465D59681806EFE100A9BF94 /* libdragon.a in Frameworks */,
 				465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */,
 				465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */,
 				465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */,

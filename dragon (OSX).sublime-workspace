@@ -520,124 +520,76 @@
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-core/build/Build.scons",
+			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
 			"settings":
 			{
-				"buffer_size": 17491,
+				"buffer_size": 1655,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
+			"file": "game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
 			"settings":
 			{
-				"buffer_size": 1937,
+				"buffer_size": 1774,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alAuxEffectSlot.h",
+			"file": "game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
 			"settings":
 			{
-				"buffer_size": 1615,
+				"buffer_size": 999,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/openal-soft-1.15.1/Alc/ALc.c",
+			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
 			"settings":
 			{
-				"buffer_size": 90244,
+				"buffer_size": 1374,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Searching 138 files for \"alGenFilters\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c:\n  211      DECL(alDistanceModel),\n  212  \n  213:     DECL(alGenFilters),\n  214      DECL(alDeleteFilters),\n  215      DECL(alIsFilter),\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/efx.h:\n  255  AL_API ALvoid AL_APIENTRY alGetEffectfv(ALuint effect, ALenum param, ALfloat *pflValues);\n  256  \n  257: AL_API ALvoid AL_APIENTRY alGenFilters(ALsizei n, ALuint *filters);\n  258  AL_API ALvoid AL_APIENTRY alDeleteFilters(ALsizei n, const ALuint *filters);\n  259  AL_API ALboolean AL_APIENTRY alIsFilter(ALuint filter);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alFilter.c:\n   33  \n   34  \n   35: AL_API ALvoid AL_APIENTRY alGenFilters(ALsizei n, ALuint *filters)\n   36  {\n   37      ALCcontext *Context;\n\n3 matches across 3 files\n\n\nSearching 139 files for \"alGenFilters\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c:\n  211      DECL(alDistanceModel),\n  212  \n  213:     DECL(alGenFilters),\n  214      DECL(alDeleteFilters),\n  215      DECL(alIsFilter),\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/efx.h:\n  255  AL_API ALvoid AL_APIENTRY alGetEffectfv(ALuint effect, ALenum param, ALfloat *pflValues);\n  256  \n  257: AL_API ALvoid AL_APIENTRY alGenFilters(ALsizei n, ALuint *filters);\n  258  AL_API ALvoid AL_APIENTRY alDeleteFilters(ALsizei n, const ALuint *filters);\n  259  AL_API ALboolean AL_APIENTRY alIsFilter(ALuint filter);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alFilter.c:\n   33  \n   34  \n   35: AL_API ALvoid AL_APIENTRY alGenFilters(ALsizei n, ALuint *filters)\n   36  {\n   37      ALCcontext *Context;\n\n3 matches across 3 files\n\n\nSearching 140 files for \"DevFmtChannelsString\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c:\n 1148      return \"(unknown type)\";\n 1149  }\n 1150: const ALCchar *DevFmtChannelsString(enum DevFmtChannels chans)\n 1151  {\n 1152      switch(chans)\n ....\n 1583      TRACE(\"Pre-reset: %s%s, %s%s, %s%uhz, %u update size x%d\\n\",\n 1584            (device->Flags&DEVICE_CHANNELS_REQUEST)?\"*\":\"\",\n 1585:           DevFmtChannelsString(device->FmtChans),\n 1586            (device->Flags&DEVICE_SAMPLE_TYPE_REQUEST)?\"*\":\"\",\n 1587            DevFmtTypeString(device->FmtType),\n ....\n 1595      if(device->FmtChans != oldChans && (device->Flags&DEVICE_CHANNELS_REQUEST))\n 1596      {\n 1597:         ERR(\"Failed to set %s, got %s instead\\n\", DevFmtChannelsString(oldChans),\n 1598:             DevFmtChannelsString(device->FmtChans));\n 1599          device->Flags &= ~DEVICE_CHANNELS_REQUEST;\n 1600      }\n ....\n 1612  \n 1613      TRACE(\"Post-reset: %s, %s, %uhz, %u update size x%d\\n\",\n 1614:           DevFmtChannelsString(device->FmtChans),\n 1615            DevFmtTypeString(device->FmtType), device->Frequency,\n 1616            device->UpdateSize, device->NumUpdates);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/backends/coreaudio.c:\n  517          case DevFmtX61:\n  518          case DevFmtX71:\n  519:             ERR(\"%s not supported\\n\", DevFmtChannelsString(device->FmtChans));\n  520              goto error;\n  521      }\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/backends/oss.c:\n  257      if((int)ChannelsFromDevFmt(device->FmtChans) != numChannels)\n  258      {\n  259:         ERR(\"Failed to set %s, got %d channels instead\\n\", DevFmtChannelsString(device->FmtChans), numChannels);\n  260          return ALC_FALSE;\n  261      }\n  ...\n  398      if((int)ChannelsFromDevFmt(device->FmtChans) != numChannels)\n  399      {\n  400:         ERR(\"Failed to set %s, got %d channels instead\\n\", DevFmtChannelsString(device->FmtChans), numChannels);\n  401          close(data->fd);\n  402          free(data);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/hrtf.c:\n  750              LoadedHrtfs = Hrtf;\n  751              TRACE(\"Loaded HRTF support for format: %s %uhz\\n\",\n  752:                   DevFmtChannelsString(DevFmtStereo), Hrtf->sampleRate);\n  753              return Hrtf;\n  754          }\n  ...\n  780      }\n  781      ERR(\"Incompatible format: %s %uhz\\n\",\n  782:         DevFmtChannelsString(device->FmtChans), device->Frequency);\n  783      return NULL;\n  784  }\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h:\n  773  \n  774  const ALCchar *DevFmtTypeString(enum DevFmtType type);\n  775: const ALCchar *DevFmtChannelsString(enum DevFmtChannels chans);\n  776  \n  777  #define HRIR_BITS        (7)\n\n11 matches across 5 files\n\n\nSearching 140 files for \"RESTRICT\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/alcDedicated.c:\n   67  }\n   68  \n   69: static ALvoid DedicatedProcess(ALeffectState *effect, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n   70  {\n   71      ALdedicatedState *state = (ALdedicatedState*)effect;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/alcEcho.c:\n  127  }\n  128  \n  129: static ALvoid EchoProcess(ALeffectState *effect, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n  130  {\n  131      ALechoState *state = (ALechoState*)effect;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/alcModulator.c:\n   85  #define DECL_TEMPLATE(func)                                                   \\\n   86  static void Process##func(ALmodulatorState *state, ALuint SamplesToDo,        \\\n   87:   const ALfloat *RESTRICT SamplesIn,                                          \\\n   88:   ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])                                 \\\n   89  {                                                                             \\\n   90      const ALuint step = state->step;                                          \\\n   ..\n  162  }\n  163  \n  164: static ALvoid ModulatorProcess(ALeffectState *effect, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n  165  {\n  166      ALmodulatorState *state = (ALmodulatorState*)effect;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/alcReverb.c:\n  302  // Given an input sample, this function produces four-channel output for the\n  303  // early reflections.\n  304: static __inline ALvoid EarlyReflection(ALverbState *State, ALfloat in, ALfloat *RESTRICT out)\n  305  {\n  306      ALfloat d[4], v, f[4];\n  ...\n  373  // Given four decorrelated input samples, this function produces four-channel\n  374  // output for the late reverb.\n  375: static __inline ALvoid LateReverb(ALverbState *State, const ALfloat *RESTRICT in, ALfloat *RESTRICT out)\n  376  {\n  377      ALfloat d[4], f[4];\n  ...\n  444  // Given an input sample, this function mixes echo into the four-channel late\n  445  // reverb.\n  446: static __inline ALvoid EAXEcho(ALverbState *State, ALfloat in, ALfloat *RESTRICT late)\n  447  {\n  448      ALfloat out, feed;\n  ...\n  478  // Perform the non-EAX reverb pass on a given input sample, resulting in\n  479  // four-channel output.\n  480: static __inline ALvoid VerbPass(ALverbState *State, ALfloat in, ALfloat *RESTRICT out)\n  481  {\n  482      ALfloat feed, late[4], taps[4];\n  ...\n  517  // Perform the EAX reverb pass on a given input sample, resulting in four-\n  518  // channel output.\n  519: static __inline ALvoid EAXVerbPass(ALverbState *State, ALfloat in, ALfloat *RESTRICT early, ALfloat *RESTRICT late)\n  520  {\n  521      ALfloat feed, taps[4];\n  ...\n  556  // This processes the reverb state, given the input samples and an output\n  557  // buffer.\n  558: static ALvoid VerbProcess(ALeffectState *effect, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n  559  {\n  560      ALverbState *State = (ALverbState*)effect;\n  561:     ALfloat (*RESTRICT out)[4] = State->ReverbSamples;\n  562      ALuint index, c;\n  563  \n  ...\n  579  // This processes the EAX reverb state, given the input samples and an output\n  580  // buffer.\n  581: static ALvoid EAXVerbProcess(ALeffectState *effect, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n  582  {\n  583      ALverbState *State = (ALverbState*)effect;\n  584:     ALfloat (*RESTRICT early)[4] = State->EarlySamples;\n  585:     ALfloat (*RESTRICT late)[4] = State->ReverbSamples;\n  586      ALuint index, c;\n  587  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALu.c:\n  131  }\n  132  \n  133: static __inline ALvoid aluMatrixVector(ALfloat *vector, ALfloat w, ALfloat (*RESTRICT matrix)[4])\n  134  {\n  135      ALfloat temp[4] = {\n  ...\n  586      if(ALSource->HeadRelative == AL_FALSE)\n  587      {\n  588:         ALfloat (*RESTRICT Matrix)[4] = ALContext->Listener->Params.Matrix;\n  589          /* Transform source vectors */\n  590          aluMatrixVector(Position, 1.0f, Matrix);\n  ...\n  935  \n  936  #define DECL_TEMPLATE(T, func)                                                \\\n  937: static int Write_##T(ALCdevice *device, T *RESTRICT buffer,                   \\\n  938                       ALuint SamplesToDo)                                      \\\n  939  {                                                                             \\\n  940:     ALfloat (*RESTRICT DryBuffer)[BUFFERSIZE] = device->DryBuffer;            \\\n  941      ALuint numchans = ChannelsFromDevFmt(device->FmtChans);                   \\\n  942      const ALuint *offsets = device->ChannelOffsets;                           \\\n  ...\n  945      for(j = 0;j < MaxChannels;j++)                                            \\\n  946      {                                                                         \\\n  947:         T *RESTRICT out;                                                      \\\n  948                                                                                \\\n  949          if(offsets[j] == INVALID_OFFSET)                                      \\\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/config.h:\n   13  \n   14  /* Define to the appropriate 'restrict' keyword */\n   15: #define RESTRICT restrict\n   16  \n   17  /* Define if we have the C11 aligned_alloc function */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer.c:\n   85  \n   86  \n   87: static void Filter2P(FILTER *filter, ALuint chan, ALfloat *RESTRICT dst,\n   88:                      const ALfloat *RESTRICT src, ALuint numsamples)\n   89  {\n   90      ALuint i;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_c.c:\n   17  \n   18  void Resample_copy32_C(const ALfloat *data, ALuint frac,\n   19:   ALuint increment, ALfloat *RESTRICT OutBuffer, ALuint BufferSize)\n   20  {\n   21      (void)frac;\n   ..\n   26  #define DECL_TEMPLATE(Sampler)                                                \\\n   27  void Resample_##Sampler##_C(const ALfloat *data, ALuint frac,                 \\\n   28:   ALuint increment, ALfloat *RESTRICT OutBuffer, ALuint BufferSize)           \\\n   29  {                                                                             \\\n   30      ALuint pos = 0;                                                           \\\n   ..\n   48  \n   49  \n   50: static __inline void ApplyCoeffsStep(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   51                                       const ALuint IrSize,\n   52:                                      ALfloat (*RESTRICT Coeffs)[2],\n   53:                                      const ALfloat (*RESTRICT CoeffStep)[2],\n   54                                       ALfloat left, ALfloat right)\n   55  {\n   ..\n   65  }\n   66  \n   67: static __inline void ApplyCoeffs(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   68                                   const ALuint IrSize,\n   69:                                  ALfloat (*RESTRICT Coeffs)[2],\n   70                                   ALfloat left, ALfloat right)\n   71  {\n   ..\n   84  \n   85  \n   86: void MixDirect_C(const DirectParams *params, const ALfloat *RESTRICT data, ALuint srcchan,\n   87    ALuint OutPos, ALuint SamplesToDo, ALuint BufferSize)\n   88  {\n   89:     ALfloat (*RESTRICT DryBuffer)[BUFFERSIZE] = params->OutBuffer;\n   90:     ALfloat *RESTRICT ClickRemoval = params->ClickRemoval;\n   91:     ALfloat *RESTRICT PendingClicks = params->PendingClicks;\n   92      ALfloat DrySend;\n   93      ALuint pos;\n   ..\n  110  \n  111  \n  112: void MixSend_C(const SendParams *params, const ALfloat *RESTRICT data,\n  113    ALuint OutPos, ALuint SamplesToDo, ALuint BufferSize)\n  114  {\n  115      ALeffectslot *Slot = params->Slot;\n  116:     ALfloat (*RESTRICT WetBuffer)[BUFFERSIZE] = Slot->WetBuffer;\n  117:     ALfloat *RESTRICT WetClickRemoval = Slot->ClickRemoval;\n  118:     ALfloat *RESTRICT WetPendingClicks = Slot->PendingClicks;\n  119      ALfloat  WetSend = params->Gain;\n  120      ALuint pos;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_defs.h:\n   10  \n   11  /* C resamplers */\n   12: void Resample_copy32_C(const ALfloat *src, ALuint frac, ALuint increment, ALfloat *RESTRICT dst, ALuint dstlen);\n   13: void Resample_point32_C(const ALfloat *src, ALuint frac, ALuint increment, ALfloat *RESTRICT dst, ALuint dstlen);\n   14: void Resample_lerp32_C(const ALfloat *src, ALuint frac, ALuint increment, ALfloat *RESTRICT dst, ALuint dstlen);\n   15: void Resample_cubic32_C(const ALfloat *src, ALuint frac, ALuint increment, ALfloat *RESTRICT dst, ALuint dstlen);\n   16  \n   17  \n   18  /* C mixers */\n   19: void MixDirect_Hrtf_C(const struct DirectParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint,ALuint);\n   20: void MixDirect_C(const struct DirectParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint,ALuint);\n   21: void MixSend_C(const struct SendParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint);\n   22  \n   23  /* SSE mixers */\n   24: void MixDirect_Hrtf_SSE(const struct DirectParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint,ALuint);\n   25: void MixDirect_SSE(const struct DirectParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint,ALuint);\n   26: void MixSend_SSE(const struct SendParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint);\n   27  \n   28  /* Neon mixers */\n   29: void MixDirect_Hrtf_Neon(const struct DirectParams*,const ALfloat*RESTRICT,ALuint,ALuint,ALuint,ALuint);\n   30  \n   31  #endif /* MIXER_DEFS_H */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_inc.c:\n   19  \n   20  \n   21: static __inline void ApplyCoeffsStep(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   22                                       const ALuint irSize,\n   23:                                      ALfloat (*RESTRICT Coeffs)[2],\n   24:                                      const ALfloat (*RESTRICT CoeffStep)[2],\n   25                                       ALfloat left, ALfloat right);\n   26: static __inline void ApplyCoeffs(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   27                                   const ALuint irSize,\n   28:                                  ALfloat (*RESTRICT Coeffs)[2],\n   29                                   ALfloat left, ALfloat right);\n   30  \n   31  \n   32: void MixDirect_Hrtf(const DirectParams *params, const ALfloat *RESTRICT data, ALuint srcchan,\n   33    ALuint OutPos, ALuint SamplesToDo, ALuint BufferSize)\n   34  {\n   35:     ALfloat (*RESTRICT DryBuffer)[BUFFERSIZE] = params->OutBuffer;\n   36:     ALfloat *RESTRICT ClickRemoval = params->ClickRemoval;\n   37:     ALfloat *RESTRICT PendingClicks = params->PendingClicks;\n   38      const ALuint IrSize = params->Hrtf.Params.IrSize;\n   39:     const ALint *RESTRICT DelayStep = params->Hrtf.Params.DelayStep;\n   40:     const ALfloat (*RESTRICT CoeffStep)[2] = params->Hrtf.Params.CoeffStep;\n   41:     const ALfloat (*RESTRICT TargetCoeffs)[2] = params->Hrtf.Params.Coeffs[srcchan];\n   42:     const ALuint *RESTRICT TargetDelay = params->Hrtf.Params.Delay[srcchan];\n   43:     ALfloat *RESTRICT History = params->Hrtf.State->History[srcchan];\n   44:     ALfloat (*RESTRICT Values)[2] = params->Hrtf.State->Values[srcchan];\n   45      ALint Counter = maxu(params->Hrtf.State->Counter, OutPos) - OutPos;\n   46      ALuint Offset = params->Hrtf.State->Offset + OutPos;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_neon.c:\n   11  \n   12  \n   13: static __inline void ApplyCoeffsStep(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   14                                       const ALuint IrSize,\n   15:                                      ALfloat (*RESTRICT Coeffs)[2],\n   16:                                      const ALfloat (*RESTRICT CoeffStep)[2],\n   17                                       ALfloat left, ALfloat right)\n   18  {\n   ..\n   28  }\n   29  \n   30: static __inline void ApplyCoeffs(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   31                                   const ALuint IrSize,\n   32:                                  ALfloat (*RESTRICT Coeffs)[2],\n   33                                   ALfloat left, ALfloat right)\n   34  {\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_sse.c:\n   15  \n   16  \n   17: static __inline void ApplyCoeffsStep(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   18                                       const ALuint IrSize,\n   19:                                      ALfloat (*RESTRICT Coeffs)[2],\n   20:                                      const ALfloat (*RESTRICT CoeffStep)[2],\n   21                                       ALfloat left, ALfloat right)\n   22  {\n   ..\n   77  }\n   78  \n   79: static __inline void ApplyCoeffs(ALuint Offset, ALfloat (*RESTRICT Values)[2],\n   80                                   const ALuint IrSize,\n   81:                                  ALfloat (*RESTRICT Coeffs)[2],\n   82                                   ALfloat left, ALfloat right)\n   83  {\n   ..\n  134  \n  135  \n  136: void MixDirect_SSE(const DirectParams *params, const ALfloat *RESTRICT data, ALuint srcchan,\n  137    ALuint OutPos, ALuint SamplesToDo, ALuint BufferSize)\n  138  {\n  139:     ALfloat (*RESTRICT DryBuffer)[BUFFERSIZE] = params->OutBuffer;\n  140:     ALfloat *RESTRICT ClickRemoval = params->ClickRemoval;\n  141:     ALfloat *RESTRICT PendingClicks = params->PendingClicks;\n  142      ALfloat DrySend;\n  143      ALuint pos;\n  ...\n  172  \n  173  \n  174: void MixSend_SSE(const SendParams *params, const ALfloat *RESTRICT data,\n  175    ALuint OutPos, ALuint SamplesToDo, ALuint BufferSize)\n  176  {\n  177      ALeffectslot *Slot = params->Slot;\n  178:     ALfloat (*RESTRICT WetBuffer)[BUFFERSIZE] = Slot->WetBuffer;\n  179:     ALfloat *RESTRICT WetClickRemoval = Slot->ClickRemoval;\n  180:     ALfloat *RESTRICT WetPendingClicks = Slot->PendingClicks;\n  181      const ALfloat WetGain = params->Gain;\n  182      __m128 gain;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/CMakeCache.txt:\n  503  //Have include pulse/pulseaudio.h\n  504  HAVE_PULSE_PULSEAUDIO_H:INTERNAL=\n  505: //Test HAVE_RESTRICT\n  506: HAVE_RESTRICT:INTERNAL=1\n  507  //Result of TRY_COMPILE\n  508  HAVE_SIZEOF_LONG:INTERNAL=TRUE\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/CMakeFiles/CMakeOutput.log:\n  160  \n  161  \n  162: Performing C SOURCE FILE Test HAVE_RESTRICT succeded with the following output:\n  163  Change Dir: /Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/CMakeFiles/CMakeTmp\n  164  \n  ...\n  167  \"/Applications/CMake 2.8-12.app/Contents/bin/cmake\" -E cmake_progress_report /Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/CMakeFiles/CMakeTmp/CMakeFiles 1\n  168  Building C object CMakeFiles/cmTryCompileExec724509817.dir/src.c.o\n  169: /usr/bin/cc   -DHAVE_RESTRICT   -o CMakeFiles/cmTryCompileExec724509817.dir/src.c.o   -c /Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/CMakeFiles/CMakeTmp/src.c\n  170  Linking C executable cmTryCompileExec724509817\n  171  \"/Applications/CMake 2.8-12.app/Contents/bin/cmake\" -E cmake_link_script CMakeFiles/cmTryCompileExec724509817.dir/link.txt --verbose=1\n  172: /usr/bin/cc   -DHAVE_RESTRICT -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec724509817.dir/src.c.o  -o cmTryCompileExec724509817  \n  173  \n  174  Source file was:\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/config.h:\n   13  \n   14  /* Define to the appropriate 'restrict' keyword */\n   15: #define RESTRICT restrict\n   16  \n   17  /* Define if we have the C11 aligned_alloc function */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/CMakeLists.txt:\n   88  SET(EXPORT_DECL \"\")\n   89  SET(ALIGN_DECL \"\")\n   90: SET(RESTRICT_DECL \"\")\n   91  \n   92  \n   ..\n   96  \n   97  CHECK_C_SOURCE_COMPILES(\"int *restrict foo;\n   98:                          int main() {return 0;}\" HAVE_RESTRICT)\n   99: IF(HAVE_RESTRICT)\n  100:     SET(RESTRICT_DECL \"restrict\")\n  101  ELSE()\n  102      CHECK_C_SOURCE_COMPILES(\"int *__restrict foo;\n  103:                              int main() {return 0;}\" HAVE___RESTRICT)\n  104:     IF(HAVE___RESTRICT)\n  105:         SET(RESTRICT_DECL \"__restrict\")\n  106      ENDIF()\n  107  ENDIF()\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/config.h.in:\n   13  \n   14  /* Define to the appropriate 'restrict' keyword */\n   15: #define RESTRICT ${RESTRICT_DECL}\n   16  \n   17  /* Define if we have the C11 aligned_alloc function */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/config.h:\n   13  \n   14  /* Define to the appropriate 'restrict' keyword */\n   15: #define RESTRICT restrict\n   16  \n   17  /* Define if we have the C11 aligned_alloc function */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alAuxEffectSlot.c:\n  406      (void)Slot;\n  407  }\n  408: static ALvoid NoneProcess(ALeffectState *State, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE])\n  409  {\n  410      (void)State;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alAuxEffectSlot.h:\n   13      ALboolean (*DeviceUpdate)(struct ALeffectState *State, ALCdevice *Device);\n   14      ALvoid (*Update)(struct ALeffectState *State, ALCdevice *Device, const struct ALeffectslot *Slot);\n   15:     ALvoid (*Process)(struct ALeffectState *State, ALuint SamplesToDo, const ALfloat *RESTRICT SamplesIn, ALfloat (*RESTRICT SamplesOut)[BUFFERSIZE]);\n   16  } ALeffectState;\n   17  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alu.h:\n   32  \n   33  typedef void (*ResamplerFunc)(const ALfloat *src, ALuint frac, ALuint increment,\n   34:                               ALfloat *RESTRICT dst, ALuint dstlen);\n   35  \n   36  typedef ALvoid (*DryMixerFunc)(const struct DirectParams *params,\n   37:                                const ALfloat *RESTRICT data, ALuint srcchan,\n   38                                 ALuint OutPos, ALuint SamplesToDo,\n   39                                 ALuint BufferSize);\n   40  typedef ALvoid (*WetMixerFunc)(const struct SendParams *params,\n   41:                                const ALfloat *RESTRICT data,\n   42                                 ALuint OutPos, ALuint SamplesToDo,\n   43                                 ALuint BufferSize);\n\n112 matches across 21 files\n",
+			"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
 			"settings":
 			{
-				"buffer_size": 23715,
+				"buffer_size": 1219,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 390,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
+			"settings":
+			{
+				"buffer_size": 1714,
 				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
+				"name": "AudioDemo.h"
 			}
 		},
 		{
-			"file": "third_party/openal-soft-1.15.1/include/AL/config.h",
+			"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
 			"settings":
 			{
-				"buffer_size": 3322,
-				"line_ending": "Unix"
+				"buffer_size": 4045,
+				"line_ending": "Unix",
+				"name": "AudioDemo.cc"
 			}
 		},
 		{
-			"file": "third_party/openal-soft-1.15.1/Alc/config.h",
+			"file": "game/dragon3d-examples/build/Build.scons",
 			"settings":
 			{
-				"buffer_size": 3301,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/include/config.h",
-			"settings":
-			{
-				"buffer_size": 3322,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/include/AL/efx.h",
-			"settings":
-			{
-				"buffer_size": 33968,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/alFilter.c",
-			"settings":
-			{
-				"buffer_size": 13269,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/Include/alFilter.h",
-			"settings":
-			{
-				"buffer_size": 2793,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h",
-			"settings":
-			{
-				"buffer_size": 26499,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/Alc/helpers.c",
-			"settings":
-			{
-				"buffer_size": 17764,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/Alc/mixer_inc.c",
-			"settings":
-			{
-				"buffer_size": 5516,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alu.h",
-			"settings":
-			{
-				"buffer_size": 3858,
+				"buffer_size": 15343,
 				"line_ending": "Unix"
 			}
 		}
@@ -734,7 +686,26 @@
 	},
 	"file_history":
 	[
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alu.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_defs.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALu.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_inc.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alAuxEffectSlot.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/efx.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alFilter.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alFilter.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/helpers.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/CMakeLists.txt",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alMain.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
@@ -842,26 +813,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/spi/AudioClipIORegistry.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/mp3/MP3AudioReader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/MP3AudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/plugins/tga/TGAImageReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/plugins/tga/TGAImageWriter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaio.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tga.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/jpeg/JPEGImageWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/jpeg/JPEGImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/ImageIO.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/png/PNGImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/png/PNGImageWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/portaudio_v19/include/portaudio.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioWriter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/examples/encode.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaread.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaio.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tgaread.c"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/plugins/tga/TGAImageReader.h"
 	],
 	"find":
 	{
@@ -869,7 +821,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1",
@@ -1103,38 +1055,291 @@
 	"groups":
 	[
 		{
-			"selected": 13,
+			"selected": 8,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-core/build/Build.scons",
+					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
 					"settings":
 					{
-						"buffer_size": 17491,
+						"buffer_size": 1655,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14833,
-								14833
+								1329,
+								1329
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"1130":
+								"1858":
 								{
-									"a": 14833.0,
-									"b": 14833.0
-								},
-								"972":
+									"a": 1442.0,
+									"b": 1442.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
+					"settings":
+					{
+						"buffer_size": 1774,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1065,
+								1065
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 154.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
+					"settings":
+					{
+						"buffer_size": 999,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								890,
+								849
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
+					"settings":
+					{
+						"buffer_size": 1374,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1246,
+								1246
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1876":
 								{
-									"a": 14485.0,
-									"b": 14485.0
+									"a": 1089.0,
+									"b": 1089.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 74.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
+					"settings":
+					{
+						"buffer_size": 1219,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								935,
+								900
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1888":
+								{
+									"a": 1216.0,
+									"b": 1216.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 214.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+					"settings":
+					{
+						"buffer_size": 390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								381,
+								381
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1899":
+								{
+									"a": 381.0,
+									"b": 381.0
+								}
+							},
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
+					"settings":
+					{
+						"buffer_size": 1714,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1384,
+								1384
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1902":
+								{
+									"a": 1384.0,
+									"b": 1384.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
+					"settings":
+					{
+						"buffer_size": 4045,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1937,
+								1937
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1905":
+								{
+									"a": 1797.0,
+									"b": 1797.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 555.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "game/dragon3d-examples/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 15343,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14752,
+								14752
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"1944":
+								{
+									"a": 14752.0,
+									"b": 14752.0
 								}
 							},
 							"syntax": "Packages/Python/Python.tmLanguage",
@@ -1142,959 +1347,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5476.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
-					"settings":
-					{
-						"buffer_size": 1937,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								942,
-								942
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alAuxEffectSlot.h",
-					"settings":
-					{
-						"buffer_size": 1615,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								493,
-								501
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "third_party/openal-soft-1.15.1/Alc/ALc.c",
-					"settings":
-					{
-						"buffer_size": 90244,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6059,
-								6059
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2823.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"settings":
-					{
-						"buffer_size": 23715,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										195,
-										207
-									],
-									[
-										499,
-										511
-									],
-									[
-										828,
-										840
-									],
-									[
-										1133,
-										1145
-									],
-									[
-										1437,
-										1449
-									],
-									[
-										1766,
-										1778
-									],
-									[
-										2088,
-										2108
-									],
-									[
-										2330,
-										2350
-									],
-									[
-										2653,
-										2673
-									],
-									[
-										2704,
-										2724
-									],
-									[
-										2914,
-										2934
-									],
-									[
-										3286,
-										3306
-									],
-									[
-										3612,
-										3632
-									],
-									[
-										3869,
-										3889
-									],
-									[
-										4198,
-										4218
-									],
-									[
-										4385,
-										4405
-									],
-									[
-										4667,
-										4687
-									],
-									[
-										5044,
-										5052
-									],
-									[
-										5074,
-										5082
-									],
-									[
-										5374,
-										5382
-									],
-									[
-										5404,
-										5412
-									],
-									[
-										5789,
-										5797
-									],
-									[
-										5871,
-										5879
-									],
-									[
-										6232,
-										6240
-									],
-									[
-										6262,
-										6270
-									],
-									[
-										6656,
-										6664
-									],
-									[
-										6918,
-										6926
-									],
-									[
-										6940,
-										6948
-									],
-									[
-										7182,
-										7190
-									],
-									[
-										7433,
-										7441
-									],
-									[
-										7696,
-										7704
-									],
-									[
-										7721,
-										7729
-									],
-									[
-										7975,
-										7983
-									],
-									[
-										8005,
-										8013
-									],
-									[
-										8123,
-										8131
-									],
-									[
-										8403,
-										8411
-									],
-									[
-										8433,
-										8441
-									],
-									[
-										8551,
-										8559
-									],
-									[
-										8614,
-										8622
-									],
-									[
-										8874,
-										8882
-									],
-									[
-										9029,
-										9037
-									],
-									[
-										9340,
-										9348
-									],
-									[
-										9572,
-										9580
-									],
-									[
-										10010,
-										10018
-									],
-									[
-										10418,
-										10426
-									],
-									[
-										10671,
-										10679
-									],
-									[
-										10728,
-										10736
-									],
-									[
-										10984,
-										10992
-									],
-									[
-										11271,
-										11279
-									],
-									[
-										11587,
-										11595
-									],
-									[
-										11727,
-										11735
-									],
-									[
-										11808,
-										11816
-									],
-									[
-										12002,
-										12010
-									],
-									[
-										12134,
-										12142
-									],
-									[
-										12322,
-										12330
-									],
-									[
-										12446,
-										12454
-									],
-									[
-										12519,
-										12527
-									],
-									[
-										12585,
-										12593
-									],
-									[
-										12769,
-										12777
-									],
-									[
-										12923,
-										12931
-									],
-									[
-										12994,
-										13002
-									],
-									[
-										13061,
-										13069
-									],
-									[
-										13389,
-										13397
-									],
-									[
-										13510,
-										13518
-									],
-									[
-										13630,
-										13638
-									],
-									[
-										13751,
-										13759
-									],
-									[
-										13889,
-										13897
-									],
-									[
-										13993,
-										14001
-									],
-									[
-										14093,
-										14101
-									],
-									[
-										14229,
-										14237
-									],
-									[
-										14335,
-										14343
-									],
-									[
-										14437,
-										14445
-									],
-									[
-										14575,
-										14583
-									],
-									[
-										14827,
-										14835
-									],
-									[
-										14967,
-										14975
-									],
-									[
-										15048,
-										15056
-									],
-									[
-										15211,
-										15219
-									],
-									[
-										15343,
-										15351
-									],
-									[
-										15520,
-										15528
-									],
-									[
-										15644,
-										15652
-									],
-									[
-										15717,
-										15725
-									],
-									[
-										15783,
-										15791
-									],
-									[
-										15916,
-										15924
-									],
-									[
-										15995,
-										16003
-									],
-									[
-										16078,
-										16086
-									],
-									[
-										16168,
-										16176
-									],
-									[
-										16247,
-										16255
-									],
-									[
-										16325,
-										16333
-									],
-									[
-										16700,
-										16708
-									],
-									[
-										16840,
-										16848
-									],
-									[
-										16921,
-										16929
-									],
-									[
-										17115,
-										17123
-									],
-									[
-										17247,
-										17255
-									],
-									[
-										17518,
-										17526
-									],
-									[
-										17658,
-										17666
-									],
-									[
-										17739,
-										17747
-									],
-									[
-										17933,
-										17941
-									],
-									[
-										18065,
-										18073
-									],
-									[
-										18255,
-										18263
-									],
-									[
-										18379,
-										18387
-									],
-									[
-										18452,
-										18460
-									],
-									[
-										18518,
-										18526
-									],
-									[
-										18704,
-										18712
-									],
-									[
-										18858,
-										18866
-									],
-									[
-										18929,
-										18937
-									],
-									[
-										18996,
-										19004
-									],
-									[
-										19311,
-										19319
-									],
-									[
-										19332,
-										19340
-									],
-									[
-										19583,
-										19591
-									],
-									[
-										20050,
-										20058
-									],
-									[
-										20443,
-										20451
-									],
-									[
-										20791,
-										20799
-									],
-									[
-										21029,
-										21037
-									],
-									[
-										21189,
-										21197
-									],
-									[
-										21214,
-										21222
-									],
-									[
-										21239,
-										21247
-									],
-									[
-										21403,
-										21411
-									],
-									[
-										21434,
-										21442
-									],
-									[
-										21463,
-										21471
-									],
-									[
-										21689,
-										21697
-									],
-									[
-										21700,
-										21708
-									],
-									[
-										21957,
-										21965
-									],
-									[
-										22265,
-										22273
-									],
-									[
-										22295,
-										22303
-									],
-									[
-										22757,
-										22765
-									],
-									[
-										22787,
-										22795
-									],
-									[
-										23090,
-										23098
-									],
-									[
-										23254,
-										23262
-									],
-									[
-										23540,
-										23548
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								21963,
-								21963
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"last_edits":
-							{
-								"1153":
-								{
-									"a": 4789.0,
-									"b": 4789.0
-								}
-							},
-							"output_tag": 4,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6545.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "third_party/openal-soft-1.15.1/include/AL/config.h",
-					"settings":
-					{
-						"buffer_size": 3322,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2720,
-								2720
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1301":
-								{
-									"a": 2720.0,
-									"b": 2720.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1314.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "third_party/openal-soft-1.15.1/Alc/config.h",
-					"settings":
-					{
-						"buffer_size": 3301,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1522,
-								1522
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 681.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/include/config.h",
-					"settings":
-					{
-						"buffer_size": 3322,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2720,
-								2720
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1310":
-								{
-									"a": 2720.0,
-									"b": 2720.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1499.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "third_party/openal-soft-1.15.1/include/AL/efx.h",
-					"settings":
-					{
-						"buffer_size": 33968,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11119,
-								11138
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/alFilter.c",
-					"settings":
-					{
-						"buffer_size": 13269,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12649,
-								12659
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5954.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/Include/alFilter.h",
-					"settings":
-					{
-						"buffer_size": 2793,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								699,
-								699
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 115.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h",
-					"settings":
-					{
-						"buffer_size": 26499,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								200,
-								200
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1286":
-								{
-									"a": 200.0,
-									"b": 200.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "third_party/openal-soft-1.15.1/Alc/helpers.c",
-					"settings":
-					{
-						"buffer_size": 17764,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2230,
-								2230
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1304":
-								{
-									"a": 2232.0,
-									"b": 2232.0
-								}
-							},
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 667.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "third_party/openal-soft-1.15.1/Alc/mixer_inc.c",
-					"settings":
-					{
-						"buffer_size": 5516,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								733,
-								733
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 205.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "third_party/openal-soft-1.15.1/OpenAL32/include/alu.h",
-					"settings":
-					{
-						"buffer_size": 3858,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								597,
-								605
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 256.0,
+						"translation.y": 5525.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2135,7 +1388,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 309.0
+		"height": 159.0
 	},
 	"replace":
 	{
@@ -2374,6 +1627,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 244.0,
+	"side_bar_width": 274.0,
 	"status_bar_visible": true
 }

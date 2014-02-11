@@ -400,6 +400,9 @@ THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 dragon3d_examples_SOURCES = {
     "com/dragon3d/examples/helloworld" : Split("""
         HelloWorld.cc
+    """),
+    "com/dragon3d/examples/audio" : Split("""
+        AudioDemo.cc
     """)
 }
 

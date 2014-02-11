@@ -458,6 +458,11 @@ dragon3d_core_SOURCES = {
         Shader.cc
     """),
 
+    "com/dragon3d/scene/audio" : Split("""
+        AudioSource.cc
+        AudioListener.cc
+    """),
+
     "com/dragon3d/input" : Split("""
         inputManager.cc
     """),
@@ -492,7 +497,12 @@ dragon3d_core_SOURCES = {
 
     "com/dragon3d/util/debug" : Split("""
         PlacementGrid.cc
+    """),
+
+    "com/dragon3d/util/assets" : Split("""
+        Resource.cc
     """)
+
 }
 
 LibraryModule(

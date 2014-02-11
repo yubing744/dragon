@@ -64,7 +64,7 @@ inline Type* TypeOf() {
 
 template<class T>
 inline Type* TypeOf(T type) {
-    return Type(typeid(type), sizeof(type));
+    return new Type(typeid(type), sizeof(type));
 }
 
 template<class T>

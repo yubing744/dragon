@@ -17,22 +17,39 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/11
  **********************************************************************/
 
+#include <dragon/lang/System.h>
+#include <dragon/io/File.h>
+#include <dragon/io/FileInputStream.h>
 
-#include <com/dragon3d/output/audio/AudioRenderer.h>
+#include <com/dragon3d/util/assets/Resource.h>
+#include <dragon/util/logging/Logger.h>
 
-Import com::dragon3d::output::audio;
+Import dragon::lang;
+Import dragon::io;
 
-AudioRenderer::AudioRenderer() {
+Import com::dragon3d::util::assets;
+Import dragon::util::logging;
 
+const Type* Resource::TYPE = TypeOf<Resource>();
+static Logger* logger = Logger::getLogger(Resource::TYPE, ERROR);
+
+Resource::Resource(const String& uri) {
+    this->uri = new String(uri);
 }
 
-AudioRenderer::~AudioRenderer() {
-
+Resource::~Resource() {
+    SafeDelete(this->uri);
 }
 
-void AudioRenderer::render(AudioListener* listener, List<AudioSource>* ases) {
-    
+InputStream* Resource::getInputStream() {
+    const String* resRoot = System::getProperty("app.resource.root");
+
+    File* file = new File(resRoot, this->uri);
+    FileInputStream* fis = new FileInputStream(file);
+    SafeDelete(file);
+
+    return fis;
 }

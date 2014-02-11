@@ -32,3 +32,32 @@ AudioSource::AudioSource() {
 AudioSource::~AudioSource() {
 
 }
+
+bool AudioSource::isPlaying() {
+
+}
+
+bool AudioSource::isLoop() {
+
+}
+
+void AudioSource::setAudioClip(AudioClip* clip) {
+    SafeDelete(this->clip);
+    this->clip = clip;
+}
+
+void AudioSource::play() {
+
+}
+
+void AudioSource::playDelayed(float delay) {
+
+}
+
+void AudioSource::pause() {
+
+}
+
+void AudioSource::stop() {
+    
+}

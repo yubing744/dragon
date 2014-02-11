@@ -17,22 +17,38 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/11
  **********************************************************************/
 
 
-#include <com/dragon3d/output/audio/AudioRenderer.h>
+#ifndef Resource_Assets_Util_Dragon3d_Com_H
+#define Resource_Assets_Util_Dragon3d_Com_H
 
-Import com::dragon3d::output::audio;
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-AudioRenderer::AudioRenderer() {
+#include <dragon/io/InputStream.h>
 
-}
+BeginPackage4(com, dragon3d, util, assets)
 
-AudioRenderer::~AudioRenderer() {
+Import dragon::lang;
+Import dragon::io;
 
-}
-
-void AudioRenderer::render(AudioListener* listener, List<AudioSource>* ases) {
+class_ Resource extends(Object) {
+public:
+    static const Type* TYPE;
     
-}
+public:
+    Resource(const String& uri);
+    virtual ~Resource();
+
+public:
+    virtual InputStream* getInputStream();
+
+protected:
+    String* uri;
+};//Resource
+
+EndPackage4 //(com, dragon3d, util, assets)
+
+#endif //Resource_Assets_Util_Dragon3d_Com_H

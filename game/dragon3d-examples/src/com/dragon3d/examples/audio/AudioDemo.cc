@@ -17,55 +17,82 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/15
+ * Created:     2014/02/10
  **********************************************************************/
 
 #include <dragon/lang/String.h>
 #include <dragon/util/logging/Logger.h>
+
+#include <dragonx/audio/io/AudioIO.h>
 
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/scene/SimpleScene.h>
 #include <com/dragon3d/util/math/Mathf.h>
 
-#include <com/dragon3d/examples/helloworld/HelloWorld.h>
+#include <com/dragon3d/examples/audio/AudioDemo.h>
 
-Import dragon::lang;
+#include <com/dragon3d/scene/audio/AudioSource.h>
+#include <com/dragon3d/scene/audio/AudioListener.h>
+
+
+#include <com/dragon3d/util/assets/Resource.h>
+
+
+Import com::dragon3d::scene::audio;
+Import com::dragon3d::examples::audio;
 Import dragon::util::logging;
 
+Import dragonx::audio::io;
+
 Import com::dragon3d::scene;
-Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::util::math;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", INFO);
+Import com::dragon3d::util::assets;
 
+const Type* AudioDemo::TYPE = TypeOf<AudioDemo>();
+static Logger* logger = Logger::getLogger(AudioDemo::TYPE, ERROR);
 
-HelloWorld::HelloWorld() {
+AudioDemo::AudioDemo() {
     Scene* scene = new SimpleScene();
     this->setNextScene(scene);
 }
 
-HelloWorld::~HelloWorld() {
+AudioDemo::~AudioDemo() {
 
 }
 
-void HelloWorld::init() {
+void AudioDemo::init() {
     logger->info("init");
 
     Scene* scene = this->getCurrentScene();
     
     myBox = new GameObject();
+
     Box* box = new Box();
     myBox->addComponent(box);
     
+    AudioSource* as = new AudioSource();
+    
+    Resource* res = new Resource("audio/abc.mp3");
+    AudioClip* clip = AudioIO::read(res->getInputStream(), "MP3");
+    as->setAudioClip(clip);
+    SafeDelete(res);
+
+    myBox->addComponent(as);
+
     myBox->transform->setPosition(Vector3(0, 0, 1));
     myBox->transform->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
+
     Box* box2 = new Box();
     child->addComponent(box2);
+
+    AudioListener* lis = new AudioListener();
+    child->addComponent(lis);
     
     child->transform->setPosition(Vector3(0, 0, 10));
     child->transform->setLocalPosition(Vector3(0, 2, 0));
@@ -89,7 +116,7 @@ void HelloWorld::init() {
 
 //static double abc = 0.1;
 
-void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
+void AudioDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //mainCamera->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
 
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
@@ -110,6 +137,6 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
-void HelloWorld::destroy() {
+void AudioDemo::destroy() {
     logger->info("destroy");
 }

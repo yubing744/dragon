@@ -17,29 +17,46 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/10
  **********************************************************************/
 
 
-#ifndef AudioRenderer_Audio_Output_Dragon3d_Com_H
-#define AudioRenderer_Audio_Output_Dragon3d_Com_H
+#ifndef AudioDemo_Audio_Examples_Dragon3d_Com_H
+#define AudioDemo_Audio_Examples_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-BeginPackage4(com, dragon3d, output, audio)
+#include <dragon3d.h>
+#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/scene/GameObject.h>
 
-Import com::dragon3d::output::audio;
+BeginPackage4(com, dragon3d, examples, audio)
 
-class _DragonExport AudioRenderer {
+Import dragon::lang;
+Import com::dragon3d::scene;
+Import com::dragon3d::framework;
+
+class_ AudioDemo extends(Application) {
 public:
-	AudioRenderer();
-	virtual ~AudioRenderer();
+    static const Type* TYPE;
+    
+public:
+    AudioDemo();
+    virtual ~AudioDemo();
 
 public:
-    virtual void render(AudioListener* listener, List<AudioSource>* ases);
-	
-};//AudioRenderer
+    virtual void init();
+    virtual void update(Scene* scene, ReadOnlyTimer* timer);
+    virtual void destroy();
+    
+protected:
+    GameObject* myBox;
+    GameObject* mainCamera;
+    GameObject* child;
+    
+};//AudioDemo
 
-EndPackage4 //(com, dragon3d, output, audio)
+EndPackage4 //(com, dragon3d, examples, audio)
 
-#endif //AudioRenderer_Audio_Output_Dragon3d_Com_H
+#endif //AudioDemo_Audio_Examples_Dragon3d_Com_H

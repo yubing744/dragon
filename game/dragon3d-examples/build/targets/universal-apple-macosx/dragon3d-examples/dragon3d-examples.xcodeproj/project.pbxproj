@@ -12,19 +12,21 @@
 		465173F617F7A9E30029222A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 465173F417F7A9E30029222A /* Credits.rtf */; };
 		4651740917FA64640029222A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651740817FA64640029222A /* OpenGL.framework */; };
 		4651742B17FA7EFB0029222A /* com in Resources */ = {isa = PBXBuildFile; fileRef = 4651742A17FA7EFB0029222A /* com */; };
-		4651765017FC17D30029222A /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651764F17FC17D30029222A /* libdragon3d-core.a */; };
 		4651765317FC1F5F0029222A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4651765117FC1F5F0029222A /* AppDelegate.mm */; };
 		4651765817FC3B2D0029222A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4651765617FC3B2D0029222A /* MainMenu.xib */; };
 		4651765C17FC429D0029222A /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651765B17FC429D0029222A /* libstdc++.6.dylib */; };
-		4651769817FC63AB0029222A /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769717FC63AB0029222A /* libdragon.a */; };
-		4651769B17FC6B3D0029222A /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769917FC6B3D0029222A /* libunicode.a */; };
-		4651769C17FC6B3D0029222A /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4651769A17FC6B3D0029222A /* libpcre32.a */; };
 		465176A217FED3C70029222A /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465176A117FED3C70029222A /* HelloWorld.cc */; };
 		465176A717FEDB580029222A /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 465176A417FEDB580029222A /* scene */; };
 		465176A817FEDB580029222A /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 465176A517FEDB580029222A /* Data */; };
 		465176A917FEDB580029222A /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 465176A617FEDB580029222A /* Textures */; };
 		465626AE18084463007DEB0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465626AD18084463007DEB0E /* QuartzCore.framework */; };
 		465D59381806C7E700A9BF94 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465173E517F7A9E30029222A /* Cocoa.framework */; };
+		4661323E18A7B990003E69FF /* libdragon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661323D18A7B990003E69FF /* libdragon.dylib */; };
+		4661324018A7B9AB003E69FF /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */; };
+		4661324318A7BA36003E69FF /* libdragon3d-examples.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */; };
+		4661324A18A7BF91003E69FF /* libdragon3d-examples.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */; };
+		4661324B18A7BF91003E69FF /* libdragon3d-core.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */; };
+		4661324C18A7BF91003E69FF /* libdragon.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661323D18A7B990003E69FF /* libdragon.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -40,13 +42,17 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4651764B17FBC08D0029222A /* CopyFiles */ = {
+		4651764B17FBC08D0029222A /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 6;
 			files = (
+				4661324A18A7BF91003E69FF /* libdragon3d-examples.dylib in Copy Files */,
+				4661324B18A7BF91003E69FF /* libdragon3d-core.dylib in Copy Files */,
+				4661324C18A7BF91003E69FF /* libdragon.dylib in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -77,6 +83,9 @@
 		465176A517FEDB580029222A /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
 		465176A617FEDB580029222A /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
 		465626AD18084463007DEB0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4661323D18A7B990003E69FF /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon.dylib"; sourceTree = "<group>"; };
+		4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
+		4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-examples.dylib"; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon3d-examples.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,13 +93,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4661324318A7BA36003E69FF /* libdragon3d-examples.dylib in Frameworks */,
+				4661324018A7B9AB003E69FF /* libdragon3d-core.dylib in Frameworks */,
+				4661323E18A7B990003E69FF /* libdragon.dylib in Frameworks */,
 				465626AE18084463007DEB0E /* QuartzCore.framework in Frameworks */,
 				465D59381806C7E700A9BF94 /* Cocoa.framework in Frameworks */,
-				4651769B17FC6B3D0029222A /* libunicode.a in Frameworks */,
-				4651769C17FC6B3D0029222A /* libpcre32.a in Frameworks */,
-				4651769817FC63AB0029222A /* libdragon.a in Frameworks */,
 				4651765C17FC429D0029222A /* libstdc++.6.dylib in Frameworks */,
-				4651765017FC17D30029222A /* libdragon3d-core.a in Frameworks */,
 				4651740917FA64640029222A /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +109,9 @@
 		465173D917F7A9E30029222A = {
 			isa = PBXGroup;
 			children = (
+				4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */,
+				4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */,
+				4661323D18A7B990003E69FF /* libdragon.dylib */,
 				465176A317FEDAE20029222A /* Assets */,
 				4651740217F7AB0F0029222A /* Classes */,
 				465173E417F7A9E30029222A /* Frameworks */,
@@ -245,7 +256,7 @@
 				465173DE17F7A9E30029222A /* Sources */,
 				465173DF17F7A9E30029222A /* Frameworks */,
 				465173E017F7A9E30029222A /* Resources */,
-				4651764B17FBC08D0029222A /* CopyFiles */,
+				4651764B17FBC08D0029222A /* Copy Files */,
 			);
 			buildRules = (
 				4651743017FAB0B10029222A /* PBXBuildRule */,
@@ -416,7 +427,10 @@
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/targets/universal-apple-macosx/debug";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/targets/universal-apple-macosx/debug",
+					"\"$(SRCROOT)/../../../../../../repo/universal-apple-macosx/debug\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -437,7 +451,10 @@
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/targets/universal-apple-macosx/debug";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/targets/universal-apple-macosx/debug",
+					"\"$(SRCROOT)/../../../../../../repo/universal-apple-macosx/debug\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

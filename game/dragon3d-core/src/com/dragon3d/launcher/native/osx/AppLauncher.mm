@@ -22,20 +22,24 @@
 
 // Implements AppLauncher 
 // 
-#include <com/dragon3d/launcher/AppLauncher.h>
-
-#include <com/dragon3d/framework/Application.h>
-#include <com/dragon3d/output/graphics/GraphicsDevice.h>
 #include <dragon/lang/Throwable.h>
 #include <dragon/util/ArrayList.h>
 #include <dragon/util/logging/Logger.h>
+ 
+#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+#include <com/dragon3d/output/audio/Speaker.h>
+
+#include <com/dragon3d/launcher/AppLauncher.h>
 
 Import dragon::lang;
 Import dragon::util::logging;
 Import com::dragon3d::framework;
 Import com::dragon3d::input;
+
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::audio;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#osx", INFO);
 
@@ -87,6 +91,10 @@ void Dragon3DLaunchApp(Application* app) {
     {
         // add graphics device
         GraphicsDevice* graphicsDevice = new GraphicsDevice();
+        outputManager->registerDevice(graphicsDevice);
+
+        // add audio device
+        Speaker* speaker = new Speaker();
         outputManager->registerDevice(graphicsDevice);
     }
 
