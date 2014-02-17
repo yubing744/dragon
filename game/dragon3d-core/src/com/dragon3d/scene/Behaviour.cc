@@ -25,6 +25,8 @@
 
 Import com::dragon3d::scene;
 
+const Type* Behaviour::TYPE = TypeOf<Behaviour>();
+
 Behaviour::Behaviour() 
     :enabled(true) {
 
@@ -32,4 +34,9 @@ Behaviour::Behaviour()
 
 Behaviour::~Behaviour() {
 
+}
+
+bool Behaviour::isTypeOf(const Type* type) {
+    return Behaviour::TYPE->equals(type) 
+        || Component::isTypeOf(type);
 }

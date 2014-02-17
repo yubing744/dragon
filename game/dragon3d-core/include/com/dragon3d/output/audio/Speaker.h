@@ -26,13 +26,18 @@
 
 #include <dragon/config.h>
 #include <com/dragon3d/output/OutputDevice.h>
+#include <com/dragon3d/output/audio/AudioOutputController.h>
 
 BeginPackage4(com, dragon3d, output, audio)
 
 Import com::dragon3d::output;
+Import com::dragon3d::output::audio;
 
 class _DragonExport Speaker extends(Object) 
     implements1(OutputDevice) {
+public:
+    static const Type* TYPE;
+    
 public:
 	Speaker();
 	virtual ~Speaker();

@@ -37,7 +37,7 @@
 
 
 #include <com/dragon3d/util/assets/Resource.h>
-
+#include <com/dragon3d/util/assets/AssetsManager.h>
 
 Import com::dragon3d::scene::audio;
 Import com::dragon3d::examples::audio;
@@ -75,8 +75,8 @@ void AudioDemo::init() {
     myBox->addComponent(box);
     
     AudioSource* as = new AudioSource();
-    
-    Resource* res = new Resource("audio/abc.mp3");
+     
+    Resource* res = AssetsManager::getInstance()->getResource("mp3/abc.mp3");
     AudioClip* clip = AudioIO::read(res->getInputStream(), "MP3");
     as->setAudioClip(clip);
     SafeDelete(res);
@@ -112,6 +112,8 @@ void AudioDemo::init() {
     scene->add(myBox);
     scene->add(child);
     scene->add(mainCamera);
+
+    Application::init();
 }
 
 //static double abc = 0.1;
@@ -134,7 +136,7 @@ void AudioDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
-    logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
+    logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
 void AudioDemo::destroy() {

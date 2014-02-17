@@ -42,10 +42,14 @@ Mp3AudioReader::~Mp3AudioReader() {
 
 }
 
-#define MAD_BUFFER_SIZE 1024
+#define BUFSIZE 8192
 
 typedef struct _MadDecodeContext {
     InputStream* input;
+    unsigned int fpos; /*current position*/
+    unsigned char fbuf[BUFSIZE]; /*buffer*/
+    unsigned int fbsize; /*indeed size of buffer*/
+
     OutputStream* output;
     AudioFormat* format;
     Exception* exception;
@@ -62,16 +66,29 @@ static enum mad_flow input_callback(void *data, struct mad_stream *stream) {
     MadDecodeContext* ctx = (MadDecodeContext*)data;
     InputStream* input = (InputStream*)ctx->input;;
 
-    byte buf[MAD_BUFFER_SIZE];
+    enum mad_flow ret_code;
+    int unproc_data_size; /*the unprocessed data's size*/
+    int copy_size;
 
-    int read = input->read(buf, MAD_BUFFER_SIZE);
+    unproc_data_size = stream->bufend - stream->next_frame;
+    memcpy(ctx->fbuf, ctx->fbuf + ctx->fbsize - unproc_data_size, unproc_data_size);
+    copy_size = BUFSIZE - unproc_data_size;
+
+    int read = input->read((byte*)(ctx->fbuf + unproc_data_size), copy_size);
 
     if (read > 0) {
-        mad_stream_buffer(stream, (const unsigned char*)buf, read);
-        return MAD_FLOW_CONTINUE;
+        ctx->fbsize = unproc_data_size + read;
+        ctx->fpos += read;
+
+        /*Hand off the buffer to the mp3 input stream*/
+        mad_stream_buffer(stream, ctx->fbuf, ctx->fbsize);
+
+        ret_code = MAD_FLOW_CONTINUE;
     } else {
-        return MAD_FLOW_STOP;
+        ret_code = MAD_FLOW_STOP;
     }
+    
+    return ret_code;
 }
 
 /*
@@ -173,6 +190,7 @@ enum mad_flow error_callback(void *data,
     MadDecodeContext* ctx = (MadDecodeContext*)data;
 
     String* msg = String::format("decoding error 0x%04x (%s)!", stream->error, mad_stream_errorstr(stream));
+    logger->error(msg->toCString());
     IOException* e = new IOException(msg);
     SafeDelete(msg);
 
@@ -202,8 +220,9 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
            error_callback, 0 /* message */);
 
     /* start decoding */
-    if (mad_decoder_run(&decoder, MAD_DECODER_MODE_SYNC) == MAD_FLOW_BREAK) {
-        throw ctx.exception;
+    if (mad_decoder_run(&decoder, MAD_DECODER_MODE_SYNC) == -1) {
+        //throw ctx.exception;
+        throw new IOException("error in decode mp3!", ctx.exception);
     }
 
     Array<byte> data = baos->toByteArray();

@@ -27,6 +27,8 @@
 		4661324A18A7BF91003E69FF /* libdragon3d-examples.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */; };
 		4661324B18A7BF91003E69FF /* libdragon3d-core.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */; };
 		4661324C18A7BF91003E69FF /* libdragon.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 4661323D18A7B990003E69FF /* libdragon.dylib */; };
+		46CD3FBD18B03B9C008BB84A /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46CD3FBC18B03B9C008BB84A /* mp3 */; };
+		46F0413E18AF78BF004AA46A /* AudioDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46F0413D18AF78BF004AA46A /* AudioDemo.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -86,6 +88,8 @@
 		4661323D18A7B990003E69FF /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon.dylib"; sourceTree = "<group>"; };
 		4661323F18A7B9AB003E69FF /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
 		4661324118A7B9BA003E69FF /* libdragon3d-examples.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-examples.dylib"; path = "../../../../../../repo/universal-apple-macosx/debug/libdragon3d-examples.dylib"; sourceTree = "<group>"; };
+		46CD3FBC18B03B9C008BB84A /* mp3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mp3; path = ../../../../assets/mp3; sourceTree = "<group>"; };
+		46F0413D18AF78BF004AA46A /* AudioDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioDemo.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,7 @@
 		4651769F17FED3C70029222A /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				46F0413C18AF78BF004AA46A /* audio */,
 				465176A017FED3C70029222A /* helloworld */,
 			);
 			path = examples;
@@ -239,11 +244,20 @@
 		465176A317FEDAE20029222A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				46CD3FBC18B03B9C008BB84A /* mp3 */,
 				465176A417FEDB580029222A /* scene */,
 				465176A517FEDB580029222A /* Data */,
 				465176A617FEDB580029222A /* Textures */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		46F0413C18AF78BF004AA46A /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				46F0413D18AF78BF004AA46A /* AudioDemo.cc */,
+			);
+			path = audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +320,7 @@
 				465176A717FEDB580029222A /* scene in Resources */,
 				465176A817FEDB580029222A /* Data in Resources */,
 				465176A917FEDB580029222A /* Textures in Resources */,
+				46CD3FBD18B03B9C008BB84A /* mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +334,7 @@
 				465173F217F7A9E30029222A /* main.m in Sources */,
 				4651765317FC1F5F0029222A /* AppDelegate.mm in Sources */,
 				465176A217FED3C70029222A /* HelloWorld.cc in Sources */,
+				46F0413E18AF78BF004AA46A /* AudioDemo.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +441,9 @@
 					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -449,6 +468,9 @@
 					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include",
+					"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
 				LIBRARY_SEARCH_PATHS = (

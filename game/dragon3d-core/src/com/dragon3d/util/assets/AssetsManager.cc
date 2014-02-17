@@ -17,50 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/15
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/Component.h>
-#include <com/dragon3d/scene/GameObject.h>
- 
-Import com::dragon3d::scene;
+#include <com/dragon3d/util/assets/AssetsManager.h>
+#include <dragon/util/logging/Logger.h>
 
-const Type* Component::TYPE = TypeOf<Component>();
+Import com::dragon3d::util::assets;
+Import dragon::util::logging;
 
-Component::Component() 
-    :active(true) {
+const Type* AssetsManager::TYPE = TypeOf<AssetsManager>();
+static Logger* logger = Logger::getLogger(AssetsManager::TYPE, ERROR);
 
-}
+AssetsManager* AssetsManager::am = null;
 
-Component::~Component() {
-
-}
-
-void Component::init() {
-    
-}
-
-void Component::update(Input* input, ReadOnlyTimer* timer) {
-
-}
-
-void Component::destroy() {
-
-}
-
-bool Component::isTypeOf(const Type* type) {
-    if (Component::TYPE->equals(type)) {
-        return true;
+AssetsManager* AssetsManager::getInstance() {
+    if (am == null) {
+        am = new AssetsManager();
     }
 
-    return false;
+    return am;
 }
 
-String* Component::getName() {
-    if (this->gameObject != null) {
-        return this->gameObject->name;
-    }
+AssetsManager::AssetsManager() {
 
-    return null;
 }
+
+AssetsManager::~AssetsManager() {
+
+}
+

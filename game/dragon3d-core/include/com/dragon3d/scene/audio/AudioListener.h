@@ -24,6 +24,11 @@
 #ifndef AudioListener_Audio_Scene_Dragon3d_Com_H
 #define AudioListener_Audio_Scene_Dragon3d_Com_H
 
+#include <stdlib.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
+
 #include <dragon/config.h>
 #include <com/dragon3d/scene/Behaviour.h>
 
@@ -34,13 +39,28 @@ Import com::dragon3d::scene::audio;
 
 class _DragonExport AudioListener extends(Behaviour) {
 public:
+    const static Type* TYPE;
+
+public:
 	AudioListener();
 	virtual ~AudioListener();
 
 public:
-	
+    /**
+     * the component is type of type.
+     * 
+     * @param  type [description]
+     * @return      [description]
+     */
+    virtual bool isTypeOf(const Type* type);
+
+public:
+    virtual void init();
+    virtual void update(Input* input, ReadOnlyTimer* timer);
+
 protected:
-	
+    ALuint source;
+
 };//AudioListener
 
 EndPackage4 //(com, dragon3d, scene, audio)

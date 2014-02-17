@@ -12,8 +12,8 @@ env['DRAGON_EXTRA_LIBS']=['stdc++']
 
 env.AppendUnique(CPPDEFINES = "HAVE_COREAUDIO")
 
-env.AppendUnique(FRAMEWORKS = Split('Cocoa OpenGL QuartzCore'))
-
+env.AppendUnique(FRAMEWORKPATH = Split('/Library/Frameworks /System/Library/Frameworks'))
+env.AppendUnique(FRAMEWORKS = Split('Cocoa OpenGL QuartzCore CoreAudio AudioUnit AudioToolbox ApplicationServices'))
 
 def Macosx_testcallback(target, source, env):
     

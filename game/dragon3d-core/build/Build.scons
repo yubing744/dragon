@@ -401,6 +401,13 @@ Alc_SOURCES = Split("""
     mixer_c.c
 """)
 
+Alc_backends_SOURCES = Split("""
+    null.c
+    wave.c
+    loopback.c
+    coreaudio.c
+""")
+
 LibraryModule(
     name                  = 'openal',
     source_root           = THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1",
@@ -412,7 +419,8 @@ LibraryModule(
     build_source_dirs     = [],         
     build_source_files    = {
         "OpenAL32" : OpenAL32_SOURCES,
-        "Alc" : Alc_SOURCES
+        "Alc" : Alc_SOURCES,
+        "Alc/backends" : Alc_backends_SOURCES
     },    
     extra_cpp_defines     = ["AL_ALEXT_PROTOTYPES"],     
     shared                = False,                    
@@ -428,6 +436,7 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/framework" : Split("""
         Application.cc
         FrameHandler.cc
+        GameException.cc
     """),
 
     "com/dragon3d/scene" : Split("""
@@ -477,6 +486,13 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/output/graphics/renderer" : Split("""
         support_graphics_renderer.cc
     """),
+
+    "com/dragon3d/output/audio" : Split("""
+        AudioRenderer.cc
+        AudioOutputController.cc
+        Speaker.cc
+    """),
+
     "com/dragon3d/util" : Split("""
         Timer.cc
     """),
@@ -501,6 +517,7 @@ dragon3d_core_SOURCES = {
 
     "com/dragon3d/util/assets" : Split("""
         Resource.cc
+        AssetsManager.cc
     """)
 
 }
@@ -518,7 +535,8 @@ LibraryModule(
     ],
     source_root           = 'src',
     included_modules      = [
-        'dragon'
+        'dragon',
+        'openal'
     ],
     linked_modules        = env['DRAGON_EXTRA_LIBS'], 
     shared                = env['SHARED'],

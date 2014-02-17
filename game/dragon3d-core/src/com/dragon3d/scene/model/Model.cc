@@ -25,7 +25,7 @@
 
 Import com::dragon3d::scene::model;
 
-const Type Model::TYPE = Type(typeid(Model), sizeof(Model));
+const Type* Model::TYPE = TypeOf<Model>();
 
 Model::Model() {
 
@@ -35,7 +35,7 @@ Model::~Model() {
 
 }
 
-bool Model::isTypeOf(const Type& type) {
-    return Model::TYPE.equals(&type) 
+bool Model::isTypeOf(const Type* type) {
+    return Model::TYPE->equals(type) 
         || Component::isTypeOf(type);
 }

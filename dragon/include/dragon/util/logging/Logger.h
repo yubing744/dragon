@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Throwable.h>
 #include <dragon/util/logging/Handler.h>
 
 #include <vector>
@@ -89,10 +90,19 @@ public:
     virtual void error(const char *formatStr, ...);
     virtual void fatal(const char *formatStr, ...);
 
+    // log with throw
+    virtual void traceT(const String& msg, Throwable* throwable);
+    virtual void debugT(const String& msg, Throwable* throwable);
+    virtual void infoT(const String& msg, Throwable* throwable);
+    virtual void warnT(const String& msg, Throwable* throwable);
+    virtual void errorT(const String& msg, Throwable* throwable);
+    virtual void fatalT(const String& msg, Throwable* throwable);
+
 public:
     virtual bool isEnabled(int lovel);
     virtual void log(int level, const char *formatStr, ...);
-    virtual void log_v(int level, const char *formatStr, va_list arg);
+    virtual void logV(int level, const char *formatStr, va_list arg);
+    virtual void logThrowable(int level, const String& msg, Throwable* throwable);
 
     virtual const char* getName();
     virtual int getLevel();

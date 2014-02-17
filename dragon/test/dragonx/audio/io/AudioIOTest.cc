@@ -83,7 +83,7 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadWav01) {
 
 TEST(Dragonx_Audio_Io_AudioIOTest, ReadMp301) {
     const String* base = System::getProperty("HOME");
-    String* filePath = new String(L"/dragon_test/audio_test/test_read.mp3");
+    String* filePath = new String(L"/dragon_test/audio_test/gamemusic.mp3");
 
     File* file = new File(base, filePath);
 

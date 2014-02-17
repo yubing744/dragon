@@ -164,6 +164,19 @@ void Application::runLoop() {
 
 void Application::init() {
 	logger->info("game scene init");
+
+    logger->debug("init all the world");
+    Scene* scene = this->getCurrentScene();
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        gameObject->init();
+    }
+
+    SafeDelete(it);
 }
 
 void Application::update(Scene* scene, ReadOnlyTimer* timer) {
@@ -180,6 +193,8 @@ void Application::update(Scene* scene, ReadOnlyTimer* timer) {
         GameObject* gameObject = it->next();
         gameObject->update(this->inputManager, timer);
     }
+
+    SafeDelete(it);
 }
 
 void Application::output(Scene* scene, CountDownLatch* latch) {
@@ -190,6 +205,19 @@ void Application::output(Scene* scene, CountDownLatch* latch) {
 
 void Application::destroy() {
     logger->debug("game scene destroy");
+
+    logger->debug("destroy all the world");
+    Scene* scene = this->getCurrentScene();
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        gameObject->destroy();
+    }
+
+    SafeDelete(it);
 }
 
 // -------------------------------------------------------------

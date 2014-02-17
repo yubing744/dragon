@@ -17,50 +17,28 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/15
  **********************************************************************/
 
+#import <Foundation/Foundation.h>
 
-#include <com/dragon3d/scene/Component.h>
-#include <com/dragon3d/scene/GameObject.h>
- 
-Import com::dragon3d::scene;
+#include <com/dragon3d/util/assets/AssetsManager.h>
 
-const Type* Component::TYPE = TypeOf<Component>();
+Import com::dragon3d::util::assets;
 
-Component::Component() 
-    :active(true) {
+Resource* AssetsManager::getResource(const String& uri) {
+    const char* utf8String = uri.toUTF8String();
 
-}
-
-Component::~Component() {
-
-}
-
-void Component::init() {
+    NSString *homePath = NSHomeDirectory();
+    NSLog(@"App Home Path: %@", homePath);
     
-}
+    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:utf8String] ofType:nil];
+    Resource* res = null;
 
-void Component::update(Input* input, ReadOnlyTimer* timer) {
-
-}
-
-void Component::destroy() {
-
-}
-
-bool Component::isTypeOf(const Type* type) {
-    if (Component::TYPE->equals(type)) {
-        return true;
+    if (fullpath != nil) {
+        res = new Resource([fullpath UTF8String]);
     }
 
-    return false;
+    return res;
 }
 
-String* Component::getName() {
-    if (this->gameObject != null) {
-        return this->gameObject->name;
-    }
-
-    return null;
-}

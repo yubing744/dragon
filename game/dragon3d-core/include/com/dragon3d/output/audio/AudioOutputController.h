@@ -27,10 +27,13 @@
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/output/OutputController.h>
+#include <com/dragon3d/output/audio/AudioRenderer.h>
 
 BeginPackage4(com, dragon3d, output, audio)
 
 Import dragon::lang;
+Import com::dragon3d::output;
+Import com::dragon3d::output::audio;
 
 class_ AudioOutputController extends(Object) 
     implements1(OutputController) {

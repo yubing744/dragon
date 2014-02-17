@@ -125,7 +125,7 @@ void GifWriteQprintf(char *Format, ...) {
     va_start(ArgPtr, Format);
 
     if (GifWriteNoisyPrint) {
-        logger->log_v(LOG_LEVEL_DEBUG, Format, ArgPtr);
+        logger->logV(LOG_LEVEL_DEBUG, Format, ArgPtr);
     }
 
     va_end(ArgPtr);

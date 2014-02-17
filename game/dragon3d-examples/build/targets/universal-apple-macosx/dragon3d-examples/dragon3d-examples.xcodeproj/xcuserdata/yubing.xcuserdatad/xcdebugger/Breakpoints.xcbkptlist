@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "64"
          endingLineNumber = "64"
-         landmarkName = "GameObject::getComponent(const Type&amp; type)"
+         landmarkName = "GameObject::getComponent(const Type* type)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -63,19 +63,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "102"
          endingLineNumber = "102"
-         landmarkName = "GraphicsOutputController::output(Scene* scene)"
+         landmarkName = "GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "413678558.424359"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -160,11 +149,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "dragon3d-examples/AppDelegate.mm"
-         timestampString = "403195168.303517"
+         timestampString = "414153651.650748"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "24"
-         endingLineNumber = "24"
+         startingLineNumber = "29"
+         endingLineNumber = "29"
          landmarkName = "-applicationDidFinishLaunching:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,6 +218,121 @@
          startingLineNumber = "109"
          endingLineNumber = "109"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
+         timestampString = "414146939.123111"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "110"
+         endingLineNumber = "110"
+         landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../dragon3d-core/src/com/dragon3d/output/OutputManager.cc"
+         timestampString = "414147364.46407"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "70"
+         endingLineNumber = "70"
+         landmarkName = "OutputManager::output(Scene* scene, CountDownLatch* latch)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc"
+         timestampString = "414148632.784257"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
+         landmarkName = "AudioOutputController::output(Scene* scene)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc"
+         timestampString = "414207463.314699"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "58"
+         endingLineNumber = "58">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../src/com/dragon3d/examples/audio/AudioDemo.cc"
+         timestampString = "414284816.662459"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
+         landmarkName = "AudioDemo::init()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../../dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc"
+         timestampString = "414284958.479288"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "107"
+         endingLineNumber = "107"
+         landmarkName = "header_callback(void *data, struct mad_header const *header)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../../dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc"
+         timestampString = "414285081.835065"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
+         landmarkName = "error_callback(void *data, struct mad_stream *stream, struct mad_frame *frame)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../../dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc"
+         timestampString = "414285088.567404"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "129"
+         endingLineNumber = "129"
+         landmarkName = "output_callback(void *data, struct mad_header const *header, struct mad_pcm *pcm)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../../dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc"
+         timestampString = "414285191.137501"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "189"
+         endingLineNumber = "189"
+         landmarkName = "Mp3AudioReader::read(const InputStream* input)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

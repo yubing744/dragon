@@ -35,8 +35,20 @@ Import com::dragon3d::scene;
 class _DragonExport Behaviour 
     extends(Component) {
 public:
+    static const Type* TYPE;
+
+public:
 	Behaviour();
 	virtual ~Behaviour();
+
+public:
+    /**
+     * the component is type of type.
+     * 
+     * @param  type [description]
+     * @return      [description]
+     */
+    virtual bool isTypeOf(const Type* type);
 
 public:
     /**

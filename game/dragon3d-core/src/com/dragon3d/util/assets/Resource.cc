@@ -24,8 +24,10 @@
 #include <dragon/io/File.h>
 #include <dragon/io/FileInputStream.h>
 
-#include <com/dragon3d/util/assets/Resource.h>
 #include <dragon/util/logging/Logger.h>
+
+#include <com/dragon3d/util/assets/Resource.h>
+#include <com/dragon3d/util/assets/AssetsManager.h>
 
 Import dragon::lang;
 Import dragon::io;
@@ -45,9 +47,7 @@ Resource::~Resource() {
 }
 
 InputStream* Resource::getInputStream() {
-    const String* resRoot = System::getProperty("app.resource.root");
-
-    File* file = new File(resRoot, this->uri);
+    File* file = new File(this->uri);
     FileInputStream* fis = new FileInputStream(file);
     SafeDelete(file);
 

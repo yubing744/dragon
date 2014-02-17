@@ -65,6 +65,11 @@ public:
 
 public:
 	/**
+	 * init the game object
+	 */
+	virtual void init();
+
+	/**
 	 * update the game object
 	 * 
 	 * @param input [description]
@@ -72,6 +77,12 @@ public:
 	 */
 	virtual void update(Input* input, ReadOnlyTimer* timer);
 
+	/**
+	 * destroy the game object
+	 */
+	virtual void destroy();
+
+public:
 	/**
 	 * add component.
 	 * 
@@ -85,7 +96,7 @@ public:
 	 * @param  type [description]
 	 * @return      [description]
 	 */
-	virtual Component* getComponent(const Type& type);
+	virtual Component* getComponent(const Type* type);
 
 public:
 	/**

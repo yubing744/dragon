@@ -44,14 +44,21 @@ class Transform;
 class _DragonExport Component 
 	extends(Object) {
 public:
-	const static Type TYPE;
+	const static Type* TYPE;
 
 public:
 	Component();
 	virtual ~Component();
 
 public:
-
+	
+	/**
+	 * update the game component
+	 * 
+	 * @param input [description]
+	 * @param timer [description]
+	 */
+	virtual void init();
 
 	/**
 	 * update the game component
@@ -62,12 +69,21 @@ public:
 	virtual void update(Input* input, ReadOnlyTimer* timer);
 
 	/**
+	 * destroy the game component
+	 * 
+	 * @param input [description]
+	 * @param timer [description]
+	 */
+	virtual void destroy();
+
+public:
+	/**
 	 * the component is type of type.
 	 * 
 	 * @param  type [description]
 	 * @return      [description]
 	 */
-	virtual bool isTypeOf(const Type& type);
+	virtual bool isTypeOf(const Type* type);
 
 public: // helper method for attached GameObject.
 	/**

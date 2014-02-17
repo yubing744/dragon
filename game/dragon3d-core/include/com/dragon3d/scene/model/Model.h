@@ -42,7 +42,7 @@ Import com::dragon3d::scene::model;
 class _DragonExport Model 
     extends(Component) {
 public:
-    const static Type TYPE;
+    const static Type* TYPE;
 
 public:
     Model();
@@ -55,7 +55,7 @@ public:
      * @param  type [description]
      * @return      [description]
      */
-    virtual bool isTypeOf(const Type& type);
+    virtual bool isTypeOf(const Type* type);
 
 public:
     /**

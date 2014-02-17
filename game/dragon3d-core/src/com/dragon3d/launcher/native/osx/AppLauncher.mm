@@ -65,7 +65,7 @@ public:
             // stop app
             app->onStop();
         } catch (Throwable* t) {
-            logger->error("Throwable caught in MainThread - exiting");
+            logger->errorT("Throwable caught in MainThread - exiting", t);
             t->printStackTrace();
             SafeDelete(t);
         }
@@ -95,7 +95,7 @@ void Dragon3DLaunchApp(Application* app) {
 
         // add audio device
         Speaker* speaker = new Speaker();
-        outputManager->registerDevice(graphicsDevice);
+        outputManager->registerDevice(speaker);
     }
 
     app->setOutputManager(outputManager);

@@ -380,6 +380,13 @@ public:
      */
     void setValue(int index, float value);
 
+    /**
+     * get the inner array
+     * 
+     * @return [description]
+     */
+    const float* toArray() const;
+
 public:
     float x; //X component of the vector.
     float y; //Y component of the vector.

@@ -21,9 +21,15 @@
  **********************************************************************/
 
 
+
+#include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/audio/AudioRenderer.h>
 
+Import dragon::util::logging;
 Import com::dragon3d::output::audio;
+
+const Type* AudioRenderer::TYPE = TypeOf<AudioRenderer>();
+static Logger* logger = Logger::getLogger(AudioRenderer::TYPE, ERROR);
 
 AudioRenderer::AudioRenderer() {
 

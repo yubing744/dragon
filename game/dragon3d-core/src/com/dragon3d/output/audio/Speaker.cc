@@ -20,10 +20,14 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
+#include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/audio/Speaker.h>
 
+Import dragon::util::logging;
 Import com::dragon3d::output::audio;
+
+const Type* Speaker::TYPE = TypeOf<Speaker>();
+static Logger* logger = Logger::getLogger(Speaker::TYPE, ERROR);
 
 Speaker::Speaker() {
     this->controller = new AudioOutputController();
@@ -34,7 +38,8 @@ Speaker::~Speaker() {
 }
 
 void Speaker::init() {
-
+    logger->info("init");
+    this->controller->init();
 }
 
 int Speaker::queryStatus(int code) {
@@ -50,5 +55,5 @@ void* Speaker::getNativeData() {
 }
 
 void Speaker::destroy() {
-
+    this->controller->destroy();
 }

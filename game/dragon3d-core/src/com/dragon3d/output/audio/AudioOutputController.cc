@@ -20,10 +20,13 @@
  * Created:     2014/02/11
  **********************************************************************/
 
-
+#include <dragon/util/ArrayList.h>
+#include <com/dragon3d/framework/GameException.h>
 #include <com/dragon3d/output/audio/AudioOutputController.h>
 #include <dragon/util/logging/Logger.h>
 
+Import dragon::util;
+Import com::dragon3d::framework;
 Import com::dragon3d::output::audio;
 Import dragon::util::logging;
 
@@ -31,7 +34,7 @@ const Type* AudioOutputController::TYPE = TypeOf<AudioOutputController>();
 static Logger* logger = Logger::getLogger(AudioOutputController::TYPE, ERROR);
 
 AudioOutputController::AudioOutputController() {
-    this->render = AudioRenderer();
+    this->render = new AudioRenderer();
 }
 
 AudioOutputController::~AudioOutputController() {
@@ -39,24 +42,100 @@ AudioOutputController::~AudioOutputController() {
 }
 
 void AudioOutputController::init() {
+    logger->info("init");
+    
+    ALCdevice *device;
+    ALCcontext *ctx;
 
+    /* Open and initialize a device with default settings */
+    device = alcOpenDevice(NULL);
+    if(!device) {
+        throw new GameException("Could not open a device!");
+    }
+
+    ctx = alcCreateContext(device, NULL);
+    if(ctx == NULL || alcMakeContextCurrent(ctx) == ALC_FALSE) {
+        if(ctx != NULL)
+            alcDestroyContext(ctx);
+
+        alcCloseDevice(device);
+        throw new GameException("Could not set a context!\n");
+    }
+
+    logger->debug("Opened \"%s\"\n", alcGetString(device, ALC_DEVICE_SPECIFIER));
 }
 
-void AudioOutputController::output(Scene* scene) {
-    List<AudioSource>* ases = findAllAudioSourceFromScene(scene);
-    List<AudioListener>* ales = findAllAudioListenerFromScene(scene);
+List<AudioSource>* findAllAudioSourceFromScene(Scene* scene) {
+    List<AudioSource>* ases = new ArrayList<AudioSource>();
 
-    Iterator<AudioListener>* it = ales->iterator();
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        AudioListener* listener = it->next();
-        this->render->render(listener, ases);
+        GameObject* gameObject = it->next();
+        AudioSource* audioSource = (AudioSource*)gameObject->getComponent(AudioSource::TYPE);
+
+        if (audioSource != null) {
+            ases->add(audioSource);
+        }
     }
 
     SafeDelete(it);
+
+    return ases;
+}
+
+List<AudioListener>* findAllAudioListenerFromScene(Scene* scene) {
+    List<AudioListener>* ales = new ArrayList<AudioListener>();
+
+    List<GameObject>* gameObjects = scene->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+        AudioListener* audioListener = (AudioListener*)gameObject->getComponent(AudioListener::TYPE);
+
+        if (audioListener != null) {
+            ales->add(audioListener);
+        }
+    }
+
+    SafeDelete(it);
+
+    return ales;
+}
+
+void AudioOutputController::output(Scene* scene) {
+    List<AudioListener>* ales = findAllAudioListenerFromScene(scene);
+
+    if (ales != null) {
+        List<AudioSource>* ases = findAllAudioSourceFromScene(scene);
+
+        Iterator<AudioListener>* it = ales->iterator();
+
+        while(it->hasNext()) {
+            AudioListener* listener = it->next();
+            this->render->render(listener, ases);
+        }
+
+        SafeDelete(it);
+    }
 }
 
 void AudioOutputController::destroy() {
+    ALCdevice *device;
+    ALCcontext *ctx;
 
+    ctx = alcGetCurrentContext();
+    if(ctx == NULL)
+        return;
+
+    device = alcGetContextsDevice(ctx);
+
+    alcMakeContextCurrent(NULL);
+    alcDestroyContext(ctx);
+    alcCloseDevice(device);
 }
 

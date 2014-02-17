@@ -89,13 +89,13 @@ void Logger::log(int level, const char *formatStr, ...) {
 		va_list params;
 	    va_start(params, formatStr);
 
-	    this->log_v(level, formatStr, params);
+	    this->logV(level, formatStr, params);
 	    
 	    va_end(params);
 	}
 }
 
-void Logger::log_v(int level, const char *formatStr, va_list arg) {
+void Logger::logV(int level, const char *formatStr, va_list arg) {
 	if (this->isEnabled(level)) {
 		char msg[BUFSIZ];
 	    vsprintf(msg, formatStr, arg);
@@ -107,11 +107,27 @@ void Logger::log_v(int level, const char *formatStr, va_list arg) {
     }
 }
 
+void Logger::logThrowable(int level, const String& msg, Throwable* throwable) {
+	if (this->isEnabled(level)) {
+		String* tMsg = throwable->getMessage();
+		const char* cMsg = tMsg->toCString();
+		SafeDelete(tMsg);
+
+		char buf[BUFSIZ];
+	    sprintf(buf, "%s \n    casue: %s", msg.toCString(), cMsg);
+
+	    for (Iterator it = handlers.begin(); it!=handlers.end(); ++it) {
+    		Handler* handler = *it;
+    		handler->publish(this->name, buf);
+    	}
+    }
+}
+
 void Logger::trace(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_TRACE, formatStr, params);
+	this->logV(LOG_LEVEL_TRACE, formatStr, params);
 
 	va_end(params);
 }
@@ -120,7 +136,7 @@ void Logger::debug(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_DEBUG, formatStr, params);
+	this->logV(LOG_LEVEL_DEBUG, formatStr, params);
 	
 	va_end(params);
 }
@@ -129,7 +145,7 @@ void Logger::info(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_INFO, formatStr, params);
+	this->logV(LOG_LEVEL_INFO, formatStr, params);
 	
 	va_end(params);
 }
@@ -138,7 +154,7 @@ void Logger::warn(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_WARN, formatStr, params);
+	this->logV(LOG_LEVEL_WARN, formatStr, params);
 	
 	va_end(params);
 }
@@ -147,7 +163,7 @@ void Logger::error(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_ERROR, formatStr, params);
+	this->logV(LOG_LEVEL_ERROR, formatStr, params);
 	
 	va_end(params);
 }
@@ -156,9 +172,34 @@ void Logger::fatal(const char *formatStr, ...) {
 	va_list params;
 	va_start(params, formatStr);
 
-	this->log_v(LOG_LEVEL_FATAL, formatStr, params);
+	this->logV(LOG_LEVEL_FATAL, formatStr, params);
 	
 	va_end(params);
+}
+
+
+void Logger::traceT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_TRACE, msg, throwable);
+}
+
+void Logger::debugT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_DEBUG, msg, throwable);
+}
+
+void Logger::infoT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_INFO, msg, throwable);
+}
+
+void Logger::warnT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_WARN, msg, throwable);
+}
+
+void Logger::errorT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_ERROR, msg, throwable);
+}
+
+void Logger::fatalT(const String& msg, Throwable* throwable) {
+	this->logThrowable(LOG_LEVEL_FATAL, msg, throwable);
 }
 
 bool Logger::isEnabled(int level) {

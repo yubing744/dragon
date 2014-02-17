@@ -39,7 +39,7 @@ Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::util::math;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", ERROR);
 
 
 HelloWorld::HelloWorld() {
@@ -107,7 +107,7 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
-    logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
+    logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
 void HelloWorld::destroy() {

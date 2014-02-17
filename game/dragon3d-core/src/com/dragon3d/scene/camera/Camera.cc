@@ -25,7 +25,7 @@
 
 Import com::dragon3d::scene::camera;
 
-const Type Camera::TYPE = Type(typeid(Camera), sizeof(Camera));
+const Type* Camera::TYPE = TypeOf<Camera>();
 
 Camera::Camera() 
 	:orthographic(false), 
@@ -72,9 +72,9 @@ Camera::~Camera() {
 
 }
 
-bool Camera::isTypeOf(const Type& type) {
-    return Camera::TYPE.equals(&type) 
-        || Component::isTypeOf(type);
+bool Camera::isTypeOf(const Type* type) {
+    return Camera::TYPE->equals(type) 
+        || Behaviour::isTypeOf(type);
 }
 
 void Camera::copyFrom(Camera* other) {

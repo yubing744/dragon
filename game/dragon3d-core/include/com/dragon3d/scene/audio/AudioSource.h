@@ -24,6 +24,11 @@
 #ifndef AudioSource_Audio_Scene_Dragon3d_Com_H
 #define AudioSource_Audio_Scene_Dragon3d_Com_H
 
+#include <stdlib.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
+
 #include <dragon/config.h>
 
 #include <dragonx/audio/AudioClip.h>
@@ -36,8 +41,24 @@ Import com::dragon3d::scene::audio;
 
 class _DragonExport AudioSource extends(Behaviour) {
 public:
+    const static Type* TYPE;
+
+public:
 	AudioSource();
 	virtual ~AudioSource();
+
+public:
+    /**
+     * the component is type of type.
+     * 
+     * @param  type [description]
+     * @return      [description]
+     */
+    virtual bool isTypeOf(const Type* type);
+
+public:
+    virtual void init();
+    virtual void update(Input* input, ReadOnlyTimer* timer);
 
 public:
 	virtual bool isPlaying();
@@ -56,6 +77,10 @@ protected:
     bool loop;
     bool mute;
     float volume;
+    bool autoPlay;
+
+    ALuint buffer; 
+    ALuint source;
 };//AudioSource
 
 EndPackage4 //(com, dragon3d, scene, audio)

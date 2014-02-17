@@ -37,6 +37,11 @@ IOException::IOException(const String& message)
 
 }
 
+IOException::IOException(const String& message, Throwable* cause) 
+    :Exception(message, cause) {
+
+}
+
 IOException::IOException(Throwable* cause)
     :Exception(cause){
 }

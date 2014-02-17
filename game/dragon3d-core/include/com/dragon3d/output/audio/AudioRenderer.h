@@ -26,11 +26,22 @@
 
 #include <dragon/config.h>
 
+#include <dragon/lang/Object.h>
+
+#include <dragon/util/List.h>
+#include <com/dragon3d/scene/audio/AudioListener.h>
+#include <com/dragon3d/scene/audio/AudioSource.h>
+ 
 BeginPackage4(com, dragon3d, output, audio)
 
-Import com::dragon3d::output::audio;
+Import dragon::util;
+Import com::dragon3d::scene::audio;
 
-class _DragonExport AudioRenderer {
+class _DragonExport AudioRenderer 
+    extends(Object) {
+public:
+    static const Type* TYPE;
+
 public:
 	AudioRenderer();
 	virtual ~AudioRenderer();

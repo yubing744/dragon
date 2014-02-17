@@ -233,4 +233,7 @@ void Vector3::setValue(int index, float value) {
     throw new IllegalArgumentException(new String("index must be either 0, 1, 2"));
 }
 
+const float* Vector3::toArray() const {
+    return (const float*)&this->x;
+}
 

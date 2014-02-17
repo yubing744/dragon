@@ -51,7 +51,7 @@ Import com::dragon3d::scene::model;
 class _DragonExport Camera 
 	extends(Behaviour) {
 public:
-	const static Type TYPE;
+	const static Type* TYPE;
 
 public:
 	/**
@@ -108,7 +108,7 @@ public:
      * @param  type [description]
      * @return      [description]
      */
-    virtual bool isTypeOf(const Type& type);
+    virtual bool isTypeOf(const Type* type);
 
 public:
 	/**

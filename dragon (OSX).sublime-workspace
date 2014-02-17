@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"de",
+				"destroy"
+			],
+			[
+				"dra",
+				"dragon3d"
+			],
+			[
+				"dr",
+				"dragon3d"
+			],
+			[
+				"Game",
+				"GameException"
+			],
+			[
 				"in",
 				"include"
 			],
@@ -98,10 +114,6 @@
 			[
 				"Imag",
 				"ImageIORegistry"
-			],
-			[
-				"dra",
-				"dragon"
 			],
 			[
 				"String",
@@ -492,10 +504,6 @@
 				"push_back"
 			],
 			[
-				"de",
-				"demangled"
-			],
-			[
 				"vr",
 				"vector	std::vector"
 			],
@@ -506,90 +514,26 @@
 			[
 				"qu",
 				"queryByteSymbol"
-			],
-			[
-				"setByte",
-				"setBytePtr2"
-			],
-			[
-				"sour",
-				"source_file"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
+			"contents": "Searching 79 files for \"mad_stream_buffer\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/mad.h:\n  718      ((void) ((stream)->options = (opts)))\n  719  \n  720: void mad_stream_buffer(struct mad_stream *,\n  721  		       unsigned char const *, unsigned long);\n  722  void mad_stream_skip(struct mad_stream *, unsigned long);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/minimad.c:\n   76   * This is the input callback. The purpose of this callback is to (re)fill\n   77   * the stream buffer which is to be decoded. In this example, an entire file\n   78:  * has been mapped into memory, so we just call mad_stream_buffer() with the\n   79   * address and length of the mapping. When this callback is called a second\n   80   * time, we are finished decoding.\n   ..\n   90      return MAD_FLOW_STOP;\n   91  \n   92:   mad_stream_buffer(stream, buffer->start, buffer->length);\n   93  \n   94    buffer->length = 0;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/msvc++/mad.h:\n  718      ((void) ((stream)->options = (opts)))\n  719  \n  720: void mad_stream_buffer(struct mad_stream *,\n  721  		       unsigned char const *, unsigned long);\n  722  void mad_stream_skip(struct mad_stream *, unsigned long);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/stream.c:\n   77   * DESCRIPTION:	set stream buffer pointers\n   78   */\n   79: void mad_stream_buffer(struct mad_stream *stream,\n   80  		       unsigned char const *buffer, unsigned long length)\n   81  {\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/stream.h:\n   97      ((void) ((stream)->options = (opts)))\n   98  \n   99: void mad_stream_buffer(struct mad_stream *,\n  100  		       unsigned char const *, unsigned long);\n  101  void mad_stream_skip(struct mad_stream *, unsigned long);\n\n6 matches across 5 files\n",
 			"settings":
 			{
-				"buffer_size": 1655,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
-			"settings":
-			{
-				"buffer_size": 1774,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
-			"settings":
-			{
-				"buffer_size": 999,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
-			"settings":
-			{
-				"buffer_size": 1374,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
-			"settings":
-			{
-				"buffer_size": 1219,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 390,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
-			"settings":
-			{
-				"buffer_size": 1714,
+				"buffer_size": 1872,
 				"line_ending": "Unix",
-				"name": "AudioDemo.h"
+				"name": "Find Results",
+				"scratch": true
 			}
 		},
 		{
-			"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
+			"file": "third_party/libmad-0.15.0b/mad.h",
 			"settings":
 			{
-				"buffer_size": 4045,
-				"line_ending": "Unix",
-				"name": "AudioDemo.cc"
-			}
-		},
-		{
-			"file": "game/dragon3d-examples/build/Build.scons",
-			"settings":
-			{
-				"buffer_size": 15343,
+				"buffer_size": 26649,
 				"line_ending": "Unix"
 			}
 		}
@@ -686,29 +630,90 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/Resource.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/AssetsManager.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/AssetsManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/decoder.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/Speaker.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/Speaker.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioOutputController.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioRenderer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/GameObject.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioListener.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/osx/AppLauncher.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/logging/Logger.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/logging/Logger.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Component.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Component.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IOException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/IOException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/alstream.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/common/alhelpers.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/common/alhelpers.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Transform.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/Vector3Test.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/backends/coreaudio.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/helpers.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/camera/Camera.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/script/ScriptBehaviour.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Model.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alBuffer.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/framework/GameException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/GameException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/UnsupportedOperationException.h",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Build.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsDevice.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsOutputController.h",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alu.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_defs.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALu.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_inc.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alAuxEffectSlot.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALc.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/config.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/efx.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alFilter.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alFilter.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/helpers.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/CMakeLists.txt",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alMain.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/universal-apple-macosx/Config.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/Makefile",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioIO.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioReader.cc",
@@ -724,8 +729,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/sndfile.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/examples/generate.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/doc/examples/mpg123_to_wav.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/Makefile.am",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioClip.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
@@ -754,66 +757,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/System.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/OutputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/IllegalArgumentException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/IllegalArgumentException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IllegalArgumentExceptionTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileNotFoundException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/minimad.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/fixed.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/mad.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/ByteArrayOutputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/ByteArrayOutputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/AbstractStringBuilder.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/SystemTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/ogg/OggAudioReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/TestMain.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/spi/AudioClipIORegistry.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioIO.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/io/ImageIOTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/ImageIO.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/AbstractAudioReader.h",
-		"/usr/include/stdio.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.15.4/src/libmpg123/compat.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/lfs_wrap.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/mpg123.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/lfs_alias.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/libmpg123.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/mpg123.h.in",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.15.4/src/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.15.4/src/libmpg123/mpg123.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.15.4/src/libmpg123/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/AbstractAudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/spi/AudioClipIORegistry.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AUdioClip.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/ports/MSVC++/2008clr/examples/ReplaceReaderclr/Program.cs",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/mp3/Mp3AudioReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/UnsupportedEncodingException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/UnsupportedOperationException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/UnsupportedOperationException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/zip/ZipFile.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/NEWS.libmpg123",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/spi/ImageIORegistry.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/spi/ImageIORegistry.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/include/vorbis/codec.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/optimize.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/compat.c",
-		"/Users/yubing/Downloads/77668825Mp3Decoder/www.pudn.com.txt",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/spi/AudioClipIORegistry.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/mp3/MP3AudioReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/MP3AudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/plugins/tga/TGAImageReader.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStream.cc"
 	],
 	"find":
 	{
@@ -824,6 +768,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/giflib-4.2.3",
@@ -843,6 +788,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"mad_stream_buffer",
+			"MAD_FLOW_BREAK",
+			"equals",
+			"alutLoadWAVFile",
+			"DecomposeUserFormat",
+			"alBufferData",
 			"RESTRICT",
 			"DevFmtChannelsString",
 			"AL_ALEXT_PROTOTYPES",
@@ -964,13 +915,7 @@
 			"i",
 			"super+t",
 			"super+p",
-			"ctrl+v",
-			"unicode_get_charset",
-			"<insert_a_suppression_name_here>",
-			"\\\\<insert_a_suppression_name_here\\\\>",
-			"\\<insert_a_suppression_name_here\\>",
-			"<insert_a_suppression_name_here>",
-			"strEqua"
+			"ctrl+v"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1055,299 +1000,110 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
 					"settings":
 					{
-						"buffer_size": 1655,
+						"buffer_size": 1872,
 						"regions":
 						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										202,
+										219
+									],
+									[
+										659,
+										676
+									],
+									[
+										869,
+										886
+									],
+									[
+										1113,
+										1130
+									],
+									[
+										1421,
+										1438
+									],
+									[
+										1687,
+										1704
+									]
+								],
+								"scope": ""
+							}
 						},
 						"selection":
 						[
 							[
-								1329,
-								1329
+								214,
+								214
 							]
 						],
 						"settings":
 						{
+							"detect_indentation": false,
 							"last_edits":
 							{
-								"1858":
+								"28":
 								{
-									"a": 1442.0,
-									"b": 1442.0
+									"a": 0.0,
+									"b": 0.0
+								},
+								"494":
+								{
+									"a": 0.0,
+									"b": 0.0
 								}
 							},
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
+					"file": "third_party/libmad-0.15.0b/mad.h",
 					"settings":
 					{
-						"buffer_size": 1774,
+						"buffer_size": 26649,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1065,
-								1065
+								20129,
+								20129
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 154.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
-					"settings":
-					{
-						"buffer_size": 999,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								890,
-								849
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
-					"settings":
-					{
-						"buffer_size": 1374,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1246,
-								1246
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1876":
-								{
-									"a": 1089.0,
-									"b": 1089.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 74.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
-					"settings":
-					{
-						"buffer_size": 1219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								935,
-								900
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1888":
-								{
-									"a": 1216.0,
-									"b": 1216.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 214.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
-					"settings":
-					{
-						"buffer_size": 390,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								381,
-								381
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1899":
-								{
-									"a": 381.0,
-									"b": 381.0
-								}
-							},
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
-					"settings":
-					{
-						"buffer_size": 1714,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1384,
-								1384
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1902":
-								{
-									"a": 1384.0,
-									"b": 1384.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
-					"settings":
-					{
-						"buffer_size": 4045,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1937,
-								1937
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1905":
-								{
-									"a": 1797.0,
-									"b": 1797.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 555.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "game/dragon3d-examples/build/Build.scons",
-					"settings":
-					{
-						"buffer_size": 15343,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14752,
-								14752
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1944":
-								{
-									"a": 14752.0,
-									"b": 14752.0
-								}
-							},
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5525.0,
+						"translation.y": 9767.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1388,7 +1144,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 159.0
+		"height": 248.0
 	},
 	"replace":
 	{
@@ -1627,6 +1383,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 274.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true
 }

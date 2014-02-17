@@ -17,50 +17,40 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/15
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/Component.h>
-#include <com/dragon3d/scene/GameObject.h>
- 
-Import com::dragon3d::scene;
+#ifndef AssetsManager_Assets_Util_Dragon3d_Com_H
+#define AssetsManager_Assets_Util_Dragon3d_Com_H
 
-const Type* Component::TYPE = TypeOf<Component>();
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/util/assets/Resource.h>
 
-Component::Component() 
-    :active(true) {
+BeginPackage4(com, dragon3d, util, assets)
 
-}
+Import dragon::lang;
+Import com::dragon3d::util::assets;
 
-Component::~Component() {
+class_ AssetsManager extends(Object) {
+public:
+    static const Type* TYPE;
 
-}
+public:
+    static AssetsManager* am;
+    static AssetsManager* getInstance();
 
-void Component::init() {
+protected:
+    AssetsManager();
+public:
+    virtual ~AssetsManager();
+
+public:
+    Resource* getResource(const String& uri);
     
-}
+};//AssetsManager
 
-void Component::update(Input* input, ReadOnlyTimer* timer) {
+EndPackage4 //(com, dragon3d, util, assets)
 
-}
-
-void Component::destroy() {
-
-}
-
-bool Component::isTypeOf(const Type* type) {
-    if (Component::TYPE->equals(type)) {
-        return true;
-    }
-
-    return false;
-}
-
-String* Component::getName() {
-    if (this->gameObject != null) {
-        return this->gameObject->name;
-    }
-
-    return null;
-}
+#endif //AssetsManager_Assets_Util_Dragon3d_Com_H

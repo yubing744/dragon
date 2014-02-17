@@ -17,50 +17,33 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/02/12
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/Component.h>
-#include <com/dragon3d/scene/GameObject.h>
- 
-Import com::dragon3d::scene;
+#ifndef GameException_Framework_Dragon3d_Com_H
+#define GameException_Framework_Dragon3d_Com_H
 
-const Type* Component::TYPE = TypeOf<Component>();
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-Component::Component() 
-    :active(true) {
+#include <dragon/lang/RuntimeException.h>
 
-}
+BeginPackage3(com, dragon3d, framework)
 
-Component::~Component() {
+Import dragon::lang;
 
-}
-
-void Component::init() {
+class_ GameException extends(RuntimeException) {
+public:
+    static const Type* TYPE;
     
-}
+public:
+    GameException();
+    GameException(const String& message);
+    virtual ~GameException();
+    
+};//GameException
 
-void Component::update(Input* input, ReadOnlyTimer* timer) {
+EndPackage3 //(com, dragon3d, framework)
 
-}
-
-void Component::destroy() {
-
-}
-
-bool Component::isTypeOf(const Type* type) {
-    if (Component::TYPE->equals(type)) {
-        return true;
-    }
-
-    return false;
-}
-
-String* Component::getName() {
-    if (this->gameObject != null) {
-        return this->gameObject->name;
-    }
-
-    return null;
-}
+#endif //GameException_Framework_Dragon3d_Com_H

@@ -20,15 +20,47 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
+#include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/scene/GameObject.h>
+#include <com/dragon3d/framework/GameException.h>
 #include <com/dragon3d/scene/audio/AudioListener.h>
 
+Import com::dragon3d::framework;
+Import com::dragon3d::util::math;
 Import com::dragon3d::scene::audio;
+
+const Type* AudioListener::TYPE = TypeOf<AudioListener>();
 
 AudioListener::AudioListener() {
 
 }
 
 AudioListener::~AudioListener() {
+    alDeleteSources(1, &source);
+}
+
+bool AudioListener::isTypeOf(const Type* type) {
+    return AudioListener::TYPE->equals(type) 
+        || Behaviour::isTypeOf(type);
+}
+
+void AudioListener::init() {
+    GameObject* gameObject = this->gameObject;
+    Vector3 listenerPos = gameObject->transform->getPosition();
+    Vector3 listenerVel(0, 0, 0);
+
+    alListenerfv(AL_POSITION, listenerPos.toArray());
+    alListenerfv(AL_VELOCITY, listenerVel.toArray());
+    alListenerfv(AL_ORIENTATION, Vector3::UP.toArray());
+
+    alSourcei(source, AL_SOURCE_RELATIVE, AL_TRUE);
+    alSourcei(source, AL_ROLLOFF_FACTOR, 0);
+
+    if (alGetError() == AL_NO_ERROR) {
+        throw new GameException("Could not set source parameters");
+    }
+}
+
+void AudioListener::update(Input* input, ReadOnlyTimer* timer) {
 
 }

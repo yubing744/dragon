@@ -35,6 +35,7 @@ public:
     IOException();
     IOException(String* message);
     IOException(const String& message);
+    IOException(const String& message, Throwable* cause);
     IOException(Throwable* cause);
     IOException(String* message, Throwable* cause);
 
