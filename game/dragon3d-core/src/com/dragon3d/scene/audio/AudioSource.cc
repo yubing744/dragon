@@ -46,7 +46,7 @@ AudioSource::AudioSource()
 }
 
 AudioSource::~AudioSource() {
-    alDeleteSources(1, &this->source);
+
 }
 
 bool AudioSource::isTypeOf(const Type* type) {
@@ -123,8 +123,16 @@ void AudioSource::update(Input* input, ReadOnlyTimer* timer) {
     alSourcefv(source, AL_VELOCITY, sourceVel.toArray());
 }
 
-bool AudioSource::isPlaying() {
+void AudioSource::destroy() {
+    alDeleteBuffers(1, &this->buffer);
+    alDeleteSources(1, &this->source);
+}
 
+bool AudioSource::isPlaying() {
+    ALint status;
+    alGetSourcei(this->source, AL_SOURCE_STATE, &status);
+
+    return status != AL_PLAYING;
 }
 
 bool AudioSource::isLoop() {

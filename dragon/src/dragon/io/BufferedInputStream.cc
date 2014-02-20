@@ -197,6 +197,10 @@ void BufferedInputStream::close() throw(IOException*) {
     }
 }
 
+bool BufferedInputStream::markSupported() const {
+    return true;
+}
+
 void BufferedInputStream::mark(int readlimit) {
     marklimit = readlimit;
     markpos = pos;
@@ -209,10 +213,6 @@ void BufferedInputStream::reset() throw(IOException*) {
         throw new IOException("Resetting to invalid mark");
 
     pos = markpos;
-}
-
-bool BufferedInputStream::markSupported() {
-    return true;
 }
 
 int BufferedInputStream::available() const {

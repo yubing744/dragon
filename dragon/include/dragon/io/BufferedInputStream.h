@@ -47,9 +47,9 @@ public:
     virtual void close() throw(IOException*);
 
 public:
+    virtual bool markSupported() const;
     virtual void mark(int readlimit);
     virtual void reset() throw(IOException*);
-    virtual bool markSupported();
     virtual int available() const;
 
 private:

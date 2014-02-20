@@ -57,7 +57,8 @@ public:
 public:
     virtual void init();
     virtual void update(Input* input, ReadOnlyTimer* timer);
-
+    virtual void destroy();
+    
 protected:
     ALuint source;
 

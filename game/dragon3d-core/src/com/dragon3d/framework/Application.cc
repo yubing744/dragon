@@ -96,6 +96,10 @@ void Application::onPause() {
 
 void Application::onStop() {
 	logger->info("on stop");
+
+    // destroy input and output manager
+    this->inputManager->destroy();
+    this->outputManager->destroy();
 }
 
 void Application::onDestroy() {
@@ -144,11 +148,12 @@ bool Application::isExit() {
 }
 
 void Application::exit() {
+    logger->info("notify exit");
     this->exited = true;
 }
 
 void Application::runLoop() {
-	logger->debug("run loop");
+	logger->info("run loop");
 
 	Scene* scene = this->getCurrentScene();
 

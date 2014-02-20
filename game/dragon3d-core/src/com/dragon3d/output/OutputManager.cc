@@ -91,6 +91,8 @@ void OutputManager::destroy() {
 			device->destroy();
 		}
 	}
+
+	SafeDelete(it);
 }
 
 void OutputManager::registerDevice(OutputDevice* outputDevice) {

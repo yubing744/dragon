@@ -74,7 +74,31 @@ void FileInputStream::close() throw(IOException*) {
     }
 }
 
-int FileInputStream::available() const throw(IOException*) {
+
+bool FileInputStream::markSupported() const {
+    return true;
+}
+
+void FileInputStream::mark(int readlimit) {
+    FILE* f = (FILE*)this->nativeFileHandle;
+
+    if (f != NULL) {
+        long pos = ftell(f);
+
+        this->marklimit = readlimit;
+        this->markpos = pos;
+    } 
+}
+
+void FileInputStream::reset() throw(IOException*) {
+    FILE* f = (FILE*)this->nativeFileHandle;
+
+    if (f != NULL) {
+        fseek(f, this->markpos, SEEK_SET);
+    }   
+}
+
+int FileInputStream::available() const {
     FILE* f = (FILE*)this->nativeFileHandle;
 
     if (f != NULL) {

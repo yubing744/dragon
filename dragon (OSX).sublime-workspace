@@ -530,10 +530,122 @@
 			}
 		},
 		{
+			"file": "third_party/libmad-0.15.0b/minimad.c",
+			"settings":
+			{
+				"buffer_size": 5942,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "third_party/libmad-0.15.0b/mad.h",
 			"settings":
 			{
 				"buffer_size": 26649,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
+			"settings":
+			{
+				"buffer_size": 4089,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
+			"settings":
+			{
+				"buffer_size": 7180,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libmad-0.15.0b/decoder.c",
+			"settings":
+			{
+				"buffer_size": 11570,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libmad-0.15.0b/frame.c",
+			"settings":
+			{
+				"buffer_size": 12031,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libmad-0.15.0b/stream.c",
+			"settings":
+			{
+				"buffer_size": 4409,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/libmad-0.15.0b/bit.c",
+			"settings":
+			{
+				"buffer_size": 6853,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/test/dragonx/audio/io/AudioIOTest.cc",
+			"settings":
+			{
+				"buffer_size": 3687,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader.cc",
+			"settings":
+			{
+				"buffer_size": 918,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/build/Build.scons",
+			"settings":
+			{
+				"buffer_size": 35393,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/build/targets/universal-apple-macosx/Config.scons",
+			"settings":
+			{
+				"buffer_size": 1337,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/mpg123-1.17.0/src/libmpg123/lfs_wrap.c",
+			"settings":
+			{
+				"buffer_size": 20892,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/mpg123-1.17.0/src/libmpg123/mpg123.h",
+			"settings":
+			{
+				"buffer_size": 63280,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "third_party/mpg123-1.17.0/src/libmpg123/config.h",
+			"settings":
+			{
+				"buffer_size": 12476,
 				"line_ending": "Unix"
 			}
 		}
@@ -630,6 +742,8 @@
 	},
 	"file_history":
 	[
+		"/usr/include/stdio.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/lfs_wrap.c",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/Resource.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
@@ -755,9 +869,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/System.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/System.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/OutputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStream.cc"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h"
 	],
 	"find":
 	{
@@ -1000,7 +1112,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 11,
 			"sheets":
 			[
 				{
@@ -1046,8 +1158,8 @@
 						"selection":
 						[
 							[
-								214,
-								214
+								877,
+								877
 							]
 						],
 						"settings":
@@ -1082,6 +1194,34 @@
 				},
 				{
 					"buffer": 1,
+					"file": "third_party/libmad-0.15.0b/minimad.c",
+					"settings":
+					{
+						"buffer_size": 5942,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5596,
+								5596
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2658.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "third_party/libmad-0.15.0b/mad.h",
 					"settings":
 					{
@@ -1092,8 +1232,8 @@
 						"selection":
 						[
 							[
-								20129,
-								20129
+								19980,
+								19990
 							]
 						],
 						"settings":
@@ -1103,7 +1243,412 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9767.0,
+						"translation.y": 9757.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
+					"settings":
+					{
+						"buffer_size": 4089,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
+					"settings":
+					{
+						"buffer_size": 7180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2804,
+								2804
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"98":
+								{
+									"a": 2510.0,
+									"b": 2510.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 866.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "third_party/libmad-0.15.0b/decoder.c",
+					"settings":
+					{
+						"buffer_size": 11570,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7823,
+								7823
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5138.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "third_party/libmad-0.15.0b/frame.c",
+					"settings":
+					{
+						"buffer_size": 12031,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11097,
+								11097
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6053.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "third_party/libmad-0.15.0b/stream.c",
+					"settings":
+					{
+						"buffer_size": 4409,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2224,
+								2224
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 965.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "third_party/libmad-0.15.0b/bit.c",
+					"settings":
+					{
+						"buffer_size": 6853,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3679,
+								3679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1077.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dragon/test/dragonx/audio/io/AudioIOTest.cc",
+					"settings":
+					{
+						"buffer_size": 3687,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2138,
+								2138
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"140":
+								{
+									"a": 2316.0,
+									"b": 2316.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1031.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader.cc",
+					"settings":
+					{
+						"buffer_size": 918,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								914,
+								914
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"167":
+								{
+									"a": 914.0,
+									"b": 914.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "dragon/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 35393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25265,
+								25265
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"170":
+								{
+									"a": 25363.0,
+									"b": 25363.0
+								}
+							},
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11375.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "dragon/build/targets/universal-apple-macosx/Config.scons",
+					"settings":
+					{
+						"buffer_size": 1337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								820,
+								820
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"227":
+								{
+									"a": 820.0,
+									"b": 820.0
+								}
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "third_party/mpg123-1.17.0/src/libmpg123/lfs_wrap.c",
+					"settings":
+					{
+						"buffer_size": 20892,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19613,
+								19613
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 9674.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "third_party/mpg123-1.17.0/src/libmpg123/mpg123.h",
+					"settings":
+					{
+						"buffer_size": 63280,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36645,
+								36650
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7478.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "third_party/mpg123-1.17.0/src/libmpg123/config.h",
+					"settings":
+					{
+						"buffer_size": 12476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11912,
+								11912
+							]
+						],
+						"settings":
+						{
+							"last_edits":
+							{
+								"236":
+								{
+									"a": 11912.0,
+									"b": 11912.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5916.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1144,7 +1689,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 248.0
+		"height": 234.0
 	},
 	"replace":
 	{

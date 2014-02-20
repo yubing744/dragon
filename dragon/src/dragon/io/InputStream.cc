@@ -35,16 +35,16 @@ int InputStream::read() throw(IOException*) {
 	}
 }
 
+bool InputStream::markSupported() const {
+    return false;
+}
+
 void InputStream::mark(int readlimit) {
     throw new UnsupportedOperationException("this input stream not support mark!");
 }
 
 void InputStream::reset() throw(IOException*) {
-    throw new UnsupportedOperationException("this input stream not support mark!");
-}
-
-bool InputStream::markSupported() {
-    return false;
+    throw new UnsupportedOperationException("this input stream not support reset!");
 }
 
 int InputStream::available() const {

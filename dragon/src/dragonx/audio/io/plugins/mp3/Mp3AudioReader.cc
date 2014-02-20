@@ -20,4 +20,5 @@
  * Created:     2014/01/06
  **********************************************************************/
 
-#include "Mp3AudioReader_mad.cc"
+//#include "Mp3AudioReader_mad.cc"
+#include "Mp3AudioReader_mpg123.cc"

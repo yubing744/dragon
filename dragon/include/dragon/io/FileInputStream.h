@@ -48,11 +48,19 @@ public:
 	virtual wlong_u skip(wlong_u n) throw(IOException*);
     virtual int read(byte* b, int num, int off, int len) throw(IOException*);
     virtual void close() throw(IOException*);
-    virtual int available() const throw(IOException*);
+
+public:
+    virtual bool markSupported() const;
+    virtual void mark(int readlimit);
+    virtual void reset() throw(IOException*);
+    virtual int available() const;
 
 protected:
 	File* file;
 	void* nativeFileHandle;
+
+    int markpos;
+    int marklimit;
 };
 
 EndPackage2//(dragon, io)

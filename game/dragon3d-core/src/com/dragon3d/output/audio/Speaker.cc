@@ -55,5 +55,6 @@ void* Speaker::getNativeData() {
 }
 
 void Speaker::destroy() {
+    logger->info("destroy");
     this->controller->destroy();
 }

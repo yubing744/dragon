@@ -116,6 +116,41 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadMp301) {
     SafeDelete(filePath);
 }
 
+TEST(Dragonx_Audio_Io_AudioIOTest, ReadMp3_02) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/audio_test/test_read.mp3");
+
+    File* file = new File(base, filePath);
+
+    File* parent = file->getParentFile();
+
+    if (!parent->exists()) {
+        parent->mkdirs();
+    }
+
+    SafeDelete(parent);
+
+    try {
+        FileInputStream* fis = new FileInputStream(file);
+
+        AudioClip* clip = AudioIO::read(fis, "MP3");
+        ASSERT_TRUE(clip != null);
+
+        SafeDelete(fis);
+    } catch (Exception* e) {
+        String* msg = e->getMessage();
+        logger->error(msg->toUTF8String());
+
+        FAIL();
+
+        SafeDelete(msg);
+        SafeDelete(e);
+    }
+
+    SafeDelete(file);
+    SafeDelete(filePath);
+}
+
 TEST(Dragonx_Audio_Io_AudioIOTest, ReadOgg01) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/audio_test/test_read.ogg");

@@ -21,14 +21,16 @@
 
 Import dragon::io;
 
-FileInputStream::FileInputStream(const String& name) throw(FileNotFoundException*) {
+FileInputStream::FileInputStream(const String& name) throw(FileNotFoundException*)
+    :markpos(-1), marklimit(0) {
     this->file = new File(name);
     this->nativeFileHandle = NULL;
 
     this->open();
 }
 
-FileInputStream::FileInputStream(File* file) throw(FileNotFoundException*) {
+FileInputStream::FileInputStream(File* file) throw(FileNotFoundException*)
+    :markpos(-1), marklimit(0) {
     this->file = new File(file);
     this->nativeFileHandle = NULL;
 

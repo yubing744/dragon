@@ -12,7 +12,6 @@ universal_flags =  [('-arch', 'x86_64'), ('-arch', 'i386'), ('-isysroot', '/Appl
 
 #env.AppendUnique(CCFLAGS   = universal_flags + ['-F/System/Library/Frameworks/CoreServices.framework/Frameworks', '-F/System/Library/Frameworks/CoreServices.framework/Frameworks'])
 
-
 env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
 env.AppendUnique(CPPDEFINES = ["__APPLE__"])
 

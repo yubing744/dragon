@@ -125,6 +125,8 @@ void AudioOutputController::output(Scene* scene) {
 }
 
 void AudioOutputController::destroy() {
+    logger->info("destroy");
+    
     ALCdevice *device;
     ALCcontext *ctx;
 

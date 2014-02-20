@@ -64,3 +64,7 @@ void AudioListener::init() {
 void AudioListener::update(Input* input, ReadOnlyTimer* timer) {
 
 }
+
+void AudioListener::destroy() {
+    
+}
