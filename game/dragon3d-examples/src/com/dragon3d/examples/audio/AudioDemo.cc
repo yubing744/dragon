@@ -76,8 +76,15 @@ void AudioDemo::init() {
     
     AudioSource* as = new AudioSource();
      
-    Resource* res = AssetsManager::getInstance()->getResource("mp3/abc.mp3");
-    AudioClip* clip = AudioIO::read(res->getInputStream(), "MP3");
+    //Resource* res = AssetsManager::getInstance()->getResource("mp3/abc.mp3");
+    //AudioClip* clip = AudioIO::read(res->getInputStream(), "MP3");
+    
+    //Resource* res = AssetsManager::getInstance()->getResource("mp3/test_read.ogg");
+    //AudioClip* clip = AudioIO::read(res->getInputStream(), "OGG");
+    
+    Resource* res = AssetsManager::getInstance()->getResource("mp3/Alarm09.wav");
+    AudioClip* clip = AudioIO::read(res->getInputStream(), "WAV");
+
     as->setAudioClip(clip);
     SafeDelete(res);
 

@@ -105,6 +105,7 @@ AudioClip* OggAudioReader::read(const InputStream* input) const throw(IOExceptio
 
         fmt->setSampleRate((int)vi->rate);
         fmt->setChannels(vi->channels);
+        fmt->setSampleSizeInBits(16);
     }
   
     while(!eof){

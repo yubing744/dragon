@@ -153,7 +153,7 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
         throw e;
     }
 
-    mpg123_param(mh, MPG123_ADD_FLAGS, MPG123_FORCE_FLOAT, 0.);
+    //mpg123_param(mh, MPG123_ADD_FLAGS, MPG123_FORCE_FLOAT, 0.);
 
 
     InputStream* is = const_cast<InputStream*>(input);
@@ -201,6 +201,7 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
     AudioFormat* fmt = new AudioFormat();
     fmt->setSampleRate(rate);
     fmt->setChannels(channels);
+    fmt->setSampleSizeInBits(16);
 
     AudioClip* clip = new AudioClip(fmt);
 

@@ -31,6 +31,7 @@
 
 #include <dragon/util/logging/Logger.h>
 #include <dragon/io/BufferedInputStream.h>
+#include <dragon/io/ByteArrayOutputStream.h>
 #include <dragon/lang/UnsupportedOperationException.h>
 #include <dragonx/audio/io/plugins/wav/WavAudioReader.h>
 
@@ -127,7 +128,7 @@ sf_count_t stream_write(const void *ptr, sf_count_t count, void *user_data) {
 
 
 AudioClip* WavAudioReader::read(const InputStream* input) const throw(IOException*) {
-    float buffer[BUFFER_LEN];
+    short buffer[BUFFER_LEN];
 
     AudioClip   *clip;
     SNDFILE     *infile;
@@ -137,10 +138,10 @@ AudioClip* WavAudioReader::read(const InputStream* input) const throw(IOExceptio
 
     int filetype = SF_FORMAT_WAV | SF_FORMAT_PCM_16;
 
-    BufferedInputStream* bis = new BufferedInputStream(const_cast<InputStream*>(input));
-
-    int max = input->available();
-    bis->mark(max + 1);
+    //BufferedInputStream* bis = new BufferedInputStream(const_cast<InputStream*>(input));
+    InputStream* is = const_cast<InputStream*>(input);
+    int max = is->available();
+    is->mark(max + 1);
 
     SF_VIRTUAL_IO vio;
     memset(&vio, 0, sizeof(SF_VIRTUAL_IO));
@@ -152,7 +153,7 @@ AudioClip* WavAudioReader::read(const InputStream* input) const throw(IOExceptio
     //vio.write = stream_write;
 
     StreamContext ctx;
-    ctx.input = bis;
+    ctx.input = is;
     ctx.current = 0;
 
     if (!(infile = sf_open_virtual(&vio, SFM_READ, &sfinfo, (void*)&ctx))) {   
@@ -174,23 +175,21 @@ AudioClip* WavAudioReader::read(const InputStream* input) const throw(IOExceptio
     AudioFormat* fmt = new AudioFormat();
     fmt->setSampleRate(sfinfo.samplerate);
     fmt->setChannels(sfinfo.channels);
-
+    fmt->setSampleSizeInBits(16);
 
     clip = new AudioClip(fmt);
 
-    size_t size = sfinfo.channels * sfinfo.frames * sizeof(float);
-    byte* data = (byte*)malloc(size);
-    byte* wp = data;
+    ByteArrayOutputStream* baos = new ByteArrayOutputStream();
 
-    while ((readcount = sf_read_float (infile, buffer, BUFFER_LEN)) > 0) {
-        int readByte = readcount * sizeof(float);
-        memcpy(wp, (byte*)buffer, readByte);
-        wp += readByte;
+    while ((readcount = sf_read_short(infile, buffer, BUFFER_LEN)) > 0) {
+        baos->write((byte*)buffer, sizeof(short) * BUFFER_LEN, 0, sizeof(short) * readcount);
     }
 
-    clip->setAudioData(data, size);
+    Array<byte> data = baos->toByteArray();
+    clip->setAudioData(data.raw(), data.size());
+    SafeDelete(baos);
 
-    SafeDelete(bis);
+    //SafeDelete(bis);
     sf_close(infile);
 
     return clip;

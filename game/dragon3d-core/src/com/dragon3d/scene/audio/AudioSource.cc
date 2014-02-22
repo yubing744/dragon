@@ -61,6 +61,7 @@ void AudioSource::init() {
     ALsizei size;
     ALvoid* data;
     ALsizei freq;
+    ALsizei bitSize;
 
     if (clip == null) {
         throw new GameException("the audio source must be config a AudioClip!");
@@ -78,18 +79,22 @@ void AudioSource::init() {
     data = (ALvoid*)clip->getAudioData();
     size = clip->getAudioDataSize();
     freq = fmt->getSampleRate();
+    bitSize = fmt->getSampleSizeInBits();
 
     if (fmt->getChannels() == 1) {
         format = AL_FORMAT_MONO16;
     } else if (fmt->getChannels() == 2) {
         format = AL_FORMAT_STEREO16;
+    } else if (fmt->getChannels() == 4) {
+        format = alGetEnumValue("AL_FORMAT_QUAD16");
+    } else if (fmt->getChannels() == 6) {
+        format = alGetEnumValue("AL_FORMAT_51CHN16");
     } else {
         throw new GameException("not support clip format!");
     }
 
     alBufferData(buffer, format, data, size, freq);
     
-
     // 捆绑源
     alGenSources(1, &source);
 
