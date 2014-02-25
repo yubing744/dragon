@@ -20,5 +20,19 @@
  * Created:     2014/01/06
  **********************************************************************/
 
-//#include "Mp3AudioReader_mad.cc"
-#include "Mp3AudioReader_mpg123.cc"
+#include <dragonx/audio/io/plugins/mp3/Mp3AudioReader.h>
+#include <dragonx/audio/io/plugins/mp3/Mp3AudioInputStream.h>
+
+Import dragonx::audio::io::plugins::mp3;
+
+Mp3AudioReader::Mp3AudioReader() {
+
+}
+
+Mp3AudioReader::~Mp3AudioReader() {
+
+}
+
+AudioInputStream* Mp3AudioReader::getAudioInputStream(const InputStream* input) const {
+    return new Mp3AudioInputStream(input);
+}

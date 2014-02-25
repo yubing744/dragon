@@ -28,11 +28,15 @@
 #include <dragon/io/IOException.h>
 #include <dragon/io/InputStream.h>
 #include <dragonx/audio/AudioClip.h>
+#include <dragonx/audio/io/AudioInputStream.h>
+
 
 BeginPackage3(dragonx, audio, io)
 
 Import dragon::io;
 Import dragonx::audio;
+Import dragonx::audio::io;
+
 
 interface_ AudioReader {
 public:
@@ -40,6 +44,7 @@ public:
 
 public:
     virtual AudioClip* read(const InputStream* input) const throw(IOException*) = 0;
+    virtual AudioInputStream* getAudioInputStream(const InputStream* input) const = 0;
 
 };//AudioReader
 

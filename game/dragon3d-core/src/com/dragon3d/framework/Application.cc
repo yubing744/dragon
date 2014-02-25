@@ -153,7 +153,7 @@ void Application::exit() {
 }
 
 void Application::runLoop() {
-	logger->info("run loop");
+	logger->debug("run loop");
 
 	Scene* scene = this->getCurrentScene();
 

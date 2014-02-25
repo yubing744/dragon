@@ -83,3 +83,7 @@ void AudioFormat::setChannels(int channels) {
 void AudioFormat::setBigEndian(bool isBigEndian) {
     this->bigEndian = isBigEndian;
 }
+
+int AudioFormat::getFrameSize() const {
+    return this->sampleSizeInBits / 8 * this->channels;
+}

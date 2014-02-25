@@ -28,40 +28,33 @@
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Array.h>
 #include <dragonx/audio/AudioFormat.h>
-
+#include <dragonx/audio/io/AudioInputStream.h>
 
 BeginPackage2(dragonx, audio)
 
 Import dragon::lang;
 Import dragonx::audio;
+Import dragonx::audio::io;
 
 class_ AudioClip extends(Object) {
 public:
     static const Type* TYPE;
     
 public:
-    AudioClip();
-    AudioClip(const AudioFormat* format);
-    AudioClip(const AudioFormat* format, byte* data, size_t size);
+    AudioClip(const AudioFormat* format, const byte* data, size_t off, size_t len);
+    AudioClip(AudioInputStream* stream);
+    AudioClip(InputStream* stream, const String& format);
 
     virtual ~AudioClip();
 
 public:
-    AudioFormat* getAudioFormat() const;
+    AudioInputStream* getAudioInputStream() const;
 
-    const byte* getAudioData() const;
-    int getAudioDataSize() const;
-
-    void setAudioFormat(const AudioFormat* format);
-    void setAudioData(const byte* data, size_t size);
-    void setAudioData(const Array<byte> data);
+    const AudioFormat* getFormat() const;
+    const Array<byte> getData() const;
 
 protected:
-    AudioFormat* format;
-
-    byte* data;
-    size_t size;
-
+    AudioInputStream* stream;
 };//AudioClip
 
 EndPackage2 //(dragonx, audio)

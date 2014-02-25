@@ -79,11 +79,11 @@ void AudioDemo::init() {
     //Resource* res = AssetsManager::getInstance()->getResource("mp3/abc.mp3");
     //AudioClip* clip = AudioIO::read(res->getInputStream(), "MP3");
     
-    //Resource* res = AssetsManager::getInstance()->getResource("mp3/test_read.ogg");
-    //AudioClip* clip = AudioIO::read(res->getInputStream(), "OGG");
+    Resource* res = AssetsManager::getInstance()->getResource("mp3/test_read.ogg");
+    AudioClip* clip = AudioIO::read(res->getInputStream(), "OGG");
     
-    Resource* res = AssetsManager::getInstance()->getResource("mp3/Alarm09.wav");
-    AudioClip* clip = AudioIO::read(res->getInputStream(), "WAV");
+    //Resource* res = AssetsManager::getInstance()->getResource("mp3/Alarm09.wav");
+    //AudioClip* clip = AudioIO::read(res->getInputStream(), "WAV");
 
     as->setAudioClip(clip);
     SafeDelete(res);
@@ -144,8 +144,12 @@ void AudioDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
     logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
+    
+    Application::update(scene, timer);
 }
 
 void AudioDemo::destroy() {
     logger->info("destroy");
+    
+    Application::destroy();
 }

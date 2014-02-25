@@ -39,6 +39,12 @@ const Type* AudioSource::TYPE = TypeOf<AudioSource>();
 
 static Logger* logger = Logger::getLogger(AudioSource::TYPE, DEBUG);
 
+/* Define the number of buffers and buffer size (in samples) to use. 4 buffers
+ * with 8192 samples each gives a nice per-chunk size, and lets the queue last
+ * for almost 3/4ths of a second for a 44.1khz stream. */
+#define BUFFER_SIZE 8192
+
+
 AudioSource::AudioSource() 
     : clip(null), playing(false),
     loop(false), mute(false), volume(1.0), 
@@ -46,7 +52,7 @@ AudioSource::AudioSource()
 }
 
 AudioSource::~AudioSource() {
-
+    SafeDelete(this->clip);
 }
 
 bool AudioSource::isTypeOf(const Type* type) {
@@ -57,80 +63,149 @@ bool AudioSource::isTypeOf(const Type* type) {
 void AudioSource::init() {
     logger->debug("init");
 
-    ALenum format;
-    ALsizei size;
-    ALvoid* data;
-    ALsizei freq;
-    ALsizei bitSize;
-
+    // validate clip
     if (clip == null) {
         throw new GameException("the audio source must be config a AudioClip!");
     }
 
-    // 载入WAV数据
-    alGenBuffers(1, &buffer);
+    // gen buffers
+    alGenBuffers(NUM_BUFFERS, this->buffers);
 
     if (alGetError() != AL_NO_ERROR) {
         throw new GameException("error in gen openal buffer!");
     }
 
-    AudioFormat* fmt = clip->getAudioFormat();
+    // audio format
+    const AudioFormat* fmt = clip->getFormat();
 
-    data = (ALvoid*)clip->getAudioData();
-    size = clip->getAudioDataSize();
-    freq = fmt->getSampleRate();
-    bitSize = fmt->getSampleSizeInBits();
+    this->frequency = fmt->getSampleRate();
+    this->bitSize = fmt->getSampleSizeInBits();
+    this->channels = fmt->getChannels();
 
     if (fmt->getChannels() == 1) {
-        format = AL_FORMAT_MONO16;
+        this->format = AL_FORMAT_MONO16;
+
+        this->dataSize = this->frequency >> 1;
+        this->dataSize -= (this->dataSize % 2);
     } else if (fmt->getChannels() == 2) {
-        format = AL_FORMAT_STEREO16;
+        this->format = AL_FORMAT_STEREO16;
+
+        this->dataSize = this->frequency;
+        this->dataSize -= (this->dataSize % 4);
     } else if (fmt->getChannels() == 4) {
-        format = alGetEnumValue("AL_FORMAT_QUAD16");
+        this->format = alGetEnumValue("AL_FORMAT_QUAD16");
+
+        this->dataSize = this->frequency * 2;
+        this->dataSize -= (this->dataSize % 8);
     } else if (fmt->getChannels() == 6) {
-        format = alGetEnumValue("AL_FORMAT_51CHN16");
+        this->format = alGetEnumValue("AL_FORMAT_51CHN16");
+
+        this->dataSize = this->frequency * 3;
+        this->dataSize -= (this->dataSize % 12);
     } else {
-        throw new GameException("not support clip format!");
+        throw new GameException("not support clip channels!");
     }
 
-    alBufferData(buffer, format, data, size, freq);
-    
-    // 捆绑源
-    alGenSources(1, &source);
+    // init buffer 
+    this->data = (ALbyte*)malloc(this->dataSize);
+
+
+    // bind source
+    alGenSources(1, &this->source);
 
     if (alGetError() != AL_NO_ERROR) {
         throw new GameException("error in gen openal source!");
     }
 
-    alSourcei (source, AL_BUFFER,   buffer   );
-    alSourcef (source, AL_PITCH,    1.0f     );
-    alSourcef (source, AL_GAIN,     1.0f     );
-    alSourcei (source, AL_LOOPING,  this->loop);
+    alSourcef(this->source, AL_PITCH,    1.0f      );
+    alSourcef(this->source, AL_GAIN,     1.0f      );
+    alSourcei(this->source, AL_LOOPING,  this->loop);
 
     GameObject* gameObject = this->gameObject;
     Vector3 sourcePos = gameObject->transform->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
-    alSourcefv(source, AL_POSITION, sourcePos.toArray());
-    alSourcefv(source, AL_VELOCITY, sourceVel.toArray());
+    alSourcefv(this->source, AL_POSITION, sourcePos.toArray());
+    alSourcefv(this->source, AL_VELOCITY, sourceVel.toArray());
 
+    // try play at start
     if (this->autoPlay) {
         this->play();
     }
 }
 
 void AudioSource::update(Input* input, ReadOnlyTimer* timer) {
+    logger->debug("update");
+
     GameObject* gameObject = this->gameObject;
     Vector3 sourcePos = gameObject->transform->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
-    alSourcefv(source, AL_POSITION, sourcePos.toArray());
-    alSourcefv(source, AL_VELOCITY, sourceVel.toArray());
+    alSourcefv(this->source, AL_POSITION, sourcePos.toArray());
+    alSourcefv(this->source, AL_VELOCITY, sourceVel.toArray());
+
+
+    ALint processed, state;
+
+    /* Get relevant source info */
+    alGetSourcei(this->source, AL_SOURCE_STATE, &state);
+    alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
+
+    if(alGetError() != AL_NO_ERROR) {
+        throw new GameException("Error checking source state\n");
+    }
+
+    AudioInputStream* stream = const_cast<AudioInputStream*>(clip->getAudioInputStream());
+
+    /* Unqueue and handle each processed buffer */
+    while(processed > 0) {
+        ALuint bufid;
+        size_t got;
+
+        alSourceUnqueueBuffers(this->source, 1, &bufid);
+        processed--;
+
+        got = stream->read((byte*)this->data, this->dataSize, 0, this->dataSize);
+
+        if (got > 0) {
+            alBufferData(bufid, this->format, this->data, got, this->frequency);
+            alSourceQueueBuffers(this->source, 1, &bufid);
+        }
+
+        if(alGetError() != AL_NO_ERROR) {
+            throw new GameException("Error buffering data for update\n");
+        }
+    }
+
+    /* Make sure the source hasn't underrun */
+    if(state != AL_PLAYING && state != AL_PAUSED) {
+        ALint queued;
+
+        /* If no buffers are queued, playback is finished */
+        alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
+        if(queued == 0) {
+            return;
+        }
+
+        alSourcePlay(this->source);
+
+        if(alGetError() != AL_NO_ERROR) {
+            throw new GameException("Error restarting playback\n");
+        }
+    }
 }
 
 void AudioSource::destroy() {
-    alDeleteBuffers(1, &this->buffer);
+    logger->debug("destroy");
+
     alDeleteSources(1, &this->source);
+    alDeleteBuffers(NUM_BUFFERS, this->buffers);
+
+    if(alGetError() != AL_NO_ERROR) {
+        throw new GameException("Failed to delete object IDs\n");
+    }
+
+    SafeFree(this->data);
 }
 
 bool AudioSource::isPlaying() {
@@ -150,7 +225,34 @@ void AudioSource::setAudioClip(AudioClip* clip) {
 }
 
 void AudioSource::play() {
-    alSourcePlay(source);
+    int i;
+
+     /* Rewind the source position and clear the buffer queue */
+    alSourceRewind(source);
+    alSourcei(source, AL_BUFFER, 0);
+
+    AudioInputStream* stream = const_cast<AudioInputStream*>(clip->getAudioInputStream());
+
+    /* Fill the buffer queue */
+    for(i = 0;i < NUM_BUFFERS;i++) {
+        int read = stream->read((byte*)this->data, this->dataSize, 0, this->dataSize);
+
+        if (read > 0) {
+            alBufferData(this->buffers[i], this->format, this->data, read, this->frequency);
+        }
+    }
+
+    if(alGetError() != AL_NO_ERROR) {
+        throw new GameException("Error buffering for playback\n");
+    }
+
+    /* Now queue and start playback! */
+    alSourceQueueBuffers(this->source, i, this->buffers);
+    alSourcePlay(this->source);
+
+    if(alGetError() != AL_NO_ERROR){
+        throw new GameException("Error starting playback\n");
+    }
 }
 
 void AudioSource::playDelayed(float delay) {

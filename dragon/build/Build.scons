@@ -1044,21 +1044,26 @@ dragon_SOURCES = {
     """),
     "dragonx/audio/io" : Split("""
         AudioIO.cc
+        ByteArrayAudioInputStream.cc
     """),
     "dragonx/audio/io/spi" : Split("""
         AudioClipIORegistry.cc
     """),
     "dragonx/audio/io/plugins" : Split("""
         AbstractAudioReader.cc
+        AbstractAudioInputStream.cc
     """),
     "dragonx/audio/io/plugins/wav" : Split("""
         WavAudioReader.cc
+        WavAudioInputStream.cc
     """),
     "dragonx/audio/io/plugins/mp3" : Split("""
         Mp3AudioReader.cc
+        Mp3AudioInputStream.cc
     """),
     "dragonx/audio/io/plugins/ogg" : Split("""
         OggAudioReader.cc
+        OggAudioInputStream.cc
     """)
 }
     

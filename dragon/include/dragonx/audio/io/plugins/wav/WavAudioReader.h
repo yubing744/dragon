@@ -41,7 +41,7 @@ public:
     virtual ~WavAudioReader();
 
 public:
-    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
+    virtual AudioInputStream* getAudioInputStream(const InputStream* input) const;
     
 };//WavAudioReader
 

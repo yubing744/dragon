@@ -49,3 +49,13 @@ AudioClip* AudioIO::read(const InputStream* input, const String& audioType) {
         throw new IOException("not found support audio reader!");
     }
 }
+
+AudioInputStream* AudioIO::getAudioInputStream(const InputStream* input, const String& audioType) {
+    AudioReader* reader = const_cast<AudioReader*>(theRegistry->getAudioReader(audioType));
+
+    if (reader != null) {
+        return reader->getAudioInputStream(const_cast<InputStream*>(input));
+    } else {
+        throw new IOException("not found support audio reader!");
+    }
+}

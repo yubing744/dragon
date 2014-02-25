@@ -44,6 +44,7 @@ public:
 
 public:
     static AudioClip* read(const InputStream* input, const String& audioType);
+    static AudioInputStream* getAudioInputStream(const InputStream* input, const String& audioType);
     
 public:
     AudioIO();

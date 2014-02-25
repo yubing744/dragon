@@ -20,12 +20,13 @@
  * Created:     2014/01/07
  **********************************************************************/
 
-
-#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 #include <dragon/util/logging/Logger.h>
+#include <dragon/io/ByteArrayOutputStream.h>
+#include <dragonx/audio/io/plugins/AbstractAudioReader.h>
 
-Import dragonx::audio::io::plugins;
+Import dragon::io;
 Import dragon::util::logging;
+Import dragonx::audio::io::plugins;
 
 const Type* AbstractAudioReader::TYPE = TypeOf<AbstractAudioReader>();
 static Logger* logger = Logger::getLogger(AbstractAudioReader::TYPE, ERROR);
@@ -39,5 +40,6 @@ AbstractAudioReader::~AbstractAudioReader() {
 }
 
 AudioClip* AbstractAudioReader::read(const InputStream* input) const throw(IOException*) {
-    return null;
+    AudioInputStream* ais = this->getAudioInputStream(input);
+    return new AudioClip(ais);
 }

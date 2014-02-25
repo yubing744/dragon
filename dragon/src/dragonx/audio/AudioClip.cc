@@ -20,68 +20,70 @@
  * Created:     2014/01/06
  **********************************************************************/
 
-
+#include <dragon/lang/Array.h>
 #include <dragonx/audio/AudioClip.h>
 #include <dragon/util/logging/Logger.h>
+#include <dragon/io/ByteArrayOutputStream.h>
+#include <dragonx/audio/io/ByteArrayAudioInputStream.h>
+#include <dragonx/audio/io/AudioIO.h>
 
+Import dragon::io;
+Import dragon::lang;
 Import dragonx::audio;
 Import dragon::util::logging;
+Import dragonx::audio::io;
 
 const Type* AudioClip::TYPE = TypeOf<AudioClip>();
 static Logger* logger = Logger::getLogger(AudioClip::TYPE, ERROR);
 
-AudioClip::AudioClip() {
-    this->format = new AudioFormat();
-    this->data = NULL;
-    this->size = 0;
+
+AudioClip::AudioClip(const AudioFormat* format, const byte* data, size_t off, size_t len) {
+    this->stream = new ByteArrayAudioInputStream(format, Array<byte>(data + off, len));
+    this->stream->open();
 }
 
-AudioClip::AudioClip(const AudioFormat* format) {
-    this->format = new AudioFormat(format);
-    this->data = NULL;
-    this->size = 0;
+AudioClip::AudioClip(AudioInputStream* stream) {
+    this->stream = stream;
+    this->stream->open();
 }
 
-AudioClip::AudioClip(const AudioFormat* format, byte* data, size_t size) {
-    this->format = new AudioFormat(format);
-    this->data = data;
-    this->size = size;
+AudioClip::AudioClip(InputStream* stream, const String& format) {
+    AudioInputStream* ais = AudioIO::getAudioInputStream(stream, format);
+    this->stream = ais;
+    this->stream->open();
 }
 
 AudioClip::~AudioClip() {
-    SafeDelete(this->format);
-
-    SafeFree(this->data);
-    this->size = 0;
+    this->stream->close();
+    SafeDelete(this->stream);
 }
 
-AudioFormat* AudioClip::getAudioFormat() const {
-    return this->format;
+AudioInputStream* AudioClip::getAudioInputStream() const {
+    return this->stream;
 }
 
-const byte* AudioClip::getAudioData() const {
-    return this->data;
+const AudioFormat* AudioClip::getFormat() const {
+    return this->stream->getFormat();
 }
 
-int AudioClip::getAudioDataSize() const {
-    return this->size;
-}
+const Array<byte> AudioClip::getData() const {
+    AudioInputStream* ais = this->stream;
 
-void AudioClip::setAudioFormat(const AudioFormat* format) {
-    SafeDelete(this->format);
-    this->format = new AudioFormat(format);
-}
+    ByteArrayOutputStream* baos = new ByteArrayOutputStream();
 
-void AudioClip::setAudioData(const byte* data, size_t size) {
-    SafeFree(this->data);
+    const AudioFormat* fmt = ais->getFormat();
 
-    this->data = const_cast<byte*>(data);
-    this->size = size;
-}
+    int read = 0;
+    int bufSize = fmt->getFrameSize() * 1024;
+    byte* buf = (byte*)malloc(bufSize);
 
-void AudioClip::setAudioData(const Array<byte> data) {
-    SafeFree(this->data);
+    while((read = ais->read(buf, bufSize, 0, bufSize)) > 0) {
+        baos->write(buf, bufSize, 0, read);
+    }
 
-    this->data = const_cast<byte*>(data.raw());
-    this->size = data.length();
+    Array<byte> data = baos->toByteArray();
+
+    SafeDelete(baos);
+
+    return data;
 }

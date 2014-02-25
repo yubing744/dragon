@@ -34,6 +34,8 @@
 #include <dragonx/audio/AudioClip.h>
 #include <com/dragon3d/scene/Behaviour.h>
 
+#define NUM_BUFFERS 4
+
 BeginPackage4(com, dragon3d, scene, audio)
 
 Import dragonx::audio;
@@ -74,14 +76,27 @@ public:
 
 protected:
 	AudioClip* clip;
+
     bool playing;
     bool loop;
     bool mute;
     float volume;
     bool autoPlay;
 
-    ALuint buffer; 
+    /* These are the buffers and source to play out through OpenAL with */
+    ALuint buffers[NUM_BUFFERS];
     ALuint source;
+
+    /* A temporary data buffer for readAVAudioData to write to and pass to
+     * OpenAL with */
+    ALbyte *data;
+    ALsizei dataSize;
+
+    /* The format of the output stream */
+    ALenum format;
+    ALuint frequency;
+    ALenum channels;
+    ALuint bitSize;
 };//AudioSource
 
 EndPackage4 //(com, dragon3d, scene, audio)

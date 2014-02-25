@@ -17,7 +17,7 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/06
+ * Created:     2014/02/23
  **********************************************************************/
 
 #include <stdio.h>
@@ -27,20 +27,21 @@
 #include <dragon/util/logging/Logger.h>
 #include <dragon/io/ByteArrayOutputStream.h>
 #include <dragon/io/BufferedInputStream.h>
-#include <dragonx/audio/io/plugins/mp3/Mp3AudioReader.h>
+#include <dragonx/audio/io/plugins/mp3/Mp3AudioInputStream.h>
 
 Import dragon::io;
 Import dragon::util::logging;
 Import dragonx::audio::io::plugins::mp3;
 
-const Type* Mp3AudioReader::TYPE = TypeOf<Mp3AudioReader>();
-static Logger* logger = Logger::getLogger(Mp3AudioReader::TYPE, INFO);
+const Type* Mp3AudioInputStream::TYPE = TypeOf<Mp3AudioInputStream>();
+static Logger* logger = Logger::getLogger(Mp3AudioInputStream::TYPE, ERROR);
 
-Mp3AudioReader::Mp3AudioReader() {
+Mp3AudioInputStream::Mp3AudioInputStream(const InputStream* stream) 
+    :AbstractAudioInputStream(stream) {
 
 }
 
-Mp3AudioReader::~Mp3AudioReader() {
+Mp3AudioInputStream::~Mp3AudioInputStream() {
 
 }
 
@@ -52,6 +53,7 @@ void cleanup(mpg123_handle *mh) {
 }
 
 typedef struct _InputStreamFile {
+    mpg123_handle *mh;
     InputStream* input;
     long current;
 } InputStreamFile;
@@ -131,11 +133,10 @@ void inputstream_cleanup(void* handle) {
 
 }
 
-AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOException*) {
+void Mp3AudioInputStream::open() {
     mpg123_handle *mh = NULL;
     unsigned char* buffer = NULL;
     size_t buffer_size = 0;
-    size_t done = 0;
     int  channels = 0, encoding = 0;
     long rate = 0;
     int  err  = MPG123_OK;
@@ -156,22 +157,23 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
     //mpg123_param(mh, MPG123_ADD_FLAGS, MPG123_FORCE_FLOAT, 0.);
 
 
-    InputStream* is = const_cast<InputStream*>(input);
+    InputStream* is = const_cast<InputStream*>(stream);
 
-    if (!input->markSupported()) {
+    if (!is->markSupported()) {
         is = new BufferedInputStream(is);
     } 
 
     int max = is->available();
     is->mark(max + 1);
 
-    InputStreamFile isf;
-    isf.input = is;
-    isf.current = 0;
+    InputStreamFile* isf = (InputStreamFile*)malloc(sizeof(InputStreamFile));
+    isf->mh = mh;
+    isf->input = is;
+    isf->current = 0;
 
     mpg123_replace_reader_handle(mh, inputstream_read, inputstream_lseek, inputstream_cleanup);
 
-    if(mpg123_open_handle(mh, &isf) != MPG123_OK
+    if(mpg123_open_handle(mh, isf) != MPG123_OK
         || mpg123_getformat(mh, &rate, &channels, &encoding) != MPG123_OK ) {
         cleanup(mh);
         
@@ -203,23 +205,26 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
     fmt->setChannels(channels);
     fmt->setSampleSizeInBits(16);
 
-    AudioClip* clip = new AudioClip(fmt);
+    SafeDelete(this->format);
+    this->format = fmt;
 
-    ByteArrayOutputStream* baos = new ByteArrayOutputStream();
+    this->nativeData = isf;
+}
 
-    /* Buffer could be almost any size here, mpg123_outblock() is just some recommendation.
-       Important, especially for sndfile writing, is that the size is a multiple of sample size. */
-    buffer_size = mpg123_outblock(mh);
-    buffer = (unsigned char*)malloc( buffer_size );
+int Mp3AudioInputStream::read(byte* b, int num, int off, int len) throw(IOException*) {
+    InputStreamFile* isf = (InputStreamFile*)this->nativeData;
+    mpg123_handle *mh = isf->mh;
 
-    do {
-        err = mpg123_read( mh, buffer, buffer_size, &done );
-        baos->write((const byte*)buffer, buffer_size, 0, (int)done);
-        /* We are not in feeder mode, so MPG123_OK, MPG123_ERR and MPG123_NEW_FORMAT are the only possibilities.
-           We do not handle a new format, MPG123_DONE is the end... so abort on anything not MPG123_OK. */
-    } while (err==MPG123_OK);
+    this->checkReadSize(len);
 
+    size_t done = 0;
+    int  err  = MPG123_OK;
+
+    err = mpg123_read(mh, (unsigned char*)(b + off), len, &done );
     //logger->info("mp3 error num %d", err);
+    if (err == MPG123_OK) {
+        return done;
+    }
 
     if(err != MPG123_DONE && err != MPG123_NEED_MORE) {
         String* msg = String::format("Warning: Decoding ended prematurely because: %s\n",
@@ -229,12 +234,19 @@ AudioClip* Mp3AudioReader::read(const InputStream* input) const throw(IOExceptio
 
         throw e;
     }
-   
-    Array<byte> data = baos->toByteArray();
-    clip->setAudioData(data.raw(), data.size());
-    SafeDelete(baos);
+
+    return 0;
+}
+
+void Mp3AudioInputStream::close() throw(IOException*) {
+    InputStreamFile* isf = (InputStreamFile*)this->nativeData;
+    mpg123_handle *mh = isf->mh;
 
     cleanup(mh);
 
-    return clip;
+    if (this->stream) {
+        stream->close();
+    }
+
+    free(isf);
 }

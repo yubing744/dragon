@@ -42,8 +42,8 @@ public:
     virtual ~Mp3AudioReader();
 
 public:
-    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
-    
+    virtual AudioInputStream* getAudioInputStream(const InputStream* input) const;
+
 };//Mp3AudioReader
 
 EndPackage5 //(dragonx, audio, io, plugins, mp3)

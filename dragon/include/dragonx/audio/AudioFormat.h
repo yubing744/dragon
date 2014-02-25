@@ -47,6 +47,7 @@ public:
     int getSampleSizeInBits() const;
     int getChannels() const;
     bool isBigEndian() const;
+    int getFrameSize() const;
 
     void setSampleRate(float sampleRate);
     void setSampleSizeInBits(int sampleBitsSize);

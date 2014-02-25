@@ -17,38 +17,39 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/07
+ * Created:     2014/02/23
  **********************************************************************/
 
 
-#ifndef AbstractAudioReader_Plugins_Io_Audio_Dragonx_H
-#define AbstractAudioReader_Plugins_Io_Audio_Dragonx_H
+#ifndef AudioInputStream_Io_Audio_Dragonx_H
+#define AudioInputStream_Io_Audio_Dragonx_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/io/InputStream.h>
+#include <dragonx/audio/AudioFormat.h>
 
-#include <dragonx/audio/io/AudioReader.h>
-
-BeginPackage4(dragonx, audio, io, plugins)
+BeginPackage3(dragonx, audio, io)
 
 Import dragon::lang;
-Import dragonx::audio::io;
+Import dragon::io;
+Import dragonx::audio;
 
-class_ AbstractAudioReader extends(Object) 
-    implements1(AudioReader) {
+class_ AudioInputStream extends(InputStream) { 
 public:
-    static const Type* TYPE;
-    
-public:
-    AbstractAudioReader();
-    virtual ~AbstractAudioReader();
+    virtual ~AudioInputStream(){};
 
 public:
-    virtual AudioClip* read(const InputStream* input) const throw(IOException*);
-    virtual AudioInputStream* getAudioInputStream(const InputStream* input) const = 0;
+    virtual void open() = 0;
+    virtual const AudioFormat* getFormat() const = 0;
 
-};//AbstractAudioReader
+public:
+    virtual wlong_u skip(wlong_u n) throw(IOException*) = 0;
+    virtual int read(byte* b, int num, int off, int len) throw(IOException*) = 0;
+    virtual void close() throw(IOException*) = 0;
 
-EndPackage4 //(dragonx, audio, io, plugins)
+};//AudioInputStream
 
-#endif //AbstractAudioReader_Plugins_Io_Audio_Dragonx_H
+EndPackage3 //(dragonx, audio, io)
+
+#endif //AudioInputStream_Io_Audio_Dragonx_H
