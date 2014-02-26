@@ -126,7 +126,7 @@ int OggAudioInputStream::read(byte* b, int num, int off, int len) throw(IOExcept
             throw new IOException("Corrupt bitstream section! Exiting.\n");
         }
     } else {
-        return current_section;
+        return ret;
     }
 }
 
