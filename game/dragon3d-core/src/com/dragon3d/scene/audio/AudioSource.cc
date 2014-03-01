@@ -20,6 +20,11 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#include <stdlib.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
+
 #include <dragon/util/logging/Logger.h>
 
 #include <com/dragon3d/util/math/Vector3.h>
@@ -61,7 +66,7 @@ bool AudioSource::isTypeOf(const Type* type) {
 }
 
 void AudioSource::init() {
-    logger->debug("init");
+    logger->info("init");
 
     // validate clip
     if (clip == null) {
@@ -107,7 +112,7 @@ void AudioSource::init() {
     }
 
     // init buffer 
-    this->data = (ALbyte*)malloc(this->dataSize);
+    this->data = (byte*)malloc(this->dataSize);
 
 
     // bind source
@@ -143,60 +148,10 @@ void AudioSource::update(Input* input, ReadOnlyTimer* timer) {
 
     alSourcefv(this->source, AL_POSITION, sourcePos.toArray());
     alSourcefv(this->source, AL_VELOCITY, sourceVel.toArray());
-
-
-    ALint processed, state;
-
-    /* Get relevant source info */
-    alGetSourcei(this->source, AL_SOURCE_STATE, &state);
-    alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
-
-    if(alGetError() != AL_NO_ERROR) {
-        throw new GameException("Error checking source state\n");
-    }
-
-    AudioInputStream* stream = const_cast<AudioInputStream*>(clip->getAudioInputStream());
-
-    /* Unqueue and handle each processed buffer */
-    while(processed > 0) {
-        ALuint bufid;
-        size_t got;
-
-        alSourceUnqueueBuffers(this->source, 1, &bufid);
-        processed--;
-
-        got = stream->read((byte*)this->data, this->dataSize, 0, this->dataSize);
-
-        if (got > 0) {
-            alBufferData(bufid, this->format, this->data, got, this->frequency);
-            alSourceQueueBuffers(this->source, 1, &bufid);
-        }
-
-        if(alGetError() != AL_NO_ERROR) {
-            throw new GameException("Error buffering data for update\n");
-        }
-    }
-
-    /* Make sure the source hasn't underrun */
-    if(state != AL_PLAYING && state != AL_PAUSED) {
-        ALint queued;
-
-        /* If no buffers are queued, playback is finished */
-        alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
-        if(queued == 0) {
-            return;
-        }
-
-        alSourcePlay(this->source);
-
-        if(alGetError() != AL_NO_ERROR) {
-            throw new GameException("Error restarting playback\n");
-        }
-    }
 }
 
 void AudioSource::destroy() {
-    logger->debug("destroy");
+    logger->info("destroy");
 
     alDeleteSources(1, &this->source);
     alDeleteBuffers(NUM_BUFFERS, this->buffers);
@@ -252,6 +207,57 @@ void AudioSource::play() {
 
     if(alGetError() != AL_NO_ERROR){
         throw new GameException("Error starting playback\n");
+    }
+}
+
+void AudioSource::mixing() {
+    ALint processed, state;
+
+    /* Get relevant source info */
+    alGetSourcei(this->source, AL_SOURCE_STATE, &state);
+    alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
+
+    if(alGetError() != AL_NO_ERROR) {
+        throw new GameException("Error checking source state\n");
+    }
+
+    AudioInputStream* stream = const_cast<AudioInputStream*>(clip->getAudioInputStream());
+
+    /* Unqueue and handle each processed buffer */
+    while(processed > 0) {
+        ALuint bufid;
+        size_t got;
+
+        alSourceUnqueueBuffers(this->source, 1, &bufid);
+        processed--;
+
+        got = stream->read((byte*)this->data, this->dataSize, 0, this->dataSize);
+
+        if (got > 0) {
+            alBufferData(bufid, this->format, this->data, got, this->frequency);
+            alSourceQueueBuffers(this->source, 1, &bufid);
+        }
+
+        if(alGetError() != AL_NO_ERROR) {
+            throw new GameException("Error buffering data for update\n");
+        }
+    }
+
+    /* Make sure the source hasn't underrun */
+    if(state != AL_PLAYING && state != AL_PAUSED) {
+        ALint queued;
+
+        /* If no buffers are queued, playback is finished */
+        alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
+        if(queued == 0) {
+            return;
+        }
+
+        alSourcePlay(this->source);
+
+        if(alGetError() != AL_NO_ERROR) {
+            throw new GameException("Error restarting playback\n");
+        }
     }
 }
 

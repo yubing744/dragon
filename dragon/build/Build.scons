@@ -566,7 +566,9 @@ LibraryModule(
     build_source_files    = {
         "." : libpng_SOURCES
     },    
-    extra_cpp_defines     = [],     
+    extra_cpp_defines     = [
+        "PNG_ARM_NEON_OPT=0"
+    ],     
     shared                = False,                    
     install               = True
 )
@@ -754,7 +756,7 @@ LibraryModule(
     ],  
     build_source_dirs     = [],         
     build_source_files    = {
-        "src/libmpg123" : mpg123_SOURCES + mpg123_x86_64_SOURCES
+        "src/libmpg123" : mpg123_SOURCES + mpg123_arm_SOURCES
     },    
     extra_cpp_defines     = [
         "HAVE_CONFIG_H",

@@ -22,12 +22,30 @@
 		465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D58F718063ACA00A9BF94 /* UIKit.framework */; };
 		465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5929180663F700A9BF94 /* OpenGLES.framework */; };
 		465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59631806EFCA00A9BF94 /* Foundation.framework */; };
-		465D59651806EFE100A9BF94 /* libdragon3d-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59311806655000A9BF94 /* libdragon3d-core.a */; };
-		465D59661806EFE100A9BF94 /* libunicode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592B1806654300A9BF94 /* libunicode.a */; };
-		465D59671806EFE100A9BF94 /* libpcre32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592C1806654300A9BF94 /* libpcre32.a */; };
-		465D59681806EFE100A9BF94 /* libdragon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D592D1806654300A9BF94 /* libdragon.a */; };
 		465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465D592618063C3400A9BF94 /* HelloWorld.cc */; };
+		46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46ABCA0918C0D7A9002E234C /* AudioDemo.cc */; };
+		46ABCA0D18C0D970002E234C /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
+		46ABCA0E18C0D978002E234C /* libdragon3d-core.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
+		46ABCA1018C0D9A5002E234C /* libdragon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ABCA0F18C0D9A5002E234C /* libdragon.dylib */; };
+		46ABCA1118C0D9AA002E234C /* libdragon.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA0F18C0D9A5002E234C /* libdragon.dylib */; };
+		46ABCA1A18C0E00A002E234C /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1618C0E00A002E234C /* mp3 */; };
+		46ABCA1B18C0E00A002E234C /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1718C0E00A002E234C /* scene */; };
+		46ABCA1C18C0E00A002E234C /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1818C0E00A002E234C /* Data */; };
+		46ABCA1D18C0E00A002E234C /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1918C0E00A002E234C /* Textures */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		46ABCA0B18C0D933002E234C /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,13 +66,16 @@
 		465D592018063C2100A9BF94 /* com */ = {isa = PBXFileReference; lastKnownFileType = folder; name = com; path = ../../../../include/com; sourceTree = "<group>"; };
 		465D592618063C3400A9BF94 /* HelloWorld.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorld.cc; sourceTree = "<group>"; };
 		465D5929180663F700A9BF94 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		465D592B1806654300A9BF94 /* libunicode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunicode.a; path = "../../../../targets/x86-apple-ios/debug/libunicode.a"; sourceTree = "<group>"; };
-		465D592C1806654300A9BF94 /* libpcre32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre32.a; path = "../../../../targets/x86-apple-ios/debug/libpcre32.a"; sourceTree = "<group>"; };
-		465D592D1806654300A9BF94 /* libdragon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdragon.a; path = "../../../../targets/x86-apple-ios/debug/libdragon.a"; sourceTree = "<group>"; };
-		465D59311806655000A9BF94 /* libdragon3d-core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdragon3d-core.a"; path = "../../../../targets/x86-apple-ios/debug/libdragon3d-core.a"; sourceTree = "<group>"; };
 		465D5933180665A200A9BF94 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		465D595F1806EFAA00A9BF94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		465D59631806EFCA00A9BF94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		46ABCA0918C0D7A9002E234C /* AudioDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioDemo.cc; sourceTree = "<group>"; };
+		46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/x86-apple-ios/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
+		46ABCA0F18C0D9A5002E234C /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/x86-apple-ios/debug/libdragon.dylib"; sourceTree = "<group>"; };
+		46ABCA1618C0E00A002E234C /* mp3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mp3; path = ../../../../assets/mp3; sourceTree = "<group>"; };
+		46ABCA1718C0E00A002E234C /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
+		46ABCA1818C0E00A002E234C /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
+		46ABCA1918C0E00A002E234C /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				465D59651806EFE100A9BF94 /* libdragon3d-core.a in Frameworks */,
-				465D59661806EFE100A9BF94 /* libunicode.a in Frameworks */,
-				465D59671806EFE100A9BF94 /* libpcre32.a in Frameworks */,
-				465D59681806EFE100A9BF94 /* libdragon.a in Frameworks */,
+				46ABCA1018C0D9A5002E234C /* libdragon.dylib in Frameworks */,
+				46ABCA0D18C0D970002E234C /* libdragon3d-core.dylib in Frameworks */,
 				465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */,
 				465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */,
 				465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */,
@@ -80,8 +99,9 @@
 		465D58EB18063ACA00A9BF94 = {
 			isa = PBXGroup;
 			children = (
-				465D591D18063BF200A9BF94 /* classes */,
-				465D58FD18063ACA00A9BF94 /* ios */,
+				46ABCA1318C0DFC4002E234C /* Resources */,
+				465D591D18063BF200A9BF94 /* Classes */,
+				465D58FD18063ACA00A9BF94 /* IOS */,
 				465D58F618063ACA00A9BF94 /* Frameworks */,
 				465D58F518063ACA00A9BF94 /* Products */,
 			);
@@ -98,11 +118,9 @@
 		465D58F618063ACA00A9BF94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46ABCA0F18C0D9A5002E234C /* libdragon.dylib */,
+				46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */,
 				465D5933180665A200A9BF94 /* libstdc++.6.dylib */,
-				465D592B1806654300A9BF94 /* libunicode.a */,
-				465D592C1806654300A9BF94 /* libpcre32.a */,
-				465D592D1806654300A9BF94 /* libdragon.a */,
-				465D59311806655000A9BF94 /* libdragon3d-core.a */,
 				465D59631806EFCA00A9BF94 /* Foundation.framework */,
 				465D595F1806EFAA00A9BF94 /* QuartzCore.framework */,
 				465D5929180663F700A9BF94 /* OpenGLES.framework */,
@@ -111,7 +129,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		465D58FD18063ACA00A9BF94 /* ios */ = {
+		465D58FD18063ACA00A9BF94 /* IOS */ = {
 			isa = PBXGroup;
 			children = (
 				465D590618063ACA00A9BF94 /* AppDelegate.h */,
@@ -122,7 +140,7 @@
 				465D591518063ACA00A9BF94 /* ViewController_iPad.xib */,
 				465D58FE18063ACA00A9BF94 /* Supporting Files */,
 			);
-			name = ios;
+			name = IOS;
 			path = "dragon3d-examples";
 			sourceTree = "<group>";
 		};
@@ -140,13 +158,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		465D591D18063BF200A9BF94 /* classes */ = {
+		465D591D18063BF200A9BF94 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				465D591F18063C0700A9BF94 /* src */,
 				465D591E18063C0100A9BF94 /* include */,
 			);
-			name = classes;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		465D591E18063C0100A9BF94 /* include */ = {
@@ -185,6 +203,7 @@
 		465D592418063C3400A9BF94 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				46ABCA0818C0D7A9002E234C /* audio */,
 				465D592518063C3400A9BF94 /* helloworld */,
 			);
 			path = examples;
@@ -198,6 +217,25 @@
 			path = helloworld;
 			sourceTree = "<group>";
 		};
+		46ABCA0818C0D7A9002E234C /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				46ABCA0918C0D7A9002E234C /* AudioDemo.cc */,
+			);
+			path = audio;
+			sourceTree = "<group>";
+		};
+		46ABCA1318C0DFC4002E234C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				46ABCA1618C0E00A002E234C /* mp3 */,
+				46ABCA1718C0E00A002E234C /* scene */,
+				46ABCA1818C0E00A002E234C /* Data */,
+				46ABCA1918C0E00A002E234C /* Textures */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,6 +246,7 @@
 				465D58F018063ACA00A9BF94 /* Sources */,
 				465D58F118063ACA00A9BF94 /* Frameworks */,
 				465D58F218063ACA00A9BF94 /* Resources */,
+				46ABCA0B18C0D933002E234C /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -249,6 +288,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46ABCA1118C0D9AA002E234C /* libdragon.dylib in Resources */,
+				46ABCA0E18C0D978002E234C /* libdragon3d-core.dylib in Resources */,
 				465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */,
 				465D590A18063ACA00A9BF94 /* Default.png in Resources */,
 				465D590C18063ACA00A9BF94 /* Default@2x.png in Resources */,
@@ -256,6 +297,10 @@
 				465D591418063ACA00A9BF94 /* ViewController_iPhone.xib in Resources */,
 				465D591718063ACA00A9BF94 /* ViewController_iPad.xib in Resources */,
 				465D592118063C2100A9BF94 /* com in Resources */,
+				46ABCA1A18C0E00A002E234C /* mp3 in Resources */,
+				46ABCA1B18C0E00A002E234C /* scene in Resources */,
+				46ABCA1C18C0E00A002E234C /* Data in Resources */,
+				46ABCA1D18C0E00A002E234C /* Textures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +315,7 @@
 				465D590418063ACA00A9BF94 /* main.m in Sources */,
 				465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */,
 				465D591118063ACA00A9BF94 /* ViewController.mm in Sources */,
+				46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +425,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
 					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
+					"\"$(SRCROOT)/../../../../../../repo/x86-apple-ios/debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv6 armv7s";
@@ -406,6 +453,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
 					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
+					"\"$(SRCROOT)/../../../../../../repo/x86-apple-ios/debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv6 armv7s";

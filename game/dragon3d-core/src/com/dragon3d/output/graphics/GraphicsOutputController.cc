@@ -112,7 +112,7 @@ void GraphicsOutputController::output(Scene* scene) {
     
     gr->clearBuffer();
 
-    gr->drawSample();
+    //gr->drawSample();
 
     // find all cameras and sort
     List<Camera>* cameras = FindAllCameras(scene);

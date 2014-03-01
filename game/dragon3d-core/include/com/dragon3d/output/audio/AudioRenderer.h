@@ -47,7 +47,9 @@ public:
 	virtual ~AudioRenderer();
 
 public:
+    virtual void init();
     virtual void render(AudioListener* listener, List<AudioSource>* ases);
+    virtual void destroy();
 	
 };//AudioRenderer
 

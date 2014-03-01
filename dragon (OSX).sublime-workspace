@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"S",
+				"SafeDelete"
+			],
+			[
+				"Audio",
+				"AudioClip"
+			],
+			[
 				"de",
 				"destroy"
 			],
@@ -53,10 +61,6 @@
 			],
 			[
 				"Adi",
-				"AudioFormat"
-			],
-			[
-				"Audio",
 				"AudioFormat"
 			],
 			[
@@ -510,203 +514,29 @@
 			[
 				"be",
 				"begin"
-			],
-			[
-				"qu",
-				"queryByteSymbol"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
-			"settings":
-			{
-				"buffer_size": 6945,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 338 files for \"MPG123_DONE\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/doc/examples/extract_frames.c:\n   84  	}\n   85  \n   86: 	if(ret != MPG123_DONE)\n   87  	fprintf(stderr, \"Some error occured (non-fatal?): %s\\n\", mpg123_strerror(m));\n   88  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/doc/examples/mpg123_to_wav.c:\n  103  		samples += more_samples;\n  104  		/* We are not in feeder mode, so MPG123_OK, MPG123_ERR and MPG123_NEW_FORMAT are the only possibilities.\n  105: 		   We do not handle a new format, MPG123_DONE is the end... so abort on anything not MPG123_OK. */\n  106  	} while (err==MPG123_OK);\n  107  \n  108: 	if(err != MPG123_DONE)\n  109  	fprintf( stderr, \"Warning: Decoding ended prematurely because: %s\\n\",\n  110  	         err == MPG123_ERR ? mpg123_strerror(mh) : mpg123_plain_strerror(err) );\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/mpg123_.pas:\n   87    Tmpg123_errors = Longint;\n   88  const\n   89:   MPG123_DONE = -(12);\n   90    MPG123_NEW_FORMAT = -(11);\n   91    MPG123_NEED_MORE = -(10);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/error.h:\n   38  	//\n   39  	// Most functions operating on a mpg123_handle simply return MPG123_OK on success and MPG123_ERR on failure (setting the internal error variable of the handle to the specific error code).\n   40: 	// Decoding/seek functions may also return message codes MPG123_DONE, MPG123_NEW_FORMAT and MPG123_NEED_MORE (please read up on these on how to react!).\n   41  	// The positive range of return values is used for \"useful\" values when appropriate.\n   42  	//\n   ..\n   50  		public enum class ErrorCode\n   51  		{\n   52: 			done = MPG123_DONE,								/// Message: Track ended. \n   53  			new_format = MPG123_NEW_FORMAT,					/// Message: Output format will be different on next call. \n   54  			need_more = MPG123_NEED_MORE,					/// Message: For feed reader: \"Feed me more!\" \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/mpg123clr.h:\n  267  		//\n  268  		// Most functions operating on a mpg123_handle simply return MPG123_OK on success and MPG123_ERR on failure (setting the internal error variable of the handle to the specific error code).\n  269: 		// Decoding/seek functions may also return message codes MPG123_DONE, MPG123_NEW_FORMAT and MPG123_NEED_MORE (please read up on these on how to react!).\n  270  		// The positive range of return values is used for \"useful\" values when appropriate.\n  271  		//\n  ...\n  408  		//\n  409  		// Functions for input bitstream and decoding operations.\n  410: 		// Decoding/seek functions may also return message codes MPG123_DONE, MPG123_NEW_FORMAT and MPG123_NEED_MORE (please read up on these on how to react!).\n  411  		//\n  412  \n  ...\n  471  		///<summary>Read from stream and decode.\n  472  		///<para>Equivalent to mpg123_read(,,,)</para>\n  473: 		///<para>Returns MPG123 error codes. (watch out for MPG123_DONE and friends!)</para>\n  474  		///</summary>\n  475  		///<param name=\"buffer\">Supplied buffer in which to return audio output data.</param>\n  476  		///<param name=\"count\">Returns number of actual audio output bytes returned.</param>\n  477: 		///<returns>MPG123 error codes. (watch out for MPG123_DONE and friends!)</returns>\n  478  		mpg123clr::mpg::ErrorCode __clrcall mpg123_read(array<unsigned char>^ buffer, [Out] size_t% count);\n  479  \n  480  		///<summary>Read from stream and decode.\n  481  		///<para>Equivalent to mpg123_read(,,,) but modified to better support CLR Stream.Read</para>\n  482: 		///<para>Returns MPG123 error codes. (watch out for MPG123_DONE and friends!)</para>\n  483  		///</summary>\n  484  		///<param name=\"buffer\">Supplied buffer in which to return audio output data.</param>\n  ...\n  486  		///<param name=\"size\">Maximum number of bytes to return.</param>\n  487  		///<param name=\"count\">Returns number of actual audio output bytes returned.</param>\n  488: 		///<returns>MPG123 error codes. (watch out for MPG123_DONE and friends!)</returns>\n  489  		mpg123clr::mpg::ErrorCode __clrcall mpg123_read(array<unsigned char>^ buffer, size_t offset, size_t size, [Out] size_t% count);\n  490  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/libmpg123.c:\n  622  				mh->track_frames = mh->num + 1;\n  623  				debug(\"What about updating/checking gapless sample count here?\");\n  624: 				return MPG123_DONE;\n  625  			}\n  626  			else return MPG123_ERR; /* Some real error. */\n  ...\n  741  	returns\n  742  	MPG123_OK -- successfully decoded or ignored the frame, you get your output data or in case of ignored frames 0 bytes\n  743: 	MPG123_DONE -- decoding finished, should not happen\n  744  	MPG123_ERR -- some error occured.\n  745  	MPG123_ERR_NULL -- audio or bytes are not pointing to valid storage addresses\n  ...\n 1318  	if(b<0)\n 1319  	{\n 1320: 		if(b == MPG123_DONE) return MPG123_OK;\n 1321  		else return MPG123_ERR; /* Must be error here, NEED_MORE is not for seekable streams. */\n 1322  	}\n ....\n 1603  		case MPG123_ERR:\n 1604  			return \"A generic mpg123 error.\";\n 1605: 		case MPG123_DONE:\n 1606  			return \"Message: I am done with this track.\";\n 1607  		case MPG123_NEED_MORE:\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/mpg123.h.in:\n  229   *\n  230   * Most functions operating on a mpg123_handle simply return MPG123_OK on success and MPG123_ERR on failure (setting the internal error variable of the handle to the specific error code).\n  231:  * Decoding/seek functions may also return message codes MPG123_DONE, MPG123_NEW_FORMAT and MPG123_NEED_MORE (please read up on these on how to react!).\n  232   * The positive range of return values is used for \"useful\" values when appropriate.\n  233   *\n  ...\n  238  enum mpg123_errors\n  239  {\n  240: 	MPG123_DONE=-12,	/**< Message: Track ended. Stop decoding. */\n  241  	MPG123_NEW_FORMAT=-11,	/**< Message: Output format will be different on next call. Note that some libmpg123 versions between 1.4.3 and 1.8.0 insist on you calling mpg123_getformat() after getting this message code. Newer verisons behave like advertised: You have the chance to call mpg123_getformat(), but you can also just continue decoding and get your data. */\n  242  	MPG123_NEED_MORE=-10,	/**< Message: For feed reader: \"Feed me more!\" (call mpg123_feed() or mpg123_decode() with some new input data). */\n  ...\n  445   *\n  446   * Functions for input bitstream and decoding operations.\n  447:  * Decoding/seek functions may also return message codes MPG123_DONE, MPG123_NEW_FORMAT and MPG123_NEED_MORE (please read up on these on how to react!).\n  448   * @{\n  449   */\n  ...\n  481   *  \\param outmemsize maximum number of bytes to write\n  482   *  \\param done address to store the number of actually decoded bytes to\n  483:  *  \\return error/message code (watch out for MPG123_DONE and friends!) */\n  484  EXPORT int mpg123_read(mpg123_handle *mh, unsigned char *outmemory, size_t outmemsize, size_t *done);\n  485  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/mpg123-strip.c:\n  150  	}\n  151  \n  152: 	if(ret != MPG123_DONE)\n  153  	fprintf(stderr, \"Some error occured (non-fatal?): %s\\n\", mpg123_strerror(m));\n  154  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/mpg123.c:\n  691  	if(mc != MPG123_OK)\n  692  	{\n  693: 		if(mc == MPG123_ERR || mc == MPG123_DONE)\n  694  		{\n  695  			if(mc == MPG123_ERR) error1(\"...in decoding next frame: %s\", mpg123_strerror(mh));\n\n22 matches across 9 files\n\n\nSearching 338 files for \"MPG123_ENC_SIGNED_16\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/doc/examples/mpg123_to_wav.c:\n   65  	}\n   66  \n   67: 	if(encoding != MPG123_ENC_SIGNED_16 && encoding != MPG123_ENC_FLOAT_32)\n   68  	{ /* Signed 16 is the default output format anyways; it would actually by only different if we forced it.\n   69  	     So this check is here just for this explanation. */\n   ..\n   79  	sfinfo.samplerate = rate;\n   80  	sfinfo.channels = channels;\n   81: 	sfinfo.format = SF_FORMAT_WAV|(encoding == MPG123_ENC_SIGNED_16 ? SF_FORMAT_PCM_16 : SF_FORMAT_FLOAT);\n   82  	printf(\"Creating WAV with %i channels and %liHz.\\n\", channels, rate);\n   83  \n   ..\n   94  		sf_count_t more_samples;\n   95  		err = mpg123_read( mh, buffer, buffer_size, &done );\n   96: 		more_samples = encoding == MPG123_ENC_SIGNED_16\n   97  			? sf_write_short(sndfile, (short*)buffer, done/sizeof(short))\n   98  			: sf_write_float(sndfile, (float*)buffer, done/sizeof(float));\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/mpg123_.pas:\n  140    MPG123_ENC_SIGNED = $80;\n  141    MPG123_ENC_8 = $0F;\n  142:   MPG123_ENC_SIGNED_16 = (MPG123_ENC_16 or MPG123_ENC_SIGNED) or $10;\n  143    MPG123_ENC_UNSIGNED_16 = MPG123_ENC_16 or $20;\n  144    MPG123_ENC_UNSIGNED_8 = $01;\n  ...\n  146    MPG123_ENC_ULAW_8 = $04;\n  147    MPG123_ENC_ALAW_8 = $08;\n  148:   MPG123_ENC_ANY = ((((MPG123_ENC_SIGNED_16 or MPG123_ENC_UNSIGNED_16) or MPG123_ENC_UNSIGNED_8) or MPG123_ENC_SIGNED_8) or MPG123_ENC_ULAW_8) or MPG123_ENC_ALAW_8;\n  149  \n  150  type\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/enum.h:\n  141  			enc_signed		= MPG123_ENC_SIGNED,		/// 0000 1000 0000 Some signed integer encoding.\n  142  			enc_float		= MPG123_ENC_FLOAT,			/// 1110 0000 0000 Some float encoding.\n  143: 			enc_signed_16   = MPG123_ENC_SIGNED_16,		///           1101 0000 signed 16 bit\n  144  			enc_unsigned_16 = MPG123_ENC_UNSIGNED_16,	///           0110 0000 unsigned 16 bit\n  145  			enc_unsigned_8  = MPG123_ENC_UNSIGNED_8,    ///           0000 0001 unsigned 8 bit\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/audio.c:\n   31  	{\n   32  		if(ao->rate == 44100 && ao->channels == 2)\n   33: 		return MPG123_ENC_SIGNED_16;\n   34  		else\n   35  		return 0;\n   36  	}\n   37: 	else if(param.outmode == DECODE_AU) return MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_8|MPG123_ENC_ULAW_8;\n   38: 	else if(param.outmode == DECODE_WAV) return MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_8|MPG123_ENC_FLOAT_32|MPG123_ENC_SIGNED_24|MPG123_ENC_SIGNED_32;\n   39  	else return MPG123_ENC_ANY;\n   40  }\n   ..\n  259  static const struct enc_desc encdesc[] =\n  260  {\n  261: 	{ MPG123_ENC_SIGNED_16, \"signed 16 bit\", \"s16 \", 3 },\n  262  	{ MPG123_ENC_UNSIGNED_16, \"unsigned 16 bit\", \"u16 \", 3 },\n  263  	{ MPG123_ENC_UNSIGNED_8, \"unsigned 8 bit\", \"u8  \", 2 },\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/format.c:\n   20  static const int my_encodings[MPG123_ENCODINGS] =\n   21  {\n   22: 	MPG123_ENC_SIGNED_16,\n   23  	MPG123_ENC_UNSIGNED_16,\n   24  	MPG123_ENC_SIGNED_32,\n   ..\n   54  {\n   55  #ifndef NO_16BIT\n   56: 	MPG123_ENC_SIGNED_16,\n   57  	MPG123_ENC_UNSIGNED_16,\n   58  #endif\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/layer3.c:\n 2050  \n 2051  #ifdef OPT_I486\n 2052: 		if(single != SINGLE_STEREO || fr->af.encoding != MPG123_ENC_SIGNED_16 || fr->down_sample != 0)\n 2053  		{\n 2054  #endif\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/mpg123.h.in:\n  370  	,MPG123_ENC_SIGNED = 0x080  /**<      0000 1000 0000 Some signed integer encoding. */\n  371  	,MPG123_ENC_FLOAT  = 0xe00  /**<      1110 0000 0000 Some float encoding. */\n  372: 	,MPG123_ENC_SIGNED_16   = (MPG123_ENC_16|MPG123_ENC_SIGNED|0x10) /**<           1101 0000 signed 16 bit */\n  373  	,MPG123_ENC_UNSIGNED_16 = (MPG123_ENC_16|0x20)                   /**<           0110 0000 unsigned 16 bit */\n  374  	,MPG123_ENC_UNSIGNED_8  = 0x01                                   /**<           0000 0001 unsigned 8 bit */\n  ...\n  382  	,MPG123_ENC_FLOAT_32    = 0x200                                  /**<      0010 0000 0000 32bit float */\n  383  	,MPG123_ENC_FLOAT_64    = 0x400                                  /**<      0100 0000 0000 64bit float */\n  384: 	,MPG123_ENC_ANY = ( MPG123_ENC_SIGNED_16  | MPG123_ENC_UNSIGNED_16 | MPG123_ENC_UNSIGNED_8\n  385  	                  | MPG123_ENC_SIGNED_8   | MPG123_ENC_ULAW_8      | MPG123_ENC_ALAW_8\n  386  	                  | MPG123_ENC_SIGNED_32  | MPG123_ENC_UNSIGNED_32\n  ...\n  404  \n  405  /** An array of supported audio encodings.\n  406:  *  An audio encoding is one of the fully qualified members of mpg123_enc_enum (MPG123_ENC_SIGNED_16, not MPG123_SIGNED).\n  407   *  \\param list Store a pointer to the encodings array there.\n  408   *  \\param number Store the number of encodings there. */\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/aix.c:\n  106  				ainit.flags            = BIG_ENDIAN | TWOS_COMPLEMENT;\n  107  			break;\n  108: 			case MPG123_ENC_SIGNED_16:\n  109  				ainit.mode             = PCM;\n  110  				ainit.bits_per_sample  = 16;\n  ...\n  217  	rate_best_match(ai);\n  218  	if (ao->rate == rate)\n  219: 		return (MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_16|\n  220  			MPG123_ENC_UNSIGNED_8|MPG123_ENC_SIGNED_8|\n  221  			MPG123_ENC_ULAW_8|MPG123_ENC_ALAW_8);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/alib.c:\n  170  static int get_formats_alib(audio_output_t *ao)\n  171  {\n  172: 	return MPG123_ENC_SIGNED_16;\n  173  }\n  174  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/alsa.c:\n   28  	int mpg123;\n   29  } format_map[] = {\n   30: 	{ SND_PCM_FORMAT_S16,    MPG123_ENC_SIGNED_16   },\n   31  	{ SND_PCM_FORMAT_U16,    MPG123_ENC_UNSIGNED_16 },\n   32  	{ SND_PCM_FORMAT_U8,     MPG123_ENC_UNSIGNED_8  },\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/arts.c:\n   25  	if(ao->format < 0)\n   26  	{\n   27: 		ao->format = MPG123_ENC_SIGNED_16;\n   28  		ao->rate   = 44100;\n   29  		ao->channels = 2;\n   30  	}\n   31  	/* Trial and error revealed these two formats to work with aRts. */\n   32: 	if(ao->format == MPG123_ENC_SIGNED_16) bits = 16;\n   33  	else if(ao->format == MPG123_ENC_UNSIGNED_8) bits = 8;\n   34  	else return -1;\n   ..\n   45  {\n   46  	/* aRts runs not everything, but any rate. */\n   47: 	return MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_8;\n   48  }\n   49  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/coreaudio.c:\n  179  	switch(ao->format)\n  180  	{\n  181: 		case MPG123_ENC_SIGNED_16:\n  182  			inFormat.mFormatFlags |= kLinearPCMFormatFlagIsSignedInteger;\n  183  			ca->bps = 2;\n  ...\n  242  static int get_formats_coreaudio(audio_output_t *ao)\n  243  {\n  244: 	return MPG123_ENC_SIGNED_16|MPG123_ENC_SIGNED_8|MPG123_ENC_UNSIGNED_8|MPG123_ENC_SIGNED_32|MPG123_ENC_FLOAT_32;\n  245  }\n  246  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/dummy.c:\n   18  {\n   19  	debug(\"get_formats_dummy()\");\n   20: 	return MPG123_ENC_SIGNED_16;\n   21  }\n   22  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/esd.c:\n   54  		\n   55  		if ((fmt & ESD_MASK_BITS) == ESD_BITS16)\n   56: 			esd_format |= MPG123_ENC_SIGNED_16;\n   57  		esd_channels = fmt & ESD_MASK_CHAN;\n   58  	}\n   ..\n   68  	\n   69  	\n   70: 	if (ao->format & MPG123_ENC_SIGNED_16)\n   71  		format |= ESD_BITS16;\n   72  	else if (ao->format & MPG123_ENC_UNSIGNED_8)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/hp.c:\n   34  	switch(ao->format) {\n   35  		case -1:\n   36: 		case MPG123_ENC_SIGNED_16:\n   37  		default: \n   38  			fmt = MPG123_ENC_LINEAR16BIT;\n   ..\n   56  static int get_formats(audio_output_t *ao)\n   57  {\n   58: 	return MPG123_ENC_SIGNED_16;\n   59  }\n   60  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/jack.c:\n  334  {\n  335  	if(jack_get_sample_rate( ((jack_handle_t*)(ao->userptr))->client ) != (jack_nframes_t)ao->rate) return 0;\n  336: 	else return MPG123_ENC_FLOAT_32|MPG123_ENC_FLOAT_64|MPG123_ENC_SIGNED_16;\n  337  }\n  338  \n  ...\n  347  	   Note: I still need the tmp buffer because of de-interleaving the channels. */\n  348  	samples = len /\n  349: 		(ao->format == MPG123_ENC_FLOAT_64 ? 8 : (ao->format == MPG123_ENC_SIGNED_16 ? 2 : 4))\n  350  		/ handle->channels;\n  351  	tmp_size = samples * sizeof( jack_default_audio_sample_t );\n  ...\n  378  		\n  379  		/* Hm, is that optimal? Anyhow, deinterleaving float or double ... or short. With/without conversion. */\n  380: 		if(ao->format == MPG123_ENC_SIGNED_16)\n  381  		{\n  382  			short* src = (short*)buf;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/mint.c:\n   72  	\n   73  	switch(ao->format) {\n   74: 		case MPG123_ENC_SIGNED_16:\n   75  		default:\n   76  			fmts = AFMT_S16;\n   ..\n  138  		ret |= MPG123_ENC_ULAW_8;\n  139  	if(fmts & AFMT_S16)\n  140: 		ret |= MPG123_ENC_SIGNED_16;\n  141  	if(fmts & AFMT_U8)\n  142  		ret |= MPG123_ENC_UNSIGNED_8;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/nas.c:\n   97  \n   98      switch(ao->format) {\n   99:     case MPG123_ENC_SIGNED_16:\n  100      default:\n  101  		if (((char) *(short *)\"x\")=='x') /* ugly, but painless */\n  ...\n  250              break;\n  251          case AuFormatLinearSigned16LSB:\n  252:             ret |= MPG123_ENC_SIGNED_16;\n  253              break;\n  254          }\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/openal.c:\n   54  \n   55  	al->rate = ao->rate;\n   56: 	if(ao->format == MPG123_ENC_SIGNED_16 && ao->channels == 2) al->format = AL_FORMAT_STEREO16;\n   57: 	else if(ao->format == MPG123_ENC_SIGNED_16 && ao->channels == 1) al->format = AL_FORMAT_MONO16;\n   58  	else if(ao->format == MPG123_ENC_UNSIGNED_8 && ao->channels == 2) al->format = AL_FORMAT_STEREO8;\n   59  	else if(ao->format == MPG123_ENC_UNSIGNED_8 && ao->channels == 1) al->format = AL_FORMAT_MONO8;\n   ..\n   66  static int get_formats_openal(audio_output_t *ao)\n   67  {\n   68: 	return MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_8|((alIsExtensionPresent((ALubyte*)\"AL_EXT_float32\") == AL_TRUE) ? MPG123_ENC_FLOAT_32 : 0);\n   69  }\n   70  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/os2.c:\n  172  	if(ao->rate < 0) ao->rate = 44100;\n  173  	if(ao->channels < 0) ao->channels = 2;\n  174: 	if(ao->format < 0) ao->format = MPG123_ENC_SIGNED_16;\n  175  	\n  176: 	if(ao->format == MPG123_ENC_SIGNED_16)\n  177  		bits = 16;\n  178  	else if(ao->format == MPG123_ENC_UNSIGNED_8)\n  ...\n  379  	\n  380  	if(mmp.ulBitsPerSample == 16)\n  381: 		ao->format = MPG123_ENC_SIGNED_16;\n  382  	else if(mmp.ulBitsPerSample == 8)\n  383  		ao->format = MPG123_ENC_UNSIGNED_8;\n  ...\n  536  \n  537  	if((ULONG_LOWD(rc) == MCIERR_SUCCESS) && (rc != 0x4000)) /* undocumented */\n  538: 	fmts = fmts | MPG123_ENC_SIGNED_16;\n  539  	\n  540  	mmptemp.ulFormatTag = MCI_WAVE_FORMAT_PCM;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/oss.c:\n   94  \n   95  	switch(ao->format) {\n   96: 		case MPG123_ENC_SIGNED_16:\n   97  		default:\n   98  			fmts = AFMT_S16_NE;\n   ..\n  219  	\n  220  	static int fmts[] = { \n  221: 		MPG123_ENC_ULAW_8 , MPG123_ENC_SIGNED_16 ,\n  222  		MPG123_ENC_UNSIGNED_8 , MPG123_ENC_SIGNED_8 ,\n  223  		MPG123_ENC_UNSIGNED_16 , MPG123_ENC_ALAW_8\n  ...\n  255  		ret |= MPG123_ENC_ULAW_8;\n  256  	if(fmts & AFMT_S16_NE)\n  257: 		ret |= MPG123_ENC_SIGNED_16;\n  258  	if(fmts & AFMT_U8)\n  259  		ret |= MPG123_ENC_UNSIGNED_8;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/portaudio.c:\n  105  {\n  106  	/* Only implemented Signed 16-bit audio for now */\n  107: 	return MPG123_ENC_SIGNED_16;\n  108  }\n  109  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/pulse.c:\n   37  		ao->rate     = 44100;\n   38  		ao->channels = 2;\n   39: 		ao->format   = MPG123_ENC_SIGNED_16;\n   40  	}\n   41  \n   ..\n   45  \n   46  	switch(ao->format) {\n   47: 		case MPG123_ENC_SIGNED_16:\n   48  #ifdef WORDS_BIGENDIAN\n   49  			ss.format=PA_SAMPLE_S16BE;\n   ..\n   95  {\n   96  	/* Only implemented Signed 16-bit audio for now */\n   97: 	return MPG123_ENC_SIGNED_16;\n   98  }\n   99  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/qsa.c:\n   34      {SND_PCM_SFMT_S24_BE,     MPG123_ENC_SIGNED_24    },\n   35      {SND_PCM_SFMT_U24_BE,     MPG123_ENC_UNSIGNED_24  },\n   36:     {SND_PCM_SFMT_S16_BE,     MPG123_ENC_SIGNED_16    },\n   37      {SND_PCM_SFMT_U16_BE,     MPG123_ENC_UNSIGNED_16  },\n   38  #else\n   ..\n   43      {SND_PCM_SFMT_S24_LE,     MPG123_ENC_SIGNED_24    },\n   44      {SND_PCM_SFMT_U24_LE,     MPG123_ENC_UNSIGNED_24  },\n   45:     {SND_PCM_SFMT_S16_LE,     MPG123_ENC_SIGNED_16    },\n   46      {SND_PCM_SFMT_U16_LE,     MPG123_ENC_UNSIGNED_16  },\n   47  #endif\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/sdl.c:\n   91  {\n   92  	/* Got no better idea than to just take 16 bit and run with it */\n   93: 	return MPG123_ENC_SIGNED_16;\n   94  #if 0\n   95  	/*\n   ..\n  118  fprintf(stderr, \"wanted rate: %li got rate %li\\n\", (long)wanted.freq, (long)got.freq);\n  119  	return (got.freq == ao->rate && got.channels == ao->channels)\n  120: 		? MPG123_ENC_SIGNED_16\n  121  		: 0;\n  122  #endif\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/sgi.c:\n  194  static int get_formats_sgi(audio_output_t *ao)\n  195  {\n  196: 	return MPG123_ENC_SIGNED_16|MPG123_ENC_FLOAT_32;\n  197  }\n  198  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/sndio.c:\n   46  		par.bits = 32;\n   47  		break;\n   48: 	case MPG123_ENC_SIGNED_16:\n   49  	case -1: /* query mode */\n   50  		par.sig = 1;\n   ..\n   89  		break;\n   90  	case 16:\n   91: 		ao->format = par.sig ? MPG123_ENC_SIGNED_16 :\n   92  		    MPG123_ENC_UNSIGNED_16;\n   93  		break;\n   ..\n  104  {\n  105  	return (MPG123_ENC_SIGNED_32|MPG123_ENC_UNSIGNED_32|\n  106: 	    MPG123_ENC_SIGNED_16|MPG123_ENC_UNSIGNED_16|\n  107  	    MPG123_ENC_UNSIGNED_8|MPG123_ENC_SIGNED_8);\n  108  }\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/sun.c:\n   37  	switch(ao->format) {\n   38  		case -1:\n   39: 		case MPG123_ENC_SIGNED_16:\n   40  		default:\n   41  #ifndef AUDIO_ENCODING_LINEAR	/* not supported */\n   ..\n  204  		{ AUDIO_ENCODING_ULAW , 8,  MPG123_ENC_ULAW_8 } ,\n  205  		{ AUDIO_ENCODING_ALAW , 8,  MPG123_ENC_ALAW_8 } ,\n  206: 		{ AUDIO_ENCODING_LINEAR , 16,  MPG123_ENC_SIGNED_16 } ,\n  207  #if 0\n  208  #if defined(SOLARIS) || defined(SPARCLINUX)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/tinyalsa.c:\n   80  	if ( ao->rate >= pcm_params_get_min(ta->params, PCM_PARAM_RATE) && ao->rate <= pcm_params_get_max(ta->params, PCM_PARAM_RATE) && ao->channels >= pcm_params_get_min(ta->params, PCM_PARAM_CHANNELS) && ao->channels <= pcm_params_get_max(ta->params, PCM_PARAM_CHANNELS) ) \n   81  	{\n   82:         	return MPG123_ENC_SIGNED_16;\n   83  	}\n   84  	else\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/win32.c:\n   60      dev_id = WAVE_MAPPER;    /* probably does the same thing */\n   61      ao->device = \"WaveMapper\";\n   62:     /* FIXME: support for smth besides MPG123_ENC_SIGNED_16? */\n   63      out_fmt.wFormatTag = WAVE_FORMAT_PCM;\n   64      out_fmt.wBitsPerSample = 16;\n   ..\n  141  static int get_formats_win32(struct audio_output_struct *ao)\n  142  {\n  143:     /* FIXME: support for smth besides MPG123_ENC_SIGNED_16? */\n  144:     return MPG123_ENC_SIGNED_16;\n  145  }\n  146  \n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/output/win32_wasapi.c:\n  130        bytes_per_sample = 4;\n  131        break;\n  132:     case MPG123_ENC_SIGNED_16:\n  133        bytes_per_sample = 2;\n  134        break;\n  ...\n  171     }\n  172  \n  173:    if(ao->format & MPG123_ENC_SIGNED_16){\n  174:       formats_generator(ao,MPG123_ENC_SIGNED_16,&wf);\n  175        if((hr = IAudioClient_IsFormatSupported(state->pAudioClient,AUDCLNT_SHAREMODE_EXCLUSIVE, &wf, NULL)) == S_OK)\n  176:       ret |= MPG123_ENC_SIGNED_16;\n  177:       if(hr == AUDCLNT_E_UNSUPPORTED_FORMAT) debug1(\"MPG123_ENC_SIGNED_16 %ld not supported\", ao->rate);\n  178     }\n  179  \n  ...\n  202  }\n  203  \n  204: /* setup with agreed on format, for now only MPG123_ENC_SIGNED_16 */\n  205  static int write_init(struct audio_output_struct *ao){\n  206    HRESULT hr;\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/wav.c:\n  179  int au_open(audio_output_t *ao)\n  180  {\n  181: 	if(ao->format < 0) ao->format = MPG123_ENC_SIGNED_16;\n  182  \n  183  	if(ao->format & MPG123_ENC_FLOAT)\n  ...\n  193  \n  194    switch(ao->format) {\n  195:     case MPG123_ENC_SIGNED_16:\n  196        {\n  197          int endiantest = testEndian();\n  ...\n  231  	{\n  232    /* param.force_stereo = 0; */\n  233:   ao->format = MPG123_ENC_SIGNED_16;\n  234    ao->rate = 44100;\n  235    ao->channels = 2;\n  236  	}\n  237:   if(ao->format != MPG123_ENC_SIGNED_16 || ao->rate != 44100 || ao->channels != 2) {\n  238      fprintf(stderr,\"Oops .. not forced to 16 bit, 44kHz?, stereo\\n\");\n  239      return -1;\n  ...\n  256  	int bps;\n  257  \n  258: 	if(ao->format < 0) ao->format = MPG123_ENC_SIGNED_16;\n  259  \n  260  	flipendian = 0;\n  ...\n  278  		flipendian = testEndian();\n  279  	}\n  280: 	else if(ao->format == MPG123_ENC_SIGNED_16) {\n  281  		long2littleendian(bps=16,RIFF.WAVE.fmt.BitsPerSample,sizeof(RIFF.WAVE.fmt.BitsPerSample));\n  282  		flipendian = testEndian();\n\n77 matches across 32 files\n",
-			"settings":
-			{
-				"buffer_size": 25429,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "third_party/mpg123-1.18.1/src/libmpg123/mpg123.h.in",
-			"settings":
-			{
-				"buffer_size": 62562,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/mpg123-1.18.1/ports/mpg123_.pas",
-			"settings":
-			{
-				"buffer_size": 15229,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/io/InputStream.h",
-			"settings":
-			{
-				"buffer_size": 1750,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/InputStream.cc",
-			"settings":
-			{
-				"buffer_size": 1420,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/BufferedInputStream.cc",
-			"settings":
-			{
-				"buffer_size": 6277,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/FileInputStream_posix.cc",
-			"settings":
-			{
-				"buffer_size": 2712,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
-			"settings":
-			{
-				"buffer_size": 4148,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
-			"settings":
-			{
-				"buffer_size": 2193,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/io/BufferedInputStream.h",
-			"settings":
-			{
-				"buffer_size": 2128,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/io/FileInputStream.h",
-			"settings":
-			{
-				"buffer_size": 1928,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
-			"settings":
-			{
-				"buffer_size": 3998,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/audio/Speaker.cc",
-			"settings":
-			{
-				"buffer_size": 1599,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
 			"settings":
 			{
-				"buffer_size": 1303,
+				"buffer_size": 2680,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
+			"file": "dragon/src/dragon/io/native/ios/File.mm",
 			"settings":
 			{
-				"buffer_size": 1813,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioListener.cc",
-			"settings":
-			{
-				"buffer_size": 2107,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
-			"settings":
-			{
-				"buffer_size": 11161,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/OutputManager.cc",
-			"settings":
-			{
-				"buffer_size": 2523,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
-			"settings":
-			{
-				"buffer_size": 4930,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
-			"settings":
-			{
-				"buffer_size": 5134,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/ByteArrayOutputStream.cc",
-			"settings":
-			{
-				"buffer_size": 2830,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/lang/Array.h",
-			"settings":
-			{
-				"buffer_size": 2686,
+				"buffer_size": 5456,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/SublimeDragon/dragon_osx.sublime-build",
+	"build_system": "Packages/SublimeDragon/dragon_ios_simulator.sublime-build",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -798,24 +628,88 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/lfs_alias.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/alstream.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/osx/AppLauncher.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioOutputController.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioListener.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/ios/AppLauncher.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/ios/AppLauncher.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/File_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/osx/FileInputStream.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/osx/FileOutputStream.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/osx/File.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/ios/File.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/x86-apple-ios/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioRenderer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/synthesis.c",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/ByteArrayAudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/ByteArrayAudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/AbstractAudioReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/ByteArrayInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/AbstractAudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/AbstractAudioInputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioClip.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/common/alhelpers.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/vorbisfile.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/file_io.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/pcm.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/sndfile.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/mp3/Mp3AudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/ogg/OggAudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/wav/WavAudioInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/spi/AudioClipIORegistry.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioIO.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioIO.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/AudioReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/mp3/Mp3AudioReader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/BufferedInputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/readers.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/AbstractAudioReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/ogg/OggAudioReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/plugins/wav/WavAudioReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FilterInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/mpg123.h.in",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/mpg123_.pas",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/BufferedInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/BufferedInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileInputStream.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/Speaker.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/OutputManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/ByteArrayOutputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/lfs_alias.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/targets/universal-apple-macosx/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/readers.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/lfs_wrap.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/mpg123clr.cpp",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/NEWS.libmpg123",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/libmpg123.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/ogg/OggAudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileInputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/BufferedInputStream.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/ports/Xcode/config.h",
@@ -823,41 +717,26 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/frame.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/minimad.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/mad.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mad.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/decoder.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/stream.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/bit.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/lfs_wrap.c",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/mpg123.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.17.0/src/libmpg123/config.h",
 		"/usr/include/stdio.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/Resource.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/AssetsManager.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/AssetsManager.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b/decoder.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/Speaker.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/Speaker.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioOutputController.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/audio/AudioRenderer.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/GameObject.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/audio/AudioListener.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/osx/AppLauncher.mm",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/logging/Logger.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/logging/Logger.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Component.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Component.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/IOException.h",
@@ -865,10 +744,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/osx/AssetsManager",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/alstream.c",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/common/alhelpers.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/examples/common/alhelpers.c",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Transform.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/Vector3Test.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
@@ -879,53 +755,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/helpers.c",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/camera/Camera.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/Behaviour.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Behaviour.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/script/ScriptBehaviour.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Model.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alBuffer.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioFormat.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/framework/GameException.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/GameException.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioFormat.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/UnsupportedOperationException.h",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include/com/dragon3d/examples/audio/AudioDemo.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsDevice.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsOutputController.h",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alu.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_defs.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/ALu.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_inc.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/Alc/mixer_neon.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alAuxEffectSlot.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/include/AL/efx.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/alFilter.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alFilter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/Include/alMain.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/CMakeLists.txt",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/OpenAL32/include/alMain.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1/build/Makefile",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/AudioIO.cc",
-		"/usr/include/c++/4.2.1/iostream",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/vorbisfile.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libogg-1.3.1/src/framing.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/os.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libvorbis-1.3.3/lib/block.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/src/sndfile.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libsndfile-1.0.25/examples/generate.c"
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc"
 	],
 	"find":
 	{
@@ -933,9 +763,11 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
+			"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1",
+			"/Users/yubing/Develop/GitRepos/dragon",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/libmad-0.15.0b",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/openal-soft-1.15.1",
@@ -957,6 +789,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"wrap_BufferSamples",
+			"not support clip format",
+			"_mark",
+			"ByteArrayInputStream",
+			"mpg123_read",
+			"MPG123_FORCE_FLOAT",
 			"MPG123_ENC_SIGNED_16",
 			"MPG123_DONE",
 			"force_skip",
@@ -1078,13 +916,7 @@
 			"\n",
 			"horrible_cast",
 			"Convert",
-			"GlobSources",
-			"cwd",
-			"Modules",
-			"cwd",
-			"project['cwd']",
-			"SmartPointer",
-			"toChars"
+			"GlobSources"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1092,6 +924,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"markPos",
+			"ByteArrayAudioInputStream",
 			"mp3_force_skip",
 			"",
 			"index",
@@ -1170,1189 +1004,75 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioReader_mpg123.cc",
+					"file": "game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
 					"settings":
 					{
-						"buffer_size": 6945,
+						"buffer_size": 2680,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3144,
-								3144
+								2300,
+								2300
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"874":
+								"160":
 								{
-									"a": 6422.0,
-									"b": 6422.0
+									"a": 2300.0,
+									"b": 2300.0
 								}
 							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1269.0,
+						"translation.y": 943.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "dragon/src/dragon/io/native/ios/File.mm",
 					"settings":
 					{
-						"buffer_size": 25429,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										187,
-										198
-									],
-									[
-										580,
-										591
-									],
-									[
-										705,
-										716
-									],
-									[
-										1026,
-										1037
-									],
-									[
-										1495,
-										1506
-									],
-									[
-										1766,
-										1777
-									],
-									[
-										2394,
-										2405
-									],
-									[
-										2747,
-										2758
-									],
-									[
-										3036,
-										3047
-									],
-									[
-										3337,
-										3348
-									],
-									[
-										3704,
-										3715
-									],
-									[
-										4085,
-										4096
-									],
-									[
-										4496,
-										4507
-									],
-									[
-										4734,
-										4745
-									],
-									[
-										4963,
-										4974
-									],
-									[
-										5192,
-										5203
-									],
-									[
-										5654,
-										5665
-									],
-									[
-										5901,
-										5912
-									],
-									[
-										6626,
-										6637
-									],
-									[
-										6947,
-										6958
-									],
-									[
-										7214,
-										7225
-									],
-									[
-										7476,
-										7487
-									],
-									[
-										7822,
-										7842
-									],
-									[
-										8185,
-										8205
-									],
-									[
-										8469,
-										8489
-									],
-									[
-										8791,
-										8811
-									],
-									[
-										9057,
-										9077
-									],
-									[
-										9527,
-										9547
-									],
-									[
-										9929,
-										9949
-									],
-									[
-										10045,
-										10065
-									],
-									[
-										10159,
-										10179
-									],
-									[
-										10383,
-										10403
-									],
-									[
-										10728,
-										10748
-									],
-									[
-										10859,
-										10879
-									],
-									[
-										11105,
-										11125
-									],
-									[
-										11456,
-										11476
-									],
-									[
-										12055,
-										12075
-									],
-									[
-										12447,
-										12467
-									],
-									[
-										12804,
-										12824
-									],
-									[
-										12989,
-										13009
-									],
-									[
-										13298,
-										13318
-									],
-									[
-										13500,
-										13520
-									],
-									[
-										13787,
-										13807
-									],
-									[
-										13976,
-										13996
-									],
-									[
-										14180,
-										14200
-									],
-									[
-										14381,
-										14401
-									],
-									[
-										14588,
-										14608
-									],
-									[
-										14857,
-										14877
-									],
-									[
-										15063,
-										15083
-									],
-									[
-										15189,
-										15209
-									],
-									[
-										15438,
-										15458
-									],
-									[
-										15599,
-										15619
-									],
-									[
-										15905,
-										15925
-									],
-									[
-										16128,
-										16148
-									],
-									[
-										16412,
-										16432
-									],
-									[
-										16617,
-										16637
-									],
-									[
-										16769,
-										16789
-									],
-									[
-										16996,
-										17016
-									],
-									[
-										17210,
-										17230
-									],
-									[
-										17423,
-										17443
-									],
-									[
-										17529,
-										17549
-									],
-									[
-										17900,
-										17920
-									],
-									[
-										18264,
-										18284
-									],
-									[
-										18320,
-										18340
-									],
-									[
-										18490,
-										18510
-									],
-									[
-										18719,
-										18739
-									],
-									[
-										18935,
-										18955
-									],
-									[
-										19080,
-										19100
-									],
-									[
-										19298,
-										19318
-									],
-									[
-										19558,
-										19578
-									],
-									[
-										19764,
-										19784
-									],
-									[
-										19861,
-										19881
-									],
-									[
-										20039,
-										20059
-									],
-									[
-										20326,
-										20346
-									],
-									[
-										20601,
-										20621
-									],
-									[
-										20887,
-										20907
-									],
-									[
-										21114,
-										21134
-									],
-									[
-										21324,
-										21344
-									],
-									[
-										21521,
-										21541
-									],
-									[
-										21670,
-										21690
-									],
-									[
-										21834,
-										21854
-									],
-									[
-										22088,
-										22108
-									],
-									[
-										22349,
-										22369
-									],
-									[
-										22836,
-										22856
-									],
-									[
-										23121,
-										23141
-									],
-									[
-										23364,
-										23384
-									],
-									[
-										23407,
-										23427
-									],
-									[
-										23609,
-										23629
-									],
-									[
-										23738,
-										23758
-									],
-									[
-										23795,
-										23815
-									],
-									[
-										23965,
-										23985
-									],
-									[
-										24047,
-										24067
-									],
-									[
-										24194,
-										24214
-									],
-									[
-										24465,
-										24485
-									],
-									[
-										24597,
-										24617
-									],
-									[
-										24757,
-										24777
-									],
-									[
-										24869,
-										24889
-									],
-									[
-										25105,
-										25125
-									],
-									[
-										25241,
-										25261
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								11468,
-								11468
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"last_edits":
-							{
-								"877":
-								{
-									"a": 7622.0,
-									"b": 7622.0
-								}
-							},
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3250.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "third_party/mpg123-1.18.1/src/libmpg123/mpg123.h.in",
-					"settings":
-					{
-						"buffer_size": 62562,
+						"buffer_size": 5456,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23555,
-								23575
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 5620.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "third_party/mpg123-1.18.1/ports/mpg123_.pas",
-					"settings":
-					{
-						"buffer_size": 15229,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1995,
-								2011
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 958.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "dragon/include/dragon/io/InputStream.h",
-					"settings":
-					{
-						"buffer_size": 1750,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1570,
-								1570
+								3952,
+								3953
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"886":
+								"371":
 								{
-									"a": 1569.0,
-									"b": 1569.0
+									"a": 3944.0,
+									"b": 3944.0
 								}
 							},
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Objective-C/Objective-C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 394.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "dragon/src/dragon/io/InputStream.cc",
-					"settings":
-					{
-						"buffer_size": 1420,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1292,
-								1292
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"889":
-								{
-									"a": 1292.0,
-									"b": 1292.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 254.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "dragon/src/dragon/io/BufferedInputStream.cc",
-					"settings":
-					{
-						"buffer_size": 6277,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5847,
-								5847
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"892":
-								{
-									"a": 5847.0,
-									"b": 5847.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2606.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "dragon/src/dragon/io/FileInputStream_posix.cc",
-					"settings":
-					{
-						"buffer_size": 2712,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2009,
-								2009
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"895":
-								{
-									"a": 2009.0,
-									"b": 2009.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1237.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioSource.cc",
-					"settings":
-					{
-						"buffer_size": 4148,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2351,
-								2369
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"898":
-								{
-									"a": 3603.0,
-									"b": 3603.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 940.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioSource.h",
-					"settings":
-					{
-						"buffer_size": 2193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1661,
-								1684
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"943":
-								{
-									"a": 1674.0,
-									"b": 1674.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 672.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "dragon/include/dragon/io/BufferedInputStream.h",
-					"settings":
-					{
-						"buffer_size": 2128,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1553,
-								1553
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"901":
-								{
-									"a": 1553.0,
-									"b": 1553.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 502.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "dragon/include/dragon/io/FileInputStream.h",
-					"settings":
-					{
-						"buffer_size": 1928,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1656,
-								1656
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"904":
-								{
-									"a": 1656.0,
-									"b": 1656.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 544.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
-					"settings":
-					{
-						"buffer_size": 3998,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3863,
-								3863
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"934":
-								{
-									"a": 3748.0,
-									"b": 3748.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 430.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/audio/Speaker.cc",
-					"settings":
-					{
-						"buffer_size": 1599,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1560,
-								1560
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"937":
-								{
-									"a": 1560.0,
-									"b": 1560.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 273.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/audio/AudioRenderer.cc",
-					"settings":
-					{
-						"buffer_size": 1303,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1217,
-								1217
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 35.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "game/dragon3d-core/include/com/dragon3d/scene/audio/AudioListener.h",
-					"settings":
-					{
-						"buffer_size": 1813,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1678,
-								1678
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"949":
-								{
-									"a": 1667.0,
-									"b": 1667.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 540.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "game/dragon3d-core/src/com/dragon3d/scene/audio/AudioListener.cc",
-					"settings":
-					{
-						"buffer_size": 2107,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1998,
-								1998
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"952":
-								{
-									"a": 2089.0,
-									"b": 2089.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 399.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
-					"settings":
-					{
-						"buffer_size": 11161,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3561,
-								3561
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"961":
-								{
-									"a": 3561.0,
-									"b": 3561.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1960.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/OutputManager.cc",
-					"settings":
-					{
-						"buffer_size": 2523,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2409,
-								2409
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"973":
-								{
-									"a": 2409.0,
-									"b": 2409.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 769.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "game/dragon3d-examples/src/com/dragon3d/examples/audio/AudioDemo.cc",
-					"settings":
-					{
-						"buffer_size": 4930,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2663,
-								2663
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"988":
-								{
-									"a": 2663.0,
-									"b": 2663.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1069.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 20,
-					"file": "dragon/src/dragonx/audio/io/plugins/wav/WavAudioReader.cc",
-					"settings":
-					{
-						"buffer_size": 5134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5071,
-								5071
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"1127":
-								{
-									"a": 4936.0,
-									"b": 4936.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2177.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "dragon/src/dragon/io/ByteArrayOutputStream.cc",
-					"settings":
-					{
-						"buffer_size": 2830,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1744,
-								1744
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 480.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "dragon/include/dragon/lang/Array.h",
-					"settings":
-					{
-						"buffer_size": 2686,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2371,
-								2371
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1180.0,
+						"translation.y": 2831.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2393,7 +1113,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 149.0
+		"height": 229.0
 	},
 	"replace":
 	{
@@ -2632,6 +1352,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 277.0,
+	"side_bar_width": 266.0,
 	"status_bar_visible": true
 }

@@ -370,6 +370,10 @@ if os.path.exists(target_config_file):
 THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
 # lib openal
+mob_SOURCES = Split("""
+    alConfigMob.c
+""")
+
 OpenAL32_SOURCES = Split("""
     alAuxEffectSlot.c
     alBuffer.c
@@ -408,21 +412,29 @@ Alc_backends_SOURCES = Split("""
     coreaudio.c
 """)
 
+OPENAL_SOFT_ROOT = THIRD_PARTY_SOURCE_ROOT + "/OpenAL-MOB-1.0.0"
+
 LibraryModule(
     name                  = 'openal',
-    source_root           = THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1",
+    source_root           = OPENAL_SOFT_ROOT,
     build_include_dirs    = [
-        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/build",
-        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/OpenAL32/include",
-        THIRD_PARTY_SOURCE_ROOT + "/openal-soft-1.15.1/include"
+        OPENAL_SOFT_ROOT + "/build_ios",
+        OPENAL_SOFT_ROOT + "/mob/include",
+        OPENAL_SOFT_ROOT + "/OpenAL32/include",
+        OPENAL_SOFT_ROOT + "/include"
     ],  
     build_source_dirs     = [],         
     build_source_files    = {
         "OpenAL32" : OpenAL32_SOURCES,
         "Alc" : Alc_SOURCES,
-        "Alc/backends" : Alc_backends_SOURCES
+        "Alc/backends" : Alc_backends_SOURCES,
+        "mob" : mob_SOURCES
     },    
-    extra_cpp_defines     = ["AL_ALEXT_PROTOTYPES"],     
+    extra_cpp_defines     = [
+        "AL_ALEXT_PROTOTYPES",
+        "MOB_IGNORE_CONFIG_FILE",
+        "TARGET_OS_IPHONE"
+    ],     
     shared                = False,                    
     install               = True
 )

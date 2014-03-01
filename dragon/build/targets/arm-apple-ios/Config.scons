@@ -14,6 +14,7 @@ env['LINK']   = 'clang++'
 
 ### Special for the ios: arm flags
 arm_flags =  [('-arch', 'armv7'), ('-isysroot', IOS_SYSROOT), ('-miphoneos-version-min=5.0')]
+env.AppendUnique(ASFLAGS   = arm_flags + ['-fno-common', '-fno-stack-protector'])
 env.AppendUnique(CCFLAGS   = arm_flags + ['-fno-common', '-fno-stack-protector'])
 env.AppendUnique(LINKFLAGS = arm_flags + [])
 
@@ -22,7 +23,7 @@ env.AppendUnique(CPPDEFINES = ["__APPLE__", "HAVE_INTTYPES_H=1"])
 
 env['DRAGON_EXTRA_LIBS']=['stdc++']
 
-env.AppendUnique(FRAMEWORKS=Split('Foundation UIKit OpenGLES QuartzCore'))
+env.AppendUnique(FRAMEWORKS=Split('Foundation'))
 
 def Macosx_testcallback(target, source, env):
     

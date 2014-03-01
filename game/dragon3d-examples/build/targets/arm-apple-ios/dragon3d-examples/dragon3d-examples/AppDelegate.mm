@@ -20,26 +20,35 @@
 #import "ViewController.h"
 
 #include <com/dragon3d/launcher/AppLauncher.h>
+#include <com/dragon3d/examples/audio/AudioDemo.h>
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 
+Import com::dragon3d::examples::audio;
 Import com::dragon3d::examples::helloworld;
 
 @implementation AppDelegate
 {
     //AppLauncher* launcher;
+    
+    AudioDemo* audioDemo;
     HelloWorld* helloworld;
 }
 
 - (void)dealloc
 {
     SafeDelete(helloworld);
+    SafeDelete(audioDemo);
+    
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     helloworld = new HelloWorld();
-    Dragon3DLaunchApp(helloworld);
+    audioDemo = new AudioDemo();
+    
+    Dragon3DLaunchApp(audioDemo);
+    //Dragon3DLaunchApp(helloworld);
     
     return YES;
 }
@@ -68,7 +77,8 @@ Import com::dragon3d::examples::helloworld;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    Dragon3DTerminateApp(helloworld);
+    Dragon3DTerminateApp(audioDemo);
+    //Dragon3DTerminateApp(helloworld);
 }
 
 @end

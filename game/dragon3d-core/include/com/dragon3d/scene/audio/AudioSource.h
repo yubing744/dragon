@@ -20,14 +20,8 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
 #ifndef AudioSource_Audio_Scene_Dragon3d_Com_H
 #define AudioSource_Audio_Scene_Dragon3d_Com_H
-
-#include <stdlib.h>
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alext.h>
 
 #include <dragon/config.h>
 
@@ -64,13 +58,14 @@ public:
     virtual void destroy();
 
 public:
-	virtual bool isPlaying();
+    virtual bool isPlaying();
     virtual bool isLoop();
     virtual void setAudioClip(AudioClip* clip);
-    
+
 public:
     virtual void play();
     virtual void playDelayed(float delay);
+    virtual void mixing();
     virtual void pause();
     virtual void stop();
 
@@ -84,19 +79,19 @@ protected:
     bool autoPlay;
 
     /* These are the buffers and source to play out through OpenAL with */
-    ALuint buffers[NUM_BUFFERS];
-    ALuint source;
+    unsigned int buffers[NUM_BUFFERS];
+    unsigned int source;
 
     /* A temporary data buffer for readAVAudioData to write to and pass to
      * OpenAL with */
-    ALbyte *data;
-    ALsizei dataSize;
+    byte *data;
+    int dataSize;
 
     /* The format of the output stream */
-    ALenum format;
-    ALuint frequency;
-    ALenum channels;
-    ALuint bitSize;
+    int format;
+    unsigned int frequency;
+    int channels;
+    unsigned int bitSize;
 };//AudioSource
 
 EndPackage4 //(com, dragon3d, scene, audio)

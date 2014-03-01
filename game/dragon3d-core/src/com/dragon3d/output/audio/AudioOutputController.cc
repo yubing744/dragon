@@ -21,12 +21,10 @@
  **********************************************************************/
 
 #include <dragon/util/ArrayList.h>
-#include <com/dragon3d/framework/GameException.h>
 #include <com/dragon3d/output/audio/AudioOutputController.h>
 #include <dragon/util/logging/Logger.h>
 
 Import dragon::util;
-Import com::dragon3d::framework;
 Import com::dragon3d::output::audio;
 Import dragon::util::logging;
 
@@ -44,25 +42,7 @@ AudioOutputController::~AudioOutputController() {
 void AudioOutputController::init() {
     logger->info("init");
     
-    ALCdevice *device;
-    ALCcontext *ctx;
-
-    /* Open and initialize a device with default settings */
-    device = alcOpenDevice(NULL);
-    if(!device) {
-        throw new GameException("Could not open a device!");
-    }
-
-    ctx = alcCreateContext(device, NULL);
-    if(ctx == NULL || alcMakeContextCurrent(ctx) == ALC_FALSE) {
-        if(ctx != NULL)
-            alcDestroyContext(ctx);
-
-        alcCloseDevice(device);
-        throw new GameException("Could not set a context!\n");
-    }
-
-    logger->debug("Opened \"%s\"\n", alcGetString(device, ALC_DEVICE_SPECIFIER));
+    this->render->init();
 }
 
 List<AudioSource>* findAllAudioSourceFromScene(Scene* scene) {
@@ -127,17 +107,6 @@ void AudioOutputController::output(Scene* scene) {
 void AudioOutputController::destroy() {
     logger->info("destroy");
     
-    ALCdevice *device;
-    ALCcontext *ctx;
-
-    ctx = alcGetCurrentContext();
-    if(ctx == NULL)
-        return;
-
-    device = alcGetContextsDevice(ctx);
-
-    alcMakeContextCurrent(NULL);
-    alcDestroyContext(ctx);
-    alcCloseDevice(device);
+    this->render->destroy();
 }
 

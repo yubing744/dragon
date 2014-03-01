@@ -23,6 +23,8 @@
 Import dragon::lang;
 Import dragon::io;
 
+#include "../File_posix.cc"
+
 bool File::isHidden() {
     NSNumber* hidden = nil;
     NSError* err = nil;

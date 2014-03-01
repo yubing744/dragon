@@ -25,17 +25,22 @@
 #import <QuartzCore/QuartzCore.h>
 
 #include "AppLauncher.h"
+#include <dragon/lang/Throwable.h>
 #include <com/dragon3d/launcher/AppLauncher.h>
 
+#include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/framework/Application.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
-#include <dragon/util/logging/Logger.h>
 
+#include <com/dragon3d/output/audio/Speaker.h>
+
+Import dragon::lang;
 Import dragon::util::logging;
-Import com::dragon3d::framework;
 Import com::dragon3d::input;
 Import com::dragon3d::output;
+Import com::dragon3d::framework;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::audio;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#ios", INFO);
 
@@ -51,7 +56,14 @@ static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#
 
 - (void) runLoop {    
     Application* app = (Application*)_app;
-    app->runLoop();
+
+    try {
+        app->runLoop();
+    } catch (Throwable* t) {
+        logger->errorT("Throwable caught in MainThread - exiting", t);
+        t->printStackTrace();
+        SafeDelete(t);
+    }
 }
 
 @end
@@ -71,6 +83,10 @@ void Dragon3DLaunchApp(Application* app) {
         // add graphics device
         GraphicsDevice* graphicsDevice = new GraphicsDevice();
         outputManager->registerDevice(graphicsDevice);
+
+        // add audio device
+        Speaker* speaker = new Speaker();
+        outputManager->registerDevice(speaker);
     }
 
     app->setOutputManager(outputManager);

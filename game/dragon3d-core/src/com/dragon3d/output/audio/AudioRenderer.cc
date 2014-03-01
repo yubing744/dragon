@@ -20,12 +20,17 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
+#include <stdlib.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
 
 #include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/framework/GameException.h>
 #include <com/dragon3d/output/audio/AudioRenderer.h>
 
 Import dragon::util::logging;
+Import com::dragon3d::framework;
 Import com::dragon3d::output::audio;
 
 const Type* AudioRenderer::TYPE = TypeOf<AudioRenderer>();
@@ -39,6 +44,58 @@ AudioRenderer::~AudioRenderer() {
 
 }
 
+void AudioRenderer::init() {
+    logger->info("init");
+
+    ALCdevice *device;
+    ALCcontext *ctx;
+
+    /* Open and initialize a device with default settings */
+    device = alcOpenDevice(NULL);
+    if(!device) {
+        throw new GameException("Could not open a device!");
+    }
+
+    ctx = alcCreateContext(device, NULL);
+    if(ctx == NULL || alcMakeContextCurrent(ctx) == ALC_FALSE) {
+        if(ctx != NULL)
+            alcDestroyContext(ctx);
+
+        alcCloseDevice(device);
+        throw new GameException("Could not set a context!\n");
+    }
+
+    logger->debug("Opened \"%s\"\n", alcGetString(device, ALC_DEVICE_SPECIFIER));
+}
+
 void AudioRenderer::render(AudioListener* listener, List<AudioSource>* ases) {
-    
+    if (listener != null) {
+        bool pauseAudio = listener->isPause();
+
+        Iterator<AudioSource>* it = ases->iterator();
+
+        while(it->hasNext()) {
+            AudioSource* as = it->next();
+            as->mixing();
+        }
+
+        SafeDelete(it);
+    }
+}
+
+void AudioRenderer::destroy() {
+    logger->info("destroy");
+
+    ALCdevice *device;
+    ALCcontext *ctx;
+
+    ctx = alcGetCurrentContext();
+    if(ctx == NULL)
+        return;
+
+    device = alcGetContextsDevice(ctx);
+
+    alcMakeContextCurrent(NULL);
+    alcDestroyContext(ctx);
+    alcCloseDevice(device);
 }

@@ -24,11 +24,6 @@
 #ifndef AudioListener_Audio_Scene_Dragon3d_Com_H
 #define AudioListener_Audio_Scene_Dragon3d_Com_H
 
-#include <stdlib.h>
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alext.h>
-
 #include <dragon/config.h>
 #include <com/dragon3d/scene/Behaviour.h>
 
@@ -59,8 +54,14 @@ public:
     virtual void update(Input* input, ReadOnlyTimer* timer);
     virtual void destroy();
     
+public:
+    virtual void pause();
+    virtual void resume();
+    virtual bool isPause();
+
 protected:
-    ALuint source;
+    unsigned int source;
+    bool _pause;
 
 };//AudioListener
 

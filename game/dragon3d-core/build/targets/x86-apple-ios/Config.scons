@@ -38,7 +38,7 @@ env.AppendUnique(CPPDEFINES = ["__APPLE__", "HAVE_INTTYPES_H=1"])
 
 env['DRAGON_EXTRA_LIBS']=['stdc++']
 
-env.AppendUnique(FRAMEWORKS=Split('Foundation UIKit OpenGLES QuartzCore'))
+env.AppendUnique(FRAMEWORKS=Split('Foundation UIKit OpenGLES QuartzCore CoreAudio AudioToolbox'))
 
 def Macosx_testcallback(target, source, env):
     

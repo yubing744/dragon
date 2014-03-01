@@ -20,6 +20,11 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#include <stdlib.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
+
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/framework/GameException.h>
@@ -31,7 +36,8 @@ Import com::dragon3d::scene::audio;
 
 const Type* AudioListener::TYPE = TypeOf<AudioListener>();
 
-AudioListener::AudioListener() {
+AudioListener::AudioListener() 
+    :_pause(false) {
 
 }
 
@@ -67,4 +73,16 @@ void AudioListener::update(Input* input, ReadOnlyTimer* timer) {
 
 void AudioListener::destroy() {
     
+}
+
+void AudioListener::pause() {
+    this->_pause = true;
+}
+
+void AudioListener::resume() {
+    this->_pause = false;
+}
+
+bool AudioListener::isPause() {
+    return this->_pause; 
 }

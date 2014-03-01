@@ -14,14 +14,237 @@
 * limitations under the License.
 */
 
+#import <Foundation/foundation.h>
+
+#include <mach/mach.h>
+#include <xlocale.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <unistd.h>
+#include <errno.h>
+
+#include <dragon/util/ArrayList.h>
 #include <dragon/io/File.h>
+#include <dragon/util/logging/Logger.h>
 
 Import dragon::lang;
 Import dragon::io;
+Import dragon::util;
+Import dragon::util::logging;
+
+static Logger* logger = Logger::getLogger("dragon::io::File#posix", INFO);
+
+dg_char File::getNativePathSeparator() {
+    return L':';
+}
+
+dg_char File::getNativeSeparatorChar() {
+    return L'/';
+}
+
+bool File::exists() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    return access(utf8Path.raw(), F_OK) == 0;
+}
+
+bool File::isDirectory() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    result = stat(utf8Path.raw(), &s);
+
+    if(result != 0){
+        return false;
+    }
+
+    return ((s.st_mode & S_IFDIR) != 0);
+}
+
+bool FileMkdirInternal(const String* path) {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = path->getBytes("UTF-8");
+
+    // if the dir already exists and return true
+    if(access(utf8Path.raw(), F_OK) == 0){
+        return true;
+    }
+
+    if(mkdir(utf8Path.raw(), 0777) == -1) {
+        logger->debug(strerror(errno));
+        return false;
+    }
+
+    return true;
+}
+
+
+bool File::canExecute() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    result = stat(utf8Path.raw(), &s);
+
+    if(result != 0){
+        return false;
+    }
+
+    return ((s.st_mode & S_IEXEC) != 0);
+}
+
+bool File::canRead() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    result = stat(utf8Path.raw(), &s);
+
+    if(result != 0){
+        return false;
+    }
+
+    return ((s.st_mode & S_IREAD) != 0);
+}
+
+bool File::canWrite() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    result = stat(utf8Path.raw(), &s);
+
+    if(result != 0){
+        return false;
+    }
+
+    return ((s.st_mode & S_IWRITE) != 0);
+}
+
+bool File::del() {
+    if (!exists())
+        return true;
+
+    const Array<char> utf8Path = this->path->getBytes("UTF-8");
+
+    if (isDirectory())
+        return rmdir(utf8Path.raw()) == 0;
+
+    return remove(utf8Path.raw()) == 0;
+}
+
+dg_long File::length() {
+    struct stat s;
+    int result;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    result = stat(utf8Path.raw(), &s);
+
+    if(result != 0){
+        return 0ll;
+    }
+
+    return s.st_size;
+}
+
+bool File::renameTo(const File* dest) const {
+    return false;
+}
+
+
+String* File::getAbsolutePath() const {
+    if(isAbsolute()) {
+        return new String(this->path);
+    }
+
+    char* pwd = getcwd(NULL, 0);
+
+    if(pwd != null) {
+        String* path01 = new String(pwd);
+
+        String* path02 = path01->concat(File::separator);
+        SafeDelete(path01);
+
+        path01 = path02->concat(this->path);
+        SafeDelete(path02);
+
+        return path01;
+    }
+
+    return new String(this->path);
+}
+
+// -----------------------travel files----------------------------------
+void FileListFilesInternal(ArrayList<String>* outFileNames, const char* path) {
+    struct stat s;
+    DIR *dir;
+    struct dirent *dt;
+
+    if (stat(path, &s) < 0) {
+        logger->error(strerror(errno));
+        return;
+    }
+
+    if (S_ISDIR(s.st_mode)) {
+        if ((dir = opendir(path)) == NULL) {
+            logger->error("opendir error\n");
+            return;
+        }
+
+        if (chdir(path) < 0) {
+            logger->error("chdir error\n");
+            return;
+        }
+
+        while ((dt = readdir(dir)) != NULL) {
+            if (dt->d_name[0] == '.') {
+                continue;
+            }
+
+            logger->debug("find fileName: %s\n", dt->d_name);
+
+            outFileNames->add(new String(dt->d_name));
+        }
+
+        if (chdir("..") < 0) {
+            logger->error("chdir error\n");
+        }
+
+        if (closedir(dir) < 0) {
+            logger->error("closedir error\n");
+        }
+    } else {
+        logger->error("the path is file\n");
+    }
+}
+
+
+const Array<String*> File::list() const {
+    Array<char> utf8Path = path->getBytes("UTF-8");
+
+    ArrayList<String>* fileNames = new ArrayList<String>();
+
+    FileListFilesInternal(fileNames, utf8Path);
+
+    Array<String*> result = fileNames->toArray();
+    SafeDelete(fileNames);
+    return result;
+}
 
 bool File::isHidden() {
-    String* fileName = this->getFileName();
-    bool result = fileName->startsWith(L".");
-    SafeDelete(fileName);
-    return result;
+    NSNumber* hidden = nil;
+    NSError* err = nil;
+
+    Array<char> utf8Path = this->path->getBytes("UTF-8");
+    NSString* nsPath = [NSString stringWithUTF8String: utf8Path.raw()];
+
+    return [[NSURL fileURLWithPath: nsPath]
+                getResourceValue: &hidden forKey: NSURLIsHiddenKey error: &err]
+            && [hidden boolValue];
 }
