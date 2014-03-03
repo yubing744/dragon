@@ -881,3 +881,15 @@
    fun:__NSSetCStringCharToUnichar
    ...
 }
+
+{
+   fileRead
+   Memcheck:Leak
+   fun:malloc
+   fun:__smakebuf
+   fun:__srefill0
+   fun:__fread
+   fun:fread
+   ...
+}
+

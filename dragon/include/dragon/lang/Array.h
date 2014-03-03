@@ -23,6 +23,134 @@
 #ifndef Array_Lang_Dragon_H
 #define Array_Lang_Dragon_H
 
+#include <stdio.h>
+
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+
+BeginPackage2(dragon, lang)
+
+template<class T>
+class Array {
+public:
+	Array() {
+		this->count = 0;
+		this->data = null;
+		this->obj = new Object();
+		this->freeData = true;
+	};
+
+	Array(int size) {
+		this->count = size;
+		this->data = new T[size];
+		this->obj = new Object();
+		this->freeData = true;
+	};
+
+	Array(const T* data, int count) {
+		this->count = count;
+		this->data = const_cast<T*>(data);
+
+		this->obj = new Object();
+		this->freeData = true;
+	};
+
+	Array(const Array& arr) {
+		this->count = arr.count;
+		this->data = arr.data;
+		this->obj = arr.obj;
+		this->freeData = arr.freeData; 
+
+		this->obj->retain();
+	};
+
+	Array(T* data, int count, bool freeData) {
+		this->count = count;
+		this->data = data;
+		this->obj = new Object();
+		this->freeData = freeData;
+	};
+
+	~Array() {
+		this->release();
+	};
+
+public:
+	void release() {
+		if (this->obj->getRefCount() <= 0 && this->freeData) {
+			SafeDeleteArray(this->data);
+		}
+		
+		this->obj->release();
+		this->obj = null;
+
+		this->data = null;
+		this->count = 0;
+	}
+
+public:
+	Array& operator=(const Array& arr) {
+		this->release();
+
+		this->count = arr.count;
+		this->data = arr.data;
+
+		this->obj = arr.obj;
+		this->obj->retain();
+
+		return *this;
+	};
+
+	T& operator[](int index) {
+		return this->data[index];
+	};
+
+	const T& operator[](int index) const {
+		return this->get(index);
+	};
+
+	operator const T*() const {
+		return this->raw();
+	};
+
+public:
+	const T& get(int index) const {
+		return this->data[index];
+	};
+
+	void set(int index, const T& t) {
+		this->data[index] = t;
+	};
+
+	int size() const {
+		return this->count;
+	};
+
+	int length() const {
+		return this->count;
+	};
+
+	const T* raw() const {
+		return this->data;
+	};
+
+private:
+	T* data;
+	int count;
+
+	Object* obj;
+	bool freeData;
+};
+
+EndPackage2//(dragon, lang)
+
+#endif//Array_Lang_Dragon_H
+
+
+/*
+#ifndef Array_Lang_Dragon_H
+#define Array_Lang_Dragon_H
+
 #include <dragon/config.h>
 #include <dragon/lang/gc/Reference.h>
 
@@ -120,3 +248,4 @@ private:
 EndPackage2//(dragon, lang)
 
 #endif//Array_Lang_Dragon_H
+*/

@@ -33,7 +33,7 @@ Import dragon::lang::internal;
 
 
 Object::Object() 
-	:semaphoreHandle(NULL) {
+	:semaphoreHandle(NULL), refCount(0) {
 
 }
 
@@ -45,6 +45,38 @@ Object::~Object() {
 	finalize();
 }
 
+//-------------------------------------------
+void Object::retain() {
+	for (;;) {
+		int current = this->refCount;
+		int next = current + 1;
+
+		if (AtomicCompareAndSwap((dg_int*)&this->refCount, (dg_int)current, (dg_int)next)) {
+			return;
+		}
+	}
+}
+
+void Object::release() {
+	if (this->refCount <= 0) {
+		delete this;
+	} else {
+		for (;;) {
+			int current = this->refCount;
+			int next = current - 1;
+
+			if (AtomicCompareAndSwap((dg_int*)&this->refCount, (dg_int)current, (dg_int)next)) {
+				break;
+			}
+		}
+	}
+}
+
+int Object::getRefCount() {
+	return this->refCount;
+}
+
+//------------------------------------------
 const Class* Object::getClass() const {
 	ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
 	const char* className = Demangle(typeid(*this).name());

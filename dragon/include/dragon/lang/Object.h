@@ -99,6 +99,24 @@ public:
 	 */
 	virtual void notifyAll();
 
+public: // reference countting
+	/**
+	 * retain the reference count
+	 */
+    virtual void retain();
+
+    /**
+     * reduce the reference count, and release object when refCount == 0
+     */
+	virtual void release();
+
+	/**
+	 * get the current reference count
+	 * 
+	 * @return [description]
+	 */
+	virtual int getRefCount();
+
 protected:
 	/**
 	 * Called by the garbage collector on an object when garbage collection determines that there 
@@ -117,6 +135,11 @@ private:
 	 * the handle of semaphore.
 	 */
 	DRAGON_ALIGN(4) void* semaphoreHandle;
+
+	/**
+	 * the reference count of this object
+	 */
+	DRAGON_ALIGN(4) dg_int refCount;
 };
 
 EndPackage2//(dragon, lang)

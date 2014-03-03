@@ -113,13 +113,18 @@ Array<String*> Pattern::split(const CharSequence* input, int limit) {
     while(m->find()) {
         if (!matchLimited || matchList->size() < limit - 1) {
             String* match = input->subSequence(index, m->start())->toString();
+
             matchList->add(match);
             index = m->end();
+
+            //SafeRelease(match);
         } else if (matchList->size() == limit - 1) { // last one
             String* match = input->subSequence(index,
                                              input->length())->toString();
             matchList->add(match);
             index = m->end();
+
+            //SafeRelease(match);
         }
     }
 

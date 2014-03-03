@@ -39,7 +39,7 @@ AbstractStringBuilder::AbstractStringBuilder(int capcity) {
 }
 
 AbstractStringBuilder::~AbstractStringBuilder() {
-	this->value.release();
+	//this->value.release();
 	this->count = 0;
 }
 
@@ -70,7 +70,7 @@ void AbstractStringBuilder::expandCapacity(int minimumCapacity) {
 
 	wchar_u* newValue = new wchar_u[newCapacity];
 	Arrays<wchar_u>::copyOf(value, 0, newValue, 0, count);
-	this->value.release();
+	//this->value.release();
 
 	this->value = Array<wchar_u>(newValue, newCapacity);
 }

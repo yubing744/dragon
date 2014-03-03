@@ -54,6 +54,10 @@
 // Safe Free
 #define SafeFree(pMem) if(pMem != null) {free(pMem); pMem = null;}
 
+// Safe Retain and Release
+#define SafeRetain(pRef) { Object* pObject = dynamic_cast<Object*>(pRef); if (pObject != null) {pObject->retain();} }
+#define SafeRelease(pRef) { Object* pObject = dynamic_cast<Object*>(pRef); if(pObject != null) {pObject->release(); if (pObject->getRefCount() == 0) {pRef = null;} }}
+
 //#define DRAGON_STATIC_LIB
 //#define MEM_CHECK
 

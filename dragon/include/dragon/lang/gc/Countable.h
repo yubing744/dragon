@@ -17,52 +17,41 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/03/02
  **********************************************************************/
 
 
-#ifndef OutputDevice_Output_Dragon3d_Com_H
-#define OutputDevice_Output_Dragon3d_Com_H
+#ifndef Countable_Gc_Lang_Dragon_H
+#define Countable_Gc_Lang_Dragon_H
 
-#include <dragon/config.h>z
-#include <com/dragon3d/output/OutputController.h>
+#include <dragon/config.h>
 
-BeginPackage3(com, dragon3d, output)
+BeginPackage3(dragon, lang, gc)
 
-/**
- * interface output device
- */
-__interface _DragonExport OutputDevice {
+interface_ Countable {
 public:
-	virtual ~OutputDevice(){};
+    virtual ~Countable(){};
 
 public:
-	/**
-	 * init the output device
-	 */
-	virtual void init() = 0;	
+    /**
+     * retain the reference count
+     */
+    virtual void retain() = 0;
 
-	/**
-	 * query the output device status by code.
-	 * 
-	 * @param code [description]
-	 */
-	virtual int queryStatus(int code) = 0;
+    /**
+     * reduce the reference count, and release object when refCount == 0
+     */
+    virtual void release() = 0;
 
-	/**
-	 * destroy the output device
-	 */
-	virtual void destroy() = 0;	
+    /**
+     * get the current reference count
+     * 
+     * @return [description]
+     */
+    virtual int getRefCount() = 0; 
+    
+};//Countable
 
-	/**
-	 *  get the ouput controller.
-	 *  
-	 * @return [description]
-	 */
-	virtual OutputController* getOutputController() = 0;
+EndPackage3 //(dragon, lang, gc)
 
-};//OutputDevice
-
-EndPackage3 //(com, dragon3d, output)
-
-#endif //OutputDevice_Output_Dragon3d_Com_H
+#endif //Countable_Gc_Lang_Dragon_H

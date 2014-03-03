@@ -42,7 +42,7 @@ int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
     }
 
     int bufSize = len * 2;
-    byte* buf = new byte[bufSize];
+    byte* buf = (byte*)malloc(bufSize);
 
 	int readByteCount = 0;
 
@@ -52,7 +52,7 @@ int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
     int innerOffset = off;
 
     while((readByteCount = this->innerStream->read(buf, bufSize, 0, bufSize)) > 0) {
-        String* text = new String(Array<byte>(buf, readByteCount), 0, readByteCount, charset.raw());
+        String* text = new String(Array<byte>(buf, readByteCount, false), 0, readByteCount, charset.raw());
         
         const wchar_u* data = text->toChars();
         Arrays<wchar_u>::copyOf(data, 0, cbuf, innerOffset, text->length()); 
@@ -61,6 +61,8 @@ int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
 
         SafeDelete(text);
     }
+
+    SafeFree(buf);
 
     return totalCount;
 }

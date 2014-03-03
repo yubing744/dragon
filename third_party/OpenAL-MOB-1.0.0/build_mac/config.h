@@ -18,7 +18,7 @@
 #endif
 
 /* Define to the appropriate 'restrict' keyword */
-#define RESTRICT restrict
+#define RESTRICT 
 
 /* Define if we have the C11 aligned_alloc function */
 /* #undef HAVE_ALIGNED_ALLOC */
@@ -30,7 +30,7 @@
 /* #undef HAVE__ALIGNED_MALLOC */
 
 /* Define if we have SSE CPU extensions */
-#define HAVE_SSE
+//#define HAVE_SSE
 
 /* Define if we have ARM Neon CPU extensions */
 /* #undef HAVE_NEON */
@@ -117,7 +117,7 @@
 /* #undef HAVE_MALLOC_H */
 
 /* Define if we have cpuid.h */
-#define HAVE_CPUID_H
+//#define HAVE_CPUID_H
 
 /* Define if we have guiddef.h */
 /* #undef HAVE_GUIDDEF_H */

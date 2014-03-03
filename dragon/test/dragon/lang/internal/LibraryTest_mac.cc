@@ -26,6 +26,7 @@
 
 #include <dragon/lang/internal/Library.h>
 
+/*
 #include <dragon/lang/internal/Library.cc>
 #include <dragon/lang/internal/Library_mac.cc>
 
@@ -86,5 +87,5 @@ TEST(Dragon_Lang_Internal_LibraryTest, find_symbol_export_table) {
 
 	free_export_symbol_table(table);
 }
-
+*/
 

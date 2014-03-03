@@ -115,7 +115,9 @@ bool Matcher::search(int from) {
         return dg_false;
     }
 
-    const wchar_u* subject = this->text->toString()->toChars();
+    String* theText = this->text->toString();
+    
+    const wchar_u* subject = theText->toChars();
 
     while(rc == 0) {
       if (ovector != NULL) {
@@ -135,6 +137,8 @@ bool Matcher::search(int from) {
         ovector,                  /* output vector for substring information */
         count);                   /* number of elements in the output vector */
     }
+
+    SafeDelete(theText);
 
     if (rc > 0) {
         SafeDeleteArray(this->groups);

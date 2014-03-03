@@ -158,26 +158,47 @@ String::String(){
 
 String::String(Array<byte> bytes, int offset) {
 	Array<wchar_u> v = String::decode(bytes, offset, bytes.size(), null);
+	size_t size = v.size();
+	const wchar_u* value = v.raw();
 
 	this->offset = 0;
-	this->count = v.size();
-	this->value = const_cast<wchar_u*>(v.raw());
+	this->count = size;
+
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, offset, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->value = buf;
 }
 
 String::String(Array<byte> bytes, int offset, int length) {
 	Array<wchar_u> v = String::decode(bytes, offset, length, null);
+	size_t size = v.size();
+	const wchar_u* value = v.raw();
 
 	this->offset = 0;
-	this->count = v.size();
-	this->value = const_cast<wchar_u*>(v.raw());
+	this->count = size;
+
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, offset, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->value = buf;
 }
 
 String::String(Array<byte> bytes, int offset, int length, const char* charset) {
 	Array<wchar_u> v = String::decode(bytes, offset, length, charset);
+	size_t size = v.size();
+	const wchar_u* value = v.raw();
 
 	this->offset = 0;
-	this->count = v.size();
-	this->value = const_cast<wchar_u*>(v.raw());
+	this->count = size;
+
+	wchar_u* buf = new wchar_u[size + 1];	
+	Arrays<wchar_u>::copyOf(value, offset, buf, 0, size);
+	buf[size] = NULL_CHAR;
+
+	this->value = buf;
 }
 
 String::String(const char* value){
@@ -742,7 +763,7 @@ const wchar_u* String::toChars() const {
 }
 
 const Array<wchar_u> String::toCharArray() const {
-	return Array<wchar_u>(this->value + offset, this->count);
+	return Array<wchar_u>(this->value + offset, this->count, false);
 }
 
 void String::getChars(int srcBegin, int srcEnd, wchar_u* dst, int dstBegin) const {
@@ -754,12 +775,12 @@ const Array<byte> String::getBytes() const {
 }
 
 const Array<byte> String::getBytes(const char* charset) const {
-	return String::encode(Array<wchar_u>(this->value + this->offset, this->count), 0, this->count, charset);
+	return String::encode(Array<wchar_u>(this->value + this->offset, this->count, false), 0, this->count, charset);
 }
 
 const Array<byte> String::getBytes(const String& charset) const {
 	char* charsetStr = charset.toCString();
-	const Array<byte> result = String::encode(Array<wchar_u>(this->value + this->offset, this->count), 0, this->count, charsetStr);
+	const Array<byte> result = String::encode(Array<wchar_u>(this->value + this->offset, this->count, false), 0, this->count, charsetStr);
 	free(charsetStr);
 
 	return result;

@@ -20,6 +20,7 @@
  * Created:     2013/12/28
  **********************************************************************/
 
+#include <string.h>
 
 #include <dragonx/image/BufferedImage.h>
 

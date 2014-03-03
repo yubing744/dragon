@@ -99,86 +99,83 @@ class Module:
     def __init__(self, name, build_include_dirs = [], included_modules = [], 
         build_lib_dirs  = [], linked_modules = []):
         self.name               = name
-        self.build_include_dirs = build_include_dirs
+
+        # store this new object in the module dictionary
+        project.addModule(name, self)
+
+        self.include_dirs       = build_include_dirs
+        self.lib_path           = build_lib_dirs
         self.included_modules   = included_modules
-        self.build_lib_dirs     = build_lib_dirs
         self.linked_modules     = linked_modules
+
         self.product            = []
+
     def GetProduct(self):
         return self.product
 
     def GetLibraries(self):
         return [self.name] + GetLibraries(self.linked_modules)
-        
+
+    def GetLinkedLibraries(self):
+        return GetLibraries(self.linked_modules)
+
     def GetIncludeDirs(self):
-        return GetIncludeDirs(self.included_modules+self.build_include_dirs, self.name)
+        return GetIncludeDirs(self.include_dirs + self.included_modules + self.linked_modules, self.name)
 
     def GetLibrarieDirs(self):
-        return [GetBuildTargetDir()] + GetDirPaths(self.build_lib_dirs) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
+        return [GetBuildTargetDir()] + GetDirPaths(self.lib_path) + GetLibrarieDirs(self.included_modules + self.linked_modules, self.name)
 
 class LibraryModule(Module):
     def __init__(self, name, 
-                 build_source_dirs     = ['.'], 
-                 build_source_files    = {},
                  source_root           = 'Source',
+                 build_source_dirs     = ['.'], 
                  build_source_pattern  = ['*.c', '*.cpp', '*.cc'], 
+                 build_source_files    = {},
+                 excluded_files        = [],
+
                  build_include_dirs    = [], 
                  build_lib_dirs        = [], 
+
                  included_modules      = [], 
                  included_only_modules = [],
                  linked_modules        = [],
-                 environment           = None,
-                 excluded_files        = [],
+
                  extra_cpp_defines     = [],
+
+                 environment           = None,
+                 conditions            = None,
                  shared                = False,
                  install               = False) :
-        self.shared = shared
-        build_source_dirs = [source_root+'/'+drct for drct in build_source_dirs]
         Module.__init__(self, 
                         name, 
                         Split(build_include_dirs),
-                        Split(included_modules) + Split(included_only_modules) + Split(build_source_dirs), 
+                        Split(included_modules) + Split(included_only_modules), 
                         Split(build_lib_dirs),
-                        Split(linked_modules) + Split(included_modules))
-
+                        Split(linked_modules))
+        self.source_root = source_root
+        self.defines = extra_cpp_defines
+        self.sources = self.CalBuildSources(build_source_dirs, build_source_pattern, build_source_files, excluded_files)
+        self.shared = shared
+        
         if environment is None:
             self.env = env.Clone()
         else:
             self.env = environment.Clone()
 
+        # conditions
+        self.AppendConditions(conditions)
 
-        self.env.AppendUnique(CPPDEFINES = extra_cpp_defines)
-        
+        # build config
+        libs = self.GetLinkedLibraries()
         lib_paths = self.GetLibrarieDirs()
-        self.env.AppendUnique(LIBPATH = lib_paths)
-        #for lib_path in lib_paths:
-        #    env.AppendUnique(LINKFLAGS = ['-L' + lib_path])
-
-        # store this new object in the module dictionary
-        project.addModule(name, self)
-                
-        # for each source drct to build, create a VariantDir
-        # to say where we want the object files to be built,
-        # and compute the list of source files to build
-        sources = []
-        for drct in Split(build_source_dirs):
-            DeclareBuildDir(drct)
-            sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
-            
-        # add cherry-picked files
-        for drct in build_source_files.keys():
-            pattern = build_source_files[drct]
-            drct_path = source_root+'/'+drct
-            DeclareBuildDir(drct_path)
-            sources += GlobTargetSources(drct_path, pattern)
-
-        # calculate our build include path
-        cpp_path = GetIncludeDirs(Split(self.build_include_dirs) + Split(build_source_dirs) + self.included_modules + self.linked_modules)
-
+        include_path = self.GetIncludeDirs()
+        sources = self.GetSources()
+        defines = self.GetDefines()
+        
         # the product is a library
-        self.env.AppendUnique(CPPPATH=cpp_path)
-
-        libs = GetLibraries(self.linked_modules)
+        self.env.AppendUnique(CPPDEFINES = defines)
+        self.env.AppendUnique(CPPPATH = include_path)
+        self.env.AppendUnique(LIBPATH = lib_paths)
 
         #PDB
         if self.env['build_config'] == "debug":
@@ -219,11 +216,77 @@ class LibraryModule(Module):
         else:
           return [self.name] + GetLibraries(self.linked_modules)
 
+    # for each source drct to build, create a VariantDir
+    # to say where we want the object files to be built,
+    # and compute the list of source files to build
+    def CalBuildSources(self, build_source_dirs, build_source_pattern, build_source_files, excluded_files):
+        sources = []
+
+        build_source_dirs = [self.source_root+'/'+drct for drct in build_source_dirs]
+
+        for drct in Split(build_source_dirs):
+            DeclareBuildDir(drct)
+            sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
+            
+        # add cherry-picked files
+        for drct in build_source_files.keys():
+            pattern = build_source_files[drct]
+            drct_path = self.source_root+'/'+drct
+            DeclareBuildDir(drct_path)
+            sources += GlobTargetSources(drct_path, pattern)
+
+        return sources
+
+    def GetSources(self):
+        return self.sources
+
+    def GetDefines(self):
+        return self.defines
+
+    def AppendConditions(self, conditions):
+        if conditions:
+            for condition in conditions.keys():
+                config = conditions[condition]
+                parts = condition.split("=")
+                ctype = parts[0]
+                cval = parts[1]
+
+                #print "curent target:", env['target']
+                #print "condition:", condition
+                #print "config:", config
+
+                if ctype == 'TARGET':
+                    if cval == env['target']:
+                        self.AppendBuildConfig(config)
+                elif ctype == 'OS':
+                    if OSMatchTarget(cval, env['target']):
+                        self.AppendBuildConfig(config)
+                elif ctype == 'ARCH':
+                    if ArchMatchTarget(cval, env['target']):
+                        self.AppendBuildConfig(config)
+                else:
+                    raise Exception('not match confition type! for ' + ctype)
+
+
+    def AppendBuildConfig(self, config):
+        #print "match config:", config
+
+        if ('sources' in config):
+            self.sources += self.CalBuildSources([], [], config['sources'], [])
+        elif ('include_dirs' in config):
+            self.include_dirs += config['include_dirs']
+        elif ('defines' in config):
+            self.defines += config['defines']
+        elif ('dependencies' in config):
+            self.linked_modules += config['dependencies']
+        elif ('lib_path' in config):
+            self.lib_path += config['lib_path']
+
 
 def Application(name, 
                 source_root           = 'Source',
                 build_source_dirs     = ['.'], 
-                build_source_files    = {}, 
+                build_source_files    = {},
                 build_source_pattern  = ['*.c', '*.cpp'], 
                 excluded_files        = [],
                 build_include_dirs    = [], 
@@ -250,7 +313,7 @@ def Application(name,
     for drct in Split(build_source_dirs):
         DeclareBuildDir(drct)
         sources += GlobTargetSources(drct, build_source_pattern, excluded_files)
-        
+
     # add cherry-picked files
     for drct in build_source_files.keys():
         pattern = build_source_files[drct]
@@ -664,7 +727,7 @@ LibraryModule(
         "lib" : vorbis_SOURCES
     },    
     extra_cpp_defines     = [],   
-    included_modules      = ["ogg"], 
+    linked_modules        = ["ogg"], 
     shared                = False,                    
     install               = True
 )
@@ -685,7 +748,7 @@ LibraryModule(
         "lib" : libvorbisfile_la_SOURCES
     },    
     extra_cpp_defines     = [],   
-    included_modules      = ["vorbis"], 
+    linked_modules        = ["vorbis"], 
     shared                = False,                    
     install               = True
 )
@@ -751,17 +814,35 @@ mpg123_arm_SOURCES = Split("""
 LibraryModule(
     name                  = 'mpg123',
     source_root           = THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.18.1",
+
     build_include_dirs    = [
         THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.18.1/ports/Xcode"
     ],  
     build_source_dirs     = [],         
     build_source_files    = {
-        "src/libmpg123" : mpg123_SOURCES + mpg123_arm_SOURCES
+        "src/libmpg123" : mpg123_SOURCES
     },    
     extra_cpp_defines     = [
         "HAVE_CONFIG_H",
         "_FILE_OFFSET_BITS=1"
     ], 
+
+    conditions = {
+        "TARGET=arm-apple-ios" : {
+            "sources" : {
+                "src/libmpg123" : mpg123_arm_SOURCES
+            }
+        },
+        "TARGET=x86-apple-ios" : {
+            #empty
+        },
+        "TARGET=universal-apple-macosx" : {
+            "sources" : {
+                "src/libmpg123" : mpg123_x86_64_SOURCES
+            }
+        }
+    },
+
     shared                = False,                    
     install               = True
 )
@@ -1071,6 +1152,8 @@ dragon_SOURCES = {
     
 LibraryModule(
     name                  = 'dragon',
+    source_root           = 'src',
+
     build_include_dirs    = [
         'include',
         THIRD_PARTY_SOURCE_ROOT + '/fastdelegate',
@@ -1081,13 +1164,11 @@ LibraryModule(
         'BUILDING_DRAGON_SHARED',
         'ENABLE_LOG'
     ],
-    source_root           = 'src',
-    included_modules      = [
+    linked_modules      = [
         "pcre32", "unicode", "json", "tinyxml2", 
         "z", "jpeg", "png", "gif", "tga", "sndfile", 
         "mad", "mpg123", "vorbisfile"
-    ], 
-    linked_modules        = env['DRAGON_EXTRA_LIBS'],
+    ] + env['DRAGON_EXTRA_LIBS'], 
     shared                = env['SHARED'],
     install               = True
 )

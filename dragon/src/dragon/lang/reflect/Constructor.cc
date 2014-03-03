@@ -44,7 +44,7 @@ Constructor::~Constructor() {
 		SafeDelete(type);
 	}
 
-	tps.release();
+	//REDO tps.release();
 }
 
 bool is_primitive_type(const Type* type);

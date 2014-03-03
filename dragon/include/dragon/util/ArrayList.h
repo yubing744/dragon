@@ -87,7 +87,7 @@ public:
 
 public:
 	virtual Array<E*> toArray();
-	virtual Array<E*> toArray(Array<E*>& a);
+	virtual void toArray(Array<E*>& a);
 
 private:
 	vector<E*> mVector;
@@ -107,6 +107,7 @@ ArrayList<E>::ArrayList(int initialCapacity)
 
 template<class E>
 bool ArrayList<E>::add(E* e) {
+	//RetainObject(e);
 	mVector.push_back(e);
 	return true;
 }
@@ -192,22 +193,22 @@ void ArrayList<E>::clear() {
 }
 
 template<class E>
-Array<E*> ArrayList<E>::toArray(Array<E*>& a) {
+void ArrayList<E>::toArray(Array<E*>& a) {
     int size = a.length();
 
     for(int i=0; i<size; i++) {
     	E* e = this->get(i);
         a.set(i, e);
     }
-
-    return a;
 }
 
 template<class E>
 Array<E*> ArrayList<E>::toArray() {
 	int size = this->size();
     Array<E*> result(size);
-    return this->toArray(result);
+    this->toArray(result);
+
+    return Array<E*>(result);
 }
 
 template<class E>

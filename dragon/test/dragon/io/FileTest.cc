@@ -324,7 +324,7 @@ TEST(Dragon_Io_FileTest, list01) {
         SafeDelete(name);
     }
 
-    fileNames.release();
+    //REDO fileNames.release();
 
     SafeDelete(o);
     
@@ -381,7 +381,7 @@ TEST(Dragon_Io_FileTest, listWithFilter01) {
         SafeDelete(name);
     }
 
-    fileNames.release();
+    //REDO fileNames.release();
 
     SafeDelete(filter);
 
@@ -438,7 +438,7 @@ TEST(Dragon_Io_FileTest, listWithFileFilter01) {
         SafeDelete(file);
     }
 
-    files.release();
+    //REDO files.release();
 
     SafeDelete(filter);
 

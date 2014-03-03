@@ -232,7 +232,7 @@ TEST(Dragonx_Json_JSONObjectTest, toString4) {
         SafeDelete(e);
     }
 
-    SafeDelete(subJsonObj);
+    //SafeDelete(subJsonObj);
     SafeDelete(jsonObj);
 }
 
@@ -338,4 +338,9 @@ TEST(Dragonx_Json_JSONObjectTest, toStringSaveAsFile) {
     SafeDelete(jsonObj);
 }
 
+TEST(Dragonx_Json_JSONObjectTest, Release) {
+    JSONObject* obj = new JSONObject();
+    
+    SafeRelease(obj);
+}
 

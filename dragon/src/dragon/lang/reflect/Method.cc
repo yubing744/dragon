@@ -50,7 +50,7 @@ Method::~Method() {
 		SafeDelete(type);
 	}
 
-	tps.release();
+	//REDO tps.release();
 }
 
 const Array<Type*> Method::getParameterTypes() {

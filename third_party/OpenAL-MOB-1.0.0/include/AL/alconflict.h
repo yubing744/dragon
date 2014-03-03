@@ -20,6 +20,8 @@
  * This file is unique to OpenAL-MOB and is not part of the OpenAL-Soft package.
  */
 
+#include "config.h"
+
 // If you set this to 1, then it will rename prefix all al*() functions with ALMOB_. This allows you
 // to link two separate OpenAL implementations into the same program.
 #define ALMOB_UNIQUE_NAMES     (0)

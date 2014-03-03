@@ -72,7 +72,7 @@ Class::~Class() {
 		}
 	}
 
-	this->constructors.release();
+	//REDO this->constructors.release();
 
 	// release Method
 	size_t m_size = this->methods.size();
@@ -84,7 +84,7 @@ Class::~Class() {
 		}
 	}
 
-	this->methods.release();
+	//REDO this->methods.release();
 	
 	// release Field
 	size_t f_size = this->fields.size();

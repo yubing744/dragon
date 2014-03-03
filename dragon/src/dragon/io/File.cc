@@ -207,7 +207,7 @@ const Array<String*> File::list(const FilenameFilter* filter) const {
 	Array<String*> result = v->toArray();
 	
 	SafeDelete(v);
-	names.release();
+	//REDO names.release();
 
 	return result;
 }
@@ -256,7 +256,7 @@ const Array<File*> File::listFiles(const FileFilter* filter) const {
 	Array<File*> result = v->toArray();
 	
 	SafeDelete(v);
-	ss.release();
+	//REDO ss.release();
 
 	return result;
 }
@@ -310,7 +310,7 @@ String* File::getCanonicalPath() const {
 		}
 	}
 
-	tokens.release();
+	//tokens.release();
 
 	StringBuffer* sb = new StringBuffer();
 

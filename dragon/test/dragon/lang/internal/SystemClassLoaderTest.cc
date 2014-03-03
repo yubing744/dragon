@@ -73,6 +73,6 @@ TEST(Dragon_Lang_Internal_SystemClassLoaderTest, New) {
 	SafeDelete(retPtr);
 	SafeDelete(tb);
 
-	types.release();
-	args.release();
+	//REDO types.release();
+	//REDO args.release();
 }

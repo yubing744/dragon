@@ -55,7 +55,7 @@ public:
 
 public:
 	virtual Array<E*> toArray() = 0;
-	virtual Array<E*> toArray(Array<E*>& a) = 0;
+	virtual void toArray(Array<E*>& a) = 0;
 };
 
 EndPackage2//(dragon, util)

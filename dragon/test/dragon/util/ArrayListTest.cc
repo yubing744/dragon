@@ -82,3 +82,8 @@ TEST(Dragon_Util_ArrayListTest, IteratorList) {
 
 	SafeDelete(list);
 }
+
+TEST(Dragon_Util_ArrayListTest, Release) {
+	List<String>* o = new ArrayList<String>();
+	SafeRelease(o);
+}

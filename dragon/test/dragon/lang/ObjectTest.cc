@@ -31,3 +31,9 @@ TEST(Dragon_Lang_ObjectTest, New) {
 	Object* o = new Object();
 	SafeDelete(o);
 }
+
+TEST(Dragon_Lang_ObjectTest, RefCount) {
+    Object* o = new Object();
+    SafeRetain(o);
+    SafeRelease(o);
+}

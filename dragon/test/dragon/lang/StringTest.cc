@@ -265,7 +265,7 @@ static dg_byte ucs4_little_data[] = {
 static dg_int ucs4_little_data_size = sizeof(ucs4_little_data) / sizeof(dg_byte);
 
 TEST(Dragon_Lang_String_Test, NewWithBytes) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
 
     dg_boolean isEqual = str1->charAt(0) == 'A';
     EXPECT_EQ(dg_true, isEqual);
@@ -274,7 +274,7 @@ TEST(Dragon_Lang_String_Test, NewWithBytes) {
 }
 
 TEST(Dragon_Lang_String_Test, getBytes) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
     Array<dg_byte> bytes = str1->getBytes("UTF-8");
 
     const dg_byte* data = bytes.raw();
@@ -291,7 +291,7 @@ TEST(Dragon_Lang_String_Test, getBytes) {
 }
 
 TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_little) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
     Array<dg_byte> bytes = str1->getBytes("UCS4-little");
 
     const dg_byte* data = bytes.raw();
@@ -308,7 +308,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_little) {
 }
 
 TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_big) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
     Array<dg_byte> bytes = str1->getBytes("UCS4-big");
 
     const dg_byte* data = bytes.raw();
@@ -325,7 +325,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS4_big) {
 }
 
 TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_little) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
     Array<dg_byte> bytes = str1->getBytes("UCS2-little");
 
     const dg_byte* data = bytes.raw();
@@ -342,7 +342,7 @@ TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_little) {
 }
 
 TEST(Dragon_Lang_String_Test, convertBytesFromUTF8ToUCS2_big) {
-    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size), 0, utf8_data_size, "UTF-8");
+    String* str1 = new String(Array<dg_byte>(utf8_data, utf8_data_size, false), 0, utf8_data_size, "UTF-8");
     Array<dg_byte> bytes = str1->getBytes("UCS2-big");
 
     const dg_byte* data = bytes.raw();

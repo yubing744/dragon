@@ -102,7 +102,7 @@ TEST(Dragon_Lang_ThreadTest, ThreadLockTest) {
 	SafeDelete(synLock);
 	SafeDelete(lockTest);
 
-	threads.release();
+	//REDO threads.release();
 }
 
 // Mulit Semaphore Test
@@ -153,6 +153,6 @@ TEST(Dragon_Lang_ThreadTest, ThreadSemaphoreTest) {
 	SafeDelete(res);
 	SafeDelete(semaphoreTest);
 
-	threads.release();
+	//REDO threads.release();
 }
 
