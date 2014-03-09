@@ -269,7 +269,8 @@ BufferedImage* GIFImageReader::read(InputStream* input) throw(IOException*) {
     }
 
     DGifCloseFile(GifFile);
-
+    free(rowBuffer);
+    
     return image;
 }
 

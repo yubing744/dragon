@@ -34,6 +34,9 @@ TEST(Dragon_Lang_ObjectTest, New) {
 
 TEST(Dragon_Lang_ObjectTest, RefCount) {
     Object* o = new Object();
+    
     SafeRetain(o);
+    SafeRelease(o);
+
     SafeRelease(o);
 }

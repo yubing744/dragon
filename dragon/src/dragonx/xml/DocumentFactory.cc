@@ -27,9 +27,14 @@ Import dragonx::xml;
 
 DocumentFactory* DocumentFactory::singleton = null;
 
+void DocumentFactory::releaseDocumentFactory() {
+    SafeRelease(DocumentFactory::singleton);
+}
+
 DocumentFactory* DocumentFactory::getInstance() {
     if (DocumentFactory::singleton == null) {
         DocumentFactory::singleton = new DocumentFactory();
+        atexit(DocumentFactory::releaseDocumentFactory);
     }
 
     return DocumentFactory::singleton;

@@ -39,6 +39,8 @@ public:
 	InputStreamReader(const InputStream* in, const String& charset) 
         throw(UnsupportedEncodingException*);
 
+    virtual ~InputStreamReader();
+    
 public: // extends from Reader
 	virtual int read(wchar_u* cbuf, int num, int off, int len) const 
         throw(IOException*, IndexOutOfBoundsException*);

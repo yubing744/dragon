@@ -26,12 +26,21 @@ Import dragon::io;
 
 OutputStreamWriter::OutputStreamWriter(const OutputStream* out) {
 	this->innerStream = const_cast<OutputStream*>(out);
+	this->innerStream->retain();
+
 	this->charsetName = new String(L"UTF-8");
 }
 
 OutputStreamWriter::OutputStreamWriter(const OutputStream* out, const String& charsetName) {
 	this->innerStream = const_cast<OutputStream*>(out);
+	this->innerStream->retain();
+
 	this->charsetName = new String(charsetName);
+}
+
+OutputStreamWriter::~OutputStreamWriter(){
+	SafeDelete(this->charsetName);
+	SafeRelease(this->innerStream);
 }
 
 void OutputStreamWriter::close() throw(IOException*) {

@@ -51,6 +51,8 @@ TEST(Dragon_Io_FileInputStreamTest, New) {
     FileInputStream* fis = new FileInputStream(newFile);
     SafeDelete(fis);
 
+    SafeRelease(newFile);
+    
     SafeDelete(o);
     
     SafeDelete(path);

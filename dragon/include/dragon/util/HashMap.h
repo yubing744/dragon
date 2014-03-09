@@ -55,7 +55,9 @@ public:
 		};
 
 		virtual V* getValue() {	
-			return value;
+			V* v = value;
+			SafeRetain(v);
+			return v;
 		};
 
 	private:
@@ -120,12 +122,16 @@ HashMap<K, V>::HashMap(void){}
 
 template<class K, class V>
 HashMap<K, V>::~HashMap(void){
-	keyMap.clear();
+	this->clear();
 }
 
 template<class K, class V>
 V* HashMap<K, V>::put(K key, V* value) {
-	keyMap[key] = value;
+	if (value != null) {
+		keyMap[key] = value;
+		SafeRetain(value);
+	}
+
 	return value;
 }
 
@@ -134,7 +140,9 @@ V* HashMap<K, V>::get(K key) {
 	StlIterator it = keyMap.find(key);
 
 	if(it != keyMap.end()) {
-		return keyMap[key];
+		V* v = keyMap[key];
+		SafeRetain(v);
+		return v;
 	}
 
 	return null;
@@ -148,6 +156,11 @@ bool HashMap<K, V>::containsKey(K key) {
 
 template<class K, class V>
 void HashMap<K, V>::clear() {
+	for(StlIterator it=keyMap.begin(); it!=keyMap.end(); it++) { 
+		V* val = it->second;
+		SafeRelease(val);
+	}
+
 	keyMap.clear();
 }
 
@@ -159,6 +172,9 @@ V* HashMap<K, V>::remove(K key) {
 	if(it != keyMap.end()) {
 		toDel = it->second;
 		keyMap.erase(it);
+
+		SafeRelease(toDel);
+
 		return toDel;
 	}
 

@@ -56,6 +56,8 @@ Document* XMLReader::read(const Reader* reader) {
     doc->Parse(xmlStr);
     free(xmlStr);
 
+    SafeDelete(xml);
+    
     return doc;
 }
 

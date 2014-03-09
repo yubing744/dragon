@@ -90,6 +90,8 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson) {
 
         float v2 = jsonObj->getFloat("bcd");
         ASSERT_FLOAT_EQ(123.33f, v2);
+
+        SafeRelease(jsonObj);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
 
@@ -99,7 +101,9 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson) {
         SafeDelete(e);
     }   
     
+    SafeRelease(myReadStr);
     SafeDelete(o);
+    SafeRelease(myWriteStr);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, testParseJson2) {
@@ -114,6 +118,9 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson2) {
 
         int value = v2->getInt("ddd");
         EXPECT_EQ(123, value);
+        SafeRelease(v2);
+        
+        SafeRelease(jsonObj);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
 
@@ -122,6 +129,8 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson2) {
         SafeDelete(msg);
         SafeDelete(e);
     }
+
+    SafeRelease(myWriteStr);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, testParseJson3) {
@@ -136,6 +145,11 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson3) {
         JSONObject* v2 = jsonArray->get(0);
         int value = v2->getInt("ddd");
         EXPECT_EQ(123, value);
+        SafeRelease(v2);
+
+        SafeRelease(jsonArray);
+
+        SafeRelease(jsonObj);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
 
@@ -144,16 +158,45 @@ TEST(Dragonx_Json_JSONObjectTest, testParseJson3) {
         SafeDelete(msg);
         SafeDelete(e);
     }
+
+    SafeRelease(myWriteStr);
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString123) {
+    JSONObject* jsonObj = new JSONObject();
+
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
+
+    SafeRelease(jsonObj);
+}
+
+TEST(Dragonx_Json_JSONObjectTest, toString1234) {
+    JSONObject* jsonObj = new JSONObject();
+
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
+
+    String* json = jsonObj->toString();
+    SafeRelease(json);
+
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, toString) {
     JSONObject* jsonObj = new JSONObject();
-    jsonObj->put("abc", new Integer(123));
+
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
 
     try {
         String* json = jsonObj->toString();
         const Array<byte> data = json->getBytes("UTF-8");
         EXPECT_STREQ("{\n\t\"abc\": 123\n}", data.raw());
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
@@ -163,17 +206,26 @@ TEST(Dragonx_Json_JSONObjectTest, toString) {
         SafeDelete(msg);
         SafeDelete(e);
     }
+
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, toString2) {
     JSONObject* jsonObj = new JSONObject();
-    jsonObj->put("abc", new Integer(123));
-    jsonObj->put("bcd", new Float(123.22));
+
+    Integer* a = new Integer(123);
+    jsonObj->put("abc", a);
+    SafeRelease(a);
+
+    Float* f = new Float(123.22);
+    jsonObj->put("bcd", f);
+    SafeRelease(f);
 
     try {
         String* json = jsonObj->toString();
         const Array<byte> data = json->getBytes("UTF-8");
         EXPECT_STREQ("{\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", data.raw());
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
@@ -183,18 +235,30 @@ TEST(Dragonx_Json_JSONObjectTest, toString2) {
         SafeDelete(msg);
         SafeDelete(e);
     }
+
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, toString3) {
     JSONObject* jsonObj = new JSONObject();
 
-    jsonObj->put("abc", new Integer(123));
-    jsonObj->put("bcd", new Float(123.22));
-    jsonObj->put("efg", new String("Hello World!"));
+    Integer* a = new Integer(123);
+    jsonObj->put("abc", a);
+    SafeRelease(a);
+
+    Float* f = new Float(123.22);
+    jsonObj->put("bcd", f);
+    SafeRelease(f);
+
+    String* s = new String("Hello World!");
+    jsonObj->put("efg", s);
+    SafeRelease(s);
 
     try {
         String* json = jsonObj->toString();
-        EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", json->toUTF8String());
+        const Array<byte> data = json->getBytes("UTF-8");
+        EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", data.raw());
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
@@ -204,61 +268,93 @@ TEST(Dragonx_Json_JSONObjectTest, toString3) {
         SafeDelete(msg);
         SafeDelete(e);
     }
+
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, toString4) {
     JSONObject* jsonObj = new JSONObject();
     
-    jsonObj->put("abc", new Integer(123));
-    jsonObj->put("bcd", new Float(123.22));
-    jsonObj->put("efg", new String("Hello World!"));
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
+
+    Float* f = new Float(123.22);
+    jsonObj->put("bcd", f);
+    SafeRelease(f);
+
+    String* s = new String("Hello World!");
+    jsonObj->put("efg", s);
+    SafeRelease(s);
 
     JSONObject* subJsonObj = new JSONObject();
-    subJsonObj->put("bbb", new Integer(234));
+
+    Integer* i2 = new Integer(234);
+    subJsonObj->put("bbb", i2);
+    SafeRelease(i2);
 
     jsonObj->put("sub", subJsonObj);
+
+    SafeRelease(subJsonObj);
 
     try {
         String* json = jsonObj->toString();
         const Array<byte> data = json->getBytes("UTF-8");
         EXPECT_STREQ("{\n\t\"sub\": {\n\t\t\"bbb\": 234\n\t},\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"abc\": 123\n}", data.raw());
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
 
         FAIL();
 
-        SafeDelete(msg);
-        SafeDelete(e);
+        SafeRelease(msg);
+        SafeRelease(e);
     }
 
-    //SafeDelete(subJsonObj);
-    SafeDelete(jsonObj);
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, toString5) {
     JSONObject* jsonObj = new JSONObject();
     
-    jsonObj->put("abc", new Integer(123));
-    jsonObj->put("bcd", new Float(123.22));
-    jsonObj->put("efg", new String("Hello World!"));
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
+
+    Float* f = new Float(123.22);
+    jsonObj->put("bcd", f);
+    SafeRelease(f);
+
+    String* s = new String("Hello World!");
+    jsonObj->put("efg", s);
+    SafeRelease(s);
 
     JSONObject* subJsonObj1 = new JSONObject();
-    subJsonObj1->put("bbb", new Integer(234));
+    Integer* i2 = new Integer(234);
+    subJsonObj1->put("bbb", i2);
+    SafeRelease(i2);
 
     JSONObject* subJsonObj2 = new JSONObject();
-    subJsonObj2->put("bbb", new Float(234.33));
+    Float* f2 = new Float(234.33);
+    subJsonObj2->put("bbb", f2);
+    SafeRelease(f2);
 
     JSONArray* array = new JSONArray();
     array->add(subJsonObj1);
+    SafeRelease(subJsonObj1);
+
     array->add(subJsonObj2);
-    
+    SafeRelease(subJsonObj2);
+
     jsonObj->put("array", array);
+    SafeRelease(array);
 
     try {
         String* json = jsonObj->toString();
         const Array<byte> data = json->getBytes("UTF-8");
         EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"array\": [\n\t\t{\n\t\t\t\"bbb\": 234\n\t\t},\n\t\t{\n\t\t\t\"bbb\": 234.33\n\t\t}\n\t],\n\t\"abc\": 123\n}", data.raw());
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
@@ -269,11 +365,7 @@ TEST(Dragonx_Json_JSONObjectTest, toString5) {
         SafeDelete(e);
     }
 
-    SafeDelete(subJsonObj1);
-    //SafeDelete(subJsonObj2);
-    //SafeDelete(array);
-
-    SafeDelete(jsonObj);
+    SafeRelease(jsonObj);
 }
 
 
@@ -294,53 +386,68 @@ TEST(Dragonx_Json_JSONObjectTest, toStringSaveAsFile) {
     FileWriter* o = new FileWriter(file, false);
     
 
-
     JSONObject* jsonObj = new JSONObject();
     
-    jsonObj->put("abc", new Integer(123));
-    jsonObj->put("bcd", new Float(123.22));
-    jsonObj->put("efg", new String("Hello World!"));
+    Integer* i = new Integer(123);
+    jsonObj->put("abc", i);
+    SafeRelease(i);
+
+    Float* f = new Float(123.22);
+    jsonObj->put("bcd", f);
+    SafeRelease(f);
+
+    String* s = new String("Hello World!");
+    jsonObj->put("efg", s);
+    SafeRelease(s);
 
     JSONObject* subJsonObj1 = new JSONObject();
-    subJsonObj1->put("bbb", new Integer(234));
+    Integer* i2 = new Integer(234);
+    subJsonObj1->put("bbb", i2);
+    SafeRelease(i2);
 
     JSONObject* subJsonObj2 = new JSONObject();
-    subJsonObj2->put("bbb", new Float(234.33));
+    Float* f2 = new Float(234.33);
+    subJsonObj2->put("bbb", f2);
+    SafeRelease(f2);
 
     JSONArray* array = new JSONArray();
     array->add(subJsonObj1);
+    SafeRelease(subJsonObj1);
+
     array->add(subJsonObj2);
-    
+    SafeRelease(subJsonObj2);
+
     jsonObj->put("array", array);
+    SafeRelease(array);
 
     try {
         String* json = jsonObj->toString();
+
         const Array<byte> data = json->getBytes("UTF-8");
         EXPECT_STREQ("{\n\t\"efg\": \"Hello World!\",\n\t\"bcd\": 123.22,\n\t\"array\": [\n\t\t{\n\t\t\t\"bbb\": 234\n\t\t},\n\t\t{\n\t\t\t\"bbb\": 234.33\n\t\t}\n\t],\n\t\"abc\": 123\n}", data.raw());
 
         o->append(json);
+
+        SafeRelease(json);
     } catch(JSONException* e) {
         String* msg = e->getMessage();
         logger->error(msg->toUTF8String());
 
         FAIL();
 
-        SafeDelete(msg);
-        SafeDelete(e);
+        SafeRelease(msg);
+        SafeRelease(e);
     }
 
-    SafeDelete(o);
+    SafeRelease(o);
+    SafeRelease(file);
+    SafeRelease(filePath);
 
-    //SafeDelete(subJsonObj1);
-    //SafeDelete(subJsonObj2);
-    //SafeDelete(array);
-
-    SafeDelete(jsonObj);
+    SafeRelease(jsonObj);
 }
 
 TEST(Dragonx_Json_JSONObjectTest, Release) {
     JSONObject* obj = new JSONObject();
-    
     SafeRelease(obj);
 }
 

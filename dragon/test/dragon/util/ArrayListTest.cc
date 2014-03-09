@@ -38,7 +38,7 @@ TEST(Dragon_Util_ArrayListTest, AddItem) {
 
 	String* str = new String("Hello World!");
 	o->add(str);
-	SafeDelete(str);
+	SafeRelease(str);
 
 	SafeDelete(o);
 }
@@ -48,12 +48,15 @@ TEST(Dragon_Util_ArrayListTest, IteratorList) {
 
 	String* str = new String("A");
 	list->add(str);
+	SafeRelease(str);
 
 	String* str1 = new String("B");
 	list->add(str1);
+	SafeRelease(str1);
 
 	String* str2 = new String("C");
 	list->add(str2);
+	SafeRelease(str2);
 
 	StringBuffer* sb = new StringBuffer();
 
@@ -62,6 +65,7 @@ TEST(Dragon_Util_ArrayListTest, IteratorList) {
 	while(it->hasNext()) {
 		String* dd = it->next();
 		sb->append(dd);
+		SafeRelease(dd);
 	}
 
 	SafeDelete(it);
@@ -70,17 +74,13 @@ TEST(Dragon_Util_ArrayListTest, IteratorList) {
 	String* out = sb->toString();
 	EXPECT_EQ(true, expect->equals(out));
 
-	SafeDelete(out);
-	SafeDelete(expect);
+	SafeRelease(out);
+	SafeRelease(expect);
 
-	SafeDelete(it);
-	SafeDelete(sb);
+	SafeRelease(it);
+	SafeRelease(sb);
 
-	SafeDelete(str2)
-	SafeDelete(str1)
-	SafeDelete(str);
-
-	SafeDelete(list);
+	SafeRelease(list);
 }
 
 TEST(Dragon_Util_ArrayListTest, Release) {

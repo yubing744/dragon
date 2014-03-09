@@ -63,11 +63,11 @@ public:
     char* vertexShader;
     char* fragmentShader;
 
-    Map<String, Color>* colors;
-    Map<String, Texture>* textures;
-    Map<String, Float>* floats;
-    Map<String, Vector3>* vector3s;
-    Map<String, Matrix4x4>* matrix4x4s;
+    //Map<String, Color>* colors;
+    //Map<String, Texture>* textures;
+    //Map<String, Float>* floats;
+    //Map<String, Vector3>* vector3s;
+    //Map<String, Matrix4x4>* matrix4x4s;
 };//Shader
 
 EndPackage5 //(com, dragon3d, scene, model, shader)

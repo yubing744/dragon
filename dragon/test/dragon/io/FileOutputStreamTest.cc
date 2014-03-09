@@ -59,7 +59,7 @@ TEST(Dragon_Io_FileOutputStreamTest, New) {
     }
 
     SafeDelete(fos);
-
+    SafeRelease(newFile);
     SafeDelete(o);
     
     SafeDelete(path);

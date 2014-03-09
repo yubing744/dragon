@@ -36,5 +36,5 @@ FileWriter::FileWriter(File* file, bool append) throw(IOException*)
 }
 
 FileWriter::~FileWriter(){
-	close();
+	SafeRelease(this->innerStream);
 }

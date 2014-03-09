@@ -42,6 +42,7 @@ public:
     static DocumentFactory* getInstance();
 
 private:
+    static void releaseDocumentFactory();
     static DocumentFactory* singleton;
 
 protected:

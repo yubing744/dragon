@@ -171,7 +171,11 @@ String* File::getParent() const {
 }
 
 File* File::getParentFile() const {
-	return new File(this->getParent());
+	String* path = this->getParent();
+	File* parentFile = new File(path);
+	SafeDelete(path);
+
+	return parentFile;
 }
 
 bool File::isAbsolute() const {
@@ -303,14 +307,14 @@ String* File::getCanonicalPath() const {
 			} else if(token->equals("..")) {
 				stack->pop();
 			} else {
-				stack->push(new String(token));
+				String* str = new String(token);
+				stack->push(str);
+				SafeRelease(str);
 			}
 
 			SafeDelete(token);
 		}
 	}
-
-	//tokens.release();
 
 	StringBuffer* sb = new StringBuffer();
 
@@ -322,7 +326,7 @@ String* File::getCanonicalPath() const {
         sb->append(tok);
         sb->append(separator);
 
-        SafeDelete(tok);
+        SafeRelease(tok);
     }
 
     SafeDelete(it);
@@ -330,6 +334,8 @@ String* File::getCanonicalPath() const {
     if (stack->size() > 0) {
     	sb->setLength(sb->length() - 1);
     }
+    
+    SafeRelease(stack);
     
 	String* result = sb->toString();
 	SafeDelete(sb);

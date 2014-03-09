@@ -55,6 +55,7 @@ Matcher::Matcher(Pattern* parent, const CharSequence* text) {
 }
 
 Matcher::~Matcher() {
+    SafeDeleteArray(this->groups);
     SafeDelete(this->text);
     this->reset();
 }
@@ -149,6 +150,8 @@ bool Matcher::search(int from) {
         this->last = this->end();
 
         return true;
+    } else {
+        SafeDeleteArray(ovector);
     }
 
     return false;
@@ -179,7 +182,11 @@ String* Matcher::group(int group) {
     int startIndex = this->start(group);
     int endIndex = this->end(group);
 
-    return this->text->toString()->substring(startIndex, endIndex);
+    String* str = this->text->toString();
+    String* subStr = str->substring(startIndex, endIndex);
+    SafeDelete(str);
+
+    return subStr;
 }
 
 

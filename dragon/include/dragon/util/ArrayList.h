@@ -57,7 +57,9 @@ public:
 		};
 
 		virtual E* next() {
-			return *(it++);
+			E* e = *(it++);
+			SafeRetain(e);
+			return e;
 		};
 
 	private:
@@ -68,6 +70,7 @@ public:
 public:
 	ArrayList();
 	ArrayList(int initialCapacity);
+	~ArrayList();
 
 public: // implements List
 	virtual Iterator<E>* iterator();
@@ -103,17 +106,25 @@ ArrayList<E>::ArrayList(int initialCapacity)
 	:mVector(vector<E*>(initialCapacity)) {
 }
 
+template<class E>
+ArrayList<E>::~ArrayList() {
+	this->clear();
+}
+
 //Implements List Interface
 
 template<class E>
 bool ArrayList<E>::add(E* e) {
-	//RetainObject(e);
+	SafeRetain(e);
+
 	mVector.push_back(e);
 	return true;
 }
 
 template<class E>
 void ArrayList<E>::add(int index, E* e) {
+	SafeRetain(e);
+
 	StlIterator pos = mVector.begin();
 	StlIterator	iend = mVector.end();
 
@@ -133,7 +144,10 @@ bool ArrayList<E>::remove(E* e) {
 	while(ibegin!=iend) {
 		if(*ibegin == e) {
 			found = true;
+
 			mVector.erase(ibegin);
+			SafeRelease(e);
+
 			break;
 		}
 
@@ -176,19 +190,35 @@ bool ArrayList<E>::contains(E* e) {
 
 template<class E>
 E* ArrayList<E>::get(int index) {
-	return mVector[index];
+	E* e = mVector[index];
+	SafeRetain(e);
+
+	return e;
 }
 
 template<class E>
-E* ArrayList<E>::set(int index, E* e)
-{
+E* ArrayList<E>::set(int index, E* e) {
 	E* olde = mVector[index];
+	SafeRelease(olde);
+
 	mVector[index] = e;
+	SafeRetain(e);
+
 	return olde;
 }
 
 template<class E>
 void ArrayList<E>::clear() {
+	StlIterator ibegin,iend;
+
+	ibegin = mVector.begin();
+	iend = mVector.end();
+
+	for(;ibegin!=iend; ++ibegin) {
+		E* e = (*ibegin);
+		SafeRelease(e);
+	}
+
 	mVector.clear();
 }
 
@@ -230,6 +260,7 @@ List<E>* ArrayList<E>::subList(int fromIndex, int toIndex) {
 	for (int i=fromIndex; i<toIndex; i++) {
 		E* e = this->get(i);
 		sub->add(e);
+		SafeRelease(e);
 	}
 
 	return sub;

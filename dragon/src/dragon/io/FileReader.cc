@@ -31,4 +31,10 @@ FileReader::FileReader(const String& fileName) throw(FileNotFoundException*)
 FileReader::FileReader(File* file) throw(FileNotFoundException*)
     :InputStreamReader(new FileInputStream(file)) {
 	this->file = file;
+    this->file->retain();
+}
+
+FileReader::~FileReader(){
+    SafeRelease(this->innerStream);
+    SafeRelease(this->file);
 }

@@ -112,15 +112,19 @@ Array<String*> Pattern::split(const CharSequence* input, int limit) {
     // Add segments before each match found
     while(m->find()) {
         if (!matchLimited || matchList->size() < limit - 1) {
-            String* match = input->subSequence(index, m->start())->toString();
+            CharSequence* subSeq = input->subSequence(index, m->start());
+            String* match = subSeq->toString();
+            SafeRelease(subSeq);
 
             matchList->add(match);
             index = m->end();
 
             //SafeRelease(match);
         } else if (matchList->size() == limit - 1) { // last one
-            String* match = input->subSequence(index,
-                                             input->length())->toString();
+            CharSequence* subSeq = input->subSequence(index, input->length());
+            String* match = subSeq->toString();
+            SafeRelease(subSeq);
+
             matchList->add(match);
             index = m->end();
 
@@ -138,8 +142,11 @@ Array<String*> Pattern::split(const CharSequence* input, int limit) {
     }
 
     // Add remaining segment
-    if (!matchLimited || matchList->size() < limit)
-        matchList->add(input->subSequence(index, input->length())->toString());
+    if (!matchLimited || matchList->size() < limit) {
+        CharSequence* subSeq = input->subSequence(index, input->length());
+        matchList->add(subSeq->toString());
+        SafeRelease(subSeq);
+    }
 
     // Construct result
     int resultSize = matchList->size();
@@ -148,5 +155,10 @@ Array<String*> Pattern::split(const CharSequence* input, int limit) {
             resultSize--;
 
     List<String>* subList = matchList->subList(0, resultSize);
-    return subList->toArray();
+    Array<String*> array = subList->toArray();
+    SafeRelease(subList);
+
+    SafeRelease(matchList);
+    
+    return array;
 }

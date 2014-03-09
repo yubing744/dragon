@@ -67,7 +67,7 @@ TEST(Dragonx_Xml_Io_XMLReaderTest, New) {
         Document* doc = xr->read(fis, "UTF-8");
         SafeDelete(xr);
 
-        SafeDelete(fis);
+        SafeRelease(fis);
         
         Element* root = doc->RootElement();
         ASSERT_TRUE(root != null);

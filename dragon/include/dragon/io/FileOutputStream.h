@@ -42,7 +42,7 @@ public:
 	FileOutputStream(File* file) throw(FileNotFoundException*);
 	FileOutputStream(File* file, bool append) throw(FileNotFoundException*);
 
-	virtual ~FileOutputStream(){this->close();};
+	virtual ~FileOutputStream();
 
 public:
 	virtual void open(bool append) throw(IOException*);

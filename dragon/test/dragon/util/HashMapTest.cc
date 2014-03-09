@@ -34,7 +34,7 @@ Import dragon::util;
 
 TEST(Dragon_Util_HashMapTest, New) {
 	HashMap<string, Object>* myMap = new HashMap<string, Object>();
-	SafeDelete(myMap);
+	SafeRelease(myMap);
 }
 
 TEST(Dragon_Util_HashMapTest, AddItem) {
@@ -42,9 +42,9 @@ TEST(Dragon_Util_HashMapTest, AddItem) {
 
 	Object* obj1 = new Object();
 	myMap->put("abc", obj1);
+	SafeRelease(obj1);
 
-	SafeDelete(obj1);;
-	SafeDelete(myMap);
+	SafeRelease(myMap);
 }
 
 TEST(Dragon_Util_HashMapTest, IteratorMap) {
@@ -52,15 +52,19 @@ TEST(Dragon_Util_HashMapTest, IteratorMap) {
 
 	Object* obj1 = new Object();
 	myMap->put("abc1", obj1);
+	SafeRelease(obj1);
 
 	Object* obj2 = new Object();
 	myMap->put("abc2", obj2);
+	SafeRelease(obj2);
 
 	Object* obj3 = new Object();
 	myMap->put("abc3", obj3);
+	SafeRelease(obj3);
 
 	Object* obj4 = new Object();
 	myMap->put("abc4", obj4);
+	SafeRelease(obj4);
 
 	EXPECT_EQ(4, myMap->size());
 
@@ -70,13 +74,13 @@ TEST(Dragon_Util_HashMapTest, IteratorMap) {
 		Map<string, Object>::Entry* entry = it->next();
 
 		Object* obj = entry->getValue();
-		SafeDelete(obj);
+		SafeRelease(obj);
 
 		SafeDelete(entry);
 	}
 
 	SafeDelete(it);
-	SafeDelete(myMap);
+	SafeRelease(myMap);
 }
 
 TEST(Dragon_Util_HashMapTest, IteratorStringMap) {
@@ -84,15 +88,19 @@ TEST(Dragon_Util_HashMapTest, IteratorStringMap) {
 
 	Object* obj1 = new Object();
 	myMap->put("abc1", obj1);
+	SafeRelease(obj1);
 
 	Object* obj2 = new Object();
 	myMap->put("abc2", obj2);
+	SafeRelease(obj2);
 
 	Object* obj3 = new Object();
 	myMap->put("abc3", obj3);
+	SafeRelease(obj3);
 
 	Object* obj4 = new Object();
 	myMap->put("abc4", obj4);
+	SafeRelease(obj4);
 
 	EXPECT_EQ(4, myMap->size());
 
@@ -102,7 +110,7 @@ TEST(Dragon_Util_HashMapTest, IteratorStringMap) {
 		Map<String, Object>::Entry* entry = it->next();
 
 		Object* obj = entry->getValue();
-		SafeDelete(obj);
+		SafeRelease(obj);
 
 		SafeDelete(entry);
 	}

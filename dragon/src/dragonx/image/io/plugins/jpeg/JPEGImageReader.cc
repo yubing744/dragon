@@ -204,7 +204,7 @@ BufferedImage* JPEGImageReader::read(InputStream* input) throw(IOException*) {
 
             const byte* rowData = (byte*)row_pointer[0];
 
-            int row = cinfo.image_height - cinfo.output_scanline - 1;
+            int row = cinfo.image_height - cinfo.output_scanline;
 
             for (int col=0; col<width; col++) {
                 image->setRed(col, row, rowData[col * 3]);

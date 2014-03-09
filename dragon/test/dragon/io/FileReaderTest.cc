@@ -69,7 +69,8 @@ TEST(Dragon_Io_FileReaderTest, New) {
 
     SafeDelete(o2);
 
-
+    SafeRelease(myWriteStr);
+    SafeRelease(myReadStr);
     SafeDelete(file);
     SafeDelete(filePath);
 }

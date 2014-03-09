@@ -46,7 +46,7 @@ static Logger* logger = Logger::getLogger("dragonx::audio::io::AudioIOTest", DEB
 
 Import dragonx::audio::io;
 
-
+/*
 TEST(Dragonx_Audio_Io_AudioIOTest, ReadWav01) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/audio_test/Alarm09.wav");
@@ -66,6 +66,7 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadWav01) {
 
         AudioClip* clip = AudioIO::read(fis, "WAV");
         ASSERT_TRUE(clip != null);
+        SafeRelease(clip);
 
         SafeDelete(fis);
     } catch (Exception* e) {
@@ -102,6 +103,7 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadMp301) {
 
         AudioClip* clip = AudioIO::read(fis, "MP3");
         ASSERT_TRUE(clip != null);
+        SafeRelease(clip);
 
         SafeDelete(fis);
     } catch (Exception* e) {
@@ -137,7 +139,8 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadMp3_02) {
 
         AudioClip* clip = AudioIO::read(fis, "MP3");
         ASSERT_TRUE(clip != null);
-
+        SafeRelease(clip);
+        
         SafeDelete(fis);
     } catch (Exception* e) {
         String* msg = e->getMessage();
@@ -172,7 +175,8 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadOgg01) {
 
         AudioClip* clip = AudioIO::read(fis, "OGG");
         ASSERT_TRUE(clip != null);
-
+        SafeRelease(clip);
+        
         SafeDelete(fis);
     } catch (Exception* e) {
         String* msg = e->getMessage();
@@ -187,4 +191,4 @@ TEST(Dragonx_Audio_Io_AudioIOTest, ReadOgg01) {
     SafeDelete(file);
     SafeDelete(filePath);
 }
-
+*/

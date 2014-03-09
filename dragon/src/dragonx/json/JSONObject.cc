@@ -143,7 +143,7 @@ static int tree_append(void *structure, char *key, uint32_t key_length, void *ob
     Object* value = (Object*)obj;
 
     if (key) {
-        String* strKey = new String(key, key_length);
+        String strKey(key, key_length);
 
         JSONObject* node = (JSONObject*)parent;
         node->put(strKey, value);
@@ -153,6 +153,8 @@ static int tree_append(void *structure, char *key, uint32_t key_length, void *ob
 
         array->add(obj);   
     }
+
+    SafeRelease(value);
 
     return 0;
 }
@@ -165,18 +167,26 @@ static int do_tree(json_config *config, const String& json, JSONObject **root_st
 
     ret = json_parser_dom_init(&dom, tree_create_structure, tree_create_data, tree_append);
     if (ret) {
+        json_parser_dom_free(&dom);
+
         logger->error("error: initializing helper failed: [code=%d] %s\n", ret, string_of_errors[ret]);
         return ret;
     }
 
     ret = json_parser_init(&parser, config, json_parser_dom_callback, &dom);
     if (ret) {
+        json_parser_free(&parser);
+        json_parser_dom_free(&dom);
+
         logger->error("error: initializing parser failed: [code=%d] %s\n", ret, string_of_errors[ret]);
         return ret;
     }
 
     ret = process_file(&parser, json, &lines, &col);
     if (ret) {
+        json_parser_free(&parser);
+        json_parser_dom_free(&dom);
+
         logger->error("line %d, col %d: [code=%d] %s\n",
                 lines, col, ret, string_of_errors[ret]);
 
@@ -185,6 +195,9 @@ static int do_tree(json_config *config, const String& json, JSONObject **root_st
 
     ret = json_parser_is_done(&parser);
     if (!ret) {
+        json_parser_free(&parser);
+        json_parser_dom_free(&dom);
+
         logger->error("syntax error\n");
         return 1;
     }
@@ -194,6 +207,7 @@ static int do_tree(json_config *config, const String& json, JSONObject **root_st
 
     /* cleanup */
     json_parser_free(&parser);
+    json_parser_dom_free(&dom);
 
     return 0;
 }
@@ -213,8 +227,11 @@ JSONObject* JSONObject::parse(const String& json) {
     int ret = do_tree(&config, json, &jsonObj);
 
     if (ret) {
+        SafeRelease(jsonObj);
+        
         const Array<byte> data = json.getBytes("UTF-8");
         logger->error("error in parse json: %s", data.raw());
+        throw new JSONException("error in parse json");
     }
 
     return jsonObj;
@@ -300,11 +317,13 @@ static void print_json_object(json_printer* printer, JSONObject* jsonObj) {
 
         Object* obj = entry->getValue();
         print_json_value(printer, obj);
-        SafeDelete(obj);
+        SafeRelease(obj);
 
         SafeDelete(entry);
     }
 
+    SafeDelete(it);
+    
     json_print_pretty(printer, JSON_OBJECT_END, NULL, 0);
 }
 
@@ -316,7 +335,7 @@ static void print_json_array(json_printer* printer, JSONArray* jsonArray) {
     while(it->hasNext()) {
         JSONObject* jsonObject = it->next();
         print_json_object(printer, jsonObject);
-        SafeDelete(jsonObject);
+        SafeRelease(jsonObject);
     }
 
     SafeDelete(it);
@@ -333,6 +352,8 @@ String* JSONObject::print(const Object* obj) {
     /* initialize printer and parser structures */
     ret = json_print_init(&printer, print_with_string_buffer, sb);
     if (ret) {
+        json_print_free(&printer);
+
         String* msg = String::format("error: initializing printer failed: [code=%d] %s\n", ret, string_of_errors[ret]);
         JSONException* e = new JSONException(msg);
         SafeDelete(msg);
@@ -347,6 +368,8 @@ String* JSONObject::print(const Object* obj) {
         } else if (JSONArray::TYPE->equals(objType)){
             print_json_array(&printer, (JSONArray*)obj);
         } else {
+            json_print_free(&printer);
+
             String* msg = String::format("not support type %s!", objType->getName());
             JSONException* e = new JSONException(msg);
             SafeDelete(msg);
@@ -386,22 +409,34 @@ String* JSONObject::getString(const String& key) {
 
 int JSONObject::getInt(const String& key) {
     Integer* val = (Integer*)this->getObject(key);
-    return val->intValue();
+    int ret = val->intValue();
+    SafeRelease(val);
+
+    return ret;
 }
 
 float JSONObject::getFloat(const String& key) {
     Float* val = (Float*)this->getObject(key);
-    return val->floatValue();
+    float ret = val->floatValue();
+    SafeRelease(val);
+
+    return ret;
 }
 
 double JSONObject::getDouble(const String& key) {
     Double* val = (Double*)this->getObject(key);
-    return val->doubleValue();
+    double ret = val->doubleValue();
+    SafeRelease(val);
+
+    return ret;
 }
 
 bool JSONObject::getBoolean(const String& key) {
     Boolean* val = (Boolean*)this->getObject(key);
-    return val->booleanValue();
+    bool ret = val->booleanValue();
+    SafeRelease(val);
+
+    return ret;
 }
 
 JSONObject* JSONObject::getJSONObject(const String& key) {

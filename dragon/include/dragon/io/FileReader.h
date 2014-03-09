@@ -34,7 +34,7 @@ class _DragonExport FileReader
 public:
 	FileReader(const String& fileName) throw(FileNotFoundException*);
 	FileReader(File* file) throw(FileNotFoundException*);
-	virtual ~FileReader(){close();};
+	virtual ~FileReader();
 
 protected:
     File* file;

@@ -481,4 +481,5 @@ void GIFImageWriter::write(const RenderedImage* image, OutputStream* output) thr
     }
 
     EGifCloseFile(GifFile);
+    FreeMapObject(OutputColorMap);
 }

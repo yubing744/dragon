@@ -179,6 +179,7 @@ BufferedImage* TGAImageReader::read(InputStream* input) throw(IOException*) {
     }
 
     TGAClose(in);
-
+    free(data);
+    
     return image;
 }

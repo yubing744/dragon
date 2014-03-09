@@ -40,3 +40,8 @@ FileOutputStream::FileOutputStream(File* file, bool append) throw(FileNotFoundEx
     this->file = new File(file);
     this->open(append);
 }
+
+FileOutputStream::~FileOutputStream(){
+    this->close();
+    SafeDelete(this->file);
+}

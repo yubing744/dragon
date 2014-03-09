@@ -23,12 +23,22 @@ Import dragon::io;
 
 InputStreamReader::InputStreamReader(const InputStream* in) {
 	this->innerStream = const_cast<InputStream*>(in);
+    this->innerStream->retain();
+    
 	this->charsetName = new String(L"UTF-8");
 }
 
 InputStreamReader::InputStreamReader(const InputStream* in, const String& charset) throw(UnsupportedEncodingException*) {
     this->innerStream = const_cast<InputStream*>(in);
+    this->innerStream->retain();
+
     this->charsetName = new String(charset);
+}
+
+InputStreamReader::~InputStreamReader() {
+    this->close();
+    SafeDelete(this->charsetName);
+    SafeRelease(this->innerStream);
 }
 
 void InputStreamReader::close() throw(IOException*) {

@@ -30,7 +30,7 @@ class _DragonExport OutputStreamWriter
 public:
 	OutputStreamWriter(const OutputStream* out);
 	OutputStreamWriter(const OutputStream* out, const String& charsetName);
-	virtual ~OutputStreamWriter(){close();}
+	virtual ~OutputStreamWriter();
 
 public:
 	virtual void flush() throw(IOException*);
