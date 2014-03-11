@@ -34,9 +34,9 @@ TEST(Dragon_Lang_Gc_MemoryAllocTest, New) {
 }
 
 TEST(Dragon_Lang_Gc_MemoryAllocTest, NewWithType01) {
-	Ref<String> str = New<String>();
+	//Ref<String> str = New<String>();
 }
 
 TEST(Dragon_Lang_Gc_MemoryAllocTest, NewWithType02) {
-	String* str = New<String>();
+	//String* str = New<String>();
 }

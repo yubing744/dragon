@@ -305,7 +305,8 @@ String* File::getCanonicalPath() const {
 			if (token->equals(".")) {
 				;// ignore
 			} else if(token->equals("..")) {
-				stack->pop();
+				String* str = stack->pop();
+				SafeRelease(str);
 			} else {
 				String* str = new String(token);
 				stack->push(str);

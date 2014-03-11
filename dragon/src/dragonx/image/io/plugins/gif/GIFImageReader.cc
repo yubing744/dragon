@@ -266,6 +266,8 @@ BufferedImage* GIFImageReader::read(InputStream* input) throw(IOException*) {
             *BufferP++ = ColorMapEntry->Green;
             *BufferP++ = ColorMapEntry->Blue;
         }
+
+        free(GifRow);
     }
 
     DGifCloseFile(GifFile);

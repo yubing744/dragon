@@ -85,6 +85,8 @@ void tga_output_stream_seek(TGA* tga, long offset, int origin) {
 
     output->write((byte*)buffer, count, 0, count);
     osf->current += count;
+
+    free(buffer);
 }
 
 long tga_output_stream_tell(TGA* tga) {
@@ -129,6 +131,8 @@ void TGAImageWriter::write(const RenderedImage* image, OutputStream* output) thr
         throw new IOException("error in malloc tag data!");
     }
 
+    memset(data, 0, sizeof(sizeof(TGAData)));
+    
     // open tag
     OutputStreamFile osf;
     osf.output = output;
@@ -155,4 +159,9 @@ void TGAImageWriter::write(const RenderedImage* image, OutputStream* output) thr
     }
 
     TGAClose(out);
+
+    //free(data->img_data);
+    
+    SafeFree(data->cmap);
+    SafeFree(data);
 }

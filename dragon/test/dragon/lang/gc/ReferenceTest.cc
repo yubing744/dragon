@@ -41,6 +41,6 @@ TEST(Dragon_Lang_Gc_SmartPointerTest, New2) {
 
 TEST(Dragon_Lang_Gc_SmartPointerTest, New3) {
 	Ref<String> p = new String("abc");
-	const String* raw = p.raw();
-    Ref<String> p2 = raw;
+    Ref<String> p2 = new String("bcd");
+    p = p2;
 }

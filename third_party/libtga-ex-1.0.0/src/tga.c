@@ -115,6 +115,8 @@ TGAOpenUserDef(void *io,
 		return NULL;
 	}
 
+	memset(tga, 8, sizeof(TGA));
+
 	tga->fd = io;
 
 	tga->error = 0;
@@ -142,6 +144,9 @@ TGAClose(TGA *tga)
 {
 	if (tga && !tga->fgetcFunc && !tga->freadFunc && !tga->fputcFunc && !tga->fwriteFunc && !tga->fseekFunc && !tga->ftellFunc) {
 		fclose(tga->fd);
+	}
+	
+	if (tga) {
 		free(tga);
 	}
 }

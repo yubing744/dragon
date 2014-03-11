@@ -20,7 +20,6 @@
  * Created:     2013/12/24
  **********************************************************************/
 
-/*
 #include <gtest/gtest.h>
 #include <dragonx/xml/io/XMLReader.h>
 
@@ -137,6 +136,7 @@ TEST(Dragonx_Image_IO_ImageIOTest, WriteJPEG) {
     SafeDelete(file);
     SafeDelete(filePath);
 }
+
 
 TEST(Dragonx_Image_IO_ImageIOTest, ReadBMP) {
     const String* base = System::getProperty("HOME");
@@ -303,6 +303,7 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteJPEG) {
     SafeDelete(outputPath);
 }
 
+
 TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteJPEG02) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_jpg_02.jpg");
@@ -395,6 +396,8 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteTGA02) {
     SafeDelete(outputPath);
 }
 
+
+/*
 TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteBMP) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_jpeg_01.jpg");

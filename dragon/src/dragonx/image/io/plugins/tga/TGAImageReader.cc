@@ -178,8 +178,11 @@ BufferedImage* TGAImageReader::read(InputStream* input) throw(IOException*) {
         throw new IOException("not support tga color depth!");
     }
 
-    TGAClose(in);
+    //SafeFree(data->cmap);
+    //SafeFree(data->img_data);
     free(data);
-    
+
+    TGAClose(in);
+
     return image;
 }

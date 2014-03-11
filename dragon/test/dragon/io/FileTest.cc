@@ -283,15 +283,15 @@ TEST(Dragon_Io_FileTest, getCanonicalPath01) {
     String* parentPath = o->getCanonicalPath();
     String* rpath = parentPath->substring(base->length());
     const Array<char> utf8Name = rpath->getBytes("UTF-8");
-    EXPECT_STREQ("/dragon_test/02", utf8Name);
+    EXPECT_STREQ("/dragon_test/02", utf8Name.raw());
 
-    SafeDelete(o);
+    SafeRelease(rpath);
+    SafeRelease(parentPath);
 
-    SafeDelete(rpath);
-    SafeDelete(parentPath);
+    SafeRelease(o);
     
-    SafeDelete(path);
-    SafeDelete(fullPath);
+    SafeRelease(path);
+    SafeRelease(fullPath);
 }
 
 // list files

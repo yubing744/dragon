@@ -108,6 +108,12 @@ typedef struct _RGBA {
     uint8_t Alpha;
 } RGBA;
 
+typedef struct _RGB {
+    uint8_t Red;
+    uint8_t Green;
+    uint8_t Blue;
+} RGB;
+
 typedef struct _BGRA {
     uint8_t Blue;
     uint8_t Green;
@@ -181,6 +187,7 @@ bool GetBits(const RenderedImage* image, void* Buffer, unsigned int &Size, unsig
 
     int bitmapSize = image->getWidth() * image->getHeight();
     const RGBA* bitmapData = (RGBA*)image->getRawData();
+    const RGB* rgbData = (RGB*)image->getRawData();
 
     uint32_t BitCountRed = CColor::BitCountByMask(RedMask);
     uint32_t BitCountGreen = CColor::BitCountByMask(GreenMask);
@@ -216,11 +223,20 @@ bool GetBits(const RenderedImage* image, void* Buffer, unsigned int &Size, unsig
     unsigned int j = 0;
 
     for (unsigned int i = 0; i < bitmapSize; i++) {
-        *(uint32_t*) BufferPtr =
-            (CColor::Convert(bitmapData[i].Blue, 8, BitCountBlue) << BitPosBlue) |
-            (CColor::Convert(bitmapData[i].Green, 8, BitCountGreen) << BitPosGreen) | 
-            (CColor::Convert(bitmapData[i].Red, 8, BitCountRed) << BitPosRed) | 
-            (CColor::Convert(bitmapData[i].Alpha, 8, BitCountAlpha) << BitPosAlpha);
+        uint32_t colorVal = 0;
+
+        if (BitCount <= 24) {
+            colorVal = (CColor::Convert(rgbData[i].Blue, 8, BitCountBlue) << BitPosBlue) |
+                (CColor::Convert(rgbData[i].Green, 8, BitCountGreen) << BitPosGreen) | 
+                (CColor::Convert(rgbData[i].Red, 8, BitCountRed) << BitPosRed);
+        } else if (BitCount > 24) {
+            colorVal = (CColor::Convert(bitmapData[i].Blue, 8, BitCountBlue) << BitPosBlue) |
+                (CColor::Convert(bitmapData[i].Green, 8, BitCountGreen) << BitPosGreen) | 
+                (CColor::Convert(bitmapData[i].Red, 8, BitCountRed) << BitPosRed) | 
+                (CColor::Convert(bitmapData[i].Alpha, 8, BitCountAlpha) << BitPosAlpha);
+        }
+
+        *(uint32_t*) BufferPtr = colorVal;
         
         if (IncludePadding) {
             j++;

@@ -20,7 +20,7 @@
  * Created:     2013/07/07
  **********************************************************************/
 
-
+/*
 #ifndef Reference_Gc_Lang_Dragon_H
 #define Reference_Gc_Lang_Dragon_H
 
@@ -138,8 +138,7 @@ EndPackage3 //(dragon, lang, gc)
 #define Ref Reference
 
 #endif //Reference_Gc_Lang_Dragon_H
-
-/*
+*/
 
 #ifndef Reference_Gc_Lang_Dragon_H
 #define Reference_Gc_Lang_Dragon_H
@@ -184,10 +183,6 @@ Reference<Type>::Reference() {
 template<class Type>
 Reference<Type>::Reference(const Type* p) {
 	mpType = const_cast<Type*>(p);
-
-	if (mpType != null) {
-		SafeRetain(mpType);
-	}
 }
 
 template<class Type>
@@ -206,10 +201,6 @@ Reference<Type>::~Reference() {
 template<class Type>
 Type* Reference<Type>::operator=(Type* p) {
 	SafeRelease(mpType);
-
-	if(p != null) {
-		SafeRetain(p);
-	}
 
 	mpType = p;
 	return p;
@@ -250,5 +241,3 @@ EndPackage3 //(dragon, lang, gc)
 #define Ref Reference
 
 #endif //Reference_Gc_Lang_Dragon_H
-
- */

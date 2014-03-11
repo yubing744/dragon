@@ -33,7 +33,7 @@ BufferedImage::BufferedImage(int width, int height, const ColorModel* colorModel
     this->colorModel = new ColorModel(colorModel);
 
     int total = this->size();
-    byte* data = new byte[total];
+    byte* data = (byte*)malloc(total);
     memset(data, 0, total);
 
     this->data = data;
@@ -41,7 +41,7 @@ BufferedImage::BufferedImage(int width, int height, const ColorModel* colorModel
 
 BufferedImage::~BufferedImage() {
     SafeDelete(this->colorModel);
-    SafeDeleteArray(this->data);
+    SafeFree(this->data);
 }
 
 int BufferedImage::getWidth() const {

@@ -105,6 +105,8 @@ TGAWriteHeader(TGA *tga)
 		return 0;
 	}
 
+	memset(tmp, 0, 18);
+
 	tmp[0] = tga->hdr.id_len;
 	tmp[2] = tga->hdr.img_t;
 		
@@ -117,7 +119,7 @@ TGAWriteHeader(TGA *tga)
 		tmp[7] = tga->hdr.map_entry;
 	} else {
 		tmp[1] = 0;
-		memset(tmp + 4, 0, 5);
+		memset(tmp + 2, 0, 5);
 	}
 	
 	tmp[8] = tga->hdr.x % 256;
