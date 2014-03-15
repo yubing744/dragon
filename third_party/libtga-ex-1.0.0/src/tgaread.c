@@ -59,6 +59,8 @@ TGAReadImage(TGA     *tga,
 		data->flags &= ~TGA_IMAGE_ID;
 	}
 
+	data->cmap = NULL;
+	
 	if (data->flags & TGA_IMAGE_DATA) {
 		if (TGA_IS_MAPPED(tga)) {
 			if (!TGAReadColorMap(tga, &data->cmap, data->flags)) {

@@ -47,6 +47,7 @@ void GameObject::init() {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->init();
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -59,6 +60,7 @@ void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->update(input, timer);
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -70,6 +72,7 @@ void GameObject::destroy() {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->destroy();
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -92,9 +95,15 @@ Component* GameObject::getComponent(const Type* type) {
 		Component* component = it->next();
 
 		if (component->isTypeOf(type)) {
+			SafeRelease(component);
+			SafeDelete(it);
+
 			return component;
+		} else {
+			SafeRelease(component);
 		}
 	}
 
+	SafeDelete(it);
 	return null;
 }

@@ -94,6 +94,7 @@ public:
     static Integer* parseInt(const String& str);
 
 public:
+    Integer();
 	Integer(int val);
 	virtual ~Integer();
 

@@ -130,8 +130,14 @@ String* Integer::toString(int i) {
 }
 // member method
 
-Integer::Integer(int val) {
-    this->value = val;
+Integer::Integer() 
+    :value(0) {
+   
+}
+
+Integer::Integer(int val) 
+    :value(val) {
+
 }
 
 Integer::~Integer() {

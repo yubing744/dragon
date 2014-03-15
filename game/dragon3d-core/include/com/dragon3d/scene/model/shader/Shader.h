@@ -30,11 +30,12 @@
 #include <dragon/lang/String.h>
 #include <dragon/util/Map.h>
 
-
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Color.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Matrix4x4.h>
-#include <com/dragon3d/scene/model/Texture.h>
+#include <com/dragon3d/util/assets/Resource.h>
+#include <dragon/util/concurrent/atomic/AtomicInteger.h>
 
 BeginPackage5(com, dragon3d, scene, model, shader)
 
@@ -42,32 +43,32 @@ Import dragon::lang;
 Import dragon::util;
 
 Import com::dragon3d::util::math;
-Import com::dragon3d::scene::model;
+Import com::dragon3d::util::assets;
+Import dragon::util::concurrent::atomic;
 
-class _DragonExport Shader {
+class _DragonExport Shader extends(Object) {
+private:
+    static AtomicInteger* sequence;
+
 public:
-    Shader(const char* vertexShader, const char* fragmentShader);
+    static int GetNextShaderID();
+
+public:
+    Shader(const Resource* res);
+    Shader(const String& vertexShader, const String& fragmentShader);
     virtual ~Shader();
 
 public:
-    virtual void setColor(const char* name, const Color& color);
-    virtual void setTexture(const char* name, Texture* texture);
-    virtual void setFloat(const char* name, float val);
-    virtual void setVector3(const char* name, const Vector3& v);
-    virtual void setMatrix(const char* name, const Matrix4x4& mat);
-
+    unsigned int getID();
+    
 public:
     String* name;
-    dg_uint programID;
 
-    char* vertexShader;
-    char* fragmentShader;
+    String* vertexShader;
+    String* fragmentShader;
 
-    //Map<String, Color>* colors;
-    //Map<String, Texture>* textures;
-    //Map<String, Float>* floats;
-    //Map<String, Vector3>* vector3s;
-    //Map<String, Matrix4x4>* matrix4x4s;
+private:
+    unsigned int id;
 };//Shader
 
 EndPackage5 //(com, dragon3d, scene, model, shader)

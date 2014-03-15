@@ -25,16 +25,26 @@
 #define Texture_Model_Scene_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <dragonx/image/BufferedImage.h>
+#include <com/dragon3d/scene/model/shader/Shader.h>
+#include <dragon/util/concurrent/atomic/AtomicInteger.h>
 
 BeginPackage4(com, dragon3d, scene, model)
 
+Import dragon::lang;
+Import dragonx::image;
 Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::model::shader;
+Import dragon::util::concurrent::atomic;
 
-#define TGA_RGB		 2
-#define TGA_A		 3
-#define TGA_RLE		10
+class _DragonExport Texture extends(Object) {
+private:
+	static AtomicInteger* sequence;
 
-class _DragonExport Texture {
+public:
+	static int GetNextTextureID();
+
 public:
 	enum FilterMode {
 		Point,
@@ -48,28 +58,28 @@ public:
 	};
 
 public:
-	Texture(const char* textureFile);
+	Texture(const String& resPath);
 	virtual ~Texture(void);
 
 public:
-	dg_uint getNativeTextureID();
+	unsigned int getID();
 
 public:
-	int width;
-	int height;
-	dg_byte *data;
+	int getWidth();
+	int getHeight();
+	Array<byte> getData();
 
+public:
 	FilterMode filterMode;
 	int anisoLevel;
 	TextureWrapMode wrapMode;
 	float mipMapBias;
 	
 	int channels;
-	dg_uint nativeTextureID;
 
 private:
-	bool isInit;
-	char* textureFile;
+	unsigned int id;
+	BufferedImage* image;
 };//Texture
 
 EndPackage4 //(com, dragon3d, scene, model)

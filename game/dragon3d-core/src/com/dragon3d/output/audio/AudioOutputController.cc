@@ -101,6 +101,9 @@ void AudioOutputController::output(Scene* scene) {
         }
 
         SafeDelete(it);
+
+        SafeRelease(ases);
+        SafeRelease(ales);
     }
 }
 

@@ -44,6 +44,7 @@ public:
 
 public:
     virtual InputStream* getInputStream();
+    virtual String* getType();
 
 protected:
     String* uri;

@@ -74,6 +74,8 @@ void ImageIORegistry::init() {
     // JPEG
     registerImageReader("JPEG", new JPEGImageReader());
     registerImageWriter("JPEG", new JPEGImageWriter());
+    registerImageReader("JPG", new JPEGImageReader());
+    registerImageWriter("JPG", new JPEGImageWriter());
 
     // BMP
     registerImageReader("BMP", new BMPImageReader());

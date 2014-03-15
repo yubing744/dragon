@@ -91,21 +91,27 @@ void Dragon3DLaunchApp(Application* app) {
 
     app->setOutputManager(outputManager);
 
-    // start app
-    app->onStart();
+    try {
+        // start app
+        app->onStart();
 
 
-    GameLoop* loop = [[GameLoop alloc] initWithApp: app];
+        GameLoop* loop = [[GameLoop alloc] initWithApp: app];
 
-    NSString *reqSysVer = @"3.1";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+        NSString *reqSysVer = @"3.1";
+        NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
 
-    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending) {
-        CADisplayLink* displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:loop selector:@selector(runLoop)];
-        [displayLink setFrameInterval:1];
-        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    } else {
-        NSTimer* animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * 1) target:loop selector:@selector(runLoop) userInfo:nil repeats:TRUE];
+        if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending) {
+            CADisplayLink* displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:loop selector:@selector(runLoop)];
+            [displayLink setFrameInterval:1];
+            [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        } else {
+            NSTimer* animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * 1) target:loop selector:@selector(runLoop) userInfo:nil repeats:TRUE];
+        }
+    } catch (Throwable* t) {
+        logger->errorT("Throwable caught in MainThread - onStart", t);
+        t->printStackTrace();
+        SafeDelete(t);
     }
 }
 

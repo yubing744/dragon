@@ -28,44 +28,28 @@
 Import dragon::util;
 Import com::dragon3d::scene::model::shader;
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader) {
-    char* buf1 = (char*)malloc(strlen(vertexShader) + 1);
-    strcpy(buf1, vertexShader);
-    this->vertexShader = buf1;
+AtomicInteger* Shader::sequence = new AtomicInteger(0);
 
-    char* buf2 = (char*)malloc(strlen(fragmentShader) + 1);
-    strcpy(buf2, fragmentShader);
-    this->fragmentShader = buf2;
+int Shader::GetNextShaderID() {
+    return sequence->incrementAndGet();
+}
 
+Shader::Shader(const Resource* res) 
+    :id(GetNextShaderID()) {
 
-    //this->colors = new HashMap<String, Color>();
-    //this->textures = new HashMap<String, Texture>();
-    //this->floats = new HashMap<String, Float>();
-    //this->vector3s = new HashMap<String, Vector3>();
-    //this->matrix4x4s = new HashMap<String, Matrix4x4>();
+}
+
+Shader::Shader(const String& vertexShader, const String& fragmentShader)  
+    :id(GetNextShaderID()){
+    this->vertexShader = new String(vertexShader);
+    this->fragmentShader = new String(fragmentShader);
 }
 
 Shader::~Shader() {
-    SafeFree(this->vertexShader);
-    SafeFree(this->fragmentShader);
+    SafeRelease(this->vertexShader);
+    SafeRelease(this->fragmentShader);
 }
 
-void Shader::setColor(const char* name, const Color& color) {
-    //this->colors->put(String(name), new Color(color));
-}
-
-void Shader::setTexture(const char* name, Texture* texture) {
-    //this->textures->put(String(name), texture);
-}
-
-void Shader::setFloat(const char* name, float val) {
-    //this->floats->put(String(name), new Float(val));
-}
-
-void Shader::setVector3(const char* name, const Vector3& v) {
-    //this->vector3s->put(String(name), new Vector3(v));
-}
-
-void Shader::setMatrix(const char* name, const Matrix4x4& mat) {
-    //this->matrix4x4s->put(String(name), new Matrix4x4(mat));
+unsigned int Shader::getID() {
+    return this->id;
 }

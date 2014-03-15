@@ -396,8 +396,6 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteTGA02) {
     SafeDelete(outputPath);
 }
 
-
-/*
 TEST(Dragonx_Image_IO_ImageIOTest, ReadJPEGAndWriteBMP) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_jpeg_01.jpg");
@@ -583,6 +581,7 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadGIFAndWriteGIF) {
     SafeDelete(outputPath);
 }
 
+
 TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteTGA) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_tga_02.tga");
@@ -723,7 +722,7 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG) {
     SafeDelete(outputPath);
 }
 
-
+//-----------
 TEST(Dragonx_Image_IO_ImageIOTest, ReadTGAAndWriteJPG02) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/image_test/read_tga_01.tga");
@@ -862,4 +861,3 @@ TEST(Dragonx_Image_IO_ImageIOTest, ReadPngAndWriteJPG02) {
     SafeDelete(outFile);
     SafeDelete(outputPath);
 }
-*/

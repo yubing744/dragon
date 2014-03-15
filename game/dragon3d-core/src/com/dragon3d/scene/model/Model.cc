@@ -27,15 +27,41 @@ Import com::dragon3d::scene::model;
 
 const Type* Model::TYPE = TypeOf<Model>();
 
-Model::Model() {
+Model::Model() 
+    :mesh(null), material(null) {
 
 }
 
 Model::~Model() {
-
+    SafeRelease(this->mesh);
+    SafeRelease(this->material);
 }
 
 bool Model::isTypeOf(const Type* type) {
     return Model::TYPE->equals(type) 
         || Component::isTypeOf(type);
+}
+
+void Model::setMesh(Mesh* mesh) {
+    SafeRelease(this->mesh);
+    SafeRetain(mesh);
+    this->mesh = mesh;
+}
+
+Mesh* Model::getMesh() {
+    Mesh* mesh = this->mesh;
+    SafeRetain(mesh);
+    return mesh;
+}
+
+void Model::setMaterial(Material* material) {
+    SafeRelease(this->material);
+    SafeRetain(material);
+    this->material = material;
+}
+
+Material* Model::getMaterial() {
+    Material* material = this->material;
+    SafeRetain(material);
+    return material;
 }

@@ -25,21 +25,21 @@
 
 Import com::dragon3d::scene::model;
 
-Material::Material(void){
-	this->color = Color::WHITE;
-	this->mainTexture = NULL;
+Material::Material() :color(Color::WHITE), 
+    mainTexture(null), shader(null) {
+
 }
 
-Material::Material(const Color& color){
-	this->color = color;
-	this->mainTexture = NULL;
+Material::Material(const Color& color) :color(color), 
+    mainTexture(null), shader(null) {
+
 }
 
-Material::Material(const Color& color, Texture* mainTexture){
-	this->color = color;
-	this->mainTexture = mainTexture;
+Material::Material(const Color& color, Texture* mainTexture) :color(color), 
+    mainTexture(mainTexture), shader(null){
+    this->mainTexture->retain();
 }
 
 Material::~Material(void){
-
+    SafeRelease(this->mainTexture);
 }

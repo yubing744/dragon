@@ -57,7 +57,13 @@ public:
      */
     virtual bool isTypeOf(const Type* type);
 
-public:
+    void setMesh(Mesh* mesh);
+    Mesh* getMesh();
+
+    void setMaterial(Material* material);
+    Material* getMaterial();
+    
+protected:
     /**
      * get the model mesh
      * 

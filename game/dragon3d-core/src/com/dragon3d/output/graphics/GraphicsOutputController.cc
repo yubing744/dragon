@@ -60,6 +60,8 @@ List<Camera>* FindAllCameras(Scene* scene) {
         if (camera != null) {
             cameras->add(camera);
         }
+
+        SafeRelease(gameObject);
     }
 
     SafeDelete(it);
@@ -94,12 +96,17 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
         Model* model = (Model*)gameObject->getComponent(Model::TYPE);
 
         if (model != null) {
-            Mesh* mesh = model->mesh;
-            Material* material = model->material;
+            Mesh* mesh = model->getMesh();
+            Material* material = model->getMaterial();
 
             const Matrix4x4& matrix = gameObject->transform->getLocalToWorldMatrix();
             gr->drawMesh(mesh, matrix, material, camera);
+
+            SafeRelease(mesh);
+            SafeRelease(material);
         }
+
+        SafeRelease(gameObject);
     }
 
     SafeDelete(it);
@@ -124,9 +131,11 @@ void GraphicsOutputController::output(Scene* scene) {
     while(it->hasNext()) {
         Camera* camera = it->next();
         this->renderSceneToCamera(scene, camera);
+        SafeRelease(camera);
     }
 
     SafeDelete(it);
+    SafeRelease(cameras);
 
 	gr->flushBuffer();
 }

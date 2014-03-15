@@ -17,42 +17,42 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/03/15
  **********************************************************************/
 
 
-#ifndef Material_Model_Scene_Dragon3d_Com_H
-#define Material_Model_Scene_Dragon3d_Com_H
+#ifndef TextureDemo_Texture_Examples_Dragon3d_Com_H
+#define TextureDemo_Texture_Examples_Dragon3d_Com_H
 
-#include <dragon/config.h>
+#include <dragon3d.h>
+#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/scene/GameObject.h>
 
-#include <dragon/lang/String.h>
-#include <com/dragon3d/util/math/Color.h>
-#include <com/dragon3d/scene/model/Texture.h>
+BeginPackage4(com, dragon3d, examples, texture)
 
-BeginPackage4(com, dragon3d, scene, model)
+Import com::dragon3d::scene;
+Import com::dragon3d::framework;
 
-Import dragon::lang;
-
-Import com::dragon3d::util::math;
-Import com::dragon3d::scene::model;
-
-class _DragonExport Material {
+class_ TextureDemo extends(Application) {
 public:
-	Material();
-	Material(const Color& color);
-	Material(const Color& color, Texture* mainTexture);
-
-	virtual ~Material(void);
+    static const Type* TYPE;
+    
+public:
+    TextureDemo();
+    virtual ~TextureDemo();
 
 public:
-    Color color;
+    virtual void init();
+    virtual void update(Scene* scene, ReadOnlyTimer* timer);
+    virtual void destroy();
+    
+protected:
+    GameObject* myBox;
+    GameObject* mainCamera;
+    GameObject* child;
+    
+};//TextureDemo
 
-	String* name;
-	Texture* mainTexture;
-    Shader* shader;
-};//Material
+EndPackage4 //(com, dragon3d, examples, texture)
 
-EndPackage4 //(com, dragon3d, scene, model)
-
-#endif //Material_Model_Scene_Dragon3d_Com_H
+#endif //TextureDemo_Texture_Examples_Dragon3d_Com_H

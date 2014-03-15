@@ -53,3 +53,18 @@ InputStream* Resource::getInputStream() {
 
     return fis;
 }
+
+
+String* Resource::getType() {
+    int pos = this->uri->lastIndexOf(".");
+
+    if (pos > 0) {
+        String* t1 = this->uri->substring(pos + 1, this->uri->length());
+        String* t2 = t1->toUpperCase();
+        SafeRelease(t1);
+
+        return t2;
+    }
+
+    return null;
+}

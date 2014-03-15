@@ -22,10 +22,14 @@
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
 
+#include <dragon/lang/Integer.h>
+#include <dragon/util/HashMap.h>
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
 #include <com/dragon3d/util/math/Mathf.h>
 
+Import dragon::lang;
+Import dragon::util;
 Import com::dragon3d::output::graphics::renderer;
 
 const static char defaultVertexShaderStr[] =  
@@ -40,7 +44,7 @@ const static char defaultVertexShaderStr[] =
       "   v_out_color = u_color;                    \n"
       "}                                            \n";
 
-const static char fragmentShaderStr[] =  
+const static char defaultFragmentShaderStr[] =  
       "precision mediump float;                     \n"
       "varying vec4 v_out_color;                    \n"
       "                                             \n"
@@ -49,21 +53,54 @@ const static char fragmentShaderStr[] =
       "  gl_FragColor = v_out_color;                \n"
       "}                                            \n";
 
+const static char normalVertexShaderStr[] =  
+      "uniform mat4 mvp_matrix;                     \n"
+      "uniform vec4 u_color;                        \n"
+      "attribute vec4 a_position;                   \n"
+      "attribute vec2 a_texCoord;                   \n"
+      "varying vec4 v_out_color;                    \n"
+      "varying vec2 v_texCoord;                     \n"
+      "                                             \n"
+      "void main()                                  \n"
+      "{                                            \n"
+      "   gl_Position = mvp_matrix * a_position;    \n"
+      "   v_out_color = u_color;                    \n"
+      "   v_texCoord = a_texCoord;                  \n"
+      "}                                            \n";
+
+const static char normalFragmentShaderStr[] =  
+      "precision mediump float;                     \n"
+      "uniform sampler2D s_texture;                 \n"
+      "varying vec4 v_out_color;                    \n"
+      "varying vec2 v_texCoord;                     \n"
+      "                                             \n"
+      "void main()                                  \n"
+      "{                                            \n"
+      "   gl_FragColor = v_out_color + texture2D(s_texture, v_texCoord); \n"
+      "}                                            \n";
+
+
 OpenGLES2Renderer::OpenGLES2Renderer(GraphicsDevice* graphicsDevice) 
   :graphicsDevice(graphicsDevice) {
-    this->defaultShader = new Shader(defaultVertexShaderStr, fragmentShaderStr);   
+    this->defaultShader = new Shader(defaultVertexShaderStr, defaultFragmentShaderStr);   
+    this->normalShader = new Shader(normalVertexShaderStr, normalFragmentShaderStr);
+
+    this->cachedTextures = new HashMap<int, Integer>();
+    this->cachedShaders = new HashMap<int, Integer>();
 }
 
 OpenGLES2Renderer::~OpenGLES2Renderer() {
+    SafeRelease(this->defaultShader);
+    SafeRelease(this->normalShader);
 
+    SafeRelease(this->cachedTextures);
+    SafeRelease(this->cachedShaders);
 }
 
 void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice);
-void OpenGLES2RendererLoadDefaultShader(Shader* shader);
 
 void OpenGLES2Renderer::init() {
     OpenGLES2RendererNativeInit(this->graphicsDevice);
-    OpenGLES2RendererLoadDefaultShader(this->defaultShader);
 }
 
 
@@ -200,13 +237,21 @@ GLuint OpenGLES2RendererLoadProgram(const char *vertShaderSrc, const char *fragS
    return programObject;
 }
 
-void OpenGLES2RendererLoadDefaultShader(Shader* shader) {
+GLuint OpenGLES2RendererLoadProgram(Shader* shader) {
     // Load the shaders and get a linked program object
-    GLuint programObject = OpenGLES2RendererLoadProgram(shader->vertexShader, shader->fragmentShader);
-    shader->programID = programObject;
+    char* utf8Vertex = shader->vertexShader->toUTF8String();
+    char* utf8Fragment = shader->fragmentShader->toUTF8String();
+
+    GLuint programObject = OpenGLES2RendererLoadProgram(utf8Vertex, utf8Fragment);
+
+    SafeFree(utf8Vertex);
+    SafeFree(utf8Fragment);
+
+    return programObject;
 }
 
 void OpenGLES2Renderer::drawSample() {
+  /*
     logger->debug("drawSample");
 
     const GLfloat squareVertices[] = {
@@ -278,6 +323,7 @@ void OpenGLES2Renderer::drawSample() {
 
     // draw
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    */
 }
 
 Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
@@ -309,17 +355,90 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
     return projMatrix;
 }
 
+// Texture
+GLuint OpenGLES2RendererInitTexture(Texture* texture){
+    GLuint textureID;
+
+    // Use tightly packed data
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Generate a texture object
+    glGenTextures(1, &textureID);
+
+    // Bind the texture object
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    int textureType = GL_RGB;
+  
+    if(texture->channels == 4)
+        textureType = GL_RGBA;
+
+    // Load the texture
+    glTexImage2D(GL_TEXTURE_2D, 0, textureType, texture->getWidth(), 
+        texture->getHeight(), 0, textureType, GL_UNSIGNED_BYTE, texture->getData());
+
+    // Set the filtering mode
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    return textureID;
+}
+
+
+unsigned int OpenGLES2Renderer::loadTextureID(Texture* texture) {
+    int textureID = texture->getID();
+
+    Integer* nativeTextureID = this->cachedTextures->get(textureID);
+
+    if (nativeTextureID == null) {
+        nativeTextureID = new Integer(OpenGLES2RendererInitTexture(texture));
+        this->cachedTextures->put(textureID, nativeTextureID);
+    }
+
+    SafeRelease(nativeTextureID);
+
+    return nativeTextureID->intValue();
+}
+
+unsigned int OpenGLES2Renderer::loadProgramID(Shader* shader) {
+    int shaderID = shader->getID();
+
+    Integer* nativeShaderID = this->cachedShaders->get(shaderID);
+
+    if (nativeShaderID == null) {
+        nativeShaderID = new Integer(OpenGLES2RendererLoadProgram(shader));
+        this->cachedShaders->put(shaderID, nativeShaderID);
+    }
+
+    SafeRelease(nativeShaderID);
+
+    return nativeShaderID->intValue();
+}
+
+GLuint OpenGLES2Renderer::loadShaderFrom(Material* material, Shader* defaultShader) {
+    Shader* shader = null;
+
+    if (material!=null && material->shader!=null) {
+        shader =  material->shader;
+    } else {
+        shader = defaultShader;
+    }
+
+    return this->loadProgramID(shader);
+}
+
 void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {
-    Shader* shader = this->defaultShader;
+    GLuint programID = this->loadProgramID(this->defaultShader);
 
     // Use the program object
-    glUseProgram(shader->programID);
+    glUseProgram(programID);
 
     // Get the attribute locations
-    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix");
-    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
-
-    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+    GLint mvpLoc = glGetUniformLocation(programID, "mvp_matrix");
+    GLint colorLoc = glGetUniformLocation(programID, "u_color");
+    GLint positionLoc = glGetAttribLocation(programID, "a_position");
 
     // transform mesh to camera space
     Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
@@ -335,21 +454,26 @@ void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, con
     // Set Draw Color
     glUniform4fv(colorLoc, 1, (GLfloat*)color.getData());
 
-    glDrawArrays(GL_LINES, 0, 2); 
+    glDrawArrays(GL_LINES, 0, 2);
+
+    // delete program
+    //glDeleteProgram(programID);
 }
 
 void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera){
     //logger->debug("draw mesh");
-    Shader* shader = this->defaultShader;
+    GLuint programID = this->loadShaderFrom(material, this->normalShader);
 
     // Use the program object
-    glUseProgram(shader->programID);
+    glUseProgram(programID);
 
     // Get the attribute locations
-    GLint mvpLoc = glGetUniformLocation(shader->programID, "mvp_matrix");
-    GLint colorLoc = glGetUniformLocation(shader->programID, "u_color");
+    GLint mvpLoc = glGetUniformLocation(programID, "mvp_matrix");
+    GLint colorLoc = glGetUniformLocation(programID, "u_color");
+    GLint positionLoc = glGetAttribLocation(programID, "a_position");
 
-    GLint positionLoc = glGetAttribLocation(shader->programID, "a_position");
+    GLint sampleLoc = glGetUniformLocation(programID, "s_texture");
+    GLint texCoordLoc = glGetAttribLocation(programID, "a_texCoord");
 
     // transform mesh to camera space
     Matrix4x4 mvpMatrix = Matrix4x4::IDENTITY;
@@ -361,6 +485,8 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &mvpMatrix.m[0][0]);
 
    
+    GLuint textureID;
+
     // setup material
     if (material != null) {
         // setup color
@@ -371,15 +497,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
         Texture* mainTexture = material->mainTexture;
 
         if (mainTexture != null) {
-            //GLuint textureID = mainTexture->getNativeTextureID();
-
-            
-            //if (textureID == 0) {
-            //    OpenGLRendererInitTexture(mainTexture);
-            //} else {
-            //    glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
-            //}
-            
+            textureID = this->loadTextureID(mainTexture);
         }
     }
 
@@ -395,10 +513,14 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     }
 
     // Load the texture coordinate
-    //if (mesh->uv) {
-    //    glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
-    //    glEnableVertexAttribArray(texCoordLoc);
-    //}
+    if (mesh->uv) {
+        glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
+        glEnableVertexAttribArray(texCoordLoc);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glUniform1i(sampleLoc, 0);
+    }
     
   
     // Draw Elements
@@ -406,10 +528,24 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
         glDrawElements(GL_TRIANGLES, mesh->triangleIndexCount, GL_UNSIGNED_SHORT, mesh->triangleIndexs);
     }
 
+    // release material
+    /*
+    if (material != null) {
+        Texture* mainTexture = material->mainTexture;
+
+        if (mainTexture != null) {
+            glDeleteTextures(1, &textureID);
+        }
+    }
+    */
+   
     // Disable Texture 2D
     if (mesh->uv || mesh->uv2) {
         glDisable(GL_TEXTURE_2D);
     }
+
+    // delete program
+    //glDeleteProgram(programID);
 }
 
 // native void OpenGLES2Renderer::flushBuffer();
@@ -1166,6 +1302,7 @@ void DGOpenGLES20Lib::popMatrix(){
 	}
 }
 
+
 void DGOpenGLES20Lib::initTexture(DGTexture* texture){
 	// Use tightly packed data
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -1201,12 +1338,10 @@ void DGOpenGLES20Lib::setTexture(DGTexture* texture){
     glUniform1i(ctx.samplerLoc, 0);
 }
 
-
 void  DGOpenGLES20Lib::destroyTexture(DGTexture* texture){
 	// Delete texture object
 	glDeleteTextures(1, &texture->nativeTextureID);
 }
- */
 
 
 

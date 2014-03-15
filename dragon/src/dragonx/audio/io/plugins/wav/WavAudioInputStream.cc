@@ -159,6 +159,8 @@ void WavAudioInputStream::open() {
     vio->tell = stream_tell;
     //vio.write = stream_write;
     //
+    sfinfo.format = filetype;
+
     if (!(infile = sf_open_virtual(vio, SFM_READ, &sfinfo, (void*)ctx))) {   
         String* msg = String::format("Error : could not open file : %s", sf_strerror(NULL));
         IOException* e = new IOException(msg);
@@ -168,8 +170,6 @@ void WavAudioInputStream::open() {
     }
 
     ctx->infile = infile;
-    
-    sfinfo.format = filetype;
 
     if (!sf_format_check(&sfinfo)) {   
         sf_close(infile) ;
