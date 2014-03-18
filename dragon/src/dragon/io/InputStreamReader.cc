@@ -21,28 +21,118 @@
 Import dragon::lang;
 Import dragon::io;
 
-InputStreamReader::InputStreamReader(const InputStream* in) {
+InputStreamReader::InputStreamReader(const InputStream* in) 
+    :firstLine(true) {
 	this->innerStream = const_cast<InputStream*>(in);
     this->innerStream->retain();
     
 	this->charsetName = new String(L"UTF-8");
+    this->line = null;
 }
 
-InputStreamReader::InputStreamReader(const InputStream* in, const String& charset) throw(UnsupportedEncodingException*) {
+InputStreamReader::InputStreamReader(const InputStream* in, const String& charset) throw(UnsupportedEncodingException*) 
+    :firstLine(true) {
     this->innerStream = const_cast<InputStream*>(in);
     this->innerStream->retain();
 
     this->charsetName = new String(charset);
+    this->line = null;
 }
 
 InputStreamReader::~InputStreamReader() {
     this->close();
     SafeDelete(this->charsetName);
     SafeRelease(this->innerStream);
+    SafeRelease(this->line);
 }
 
 void InputStreamReader::close() throw(IOException*) {
 	this->innerStream->close();
+}
+
+void InputStreamReader::readLine() {
+    int bufSize = 64;
+    char* buf = (char*)malloc(bufSize);
+    int n = 0;
+
+    int read = 0;
+    char ch;
+    read = this->innerStream->read(&ch, 1);
+
+    while(read > 0) {
+        if (ch=='\r') {
+            continue;
+        }
+
+        if (n >= bufSize) {
+            int tmpSize = bufSize * 2;
+            char* tmp = (char*)malloc(tmpSize);
+
+            memcpy(tmp, buf, bufSize);
+            bufSize = tmpSize;
+            free(buf);
+
+            buf = tmp;
+        }
+
+        buf[n++] = ch;
+
+        if (ch=='\n') {
+            break;
+        }
+
+        read = this->innerStream->read(&ch, 1);
+    }
+
+
+    SafeRelease(this->line);
+
+    if (n > 0) {
+        if (this->firstLine) {
+            this->checkCharset(buf, n);
+        }
+
+        char* utf8Charset = this->charsetName->toUTF8String();
+        this->line = new String(Array<byte>(buf, n, false), 0, n, utf8Charset);
+        SafeFree(utf8Charset);
+    } else {
+        this->line = new String();
+    }
+
+    this->current = 0;
+
+    SafeFree(buf);
+}
+
+void InputStreamReader::checkCharset(char* buf, size_t n) {
+    if (this->firstLine) {
+        if (n>=3 && buf[0] == 0xEF && buf[1] == 0xBB && buf[2] == 0xBF) {
+            SafeRelease(this->charsetName);
+            this->charsetName = new String("UTF-8");
+            this->current += 3;
+        } else if (n>=2 && buf[0] == 0xFE && buf[1] == 0xFF) {
+            SafeRelease(this->charsetName);
+            this->charsetName = new String("UCS2-little");
+            this->current += 2;
+        } else if (n>=2 && buf[0] == 0xFF && buf[1] == 0xFE) {
+            if (n>=4 && buf[2] == 0x0 && buf[3] == 0x0) {
+                SafeRelease(this->charsetName);
+                this->charsetName = new String("UCS4-little");
+                this->current += 4;
+            } else {
+                SafeRelease(this->charsetName);
+                this->charsetName = new String("UCS2-big");
+                this->current += 2;
+            }
+        } else if (n>=4 && buf[0] == 0x0 && buf[1] == 0x0
+            && buf[2] == 0xFE && buf[3] == 0xFF) {
+            SafeRelease(this->charsetName);
+            this->charsetName = new String("UCS4-big");
+            this->current += 4;
+        }
+
+        this->firstLine = false;
+    }
 }
 
 int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
@@ -51,30 +141,34 @@ int InputStreamReader::read(wchar_u* cbuf, int num, int off, int len) const
         throw new IndexOutOfBoundsException("the write buffer argments");
     }
 
-    int bufSize = len * 2;
-    byte* buf = (byte*)malloc(bufSize);
+    InputStreamReader* reader = const_cast<InputStreamReader*>(this);
 
-	int readByteCount = 0;
-
-    const Array<byte> charset = this->charsetName->getBytes("UTF-8");
-
-    int totalCount = 0;
-    int innerOffset = off;
-
-    while((readByteCount = this->innerStream->read(buf, bufSize, 0, bufSize)) > 0) {
-        String* text = new String(Array<byte>(buf, readByteCount, false), 0, readByteCount, charset.raw());
-        
-        const wchar_u* data = text->toChars();
-        Arrays<wchar_u>::copyOf(data, 0, cbuf, innerOffset, text->length()); 
-        innerOffset += text->length();
-        totalCount += text->length();
-
-        SafeDelete(text);
+    if (this->line == null) {
+        reader->readLine();
     }
 
-    SafeFree(buf);
+    wchar_u* target = cbuf + off;
 
-    return totalCount;
+    int readCount = 0;
+    int size = this->line->length();
+
+    while(this->current < size && readCount < len) {
+        int c1 = size - this->current;
+        int c2 = len - readCount;
+        int count = (c1 > c2) ? c2 : c1;
+
+        this->line->getChars(this->current, this->current + count, target, 0);
+        readCount += count;
+        reader->current += count;
+        target += count;
+
+        if (this->current >= size) {
+            reader->readLine();
+            size = this->line->length();
+        }
+    }
+
+    return readCount;
 }
 
 const String* InputStreamReader::getEncoding() const {

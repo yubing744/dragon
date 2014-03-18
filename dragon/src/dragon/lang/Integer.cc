@@ -150,10 +150,15 @@ String* Integer::toString() const {
 }
 
 
-Integer* Integer::parseInt(const String& str) {
+Integer* Integer::parseInt(const String& str) throw(NumberFormatException*) {
     const Array<byte> data = str.getBytes("UTF-8");
     const char* num = data.raw();
     int value = atoi(num);
+
+    if (value==0 && !str.matches("-?\\d+")) {
+        throw new NumberFormatException();
+    }
+
     return new Integer(value);
 }
 

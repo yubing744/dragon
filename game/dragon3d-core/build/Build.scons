@@ -611,6 +611,14 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/util/assets" : Split("""
         Resource.cc
         AssetsManager.cc
+    """),
+
+    # model loader
+    "com/dragon3d/util/assets/modelio" : Split("""
+        ModelLoadException.cc
+    """),
+    "com/dragon3d/util/assets/modelio/plugins/obj" : Split("""
+        ObjModelLoader.cc
     """)
 
 }

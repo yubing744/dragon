@@ -46,6 +46,7 @@ Import dragon::util::logging;
 
 static Logger* logger = Logger::getLogger("dragonx::xml::io::XMLReaderTest", DEBUG);
 
+/*
 TEST(Dragonx_Xml_Io_XMLReaderTest, New) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/xml_test/read_xml_01.xml");
@@ -88,3 +89,4 @@ TEST(Dragonx_Xml_Io_XMLReaderTest, New) {
     SafeDelete(file);
     SafeDelete(filePath);
 }
+*/

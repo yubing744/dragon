@@ -136,6 +136,17 @@ String* Long::toString() {
     return Long::toString(this->value);
 }
 
+Long* Long::parseLong(const String& str) throw(NumberFormatException*) {
+    const Array<byte> data = str.getBytes("UTF-8");
+    const char* num = data.raw();
+    long value = atol(num);
+
+    if (value==0 && !str.matches("-?\\d+")) {
+        throw new NumberFormatException();
+    }
+
+    return new Long(value);
+}
 
 //--------- Implements dragon::lang::Number --------------
 dg_int Long::intValue() {

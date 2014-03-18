@@ -39,10 +39,16 @@
 #define EndPackage4							   }}}}
 
 #define BeginPackage5(name1,name2,name3,name4,name5) namespace name1{namespace name2{namespace name3{namespace name4{namespace name5{
-#define EndPackage5							   }}}}}
+#define EndPackage5							       }}}}}
 
 #define BeginPackage6(name1,name2,name3,name4,name5,name6) namespace name1{namespace name2{namespace name3{namespace name4{namespace name5{namespace name6{
-#define EndPackage6							   }}}}}}
+#define EndPackage6							            }}}}}}
+
+#define BeginPackage7(name1,name2,name3,name4,name5,name6,name7) namespace name1{namespace name2{namespace name3{namespace name4{namespace name5{namespace name6{namespace name7{
+#define EndPackage7							                }}}}}}}
+
+#define BeginPackage8(name1,name2,name3,name4,name5,name6,name7,name8) namespace name1{namespace name2{namespace name3{namespace name4{namespace name5{namespace name6{namespace name7{namespace name8{
+#define EndPackage8							                    }}}}}}}
 
 // Define import
 #define Import using namespace

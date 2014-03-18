@@ -984,6 +984,7 @@ dragon_SOURCES = {
         IndexOutOfBoundsException.cc
         UnsupportedEncodingException.cc
         UnsupportedOperationException.cc
+        NumberFormatException.cc
 
         Null.cc
         Boolean.cc
@@ -1006,6 +1007,11 @@ dragon_SOURCES = {
         LibraryClassLoader.cc
         SystemClassLoader.cc 
     """),
+
+    "dragon/util" : Split("""
+        Scanner.cc
+    """),
+       
     "dragon/util/regex" : Split("""
         PatternSyntaxException.cc 
         Pattern.cc 
@@ -1188,6 +1194,7 @@ dragon_test_SOURCES = {
 
         IntegerTest.cc
         LongTest.cc
+        FloatTest.cc
         StringBufferTest.cc
 
         ClassLoaderTest.cc 
@@ -1207,6 +1214,7 @@ dragon_test_SOURCES = {
     "dragon/util" : Split("""
         ArrayListTest.cc 
         HashMapTest.cc
+        ScannerTest.cc
     """),      
     "dragon/util/regex" : Split("""
         PatternSyntaxExceptionTest.cc 

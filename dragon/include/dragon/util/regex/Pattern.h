@@ -38,8 +38,10 @@ public:
 	friend class Matcher;
 
 public:
+	static Pattern* compile(const String& regex);
 	static Pattern* compile(const String* regex);
 	static Pattern* compile(const String* regex, int flags);
+
 	static bool matches(String* regex, String* input);
 	static void release(Pattern* p);
 

@@ -28,7 +28,7 @@
 #include <dragon/lang/Number.h>
 #include <dragon/lang/reflect/Type.h>
 #include <dragon/lang/String.h>
-
+#include <dragon/lang/NumberFormatException.h>
 
 BeginPackage2(dragon, lang)
 
@@ -42,7 +42,7 @@ public:
     static const Type* PRIMARY_TYPE;
     
 public:
-    static Double* parseDouble(const String& str);
+    static Double* parseDouble(const String& str) throw(NumberFormatException*);
     static String* toString(double val);
 
 public:

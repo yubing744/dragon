@@ -45,7 +45,7 @@ public:
 	Type* operator->(){ return mpType; };
 	operator Type*() { return mpType; };
 	bool operator==(const Reference& ref);
-
+	
 public:
 	Type* raw() const { return mpType;};
 	void* ployCast(Type* p);

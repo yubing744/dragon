@@ -29,12 +29,13 @@ const Type* Model::TYPE = TypeOf<Model>();
 
 Model::Model() 
     :mesh(null), material(null) {
-
+    this->name = new String("No Name");
 }
 
 Model::~Model() {
     SafeRelease(this->mesh);
     SafeRelease(this->material);
+    SafeRelease(this->name);
 }
 
 bool Model::isTypeOf(const Type* type) {
@@ -64,4 +65,15 @@ Material* Model::getMaterial() {
     Material* material = this->material;
     SafeRetain(material);
     return material;
+}
+
+void Model::setName(const String& name) {
+    SafeRelease(this->name);
+    this->name = new String(name);
+}
+
+String* Model::getName() {
+    String* name = this->name;
+    SafeRetain(name);
+    return name;  
 }
