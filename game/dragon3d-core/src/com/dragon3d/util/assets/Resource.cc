@@ -20,8 +20,9 @@
  * Created:     2014/02/11
  **********************************************************************/
 
-#include <dragon/lang/System.h>
 #include <dragon/io/File.h>
+#include <dragon/lang/System.h>
+#include <dragon/lang/StringBuffer.h>
 #include <dragon/io/FileInputStream.h>
 
 #include <dragon/util/logging/Logger.h>
@@ -54,7 +55,6 @@ InputStream* Resource::getInputStream() {
     return fis;
 }
 
-
 String* Resource::getType() {
     int pos = this->uri->lastIndexOf(".");
 
@@ -67,4 +67,24 @@ String* Resource::getType() {
     }
 
     return null;
+}
+
+Resource* Resource::getResource(const String& path) {
+    StringBuffer* sb = new StringBuffer();
+    
+    int pos = this->uri->lastIndexOf("/");
+
+    if (pos > 0) {
+        String* base = this->uri->substring(0, pos);
+        sb->append(base);
+        SafeRelease(base);
+    }
+
+    sb->append(path);
+
+    String* resPath = sb->toString();
+    Resource* res = new Resource(resPath);
+    SafeRelease(resPath);
+
+    return res;
 }

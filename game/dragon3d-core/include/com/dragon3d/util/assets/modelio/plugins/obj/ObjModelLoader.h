@@ -29,12 +29,14 @@
 #include <dragon/io/Reader.h>
 #include <dragon/util/Scanner.h>
 #include <com/dragon3d/util/assets/modelio/ModelLoader.h>
+#include <com/dragon3d/util/assets/modelio/plugins/obj/ObjMTLLoader.h>
 
 BeginPackage7(com, dragon3d, util, assets, modelio, plugins, obj)
 
 Import dragon::util;
 Import dragon::lang;
 Import com::dragon3d::util::assets::modelio;
+Import com::dragon3d::util::assets::modelio::plugins::obj;
 
 class_ ObjModelLoader extends(Object) 
     implements1(ModelLoader) {
@@ -46,12 +48,25 @@ public:
     virtual ~ObjModelLoader();
 
 public:
-    virtual Model* load(InputStream* stream) throw(ModelLoadException*);
+    virtual Model* load(Resource* res) throw(ModelLoadException*);
     
 protected:
-    virtual void loadFromReader(Model* model, Reader* reader) throw(ModelLoadException*);
-    virtual void loadFromScanner(Model* model, Scanner* scanner) throw(ModelLoadException*);
+    virtual Model* load(Resource* res, InputStream* stream) throw(ModelLoadException*);
+    virtual void loadFromReader(Model* model, Resource* res, Reader* reader) throw(ModelLoadException*);
+    virtual void loadFromScanner(Model* model, Resource* res, Scanner* scanner) throw(ModelLoadException*);
 
+    virtual void parseModelName(Scanner* scanner, Model* model) throw(ModelLoadException*);
+    virtual void parseMeshVertices(Scanner* scanner, Vector3** pVertices, int n) throw(ModelLoadException*);
+    virtual void parseMeshTextureVertices(Scanner* scanner, Vector2** pTextures, int n) throw(ModelLoadException*);
+    virtual void parseMeshVertexNormals(Scanner* scanner, Vector3** pNormals, int n) throw(ModelLoadException*);
+    virtual void parseMeshTriangleFace(Scanner* scanner, Mesh* mesh, Vector3* vertices, Vector2* uvs, Vector3* normals) throw(ModelLoadException*);
+
+    virtual void parseMaterialLib(Model* model, Resource* baseRes, Scanner* scanner) throw(ModelLoadException*);
+
+    virtual void filterMesh(Mesh* mesh);
+
+protected:
+    ObjMTLLoader* mtlLoader;
 };//ObjModelLoader
 
 EndPackage7 //(com, dragon3d, util, assets, modelio, plugins, obj)

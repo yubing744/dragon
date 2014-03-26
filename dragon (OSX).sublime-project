@@ -7,7 +7,12 @@
 	],
 	"settings":
 	{
+		/*
 		"sublimegdb_commandline": "gdb --interpreter=mi ./dragon/targets/universal-apple-macosx/debug/dragon_test",
+		*/
+	
+		"sublimegdb_commandline": "gdb --interpreter=mi ./game/dragon3d-core/targets/universal-apple-macosx/debug/dragon3d-core-test",
+
 		"sublimegdb_workingdir": "/Users/yubing/Develop/GitRepos/dragon"
 	}
 }

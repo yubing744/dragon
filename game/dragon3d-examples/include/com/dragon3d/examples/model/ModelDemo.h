@@ -17,34 +17,42 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/02/15
+ * Created:     2014/03/22
  **********************************************************************/
 
 
-#include <dragon/util/logging/Logger.h>
-#include <com/dragon3d/util/assets/AssetsManager.h>
+#ifndef ModelDemo_Model_Examples_Dragon3d_Com_H
+#define ModelDemo_Model_Examples_Dragon3d_Com_H
 
-Import dragon::util::logging;
-Import com::dragon3d::util::assets;
+#include <dragon3d.h>
+#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/scene/GameObject.h>
 
-const Type* AssetsManager::TYPE = TypeOf<AssetsManager>();
-static Logger* logger = Logger::getLogger(AssetsManager::TYPE, ERROR);
+BeginPackage4(com, dragon3d, examples, model)
 
-AssetsManager* AssetsManager::am = null;
+Import com::dragon3d::scene;
+Import com::dragon3d::framework;
 
-AssetsManager* AssetsManager::getInstance() {
-    if (am == null) {
-        am = new AssetsManager();
-    }
+class_ ModelDemo extends(Application) {
+public:
+    static const Type* TYPE;
+    
+public:
+    ModelDemo();
+    virtual ~ModelDemo();
 
-    return am;
-}
+public:
+    virtual void init();
+    virtual void update(Scene* scene, ReadOnlyTimer* timer);
+    virtual void destroy();
+    
+protected:
+    GameObject* myBox;
+    GameObject* mainCamera;
+    GameObject* child;
+    
+};//ModelDemo
 
-AssetsManager::AssetsManager() {
+EndPackage4 //(com, dragon3d, examples, model)
 
-}
-
-AssetsManager::~AssetsManager() {
-
-}
-
+#endif //ModelDemo_Model_Examples_Dragon3d_Com_H

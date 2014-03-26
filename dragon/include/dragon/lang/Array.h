@@ -37,55 +37,72 @@ public:
 		this->count = 0;
 		this->data = null;
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
 	Array(int size) {
 		this->count = size;
 		this->data = new T[size];
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
-	Array(const T* data, int count) {
+	Array(T* data, int count) {
 		this->count = count;
-		this->data = const_cast<T*>(data);
-
+		this->data = data;
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
 	Array(const Array& arr) {
 		this->count = arr.count;
 		this->data = arr.data;
-		this->obj = arr.obj;
-		this->freeData = arr.freeData; 
+		this->obj = null;
 
-		this->obj->retain();
+		if (arr.obj != null) {
+			this->obj = arr.obj; 
+			this->obj->retain();
+		}
 	};
 
 	Array(T* data, int count, bool freeData) {
 		this->count = count;
 		this->data = data;
-		this->obj = new Object();
-		this->freeData = freeData;
+		this->obj = null;
+
+		if (freeData) {
+			this->obj = new Object();
+		} 
 	};
 
 	~Array() {
 		this->release();
 	};
 
-public:
-	void release() {
-		if (this->obj->getRefCount() <= 0 && this->freeData) {
-			SafeDeleteArray(this->data);
+public: // reference countting
+	void retain() {
+		if (this->obj != null) {
+			this->obj->retain();
 		}
-		
-		this->obj->release();
-		this->obj = null;
+	}
+
+	void release() {
+		if (this->obj != null) {
+			if (this->obj->getRefCount() <= 0) {
+				SafeDeleteArray(this->data);
+			}
+			
+			this->obj->release();
+			this->obj = null;
+		}
 
 		this->data = null;
 		this->count = 0;
+	}
+
+	int getRefCount() {
+		if (this->obj != null) {
+			return this->obj->getRefCount();
+		}
+
+		return 0;
 	}
 
 public:
@@ -95,8 +112,10 @@ public:
 		this->count = arr.count;
 		this->data = arr.data;
 
-		this->obj = arr.obj;
-		this->obj->retain();
+		if (arr.obj != null) {
+			this->obj = arr.obj;
+			this->obj->retain();
+		}
 
 		return *this;
 	};
@@ -122,6 +141,32 @@ public:
 		this->data[index] = t;
 	};
 
+	void add(const T& t) {
+		T* tmp = new T[this->count + 1];
+		memcpy(tmp, this->data, sizeof(T) * this->count);
+		tmp[this->count] = t;
+		free(this->data);
+
+		this->data = tmp;
+	};
+
+	void add(const T* data, int count) {
+		T* tmp = new T[this->count + count];
+		memcpy(tmp, this->data, sizeof(T) * this->count);
+
+		for (int i=0; i<count; i++) {
+			tmp[this->count + i] = data[i];
+		}
+
+		free(this->data);
+
+		this->data = tmp;
+	};
+
+	void add(const Array<T>& arr) {
+		this->add(arr.raw(), arr.size());
+	};
+
 	int size() const {
 		return this->count;
 	};
@@ -135,11 +180,9 @@ public:
 	};
 
 private:
-	T* data;
-	int count;
-
 	Object* obj;
-	bool freeData;
+	int count;
+	T* data;
 };
 
 EndPackage2//(dragon, lang)

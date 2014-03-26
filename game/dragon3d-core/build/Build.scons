@@ -433,6 +433,18 @@ if os.path.exists(target_config_file):
 # Build Config
 THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
+# delaunay lib
+LibraryModule(
+    name                  = 'delaunay',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/Delaunay",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT,
+    build_source_dirs     = ['Delaunay'],
+    shared                = False,
+    install               = True
+)
+
 # lib openal
 mob_SOURCES = Split("""
     alConfigMob.c
@@ -614,11 +626,16 @@ dragon3d_core_SOURCES = {
     """),
 
     # model loader
+    "com/dragon3d/util/assets/modelio/plugins/obj" : Split("""
+        ObjMTLLoader.cc
+        ObjModelLoader.cc
+    """),
+    "com/dragon3d/util/assets/modelio/spi" : Split("""
+        ModelLoaderRegistry.cc
+    """),
     "com/dragon3d/util/assets/modelio" : Split("""
         ModelLoadException.cc
-    """),
-    "com/dragon3d/util/assets/modelio/plugins/obj" : Split("""
-        ObjModelLoader.cc
+        ModelIO.cc
     """)
 
 }
@@ -637,7 +654,8 @@ LibraryModule(
     source_root           = 'src',
     linked_modules        = [
         'dragon',
-        'openal'
+        'openal',
+        'delaunay'
     ] + env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True
@@ -650,6 +668,9 @@ dragon3d_core_test_SOURCES = {
         Vector3Test.cc
         QuaternionTest.cc
         Matrix4x4Test.cc
+    """),
+    "com/dragon3d/util/assets/modelio" : Split("""
+        ModelIOTest.cc
     """),
     "." : Split("""
         TestMain.cc

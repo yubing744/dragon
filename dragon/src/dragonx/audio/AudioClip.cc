@@ -37,7 +37,7 @@ const Type* AudioClip::TYPE = TypeOf<AudioClip>();
 static Logger* logger = Logger::getLogger(AudioClip::TYPE, ERROR);
 
 
-AudioClip::AudioClip(const AudioFormat* format, const byte* data, size_t off, size_t len) {
+AudioClip::AudioClip(const AudioFormat* format, byte* data, size_t off, size_t len) {
     this->stream = new ByteArrayAudioInputStream(format, Array<byte>(data + off, len));
     this->stream->open();
 }

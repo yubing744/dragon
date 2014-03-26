@@ -137,14 +137,13 @@ String* Long::toString() {
 }
 
 Long* Long::parseLong(const String& str) throw(NumberFormatException*) {
-    const Array<byte> data = str.getBytes("UTF-8");
-    const char* num = data.raw();
-    long value = atol(num);
-
-    if (value==0 && !str.matches("-?\\d+")) {
+    if (!str.matches("-?\\d+")) {
         throw new NumberFormatException();
     }
 
+    const Array<byte> data = str.getBytes("UTF-8");
+    const char* num = data.raw();
+    long value = atol(num);
     return new Long(value);
 }
 

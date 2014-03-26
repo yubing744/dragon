@@ -17,34 +17,38 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/02/15
+ * Created:     2014/03/19
  **********************************************************************/
 
 
-#include <dragon/util/logging/Logger.h>
-#include <com/dragon3d/util/assets/AssetsManager.h>
+#ifndef ModelIO_Modelio_Assets_Util_Dragon3d_Com_H
+#define ModelIO_Modelio_Assets_Util_Dragon3d_Com_H
 
-Import dragon::util::logging;
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <dragon/io/File.h>
+#include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/util/assets/Resource.h>
+
+BeginPackage5(com, dragon3d, util, assets, modelio)
+
+Import dragon::io;
+Import dragon::lang;
+Import com::dragon3d::scene::model;
 Import com::dragon3d::util::assets;
 
-const Type* AssetsManager::TYPE = TypeOf<AssetsManager>();
-static Logger* logger = Logger::getLogger(AssetsManager::TYPE, ERROR);
 
-AssetsManager* AssetsManager::am = null;
+class_ ModelIO extends(Object) {
+public:
+    static const Type* TYPE;
+    
+public:
+    static Model* load(File* file);
+    static Model* load(Resource* res);
+    static Model* load(const String& resPath);
 
-AssetsManager* AssetsManager::getInstance() {
-    if (am == null) {
-        am = new AssetsManager();
-    }
+};//ModelIO
 
-    return am;
-}
+EndPackage5 //(com, dragon3d, util, assets, modelio)
 
-AssetsManager::AssetsManager() {
-
-}
-
-AssetsManager::~AssetsManager() {
-
-}
-
+#endif //ModelIO_Modelio_Assets_Util_Dragon3d_Com_H

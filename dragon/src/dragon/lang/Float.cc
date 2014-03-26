@@ -50,13 +50,12 @@ float Float::floatValue() {
 }
 
 Float* Float::parseFloat(const String& str) throw(NumberFormatException*) {
-    const Array<byte> data = str.getBytes("UTF-8");
-    double val = atof(data.raw());
-
-    if (Math::abs(val) < (1e-8) && !str.matches("-?\\d+(\\.\\d+)?")) {
+    if (!str.matches("-?\\d+(\\.\\d+)?")) {
         throw new NumberFormatException();
     }
 
+    const Array<byte> data = str.getBytes("UTF-8");
+    double val = atof(data.raw());
     return new Float((float)val);
 }
 

@@ -45,6 +45,7 @@ public:
 public:
     virtual InputStream* getInputStream();
     virtual String* getType();
+    virtual Resource* getResource(const String& path);
 
 protected:
     String* uri;

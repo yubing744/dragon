@@ -17,34 +17,27 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/02/15
+ * Created:     2014/03/26
  **********************************************************************/
 
 
+#include <com/dragon3d/util/assets/modelio/plugins/obj/ObjMTLLoader.h>
 #include <dragon/util/logging/Logger.h>
-#include <com/dragon3d/util/assets/AssetsManager.h>
 
 Import dragon::util::logging;
-Import com::dragon3d::util::assets;
+Import com::dragon3d::util::assets::modelio::plugins::obj;
 
-const Type* AssetsManager::TYPE = TypeOf<AssetsManager>();
-static Logger* logger = Logger::getLogger(AssetsManager::TYPE, ERROR);
+const Type* ObjMTLLoader::TYPE = TypeOf<ObjMTLLoader>();
+static Logger* logger = Logger::getLogger(ObjMTLLoader::TYPE, ERROR);
 
-AssetsManager* AssetsManager::am = null;
-
-AssetsManager* AssetsManager::getInstance() {
-    if (am == null) {
-        am = new AssetsManager();
-    }
-
-    return am;
-}
-
-AssetsManager::AssetsManager() {
+ObjMTLLoader::ObjMTLLoader() {
 
 }
 
-AssetsManager::~AssetsManager() {
+ObjMTLLoader::~ObjMTLLoader() {
 
 }
 
+List<Material>* ObjMTLLoader::load(Resource* res) throw(ModelLoadException*) {
+    return null;
+}

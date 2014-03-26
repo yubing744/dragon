@@ -24,8 +24,8 @@
 #include <com/dragon3d/util/assets/modelio/ModelLoadException.h>
 #include <dragon/util/logging/Logger.h>
 
-Import com::dragon3d::util::assets::modelio;
 Import dragon::util::logging;
+Import com::dragon3d::util::assets::modelio;
 
 const Type* ModelLoadException::TYPE = TypeOf<ModelLoadException>();
 static Logger* logger = Logger::getLogger(ModelLoadException::TYPE, ERROR);

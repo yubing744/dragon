@@ -4,6 +4,70 @@
 		"selected_items":
 		[
 			[
+				"ver",
+				"vertexCount"
+			],
+			[
+				"ve",
+				"vector	std::vector"
+			],
+			[
+				"Ve",
+				"Vector3"
+			],
+			[
+				"Vec",
+				"Vector2"
+			],
+			[
+				"in",
+				"indices"
+			],
+			[
+				"St",
+				"System"
+			],
+			[
+				"de",
+				"delimiter"
+			],
+			[
+				"File",
+				"FileInputStream"
+			],
+			[
+				"ut",
+				"utf8Path"
+			],
+			[
+				"ca",
+				"cameras"
+			],
+			[
+				"com",
+				"component"
+			],
+			[
+				"GL_TE",
+				"GL_TEXTURE0"
+			],
+			[
+				"pro",
+				"programID"
+			],
+			[
+				"nati",
+				"nativeShaderID"
+			],
+			[
+				"cac",
+				"cachedTextures"
+			],
+			[
+				"curr",
+				"currentScene"
+			],
+			[
 				"colo",
 				"colorVal"
 			],
@@ -36,10 +100,6 @@
 				"AudioClip"
 			],
 			[
-				"de",
-				"destroy"
-			],
-			[
 				"dra",
 				"dragon3d"
 			],
@@ -50,10 +110,6 @@
 			[
 				"Game",
 				"GameException"
-			],
-			[
-				"in",
-				"include"
 			],
 			[
 				"by",
@@ -160,10 +216,6 @@
 				"OutputStreamWriter"
 			],
 			[
-				"com",
-				"compact"
-			],
-			[
 				"get",
 				"getDocumentFactory"
 			],
@@ -258,10 +310,6 @@
 			[
 				"game",
 				"gameObject"
-			],
-			[
-				"ca",
-				"cameras"
 			],
 			[
 				"pi",
@@ -466,218 +514,96 @@
 			[
 				"is",
 				"is_64bit_image"
-			],
-			[
-				"lib",
-				"librarys"
-			],
-			[
-				"res",
-				"result"
-			],
-			[
-				"find",
-				"findClass"
-			],
-			[
-				"pack",
-				"packageName"
-			],
-			[
-				"pr",
-				"procAddress"
-			],
-			[
-				"sett",
-				"setter_name"
-			],
-			[
-				"Sym",
-				"SymTestBean2"
-			],
-			[
-				"m_p",
-				"m_pFunction"
-			],
-			[
-				"te",
-				"testVal1"
-			],
-			[
-				"set",
-				"setBytePtr2"
-			],
-			[
-				"sig",
-				"signature"
-			],
-			[
-				"push",
-				"push_back"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
+			"file": "game/dragon3d-core/src/com/dragon3d/util/assets/modelio/plugins/obj/ObjModelLoader.cc",
 			"settings":
 			{
-				"buffer_size": 8851,
+				"buffer_size": 8953,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
+			"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc",
 			"settings":
 			{
-				"buffer_size": 5680,
+				"buffer_size": 3415,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/libtga-ex-1.0.0/src/tga.c",
+			"file": "dragon/src/dragon/util/Scanner.cc",
 			"settings":
 			{
-				"buffer_size": 3364,
+				"buffer_size": 7965,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/image/BufferedImage.cc",
+			"file": "dragon/src/dragon/lang/String.cc",
 			"settings":
 			{
-				"buffer_size": 4998,
+				"buffer_size": 22780,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragon/lang/Object.cc",
+			"file": "dragon/test/dragon/util/ScannerTest.cc",
 			"settings":
 			{
-				"buffer_size": 2976,
+				"buffer_size": 5007,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/image/io/plugins/bmp/BMPImageWriter.cc",
+			"file": "game/dragon3d-core/test/com/dragon3d/util/assets/modelio/ModelIOTest.cc",
 			"settings":
 			{
-				"buffer_size": 15001,
+				"buffer_size": 2132,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/image/io/plugins/jpeg/JPEGImageReader.cc",
+			"file": "dragon/include/dragon/util/Scanner.h",
 			"settings":
 			{
-				"buffer_size": 7023,
+				"buffer_size": 2364,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/test/dragonx/image/io/ImageIOTest.cc",
+			"file": "dragon/src/dragon/lang/Float.cc",
 			"settings":
 			{
-				"buffer_size": 21302,
+				"buffer_size": 1875,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
+			"file": "dragon/include/dragon/lang/Arrays.h",
 			"settings":
 			{
-				"buffer_size": 17910,
+				"buffer_size": 1344,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/giflib-4.2.3/lib/egif_lib.c",
+			"file": "dragon/include/dragon/lang/Array.h",
 			"settings":
 			{
-				"buffer_size": 37434,
+				"buffer_size": 5312,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "third_party/giflib-4.2.3/lib/gifalloc.c",
+			"file": "game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
 			"settings":
 			{
-				"buffer_size": 14508,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/libtga-ex-1.0.0/src/tgaread.c",
-			"settings":
-			{
-				"buffer_size": 7511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dragon/src/dragonx/image/io/plugins/tga/TGAImageWriter.cc",
-			"settings":
-			{
-				"buffer_size": 4655,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 2775 files for \"TGAOpenUserDef\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.c:\n  103  \n  104  TGA*\n  105: TGAOpenUserDef(void *io,\n  106  			TGAFGetcFunc fgetcFunc, TGAFReadFunc freadFunc,\n  107  			TGAFPutcFunc fputcFunc, TGAFWriteFunc fwriteFunc,\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.h:\n  187  TGA* TGAOpenFd __P((FILE *fd));\n  188  \n  189: TGA* TGAOpenUserDef __P((void *io,\n  190  				TGAFGetcFunc fgetcFunc, TGAFReadFunc freadFunc,\n  191  				TGAFPutcFunc fputcFunc, TGAFWriteFunc fwriteFunc,\n\n2 matches across 2 files\n\n\nSearching 2775 files for \"TGA_CAN_SWAP\" (case sensitive)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/ChangeLog:\n   77  2002-03-17  Matthias Brueckner <matbrc@gmx.de>\n   78  	\n   79: 	- added TGA_CAN_SWAP macro\n   80  	\n   81  2002-03-08  Matthias Brueckner <matbrc@gmx.de>\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tga.h:\n  215  #define TGA_IMG_DATA_SIZE(tga)	((tga)->hdr.width * (tga)->hdr.height * (tga)->hdr.depth / 8)\n  216  #define TGA_SCANLINE_SIZE(tga)	((tga)->hdr.width * (tga)->hdr.depth / 8)\n  217: #define TGA_CAN_SWAP(depth)     (depth == 24 || depth == 32)\n  218  \n  219  #define TGA_IS_MAPPED(tga)      ((tga)->hdr.map_t == 1)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tgaread.c:\n  206  	}	\n  207  		\n  208: 	if (TGA_CAN_SWAP(tga->hdr.map_entry) && (flags & TGA_RGB)) {\n  209  		__TGAbgr2rgb(*buf, TGA_CMAP_SIZE(tga), tga->hdr.map_entry / 8);\n  210  	}\n  ...\n  305  	}\n  306  	\n  307: 	if (TGA_CAN_SWAP(tga->hdr.depth) && (flags & TGA_RGB)) {\n  308  		__TGAbgr2rgb(buf + (sln_size * sln), sln_size * n, \n  309  			   tga->hdr.depth / 8);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tgawrite.c:\n  171  	off = TGA_CMAP_OFF(tga);\n  172  \n  173: 	if (TGA_CAN_SWAP(tga->hdr.map_entry) && (flags & TGA_RGB)) {\n  174  		__TGAbgr2rgb(buf, n, tga->hdr.map_entry / 8);\n  175  	}\n  ...\n  276  	}\n  277  \n  278: 	if (TGA_CAN_SWAP(tga->hdr.depth) && (flags & TGA_RGB)) \n  279  		__TGAbgr2rgb(buf + (sln * sln_size), sln_size * n, \n  280  			   tga->hdr.depth / 8);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.h:\n  236  #define TGA_IMG_DATA_SIZE(tga)	((tga)->hdr.width * (tga)->hdr.height * (tga)->hdr.depth / 8)\n  237  #define TGA_SCANLINE_SIZE(tga)	((tga)->hdr.width * (tga)->hdr.depth / 8)\n  238: #define TGA_CAN_SWAP(depth)     (depth == 24 || depth == 32)\n  239  \n  240  #define TGA_IS_MAPPED(tga)      ((tga)->hdr.map_t == 1)\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaread.c:\n  210  	}	\n  211  		\n  212: 	if (TGA_CAN_SWAP(tga->hdr.map_entry) && (flags & TGA_RGB)) {\n  213  		__TGAbgr2rgb(*buf, TGA_CMAP_SIZE(tga), tga->hdr.map_entry / 8);\n  214  	}\n  ...\n  330  	}\n  331  	\n  332: 	if (TGA_CAN_SWAP(tga->hdr.depth) && (flags & TGA_RGB)) {\n  333  		__TGAbgr2rgb(buf + (sln_size * sln), sln_size * n, \n  334  			   tga->hdr.depth / 8);\n\n/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgawrite.c:\n  182  	off = TGA_CMAP_OFF(tga);\n  183  \n  184: 	if (TGA_CAN_SWAP(tga->hdr.map_entry) && (flags & TGA_RGB)) {\n  185  		__TGAbgr2rgb(buf, n, tga->hdr.map_entry / 8);\n  186  	}\n  ...\n  289  	}\n  290  \n  291: 	if (TGA_CAN_SWAP(tga->hdr.depth) && (flags & TGA_RGB)) \n  292  		__TGAbgr2rgb(buf + (sln * sln_size), sln_size * n, \n  293  			   tga->hdr.depth / 8);\n\n11 matches across 7 files\n",
-			"settings":
-			{
-				"buffer_size": 3489,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "third_party/libtga-ex-1.0.0/src/tgawrite.c",
-			"settings":
-			{
-				"buffer_size": 6258,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/lpng167/pngwrite.c",
-			"settings":
-			{
-				"buffer_size": 74233,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "third_party/lpng167/png.c",
-			"settings":
-			{
-				"buffer_size": 148015,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragonx/image/io/plugins/png/PNGImageWriter.cc",
-			"settings":
-			{
-				"buffer_size": 4609,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "third_party/libtga-1.0.1/src/tgawrite.c",
-			"settings":
-			{
-				"buffer_size": 6031,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "default.supp",
-			"settings":
-			{
-				"buffer_size": 18266,
+				"buffer_size": 4773,
 				"line_ending": "Unix"
 			}
 		}
@@ -774,134 +700,134 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-1.0.1/src/tgaread.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaread.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/ReferenceTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Reference.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/giflib-4.2.3/lib/gifalloc.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/giflib-4.2.3/lib/gif_lib.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/lpng167/pngread.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/json/JSONObjectTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONObject.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/File.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/concurrent/locks/ReentrantLock.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Stack.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/gc/MemoryAllocTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/io/ImageIOTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/libjson/json.c",
-		"/usr/include/c++/4.2.1/bits/stl_map.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/HashMapTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/ArrayList.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/ArrayListTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ObjectTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/StringBuffer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileOutputStreamTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileReaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/json/JSONArray.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONArray.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/json/JSONObject.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/OutputStreamWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Writer.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/platform_mac.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Runnable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Comparable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileInputStreamTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/Shader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/gc/GarbageCollector.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Color.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Color.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/docs/gen-code/cpp/Shader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/shader/Shader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/xml/io/XMLReaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/xml/io/XMLWriterTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/xml/io/XMLReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStreamReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/xml/io/XMLWriter.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileOutputStream.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/FileOutputStream_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileWriter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/OutputStreamWriter.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileWriterTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AudioClip.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/BufferedImage.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/ColorModel.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/Image.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/RenderedImage.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/jpeg/JPEGImageReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/AbstractAudioReader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/FileOutputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStreamReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/System.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/xml/DocumentFactory.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/xml/DocumentFactory.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/xml/DocumentHelper.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/jpeg-9/jerror.c",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/image/io/plugins/jpeg/JPEGImageReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/ImageIO.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include/com/dragon3d/examples/model/ModelDemo.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/model/ModelDemo.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/texture/TextureDemo.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/plugins/obj/ObjModelLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/modelio/plugins/obj/ObjModelLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Array.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/ThreadTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Class.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Method.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/reflect/Constructor.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/geometry/Box.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/assets/modelio/ModelIOTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Texture.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/Scanner.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/obj_loader-0.0.1/obj_loader.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/ModelIO.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStreamReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/dg_obj_loader.cpp",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLRenderer.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/AUdioClip.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/List.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/File_posix.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Texture.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/AudioClip.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/lib3ds-1.3.0/lib3ds/mesh.c",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeGDB.sublime-settings",
+		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/SublimeDragon/SublimeDragon.sublime-settings",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/modelio/ModelIO.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Reference.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Matcher.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/lpng167/contrib/visupng/resource.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/FileInputStream.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/FileInputStream_posix.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStream.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Exception.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/xml/DocumentHelper.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/ReferenceWithGC.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/osx/AppLauncher.mm",
-		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Countable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/OutputDevice.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Plane.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/build_mac/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/concurrent/atomic/AtomicInteger.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/OpenAL32/include/alu.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/OpenAL32/include/alAuxEffectSlot.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/Alc/helpers.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/OpenAL32/include/alSource.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/Alc/ALc.c",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/include/AL/alconflict.h",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/src/libmpg123/dct64_x86_64_float.S",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon (OSX).sublime-project",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/spi/ModelLoaderRegistry.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/modelio/spi/ModelLoaderRegistry.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/spi/AudioClipIORegistry.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragonx/audio/io/spi/AudioClipIORegistry.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/TreeMap.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/AssetsManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/Resource.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/AssetsManager.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/ScannerTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/Scanner.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Model.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/docs/gen-code/cpp/Model.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/io/FileReaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Reader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Arrays.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/CharSequence.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Comparable.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Float.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/FloatTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Float.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/NumberFormatException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/NumberFormatException.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_mac.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/build/targets/x86-apple-ios/Config.scons",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/regex/Pattern.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Double.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Double.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Integer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Integer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/IntegerTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Long.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Long.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/LongTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/convert.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStreamReader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/xml/io/XMLReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/xml/io/XMLReaderTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Reader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/InputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/util/regex/RegexTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/regex/Pattern.h",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/testsuite/tinyiconv.c",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libunicode-0.4/testsuite/cxxsmoke.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/obj_loader/config.mk",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/modelio/ModelLoader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/modelio/ModelLoadException.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/ModelLoadException.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/geometry/Box.h",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/include/c++/4.2.1/bits/stl_map.h",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/include/c++/4.2.1/bits/stl_tree.h",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/include/c++/4.2.1/bits/stl_function.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/concurrent/atomic/AtomicInteger.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/shader/Shader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/Shader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/ios/AppLauncher.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/spi/ImageIORegistry.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/GameObject.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/audio/AudioOutputController.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/OutputManager.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0/build_ios/config.h"
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Material.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include/com/dragon3d/examples/texture/TextureDemo.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/GarbageCollector.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/native/ios/Shader.mm",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/shader/OpenGLES2Shader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/math/Matrix4x4Test.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Matrix4x4.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/RenderTexture.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/src/com/dragon3d/examples/helloworld/HelloWorld.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/framework/Application.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/default.supp",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/image/io/ImageIOTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tgaread.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragonx/audio/io/AudioIOTest.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/audio/io/plugins/wav/WavAudioInputStream.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/third_party/libtga-ex-1.0.0/src/tga.c",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/BufferedImage.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragonx/image/io/plugins/bmp/BMPImageWriter.cc"
 	],
 	"find":
 	{
@@ -909,9 +835,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
+			"/Users/yubing/Develop/GitRepos/dragon",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/giflib-4.2.3",
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/OpenAL-MOB-1.0.0",
@@ -939,6 +866,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"dg_int",
+			"normals",
+			"HashMap",
+			"new Material",
+			"\"\n",
 			"TGA_CAN_SWAP",
 			"TGAOpenUserDef",
 			"MakeMapObject",
@@ -1061,12 +993,7 @@
 			"	",
 			"print",
 			"os",
-			"DeclareBuildDir",
-			"getReturnType",
-			"ParamInfo",
-			"float",
-			"char",
-			"size_t"
+			"DeclareBuildDir"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1074,6 +1001,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"size_t",
+			"TreeMap",
 			"markPos",
 			"ByteArrayAudioInputStream",
 			"mp3_force_skip",
@@ -1154,68 +1083,70 @@
 	"groups":
 	[
 		{
+			"selected": 10,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
+					"file": "game/dragon3d-core/src/com/dragon3d/util/assets/modelio/plugins/obj/ObjModelLoader.cc",
 					"settings":
 					{
-						"buffer_size": 8851,
+						"buffer_size": 8953,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3818,
-								3818
+								8825,
+								8825
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"5446":
+								"1485":
 								{
-									"a": 3818.0,
-									"b": 3818.0
+									"a": 7718.0,
+									"b": 7718.0
 								}
 							},
+							"spell_check": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1654.0,
+						"translation.y": 3505.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
+					"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc",
 					"settings":
 					{
-						"buffer_size": 5680,
+						"buffer_size": 3415,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4125,
-								4129
+								2844,
+								2844
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"5470":
+								"1515":
 								{
-									"a": 4125.0,
-									"b": 4129.0
+									"a": 2838.0,
+									"b": 2838.0
 								}
 							},
 							"syntax": "Packages/C++/C++.tmLanguage",
@@ -1223,133 +1154,134 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1954.0,
+						"translation.y": 1331.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "third_party/libtga-ex-1.0.0/src/tga.c",
+					"file": "dragon/src/dragon/util/Scanner.cc",
 					"settings":
 					{
-						"buffer_size": 3364,
+						"buffer_size": 7965,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2309,
-								2309
+								5512,
+								5512
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"5497":
+								"1512":
 								{
-									"a": 2309.0,
-									"b": 2309.0
+									"a": 4001.0,
+									"b": 4001.0
 								}
 							},
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 176.0,
+						"translation.y": 3154.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "dragon/src/dragonx/image/BufferedImage.cc",
+					"file": "dragon/src/dragon/lang/String.cc",
 					"settings":
 					{
-						"buffer_size": 4998,
+						"buffer_size": 22780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1377,
-								1381
+								8681,
+								8681
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"5503":
-								{
-									"a": 1232.0,
-									"b": 1232.0
-								}
-							},
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1803.0,
+						"translation.y": 5100.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "dragon/src/dragon/lang/Object.cc",
+					"file": "dragon/test/dragon/util/ScannerTest.cc",
 					"settings":
 					{
-						"buffer_size": 2976,
+						"buffer_size": 5007,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1544,
-								1544
+								2341,
+								2402
 							]
 						],
 						"settings":
 						{
+							"last_edits":
+							{
+								"1653":
+								{
+									"a": 2341.0,
+									"b": 2402.0
+								}
+							},
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
+						"translation.y": 694.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "dragon/src/dragonx/image/io/plugins/bmp/BMPImageWriter.cc",
+					"file": "game/dragon3d-core/test/com/dragon3d/util/assets/modelio/ModelIOTest.cc",
 					"settings":
 					{
-						"buffer_size": 15001,
+						"buffer_size": 2132,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6580,
-								6580
+								2130,
+								2130
 							]
 						],
 						"settings":
 						{
 							"last_edits":
 							{
-								"5572":
+								"1590":
 								{
-									"a": 7196.0,
-									"b": 7196.0
+									"a": 2130.0,
+									"b": 2130.0
 								}
 							},
 							"syntax": "Packages/C++/C++.tmLanguage",
@@ -1357,447 +1289,150 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3006.0,
+						"translation.y": 555.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "dragon/src/dragonx/image/io/plugins/jpeg/JPEGImageReader.cc",
+					"file": "dragon/include/dragon/util/Scanner.h",
 					"settings":
 					{
-						"buffer_size": 7023,
+						"buffer_size": 2364,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6369,
-								6369
+								2260,
+								2269
 							]
 						],
 						"settings":
 						{
+							"last_edits":
+							{
+								"1641":
+								{
+									"a": 2014.0,
+									"b": 2014.0
+								}
+							},
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2608.0,
+						"translation.y": 869.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "dragon/test/dragonx/image/io/ImageIOTest.cc",
+					"file": "dragon/src/dragon/lang/Float.cc",
 					"settings":
 					{
-						"buffer_size": 21302,
+						"buffer_size": 1875,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13330,
-								13330
+								1478,
+								1478
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"5718":
-								{
-									"a": 13330.0,
-									"b": 13330.0
-								}
-							},
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7221.0,
+						"translation.y": 473.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 8,
-					"file": "dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
+					"file": "dragon/include/dragon/lang/Arrays.h",
 					"settings":
 					{
-						"buffer_size": 17910,
+						"buffer_size": 1344,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17845,
-								17845
+								1272,
+								1272
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"last_edits":
+							{
+								"1815":
+								{
+									"a": 1227.0,
+									"b": 1227.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 6379.0,
+						"translation.y": 267.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 9,
-					"file": "third_party/giflib-4.2.3/lib/egif_lib.c",
+					"file": "dragon/include/dragon/lang/Array.h",
 					"settings":
 					{
-						"buffer_size": 37434,
+						"buffer_size": 5312,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								24242,
-								24242
+								2645,
+								2645
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"last_edits":
+							{
+								"1821":
+								{
+									"a": 3084.0,
+									"b": 3084.0
+								}
+							},
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9790.0,
+						"translation.y": 1456.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "third_party/giflib-4.2.3/lib/gifalloc.c",
+					"file": "game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
 					"settings":
 					{
-						"buffer_size": 14508,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2992,
-								2992
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 970.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "third_party/libtga-ex-1.0.0/src/tgaread.c",
-					"settings":
-					{
-						"buffer_size": 7511,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6287,
-								6287
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3874.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "dragon/src/dragonx/image/io/plugins/tga/TGAImageWriter.cc",
-					"settings":
-					{
-						"buffer_size": 4655,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4062,
-								4062
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"5769":
-								{
-									"a": 3870.0,
-									"b": 3870.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1828.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"settings":
-					{
-						"buffer_size": 3489,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										164,
-										178
-									],
-									[
-										444,
-										458
-									],
-									[
-										833,
-										845
-									],
-									[
-										1185,
-										1197
-									],
-									[
-										1421,
-										1433
-									],
-									[
-										1598,
-										1610
-									],
-									[
-										1879,
-										1891
-									],
-									[
-										2037,
-										2049
-									],
-									[
-										2457,
-										2469
-									],
-									[
-										2696,
-										2708
-									],
-									[
-										2873,
-										2885
-									],
-									[
-										3157,
-										3169
-									],
-									[
-										3315,
-										3327
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								622,
-								622
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"last_edits":
-							{
-								"6000":
-								{
-									"a": 622.0,
-									"b": 622.0
-								}
-							},
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 252.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "third_party/libtga-ex-1.0.0/src/tgawrite.c",
-					"settings":
-					{
-						"buffer_size": 6258,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1306,
-								1306
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"5958":
-								{
-									"a": 2423.0,
-									"b": 2423.0
-								}
-							},
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 498.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "third_party/lpng167/pngwrite.c",
-					"settings":
-					{
-						"buffer_size": 74233,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16534,
-								16534
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 6556.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "third_party/lpng167/png.c",
-					"settings":
-					{
-						"buffer_size": 148015,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10944,
-								10944
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4530.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "dragon/src/dragonx/image/io/plugins/png/PNGImageWriter.cc",
-					"settings":
-					{
-						"buffer_size": 4609,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2423,
-								2423
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 938.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "third_party/libtga-1.0.1/src/tgawrite.c",
-					"settings":
-					{
-						"buffer_size": 6031,
+						"buffer_size": 4773,
 						"regions":
 						{
 						},
@@ -1810,47 +1445,12 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 909.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "default.supp",
-					"settings":
-					{
-						"buffer_size": 18266,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18266,
-								18266
-							]
-						],
-						"settings":
-						{
-							"last_edits":
-							{
-								"6096":
-								{
-									"a": 18266.0,
-									"b": 18266.0
-								}
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 3,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 13578.0,
+						"translation.y": 1807.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1891,7 +1491,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 428.0
+		"height": 151.0
 	},
 	"replace":
 	{
@@ -1903,6 +1503,118 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"mesh.h",
+				"game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h"
+			],
+			[
+				"float.cc",
+				"dragon/src/dragon/lang/Float.cc"
+			],
+			[
+				"box.cc",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/geometry/Box.cc"
+			],
+			[
+				"mesh.cc",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc"
+			],
+			[
+				"array",
+				"dragon/include/dragon/lang/Array.h"
+			],
+			[
+				"file.cc",
+				"dragon/src/dragon/io/File.cc"
+			],
+			[
+				"string.h",
+				"dragon/include/dragon/lang/String.h"
+			],
+			[
+				"mesh.c",
+				"third_party/lib3ds-1.3.0/lib3ds/mesh.c"
+			],
+			[
+				"audioclip.h",
+				"dragon/include/dragonx/audio/AudioClip.h"
+			],
+			[
+				"",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc"
+			],
+			[
+				"object.h",
+				"dragon/include/dragon/lang/Object.h"
+			],
+			[
+				"array.h",
+				"dragon/include/dragon/lang/Array.h"
+			],
+			[
+				"inputstreamreader",
+				"dragon/src/dragon/io/InputStreamReader.cc"
+			],
+			[
+				"resource.h",
+				"third_party/lpng167/contrib/visupng/resource.h"
+			],
+			[
+				"modelio.h",
+				"game/dragon3d-core/include/com/dragon3d/util/assets/modelio/ModelIO.h"
+			],
+			[
+				"resource",
+				"game/dragon3d-core/include/com/dragon3d/util/assets/Resource.h"
+			],
+			[
+				"model.cc",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc"
+			],
+			[
+				"model.",
+				"game/dragon3d-core/include/com/dragon3d/scene/model/Model.h"
+			],
+			[
+				"model.h",
+				"game/docs/gen-code/cpp/Model.h"
+			],
+			[
+				"mesh",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/Mesh.cc"
+			],
+			[
+				"scanner.cc",
+				"dragon/src/dragon/util/Scanner.cc"
+			],
+			[
+				"long.cc",
+				"dragon/src/dragon/lang/Long.cc"
+			],
+			[
+				"inte",
+				"dragon/src/dragon/lang/Integer.cc"
+			],
+			[
+				"float",
+				"dragon/src/dragon/lang/Float.cc"
+			],
+			[
+				"pattern",
+				"dragon/src/dragon/util/regex/Pattern.cc"
+			],
+			[
+				"string.cc",
+				"dragon/src/dragon/lang/String.cc"
+			],
+			[
+				"wavaudioinputstream.cc",
+				"dragon/src/dragonx/audio/io/plugins/wav/WavAudioInputStream.cc"
+			],
+			[
+				"gifimagewriter.cc",
+				"dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc"
+			],
 			[
 				"tgaw",
 				"third_party/libtga-ex-1.0.0/src/tgawrite.c"
@@ -1918,10 +1630,6 @@
 			[
 				"tgaread.c",
 				"third_party/libtga-ex-1.0.0/src/tgaread.c"
-			],
-			[
-				"gifimagewriter.cc",
-				"dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc"
 			],
 			[
 				"imageiotest.cc",
@@ -1964,24 +1672,12 @@
 				"dragon/src/dragon/util/concurrent/locks/ReentrantLock.cc"
 			],
 			[
-				"file.cc",
-				"dragon/src/dragon/io/File.cc"
-			],
-			[
 				"filetest.cc",
 				"dragon/test/dragon/io/FileTest.cc"
 			],
 			[
 				"jsonobjecttest.cc",
 				"dragon/test/dragonx/json/JSONObjectTest.cc"
-			],
-			[
-				"string.cc",
-				"dragon/src/dragon/lang/String.cc"
-			],
-			[
-				"float.cc",
-				"dragon/src/dragon/lang/Float.cc"
 			],
 			[
 				"hashmaptest.cc",
@@ -2050,10 +1746,6 @@
 			[
 				"hashm",
 				"dragon/include/dragon/util/HashMap.h"
-			],
-			[
-				"",
-				"dragon/src/dragonx/json/JSONObject.cc"
 			],
 			[
 				"jsonob",
@@ -2220,10 +1912,6 @@
 				"dragon/targets/universal-apple-macosx/debug/dragon_test"
 			],
 			[
-				"string.h",
-				"dragon/include/dragon/lang/String.h"
-			],
-			[
 				"abstr",
 				"dragon/src/dragon/lang/AbstractStringBuilder.cc"
 			],
@@ -2324,80 +2012,8 @@
 				"dragon/test/dragon/lang/StringTest.cc"
 			],
 			[
-				"array",
-				"dragon/include/dragon/lang/Array.h"
-			],
-			[
 				"arrays",
 				"dragon/include/dragon/lang/Arrays.h"
-			],
-			[
-				"arr",
-				"dragon/include/dragon/lang/Array.h"
-			],
-			[
-				"st.cc",
-				"dragon/src/dragon/lang/String.cc"
-			],
-			[
-				"mr.h",
-				"dragon/include/dragon/util/regex/MatchResult.h"
-			],
-			[
-				"build",
-				"dragon/build/Build.scons"
-			],
-			[
-				"pcrede",
-				"third_party/pcre-8.33/pcredemo.c"
-			],
-			[
-				"pcredemo",
-				"third_party/pcre-8.33/pcredemo.c"
-			],
-			[
-				"stringc",
-				"dragon/src/dragon/lang/String.cc"
-			],
-			[
-				"pattern",
-				"dragon/src/dragon/util/regex/Pattern.cc"
-			],
-			[
-				"pcre",
-				"third_party/pcre-8.33/pcre.h"
-			],
-			[
-				"runtimee",
-				"dragon/test/dragon/lang/RuntimeExceptionTest.cc"
-			],
-			[
-				"runtimeex",
-				"dragon/src/dragon/lang/RuntimeException.cc"
-			],
-			[
-				"extest",
-				"third_party/cppunit-1.10.2/examples/cppunittest/ExceptionTest.cpp"
-			],
-			[
-				"rgext",
-				"dragon/test/dragon/util/regex/RegexTest.cc"
-			],
-			[
-				"build.s",
-				"dragon/build/Build.scons"
-			],
-			[
-				"patternsyn",
-				"dragon/include/dragon/util/regex/PatternSyntaxException.h"
-			],
-			[
-				"ille",
-				"dragon/src/dragon/lang/IllegalArgumentException.cc"
-			],
-			[
-				"excep",
-				"dragon/src/dragon/lang/Exception.cc"
 			]
 		],
 		"width": 0.0
@@ -2414,6 +2030,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 237.0,
+	"side_bar_width": 274.0,
 	"status_bar_visible": true
 }

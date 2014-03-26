@@ -524,8 +524,17 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     
   
     // Draw Elements
-    if (mesh->triangleIndexCount > 0 && mesh->triangleIndexs) {
-        glDrawElements(GL_TRIANGLES, mesh->triangleIndexCount, GL_UNSIGNED_SHORT, mesh->triangleIndexs);
+    int count = mesh->getSubMeshCount();
+
+    for(int i=0; i<count; i++) {
+        Array<unsigned short> indices = mesh->getShortIndices(i);
+
+        const unsigned short* data = indices.raw();
+        int vCount = indices.length();
+
+        if (vCount >0 && data) {
+            glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, data);
+        }
     }
 
     // release material

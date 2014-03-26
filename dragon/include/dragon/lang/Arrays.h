@@ -36,11 +36,11 @@ public:
 
 public:
 
-	static void copyOf(const T* src, dg_int srcOffset, T* target, dg_int targetOffset, dg_int count) {
+	static void copyOf(const T* src, size_t srcOffset, T* target, size_t targetOffset, size_t count) {
 		T* p1 = const_cast<T*>(src) + srcOffset;
 		T* p2 = target + targetOffset;
 
-		dg_int len = count;
+		size_t len = count;
 		while(len-- >0) *p2++ = *p1++;
 	};
 

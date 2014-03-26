@@ -44,7 +44,7 @@ const Type* Scanner::TYPE = TypeOf<Scanner>();
 static Logger* logger = Logger::getLogger(Scanner::TYPE, ERROR);
 
 Scanner::Scanner(Reader* reader) 
-    :token(null) {
+    :token(null), lastChar('\0') {
     SafeRetain(reader);
     this->reader = reader;
 
@@ -52,7 +52,7 @@ Scanner::Scanner(Reader* reader)
 }
 
 Scanner::Scanner(File* file) 
-    :token(null){
+    :token(null), lastChar('\0') {
     FileInputStream* fis = new FileInputStream(file);
     InputStreamReader* reader = new InputStreamReader(fis, "UTF-8");
 
@@ -66,7 +66,7 @@ Scanner::Scanner(File* file)
 }
 
 Scanner::Scanner(File* file, const String& charsetName) 
-    :token(null) {
+    :token(null), lastChar('\0') {
     FileInputStream* fis = new FileInputStream(file);
     InputStreamReader* reader = new InputStreamReader(fis, charsetName);
 
@@ -92,7 +92,8 @@ void Scanner::readToken() {
         wchar_u ch;
         int read = this->reader->read(&ch, 1);
 
-        while(read > -1) {
+        while(read > 0) {
+            this->lastChar = ch;
             sb->append(ch);
 
             String* tmp = sb->toString();
@@ -101,9 +102,14 @@ void Scanner::readToken() {
 
             if (m->find()) {
                 this->token = tmp->substring(0, m->start());
-                SafeRelease(m);
-                SafeRelease(tmp);
-                break;
+
+                if (!this->token->equals("")) {
+                    SafeRelease(m);
+                    SafeRelease(tmp);
+                    break;
+                } else {
+                    sb->setLength(0);
+                }
             } else if (ch == '\n') {
                 this->token = tmp;
                 SafeRelease(m);
@@ -120,18 +126,70 @@ void Scanner::readToken() {
     }
 }
 
+bool Scanner::hasNext(Pattern* pattern) {
+    this->readToken();
+
+    if (this->token != null) {
+        Matcher* m = pattern->matcher(this->token);
+
+        if (m->find()) {
+            SafeRelease(m);
+            return true;
+        }
+
+        SafeRelease(m);
+    }
+
+    return false;
+}
+
+bool Scanner::hasNext(const String& pattern) {
+    this->readToken();
+
+    if (this->token != null) {
+        Pattern* p = Pattern::compile(pattern);
+        bool ret = this->hasNext(p);
+        SafeRelease(p);
+
+        return ret; 
+    }
+
+    return false;
+}
+
 bool Scanner::hasNext() {
     this->readToken();
     return this->token!=null;
 }
 
-String* Scanner::next() {
-    this->readToken();
 
-    String* token = this->token;
-
-    if (token != null) {
+String* Scanner::next(Pattern* pattern) {
+    if (this->hasNext(pattern)) {
+        String* token = this->token;
         this->token = null;
+
+        return token;
+    }
+
+    return null;
+}
+
+String* Scanner::next(const String& pattern) {
+    if (this->hasNext(pattern)) {
+        String* token = this->token;
+        this->token = null;
+
+        return token;
+    }
+
+    return null;
+}
+
+String* Scanner::next() {
+    if (this->hasNext()) {
+        String* token = this->token;
+        this->token = null;
+
         return token;
     }
 
@@ -253,17 +311,17 @@ wchar_u Scanner::nextChar() {
         return ret;
     }
 
-    return ' ';
+    return '\0';
 }
 
 void Scanner::skip(const String& pattern) {
-    Pattern* p = Pattern::compile("\\s");
+    Pattern* p = Pattern::compile(pattern);
     this->skip(p);
     SafeRelease(p);
 }
 
 void Scanner::skip(Pattern* pattern) {
-    if (this->token==null) {
+    if (this->token==null && this->lastChar != '\n') {
         StringBuffer* sb = new StringBuffer();
 
         wchar_u ch;
@@ -293,4 +351,22 @@ void Scanner::skip(Pattern* pattern) {
 
         SafeRelease(sb);
     }
+}
+
+Scanner* Scanner::useDelimiter(Pattern* pattern) {
+    if (pattern != null) {
+        SafeRelease(this->delimiter);
+        this->delimiter = pattern;
+        SafeRetain(this->delimiter);
+    }
+
+    return this;
+}
+
+Scanner* Scanner::useDelimiter(const String& pattern) {
+    Pattern* p = Pattern::compile(pattern);
+    Scanner* scanner = this->useDelimiter(p);
+    SafeRelease(p); 
+
+    return scanner;
 }

@@ -53,7 +53,12 @@ public:
     virtual ~Scanner();
 
 public:
+    virtual bool hasNext(Pattern* pattern);
+    virtual bool hasNext(const String& pattern);
     virtual bool hasNext();
+
+    virtual String* next(Pattern* pattern);
+    virtual String* next(const String& pattern);
     virtual String* next();
 
     virtual bool hasNextInt();
@@ -69,8 +74,11 @@ public:
     virtual wchar_u nextChar();
    
 public:
-    virtual void skip(const String& pattern);
     virtual void skip(Pattern* pattern);
+    virtual void skip(const String& pattern);
+
+    virtual Scanner* useDelimiter(Pattern* pattern);
+    virtual Scanner* useDelimiter(const String& pattern);
 
 protected:
     virtual void readToken();
@@ -79,6 +87,7 @@ protected:
     Reader* reader;
     Pattern* delimiter;
     String* token;
+    wchar_u lastChar;
 };//Scanner
 
 EndPackage2 //(dragon, util)

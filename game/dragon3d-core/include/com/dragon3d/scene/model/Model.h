@@ -66,6 +66,9 @@ public:
     virtual void setName(const String& name);
     virtual String* getName();
 
+    virtual void setMaterials(List<Material>* materials);
+    virtual List<Material>* getMaterials();
+
 protected:
     String* name;
 

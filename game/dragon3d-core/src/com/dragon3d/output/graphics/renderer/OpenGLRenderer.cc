@@ -169,31 +169,37 @@ void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const 
 
 void OpenGLRendererDrawMeshData(Mesh* mesh) {
     // draw mesh
-    int vCount = mesh->triangleIndexCount;
-
     if (mesh->uv || mesh->uv2) {
         glEnable(GL_TEXTURE_2D);
     }
 
-    glBegin(GL_TRIANGLES);
+    int count = mesh->getSubMeshCount();
+    for(int i=0; i<count; i++) {
+        Array<int> indices = mesh->getIndices(i);
 
-        for (int i=0; i< vCount; i++) {
-            int pos = mesh->triangleIndexs[i];
+        const int* data = indices.raw();
+        int vCount = indices.length();
 
-            //set texCoord
-            if (mesh->uv) {
-                Vector2* uv = &mesh->uv[pos];
-                glTexCoord2f(uv->x, uv->y);
+        glBegin(GL_TRIANGLES);
+
+            for (int i=0; i< vCount; i++) {
+                int pos = data[i];
+
+                //set texCoord
+                if (mesh->uv) {
+                    Vector2* uv = &mesh->uv[pos];
+                    glTexCoord2f(uv->x, uv->y);
+                }
+
+                //set vertext
+                if (mesh->vertices) {
+                    Vector3* v = &mesh->vertices[pos];
+                    glVertex3f(v->x, v->y, v->z);
+                }
             }
 
-            //set vertext
-            if (mesh->vertices) {
-                Vector3* v = &mesh->vertices[pos];
-                glVertex3f(v->x, v->y, v->z);
-            }
-        }
-
-    glEnd();
+        glEnd();
+    }
 
     if (mesh->uv || mesh->uv2) {
         glDisable(GL_TEXTURE_2D);

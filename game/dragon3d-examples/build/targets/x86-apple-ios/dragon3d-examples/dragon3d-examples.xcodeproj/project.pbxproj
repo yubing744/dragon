@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		46037E3B18D4045F00901E67 /* TextureDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46037E3A18D4045F00901E67 /* TextureDemo.cc */; };
+		4642195118DD3774009C3FB0 /* model in Resources */ = {isa = PBXBuildFile; fileRef = 4642195018DD3774009C3FB0 /* model */; };
+		4642195418DD3795009C3FB0 /* ModelDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4642195318DD3795009C3FB0 /* ModelDemo.cc */; };
 		465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465D590018063ACA00A9BF94 /* InfoPlist.strings */; };
 		465D590418063ACA00A9BF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D590318063ACA00A9BF94 /* main.m */; };
 		465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D590718063ACA00A9BF94 /* AppDelegate.mm */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		46037E3A18D4045F00901E67 /* TextureDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDemo.cc; sourceTree = "<group>"; };
+		4642195018DD3774009C3FB0 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; name = model; path = ../../../../assets/model; sourceTree = "<group>"; };
+		4642195318DD3795009C3FB0 /* ModelDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelDemo.cc; sourceTree = "<group>"; };
 		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		465D58F718063ACA00A9BF94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dragon3d-examples-Info.plist"; sourceTree = "<group>"; };
@@ -104,6 +108,14 @@
 				46037E3A18D4045F00901E67 /* TextureDemo.cc */,
 			);
 			path = texture;
+			sourceTree = "<group>";
+		};
+		4642195218DD3795009C3FB0 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4642195318DD3795009C3FB0 /* ModelDemo.cc */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		465D58EB18063ACA00A9BF94 = {
@@ -213,6 +225,7 @@
 		465D592418063C3400A9BF94 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				4642195218DD3795009C3FB0 /* model */,
 				46037E3918D4045F00901E67 /* texture */,
 				46ABCA0818C0D7A9002E234C /* audio */,
 				465D592518063C3400A9BF94 /* helloworld */,
@@ -239,6 +252,7 @@
 		46ABCA1318C0DFC4002E234C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4642195018DD3774009C3FB0 /* model */,
 				46ABCA1618C0E00A002E234C /* mp3 */,
 				46ABCA1718C0E00A002E234C /* scene */,
 				46ABCA1818C0E00A002E234C /* Data */,
@@ -312,6 +326,7 @@
 				46ABCA1B18C0E00A002E234C /* scene in Resources */,
 				46ABCA1C18C0E00A002E234C /* Data in Resources */,
 				46ABCA1D18C0E00A002E234C /* Textures in Resources */,
+				4642195118DD3774009C3FB0 /* model in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +343,7 @@
 				465D591118063ACA00A9BF94 /* ViewController.mm in Sources */,
 				46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */,
 				46037E3B18D4045F00901E67 /* TextureDemo.cc in Sources */,
+				4642195418DD3795009C3FB0 /* ModelDemo.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

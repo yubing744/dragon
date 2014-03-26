@@ -17,46 +17,41 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/06
+ * Created:     2014/03/26
  **********************************************************************/
 
 
-#ifndef AudioClip_Audio_Dragonx_H
-#define AudioClip_Audio_Dragonx_H
+#ifndef ObjMTLLoader_Obj_Plugins_Modelio_Assets_Util_Dragon3d_Com_H
+#define ObjMTLLoader_Obj_Plugins_Modelio_Assets_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
-#include <dragon/lang/Array.h>
-#include <dragonx/audio/AudioFormat.h>
-#include <dragonx/audio/io/AudioInputStream.h>
+#include <dragon/util/List.h>
+#include <com/dragon3d/scene/model/Material.h>
+#include <com/dragon3d/util/assets/Resource.h>
+#include <com/dragon3d/util/assets/modelio/ModelLoadException.h>
 
-BeginPackage2(dragonx, audio)
+BeginPackage7(com, dragon3d, util, assets, modelio, plugins, obj)
 
 Import dragon::lang;
-Import dragonx::audio;
-Import dragonx::audio::io;
+Import dragon::util;
+Import com::dragon3d::scene::model;
+Import com::dragon3d::util::assets;
+Import com::dragon3d::util::assets::modelio;
 
-class_ AudioClip extends(Object) {
+class_ ObjMTLLoader extends(Object) {
 public:
     static const Type* TYPE;
     
 public:
-    AudioClip(const AudioFormat* format, byte* data, size_t off, size_t len);
-    AudioClip(AudioInputStream* stream);
-    AudioClip(InputStream* stream, const String& format);
-
-    virtual ~AudioClip();
+    ObjMTLLoader();
+    virtual ~ObjMTLLoader();
 
 public:
-    AudioInputStream* getAudioInputStream() const;
+    List<Material>* load(Resource* res) throw(ModelLoadException*);  
+    
+};//ObjMTLLoader
 
-    const AudioFormat* getFormat() const;
-    const Array<byte> getData() const;
+EndPackage7 //(com, dragon3d, util, assets, modelio, plugins, obj)
 
-protected:
-    AudioInputStream* stream;
-};//AudioClip
-
-EndPackage2 //(dragonx, audio)
-
-#endif //AudioClip_Audio_Dragonx_H
+#endif //ObjMTLLoader_Obj_Plugins_Modelio_Assets_Util_Dragon3d_Com_H

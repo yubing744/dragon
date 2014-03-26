@@ -60,7 +60,7 @@ void InputStreamReader::readLine() {
     read = this->innerStream->read(&ch, 1);
 
     while(read > 0) {
-        if (ch=='\r') {
+        if (ch == '\r') {
             continue;
         }
 
@@ -77,13 +77,12 @@ void InputStreamReader::readLine() {
 
         buf[n++] = ch;
 
-        if (ch=='\n') {
+        if (ch == '\n') {
             break;
         }
 
         read = this->innerStream->read(&ch, 1);
     }
-
 
     SafeRelease(this->line);
 

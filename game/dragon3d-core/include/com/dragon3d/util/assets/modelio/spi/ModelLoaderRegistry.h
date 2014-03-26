@@ -17,46 +17,48 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/01/06
+ * Created:     2014/03/19
  **********************************************************************/
 
 
-#ifndef AudioClip_Audio_Dragonx_H
-#define AudioClip_Audio_Dragonx_H
+#ifndef ModelLoaderRegistry_Spi_Modelio_Assets_Util_Dragon3d_Com_H
+#define ModelLoaderRegistry_Spi_Modelio_Assets_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
-#include <dragon/lang/Array.h>
-#include <dragonx/audio/AudioFormat.h>
-#include <dragonx/audio/io/AudioInputStream.h>
+#include <dragon/lang/String.h>
+#include <dragon/util/Map.h>
+#include <com/dragon3d/util/assets/modelio/ModelLoader.h>
 
-BeginPackage2(dragonx, audio)
+BeginPackage6(com, dragon3d, util, assets, modelio, spi)
 
 Import dragon::lang;
-Import dragonx::audio;
-Import dragonx::audio::io;
 
-class_ AudioClip extends(Object) {
+class_ ModelLoaderRegistry extends(Object) {
 public:
     static const Type* TYPE;
     
+private:
+    static ModelLoaderRegistry* singleton;
 public:
-    AudioClip(const AudioFormat* format, byte* data, size_t off, size_t len);
-    AudioClip(AudioInputStream* stream);
-    AudioClip(InputStream* stream, const String& format);
-
-    virtual ~AudioClip();
+    static ModelLoaderRegistry* getInstance();
 
 public:
-    AudioInputStream* getAudioInputStream() const;
-
-    const AudioFormat* getFormat() const;
-    const Array<byte> getData() const;
+    ModelLoaderRegistry();
+    virtual ~ModelLoaderRegistry();
 
 protected:
-    AudioInputStream* stream;
-};//AudioClip
+    virtual void init();
 
-EndPackage2 //(dragonx, audio)
+public:
+    virtual void registerModelLoader(const String& modelType, ModelLoader* loader);
+    virtual ModelLoader* getModelLoader(const String& modelType);
 
-#endif //AudioClip_Audio_Dragonx_H
+protected:
+    Map<String, ModelLoader>* loaderMap;
+    
+};//ModelLoaderRegistry
+
+EndPackage6 //(com, dragon3d, util, assets, modelio, spi)
+
+#endif //ModelLoaderRegistry_Spi_Modelio_Assets_Util_Dragon3d_Com_H

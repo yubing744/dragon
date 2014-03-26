@@ -77,3 +77,15 @@ String* Model::getName() {
     SafeRetain(name);
     return name;  
 }
+
+void Model::setMaterials(List<Material>* materials) {
+    SafeRelease(this->materials);
+    this->materials = materials;
+}
+
+List<Material>* Model::getMaterials() {
+    List<Material>* materials = this->materials;
+    SafeRetain(materials);
+    return materials;      
+}
+

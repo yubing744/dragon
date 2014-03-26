@@ -171,12 +171,13 @@ Box::Box() {
     }
 
     //Copy indices data
-    this->mesh->triangleIndexCount = numIndices;
-    this->mesh->triangleIndexs = new unsigned short[numIndices];
+    int* triangles = new int[numIndices];
 
     for (int i=0; i<numIndices; i++) {
-        this->mesh->triangleIndexs[i] = cubeIndices[i];
+        triangles[i] = cubeIndices[i];
     }
+
+    this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
 }
 
 Box::~Box() {

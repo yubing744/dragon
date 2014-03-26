@@ -25,6 +25,8 @@
 #define Mesh_Model_Scene_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 #include <com/dragon3d/util/math/Vector2.h>
 #include <com/dragon3d/util/math/Vector3.h>
@@ -35,24 +37,110 @@
  
 BeginPackage4(com, dragon3d, scene, model)
 
+Import dragon::lang;
+
 Import com::dragon3d::util::math;
 Import com::dragon3d::scene::model;
 
 /**
  * A class that allows creating or modifying meshes from scripts.
  */
-class _DragonExport Mesh {
+class _DragonExport Mesh extends(Object) {
 public:
 	Mesh();
 	virtual ~Mesh();
 
 public:
+    enum MeshTopology {
+        Triangles, //Mesh is made from triangles.
+        Quads, //Mesh is made from quads.
+        Lines, //Mesh is made from lines.
+        LineStrip, //Mesh is a line strip.
+        Points  //Mesh is made from points.
+    };
+
+    struct MeshData {
+        Material* material; //material
+        MeshTopology topology; //the topology of a submesh.
+        int* indices; //An array containing all triangles in the mesh.
+        int indexCount; //index count
+    };
+
+public:
     /**
-     * return the indices buffer of sub mesh
+     * Sets the triangle list for the 0 submesh.
+     *
+     * A submesh is simply a separate triangle list. When the mesh renderer uses multiple materials, 
+     * you should ensure that there are as many submeshes as materials.
+     *
+     * It is recommended to assign a the triangle array after assigning the vertex array in order to avoid out of bounds errors.
+     * 
+     * @param triangles [description]
+     * @param submesh   [description]
+     */
+    void setTriangles(Array<int> triangles);
+
+    /**
+     * Sets the triangle list for the submesh.
+     *
+     * A submesh is simply a separate triangle list. When the mesh renderer uses multiple materials, 
+     * you should ensure that there are as many submeshes as materials.
+     *
+     * It is recommended to assign a the triangle array after assigning the vertex array in order to avoid out of bounds errors.
+     * 
+     * @param triangles [description]
+     * @param submesh   [description]
+     */
+    void setTriangles(Array<int> triangles, int submesh);
+
+    /**
+     * Sets the triangle list for the submesh.
+     * 
+     * Sets the index buffer for the submesh.
+     * 
+     * @param indices  [description]
+     * @param topology [description]
+     * @param submesh  [description]
+     */
+    void setIndices(Array<int> indices, MeshTopology topology, int submesh);
+
+    /**
+     * get triangles of submesh
+     *
+     * @param submesh  [description]
+     */
+    Array<int> getTriangles();
+
+    /**
+     * Returns the index buffer for the submesh.
+     * 
      * @param  submesh [description]
      * @return         [description]
      */
-    int* getIndices(int submesh);
+    Array<int> getIndices(int submesh);
+
+    /**
+     * Returns the index buffer for the submesh.
+     * 
+     * @param  submesh [description]
+     * @return         [description]
+     */
+    Array<unsigned short> getShortIndices(int submesh);
+
+    /**
+     * Clears all vertex data and all triangle indices.
+     * 
+     */
+    void clear();
+
+    /**
+     * [getSubMeshCount description]
+     * @return [description]
+     */
+    int getSubMeshCount();
+
+protected:
+    MeshData getSubMeshData(int submesh);
 
 public:
     Vector3* vertices; // Returns a copy of the vertex positions or assigns a new vertex positions array.
@@ -64,11 +152,9 @@ public:
     Vector4* tangents; // The tangents of the mesh.
     Color32* colors; //Vertex colors of the mesh.
 
-    unsigned short* triangleIndexs; //An array containing all triangles in the mesh.
-    int triangleIndexCount; //index count
-
-    int subMeshCount; //The number of submeshes. Every material has a separate triangle list.
-
+protected:
+    MeshData* subMeshs;
+    int subMeshCount;
 };//Mesh
 
 EndPackage4 //(com, dragon3d, scene, model)

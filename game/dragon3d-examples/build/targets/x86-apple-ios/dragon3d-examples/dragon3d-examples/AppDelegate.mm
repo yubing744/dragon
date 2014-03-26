@@ -24,10 +24,12 @@
 #include <com/dragon3d/examples/audio/AudioDemo.h>
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 #include <com/dragon3d/examples/texture/TextureDemo.h>
+#include <com/dragon3d/examples/model/ModelDemo.h>
 
 Import com::dragon3d::examples::audio;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::examples::texture;
+Import com::dragon3d::examples::model;
 
 @implementation AppDelegate
 {
@@ -48,7 +50,8 @@ Import com::dragon3d::examples::texture;
 
     //app = new HelloWorld();
     //app = new AudioDemo();
-    app = new TextureDemo();
+    //app = new TextureDemo();
+    app = new ModelDemo();
     
     Dragon3DLaunchApp(app);
     
