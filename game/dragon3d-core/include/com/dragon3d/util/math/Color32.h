@@ -25,21 +25,32 @@
 #define Color_Model_Scene_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
+Import dragon::lang;
 Import com::dragon3d::util::math;
 
+class _DragonExport Color32 extends(Object) {
+public:
+    const static Type* TYPE;
 
-class _DragonExport Color32 {
 public:
 	Color32();
+    Color32(byte a, byte b, byte g, byte r);
+    virtual ~Color32();
 
 public:
-    dg_byte a; //Alpha component of the color.
-    dg_byte b; //Blue component of the color.
-    dg_byte g; //Green component of the color.
-    dg_byte r; //Red component of the color.
+    const byte* getData() const;
+    const Array<byte> toByteArray() const;
+
+public:
+    byte a; //Alpha component of the color.
+    byte b; //Blue component of the color.
+    byte g; //Green component of the color.
+    byte r; //Red component of the color.
 	
 };//Color32
 

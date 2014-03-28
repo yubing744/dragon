@@ -46,9 +46,9 @@ public:
 	virtual ~Material(void);
 
 public:
-    Color color;
-
 	String* name;
+
+    Color color;
 	Texture* mainTexture;
     Shader* shader;
 };//Material

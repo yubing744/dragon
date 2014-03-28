@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
@@ -36,7 +37,7 @@ Import com::dragon3d::util::math;
  * Representation of 3D vectors and points.
  * 
  */
-class _DragonExport Vector3 {
+class _DragonExport Vector3 extends(Object) {
 public:
     static const Vector3 ZERO; //Shorthand for writing Vector3(0, 0, 0)
     static const Vector3 ONE; //Shorthand for writing Vector3(1, 1, 1)
@@ -380,12 +381,9 @@ public:
      */
     void setValue(int index, float value);
 
-    /**
-     * get the inner array
-     * 
-     * @return [description]
-     */
-    const float* toArray() const;
+public:
+    const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float x; //X component of the vector.

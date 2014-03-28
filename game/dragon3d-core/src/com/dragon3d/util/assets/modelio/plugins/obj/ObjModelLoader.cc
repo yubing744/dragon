@@ -214,47 +214,12 @@ void ObjModelLoader_triangulate(vector<Vector3>& points, vector<int>& outTriangl
 
 void ObjModelLoader_appendToMesh(Mesh* mesh, vector<Vector3>& vertices, vector<Vector2>& uvs, 
     vector<Vector3>& normals, vector<int>& triangles) {
-    int vcount = vertices.size();
+    
+    mesh->appendVertexArray(Array<Vector3>(&vertices[0], vertices.size()));
+    mesh->appendUVArray(Array<Vector2>(&uvs[0], uvs.size()));
+    mesh->appendNormalArray(Array<Vector3>(&normals[0], normals.size()));
 
-    mesh->vertices = (Vector3*)realloc(mesh->vertices, sizeof(Vector3) * (mesh->vertexCount + vcount));
-    mesh->uv = (Vector2*)realloc(mesh->uv, sizeof(Vector2) * (mesh->vertexCount + vcount));
-    mesh->normals = (Vector3*)realloc(mesh->normals, sizeof(Vector3) * (mesh->vertexCount + vcount));
-
-    Array<int> indices = mesh->getTriangles();
-    const int* data = indices.raw();
-    int size = indices.length();
-
-    int newSize = size + triangles.size();
-    int* newData = (int*)malloc(sizeof(int) * newSize);
-    memcpy(newData, data, sizeof(int) * size);
-
-    // copy vertices
-    for(int i = 0; i < vertices.size(); i++){
-        Vector3 v = vertices[i];
-        mesh->vertices[mesh->vertexCount + i] = v;
-    }
-
-    // copy uvs
-    for(int i = 0; i < uvs.size(); i++){
-        Vector2 uv = uvs[i];
-        mesh->uv[mesh->vertexCount + i] = uv;
-    }
-
-    // copy normals
-    for(int i = 0; i < normals.size(); i++){
-        Vector3 normal = normals[i];
-        mesh->normals[mesh->vertexCount + i] = normal;
-    }
-
-    mesh->vertexCount = mesh->vertexCount + vcount;
-
-    // copy triangles
-    for(int i = 0; i < triangles.size(); i++){
-        int index = triangles[i];
-        newData[size + i] = size + index;
-    }
-
-    mesh->setTriangles(Array<int>(newData, newSize, false));
+    mesh->appendTriangles(Array<int>(&triangles[0], triangles.size()));
 }
 
 void ObjModelLoader::parseMeshTriangleFace(Scanner* scanner, Mesh* mesh, 

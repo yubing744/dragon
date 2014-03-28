@@ -20,14 +20,14 @@
  * Created:     2013/10/05
  **********************************************************************/
 
-
-#include <com/dragon3d/util/math/Matrix4x4.h>
-#include <com/dragon3d/util/math/Mathf.h>
-
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
- 
+
+#include <dragon/lang/StringBuffer.h>
+#include <com/dragon3d/util/math/Matrix4x4.h>
+#include <com/dragon3d/util/math/Mathf.h>
+
 Import com::dragon3d::util::math;
 
 const Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(
@@ -43,7 +43,6 @@ const Matrix4x4 Matrix4x4::ZERO = Matrix4x4(
     0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f
 );
-
 
 Matrix4x4 Matrix4x4::multiply(const Matrix4x4& matrixA, const Matrix4x4& matrixB){
     return matrixA.multiply(matrixB);
@@ -555,22 +554,31 @@ Quaternion Matrix4x4::getQuaternion() const {
     return Quaternion(x, y, z, w);
 }
 
-/*
-string Matrix4x4::toString(){
-    char buf[256];
-    
-    string sb;
-    sb.append("Matrix4x4 [\r\n");
+
+const float* Matrix4x4::getData() const {
+    return (float*)(&this->m[0][0]);
+}
+
+const Array<float> Matrix4x4::toFloatArray() const {
+    return Array<float>(getData(), 16, false);
+}
+
+String* Matrix4x4::toString() const {
+    StringBuffer* sb = new StringBuffer();
+
+    sb->append("Matrix4x4 [\r\n");
 
     for (int i=0; i<4; i++) {
-        memset(buf, 0, sizeof(char) * 256);
-        sprintf(buf, "    [%.2f, %.2f, %.2f, %.2f],\r\n", m[i][0], m[i][1], m[i][2], m[i][3]);
-        sb.append(buf);
+        String* tmp = String::format("    [%.2f, %.2f, %.2f, %.2f],\r\n", m[i][0], m[i][1], m[i][2], m[i][3]);
+        sb->append(tmp);
+        SafeRelease(tmp);
     }
 
-    sb.append("]\r\n");
+    sb->append("]\r\n");
 
-    return sb;
+    String* ret = sb->toString();
+    SafeRelease(sb);
+
+    return ret;
 }
-*/
 

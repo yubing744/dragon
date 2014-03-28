@@ -241,3 +241,11 @@ Quaternion Quaternion::multiply(const Quaternion& a) const {
 
     return result;
 }
+
+const float* Quaternion::getData() const {
+    return (float*)(&this->x);
+}
+
+const Array<float> Quaternion::toFloatArray() const {
+    return Array<float>(getData(), 4, false);
+}

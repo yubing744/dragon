@@ -482,7 +482,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     mvpMatrix = mvpMatrix.multiply(matrix);
     mvpMatrix = mvpMatrix.multiply(projMatrix);
 
-    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) &mvpMatrix.m[0][0]);
+    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, (GLfloat*) mvpMatrix.getData());
 
    
     GLuint textureID;
@@ -502,19 +502,21 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     }
 
     // Enable Texture 2D
-    if (mesh->uv || mesh->uv2) {
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glEnable(GL_TEXTURE_2D);
     }
    
     // Load the vertex data
-    if (mesh->vertices) {
-        glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, (GLfloat*)mesh->vertices);
+    if (mesh->hasVertices()) {
+        Array<float> vertices = mesh->getFloatVertices();
+        glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, vertices.raw());
         glEnableVertexAttribArray(positionLoc);
     }
 
     // Load the texture coordinate
-    if (mesh->uv) {
-        glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), mesh->uv);
+    if (mesh->hasUV()) {
+        Array<float> uvs = mesh->getFloatUVs();
+        glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, uvs.raw());
         glEnableVertexAttribArray(texCoordLoc);
 
         glActiveTexture(GL_TEXTURE0);
@@ -528,12 +530,10 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
 
     for(int i=0; i<count; i++) {
         Array<unsigned short> indices = mesh->getShortIndices(i);
-
-        const unsigned short* data = indices.raw();
         int vCount = indices.length();
 
-        if (vCount >0 && data) {
-            glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, data);
+        if (vCount >0 && indices.raw()) {
+            glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, indices.raw());
         }
     }
 
@@ -549,7 +549,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     */
    
     // Disable Texture 2D
-    if (mesh->uv || mesh->uv2) {
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glDisable(GL_TEXTURE_2D);
     }
 

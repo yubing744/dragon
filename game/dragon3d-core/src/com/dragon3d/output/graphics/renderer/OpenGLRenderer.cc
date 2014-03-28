@@ -169,11 +169,15 @@ void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const 
 
 void OpenGLRendererDrawMeshData(Mesh* mesh) {
     // draw mesh
-    if (mesh->uv || mesh->uv2) {
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glEnable(GL_TEXTURE_2D);
     }
 
+    List<Vector3>* vertices = mesh->getVertices();
+    List<Vector2>* uvs = mesh->getUVs();
+
     int count = mesh->getSubMeshCount();
+
     for(int i=0; i<count; i++) {
         Array<int> indices = mesh->getIndices(i);
 
@@ -186,14 +190,14 @@ void OpenGLRendererDrawMeshData(Mesh* mesh) {
                 int pos = data[i];
 
                 //set texCoord
-                if (mesh->uv) {
-                    Vector2* uv = &mesh->uv[pos];
+                if (mesh->hasUV()) {
+                    Vector2* uv = uvs->get(pos);
                     glTexCoord2f(uv->x, uv->y);
                 }
 
                 //set vertext
-                if (mesh->vertices) {
-                    Vector3* v = &mesh->vertices[pos];
+                if (mesh->hasVertices()) {
+                    Vector3* v = vertices->get(pos);
                     glVertex3f(v->x, v->y, v->z);
                 }
             }
@@ -201,7 +205,10 @@ void OpenGLRendererDrawMeshData(Mesh* mesh) {
         glEnd();
     }
 
-    if (mesh->uv || mesh->uv2) {
+    SafeRelease(uvs);
+    SafeRelease(vertices);
+
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glDisable(GL_TEXTURE_2D);
     }
 }

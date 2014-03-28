@@ -130,8 +130,8 @@ void AudioSource::init() {
     Vector3 sourcePos = gameObject->transform->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
-    alSourcefv(this->source, AL_POSITION, sourcePos.toArray());
-    alSourcefv(this->source, AL_VELOCITY, sourceVel.toArray());
+    alSourcefv(this->source, AL_POSITION, sourcePos.getData());
+    alSourcefv(this->source, AL_VELOCITY, sourceVel.getData());
 
     // try play at start
     if (this->autoPlay) {
@@ -146,8 +146,8 @@ void AudioSource::update(Input* input, ReadOnlyTimer* timer) {
     Vector3 sourcePos = gameObject->transform->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
-    alSourcefv(this->source, AL_POSITION, sourcePos.toArray());
-    alSourcefv(this->source, AL_VELOCITY, sourceVel.toArray());
+    alSourcefv(this->source, AL_POSITION, sourcePos.getData());
+    alSourcefv(this->source, AL_VELOCITY, sourceVel.getData());
 }
 
 void AudioSource::destroy() {

@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
@@ -35,7 +36,7 @@ Import com::dragon3d::util::math;
 /**
  * Representation of RGBA colors.
  */
-class _DragonExport Color {
+class _DragonExport Color extends(Object) {
 public:
     static const Color WHITE;
     static const Color RED;
@@ -63,6 +64,7 @@ public:
 
 public:
     const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float r; //Red component of the color.

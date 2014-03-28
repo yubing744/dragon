@@ -24,6 +24,7 @@
 #define Array_Lang_Dragon_H
 
 #include <stdio.h>
+#include <string.h>
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
@@ -45,9 +46,9 @@ public:
 		this->obj = new Object();
 	};
 
-	Array(T* data, int count) {
+	Array(const T* data, int count) {
 		this->count = count;
-		this->data = data;
+		this->data = const_cast<T*>(data);
 		this->obj = new Object();
 	};
 
@@ -62,9 +63,9 @@ public:
 		}
 	};
 
-	Array(T* data, int count, bool freeData) {
+	Array(const T* data, int count, bool freeData) {
 		this->count = count;
-		this->data = data;
+		this->data = const_cast<T*>(data);
 		this->obj = null;
 
 		if (freeData) {
@@ -141,7 +142,7 @@ public:
 		this->data[index] = t;
 	};
 
-	void add(const T& t) {
+	void append(const T& t) {
 		T* tmp = new T[this->count + 1];
 		memcpy(tmp, this->data, sizeof(T) * this->count);
 		tmp[this->count] = t;
@@ -150,7 +151,7 @@ public:
 		this->data = tmp;
 	};
 
-	void add(const T* data, int count) {
+	void append(const T* data, int count) {
 		T* tmp = new T[this->count + count];
 		memcpy(tmp, this->data, sizeof(T) * this->count);
 
@@ -163,8 +164,16 @@ public:
 		this->data = tmp;
 	};
 
-	void add(const Array<T>& arr) {
-		this->add(arr.raw(), arr.size());
+	void append(const Array<T>& arr) {
+		this->append(arr.raw(), arr.size());
+	};
+
+	Array<T> clone() {
+		int n = this->count;
+		T* tmp = new T[n];
+		memcpy((void*)tmp, (void*)this->data, sizeof(T) * n);
+
+		return Array<T>(tmp, n);
 	};
 
 	int size() const {

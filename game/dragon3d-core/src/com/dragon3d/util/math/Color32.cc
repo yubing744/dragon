@@ -17,31 +17,37 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/04
+ * Created:     2014/03/27
  **********************************************************************/
 
 
-#include <com/dragon3d/util/math/Vector2.h>
+#include <com/dragon3d/util/math/Color32.h>
+#include <dragon/util/logging/Logger.h>
 
 Import com::dragon3d::util::math;
+Import dragon::util::logging;
 
-const Vector2 Vector2::ZERO = Vector2(0, 0);
-const Vector2 Vector2::ONE = Vector2(1, 1);
+const Type* Color32::TYPE = TypeOf<Color32>();
+static Logger* logger = Logger::getLogger(Color32::TYPE, ERROR);
 
-Vector2::Vector2(){
-    this->x = 0;
-    this->y = 0;
+Color32::Color32() 
+    :r(0), g(0), b(0), a(0) {
+
 }
 
-Vector2::Vector2(float x, float y){
-    this->x = x;
-    this->y = y;
+Color32::Color32(byte r, byte g, byte b, byte a) 
+    :r(r), g(g), b(b), a(a) {
+
 }
 
-const float* Vector2::getData() const {
-    return (float*)(&this->x);
+Color32::~Color32() {
+
 }
 
-const Array<float> Vector2::toFloatArray() const {
-    return Array<float>(getData(), 2, false);
+const byte* Color32::getData() const {
+    return (byte*)(&this->r);
+}
+
+const Array<byte> Color32::toByteArray() const {
+    return Array<byte>(this->getData(), 4, false);
 }

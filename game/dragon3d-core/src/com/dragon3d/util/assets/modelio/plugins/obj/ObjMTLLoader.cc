@@ -20,10 +20,17 @@
  * Created:     2014/03/26
  **********************************************************************/
 
-
-#include <com/dragon3d/util/assets/modelio/plugins/obj/ObjMTLLoader.h>
+#include <dragon/io/InputStream.h>
+#include <dragon/io/InputStreamReader.h>
+#include <dragon/util/ArrayList.h>
+#include <dragon/util/Scanner.h>
 #include <dragon/util/logging/Logger.h>
+#include <dragon/lang/gc/Reference.h>
+#include <com/dragon3d/util/assets/modelio/plugins/obj/ObjMTLLoader.h>
 
+Import dragon::io;
+Import dragon::util;
+Import dragon::lang::gc;
 Import dragon::util::logging;
 Import com::dragon3d::util::assets::modelio::plugins::obj;
 
@@ -39,5 +46,48 @@ ObjMTLLoader::~ObjMTLLoader() {
 }
 
 List<Material>* ObjMTLLoader::load(Resource* res) throw(ModelLoadException*) {
-    return null;
+    Ref<InputStream> stream = res->getInputStream();
+    Ref<Reader> reader = new InputStreamReader(stream.raw());
+    Ref<Scanner> scanner = new Scanner(reader.raw());
+
+    List<Material>* materials = new ArrayList<Material>();
+
+    /*
+    Material* cm = null;
+
+    while(scanner->hasNext()) {
+        String* token = scanner->next();
+
+        if (token->equals("newmtl")) {
+            if (cm != null) {
+                materials->add(cm);
+            } 
+
+            cm = new Material();
+            cm->setName(scanner.next());
+        } else if (token->equals("#")) {
+            ;
+        } else if (token->equals("Ka")) {
+            this->parseMeshVertices(scanner, &vertices, vi++);
+        } else if (token->equals("vt")) {
+            this->parseMeshTextureVertices(scanner, &uvs, vti++);
+        } else if (token->equals("vn")) {
+            this->parseMeshVertexNormals(scanner, &normals, vni++);
+        } else if (token->equals("f")) {
+            this->parseMeshTriangleFace(scanner, mesh, vertices, uvs, normals);
+        } else if (token->equals("mtllib")) {
+            this->parseMaterialLib(model, res, scanner);
+        } else if (token->equals("usemtl")) {
+            ;
+        } else if (token->equals("g")) {
+            ;
+        }
+        
+        scanner->skip("\n");
+
+        SafeRelease(token);
+    }
+    */
+   
+    return materials;
 }

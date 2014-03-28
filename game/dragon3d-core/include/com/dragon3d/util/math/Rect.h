@@ -37,7 +37,7 @@ Import com::dragon3d::util::math;
  * A 2D Rectangle defined by x, y position and width, height.
  * 
  */
-class _DragonExport Rect {
+class _DragonExport Rect extends(Object) {
 public:
     Rect minMaxRect(float left, float top, float right, float bottom);
 

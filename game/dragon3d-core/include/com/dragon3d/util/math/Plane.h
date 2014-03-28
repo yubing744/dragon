@@ -41,7 +41,7 @@ Import com::dragon3d::util::math;
  * A plane is defined by a normal vector and distance from the origin to the plane.
  * 
  */
-class _DragonExport Plane {
+class _DragonExport Plane extends(Object) {
 public:
     Plane(const Vector3& inNormal, const Vector3& inPoint);
     Plane(const Vector3& inNormal, float d);

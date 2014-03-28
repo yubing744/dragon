@@ -26,13 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
-class _DragonExport Vector4 {
+class _DragonExport Vector4 extends(Object) {
 public:
     static const Vector4 ZERO; //Shorthand for writing Vector4(0, 0, 0, 0)
     static const Vector4 ONE; //Shorthand for writing Vector4(1, 1, 1, 1)
@@ -40,6 +41,10 @@ public:
 public:
     Vector4();
     Vector4(float x, float y, float z, float w);
+
+public:
+    const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float x;

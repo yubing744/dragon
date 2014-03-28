@@ -26,13 +26,14 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
-class _DragonExport Vector2 {
+class _DragonExport Vector2 extends(Object) {
 public:
     static const Vector2 ZERO; //Shorthand for writing Vector2(0, 0)
     static const Vector2 ONE; //Shorthand for writing Vector2(1, 1)
@@ -40,6 +41,10 @@ public:
 public:
     Vector2();
     Vector2(float x, float y);
+
+public:
+    const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float x;
