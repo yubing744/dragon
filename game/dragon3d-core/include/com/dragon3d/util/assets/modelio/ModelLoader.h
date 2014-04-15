@@ -27,12 +27,14 @@
 #include <dragon/config.h>
 #include <dragon/io/InputStream.h>
 #include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/util/assets/Resource.h>
 #include <com/dragon3d/util/assets/modelio/ModelLoadException.h>
 
 BeginPackage5(com, dragon3d, util, assets, modelio)
 
 Import dragon::io;
+Import com::dragon3d::scene;
 Import com::dragon3d::util::assets;
 Import com::dragon3d::scene::model;
 
@@ -41,7 +43,7 @@ public:
     virtual ~ModelLoader(){};
 
 public:
-    virtual Model* load(Resource* res) throw(ModelLoadException*) = 0;
+    virtual GameObject* load(Resource* res) throw(ModelLoadException*) = 0;
 
 };//ModelLoader
 

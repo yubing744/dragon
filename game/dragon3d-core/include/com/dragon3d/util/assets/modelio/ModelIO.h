@@ -27,6 +27,7 @@
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <dragon/io/File.h>
+#include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/util/assets/Resource.h>
 
@@ -34,6 +35,7 @@ BeginPackage5(com, dragon3d, util, assets, modelio)
 
 Import dragon::io;
 Import dragon::lang;
+Import com::dragon3d::scene;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::util::assets;
 
@@ -43,9 +45,9 @@ public:
     static const Type* TYPE;
     
 public:
-    static Model* load(File* file);
-    static Model* load(Resource* res);
-    static Model* load(const String& resPath);
+    static GameObject* load(File* file);
+    static GameObject* load(Resource* res);
+    static GameObject* load(const String& resPath);
 
 };//ModelIO
 

@@ -40,8 +40,8 @@ void ASSERT_MATRIX4X4_EQ(const Matrix4x4& mat,
 }
 
 TEST(Com_Dragon3d_Util_Math_Matrix4x4Test, New) {
-    Matrix4x4* o = new Matrix4x4();
-    SafeDelete(o);
+    //Matrix4x4* o = new Matrix4x4();
+    //SafeDelete(o);
 }
 
 TEST(Com_Dragon3d_Util_Math_Matrix4x4Test, Perspective) {

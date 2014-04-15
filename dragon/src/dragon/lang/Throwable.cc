@@ -22,8 +22,14 @@
 
 #include <dragon/lang/String.h>
 #include <dragon/lang/Throwable.h>
+#include <dragon/util/logging/Logger.h>
+#include <dragon/lang/StringBuffer.h>
 
 Import dragon::lang;
+Import dragon::util::logging;
+
+const Type* Throwable::TYPE = TypeOf<Throwable>();
+static Logger* logger = Logger::getLogger(Throwable::TYPE, INFO);
 
 Throwable::Throwable() {
 	this->message = new String("");
@@ -83,5 +89,27 @@ String* Throwable::toString() {
 }
 
 void Throwable::printStackTrace() {
+	StringBuffer* sb = new StringBuffer();
 
+	Throwable* current = this->cause;
+
+	while (current != null) {
+		sb->append("\t at ");
+
+		String* msg = current->getMessage();
+		sb->append(msg);
+		SafeRelease(msg);
+
+		sb->append("\n");
+
+		current = current->getCause();
+	}
+
+	String* out = sb->toString();
+
+	char* utf8Str = out->toUTF8String();
+	logger->info(utf8Str);
+	SafeFree(utf8Str);
+	
+	SafeRelease(out);
 }

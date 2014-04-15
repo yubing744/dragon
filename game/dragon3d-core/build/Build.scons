@@ -273,14 +273,20 @@ class LibraryModule(Module):
 
         if ('sources' in config):
             self.sources += self.CalBuildSources([], [], config['sources'], [])
-        elif ('include_dirs' in config):
+        
+        if ('include_dirs' in config):
             self.include_dirs += config['include_dirs']
-        elif ('defines' in config):
+
+        if ('defines' in config):
             self.defines += config['defines']
-        elif ('dependencies' in config):
+
+        if ('dependencies' in config):
             self.linked_modules += config['dependencies']
-        elif ('lib_path' in config):
+
+        if ('lib_path' in config):
             self.lib_path += config['lib_path']
+
+        #print self.include_dirs;
 
 
 def Application(name, 
@@ -533,6 +539,84 @@ LibraryModule(
 )
 
 
+# lib 3ds
+lib3ds_la_SOURCES = Split("""
+  io.c \
+  vector.c \
+  matrix.c \
+  quat.c \
+  tcb.c \
+  ease.c \
+  chunktable.h \
+  chunk.c \
+  file.c \
+  background.c \
+  atmosphere.c \
+  shadow.c \
+  viewport.c \
+  material.c \
+  mesh.c \
+  camera.c \
+  light.c \
+  tracks.c \
+  node.c
+""")
+
+LibraryModule(
+    name                  = '3ds',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/lib3ds-1.3.0",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/lib3ds-1.3.0",
+    build_source_files    = {
+        "lib3ds" : lib3ds_la_SOURCES
+    },  
+    shared                = False,
+    install               = True
+)
+
+
+# retro-shader
+
+RETRO_SHADER_ROOT = THIRD_PARTY_SOURCE_ROOT + "/retro-shader"
+
+LibraryModule(
+    name                  = 'retro-shader',
+    source_root           = RETRO_SHADER_ROOT,
+    build_include_dirs    = [
+        RETRO_SHADER_ROOT
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "math" : [
+            "matrix.c",
+            "matrix_3x3.c"
+        ]
+    },    
+    extra_cpp_defines     = [],
+
+    conditions = {
+        "OS=mac" : {
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        },
+        "OS=ios" : {
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        },
+        "OS=osx" : {
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        }
+    },
+
+    shared                = False,                    
+    install               = True
+)
+
 # dragon3d-core
 dragon3d_core_SOURCES = {
     "com/dragon3d/launcher" : Split("""
@@ -567,6 +651,7 @@ dragon3d_core_SOURCES = {
     """),
     "com/dragon3d/scene/model/geometry" : Split("""
         Box.cc
+        Plane.cc
     """),
     "com/dragon3d/scene/model/shader" : Split("""
         Shader.cc
@@ -578,7 +663,7 @@ dragon3d_core_SOURCES = {
     """),
 
     "com/dragon3d/input" : Split("""
-        inputManager.cc
+        InputManager.cc
     """),
 
     "com/dragon3d/output" : Split("""
@@ -587,6 +672,7 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/output/graphics" : Split("""
         GraphicsDevice.cc
         GraphicsOutputController.cc
+        Renderable.cc
     """),
     "com/dragon3d/output/graphics/renderer" : Split("""
         support_graphics_renderer.cc
@@ -630,6 +716,9 @@ dragon3d_core_SOURCES = {
         ObjMTLLoader.cc
         ObjModelLoader.cc
     """),
+    "com/dragon3d/util/assets/modelio/plugins/max" : Split("""
+        Max3DSModelLoader.cc
+    """),
     "com/dragon3d/util/assets/modelio/spi" : Split("""
         ModelLoaderRegistry.cc
     """),
@@ -655,7 +744,8 @@ LibraryModule(
     linked_modules        = [
         'dragon',
         'openal',
-        'delaunay'
+        'delaunay',
+        '3ds'
     ] + env['DRAGON_EXTRA_LIBS'],
     shared                = env['SHARED'],
     install               = True

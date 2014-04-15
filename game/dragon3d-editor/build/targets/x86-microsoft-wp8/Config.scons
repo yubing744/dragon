@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+"""
+SCons Tool to Build Wp8 Applications
+"""
+
+import os.path
+import re
+import sys
+
+import SCons.Action
+import SCons.Builder
+import SCons.Errors
+import SCons.Platform.win32
+import SCons.Tool
+import SCons.Tool.msvs
+import SCons.Util
+import SCons.Warnings
+import SCons.Scanner.RC
+
+from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
+
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
+env.AppendUnique(CCFLAGS = '/EHsc')
+
+env.AppendUnique(LINKFLAGS = '/MACHINE:X86')
+
+if env['build_config'] == 'debug':
+    env.AppendUnique(CCFLAGS = '/Zi')
+
+WP8_SDK_HOME='D:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/WPSDK/WP80'
+BATCH_SCRIPT=WP8_SDK_HOME + '/bin/vcvarsphonex86.bat'
+WP8_TOOLCHAIN_BIN=WP8_SDK_HOME + '/bin'
+
+def debug(x):
+    print x
+
+SCons.Tool.MSCommon.common.debug = debug
+SCons.Tool.MSCommon.vc.debug = debug
+
+env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
+msvc_setup_env(env)
+
+env['ENV']['PATH'] = WP8_TOOLCHAIN_BIN
+
+print '======================================================='
+print '============ Build for x86-microsoft-win32 ============'
+print 'ENV', env['ENV']
+print 'ENV PATH', env['ENV']['PATH']
+print 'AR',env['AR']
+print 'CC', env['CC']
+print 'CXX', env['CXX']
+print 'LINK', env['LINK']
+print '======================================================='
+print ''

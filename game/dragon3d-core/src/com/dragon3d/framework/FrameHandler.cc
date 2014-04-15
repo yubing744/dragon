@@ -58,6 +58,7 @@ void FrameHandler::init() {
 	while (it->hasNext()) {
 		Updater* updater = it->next();
 		updater->init();
+        SafeRelease(updater);
 	}
 
 	SafeDelete(it);
@@ -74,6 +75,7 @@ void FrameHandler::updateFrame(Scene* scene) {
 	while (it->hasNext()) {
 		Updater* updater = it->next();
 		updater->update(scene, this->timer);
+        SafeRelease(updater);
 	}
 
 	SafeDelete(it);
@@ -87,6 +89,7 @@ void FrameHandler::updateFrame(Scene* scene) {
 	while (itc->hasNext()) {
 		Output* output = itc->next();
 		output->output(scene, latch);
+        SafeRelease(output);
 	}
 
 	bool success = latch->await(this->timeoutSeconds * 1000);

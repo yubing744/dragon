@@ -59,7 +59,15 @@ bool Component::isTypeOf(const Type* type) {
 
 String* Component::getName() {
     if (this->gameObject != null) {
-        return this->gameObject->name;
+        return this->gameObject->getName();
+    }
+
+    return null;
+}
+
+Transform* Component::getTransform() {
+    if (this->gameObject != null) {
+        return this->gameObject->transform;
     }
 
     return null;

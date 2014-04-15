@@ -30,17 +30,22 @@
 
 #include <dragon/lang/reflect/Type.h>
 
+#include <com/dragon3d/framework/Scene.h>
 #include <com/dragon3d/scene/Component.h>
 #include <com/dragon3d/scene/model/Mesh.h>
+#include <com/dragon3d/output/graphics/Renderable.h>
 
 BeginPackage4(com, dragon3d, scene, model)
 
 Import dragon::util;
 Import dragon::lang::reflect;
+
+Import com::dragon3d::framework;
 Import com::dragon3d::scene::model;
+Import com::dragon3d::output::graphics;
 
 class _DragonExport Model 
-    extends(Component) {
+    extends(Component) implements1(Renderable) {
 public:
     const static Type* TYPE;
 
@@ -68,6 +73,20 @@ public:
 
     virtual void setMaterials(List<Material>* materials);
     virtual List<Material>* getMaterials();
+    virtual void addMaterial(Material* material);
+
+    virtual void setMatrix(const Matrix4x4& matrix);
+    virtual Matrix4x4 getMatrix() const;
+
+    /**
+     * get matrix by name.
+     * 
+     * @param name [description]
+     */
+    virtual Material* getMaterialByName(const String& name);
+
+public: //implements Renderable
+    virtual void renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera);
 
 protected:
     String* name;
@@ -92,6 +111,11 @@ protected:
      * @return [description]
      */
     List<Material>* materials;
+
+    /**
+     * the child matrix
+     */
+    Matrix4x4 matrix;
     
 };//Model
 

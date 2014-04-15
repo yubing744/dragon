@@ -46,11 +46,10 @@ void GraphicsOutputController::init() {
 	this->graphicsRenderer->init();
 }
 
-List<Camera>* FindAllCameras(Scene* scene) {
+List<Camera>* GraphicsOutputController_findAllCameras(Scene* scene) {
     List<Camera>* cameras = new ArrayList<Camera>();
 
-    List<GameObject>* gameObjects = scene->getAll();
-    
+    List<GameObject>* gameObjects = scene->findWithType(Camera::TYPE);
     Iterator<GameObject>* it = gameObjects->iterator();
 
     while(it->hasNext()) {
@@ -65,11 +64,12 @@ List<Camera>* FindAllCameras(Scene* scene) {
     }
 
     SafeDelete(it);
+    SafeRelease(gameObjects);
 
     return cameras;
 }
 
-void SortCameras(List<Camera>* cameras) {
+void GraphicsOutputController_sortCameras(List<Camera>* cameras) {
 
 }
 
@@ -87,23 +87,17 @@ void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)
     }
 
     // draw game objects
-    List<GameObject>* gameObjects = scene->getAll();
+    List<GameObject>* gameObjects = scene->findWithType(Renderable::TYPE);
     
     Iterator<GameObject>* it = gameObjects->iterator();
 
     while(it->hasNext()) {
         GameObject* gameObject = it->next();
-        Model* model = (Model*)gameObject->getComponent(Model::TYPE);
 
-        if (model != null) {
-            Mesh* mesh = model->getMesh();
-            Material* material = model->getMaterial();
+        Renderable* renderable = dynamic_cast<Renderable*>(gameObject->getComponent(Renderable::TYPE));
 
-            const Matrix4x4& matrix = gameObject->transform->getLocalToWorldMatrix();
-            gr->drawMesh(mesh, matrix, material, camera);
-
-            SafeRelease(mesh);
-            SafeRelease(material);
+        if (renderable != null) {
+            renderable->renderUnto(gr, scene, camera);
         }
 
         SafeRelease(gameObject);
@@ -122,8 +116,8 @@ void GraphicsOutputController::output(Scene* scene) {
     //gr->drawSample();
 
     // find all cameras and sort
-    List<Camera>* cameras = FindAllCameras(scene);
-    SortCameras(cameras);
+    List<Camera>* cameras = GraphicsOutputController_findAllCameras(scene);
+    GraphicsOutputController_sortCameras(cameras);
 
     // render scene to camera
     Iterator<Camera>* it = cameras->iterator();

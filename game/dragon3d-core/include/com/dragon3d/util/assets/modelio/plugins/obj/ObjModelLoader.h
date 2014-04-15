@@ -48,11 +48,9 @@ public:
     virtual ~ObjModelLoader();
 
 public:
-    virtual Model* load(Resource* res) throw(ModelLoadException*);
+    virtual GameObject* load(Resource* res) throw(ModelLoadException*);
     
 protected:
-    virtual Model* load(Resource* res, InputStream* stream) throw(ModelLoadException*);
-    virtual void loadFromReader(Model* model, Resource* res, Reader* reader) throw(ModelLoadException*);
     virtual void loadFromScanner(Model* model, Resource* res, Scanner* scanner) throw(ModelLoadException*);
 
     virtual void parseModelName(Scanner* scanner, Model* model) throw(ModelLoadException*);

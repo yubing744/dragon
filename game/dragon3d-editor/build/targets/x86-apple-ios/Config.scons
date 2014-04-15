@@ -1,0 +1,52 @@
+LoadTool('gcc-generic', env)
+
+### add the tools to the path
+
+IOS_TOOLCHAIN_BIN='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin'
+IOS_SYSROOT='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk'
+
+#print 'IOS_TOOLCHAIN_BIN  =', IOS_TOOLCHAIN_BIN
+#print 'IOS_SYSROOT        =', IOS_SYSROOT
+
+env.PrependENVPath('PATH', IOS_TOOLCHAIN_BIN)
+
+# static lib
+# env['AR']     = 'clang++'
+# env['ARFLAGS']= '-static'
+# env['ARCOM']  = '$AR -o $TARGET $ARFLAGS $__RPATH $_LIBDIRFLAGS $_LIBFLAGS $_FRAMEWORKPATH $_FRAMEWORKS $FRAMEWORKSFLAGS  $SOURCES'
+
+env['CC']     = 'clang'
+env['CXX']    = 'clang++'
+env['LINK']   = 'clang++'
+
+#print "ARCOM:", env['ARCOM']
+#print "CCCOM:", env['CCCOM']
+#print "CXXCOM:", env['CXXCOM']
+#print "LINKCOM:", env['LINKCOM']
+#print "ARFLAGS:", env['ARFLAGS']
+#print "_LIBFLAGS:", env['_LIBFLAGS']
+#print "LIBLINKPREFIX:", env['LIBLINKPREFIX']
+
+
+### Special for the ios: i386 flags
+i386_flags =  [('-arch', 'i386'), ('-isysroot', IOS_SYSROOT), ('-mios-simulator-version-min=6.1')]
+env.AppendUnique(CCFLAGS   = i386_flags + ['-fno-common', '-fno-stack-protector'])
+env.AppendUnique(LINKFLAGS = i386_flags + [])
+
+env.Append(SHLINKFLAGS = ["-install_name", "@executable_path/${TARGET.file}"])
+env.AppendUnique(CPPDEFINES = ["__APPLE__", "HAVE_INTTYPES_H=1"])
+
+env['DRAGON_EXTRA_LIBS']=['stdc++']
+
+env.AppendUnique(FRAMEWORKS=Split('Foundation UIKit OpenGLES QuartzCore CoreAudio AudioToolbox'))
+
+def Macosx_testcallback(target, source, env):
+    
+    print "setup debug file: ", str(source[0])
+    os.system(str(source[0]))
+    print "setup debug file ok!"
+    print ""
+
+    return None
+
+env['RUN_FUNC'] = Macosx_testcallback

@@ -46,6 +46,15 @@ int Texture::GetNextTextureID() {
     return sequence->incrementAndGet();
 }
 
+Texture::Texture(Resource* res) {
+    Ref<InputStream> is = res->getInputStream();
+    Ref<String> type = res->getType();
+
+    this->image = ImageIO::read(is.raw(), type.raw());
+
+    is->close();
+}
+
 Texture::Texture(const String& resPath) 
     :id(GetNextTextureID()) {
     Ref<Resource> res = AssetsManager::getInstance()->getResource(resPath);

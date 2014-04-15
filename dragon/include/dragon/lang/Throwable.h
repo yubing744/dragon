@@ -33,6 +33,9 @@ class _DragonExport Throwable
 	extends(Object)
 {
 public:
+    static const Type* TYPE;
+
+public:
 	Throwable();
 	Throwable(const String& message);
 	Throwable(String* message);

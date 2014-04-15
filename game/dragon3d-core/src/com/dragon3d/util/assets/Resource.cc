@@ -80,6 +80,7 @@ Resource* Resource::getResource(const String& path) {
         SafeRelease(base);
     }
 
+    sb->append("/");
     sb->append(path);
 
     String* resPath = sb->toString();
@@ -87,4 +88,10 @@ Resource* Resource::getResource(const String& path) {
     SafeRelease(resPath);
 
     return res;
+}
+
+String* Resource::getURI() {
+    String* ret = this->uri;
+    ret->retain();
+    return ret;
 }

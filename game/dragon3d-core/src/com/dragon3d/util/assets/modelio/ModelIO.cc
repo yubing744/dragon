@@ -27,13 +27,14 @@
 #include <com/dragon3d/util/assets/modelio/spi/ModelLoaderRegistry.h>
 
 Import dragon::util::logging;
+Import com::dragon3d::scene;
 Import com::dragon3d::util::assets::modelio;
 Import com::dragon3d::util::assets::modelio::spi;
 
 const Type* ModelIO::TYPE = TypeOf<ModelIO>();
 static Logger* logger = Logger::getLogger(ModelIO::TYPE, ERROR);
 
-Model* ModelIO::load(Resource* res) {
+GameObject* ModelIO::load(Resource* res) {
     String* type = res->getType();
 
     ModelLoaderRegistry* registry = ModelLoaderRegistry::getInstance();
@@ -47,24 +48,24 @@ Model* ModelIO::load(Resource* res) {
     }
 }
 
-Model* ModelIO::load(const String& resPath) {
+GameObject* ModelIO::load(const String& resPath) {
     Resource* res = AssetsManager::getInstance()->getResource(resPath);
 
-    Model* model = load(res);
+    GameObject* gameObject = load(res);
 
     SafeRelease(res);
 
-    return model;
+    return gameObject;
 }
 
-Model* ModelIO::load(File* file) {
+GameObject* ModelIO::load(File* file) {
     String* path = file->getPath();
     Resource* res = new Resource(path);
 
-    Model* model = load(res);
+    GameObject* gameObject = load(res);
     
     SafeRelease(res);
     SafeRelease(path);
 
-    return model;
+    return gameObject;
 }

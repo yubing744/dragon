@@ -47,28 +47,135 @@ void AbstractScene::remove(GameObject* gameObject) {
     this->gameObjects->remove(gameObject);
 }
 
-GameObject* AbstractScene::findFirstWithName(const char* name) {
+GameObject* AbstractScene::findFirstWithName(const String& name) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->getName()->equals(name)) {
+            SafeDelete(it);
+            return gameObject;
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
     return null;
 }   
 
-List<GameObject>* AbstractScene::findWithName(const char* name) {
+List<GameObject>* AbstractScene::findWithName(const String& name) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->getName()->equals(name)) {
+            finded->add(gameObject);
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
+    return finded;
+}
+
+GameObject* AbstractScene::findFirstWithType(const Type* type) {
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->hasComponent(type)) {
+            SafeDelete(it);
+            return gameObject;
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
     return null;
 }
 
-GameObject* AbstractScene::findFirstWithType(const Type& type) {
+List<GameObject>* AbstractScene::findWithType(const Type* type) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->hasComponent(type)) {
+            finded->add(gameObject);
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
+    return finded;
+}
+
+GameObject* AbstractScene::findFirstWithTag(const String& tag) {
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->hasTag(tag)) {
+            SafeDelete(it);
+            return gameObject;
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
     return null;
 }
 
-List<GameObject>* AbstractScene::findWithType(const Type& type) {
-    return null;
-}
+List<GameObject>* AbstractScene::findWithTag(const String& tag) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
 
-GameObject* AbstractScene::findFirstWithTag(const char* tag) {
-    return null;
-}
+    List<GameObject>* gameObjects = this->getAll();
+    
+    Iterator<GameObject>* it = gameObjects->iterator();
 
-List<GameObject>* AbstractScene::findWithTag(const char* tag) {
-    return null;
+    while(it->hasNext()) {
+        GameObject* gameObject = it->next();
+
+        if (gameObject->hasTag(tag)) {
+            finded->add(gameObject);
+        }
+
+        SafeRelease(gameObject);
+    }
+
+    SafeDelete(it);
+
+    return finded;
 }
 
 GameObject* AbstractScene::findFirstWithRay(Ray3* ray) {

@@ -338,7 +338,7 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
             screenRect.width * nvp.width, screenRect.height * nvp.height);
 
         if (!camera->orthographic) {
-            Vector3 eye = camera->transform->getPosition();
+            Vector3 eye = camera->getTransform()->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
             projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
@@ -420,9 +420,12 @@ unsigned int OpenGLES2Renderer::loadProgramID(Shader* shader) {
 GLuint OpenGLES2Renderer::loadShaderFrom(Material* material, Shader* defaultShader) {
     Shader* shader = null;
 
-    if (material!=null && material->shader!=null) {
-        shader =  material->shader;
-    } else {
+    if (material != null) {
+        shader = material->getShader();
+    } 
+
+    if (shader == null) {
+        SafeRetain(defaultShader);
         shader = defaultShader;
     }
 
@@ -460,7 +463,7 @@ void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, con
     //glDeleteProgram(programID);
 }
 
-void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera){
+void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex) {
     //logger->debug("draw mesh");
     GLuint programID = this->loadShaderFrom(material, this->normalShader);
 
@@ -509,7 +512,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     // Load the vertex data
     if (mesh->hasVertices()) {
         Array<float> vertices = mesh->getFloatVertices();
-        glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, vertices.raw());
+        glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, vertices.raw());
         glEnableVertexAttribArray(positionLoc);
     }
 
@@ -526,15 +529,11 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     
   
     // Draw Elements
-    int count = mesh->getSubMeshCount();
+    Array<unsigned short> indices = mesh->getShortIndices(submeshIndex);
+    int vCount = indices.length();
 
-    for(int i=0; i<count; i++) {
-        Array<unsigned short> indices = mesh->getShortIndices(i);
-        int vCount = indices.length();
-
-        if (vCount >0 && indices.raw()) {
-            glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, indices.raw());
-        }
+    if (vCount >0 && indices.raw()) {
+        glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, indices.raw());
     }
 
     // release material

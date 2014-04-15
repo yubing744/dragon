@@ -29,6 +29,7 @@
 #include <dragonx/image/BufferedImage.h>
 #include <com/dragon3d/scene/model/shader/Shader.h>
 #include <dragon/util/concurrent/atomic/AtomicInteger.h>
+#include <com/dragon3d/util/assets/Resource.h>
 
 BeginPackage4(com, dragon3d, scene, model)
 
@@ -37,6 +38,7 @@ Import dragonx::image;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::scene::model::shader;
 Import dragon::util::concurrent::atomic;
+Import com::dragon3d::util::assets;
 
 class _DragonExport Texture extends(Object) {
 private:
@@ -58,6 +60,7 @@ public:
 	};
 
 public:
+	Texture(Resource* res);
 	Texture(const String& resPath);
 	virtual ~Texture(void);
 

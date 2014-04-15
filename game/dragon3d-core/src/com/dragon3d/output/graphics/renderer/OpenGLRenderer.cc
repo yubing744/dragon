@@ -137,7 +137,7 @@ void OpenGLRendererSetupCamera(Camera* camera) {
             
             Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
 
-            Vector3 eye = camera->transform->getPosition();
+            Vector3 eye = camera->getTransform()->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
             projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
@@ -213,7 +213,7 @@ void OpenGLRendererDrawMeshData(Mesh* mesh) {
     }
 }
 
-void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) {
+void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex) {
     // setup camera
     OpenGLRendererSetupCamera(camera);
 

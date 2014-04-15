@@ -35,7 +35,7 @@ Import dragon::util::logging;
 Import com::dragon3d::util::assets::modelio::plugins::obj;
 
 const Type* ObjMTLLoader::TYPE = TypeOf<ObjMTLLoader>();
-static Logger* logger = Logger::getLogger(ObjMTLLoader::TYPE, ERROR);
+static Logger* logger = Logger::getLogger(ObjMTLLoader::TYPE, INFO);
 
 ObjMTLLoader::ObjMTLLoader() {
 
@@ -46,13 +46,21 @@ ObjMTLLoader::~ObjMTLLoader() {
 }
 
 List<Material>* ObjMTLLoader::load(Resource* res) throw(ModelLoadException*) {
+    if (res == null) {
+        return null;
+    }
+
+    String* uri = res->getURI();
+    const Array<byte> utf8 = uri->getBytes("UTF-8");
+    logger->info("the mtl uri: %s", utf8.raw());
+    SafeRelease(uri);
+
     Ref<InputStream> stream = res->getInputStream();
     Ref<Reader> reader = new InputStreamReader(stream.raw());
     Ref<Scanner> scanner = new Scanner(reader.raw());
 
     List<Material>* materials = new ArrayList<Material>();
 
-    /*
     Material* cm = null;
 
     while(scanner->hasNext()) {
@@ -62,24 +70,39 @@ List<Material>* ObjMTLLoader::load(Resource* res) throw(ModelLoadException*) {
             if (cm != null) {
                 materials->add(cm);
             } 
-
+            
             cm = new Material();
-            cm->setName(scanner.next());
+            cm->setName(scanner->next());
         } else if (token->equals("#")) {
             ;
         } else if (token->equals("Ka")) {
-            this->parseMeshVertices(scanner, &vertices, vi++);
-        } else if (token->equals("vt")) {
-            this->parseMeshTextureVertices(scanner, &uvs, vti++);
-        } else if (token->equals("vn")) {
-            this->parseMeshVertexNormals(scanner, &normals, vni++);
-        } else if (token->equals("f")) {
-            this->parseMeshTriangleFace(scanner, mesh, vertices, uvs, normals);
-        } else if (token->equals("mtllib")) {
-            this->parseMaterialLib(model, res, scanner);
-        } else if (token->equals("usemtl")) {
-            ;
-        } else if (token->equals("g")) {
+            float kaRed = scanner->nextFloat();
+            float kaGreen = scanner->nextFloat();
+            float kaBlue = scanner->nextFloat();
+
+            cm->setColor("_AmbientColor", Color(kaRed, kaGreen, kaBlue));
+        } else if (token->equals("Kd")) {
+            float kdRed = scanner->nextFloat();
+            float kdGreen = scanner->nextFloat();
+            float kdBlue = scanner->nextFloat();
+
+            cm->setColor("_DiffuseColor", Color(kdRed, kdGreen, kdBlue));
+        } else if (token->equals("Ks")) {
+            float ksRed = scanner->nextFloat();
+            float ksGreen = scanner->nextFloat();
+            float ksBlue = scanner->nextFloat();
+
+            cm->setColor("_SpecularColor", Color(ksRed, ksGreen, ksBlue));
+        } else if (token->equals("d") || token->equals("Tr")) {
+            float alpha = scanner->nextFloat();
+            cm->setFloat("_Alpha", alpha);
+        } else if (token->equals("Ns")) {
+            float shininess = scanner->nextFloat();
+            cm->setFloat("_Shininess", shininess);
+        } else if (token->equals("illum")) {
+            int illum = scanner->nextInt();
+            cm->setInt("_Illum", illum);
+        } else if (token->equals("map_Ka")) {
             ;
         }
         
@@ -87,7 +110,10 @@ List<Material>* ObjMTLLoader::load(Resource* res) throw(ModelLoadException*) {
 
         SafeRelease(token);
     }
-    */
+
+    if (cm != null) {
+        materials->add(cm);
+    } 
    
     return materials;
 }

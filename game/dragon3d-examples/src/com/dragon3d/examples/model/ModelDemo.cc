@@ -21,6 +21,7 @@
  **********************************************************************/
 
 #include <com/dragon3d/scene/model/geometry/Box.h>
+#include <com/dragon3d/scene/model/geometry/Plane.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/scene/SimpleScene.h>
 #include <com/dragon3d/util/math/Mathf.h>
@@ -54,28 +55,27 @@ void ModelDemo::init() {
 
     Scene* scene = this->getCurrentScene();
     
-    myBox = new GameObject();
-    Model* model = ModelIO::load("model/complex.obj");
-    
-    Material* material = new Material();
-    material->color = Color::BLACK;
-    material->mainTexture = new Texture("Textures/Wood03.jpg");
-    model->setMaterial(material);
-    
-    myBox->addComponent(model);
+    myBox = ModelIO::load("model/nokia-5700/nokia-5700-lowres.3DS");
     
     //myBox->transform->setScale(Vector3(0.2, 0.2, 0.2));
-    myBox->transform->setPosition(Vector3(0, 0, 5));
+    myBox->transform->setPosition(Vector3(0, 0, 0));
     myBox->transform->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
-    Box* box2 = new Box();
-    child->addComponent(box2);
+    Plane* plane = new Plane();
     
-    child->transform->setPosition(Vector3(0, 0, 10));
-    child->transform->setLocalPosition(Vector3(0, 2, 0));
-    //child->transform->setLocalPosition(Vector3(1, 2, 0));
-    child->transform->setParent(myBox->transform);
+    Material* material = new Material();
+    material->color = Color::BLACK;
+    material->mainTexture = new Texture("Textures/Wood03.tga");
+    plane->setMaterial(material);
+    
+    child->addComponent(plane);
+    
+    //child->transform->setLocalScale(Vector3(20, 20, 20));
+    child->transform->setPosition(Vector3(0, 0, 0));
+    child->transform->setLocalPosition(Vector3(0, 0, 0));
+    child->transform->setLocalPosition(Vector3(0, 0, -3));
+    //child->transform->setParent(myBox->transform);
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
@@ -83,9 +83,13 @@ void ModelDemo::init() {
     
     camera->pixelRect = Rect(0, 0, 320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->transform->setPosition(Vector3(0, 30, -120));
+    //camera->transform->setPosition(Vector3(0, 30, -120));
+    camera->getTransform()->setPosition(Vector3(0, 3, -10));
+    
+    //camera->getTransform()->setPosition(Vector3(0, 100, -750));
 
-    camera->transform->find("abc/bbb/ccc");
+    
+    camera->getTransform()->find("abc/bbb/ccc");
 
     scene->add(myBox);
     scene->add(child);
@@ -103,6 +107,7 @@ void ModelDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
     myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    child->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);

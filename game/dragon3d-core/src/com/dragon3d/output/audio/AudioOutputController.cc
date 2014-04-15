@@ -80,6 +80,8 @@ List<AudioListener>* findAllAudioListenerFromScene(Scene* scene) {
         if (audioListener != null) {
             ales->add(audioListener);
         }
+        
+        SafeRelease(gameObject);
     }
 
     SafeDelete(it);
@@ -98,6 +100,7 @@ void AudioOutputController::output(Scene* scene) {
         while(it->hasNext()) {
             AudioListener* listener = it->next();
             this->render->render(listener, ases);
+            SafeRelease(listener);
         }
 
         SafeDelete(it);

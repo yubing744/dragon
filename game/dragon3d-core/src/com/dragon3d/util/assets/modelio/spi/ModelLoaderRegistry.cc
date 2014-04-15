@@ -23,11 +23,14 @@
 #include <dragon/util/TreeMap.h>
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/util/assets/modelio/spi/ModelLoaderRegistry.h>
+
 #include <com/dragon3d/util/assets/modelio/plugins/obj/ObjModelLoader.h>
+#include <com/dragon3d/util/assets/modelio/plugins/max/Max3DSModelLoader.h>
 
 Import dragon::util::logging;
 Import com::dragon3d::util::assets::modelio::spi;
 Import com::dragon3d::util::assets::modelio::plugins::obj;
+Import com::dragon3d::util::assets::modelio::plugins::max;
 
 const Type* ModelLoaderRegistry::TYPE = TypeOf<ModelLoaderRegistry>();
 static Logger* logger = Logger::getLogger(ModelLoaderRegistry::TYPE, ERROR);
@@ -54,6 +57,7 @@ ModelLoaderRegistry::~ModelLoaderRegistry() {
 
 void ModelLoaderRegistry::init() {
     registerModelLoader("OBJ", new ObjModelLoader());
+    registerModelLoader("3DS", new Max3DSModelLoader());
 }
 
 void ModelLoaderRegistry::registerModelLoader(const String& modelType, ModelLoader* loader) {

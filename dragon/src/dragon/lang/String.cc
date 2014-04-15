@@ -796,6 +796,16 @@ char* String::toUTF8String() const {
 	return utf8Data;
 }
 
+const Array<char> String::toUTF8CharArray() const {
+	const Array<byte> data = this->getBytes("UTF-8");
+	
+	char* utf8Data = (char*)malloc(data.size() + 1);
+	memcpy(utf8Data, data.raw(), data.size());
+	utf8Data[data.size()] = '\0';
+
+	return Array<char>(utf8Data, data.size() + 1);
+}
+
 char* String::toCString() const {
 	const Array<byte> data = this->getBytes("ISO-8859-1");
 	
@@ -815,7 +825,6 @@ wchar_t* String::toWCHARString() const {
 
 	return wcharData;
 }
-
 
 bool String::matches(const String& regex) const {
 	String* str = const_cast<String*>(&regex);
@@ -1076,7 +1085,6 @@ String* String::valueOf(wchar_u c){
 	data[0] = c;
 	return new String(0, 1, data);
 }
-
 
 String* String::valueOf(int i){
 	return Integer::toString(i);

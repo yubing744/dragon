@@ -34,8 +34,8 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj1) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/cube_v2.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    SafeDelete(gameObject);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -46,8 +46,8 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj2) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/cube.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    SafeDelete(gameObject);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -58,8 +58,8 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj33) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/cube.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    SafeDelete(gameObject);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -70,8 +70,7 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj22) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/box.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -82,8 +81,8 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj3) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/teapot2.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    //SafeDelete(model);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -94,8 +93,8 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj4) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/teapot.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    //SafeDelete(model);
 
     SafeRelease(file);
     SafeRelease(filePath);
@@ -106,11 +105,22 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj5) {
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/complex.obj");
     File* file = new File(base, filePath);
 
-    Model* model = ModelIO::load(file);
-    SafeDelete(model);
+    GameObject* gameObject = ModelIO::load(file);
+    //SafeDelete(model);
 
     SafeRelease(file);
     SafeRelease(filePath);
 }
 
+TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, load3DS_01) {
+    const String* base = System::getProperty("HOME");
+    String* filePath = new String(L"/dragon_test/model_load_test/3ds_data/nokia-5700/nokia-5700-lowres.3DS");
+    File* file = new File(base, filePath);
+
+    GameObject* gameObject = ModelIO::load(file);
+    //SafeDelete(model);
+
+    SafeRelease(file);
+    SafeRelease(filePath);
+}
 

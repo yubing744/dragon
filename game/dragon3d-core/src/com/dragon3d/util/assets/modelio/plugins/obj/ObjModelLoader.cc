@@ -52,24 +52,19 @@ ObjModelLoader::~ObjModelLoader() {
     SafeRelease(this->mtlLoader);
 }
 
-Model* ObjModelLoader::load(Resource* res) throw(ModelLoadException*) {
-    Ref<InputStream> stream = res->getInputStream();
-    this->load(res, stream.raw());
-}
+GameObject* ObjModelLoader::load(Resource* res) throw(ModelLoadException*) {
+    GameObject* gameObject = new GameObject();
 
-Model* ObjModelLoader::load(Resource* res, InputStream* stream) throw(ModelLoadException*) {
     Ref<Model> model = new Model();
-
+    Ref<InputStream> stream = res->getInputStream();
     Ref<Reader> reader = new InputStreamReader(stream);
-    loadFromReader(model.raw(), res, reader.raw());
-
-    model->retain();
-    return model.raw();  
-}
-
-void ObjModelLoader::loadFromReader(Model* model, Resource* res, Reader* reader) throw(ModelLoadException*) {
     Ref<Scanner> scanner = new Scanner(reader);
-    loadFromScanner(model, res, scanner.raw());
+
+    loadFromScanner(model.raw(), res, scanner.raw());
+
+    gameObject->addComponent(model.raw());
+
+    return gameObject;
 }
 
 void ObjModelLoader::loadFromScanner(Model* model, Resource* res, Scanner* scanner) throw(ModelLoadException*) {
@@ -116,6 +111,7 @@ void ObjModelLoader::loadFromScanner(Model* model, Resource* res, Scanner* scann
     this->filterMesh(mesh);
 
     model->setMesh(mesh);
+
     SafeRelease(mesh);
 }
 
@@ -135,9 +131,11 @@ void ObjModelLoader::parseMeshVertices(Scanner* scanner, Vector3** pVertices, in
         throw new ModelLoadException("Couldn't (re)allocate memory for verteces!");
     }
 
-    vertices[n].x = scanner->nextFloat();
-    vertices[n].y = scanner->nextFloat();
-    vertices[n].z = scanner->nextFloat();
+    float x = scanner->nextFloat();
+    float y = scanner->nextFloat();
+    float z = scanner->nextFloat();
+
+    vertices[n] = Vector3(x, y, z);
 
     *pVertices = vertices;
 }
@@ -152,8 +150,10 @@ void ObjModelLoader::parseMeshTextureVertices(Scanner* scanner, Vector2** puvs, 
         throw new ModelLoadException("Couldn't (re)allocate memory for texture vertices!");
     }
 
-    uvs[n].x = scanner->nextFloat();
-    uvs[n].y = scanner->nextFloat();
+    float x = scanner->nextFloat();
+    float y = scanner->nextFloat();
+
+    uvs[n] = Vector2(x, y);
 
     *puvs = uvs;
 }
@@ -168,9 +168,11 @@ void ObjModelLoader::parseMeshVertexNormals(Scanner* scanner, Vector3** pnormals
         throw new ModelLoadException("Couldn't (re)allocate memory for vertex normals!");
     }
 
-    normals[n].x = scanner->nextFloat();
-    normals[n].y = scanner->nextFloat();
-    normals[n].z = scanner->nextFloat();
+    float x = scanner->nextFloat();
+    float y = scanner->nextFloat();
+    float z = scanner->nextFloat();
+
+    normals[n] = Vector3(x, y, z);
 
     *pnormals = normals;
 }
@@ -215,11 +217,20 @@ void ObjModelLoader_triangulate(vector<Vector3>& points, vector<int>& outTriangl
 void ObjModelLoader_appendToMesh(Mesh* mesh, vector<Vector3>& vertices, vector<Vector2>& uvs, 
     vector<Vector3>& normals, vector<int>& triangles) {
     
-    mesh->appendVertexArray(Array<Vector3>(&vertices[0], vertices.size()));
-    mesh->appendUVArray(Array<Vector2>(&uvs[0], uvs.size()));
-    mesh->appendNormalArray(Array<Vector3>(&normals[0], normals.size()));
+    int ic = mesh->getVertexCount();
 
-    mesh->appendTriangles(Array<int>(&triangles[0], triangles.size()));
+    mesh->appendVertexArray(Array<Vector3>(&vertices[0], vertices.size(), false));
+    mesh->appendUVArray(Array<Vector2>(&uvs[0], uvs.size(), false));
+    mesh->appendNormalArray(Array<Vector3>(&normals[0], normals.size(), false));
+
+    // triangles
+    int* ttmp = (int*)malloc(sizeof(int) * triangles.size());
+
+    for (int i=0; i<triangles.size(); i++) {
+        ttmp[i] = ic + triangles[i];
+    }
+
+    mesh->appendTriangles(Array<int>(ttmp, triangles.size()));
 }
 
 void ObjModelLoader::parseMeshTriangleFace(Scanner* scanner, Mesh* mesh, 
@@ -277,7 +288,9 @@ void ObjModelLoader::parseMaterialLib(Model* model, Resource* baseRes, Scanner* 
     Ref<Resource> mtlRes = baseRes->getResource(mtlPath.raw());
     Ref<List<Material> > materials = mtlLoader->load(mtlRes.raw());
 
-    model->setMaterials(materials.raw());
+    if (materials.raw() != null) {
+        model->setMaterials(materials.raw());
+    }
 }
 
 void ObjModelLoader::filterMesh(Mesh* mesh) {

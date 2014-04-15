@@ -27,9 +27,17 @@
 Import dragon::util;
 Import com::dragon3d::scene::model;
 
-Mesh::Mesh() : 
+Mesh::Mesh() :
+    vertices(), 
     vertexCount(0),
 
+    uv(),
+    uv2(),
+    normals(),
+    tangents(),
+    colors(),
+    colors32(),
+    
     subMeshs(null),
     subMeshCount(0) {
 
@@ -53,18 +61,20 @@ void Mesh::setIndices(Array<int> indices, MeshTopology topology, int submesh) {
     if (newSize > this->subMeshCount) {
         this->subMeshs = (MeshData*)realloc(this->subMeshs, sizeof(MeshData) * newSize);
     }
+    
+    memset(this->subMeshs + this->subMeshCount, 0, sizeof(MeshData) * (newSize - this->subMeshCount));
 
     for (int i=this->subMeshCount; i<submesh; i++) {
         this->subMeshs[i].indices = Array<int>();
         this->subMeshs[i].indexCount = 0;
         this->subMeshs[i].topology = Triangles;
-        this->subMeshs[i].material = null;
+        this->subMeshs[i].materialName = null;
     }
 
     this->subMeshs[submesh].indices = indices.clone();
     this->subMeshs[submesh].indexCount = indices.length();
     this->subMeshs[submesh].topology = topology;
-    this->subMeshs[submesh].material = null;
+    this->subMeshs[submesh].materialName = null;
 
     this->subMeshCount = newSize;
 }
@@ -81,11 +91,22 @@ void Mesh::appendIndices(Array<int> indices, MeshTopology topology, int submesh)
     int newSize = submesh + 1;
 
     if (newSize > this->subMeshCount) {
-        throw new IndexOutOfBoundsException("the submesh is out of bounds!");
+        this->subMeshs = (MeshData*)realloc(this->subMeshs, sizeof(MeshData) * newSize);
+    }
+
+    memset(this->subMeshs + this->subMeshCount, 0, sizeof(MeshData) * (newSize - this->subMeshCount));
+    
+    for (int i=this->subMeshCount; i<=submesh; i++) {
+        this->subMeshs[i].indices = Array<int>();
+        this->subMeshs[i].indexCount = 0;
+        this->subMeshs[i].topology = Triangles;
+        this->subMeshs[i].materialName = null;
     }
 
     this->subMeshs[submesh].indices.append(indices);
     this->subMeshs[submesh].indexCount += indices.length();
+
+    this->subMeshCount = newSize;
 }
 
 void Mesh::appendTriangles(Array<int> triangles) {
@@ -149,8 +170,8 @@ void Mesh::setFloatVertices(Array<float> vertices) {
 }
 
 void Mesh::setVertexArray(Array<Vector3> vertices) {
-    int size = sizeof(float) * 3 * vertices.size();
-    float* data = (float*)malloc(size);
+    int size = 3 * vertices.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<vertices.size(); n++) {
         Vector3 v = vertices[n];
@@ -164,8 +185,8 @@ void Mesh::setVertexArray(Array<Vector3> vertices) {
 }
 
 void Mesh::setVertices(List<Vector3>* vertices) {
-    int size = sizeof(float) * 3 * vertices->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * vertices->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<vertices->size(); n++) {
         Vector3* v = vertices->get(n);
@@ -181,11 +202,12 @@ void Mesh::setVertices(List<Vector3>* vertices) {
 // append
 void Mesh::appendFloatVertices(Array<float> vertices) {
     this->vertices.append(vertices);
+    this->vertexCount += vertices.length() / 3;
 }
 
 void Mesh::appendVertexArray(Array<Vector3> vertices) {
-    int size = sizeof(float) * 3 * vertices.size();
-    float* data = (float*)malloc(size);
+    int size = 3 * vertices.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<vertices.size(); n++) {
         Vector3 v = vertices[n];
@@ -199,8 +221,8 @@ void Mesh::appendVertexArray(Array<Vector3> vertices) {
 }
 
 void Mesh::appendVertices(List<Vector3>* vertices) {
-    int size = sizeof(float) * 3 * vertices->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * vertices->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<vertices->size(); n++) {
         Vector3* v = vertices->get(n);
@@ -260,8 +282,8 @@ void Mesh::setFloatUVs(Array<float> uvs) {
 }
 
 void Mesh::setUVArray(Array<Vector2> uvs) {
-    int size = sizeof(float) * 2 * uvs.size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uvs.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<uvs.size(); n++) {
         Vector2 v = uvs[n];
@@ -274,8 +296,8 @@ void Mesh::setUVArray(Array<Vector2> uvs) {
 }
 
 void Mesh::setUVs(List<Vector2>* uvs) {
-    int size = sizeof(float) * 2 * uvs->size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uvs->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector2>* it = uvs->iterator();
@@ -302,24 +324,22 @@ void Mesh::appendFloatUVs(Array<float> uvs) {
 }
 
 void Mesh::appendUVArray(Array<Vector2> uvs) {
-    int size = sizeof(float) * 2 * uvs.size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uvs.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<uvs.size(); n++) {
         Vector2 v = uvs[n];
 
         data[n * 2 + 0] = v.x;
         data[n * 2 + 1] = v.y;
-
-        n++;
     }
 
     this->appendFloatUVs(Array<float>(data, size));
 }
 
 void Mesh::appendUVs(List<Vector2>* uvs) {
-    int size = sizeof(float) * 2 * uvs->size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uvs->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector2>* it = uvs->iterator();
@@ -387,8 +407,8 @@ void Mesh::setFloatUV2s(Array<float> uv2s) {
 }
 
 void Mesh::setUV2Array(Array<Vector2> uv2s) {
-    int size = sizeof(float) * 2 * uv2s.size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uv2s.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<uv2s.size(); n++) {
         Vector2 v = uv2s[n];
@@ -401,8 +421,8 @@ void Mesh::setUV2Array(Array<Vector2> uv2s) {
 }
 
 void Mesh::setUV2s(List<Vector2>* uv2s) {
-    int size = sizeof(float) * 3 * uv2s->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * uv2s->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector2>* it = uv2s->iterator();
@@ -429,8 +449,8 @@ void Mesh::appendFloatUV2s(Array<float> uv2s) {
 }
 
 void Mesh::appendUV2Array(Array<Vector2> uv2s) {
-    int size = sizeof(float) * 2 * uv2s.size();
-    float* data = (float*)malloc(size);
+    int size = 2 * uv2s.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<uv2s.size(); n++) {
         Vector2 v = uv2s[n];
@@ -443,8 +463,8 @@ void Mesh::appendUV2Array(Array<Vector2> uv2s) {
 }
 
 void Mesh::appendUV2s(List<Vector2>* uv2s) {
-    int size = sizeof(float) * 3 * uv2s->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * uv2s->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector2>* it = uv2s->iterator();
@@ -511,8 +531,8 @@ void Mesh::setFloatNormals(Array<float> normals) {
 }
 
 void Mesh::setNormalArray(Array<Vector3> normals) {
-    int size = sizeof(float) * 3 * normals.size();
-    float* data = (float*)malloc(size);
+    int size = 3 * normals.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<normals.size(); n++) {
         Vector3 v = normals[n];
@@ -526,8 +546,8 @@ void Mesh::setNormalArray(Array<Vector3> normals) {
 }
 
 void Mesh::setNormals(List<Vector3>* normals) {
-    int size = sizeof(float) * 3 * normals->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * normals->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector3>* it = normals->iterator();
@@ -555,8 +575,8 @@ void Mesh::appendFloatNormals(Array<float> normals) {
 }
 
 void Mesh::appendNormalArray(Array<Vector3> normals) {
-    int size = sizeof(float) * 3 * normals.size();
-    float* data = (float*)malloc(size);
+    int size = 3 * normals.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<normals.size(); n++) {
         Vector3 v = normals[n];
@@ -570,8 +590,8 @@ void Mesh::appendNormalArray(Array<Vector3> normals) {
 }
 
 void Mesh::appendNormals(List<Vector3>* normals) {
-    int size = sizeof(float) * 3 * normals->size();
-    float* data = (float*)malloc(size);
+    int size = 3 * normals->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     int n = 0;
     Iterator<Vector3>* it = normals->iterator();
@@ -640,8 +660,8 @@ void Mesh::setFloatTangents(Array<float> tangents) {
 }
 
 void Mesh::setTangentArray(Array<Vector4> tangents) {
-    int size = sizeof(float) * 4 * tangents.size();
-    float* data = (float*)malloc(size);
+    int size = 4 * tangents.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<tangents.size(); n++) {
         Vector4 v = tangents[n];
@@ -656,8 +676,8 @@ void Mesh::setTangentArray(Array<Vector4> tangents) {
 }
 
 void Mesh::setTangents(List<Vector4>* tangents) {
-    int size = sizeof(float) * 4 * tangents->size();
-    float* data = (float*)malloc(size);
+    int size = 4 * tangents->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<tangents->size(); n++) {
         Vector4* v = tangents->get(n);
@@ -677,8 +697,8 @@ void Mesh::appendFloatTangents(Array<float> tangents) {
 }
 
 void Mesh::appendTangentArray(Array<Vector4> tangents) {
-    int size = sizeof(float) * 4 * tangents.size();
-    float* data = (float*)malloc(size);
+    int size = 4 * tangents.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<tangents.size(); n++) {
         Vector4 v = tangents[n];
@@ -693,8 +713,8 @@ void Mesh::appendTangentArray(Array<Vector4> tangents) {
 }
 
 void Mesh::appendTangents(List<Vector4>* tangents) {
-    int size = sizeof(float) * 4 * tangents->size();
-    float* data = (float*)malloc(size);
+    int size = 4 * tangents->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<tangents->size(); n++) {
         Vector4* v = tangents->get(n);
@@ -756,8 +776,8 @@ void Mesh::setByteColors32(Array<byte> colors32) {
 }
 
 void Mesh::setColors32Array(Array<Color32> colors32) {
-    int size = sizeof(byte) * 4 * colors32.size();
-    byte* data = (byte*)malloc(size);
+    int size = 4 * colors32.size();
+    byte* data = (byte*)malloc(sizeof(byte) * size);
 
     for (int n=0; n<colors32.size(); n++) {
         Color32 c = colors32[n];
@@ -772,8 +792,8 @@ void Mesh::setColors32Array(Array<Color32> colors32) {
 }
 
 void Mesh::setColors32(List<Color32>* colors32) {
-    int size = sizeof(byte) * 4 * colors32->size();
-    byte* data = (byte*)malloc(size);
+    int size = 4 * colors32->size();
+    byte* data = (byte*)malloc(sizeof(byte) * size);
 
     for (int n=0; n<colors32->size(); n++) {
         Color32* c = colors32->get(n);
@@ -795,8 +815,8 @@ void Mesh::appendByteColors32(Array<byte> colors32) {
 }
 
 void Mesh::appendColors32Array(Array<Color32> colors32) {
-    int size = sizeof(byte) * 4 * colors32.size();
-    byte* data = (byte*)malloc(size);
+    int size = 4 * colors32.size();
+    byte* data = (byte*)malloc(sizeof(byte) * size);
 
     for (int n=0; n<colors32.size(); n++) {
         Color32 c = colors32[n];
@@ -811,8 +831,8 @@ void Mesh::appendColors32Array(Array<Color32> colors32) {
 }
 
 void Mesh::appendColors32(List<Color32>* colors32) {
-    int size = sizeof(byte) * 4 * colors32->size();
-    byte* data = (byte*)malloc(size);
+    int size = 4 * colors32->size();
+    byte* data = (byte*)malloc(sizeof(byte) * size);
 
     for (int n=0; n<colors32->size(); n++) {
         Color32* c = colors32->get(n);
@@ -876,8 +896,8 @@ void Mesh::setFloatColors(Array<float> colors) {
 }
 
 void Mesh::setColorArray(Array<Color> colors) {
-    int size = sizeof(float) * 4 * colors.size();
-    float* data = (float*)malloc(size);
+    int size = 4 * colors.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<colors.size(); n++) {
         Color c = colors[n];
@@ -892,8 +912,8 @@ void Mesh::setColorArray(Array<Color> colors) {
 }
 
 void Mesh::setColors(List<Color>* colors) {
-    int size = sizeof(float) * 4 * colors->size();
-    float* data = (float*)malloc(size);
+    int size = 4 * colors->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<colors->size(); n++) {
         Color* c = colors->get(n);
@@ -915,8 +935,8 @@ void Mesh::appendFloatColors(Array<float> colors) {
 }
 
 void Mesh::appendColorArray(Array<Color> colors) {
-    int size = sizeof(float) * 3 * colors.size();
-    float* data = (float*)malloc(size);
+    int size = 3 * colors.size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<colors.size(); n++) {
         Color c = colors[n];
@@ -930,8 +950,8 @@ void Mesh::appendColorArray(Array<Color> colors) {
 }
 
 void Mesh::appendColors(List<Color>* colors) {
-    int size = sizeof(float) * 4 * colors->size();
-    float* data = (float*)malloc(size);
+    int size = 4 * colors->size();
+    float* data = (float*)malloc(sizeof(float) * size);
 
     for (int n=0; n<colors->size(); n++) {
         Color* c = colors->get(n);
@@ -985,6 +1005,19 @@ Array<Color> Mesh::getColorArray() {
     }
 
     return ret;
+}
+
+
+String* Mesh::getMaterialName(int submesh) {
+    Mesh::MeshData data = this->getSubMeshData(submesh);
+    String* name = data.materialName;
+
+    if (name != null) {
+        name->retain();
+        return name;
+    }
+
+    return null;
 }
 
 //---------------------------------

@@ -621,6 +621,8 @@ public:
      const Array<byte> getBytes(const char* charset) const;
      const Array<byte> getBytes(const String& charset) const;
 
+     const Array<char> toUTF8CharArray() const;
+
      char* toUTF8String() const;
      char* toCString() const; 
      wchar_t* toWCHARString() const;

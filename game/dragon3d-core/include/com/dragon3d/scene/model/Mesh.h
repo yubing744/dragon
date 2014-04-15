@@ -61,7 +61,7 @@ public:
     };
 
     struct MeshData {
-        Material* material; //material
+        String* materialName; //material
         MeshTopology topology; //the topology of a submesh.
         Array<int> indices; //An array containing all triangles in the mesh.
         int indexCount; //index count
@@ -209,6 +209,14 @@ public:
     Array<int> getTriangles();
     Array<int> getIndices(int submesh);
     Array<unsigned short> getShortIndices(int submesh);
+
+    /**
+     * get material name by submesh index.
+     * 
+     * @param  submesh [description]
+     * @return         [description]
+     */
+    String* getMaterialName(int submesh);
 
     /**
      * get vertex count

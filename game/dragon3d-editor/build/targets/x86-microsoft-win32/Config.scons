@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+"""
+SCons Tool to Build Wp8 Applications
+"""
+
+import os.path
+import re
+import sys
+
+from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
+from SCons.Tool.MSCommon.vc import get_default_version, find_vc_pdir
+
+#CPPDEFINES
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
+if env['build_config'] == 'debug':
+    env.AppendUnique(CPPDEFINES = "_DEBUG")
+
+#CCFLAGS
+env.AppendUnique(CCFLAGS = '/EHsc')
+env.AppendUnique(CCFLAGS = '/MD')
+env.AppendUnique(CCFLAGS = '/GS')
+env.AppendUnique(CCFLAGS = '/Zc:wchar_t')
+
+if env['build_config'] == 'debug':
+    env.AppendUnique(CCFLAGS = '/MDd') 
+else:
+    env.AppendUnique(CCFLAGS = '/MD')
+
+#LINKFLAGS
+env.AppendUnique(LINKFLAGS = '/MACHINE:x86')
+env.AppendUnique(LINKFLAGS = '/WINMD:NO')
+
+env.AppendUnique(LINKFLAGS = 'kernel32.lib')
+env.AppendUnique(LINKFLAGS = 'user32.lib')
+env.AppendUnique(LINKFLAGS = 'gdi32.lib')
+env.AppendUnique(LINKFLAGS = 'OpenGL32.Lib')
+
+def find_vc_sdk_dir(env):
+    #print('msvc_setup_env()')
+
+    version = get_default_version(env)
+    if version is None:
+        warn_msg = "No version of Visual Studio compiler found - C/C++ " \
+                   "compilers most likely not set correctly"
+        SCons.Warnings.warn(SCons.Warnings.VisualCMissingWarning, warn_msg)
+        return None
+
+    pdir = find_vc_pdir(version)
+    if pdir is None:
+        raise NoVersionFound("No version of Visual Studio found")
+        
+    return pdir
+
+
+VC_SDK_HOME = find_vc_sdk_dir(env)
+#print "VC_SDK_HOME:", VC_SDK_HOME
+
+env['ENV']['INCLUDE'] = ''
+env['ENV']['LIB'] = ''
+env['ENV']['LIBPATH'] = ''
+env['ENV']['PATH'] = ''
+
+BATCH_SCRIPT = VC_SDK_HOME + '/bin/vcvars32.bat'
+
+#def debug(x):
+#    print x
+
+#SCons.Tool.MSCommon.common.debug = debug
+#SCons.Tool.MSCommon.vc.debug = debug
+
+env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
+msvc_setup_env(env)
+
+env.PrependENVPath('INCLUDE', [VC_SDK_HOME + '/include'])
+env.PrependENVPath('LIB', [VC_SDK_HOME + '/lib'])
+env.PrependENVPath('LIBPATH', [VC_SDK_HOME + '/lib'])
+env.PrependENVPath('PATH', [VC_SDK_HOME + '/bin'])
+
+
+#print '======================================================='
+#print '============ Build for x86-microsoft-win32 ============'
+#print 'ENV', env['ENV']
+#print 'ENV INCLUDE', env['ENV']['INCLUDE']
+#print 'ENV LIB', env['ENV']['LIB']
+#print 'ENV LIBPATH', env['ENV']['LIBPATH']
+#print 'ENV PATH', env['ENV']['PATH']
+#print 'AR',env['AR']
+#print 'CC', env['CC']
+#print 'CXX', env['CXX']
+#print 'LINK', env['LINK']
+#print '======================================================='
+#print ''

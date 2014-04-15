@@ -142,9 +142,9 @@ Box::Box() {
     int numVertices = 24;
     int numIndices = 36;
     
-    this->mesh->setFloatVertices(Array<float>(cubeVerts, numVertices));
-    this->mesh->setFloatNormals(Array<float>(cubeNormals, numVertices));
-    this->mesh->setFloatUVs(Array<float>(cubeTex, numVertices));
+    this->mesh->setFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
+    this->mesh->setFloatNormals(Array<float>(cubeNormals, numVertices * 3, false));
+    this->mesh->setFloatUVs(Array<float>(cubeTex, numVertices * 2, false));
 
     //Copy indices data
     int* triangles = new int[numIndices];

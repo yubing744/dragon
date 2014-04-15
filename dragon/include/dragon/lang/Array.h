@@ -144,24 +144,26 @@ public:
 
 	void append(const T& t) {
 		T* tmp = new T[this->count + 1];
+
 		memcpy(tmp, this->data, sizeof(T) * this->count);
 		tmp[this->count] = t;
-		free(this->data);
 
+		SafeDeleteArray(this->data);
+		
 		this->data = tmp;
+		this->count += 1;
 	};
 
 	void append(const T* data, int count) {
 		T* tmp = new T[this->count + count];
+
 		memcpy(tmp, this->data, sizeof(T) * this->count);
+		memcpy(tmp + this->count, (void*)data, sizeof(T) * count);
 
-		for (int i=0; i<count; i++) {
-			tmp[this->count + i] = data[i];
-		}
-
-		free(this->data);
+		SafeDeleteArray(this->data);
 
 		this->data = tmp;
+		this->count += count;
 	};
 
 	void append(const Array<T>& arr) {
@@ -170,10 +172,19 @@ public:
 
 	Array<T> clone() {
 		int n = this->count;
-		T* tmp = new T[n];
-		memcpy((void*)tmp, (void*)this->data, sizeof(T) * n);
 
-		return Array<T>(tmp, n);
+		if (n > 0) {
+			T* tmp = new T[n];
+			//memcpy((void*)tmp, (void*)this->data, sizeof(T) * n);
+
+			for (int i=0; i<n; i++) {
+				tmp[i] = this->data[i];
+			}
+
+			return Array<T>(tmp, n);
+		}
+
+		return Array<T>();
 	};
 
 	int size() const {
@@ -190,8 +201,8 @@ public:
 
 private:
 	Object* obj;
-	int count;
 	T* data;
+	int count;
 };
 
 EndPackage2//(dragon, lang)
