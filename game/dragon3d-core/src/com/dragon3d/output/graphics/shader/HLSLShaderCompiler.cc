@@ -17,39 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/17
+ * Created:     2014/04/18
  **********************************************************************/
 
 
-#include <com/dragon3d/scene/model/shader/Shader.h>
+#include <com/dragon3d/output/graphics/shader/HLSLShaderCompiler.h>
+#include <dragon/util/logging/Logger.h>
 
-#include <dragon/util/HashMap.h>
+Import com::dragon3d::output::graphics::shader;
+Import dragon::util::logging;
 
-Import dragon::util;
-Import com::dragon3d::scene::model::shader;
+const Type* HLSLShaderCompiler::TYPE = TypeOf<HLSLShaderCompiler>();
+static Logger* logger = Logger::getLogger(HLSLShaderCompiler::TYPE, ERROR);
 
-AtomicInteger* Shader::sequence = new AtomicInteger(0);
-
-int Shader::GetNextShaderID() {
-    return sequence->incrementAndGet();
-}
-
-Shader::Shader(const Resource* res) 
-    :id(GetNextShaderID()) {
+HLSLShaderCompiler::HLSLShaderCompiler() {
 
 }
 
-Shader::Shader(const String& vertexShader, const String& fragmentShader)  
-    :id(GetNextShaderID()){
-    this->vertexShader = new String(vertexShader);
-    this->fragmentShader = new String(fragmentShader);
-}
+HLSLShaderCompiler::~HLSLShaderCompiler() {
 
-Shader::~Shader() {
-    SafeRelease(this->vertexShader);
-    SafeRelease(this->fragmentShader);
-}
-
-unsigned int Shader::getID() {
-    return this->id;
 }

@@ -30,6 +30,7 @@
 #include <dragon/lang/Integer.h>
 #include <dragon/lang/Float.h>
 #include <dragon/lang/String.h>
+#include <com/dragon3d/util/Shader.h>
 #include <com/dragon3d/util/math/Color.h>
 #include <com/dragon3d/util/math/Vector2.h>
 #include <com/dragon3d/util/math/Vector4.h>
@@ -40,6 +41,7 @@ BeginPackage4(com, dragon3d, scene, model)
 Import dragon::util;
 Import dragon::lang;
 
+Import com::dragon3d::util;
 Import com::dragon3d::util::math;
 Import com::dragon3d::scene::model;
 

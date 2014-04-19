@@ -17,13 +17,69 @@
 #define SHADER_COMMON_H__
 
 #include "boolean.h"
-#include "gl_common.h"
+
+#define HAVE_LOGGER
+#include "logger/logger_override.h"
 
 #include "math/matrix.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifndef VERBOSE_LOG
+#undef RARCH_LOG
+#define RARCH_LOG(...)
+#endif
+
+#include "glsym/glsym.h"
+
+struct gl_fbo_rect
+{
+   unsigned img_width;
+   unsigned img_height;
+   unsigned max_img_width;
+   unsigned max_img_height;
+   unsigned width;
+   unsigned height;
+};
+
+struct gl_ortho
+{
+   GLfloat left;
+   GLfloat right;
+   GLfloat bottom;
+   GLfloat top;
+   GLfloat znear;
+   GLfloat zfar;
+};
+
+struct gl_tex_info
+{
+   GLuint tex;
+   GLfloat input_size[2];
+   GLfloat tex_size[2];
+   GLfloat coord[8];
+};
+
+struct gl_coords
+{
+   const GLfloat *vertex;
+   const GLfloat *color;
+   const GLfloat *tex_coord;
+   const GLfloat *lut_tex_coord;
+};
+
+#define MAX_SHADERS 16
+#define MAX_TEXTURES 8
+
+struct gl_overlay_data
+{
+   GLuint tex;
+   GLfloat tex_coord[8];
+   GLfloat vertex_coord[8];
+   GLfloat alpha_mod;
+};
 
 #define PATH_MAX 512
 #define GL_SHADER_STOCK_BLEND (GFX_MAX_SHADERS - 1)
@@ -35,6 +91,18 @@ enum rarch_shader_type
    RARCH_SHADER_GLSL,
    RARCH_SHADER_NONE
 };
+
+#if defined(_XBOX360)
+#define DEFAULT_SHADER_TYPE RARCH_SHADER_HLSL
+#elif defined(__PSL1GHT__)
+#define DEFAULT_SHADER_TYPE RARCH_SHADER_GLSL
+#elif defined(__CELLOS_LV2__)
+#define DEFAULT_SHADER_TYPE RARCH_SHADER_CG
+#elif defined(HAVE_OPENGLES2)
+#define DEFAULT_SHADER_TYPE RARCH_SHADER_GLSL
+#else
+#define DEFAULT_SHADER_TYPE RARCH_SHADER_NONE
+#endif
 
 #define GFX_MAX_SHADERS 16
 #define GFX_MAX_TEXTURES 8
@@ -209,6 +277,8 @@ typedef struct gl
 };
 
 typedef struct gl gl_t;
+
+enum rarch_shader_type gfx_shader_parse_type(const char *path, enum rarch_shader_type fallback);
 
 #ifdef __cplusplus
 }

@@ -591,6 +591,15 @@ LibraryModule(
         "math" : [
             "matrix.c",
             "matrix_3x3.c"
+        ],
+        "glsym" : [
+            "rglgen.c"
+        ],
+        "logger" : [
+            "logger.c"
+        ],
+        "." : [
+            "shader_common.c"
         ]
     },    
     extra_cpp_defines     = [],
@@ -602,6 +611,7 @@ LibraryModule(
             }
         },
         "OS=ios" : {
+            "defines" : ["IOS", "HAVE_OPENGLES", "HAVE_OPENGLES2"],
             "sources" : {
                 "." : "shader_glsl.c",
             }
@@ -636,6 +646,8 @@ dragon3d_core_SOURCES = {
 
         AbstractScene.cc
         SimpleScene.cc
+
+        Shader.cc
     """),
 
     "com/dragon3d/scene/camera" : Split("""
@@ -652,9 +664,6 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/scene/model/geometry" : Split("""
         Box.cc
         Plane.cc
-    """),
-    "com/dragon3d/scene/model/shader" : Split("""
-        Shader.cc
     """),
 
     "com/dragon3d/scene/audio" : Split("""
@@ -674,8 +683,12 @@ dragon3d_core_SOURCES = {
         GraphicsOutputController.cc
         Renderable.cc
     """),
+
     "com/dragon3d/output/graphics/renderer" : Split("""
         support_graphics_renderer.cc
+    """),
+    "com/dragon3d/output/graphics/shader" : Split("""
+        support_shader_compiler.cc
     """),
 
     "com/dragon3d/output/audio" : Split("""
@@ -709,6 +722,7 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/util/assets" : Split("""
         Resource.cc
         AssetsManager.cc
+        ResourceUtils.cc
     """),
 
     # model loader
@@ -745,8 +759,16 @@ LibraryModule(
         'dragon',
         'openal',
         'delaunay',
-        '3ds'
+        '3ds',
+        'retro-shader'
     ] + env['DRAGON_EXTRA_LIBS'],
+
+    conditions = {
+        "OS=ios" : {
+            "defines" : ["IOS", "HAVE_OPENGLES", "HAVE_OPENGLES2"]
+        }
+    },
+
     shared                = env['SHARED'],
     install               = True
 )
