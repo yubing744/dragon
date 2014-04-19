@@ -299,6 +299,46 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "dragon/include/dragon/lang/String.h",
+			"settings":
+			{
+				"buffer_size": 31280,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/Object.h",
+			"settings":
+			{
+				"buffer_size": 3746,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/gc/Reference.h",
+			"settings":
+			{
+				"buffer_size": 5224,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
+			"settings":
+			{
+				"buffer_size": 3004,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/util/regex/MatchResult.h",
+			"settings":
+			{
+				"buffer_size": 1459,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
 	"command_palette":
@@ -646,6 +686,141 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "dragon/include/dragon/lang/String.h",
+					"settings":
+					{
+						"buffer_size": 31280,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27597,
+								27603
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8621.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dragon/include/dragon/lang/Object.h",
+					"settings":
+					{
+						"buffer_size": 3746,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3673,
+								3681
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1302.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dragon/include/dragon/lang/gc/Reference.h",
+					"settings":
+					{
+						"buffer_size": 5224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2747,
+								848
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
+					"settings":
+					{
+						"buffer_size": 3004,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1134.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/include/dragon/util/regex/MatchResult.h",
+					"settings":
+					{
+						"buffer_size": 1459,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1281,
+								1286
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -913,6 +1088,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 278.0,
+	"side_bar_width": 496.0,
 	"status_bar_visible": true
 }
