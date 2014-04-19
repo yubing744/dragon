@@ -17,30 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/05
+ * Created:     2014/04/18
  **********************************************************************/
 
 
-#ifndef RenderTexture_Model_Scene_Dragon3d_Com_H
-#define RenderTexture_Model_Scene_Dragon3d_Com_H
+#include <com/dragon3d/output/graphics/shader/CGShaderCompiler.h>
+#include <dragon/util/logging/Logger.h>
 
-#include <dragon/config.h>
+Import com::dragon3d::output::graphics::shader;
+Import dragon::util::logging;
 
-BeginPackage4(com, dragon3d, scene, model)
+const Type* CGShaderCompiler::TYPE = TypeOf<CGShaderCompiler>();
+static Logger* logger = Logger::getLogger(CGShaderCompiler::TYPE, ERROR);
 
-Import com::dragon3d::scene::model;
+CGShaderCompiler::CGShaderCompiler() {
 
-class _DragonExport RenderTexture {
-public:
-    RenderTexture();
-    virtual ~RenderTexture();
+}
 
-public:
-    
-protected:
-    
-};//RenderTexture
+CGShaderCompiler::~CGShaderCompiler() {
 
-EndPackage4 //(com, dragon3d, scene, model)
-
-#endif //RenderTexture_Model_Scene_Dragon3d_Com_H
+}

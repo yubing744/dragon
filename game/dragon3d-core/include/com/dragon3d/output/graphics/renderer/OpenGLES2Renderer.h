@@ -28,7 +28,7 @@
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Integer.h>
 
-#include <com/dragon3d/scene/model/shader/Shader.h>
+#include <com/dragon3d/util/Shader.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 
@@ -40,7 +40,7 @@ BeginPackage5(com, dragon3d, output, graphics, renderer)
 
 
 Import dragon::lang;
-Import com::dragon3d::scene::model::shader;
+Import com::dragon3d::util;
 Import com::dragon3d::output::graphics::renderer;
 
 class _DragonExport OpenGLES2Renderer extends(Object) 

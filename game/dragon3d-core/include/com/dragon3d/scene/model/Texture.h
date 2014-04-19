@@ -27,7 +27,6 @@
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <dragonx/image/BufferedImage.h>
-#include <com/dragon3d/scene/model/shader/Shader.h>
 #include <dragon/util/concurrent/atomic/AtomicInteger.h>
 #include <com/dragon3d/util/assets/Resource.h>
 
@@ -36,7 +35,6 @@ BeginPackage4(com, dragon3d, scene, model)
 Import dragon::lang;
 Import dragonx::image;
 Import com::dragon3d::scene::model;
-Import com::dragon3d::scene::model::shader;
 Import dragon::util::concurrent::atomic;
 Import com::dragon3d::util::assets;
 

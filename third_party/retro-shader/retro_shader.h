@@ -16,6 +16,8 @@
 #ifndef __RARCH_SHADER_H
 #define __RARCH_SHADER_H
 
+#include <stdlib.h>
+
 #include "boolean.h"
 #include "shader_common.h"
 
@@ -85,6 +87,7 @@ static inline void gl_shader_deinit(void *data)
 
    if (gl->shader)
       gl->shader->deinit();
+   
    gl->shader = NULL;
 }
 
