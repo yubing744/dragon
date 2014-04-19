@@ -299,70 +299,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "dragon/src/dragonx/xml/io/XMLWriter.cc",
-			"settings":
-			{
-				"buffer_size": 2002,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/native/win32/File.cc",
-			"settings":
-			{
-				"buffer_size": 7302,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/lang/String.h",
-			"settings":
-			{
-				"buffer_size": 31158,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/String.cc",
-			"settings":
-			{
-				"buffer_size": 22057,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/native/win32/FileInputStream.cc",
-			"settings":
-			{
-				"buffer_size": 2380,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/io/native/win32/FileOutputStream.cc",
-			"settings":
-			{
-				"buffer_size": 2328,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/AbstractStringBuilder.cc",
-			"settings":
-			{
-				"buffer_size": 8746,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/lang/System.cc",
-			"settings":
-			{
-				"buffer_size": 2689,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
 	"command_palette":
@@ -456,6 +392,14 @@
 	},
 	"file_history":
 	[
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/xml/io/XMLWriter.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/File.cc",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/String.h",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/String.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/FileOutputStream.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/System.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/ClassLoader.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_mac.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_Linux.cc",
@@ -567,7 +511,6 @@
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
 		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_win32.cc",
 		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/String.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon.sublime-project",
 		"/E/Develop/GitProject/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
@@ -576,14 +519,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/SystemClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/platform.h"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc"
 	],
 	"find":
 	{
@@ -710,229 +646,6 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "dragon/src/dragonx/xml/io/XMLWriter.cc",
-					"settings":
-					{
-						"buffer_size": 2002,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1532,
-								1532
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 336.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "dragon/src/dragon/io/native/win32/File.cc",
-					"settings":
-					{
-						"buffer_size": 7302,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1032,
-								1052
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "dragon/include/dragon/lang/String.h",
-					"settings":
-					{
-						"buffer_size": 31158,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27676,
-								27679
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 5,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8594.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "dragon/src/dragon/lang/String.cc",
-					"settings":
-					{
-						"buffer_size": 22057,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								20291,
-								20298
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 12988.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "dragon/src/dragon/io/native/win32/FileInputStream.cc",
-					"settings":
-					{
-						"buffer_size": 2380,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1151,
-								1171
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "dragon/src/dragon/io/native/win32/FileOutputStream.cc",
-					"settings":
-					{
-						"buffer_size": 2328,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2328,
-								2328
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 938.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "dragon/src/dragon/lang/AbstractStringBuilder.cc",
-					"settings":
-					{
-						"buffer_size": 8746,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3573,
-								3573
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1742.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "dragon/src/dragon/lang/System.cc",
-					"settings":
-					{
-						"buffer_size": 2689,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2126,
-								2132
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 821.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -969,7 +682,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 232.0
+		"height": 451.0
 	},
 	"replace":
 	{
