@@ -961,3 +961,33 @@
    ...
 }
 
+{
+   png_write_1
+   Memcheck:Value8
+   fun:crc32_little
+   fun:crc32
+   fun:png_calculate_crc
+   fun:png_write_chunk_data
+   fun:png_write_PLTE
+   fun:png_write_info
+   ...
+}
+
+{
+   longest_match_2
+   Memcheck:Cond
+   fun:longest_match
+   fun:deflate_slow
+   fun:deflate
+   ...
+}
+
+{
+   fclose_DDD
+   Memcheck:Param
+   write(buf)
+   fun:write$NOCANCEL
+   fun:__sflush
+   fun:fclose
+   ...
+}

@@ -33,7 +33,7 @@ BeginPackage4(com, dragon3d, util, math)
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
-class _DragonExport Ray3 {
+class _DragonExport Ray3 extends(Object) {
 public:
     Ray3(Vector3 origin, Vector3 direction);
 

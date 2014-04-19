@@ -142,41 +142,18 @@ Box::Box() {
     int numVertices = 24;
     int numIndices = 36;
     
-    this->mesh->vertexCount = numVertices;
-
-    //Copy vertices data
-    this->mesh->vertices = new Vector3[numVertices];
-
-    for (int i=0; i<numVertices; i++) {
-        this->mesh->vertices[i].x = cubeVerts[i * 3];
-        this->mesh->vertices[i].y = cubeVerts[i * 3 + 1];
-        this->mesh->vertices[i].z = cubeVerts[i * 3 + 2];
-    }
-
-    //Copy normals data
-    this->mesh->normals = new Vector3[numVertices];
-
-    for (int i=0; i<numVertices; i++) {
-        this->mesh->normals[i].x = cubeNormals[i * 3];
-        this->mesh->normals[i].y = cubeNormals[i * 3 + 1];
-        this->mesh->normals[i].z = cubeNormals[i * 3 + 2];
-    }
-
-    //Copy uv data
-    this->mesh->uv = new Vector2[numVertices];
-
-    for (int i=0; i<numVertices; i++) {
-        this->mesh->uv[i].x = cubeTex[i * 2];
-        this->mesh->uv[i].y = cubeTex[i * 2 + 1];
-    }
+    this->mesh->setFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
+    this->mesh->setFloatNormals(Array<float>(cubeNormals, numVertices * 3, false));
+    this->mesh->setFloatUVs(Array<float>(cubeTex, numVertices * 2, false));
 
     //Copy indices data
-    this->mesh->triangleIndexCount = numIndices;
-    this->mesh->triangleIndexs = new unsigned short[numIndices];
+    int* triangles = new int[numIndices];
 
     for (int i=0; i<numIndices; i++) {
-        this->mesh->triangleIndexs[i] = cubeIndices[i];
+        triangles[i] = cubeIndices[i];
     }
+
+    this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
 }
 
 Box::~Box() {

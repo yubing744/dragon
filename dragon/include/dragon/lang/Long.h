@@ -25,11 +25,11 @@
 #define Long_Lang_Dragon_H
 
 #include <dragon/config.h>
+#include <dragon/lang/String.h>
 #include <dragon/lang/Number.h>
+#include <dragon/lang/NumberFormatException.h>
 
 BeginPackage2(dragon, lang)
-
-class String;
 
 class _DragonExport Long 
     extends(Number) {
@@ -69,6 +69,11 @@ public:
      */
     static String* toString(dg_long i);
 
+    /**
+     * parse str as long   
+     */
+    static Long* parseLong(const String& str) throw(NumberFormatException*);
+    
 public:
 	Long(dg_long val);
 	virtual ~Long();

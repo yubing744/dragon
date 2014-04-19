@@ -50,14 +50,14 @@ public: // Implements Scene
 
     virtual void remove(GameObject* gameObject);
 
-    virtual GameObject* findFirstWithName(const char* name);
-    virtual List<GameObject>* findWithName(const char* name);
+    virtual GameObject* findFirstWithName(const String& name);
+    virtual List<GameObject>* findWithName(const String& name);
 
-    virtual GameObject* findFirstWithType(const Type& type);
-    virtual List<GameObject>* findWithType(const Type& type);
+    virtual GameObject* findFirstWithType(const Type* type);
+    virtual List<GameObject>* findWithType(const Type* type);
 
-    virtual GameObject* findFirstWithTag(const char* tag);
-    virtual List<GameObject>* findWithTag(const char* tag);
+    virtual GameObject* findFirstWithTag(const String& tagName);
+    virtual List<GameObject>* findWithTag(const String& tag);
 
     virtual GameObject* findFirstWithRay(Ray3* ray);
     virtual List<GameObject>* findWithRay(Ray3* ray);

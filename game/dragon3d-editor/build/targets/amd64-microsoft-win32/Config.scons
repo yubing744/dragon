@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+"""
+SCons Tool to Build Wp8 Applications
+"""
+
+import os.path
+import re
+import sys
+
+from SCons.Tool.MSCommon import msvc_exists, msvc_setup_env
+
+#CPPDEFINES
+env.AppendUnique(CPPDEFINES = ["_WIN32", "WIN32", "_WINDOWS", "_UNICODE", "UNICODE"])
+if env['build_config'] == 'debug':
+    env.AppendUnique(CPPDEFINES = "_DEBUG")
+
+#CCFLAGS
+env.AppendUnique(CCFLAGS = '/EHsc')
+env.AppendUnique(CCFLAGS = '/MD')
+env.AppendUnique(CCFLAGS = '/GS')
+
+if env['build_config'] == 'debug':
+	env.AppendUnique(CCFLAGS = '/MDd')
+	env.AppendUnique(CCFLAGS = '/Zi')
+else:
+	env.AppendUnique(CCFLAGS = '/MD')
+
+#LINKFLAGS
+env.AppendUnique(LINKFLAGS = '/MACHINE:x86_64')
+env.AppendUnique(LINKFLAGS = '/WINMD:NO')
+#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"ole32.lib"')
+#env.AppendUnique(LINKFLAGS = '/NODEFAULTLIB:"libcmt.lib"')
+
+
+#print 'InstalledSDKList', SCons.Tool.MSCommon.sdk.InstalledSDKList
+#print '__INSTALLED_VCS_RUN', SCons.Tool.MSCommon.vc.__INSTALLED_VCS_RUN
+VC_SDK_HOME='D:/Program Files (x86)/Microsoft Visual Studio 11.0/VC'
+
+env['ENV']['INCLUDE'] = ''
+env['ENV']['LIB'] = ''
+env['ENV']['LIBPATH'] = ''
+env['ENV']['PATH'] = ''
+
+BATCH_SCRIPT = VC_SDK_HOME + '/bin/x86_amd64/vcvarsx86_amd64.bat'
+
+#def debug(x):
+#    print x
+
+#SCons.Tool.MSCommon.common.debug = debug
+#SCons.Tool.MSCommon.vc.debug = debug
+
+env['MSVC_USE_SCRIPT'] = BATCH_SCRIPT
+msvc_setup_env(env)
+
+env.PrependENVPath('INCLUDE', [VC_SDK_HOME + '/include'])
+env.PrependENVPath('LIB', [VC_SDK_HOME + '/lib/amd64'])
+env.PrependENVPath('LIBPATH', [VC_SDK_HOME + '/lib/amd64'])
+env.PrependENVPath('PATH', [VC_SDK_HOME + '/bin/x86_amd64', VC_SDK_HOME + '/bin/x86_amd64'])
+
+#print '======================================================='
+#print '============ Build for x86-microsoft-win32 ============'
+#print 'ENV', env['ENV']
+#print 'ENV INCLUDE', env['ENV']['INCLUDE']
+#print 'ENV LIB', env['ENV']['LIB']
+#print 'ENV LIBPATH', env['ENV']['LIBPATH']
+#print 'ENV PATH', env['ENV']['PATH']
+#print 'AR',env['AR']
+#print 'CC', env['CC']
+#print 'CXX', env['CXX']
+#print 'LINK', env['LINK']
+#print '======================================================='
+#print ''

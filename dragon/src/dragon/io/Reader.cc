@@ -20,8 +20,13 @@ Import dragon::io;
 
 int Reader::read() const throw(IOException*) {
 	wchar_u ch;
-	this->read(&ch, 1, 0, 1);
-	return (int)ch;
+	int read = this->read(&ch, 1, 0, 1);
+	
+	if (read > 0) {
+		return (int)ch;
+	}
+
+	return -1;
 }
 
 int Reader::read(wchar_u* cbuf, int num) const throw(IOException*) {

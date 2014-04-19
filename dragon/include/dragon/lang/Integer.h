@@ -27,6 +27,7 @@
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
 #include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/NumberFormatException.h>
 
 BeginPackage2(dragon, lang)
 
@@ -91,9 +92,10 @@ public:
      * @param  str [description]
      * @return     [description]
      */
-    static Integer* parseInt(const String& str);
+    static Integer* parseInt(const String& str) throw(NumberFormatException*);
 
 public:
+    Integer();
 	Integer(int val);
 	virtual ~Integer();
 

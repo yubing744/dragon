@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46037E4918D484AA00901E67 /* TextureDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46037E4818D484AA00901E67 /* TextureDemo.cc */; };
 		465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465D590018063ACA00A9BF94 /* InfoPlist.strings */; };
 		465D590418063ACA00A9BF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D590318063ACA00A9BF94 /* main.m */; };
 		465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D590718063ACA00A9BF94 /* AppDelegate.mm */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46037E4818D484AA00901E67 /* TextureDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDemo.cc; sourceTree = "<group>"; };
 		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		465D58F718063ACA00A9BF94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dragon3d-examples-Info.plist"; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46037E4718D484AA00901E67 /* texture */ = {
+			isa = PBXGroup;
+			children = (
+				46037E4818D484AA00901E67 /* TextureDemo.cc */,
+			);
+			path = texture;
+			sourceTree = "<group>";
+		};
 		465D58EB18063ACA00A9BF94 = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +200,7 @@
 		465D592418063C3400A9BF94 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				46037E4718D484AA00901E67 /* texture */,
 				46ABCA0518C0D0F3002E234C /* audio */,
 				465D592518063C3400A9BF94 /* helloworld */,
 			);
@@ -302,6 +313,7 @@
 				465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */,
 				465D591118063ACA00A9BF94 /* ViewController.mm in Sources */,
 				46ABCA0718C0D0F3002E234C /* AudioDemo.cc in Sources */,
+				46037E4918D484AA00901E67 /* TextureDemo.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,6 +30,11 @@ Import dragon::util;
 Import dragon::util::regex;
 
 // static methods
+Pattern* Pattern::compile(const String& regex) {
+    String* str = const_cast<String*>(&regex);
+    return new Pattern(str, 0);
+}
+
 Pattern* Pattern::compile(const String* regex) {
     return new Pattern(regex, 0);
 }

@@ -25,19 +25,23 @@
 #define PlacementGrid_Debug_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 #include <com/dragon3d/framework/Scene.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
+#include <com/dragon3d/output/graphics/Renderable.h>
 
 BeginPackage4(com, dragon3d, util, debug)
 
+Import dragon::lang;
 Import com::dragon3d::output;
 Import com::dragon3d::framework;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 
-class _DragonExport PlacementGrid {
+class _DragonExport PlacementGrid extends(Object) 
+    implements1(Renderable) {
 public:
     PlacementGrid();
     virtual ~PlacementGrid();

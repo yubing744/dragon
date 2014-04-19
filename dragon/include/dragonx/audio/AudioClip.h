@@ -41,7 +41,7 @@ public:
     static const Type* TYPE;
     
 public:
-    AudioClip(const AudioFormat* format, const byte* data, size_t off, size_t len);
+    AudioClip(const AudioFormat* format, byte* data, size_t off, size_t len);
     AudioClip(AudioInputStream* stream);
     AudioClip(InputStream* stream, const String& format);
 

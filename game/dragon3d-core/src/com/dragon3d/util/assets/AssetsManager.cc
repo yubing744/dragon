@@ -21,11 +21,11 @@
  **********************************************************************/
 
 
-#include <com/dragon3d/util/assets/AssetsManager.h>
 #include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/util/assets/AssetsManager.h>
 
-Import com::dragon3d::util::assets;
 Import dragon::util::logging;
+Import com::dragon3d::util::assets;
 
 const Type* AssetsManager::TYPE = TypeOf<AssetsManager>();
 static Logger* logger = Logger::getLogger(AssetsManager::TYPE, ERROR);

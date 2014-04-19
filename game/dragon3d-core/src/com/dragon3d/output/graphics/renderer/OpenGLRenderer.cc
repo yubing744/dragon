@@ -100,10 +100,12 @@ void OpenGLRenderer::drawSample() {
 }
 
 
-void OpenGLRendererInitTexture(Texture* texture) {
-    glGenTextures(1, &texture->nativeTextureID);
+GLuint OpenGLRendererInitTexture(Texture* texture) {
+    GLuint textureID;
+
+    glGenTextures(1, &textureID);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glBindTexture(GL_TEXTURE_2D, texture->nativeTextureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
     
     int textureType = GL_RGB;
     
@@ -116,6 +118,8 @@ void OpenGLRendererInitTexture(Texture* texture) {
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);                         
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    return textureID;
 }
 
 void OpenGLRendererSetupCamera(Camera* camera) {
@@ -133,7 +137,7 @@ void OpenGLRendererSetupCamera(Camera* camera) {
             
             Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
 
-            Vector3 eye = camera->transform->getPosition();
+            Vector3 eye = camera->getTransform()->getPosition();
             Vector3 center = eye.add(Vector3::FORWARD);
             Vector3 up = Vector3::UP;
             projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
@@ -165,38 +169,51 @@ void OpenGLRenderer::drawLine(const Vector3& startV, const Vector3& endV, const 
 
 void OpenGLRendererDrawMeshData(Mesh* mesh) {
     // draw mesh
-    int vCount = mesh->triangleIndexCount;
-
-    if (mesh->uv || mesh->uv2) {
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glEnable(GL_TEXTURE_2D);
     }
 
-    glBegin(GL_TRIANGLES);
+    List<Vector3>* vertices = mesh->getVertices();
+    List<Vector2>* uvs = mesh->getUVs();
 
-        for (int i=0; i< vCount; i++) {
-            int pos = mesh->triangleIndexs[i];
+    int count = mesh->getSubMeshCount();
 
-            //set texCoord
-            if (mesh->uv) {
-                Vector2* uv = &mesh->uv[pos];
-                glTexCoord2f(uv->x, uv->y);
+    for(int i=0; i<count; i++) {
+        Array<int> indices = mesh->getIndices(i);
+
+        const int* data = indices.raw();
+        int vCount = indices.length();
+
+        glBegin(GL_TRIANGLES);
+
+            for (int i=0; i< vCount; i++) {
+                int pos = data[i];
+
+                //set texCoord
+                if (mesh->hasUV()) {
+                    Vector2* uv = uvs->get(pos);
+                    glTexCoord2f(uv->x, uv->y);
+                }
+
+                //set vertext
+                if (mesh->hasVertices()) {
+                    Vector3* v = vertices->get(pos);
+                    glVertex3f(v->x, v->y, v->z);
+                }
             }
 
-            //set vertext
-            if (mesh->vertices) {
-                Vector3* v = &mesh->vertices[pos];
-                glVertex3f(v->x, v->y, v->z);
-            }
-        }
+        glEnd();
+    }
 
-    glEnd();
+    SafeRelease(uvs);
+    SafeRelease(vertices);
 
-    if (mesh->uv || mesh->uv2) {
+    if (mesh->hasUV() || mesh->hasUV2()) {
         glDisable(GL_TEXTURE_2D);
     }
 }
 
-void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) {
+void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex) {
     // setup camera
     OpenGLRendererSetupCamera(camera);
 
@@ -210,13 +227,8 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* mat
         Texture* mainTexture = material->mainTexture;
 
         if (mainTexture != null) {
-            GLuint textureID = mainTexture->getNativeTextureID();
-
-            if (textureID == 0) {
-                OpenGLRendererInitTexture(mainTexture);
-            } else {
-                glBindTexture(GL_TEXTURE_2D, mainTexture->nativeTextureID);
-            }
+            GLuint textureID = OpenGLRendererInitTexture(mainTexture);
+            glBindTexture(GL_TEXTURE_2D, textureID);
         }
     }
 

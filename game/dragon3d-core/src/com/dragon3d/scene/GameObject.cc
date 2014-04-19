@@ -20,25 +20,29 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
-#include <com/dragon3d/scene/GameObject.h>
 #include <dragon/lang/Class.h>
 #include <dragon/util/ArrayList.h>
+#include <com/dragon3d/scene/GameObject.h>
 
 Import dragon::lang;
 Import dragon::util;
 Import com::dragon3d::scene;
 
-GameObject::GameObject() {
+GameObject::GameObject() 
+	:hideFlags(false), layer(0) {
+	this->name = new String("unnamed");
 	this->transform = new Transform();
+	this->transform->gameObject = this;
+
 	this->components = new ArrayList<Component>();
+	this->tags = new ArrayList<String>();
 }
 
 GameObject::~GameObject() {
-	SafeDelete(this->transform);
-
-	this->components->clear();
-	SafeDelete(this->components);
+	SafeRelease(this->name);
+	SafeRelease(this->transform);
+	SafeRelease(this->components);
+	SafeRelease(this->tags);
 }
 
 void GameObject::init() {
@@ -47,6 +51,7 @@ void GameObject::init() {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->init();
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -59,6 +64,7 @@ void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->update(input, timer);
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -70,6 +76,7 @@ void GameObject::destroy() {
 	while(it->hasNext()) {
 		Component* component = it->next();
 		component->destroy();
+		SafeRelease(component);
 	}
 
 	SafeDelete(it);
@@ -81,7 +88,6 @@ void GameObject::addComponent(Component* component) {
 
 		// attach some other componet
 		component->gameObject = this;
-		component->transform = this->transform;
 	}
 }
 
@@ -92,9 +98,65 @@ Component* GameObject::getComponent(const Type* type) {
 		Component* component = it->next();
 
 		if (component->isTypeOf(type)) {
+			SafeDelete(it);
+
 			return component;
+		} else {
+			SafeRelease(component);
 		}
 	}
 
+	SafeDelete(it);
 	return null;
+}
+
+bool GameObject::hasComponent(const Type* type) {
+	Iterator<Component>* it = this->components->iterator();
+
+	while(it->hasNext()) {
+		Component* component = it->next();
+
+		if (component->isTypeOf(type)) {
+			SafeRelease(component);
+			SafeDelete(it);
+
+			return true;
+		} else {
+			SafeRelease(component);
+		}
+	}
+
+	SafeDelete(it);
+	return false;
+}
+
+bool GameObject::hasTag(const String& tagName) {
+	Iterator<String>* it = this->tags->iterator();
+
+	while(it->hasNext()) {
+		String* tag = it->next();
+
+		if (tag->equals(tagName)) {
+			SafeRelease(tag);
+			SafeDelete(it);
+
+			return true;
+		} else {
+			SafeRelease(tag);
+		}
+	}
+
+	SafeDelete(it);
+	return false;	
+}
+
+String* GameObject::getName() {
+	String* name = this->name;
+	SafeRetain(name);
+	return name;
+}
+
+void GameObject::setName(const String& name) {
+	SafeRelease(this->name);
+	this->name = new String(name);
 }

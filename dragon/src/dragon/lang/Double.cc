@@ -34,9 +34,14 @@ Import dragon::lang::reflect;
 const Type* Double::TYPE = TypeOf<double>();
 const Type* Double::PRIMARY_TYPE = TypeOf<Double>();
 
-Double* Double::parseDouble(const String& str) {
+Double* Double::parseDouble(const String& str) throw(NumberFormatException*) {
+    if (!str.matches("-?\\d+(\\.\\d+)?")) {
+        throw new NumberFormatException();
+    }
+
     const Array<byte> data = str.getBytes("UTF-8");
-    return new Double(atof(data.raw()));
+    double val = atof(data.raw());
+    return new Double(val);
 }
 
 String* Double::toString(double val) {

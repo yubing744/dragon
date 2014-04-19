@@ -20,8 +20,9 @@
  * Created:     2014/02/11
  **********************************************************************/
 
-#include <dragon/lang/System.h>
 #include <dragon/io/File.h>
+#include <dragon/lang/System.h>
+#include <dragon/lang/StringBuffer.h>
 #include <dragon/io/FileInputStream.h>
 
 #include <dragon/util/logging/Logger.h>
@@ -52,4 +53,45 @@ InputStream* Resource::getInputStream() {
     SafeDelete(file);
 
     return fis;
+}
+
+String* Resource::getType() {
+    int pos = this->uri->lastIndexOf(".");
+
+    if (pos > 0) {
+        String* t1 = this->uri->substring(pos + 1, this->uri->length());
+        String* t2 = t1->toUpperCase();
+        SafeRelease(t1);
+
+        return t2;
+    }
+
+    return null;
+}
+
+Resource* Resource::getResource(const String& path) {
+    StringBuffer* sb = new StringBuffer();
+    
+    int pos = this->uri->lastIndexOf("/");
+
+    if (pos > 0) {
+        String* base = this->uri->substring(0, pos);
+        sb->append(base);
+        SafeRelease(base);
+    }
+
+    sb->append("/");
+    sb->append(path);
+
+    String* resPath = sb->toString();
+    Resource* res = new Resource(resPath);
+    SafeRelease(resPath);
+
+    return res;
+}
+
+String* Resource::getURI() {
+    String* ret = this->uri;
+    ret->retain();
+    return ret;
 }

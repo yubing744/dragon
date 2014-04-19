@@ -34,13 +34,19 @@ PlacementGrid::~PlacementGrid() {
 }
 
 void PlacementGrid::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
+    Vector3 v = camera->getTransform()->getPosition();
+
+    int gridSize = (v.y / 10);
+    gridSize = (gridSize<=0) ? 1: gridSize;
+    gridSize *= 2;
+    
     int radius = size / 2;
 
     float iif = 0.0f;
-    float radiusf = radius * 1.0f;
+    float radiusf = radius * gridSize * 1.0f;
 
     for(int i=-radius; i<=radius; i++) {
-        iif = i * 1.0f;
+        iif = i * gridSize * 1.0f;
         gr->drawLine(Vector3(radiusf, 0, iif), Vector3(-radiusf, 0, iif), this->color, camera);
         gr->drawLine(Vector3(iif, 0, radiusf), Vector3(iif, 0, -radiusf), this->color, camera);
     }

@@ -1,0 +1,23 @@
+struct VertexOutput {
+    float4 position : POSITION;
+    float4 color : COLOR;
+};
+
+struct FragmentOutput {
+    float4 color : COLOR;
+};
+
+VertexOutput main_vertex(float4 position : POSITION) {
+    VertexOutput output;
+
+    output.position = position;
+    output.color = float4(0, 1, 0, 1);
+
+    return output;
+}
+
+FragmentOutput main_fragment(float4 color : COLOR) {
+    FragmentOutput output;
+    output.color = color;
+    return output;
+}

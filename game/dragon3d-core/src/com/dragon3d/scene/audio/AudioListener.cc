@@ -55,9 +55,9 @@ void AudioListener::init() {
     Vector3 listenerPos = gameObject->transform->getPosition();
     Vector3 listenerVel(0, 0, 0);
 
-    alListenerfv(AL_POSITION, listenerPos.toArray());
-    alListenerfv(AL_VELOCITY, listenerVel.toArray());
-    alListenerfv(AL_ORIENTATION, Vector3::UP.toArray());
+    alListenerfv(AL_POSITION, listenerPos.getData());
+    alListenerfv(AL_VELOCITY, listenerVel.getData());
+    alListenerfv(AL_ORIENTATION, Vector3::UP.getData());
 
     alSourcei(source, AL_SOURCE_RELATIVE, AL_TRUE);
     alSourcei(source, AL_ROLLOFF_FACTOR, 0);

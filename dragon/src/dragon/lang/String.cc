@@ -88,7 +88,7 @@ Array<wchar_u> String::decode(Array<byte> bytes, int offset, int length, const c
 	const byte* from = bytes.raw() + offset;
 	size_t from_size = (size_t)length;
 
-	size_t to_size = 4 * bytes.size();
+	size_t to_size = sizeof(wchar_u) * bytes.size();
 	wchar_u* buf = new wchar_u[bytes.size() + 1];
 	char* to = (char*)buf;
 
@@ -123,7 +123,7 @@ Array<byte> String::encode(Array<wchar_u> chars, int offset, int length, const c
 
 	const wchar_u* fromBuf = chars.raw() + offset;
 	const char* from = (const char*)fromBuf;
-	size_t from_size = (size_t)(length * 4);
+	size_t from_size = (size_t)(length * sizeof(wchar_u));
 
 	size_t to_size = from_size;
 	byte* buf = new byte[to_size + 1];
@@ -796,6 +796,16 @@ char* String::toUTF8String() const {
 	return utf8Data;
 }
 
+const Array<char> String::toUTF8CharArray() const {
+	const Array<byte> data = this->getBytes("UTF-8");
+	
+	char* utf8Data = (char*)malloc(data.size() + 1);
+	memcpy(utf8Data, data.raw(), data.size());
+	utf8Data[data.size()] = '\0';
+
+	return Array<char>(utf8Data, data.size() + 1);
+}
+
 char* String::toCString() const {
 	const Array<byte> data = this->getBytes("ISO-8859-1");
 	
@@ -816,8 +826,15 @@ wchar_t* String::toWCHARString() const {
 	return wcharData;
 }
 
-bool String::matches(String* regex) {
-	return Pattern::matches(regex, this);
+bool String::matches(const String& regex) const {
+	String* str = const_cast<String*>(&regex);
+	String* text = const_cast<String*>(this);
+	return Pattern::matches(str, text);
+}
+
+bool String::matches(String* regex) const {
+	String* text = const_cast<String*>(this);
+	return Pattern::matches(regex, text);
 }
 
 bool String::contains(CharSequence* s) {
@@ -1068,7 +1085,6 @@ String* String::valueOf(wchar_u c){
 	data[0] = c;
 	return new String(0, 1, data);
 }
-
 
 String* String::valueOf(int i){
 	return Integer::toString(i);

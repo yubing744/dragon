@@ -70,7 +70,7 @@ public:
 	/**
 	 * draw a mesh with 
 	 */
-	virtual void drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera) = 0;
+	virtual void drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex) = 0;
 
 	/**
 	 * flush the buffer

@@ -24,16 +24,17 @@
 #define NumberFormatException_Lang_Dragon_H
 
 #include <dragon/config.h>
-
-#include "IllegalArgumentException.h"
+#include <dragon/lang/IllegalArgumentException.h>
 
 BeginPackage2(dragon, lang)
 
-class _DragonExport NumberFormatException :public IllegalArgumentException
+class _DragonExport NumberFormatException extends(IllegalArgumentException)
 {
 public:
 	NumberFormatException();
-	NumberFormatException(String& message);
+	NumberFormatException(const String& message);
+
+    virtual ~NumberFormatException();
 };
 
 EndPackage2 // (dragon, lang)

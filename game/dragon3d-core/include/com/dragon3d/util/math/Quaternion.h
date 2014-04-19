@@ -27,13 +27,14 @@
 #include <dragon/config.h>
 
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 #include <com/dragon3d/util/math/Vector3.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
 Import com::dragon3d::util::math;
 
-class _DragonExport Quaternion {
+class _DragonExport Quaternion extends(Object) {
 public:
     static const Quaternion IDENTITY;
 
@@ -177,6 +178,10 @@ public:
      * @return   [description]
      */
     Quaternion multiply(const Quaternion& a) const;
+
+public:
+    const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float x;

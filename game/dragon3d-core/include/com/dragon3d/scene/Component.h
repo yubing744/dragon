@@ -51,7 +51,6 @@ public:
 	virtual ~Component();
 
 public:
-	
 	/**
 	 * update the game component
 	 * 
@@ -85,7 +84,6 @@ public:
 	 */
 	virtual bool isTypeOf(const Type* type);
 
-public: // helper method for attached GameObject.
 	/**
 	 * get the name of attacehed GameObject.
 	 * 
@@ -94,14 +92,18 @@ public: // helper method for attached GameObject.
 	virtual String* getName();
 
 	/**
+	 * get the transform of game object.
+	 * 
+	 * @return [description]
+	 */
+	virtual Transform* getTransform();
+
+public: // helper method for attached GameObject.
+	/**
 	 * The game object this component is attached to. A component is always attached to a game object.
 	 */
 	GameObject* gameObject;
 
-	/**
-	 *  The Transform attached to this GameObject (null if there is none attached).
-	 */
-	Transform* transform;
 
 public:
 	/**

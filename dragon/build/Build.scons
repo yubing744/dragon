@@ -273,13 +273,17 @@ class LibraryModule(Module):
 
         if ('sources' in config):
             self.sources += self.CalBuildSources([], [], config['sources'], [])
-        elif ('include_dirs' in config):
+        
+        if ('include_dirs' in config):
             self.include_dirs += config['include_dirs']
-        elif ('defines' in config):
+
+        if ('defines' in config):
             self.defines += config['defines']
-        elif ('dependencies' in config):
+
+        if ('dependencies' in config):
             self.linked_modules += config['dependencies']
-        elif ('lib_path' in config):
+
+        if ('lib_path' in config):
             self.lib_path += config['lib_path']
 
 
@@ -984,6 +988,7 @@ dragon_SOURCES = {
         IndexOutOfBoundsException.cc
         UnsupportedEncodingException.cc
         UnsupportedOperationException.cc
+        NumberFormatException.cc
 
         Null.cc
         Boolean.cc
@@ -1006,6 +1011,11 @@ dragon_SOURCES = {
         LibraryClassLoader.cc
         SystemClassLoader.cc 
     """),
+
+    "dragon/util" : Split("""
+        Scanner.cc
+    """),
+       
     "dragon/util/regex" : Split("""
         PatternSyntaxException.cc 
         Pattern.cc 
@@ -1188,6 +1198,7 @@ dragon_test_SOURCES = {
 
         IntegerTest.cc
         LongTest.cc
+        FloatTest.cc
         StringBufferTest.cc
 
         ClassLoaderTest.cc 
@@ -1207,6 +1218,7 @@ dragon_test_SOURCES = {
     "dragon/util" : Split("""
         ArrayListTest.cc 
         HashMapTest.cc
+        ScannerTest.cc
     """),      
     "dragon/util/regex" : Split("""
         PatternSyntaxExceptionTest.cc 

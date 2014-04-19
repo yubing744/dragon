@@ -26,9 +26,12 @@
 
 #include <dragon/io/Reader.h>
 #include <dragon/io/InputStream.h>
+#include <dragon/lang/StringBuffer.h>
 #include <dragon/io/UnsupportedEncodingException.h>
 
 BeginPackage2(dragon, io)
+
+Import dragon::lang;
 
 class _DragonExport InputStreamReader 
 	extends(Reader)
@@ -50,8 +53,16 @@ public:
 	virtual const String* getEncoding() const;
 
 protected:
+    virtual void readLine();
+    virtual void checkCharset(char* buf, size_t n);
+    
+protected:
 	InputStream* innerStream;
 	String* charsetName;
+
+    String* line;
+    int current;
+    bool firstLine;
 };
 
 EndPackage2//(dragon, io)

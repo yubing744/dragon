@@ -27,6 +27,7 @@
 #include <dragon/config.h>
 #include <dragon/lang/Number.h>
 #include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/NumberFormatException.h>
 
 BeginPackage2(dragon, lang)
 
@@ -41,7 +42,7 @@ public:
     static const Type* INNER_TYPE;
        
 public:
-    static Float* parseFloat(const String& str);
+    static Float* parseFloat(const String& str) throw(NumberFormatException*);
     static String* toString(float val);
     
 public:

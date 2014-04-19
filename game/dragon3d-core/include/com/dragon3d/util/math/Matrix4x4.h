@@ -27,6 +27,7 @@
 #include <dragon/config.h>
 
 #include <dragon/lang/Object.h>
+#include <dragon/lang/Array.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Quaternion.h>
 
@@ -39,7 +40,7 @@ Import com::dragon3d::util::math;
  * A standard 4x4 transformation matrix.
  * 
  */
-class _DragonExport Matrix4x4 {
+class _DragonExport Matrix4x4 extends(Object) {
 public:
     /**
      * Returns the identity matrix
@@ -215,6 +216,13 @@ public:
      * @return [description]
      */
     Quaternion getQuaternion() const;
+
+public:
+    virtual String* toString() const;
+
+public:
+    const float* getData() const;
+    const Array<float> toFloatArray() const;
 
 public:
     float m[4][4];

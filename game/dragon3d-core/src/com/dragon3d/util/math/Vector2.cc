@@ -28,7 +28,7 @@ Import com::dragon3d::util::math;
 const Vector2 Vector2::ZERO = Vector2(0, 0);
 const Vector2 Vector2::ONE = Vector2(1, 1);
 
-Vector2::Vector2(void){
+Vector2::Vector2(){
     this->x = 0;
     this->y = 0;
 }
@@ -36,4 +36,12 @@ Vector2::Vector2(void){
 Vector2::Vector2(float x, float y){
     this->x = x;
     this->y = y;
+}
+
+const float* Vector2::getData() const {
+    return (float*)(&this->x);
+}
+
+const Array<float> Vector2::toFloatArray() const {
+    return Array<float>(getData(), 2, false);
 }

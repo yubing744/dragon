@@ -136,3 +136,7 @@ Color::Color(const char* hexColor){
 const float* Color::getData() const {
     return (float*)(&this->r);
 }
+
+const Array<float> Color::toFloatArray() const {
+    return Array<float>(getData(), 3, false);
+}

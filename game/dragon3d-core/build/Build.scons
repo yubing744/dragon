@@ -273,14 +273,20 @@ class LibraryModule(Module):
 
         if ('sources' in config):
             self.sources += self.CalBuildSources([], [], config['sources'], [])
-        elif ('include_dirs' in config):
+        
+        if ('include_dirs' in config):
             self.include_dirs += config['include_dirs']
-        elif ('defines' in config):
+
+        if ('defines' in config):
             self.defines += config['defines']
-        elif ('dependencies' in config):
+
+        if ('dependencies' in config):
             self.linked_modules += config['dependencies']
-        elif ('lib_path' in config):
+
+        if ('lib_path' in config):
             self.lib_path += config['lib_path']
+
+        #print self.include_dirs;
 
 
 def Application(name, 
@@ -433,6 +439,18 @@ if os.path.exists(target_config_file):
 # Build Config
 THIRD_PARTY_SOURCE_ROOT = '../../third_party'
 
+# delaunay lib
+LibraryModule(
+    name                  = 'delaunay',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/Delaunay",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT,
+    build_source_dirs     = ['Delaunay'],
+    shared                = False,
+    install               = True
+)
+
 # lib openal
 mob_SOURCES = Split("""
     alConfigMob.c
@@ -521,6 +539,94 @@ LibraryModule(
 )
 
 
+# lib 3ds
+lib3ds_la_SOURCES = Split("""
+  io.c \
+  vector.c \
+  matrix.c \
+  quat.c \
+  tcb.c \
+  ease.c \
+  chunktable.h \
+  chunk.c \
+  file.c \
+  background.c \
+  atmosphere.c \
+  shadow.c \
+  viewport.c \
+  material.c \
+  mesh.c \
+  camera.c \
+  light.c \
+  tracks.c \
+  node.c
+""")
+
+LibraryModule(
+    name                  = '3ds',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/lib3ds-1.3.0",
+    ],  
+    source_root           = THIRD_PARTY_SOURCE_ROOT + "/lib3ds-1.3.0",
+    build_source_files    = {
+        "lib3ds" : lib3ds_la_SOURCES
+    },  
+    shared                = False,
+    install               = True
+)
+
+
+# retro-shader
+
+RETRO_SHADER_ROOT = THIRD_PARTY_SOURCE_ROOT + "/retro-shader"
+
+LibraryModule(
+    name                  = 'retro-shader',
+    source_root           = RETRO_SHADER_ROOT,
+    build_include_dirs    = [
+        RETRO_SHADER_ROOT
+    ],  
+    build_source_dirs     = [],         
+    build_source_files    = {
+        "math" : [
+            "matrix.c",
+            "matrix_3x3.c"
+        ],
+        "glsym" : [
+            "rglgen.c"
+        ],
+        "logger" : [
+            "logger.c"
+        ],
+        "." : [
+            "shader_common.c"
+        ]
+    },    
+    extra_cpp_defines     = [],
+
+    conditions = {
+        "OS=mac" : {
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        },
+        "OS=ios" : {
+            "defines" : ["IOS", "HAVE_OPENGLES", "HAVE_OPENGLES2"],
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        },
+        "OS=osx" : {
+            "sources" : {
+                "." : "shader_glsl.c",
+            }
+        }
+    },
+
+    shared                = False,                    
+    install               = True
+)
+
 # dragon3d-core
 dragon3d_core_SOURCES = {
     "com/dragon3d/launcher" : Split("""
@@ -540,6 +646,8 @@ dragon3d_core_SOURCES = {
 
         AbstractScene.cc
         SimpleScene.cc
+
+        Shader.cc
     """),
 
     "com/dragon3d/scene/camera" : Split("""
@@ -555,9 +663,7 @@ dragon3d_core_SOURCES = {
     """),
     "com/dragon3d/scene/model/geometry" : Split("""
         Box.cc
-    """),
-    "com/dragon3d/scene/model/shader" : Split("""
-        Shader.cc
+        Plane.cc
     """),
 
     "com/dragon3d/scene/audio" : Split("""
@@ -566,7 +672,7 @@ dragon3d_core_SOURCES = {
     """),
 
     "com/dragon3d/input" : Split("""
-        inputManager.cc
+        InputManager.cc
     """),
 
     "com/dragon3d/output" : Split("""
@@ -575,9 +681,14 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/output/graphics" : Split("""
         GraphicsDevice.cc
         GraphicsOutputController.cc
+        Renderable.cc
     """),
+
     "com/dragon3d/output/graphics/renderer" : Split("""
         support_graphics_renderer.cc
+    """),
+    "com/dragon3d/output/graphics/shader" : Split("""
+        support_shader_compiler.cc
     """),
 
     "com/dragon3d/output/audio" : Split("""
@@ -611,6 +722,23 @@ dragon3d_core_SOURCES = {
     "com/dragon3d/util/assets" : Split("""
         Resource.cc
         AssetsManager.cc
+        ResourceUtils.cc
+    """),
+
+    # model loader
+    "com/dragon3d/util/assets/modelio/plugins/obj" : Split("""
+        ObjMTLLoader.cc
+        ObjModelLoader.cc
+    """),
+    "com/dragon3d/util/assets/modelio/plugins/max" : Split("""
+        Max3DSModelLoader.cc
+    """),
+    "com/dragon3d/util/assets/modelio/spi" : Split("""
+        ModelLoaderRegistry.cc
+    """),
+    "com/dragon3d/util/assets/modelio" : Split("""
+        ModelLoadException.cc
+        ModelIO.cc
     """)
 
 }
@@ -629,8 +757,18 @@ LibraryModule(
     source_root           = 'src',
     linked_modules        = [
         'dragon',
-        'openal'
+        'openal',
+        'delaunay',
+        '3ds',
+        'retro-shader'
     ] + env['DRAGON_EXTRA_LIBS'],
+
+    conditions = {
+        "OS=ios" : {
+            "defines" : ["IOS", "HAVE_OPENGLES", "HAVE_OPENGLES2"]
+        }
+    },
+
     shared                = env['SHARED'],
     install               = True
 )
@@ -642,6 +780,9 @@ dragon3d_core_test_SOURCES = {
         Vector3Test.cc
         QuaternionTest.cc
         Matrix4x4Test.cc
+    """),
+    "com/dragon3d/util/assets/modelio" : Split("""
+        ModelIOTest.cc
     """),
     "." : Split("""
         TestMain.cc

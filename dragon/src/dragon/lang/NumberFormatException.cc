@@ -24,14 +24,16 @@
 
 Import dragon::lang;
 
-NumberFormatException::NumberFormatException()
-{
-	mMsg=new String(L"NumberFormatException");
-	mpCause=null;
+NumberFormatException::NumberFormatException() 
+    :IllegalArgumentException() {
+
 }
 
-NumberFormatException::NumberFormatException(String& message)
-{
-	mMsg=new String(message);
-	mpCause=null;
+NumberFormatException::NumberFormatException(const String& message)
+    :IllegalArgumentException(message) {
+
+}
+
+NumberFormatException::~NumberFormatException() {
+        
 }

@@ -82,7 +82,7 @@ public:
 	 */
 	virtual void destroy();
 
-public:
+public: // component manager
 	/**
 	 * add component.
 	 * 
@@ -98,11 +98,46 @@ public:
 	 */
 	virtual Component* getComponent(const Type* type);
 
+	/**
+	 * check if the game object has component with type
+	 * 
+	 * @param  type [description]
+	 * @return      [description]
+	 */
+	virtual bool hasComponent(const Type* type);
+
+public: // tag manager
+	/**
+	 * check if the game object has tag with name
+	 * 
+	 * @param  tagName [description]
+	 * @return         [description]
+	 */
+	virtual bool hasTag(const String& tagName);
+
+	/**
+	 * get the game object's name
+	 * 
+	 * @return [description]
+	 */
+	virtual String* getName();
+
+	/**
+	 * set the game object's name
+	 *
+	 */
+	virtual void setName(const String& name);
+
 public:
 	/**
-	 * the name of game object;
+	 * the layer for the game object.
 	 */
-	String* name;
+	int layer;
+
+		/**
+	 * the tags for the game object
+	 */
+	List<String>* tags;
 
 	/**
 	 * if the game object should hide.
@@ -115,6 +150,11 @@ public:
 	Transform* transform;
 
 protected:
+	/**
+	 * the name of game object;
+	 */
+	String* name;
+
 	/**
 	 * game component.
 	 */

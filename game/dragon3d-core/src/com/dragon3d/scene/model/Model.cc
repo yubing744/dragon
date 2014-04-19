@@ -20,22 +20,165 @@
  * Created:     2013/10/04
  **********************************************************************/
 
-
+#include <dragon/util/ArrayList.h>
 #include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/GameObject.h>
 
+Import dragon::util;
+Import com::dragon3d::scene;
 Import com::dragon3d::scene::model;
+Import com::dragon3d::output::graphics;
 
 const Type* Model::TYPE = TypeOf<Model>();
 
-Model::Model() {
-
+Model::Model() 
+    :mesh(null), 
+    material(null), 
+    materials(null) {
+    this->name = new String("unnamed");
 }
 
 Model::~Model() {
-
+    SafeRelease(this->name);
+    SafeRelease(this->mesh);
+    SafeRelease(this->material);
+    SafeRelease(this->materials);
 }
 
 bool Model::isTypeOf(const Type* type) {
-    return Model::TYPE->equals(type) 
+    return Renderable::TYPE->equals(type) 
+        || Model::TYPE->equals(type) 
         || Component::isTypeOf(type);
+}
+
+void Model::setMesh(Mesh* mesh) {
+    SafeRelease(this->mesh);
+    SafeRetain(mesh);
+    this->mesh = mesh;
+}
+
+Mesh* Model::getMesh() {
+    if (this->mesh == null) {
+        this->mesh = new Mesh();
+    }
+
+    SafeRetain(this->mesh);
+    return this->mesh;
+}
+
+void Model::setMaterial(Material* material) {
+    SafeRelease(this->material);
+    SafeRetain(material);
+    this->material = material;
+}
+
+Material* Model::getMaterial() {
+    Material* material = this->material;
+    SafeRetain(material);
+    return material;
+}
+
+void Model::setName(const String& name) {
+    SafeRelease(this->name);
+    this->name = new String(name);
+}
+
+String* Model::getName() {
+    String* name = this->name;
+    SafeRetain(name);
+    return name;  
+}
+
+void Model::setMaterials(List<Material>* materials) {
+    SafeRelease(this->materials);
+    this->materials = materials;
+}
+
+List<Material>* Model::getMaterials() {
+    if (this->materials == null) {
+        this->materials = new ArrayList<Material>();
+    }
+
+    SafeRetain(this->materials);
+    return this->materials;      
+}
+
+void Model::addMaterial(Material* material) {
+    List<Material>* materials = this->getMaterials();
+
+    if (materials != null) {
+        materials->add(material);
+    }
+
+    SafeRelease(materials);
+}
+
+void Model::setMatrix(const Matrix4x4& matrix) {
+    this->matrix = matrix;
+}
+
+Matrix4x4 Model::getMatrix() const {
+    return this->matrix;
+}
+
+Material* Model::getMaterialByName(const String& name) {
+    Material* mat = this->material;
+
+    if (mat!=null && mat->getName()->equals(name)) {
+        mat->retain();
+        return mat;
+    }
+
+    List<Material>* mats = this->materials;
+
+    if (mats != null) {
+        Iterator<Material>* it = mats->iterator();
+
+        while(it->hasNext()) {
+            mat = it->next();
+
+            if (mat!=null && mat->getName()->equals(name)) {
+                return mat;
+            }
+
+            SafeRelease(mat);
+        }
+
+        SafeDelete(it);
+    }
+
+    return null;
+}
+
+void Model::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
+    Model* model = this;
+    const Matrix4x4& matrix = this->gameObject->transform->getLocalToWorldMatrix();
+
+    // draw mesh
+    Mesh* mesh = this->getMesh();
+
+    if (mesh!=null && mesh->getVertexCount()>0) {
+        int count = mesh->getSubMeshCount();
+
+        for(int i=0; i<count; i++) {
+            Material* material = null;
+            String* materialName = mesh->getMaterialName(i);
+
+            if (materialName != null) {
+                material = model->getMaterialByName(materialName);
+                SafeRelease(materialName);
+            }
+
+            if (material == null) {
+                material = model->getMaterial();
+            }
+
+            gr->drawMesh(mesh, matrix, material, camera, i);
+
+            SafeRelease(material);
+        }
+
+    }
+
+    SafeRelease(mesh);  
 }

@@ -24,6 +24,7 @@
 #define Array_Lang_Dragon_H
 
 #include <stdio.h>
+#include <string.h>
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
@@ -37,55 +38,72 @@ public:
 		this->count = 0;
 		this->data = null;
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
 	Array(int size) {
 		this->count = size;
 		this->data = new T[size];
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
 	Array(const T* data, int count) {
 		this->count = count;
 		this->data = const_cast<T*>(data);
-
 		this->obj = new Object();
-		this->freeData = true;
 	};
 
 	Array(const Array& arr) {
 		this->count = arr.count;
 		this->data = arr.data;
-		this->obj = arr.obj;
-		this->freeData = arr.freeData; 
+		this->obj = null;
 
-		this->obj->retain();
+		if (arr.obj != null) {
+			this->obj = arr.obj; 
+			this->obj->retain();
+		}
 	};
 
-	Array(T* data, int count, bool freeData) {
+	Array(const T* data, int count, bool freeData) {
 		this->count = count;
-		this->data = data;
-		this->obj = new Object();
-		this->freeData = freeData;
+		this->data = const_cast<T*>(data);
+		this->obj = null;
+
+		if (freeData) {
+			this->obj = new Object();
+		} 
 	};
 
 	~Array() {
 		this->release();
 	};
 
-public:
-	void release() {
-		if (this->obj->getRefCount() <= 0 && this->freeData) {
-			SafeDeleteArray(this->data);
+public: // reference countting
+	void retain() {
+		if (this->obj != null) {
+			this->obj->retain();
 		}
-		
-		this->obj->release();
-		this->obj = null;
+	}
+
+	void release() {
+		if (this->obj != null) {
+			if (this->obj->getRefCount() <= 0) {
+				SafeDeleteArray(this->data);
+			}
+			
+			this->obj->release();
+			this->obj = null;
+		}
 
 		this->data = null;
 		this->count = 0;
+	}
+
+	int getRefCount() {
+		if (this->obj != null) {
+			return this->obj->getRefCount();
+		}
+
+		return 0;
 	}
 
 public:
@@ -95,8 +113,10 @@ public:
 		this->count = arr.count;
 		this->data = arr.data;
 
-		this->obj = arr.obj;
-		this->obj->retain();
+		if (arr.obj != null) {
+			this->obj = arr.obj;
+			this->obj->retain();
+		}
 
 		return *this;
 	};
@@ -122,6 +142,51 @@ public:
 		this->data[index] = t;
 	};
 
+	void append(const T& t) {
+		T* tmp = new T[this->count + 1];
+
+		memcpy(tmp, this->data, sizeof(T) * this->count);
+		tmp[this->count] = t;
+
+		SafeDeleteArray(this->data);
+		
+		this->data = tmp;
+		this->count += 1;
+	};
+
+	void append(const T* data, int count) {
+		T* tmp = new T[this->count + count];
+
+		memcpy(tmp, this->data, sizeof(T) * this->count);
+		memcpy(tmp + this->count, (void*)data, sizeof(T) * count);
+
+		SafeDeleteArray(this->data);
+
+		this->data = tmp;
+		this->count += count;
+	};
+
+	void append(const Array<T>& arr) {
+		this->append(arr.raw(), arr.size());
+	};
+
+	Array<T> clone() {
+		int n = this->count;
+
+		if (n > 0) {
+			T* tmp = new T[n];
+			//memcpy((void*)tmp, (void*)this->data, sizeof(T) * n);
+
+			for (int i=0; i<n; i++) {
+				tmp[i] = this->data[i];
+			}
+
+			return Array<T>(tmp, n);
+		}
+
+		return Array<T>();
+	};
+
 	int size() const {
 		return this->count;
 	};
@@ -135,11 +200,9 @@ public:
 	};
 
 private:
+	Object* obj;
 	T* data;
 	int count;
-
-	Object* obj;
-	bool freeData;
 };
 
 EndPackage2//(dragon, lang)

@@ -28,6 +28,7 @@
 #include <dragon/lang/Array.h>
 #include <dragon/lang/Float.h>
 #include <dragon/lang/reflect/Type.h>
+#include <dragon/lang/Math.h>
 
 Import std;
 Import dragon::lang;
@@ -48,9 +49,14 @@ float Float::floatValue() {
 	return this->value;
 }
 
-Float* Float::parseFloat(const String& str) {
+Float* Float::parseFloat(const String& str) throw(NumberFormatException*) {
+    if (!str.matches("-?\\d+(\\.\\d+)?")) {
+        throw new NumberFormatException();
+    }
+
     const Array<byte> data = str.getBytes("UTF-8");
-    return new Float((float)atof(data.raw()));
+    double val = atof(data.raw());
+    return new Float((float)val);
 }
 
 String* Float::toString(float val) {

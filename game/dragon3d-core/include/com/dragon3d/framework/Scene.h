@@ -25,12 +25,14 @@
 #define Scene_Framework_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/String.h>
 #include <dragon/util/List.h>
 #include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/util/math/Ray3.h>
 
 BeginPackage3(com, dragon3d, framework)
 
+Import dragon::lang;
 Import dragon::util;
 Import com::dragon3d::scene;
 Import com::dragon3d::util::math;
@@ -61,20 +63,20 @@ public:
 	/**
 	 * find game object by name
 	 */
-	virtual GameObject* findFirstWithName(const char* name) = 0;
-	virtual List<GameObject>* findWithName(const char* name) = 0;
+	virtual GameObject* findFirstWithName(const String& name) = 0;
+	virtual List<GameObject>* findWithName(const String& name) = 0;
 
 	/**
 	 * find game object by component Type
 	 */
-	virtual GameObject* findFirstWithType(const Type& type) = 0;
-	virtual List<GameObject>* findWithType(const Type& type) = 0;
+	virtual GameObject* findFirstWithType(const Type* type) = 0;
+	virtual List<GameObject>* findWithType(const Type* type) = 0;
 
 	/**
 	 * find game object by name
 	 */
-	virtual GameObject* findFirstWithTag(const char* tag) = 0;
-	virtual List<GameObject>* findWithTag(const char* tag) = 0;
+	virtual GameObject* findFirstWithTag(const String& tagName) = 0;
+	virtual List<GameObject>* findWithTag(const String& tagName) = 0;
 
 	/**
 	 * find game object by ray

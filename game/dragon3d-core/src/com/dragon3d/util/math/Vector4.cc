@@ -41,3 +41,11 @@ Vector4::Vector4(float x, float y, float z, float w) {
     this->z = z;
     this->w = w;
 }
+
+const float* Vector4::getData() const {
+    return (float*)(&this->x);
+}
+
+const Array<float> Vector4::toFloatArray() const {
+    return Array<float>(getData(), 4 , false);
+}

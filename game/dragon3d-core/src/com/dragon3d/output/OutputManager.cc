@@ -60,7 +60,11 @@ void OutputManager::init() {
 		if (device != null) {
 			device->init();
 		}
+
+		SafeRelease(device);
 	}
+
+	SafeDelete(it);
 }
 
 void OutputManager::output(Scene* scene, CountDownLatch* latch) {
@@ -74,7 +78,11 @@ void OutputManager::output(Scene* scene, CountDownLatch* latch) {
 			ASSERT(controller != null);
 			controller->output(scene);
 		}
+
+		SafeRelease(device);
 	}
+
+	SafeDelete(it);
 
 	latch->countDown();
 }
@@ -90,6 +98,8 @@ void OutputManager::destroy() {
 		if (device != null) {
 			device->destroy();
 		}
+
+		SafeRelease(device);
 	}
 
 	SafeDelete(it);

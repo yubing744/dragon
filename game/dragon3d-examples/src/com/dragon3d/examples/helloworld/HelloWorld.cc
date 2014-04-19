@@ -43,8 +43,7 @@ static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::
 
 
 HelloWorld::HelloWorld() {
-    Scene* scene = new SimpleScene();
-    this->setNextScene(scene);
+
 }
 
 HelloWorld::~HelloWorld() {
@@ -78,9 +77,9 @@ void HelloWorld::init() {
     
     camera->pixelRect = Rect(0, 0, 320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->transform->setPosition(Vector3(0, 1, -5));
+    camera->getTransform()->setPosition(Vector3(0, 1, -5));
 
-    camera->transform->find("abc/bbb/ccc");
+    camera->getTransform()->find("abc/bbb/ccc");
 
     scene->add(myBox);
     scene->add(child);

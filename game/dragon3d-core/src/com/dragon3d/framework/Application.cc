@@ -26,6 +26,7 @@
 #include <dragon/lang/System.h>
 #include <dragon/lang/Throwable.h>
 #include <dragon/util/ArrayList.h>
+#include <com/dragon3d/scene/SimpleScene.h>
 
 Import dragon::lang;
 Import dragon::util;
@@ -39,14 +40,14 @@ Application::Application()
 	this->inputManager = null;
 	this->outputManager= null;
 
-    this->currentScene = null;
+    this->currentScene = new SimpleScene();
 
 	this->onCreate();
 }
 
 Application::~Application() {
-	
 	this->onDestroy();
+    SafeRelease(this->currentScene);
 }
 
 // --------------------------------------
@@ -134,10 +135,14 @@ void Application::setOutputManager(OutputManager* outputManager) {
 // --------------------------------------
 
 Scene* Application::getCurrentScene() {
+    SafeRetain(this->currentScene);
 	return currentScene;
 }
 
 void Application::setNextScene(Scene* scene) {
+    SafeRelease(this->currentScene);
+    SafeRetain(scene);
+
     this->currentScene = scene;
 }
 
@@ -163,6 +168,8 @@ void Application::runLoop() {
         logger->warn("Please setup a current scene");
         Thread::sleep(5000); // wait 5 second
     }
+
+    SafeRelease(scene);
 }
 
 // ----------------------- simple game -----------------------

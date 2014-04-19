@@ -120,11 +120,13 @@ private:
 	static const Array<byte> EMPTY_BYTE_ARRAY;
 
 private:
-	static char* DEFAULT_CHARSET_NAME;
 	static char* init();
-	static Array<wchar_u> decode(Array<byte> bytes, int offset, int length, const char* charset);
-	static Array<byte> encode(Array<wchar_u> chars, int offset, int length, const char* charset);
 	static void destroy();
+
+public:
+     static char* DEFAULT_CHARSET_NAME;
+     static Array<wchar_u> decode(Array<byte> bytes, int offset, int length, const char* charset);
+     static Array<byte> encode(Array<wchar_u> chars, int offset, int length, const char* charset);
 
 public:
 	String();
@@ -619,11 +621,14 @@ public:
      const Array<byte> getBytes(const char* charset) const;
      const Array<byte> getBytes(const String& charset) const;
 
+     const Array<char> toUTF8CharArray() const;
+
      char* toUTF8String() const;
      char* toCString() const; 
      wchar_t* toWCHARString() const;
 
-	bool matches(String* regex);
+     bool matches(const String& regex) const;
+	bool matches(String* regex) const;
 	bool contains(CharSequence* s);
 
 	String* replace(wchar_u oldChar, wchar_u newChar);

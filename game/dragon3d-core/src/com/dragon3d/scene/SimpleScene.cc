@@ -34,4 +34,3 @@ SimpleScene::SimpleScene() {
 SimpleScene::~SimpleScene() {
 
 }
-

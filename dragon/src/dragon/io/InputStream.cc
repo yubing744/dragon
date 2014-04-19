@@ -29,10 +29,10 @@ int InputStream::read() throw(IOException*) {
 	byte buf[1];
 
 	if (read(buf, 1)) {
-		return (int)buf[0];
-	} else {
-		return -1;
-	}
+		return buf[0];
+	} 
+	
+    return -1;
 }
 
 bool InputStream::markSupported() const {

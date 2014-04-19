@@ -130,8 +130,14 @@ String* Integer::toString(int i) {
 }
 // member method
 
-Integer::Integer(int val) {
-    this->value = val;
+Integer::Integer() 
+    :value(0) {
+   
+}
+
+Integer::Integer(int val) 
+    :value(val) {
+
 }
 
 Integer::~Integer() {
@@ -144,7 +150,11 @@ String* Integer::toString() const {
 }
 
 
-Integer* Integer::parseInt(const String& str) {
+Integer* Integer::parseInt(const String& str) throw(NumberFormatException*) {
+    if (!str.matches("-?\\d+")) {
+        throw new NumberFormatException();
+    }
+
     const Array<byte> data = str.getBytes("UTF-8");
     const char* num = data.raw();
     int value = atoi(num);
