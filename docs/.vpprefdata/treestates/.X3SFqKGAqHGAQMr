@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProjectTreeState projectID="FskVxEKGAqACBQ4n" projectPath="F:\git-repos\dragon\docs\dragon.vpp">
+	<TreeState name="ModelRepository" viewX="0" viewY="0">
+		<ExpandedPath>ModelRepository</ExpandedPath>
+		<ExpandedPath>ModelRepository,YO6VxEKGAqACBRob</ExpandedPath>
+		<ExpandedPath>ModelRepository,YO6VxEKGAqACBRob,AQNNxEKGAqACBSU9</ExpandedPath>
+		<ExpandedPath>ModelRepository,YO6VxEKGAqACBRob,5dmVxEKGAqACBRpy</ExpandedPath>
+	</TreeState>
+	<TreeState name="DiagramNavigator" viewX="0" viewY="0">
+		<ExpandedPath>DiagramNavigator</ExpandedPath>
+		<ExpandedPath>DiagramNavigator,UML Diagrams</ExpandedPath>
+		<ExpandedPath>InteractionDiagram</ExpandedPath>
+		<ExpandedPath>DiagramNavigator,Requirements Capturing</ExpandedPath>
+		<ExpandedPath>DiagramNavigator,Database Modeling</ExpandedPath>
+		<ExpandedPath>DiagramNavigator,Others</ExpandedPath>
+		<SelectedPath>InteractionDiagram,WNmVxEKGAqACBRpu</SelectedPath>
+	</TreeState>
+	<TreeState name="ClassBrowser" viewX="0" viewY="0">
+		<ExpandedPath>ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<SelectedPath>ClassBrowser,ClassBrowser,YO6VxEKGAqACBRob</SelectedPath>
+	</TreeState>
+	<TreeState name="LogicalView" viewX="0" viewY="0">
+		<SelectedPath>LogicalView</SelectedPath>
+	</TreeState>
+</ProjectTreeState>
