@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProjectTreeState projectID="_lPpqoKGAqACBQDr" projectPath="F:\git-repos\dragon\game\docs\dragon3d.vpp">
-	<TreeState name="ModelRepository" viewX="0" viewY="0"/>
+	<TreeState name="ModelRepository" viewX="0" viewY="0">
+		<ExpandedPath>ModelRepository</ExpandedPath>
+	</TreeState>
 	<TreeState name="DiagramNavigator" viewX="0" viewY="0">
 		<ExpandedPath>DiagramNavigator</ExpandedPath>
 	</TreeState>
-	<TreeState name="ClassBrowser" viewX="0" viewY="0"/>
+	<TreeState name="ClassBrowser" viewX="0" viewY="414">
+		<ExpandedPath>ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,CXjZqoKGAqACBQ.4</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,_.Y5qoKGAqACBRXj</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,_.Y5qoKGAqACBRXj,0EXTqoKGAqACBVy4</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,_.Y5qoKGAqACBRXj,0EXTqoKGAqACBVy4,0QX6.oKGAqACBcCj</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,_.Y5qoKGAqACBRXj,0EXTqoKGAqACBVy4,7HRBwaKGAqHGAREC</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3,B1yOWoKGAqACBX.3</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,IlE8waKGAqHGAQ8T</ExpandedPath>
+		<ExpandedPath>ClassBrowser,C++ Round-trip</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip</ExpandedPath>
+		<SelectedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3,B1yOWoKGAqACBX.3,YcMsWoKGAqACBSf.</SelectedPath>
+	</TreeState>
 	<TreeState name="LogicalView" viewX="0" viewY="0">
 		<ExpandedPath>LogicalView</ExpandedPath>
 		<ExpandedPath>LogicalView,rk95qoKGAqACBRq3</ExpandedPath>
 		<ExpandedPath>LogicalView,Ky9d.oKGAqACBVc7</ExpandedPath>
 		<ExpandedPath>LogicalView,y6nKFqKGAqHGAQaE</ExpandedPath>
-		<SelectedPath>LogicalView,y6nKFqKGAqHGAQaE,SHPKFqKGAqHGAQaN</SelectedPath>
+		<SelectedPath>LogicalView,rk95qoKGAqACBRq3,npQBwaKGAqHGARDO</SelectedPath>
 	</TreeState>
 </ProjectTreeState>
