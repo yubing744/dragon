@@ -338,6 +338,14 @@
 				"buffer_size": 1459,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "osgi/src/DllMain.cpp",
+			"settings":
+			{
+				"buffer_size": 347,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
@@ -817,6 +825,32 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "osgi/src/DllMain.cpp",
+					"settings":
+					{
+						"buffer_size": 347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								329
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
