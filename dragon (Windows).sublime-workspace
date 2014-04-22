@@ -299,54 +299,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "dragon/include/dragon/lang/String.h",
-			"settings":
-			{
-				"buffer_size": 31280,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/lang/Object.h",
-			"settings":
-			{
-				"buffer_size": 3746,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/lang/gc/Reference.h",
-			"settings":
-			{
-				"buffer_size": 5224,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
-			"settings":
-			{
-				"buffer_size": 3004,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dragon/include/dragon/util/regex/MatchResult.h",
-			"settings":
-			{
-				"buffer_size": 1459,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "osgi/src/DllMain.cpp",
-			"settings":
-			{
-				"buffer_size": 347,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/SublimeDragon/dragon_wp8_arm.sublime-build",
 	"command_palette":
@@ -440,10 +392,15 @@
 	},
 	"file_history":
 	[
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/String.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/Object.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/gc/Reference.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/regex/MatchResult.h",
+		"/E/Develop/GitProject/dragon/osgi/src/DllMain.cpp",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/FileInputStream.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragonx/xml/io/XMLWriter.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/File.cc",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/String.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/String.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/FileOutputStream.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
@@ -562,12 +519,7 @@
 		"/E/Develop/GitProject/dragon/game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon.sublime-project",
 		"/E/Develop/GitProject/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/internal/Library_OSX.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/Library.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/internal/SystemClassLoader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc"
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc"
 	],
 	"find":
 	{
@@ -694,167 +646,6 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "dragon/include/dragon/lang/String.h",
-					"settings":
-					{
-						"buffer_size": 31280,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27597,
-								27603
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 5,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8621.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "dragon/include/dragon/lang/Object.h",
-					"settings":
-					{
-						"buffer_size": 3746,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3673,
-								3681
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1302.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "dragon/include/dragon/lang/gc/Reference.h",
-					"settings":
-					{
-						"buffer_size": 5224,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2747,
-								848
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
-					"settings":
-					{
-						"buffer_size": 3004,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1134.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "dragon/include/dragon/util/regex/MatchResult.h",
-					"settings":
-					{
-						"buffer_size": 1459,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1281,
-								1286
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "osgi/src/DllMain.cpp",
-					"settings":
-					{
-						"buffer_size": 347,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								329,
-								329
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
