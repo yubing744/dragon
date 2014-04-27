@@ -26,6 +26,17 @@
 
 Import com::dragon3d::util::assets;
 
+String* AssetsManager::getAppPath() {
+    NSString* fullpath = [[NSBundle mainBundle] resourcePath];
+    String* path = null;
+
+    if (fullpath != nil) {
+        path = new String([fullpath UTF8String]);
+    }
+
+    return path;
+}
+
 Resource* AssetsManager::getResource(const String& uri) {
     const char* utf8String = uri.toUTF8String();
  

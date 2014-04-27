@@ -55,6 +55,17 @@ InputStream* Resource::getInputStream() {
     return fis;
 }
 
+String* Resource::getName() {
+    int begin = this->uri->lastIndexOf("/");
+    int end = this->uri->lastIndexOf(".");
+
+    if (end>0 && begin>0 && end>begin) {
+        return this->uri->substring(begin + 1, end);
+    }
+
+    return null;
+}
+
 String* Resource::getType() {
     int pos = this->uri->lastIndexOf(".");
 
@@ -86,6 +97,8 @@ Resource* Resource::getResource(const String& path) {
     String* resPath = sb->toString();
     Resource* res = new Resource(resPath);
     SafeRelease(resPath);
+    
+    SafeRelease(sb);
 
     return res;
 }
@@ -94,4 +107,16 @@ String* Resource::getURI() {
     String* ret = this->uri;
     ret->retain();
     return ret;
+}
+
+String* Resource::getPath() {
+    return this->getURI();
+}
+
+bool Resource::exists() {
+     File* file = new File(this->uri);
+     bool ret = file->exists();
+     SafeRelease(file);
+
+     return ret;
 }

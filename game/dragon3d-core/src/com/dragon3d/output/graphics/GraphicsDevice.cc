@@ -27,17 +27,19 @@
 #include <dragon/util/logging/Logger.h>
 
 
-Import com::dragon3d::output::graphics;
 Import dragon::util::logging;
+Import com::dragon3d::output::graphics;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsDevice", INFO);
 
 GraphicsDevice::GraphicsDevice() {
 	this->controller = new GraphicsOutputController(this);
+    this->settings = new GraphicsSettings();
 }
 
 GraphicsDevice::~GraphicsDevice() {
-	SafeDelete(this->controller);
+	SafeRelease(this->controller);
+    SafeRelease(this->settings);
 }
 
 //native void GraphicsDevice::init();
@@ -54,4 +56,8 @@ OutputController* GraphicsDevice::getOutputController() {
 
 void* GraphicsDevice::getNativeData() {
 	return this->nativeData;
+}
+
+GraphicsSettings* GraphicsDevice::getGraphicsSettings() {
+    return this->settings;
 }

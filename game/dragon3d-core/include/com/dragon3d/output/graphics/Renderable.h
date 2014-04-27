@@ -25,9 +25,9 @@
 #define Renderable_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
-#include <com/dragon3d/output/graphics/GraphicsRenderer.h>
-#include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/scene/camera/Camera.h>
+#include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 

@@ -321,36 +321,31 @@ void Scanner::skip(const String& pattern) {
 }
 
 void Scanner::skip(Pattern* pattern) {
-    if (this->token==null && this->lastChar != '\n') {
-        StringBuffer* sb = new StringBuffer();
+    StringBuffer* sb = new StringBuffer();
 
-        wchar_u ch;
-        int read = this->reader->read(&ch, 1);
+    wchar_u ch;
+    int read = this->reader->read(&ch, 1);
 
-        while(read > -1) {
-            sb->append(ch);
+    while(read > -1) {
+        sb->append(ch);
 
-            String* tmp = sb->toString();
+        String* tmp = sb->toString();
 
-            Matcher* m = pattern->matcher(tmp);
+        Matcher* m = pattern->matcher(tmp);
 
-            if (m->find()) {
-                SafeRelease(m);
-                SafeRelease(tmp);
-                break;
-            } else if (ch == '\n') {
-                SafeRelease(m);
-                break;
-            }
-
+        if (m->find()) {
             SafeRelease(m);
             SafeRelease(tmp);
-
-            read = this->reader->read(&ch, 1);
+            break;
         }
 
-        SafeRelease(sb);
+        SafeRelease(m);
+        SafeRelease(tmp);
+
+        read = this->reader->read(&ch, 1);
     }
+
+    SafeRelease(sb);
 }
 
 Scanner* Scanner::useDelimiter(Pattern* pattern) {

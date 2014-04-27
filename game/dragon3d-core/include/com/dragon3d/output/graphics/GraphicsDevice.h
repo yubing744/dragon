@@ -28,6 +28,7 @@
 
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/output/OutputDevice.h>
+#include <com/dragon3d/output/graphics/GraphicsSettings.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
@@ -68,6 +69,13 @@ public: // implements OutputDevice
 	virtual OutputController* getOutputController();
 
 	/**
+	 * get the graphics settings.
+	 * 
+	 * @return [description]
+	 */
+	virtual GraphicsSettings* getGraphicsSettings();
+
+	/**
 	 * get the native data.
 	 * 
 	 */
@@ -85,6 +93,11 @@ protected:
 	OutputController* controller;
 
 	/**
+	 * the graphics settings.
+	 */
+	GraphicsSettings* settings;
+
+	/**
 	 * native data.
 	 */
 	void* nativeData;
@@ -99,6 +112,7 @@ public:
 	 * can show height
 	 */
 	int height;
+
 
 };//GraphicsDevice
 

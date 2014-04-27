@@ -20,20 +20,80 @@
  * Created:     2014/04/18
  **********************************************************************/
 
+#include <stdlib.h>
+#include <string.h>
 
-#include <com/dragon3d/scene/texture/Texture.h>
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/io/FileInputStream.h>
 #include <dragon/util/logging/Logger.h>
-
-Import com::dragon3d::scene::texture;
+#include <dragonx/image/io/ImageIO.h>
+#include <com/dragon3d/scene/texture/Texture.h>
+#include <com/dragon3d/util/assets/Resource.h>
+#include <com/dragon3d/util/assets/AssetsManager.h>
+ 
+Import dragon::io;
+Import dragon::lang::gc;
 Import dragon::util::logging;
+Import dragonx::image::io;
+Import com::dragon3d::util::assets;
+Import com::dragon3d::scene::texture;
 
-const Type* Texture::TYPE = TypeOf<Texture>();
-static Logger* logger = Logger::getLogger(Texture::TYPE, ERROR);
+static Logger* logger = Logger::getLogger("com::dragon3d::scene::texture::Texture", INFO);
 
-Texture::Texture() {
+AtomicInteger* Texture::sequence = new AtomicInteger(0);
 
+int Texture::GetNextTextureID() {
+    return sequence->incrementAndGet();
 }
 
-Texture::~Texture() {
+Texture::Texture(Resource* res) :id(GetNextTextureID())
+    ,nativeData(NULL) {
+    Ref<InputStream> is = res->getInputStream();
+    Ref<String> type = res->getType();
 
+    this->image = ImageIO::read(is.raw(), type.raw());
+
+    is->close();
+}
+
+Texture::Texture(const String& resPath) 
+    :id(GetNextTextureID())
+    ,nativeData(NULL) {
+    Ref<Resource> res = AssetsManager::getInstance()->getResource(resPath);
+    Ref<InputStream> is = res->getInputStream();
+    Ref<String> type = res->getType();
+
+    this->image = ImageIO::read(is.raw(), type.raw());
+
+    is->close();
+}
+
+Texture::~Texture(void){
+    SafeRelease(this->image);
+    SafeFree(this->nativeData);
+}
+
+unsigned int Texture::getID() {
+    return this->id;
+}
+
+int Texture::getWidth() {
+    return this->image->getWidth();
+}
+
+int Texture::getHeight() {
+    return this->image->getHeight();
+}
+
+Array<byte> Texture::getData() {
+    return this->image->getData();
+}
+
+void Texture::setNativeData(void* data) {
+    SafeFree(this->nativeData);
+    this->nativeData = data;
+}
+
+void* Texture::getNativeData() {
+    return this->nativeData;
 }

@@ -820,5 +820,15 @@ TEST(Dragon_Lang_String_Test, format06) {
     SafeDelete(result);
 }
 
+TEST(Dragon_Lang_String_Test, replaceAll01) {
+    String* str = new String("_modelViewProj1[0]");
+    String* ret = str->replaceAll("\\[\\d\\]", "");
+
+    const Array<char> utf8Str = ret->toUTF8CharArray();
+    ASSERT_STREQ("_modelViewProj1", utf8Str);
+
+    SafeRelease(ret);
+    SafeRelease(str);
+}
 
 

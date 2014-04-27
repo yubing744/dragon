@@ -20,33 +20,41 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-#include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
 
 #include <dragon/lang/Integer.h>
 #include <dragon/util/HashMap.h>
 #include <dragon/util/logging/Logger.h>
-#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+
 #include <com/dragon3d/util/math/Mathf.h>
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+#include <com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h>
+#include <com/dragon3d/output/graphics/shader/ShaderManager.h>
 
 Import dragon::lang;
 Import dragon::util;
+
 Import com::dragon3d::output::graphics::renderer;
+Import com::dragon3d::output::graphics::shader;
 
 OpenGLES2Renderer::OpenGLES2Renderer(GraphicsDevice* graphicsDevice) 
   :graphicsDevice(graphicsDevice) {
-    this->defaultShader = new Shader();   
+    
     //this->normalShader = new Shader(normalVertexShaderStr, normalFragmentShaderStr);
 
-    this->cachedTextures = new HashMap<int, Integer>();
-    this->cachedShaders = new HashMap<int, Integer>();
+    //this->cachedTextures = new HashMap<int, Integer>();
+    //this->cachedShaders = new HashMap<int, Integer>();
 }
 
 OpenGLES2Renderer::~OpenGLES2Renderer() {
-    SafeRelease(this->defaultShader);
+    //SafeRelease(this->defaultShader);
     //SafeRelease(this->normalShader);
 
-    SafeRelease(this->cachedTextures);
-    SafeRelease(this->cachedShaders);
+    //SafeRelease(this->cachedTextures);
+    //SafeRelease(this->cachedShaders);
+}
+
+GraphicsDevice* OpenGLES2Renderer::getDisplay() {
+    return this->graphicsDevice;
 }
 
 void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice);
@@ -116,6 +124,7 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
 }
 
 // Texture
+/*
 GLuint OpenGLES2RendererInitTexture(Texture* texture){
     GLuint textureID;
 
@@ -145,8 +154,9 @@ GLuint OpenGLES2RendererInitTexture(Texture* texture){
 
     return textureID;
 }
+*/
 
-
+/*
 unsigned int OpenGLES2Renderer::loadTextureID(Texture* texture) {
     int textureID = texture->getID();
 
@@ -161,7 +171,9 @@ unsigned int OpenGLES2Renderer::loadTextureID(Texture* texture) {
 
     return nativeTextureID->intValue();
 }
+*/
 
+/*
 unsigned int OpenGLES2Renderer::loadProgramID(Shader* shader) {
     int shaderID = shader->getID();
 
@@ -176,8 +188,9 @@ unsigned int OpenGLES2Renderer::loadProgramID(Shader* shader) {
 
     return nativeShaderID->intValue();
 }
+*/
 
-GLuint OpenGLES2Renderer::loadShaderFrom(Material* material, Shader* defaultShader) {
+Shader* OpenGLES2Renderer::loadShaderFrom(Material* material) {
     Shader* shader = null;
 
     if (material != null) {
@@ -185,32 +198,34 @@ GLuint OpenGLES2Renderer::loadShaderFrom(Material* material, Shader* defaultShad
     } 
 
     if (shader == null) {
-        SafeRetain(defaultShader);
-        shader = defaultShader;
+        shader = ShaderManager::getInstance()->getShader("Normal"); 
     }
 
-    return this->loadProgramID(shader);
+    return shader;
 }
 
 void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera) {  
-    Shader* shader = this->defaultShader;
+    Shader* shader = ShaderManager::getInstance()->getShader("Default"); 
 
     shader->use();
 
     // transform mesh to camera space
     Matrix4x4 projMatrix = OpenGLES2RendererSetupCamera(camera);
-    shader->setMVP(projMatrix);
+    shader->setMatrix("modelViewProj", projMatrix);
+
+    // Set Draw Color
+    shader->setFloatVector("color", 4, Array<float>(color.getData(), 4));
 
     // Load the vertex data
     float vertices[] = {startV.x, startV.y, startV.z, endV.x, endV.y, endV.z};
-    shader->setVertices(vertices);
+    shader->setVertexAttribPointer("position", 3, GL_FLOAT, 0, vertices);
 
     glDrawArrays(GL_LINES, 0, 2);
 }
 
 void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex) {
     //logger->debug("draw mesh");
-    Shader* shader = this->loadShaderFrom(material, this->defaultShader);
+    Shader* shader = this->loadShaderFrom(material);
 
     // Use the program object
     shader->use(); 
@@ -222,7 +237,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     mvpMatrix = mvpMatrix.multiply(matrix);
     mvpMatrix = mvpMatrix.multiply(projMatrix);
 
-    shader->setMVP(mvpMatrix);
+    shader->setMatrix("modelViewProj", mvpMatrix);
 
     GLuint textureID;
 
@@ -230,13 +245,12 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     if (material != null) {
         // setup color
         Color color = material->color;
-        glUniform4fv(colorLoc, 1, (GLfloat*)color.getData());
+        shader->setFloatVector("color", 4, Array<float>(color.getData(), 4));
 
         // setup texture
         Texture* mainTexture = material->mainTexture;
-
         if (mainTexture != null) {
-            textureID = this->loadTextureID(mainTexture);
+            shader->setSampler("s0", mainTexture, 0);
         }
     }
 
@@ -248,17 +262,13 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     // Load the vertex data
     if (mesh->hasVertices()) {
         Array<float> vertices = mesh->getFloatVertices();
-        shader->setVertices(vertices.raw());
+        shader->setVertexAttribPointer("position", 3, GL_FLOAT, 0, vertices.raw());
     }
 
     // Load the texture coordinate
     if (mesh->hasUV()) {
         Array<float> uvs = mesh->getFloatUVs();
-        shader->setUVs(uvs.raw());
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glUniform1i(sampleLoc, 0);
+        shader->setVertexAttribPointer("tex", 2, GL_FLOAT, 0, uvs.raw());
     }
     
   
@@ -269,25 +279,11 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     if (vCount >0 && indices.raw()) {
         glDrawElements(GL_TRIANGLES, vCount, GL_UNSIGNED_SHORT, indices.raw());
     }
-
-    // release material
-    /*
-    if (material != null) {
-        Texture* mainTexture = material->mainTexture;
-
-        if (mainTexture != null) {
-            glDeleteTextures(1, &textureID);
-        }
-    }
-    */
    
     // Disable Texture 2D
     if (mesh->hasUV() || mesh->hasUV2()) {
         glDisable(GL_TEXTURE_2D);
     }
-
-    // delete program
-    //glDeleteProgram(programID);
 }
 
 // native void OpenGLES2Renderer::flushBuffer();

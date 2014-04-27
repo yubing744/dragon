@@ -23,8 +23,8 @@
 #define NOMINMAX
 #include <windows.h>
 
-#include <gl\gl.h>			// Header File For The OpenGL32 Library
-#include <gl\glu.h>			// Header File For The GLu32 Library
+#include <gl/gl.h>			// Header File For The OpenGL32 Library
+#include <gl/glu.h>			// Header File For The GLu32 Library
 
 #include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
 #include <dragon/util/logging/Logger.h>

@@ -40,7 +40,8 @@ template<class K, class V>
 class HashMap :public Object, public Map<K, V> {
 public:
 
-	class HashMapEntry implements(Map)<K, V>::Entry {
+	class HashMapEntry extends(Object) 
+		implements1(Map)<K, V>::Entry {
 	public:
 		HashMapEntry(K key, V* value) {
 			this->key = key;
@@ -69,7 +70,8 @@ public:
 	typedef typename map<K, V*>::iterator StlIterator;
 	typedef typename Map<K, V>::Entry MapEntry;
 
-	class HashMapIterator implements(Iterator<MapEntry>) {
+	class HashMapIterator extends(Object) 
+		implements1(Iterator<MapEntry>) {
 	public:
 		HashMapIterator(StlIterator it, StlIterator itEnd) {
 			this->it = it;

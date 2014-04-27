@@ -63,6 +63,7 @@
 // Safe Retain and Release
 #define SafeRetain(pRef) { Object* pObject = dynamic_cast<Object*>(pRef); if (pObject != null) {pObject->retain();} }
 #define SafeRelease(pRef) { Object* pObject = dynamic_cast<Object*>(pRef); if(pObject != null) {if (pObject->getRefCount() == 0) {pObject->release(); pRef = null;} else {pObject->release(); } }}
+#define SafeReplace(pRef1, pRef2) { SafeRelease(pRef1); SafeRetain(pRef2); pRef1 = pRef2; } 
 
 //#define DRAGON_STATIC_LIB
 //#define MEM_CHECK

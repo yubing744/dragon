@@ -32,6 +32,8 @@
 #include <com/dragon3d/util/math/Quaternion.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 
+#include <com/dragon3d/output/graphics/GraphicsDevice.h>
+
 BeginPackage4(com, dragon3d, output, graphics)
 
 Import com::dragon3d::util::math;
@@ -76,6 +78,11 @@ public:
 	 * flush the buffer
 	 */
 	virtual void flushBuffer() = 0;
+
+	/**
+	 * get the graphics device of renderer
+	 */
+	virtual GraphicsDevice* getDisplay() = 0;
 	
 };//GraphicsRenderer
 

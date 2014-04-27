@@ -671,6 +671,10 @@ dragon3d_core_SOURCES = {
         AudioListener.cc
     """),
 
+    "com/dragon3d/scene/texture" : Split("""
+        Texture.cc
+    """),
+
     "com/dragon3d/input" : Split("""
         InputManager.cc
     """),
@@ -679,6 +683,7 @@ dragon3d_core_SOURCES = {
         OutputManager.cc
     """),
     "com/dragon3d/output/graphics" : Split("""
+        GraphicsSettings.cc
         GraphicsDevice.cc
         GraphicsOutputController.cc
         Renderable.cc
@@ -688,7 +693,15 @@ dragon3d_core_SOURCES = {
         support_graphics_renderer.cc
     """),
     "com/dragon3d/output/graphics/shader" : Split("""
+        ShaderException.cc
+        ShaderSource.cc
+        ShaderManager.cc
         support_shader_compiler.cc
+    """),
+
+    "com/dragon3d/output/graphics/shader/glsl" : Split("""
+        GLSLShader.cc
+        GLSLShaderCompiler.cc
     """),
 
     "com/dragon3d/output/audio" : Split("""
@@ -720,6 +733,7 @@ dragon3d_core_SOURCES = {
     """),
 
     "com/dragon3d/util/assets" : Split("""
+        ResourceNotFoundException.cc
         Resource.cc
         AssetsManager.cc
         ResourceUtils.cc
@@ -781,9 +795,15 @@ dragon3d_core_test_SOURCES = {
         QuaternionTest.cc
         Matrix4x4Test.cc
     """),
+
+    "com/dragon3d/util/assets" : Split("""
+        AssetsManagerTest.cc
+    """),
+
     "com/dragon3d/util/assets/modelio" : Split("""
         ModelIOTest.cc
     """),
+
     "." : Split("""
         TestMain.cc
     """)

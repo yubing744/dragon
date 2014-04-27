@@ -215,7 +215,15 @@ public:
 	 * @return [description]
 	 */
 	virtual String* getCanonicalPath() const;
-	
+
+	/**
+	 * get the relative path of base.
+	 * 
+	 * @param  base [description]
+	 * @return      [description]
+	 */
+	virtual String* getRelativePath(const String& base);
+
 private:
 	String* path;
 };

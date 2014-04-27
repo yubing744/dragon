@@ -448,4 +448,21 @@ TEST(Dragon_Io_FileTest, listWithFileFilter01) {
     SafeDelete(fullPath);
 }
 
+TEST(Dragon_Io_FileTest, getRelativePath01) {
+    const String* base = System::getProperty("HOME");
+    String* path = new String(L"dragon_test/list_files");
+    File* file = new File(base, path);
+    String* relativePath = file->getRelativePath(base);
+
+    char* utf8Path = relativePath->toUTF8String();
+    EXPECT_STREQ("dragon_test/list_files", utf8Path);
+    SafeFree(utf8Path);
+
+    SafeRelease(relativePath);
+    SafeRelease(file);
+    SafeRelease(path);
+}
+
+
+
 

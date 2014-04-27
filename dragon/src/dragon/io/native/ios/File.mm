@@ -225,6 +225,33 @@ void FileListFilesInternal(ArrayList<String>* outFileNames, const char* path) {
 }
 
 
+/*
+void FileListFilesInternal(ArrayList<String>* outFileNames, const char* path) {
+    NSString* directoryPath = [NSString stringWithUTF8String: path];
+
+    NSLog(@"directoryPath:%@", directoryPath);
+
+    // Enumerators are recursive
+    NSDirectoryEnumerator *enumerator = [[[NSFileManager defaultManager] enumeratorAtPath:directoryPath] retain];
+
+    NSString *filePath;
+
+    while ((filePath = [enumerator nextObject]) != nil){
+        NSString* fullPath = [directoryPath stringByAppendingPathComponent:filePath];
+
+        NSLog(@"item fullPath:%@", fullPath);
+
+        String* file = new String([fullPath UTF8String]);
+        outFileNames->add(file);
+        SafeRelease(file);
+
+        [fullPath release];
+    }
+
+    [enumerator release];
+}
+*/
+
 const Array<String*> File::list() const {
     Array<char> utf8Path = path->getBytes("UTF-8");
 

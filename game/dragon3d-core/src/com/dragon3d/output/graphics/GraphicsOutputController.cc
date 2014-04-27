@@ -29,7 +29,7 @@
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
-
+#include <com/dragon3d/output/graphics/shader/ShaderManager.h>
 
 Import dragon::util;
 
@@ -37,13 +37,18 @@ Import dragon::util::logging;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::graphics::shader;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
 void GraphicsOutputController::init() {
 	logger->info("init");
 
-	this->graphicsRenderer->init();
+    // init the graphics render
+    this->graphicsRenderer->init();
+
+    // load the built in shader
+    ShaderManager::getInstance()->importShaders("shader/built-in"); 
 }
 
 List<Camera>* GraphicsOutputController_findAllCameras(Scene* scene) {

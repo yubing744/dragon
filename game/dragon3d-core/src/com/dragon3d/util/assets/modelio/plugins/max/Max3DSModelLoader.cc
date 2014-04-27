@@ -36,6 +36,7 @@
 #include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/scene/model/Model.h>
+#include <com/dragon3d/scene/texture/Texture.h>
 #include <com/dragon3d/util/assets/Resource.h>
 
 #include <dragon/util/logging/Logger.h>
@@ -46,6 +47,7 @@ Import dragon::util::logging;
 Import com::dragon3d::util::assets;
 Import com::dragon3d::scene;
 Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::texture;
 Import com::dragon3d::util::assets::modelio::plugins::max;
 
 const Type* Max3DSModelLoader::TYPE = TypeOf<Max3DSModelLoader>();

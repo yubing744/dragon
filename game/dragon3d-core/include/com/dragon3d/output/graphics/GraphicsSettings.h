@@ -17,30 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/04/26
  **********************************************************************/
 
 
-#ifndef DisplaySettings_Graphics_Output_Dragon3d_Com_H
-#define DisplaySettings_Graphics_Output_Dragon3d_Com_H
+#ifndef GraphicsSettings_Graphics_Output_Dragon3d_Com_H
+#define GraphicsSettings_Graphics_Output_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
-Import com::dragon3d::output::graphics;
+Import dragon::lang;
 
-class _DragonExport DisplaySettings {
+class_ GraphicsSettings extends(Object) {
 public:
-	DisplaySettings();
-	virtual ~DisplaySettings();
+    static const Type* TYPE;
+    
+public:
+    GraphicsSettings();
+    virtual ~GraphicsSettings();
 
 public:
-	
+    
 protected:
-	
-};//DisplaySettings
+    
+};//GraphicsSettings
 
 EndPackage4 //(com, dragon3d, output, graphics)
 
-#endif //DisplaySettings_Graphics_Output_Dragon3d_Com_H
+#endif //GraphicsSettings_Graphics_Output_Dragon3d_Com_H

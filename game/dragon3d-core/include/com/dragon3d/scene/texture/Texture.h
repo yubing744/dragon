@@ -26,23 +26,67 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragonx/image/BufferedImage.h>
+#include <dragon/util/concurrent/atomic/AtomicInteger.h>
+#include <com/dragon3d/util/assets/Resource.h>
 
 BeginPackage4(com, dragon3d, scene, texture)
 
 Import dragon::lang;
+Import dragonx::image;
+Import dragon::util::concurrent::atomic;
+Import com::dragon3d::util::assets;
+
 
 class_ Texture extends(Object) {
-public:
-    static const Type* TYPE;
-    
-public:
-    Texture();
-    virtual ~Texture();
+private:
+    static AtomicInteger* sequence;
 
 public:
+    static int GetNextTextureID();
+
+public:
+    enum FilterMode {
+        Point,
+        Bilinear,
+        Trilinear
+    };
+
+    enum TextureWrapMode {
+        Repeat,
+        Clamp
+    };
+
+public:
+    Texture(Resource* res);
+    Texture(const String& resPath);
+    virtual ~Texture(void);
+
+public:
+    unsigned int getID();
+
+    void setNativeData(void* data);
+    void* getNativeData();
     
-protected:
+public:
     
+    int getWidth();
+    int getHeight();
+    Array<byte> getData();
+
+public:
+    FilterMode filterMode;
+    int anisoLevel;
+    TextureWrapMode wrapMode;
+    float mipMapBias;
+    
+    int channels;
+
+private:
+    unsigned int id;
+    BufferedImage* image;
+
+    void* nativeData;
 };//Texture
 
 EndPackage4 //(com, dragon3d, scene, texture)

@@ -38,3 +38,6 @@ DirectX11Renderer::~DirectX11Renderer() {
 
 }
 
+GraphicsDevice* DirectX11Renderer::getDisplay() {
+    return this->graphicsDevice;
+}

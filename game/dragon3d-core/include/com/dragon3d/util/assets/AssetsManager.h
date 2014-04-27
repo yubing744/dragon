@@ -26,11 +26,16 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+
+#include <dragon/util/List.h>
+#include <dragon/util/ArrayList.h>
+
 #include <com/dragon3d/util/assets/Resource.h>
 
 BeginPackage4(com, dragon3d, util, assets)
 
 Import dragon::lang;
+Import dragon::util;
 Import com::dragon3d::util::assets;
 
 class_ AssetsManager extends(Object) {
@@ -47,8 +52,26 @@ public:
     virtual ~AssetsManager();
 
 public:
-    Resource* getResource(const String& uri);
+    /**
+     * get the base path for app.
+     * 
+     * @return [description]
+     */
+    virtual String* getAppPath();
+
+    /**
+     * get a resource from uri.
+     * 
+     * @param  uri [description]
+     * @return     [description]
+     */
+    virtual Resource* getResource(const String& uri);
     
+    /**
+     * get all resource from baseURI, if recursion then include sub dir.
+     */
+    virtual List<Resource>* getResources(const String& baseURI, bool recursion); 
+
 };//AssetsManager
 
 EndPackage4 //(com, dragon3d, util, assets)

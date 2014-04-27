@@ -1,0 +1,16 @@
+
+void main_vertex
+(
+   float4 position  : POSITION,
+   uniform float4x4 modelViewProj,
+
+   out float4 oPosition : POSITION
+)
+{
+    oPosition = mul(modelViewProj, position);
+}
+
+float4 main_fragment(uniform float4 color) : COLOR
+{
+    return color;
+}

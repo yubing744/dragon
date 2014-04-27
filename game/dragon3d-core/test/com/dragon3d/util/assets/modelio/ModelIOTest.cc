@@ -28,7 +28,7 @@
 Import dragon::lang;
 Import com::dragon3d::util::assets::modelio;
 
-
+/*
 TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, loadObj1) {
     const String* base = System::getProperty("HOME");
     String* filePath = new String(L"/dragon_test/model_load_test/obj_data/cube_v2.obj");
@@ -123,4 +123,5 @@ TEST(Com_Dragon3d_Util_Assets_Modelio_ModelIOTest, load3DS_01) {
     SafeRelease(file);
     SafeRelease(filePath);
 }
+*/
 

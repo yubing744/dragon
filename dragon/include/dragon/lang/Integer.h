@@ -113,6 +113,12 @@ protected:
 	
 };//Integer
 
+inline bool operator<(const Integer& left, const Integer& right) {
+    Integer* theInt = const_cast<Integer*>(&left);
+    Integer* otherInt = const_cast<Integer*>(&right);
+    return theInt->intValue() > otherInt->intValue();
+}
+
 EndPackage2 //(dragon, lang)
 
 #endif //Integer_Lang_Dragon_H

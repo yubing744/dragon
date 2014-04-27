@@ -32,7 +32,7 @@
 #include <com/dragon3d/util/math/Ray3.h>
 #include <com/dragon3d/util/math/Vector3.h>
 #include <com/dragon3d/util/math/Matrix4x4.h>
-#include <com/dragon3d/scene/model/RenderTexture.h>
+#include <com/dragon3d/scene/texture/RenderTexture.h>
 #include <com/dragon3d/scene/Behaviour.h>
 
 BeginPackage4(com, dragon3d, scene, camera)
@@ -42,7 +42,7 @@ Import dragon::lang::reflect;
 Import com::dragon3d::util::math;
 Import com::dragon3d::scene;
 Import com::dragon3d::scene::camera;
-Import com::dragon3d::scene::model;
+Import com::dragon3d::scene::texture;
 
 /**
  * A Camera is a device through which the player views the world.

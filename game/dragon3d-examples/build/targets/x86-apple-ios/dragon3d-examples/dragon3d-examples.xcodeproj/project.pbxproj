@@ -35,6 +35,7 @@
 		46ABCA1B18C0E00A002E234C /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1718C0E00A002E234C /* scene */; };
 		46ABCA1C18C0E00A002E234C /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1818C0E00A002E234C /* Data */; };
 		46ABCA1D18C0E00A002E234C /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1918C0E00A002E234C /* Textures */; };
+		46D3B484190CB84100B44CF0 /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 46D3B483190CB84100B44CF0 /* shader */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,6 +83,7 @@
 		46ABCA1718C0E00A002E234C /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
 		46ABCA1818C0E00A002E234C /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
 		46ABCA1918C0E00A002E234C /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
+		46D3B483190CB84100B44CF0 /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shader; path = ../../../../assets/shader; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 		46ABCA1318C0DFC4002E234C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				46D3B483190CB84100B44CF0 /* shader */,
 				4642195018DD3774009C3FB0 /* model */,
 				46ABCA1618C0E00A002E234C /* mp3 */,
 				46ABCA1718C0E00A002E234C /* scene */,
@@ -327,6 +330,7 @@
 				46ABCA1C18C0E00A002E234C /* Data in Resources */,
 				46ABCA1D18C0E00A002E234C /* Textures in Resources */,
 				4642195118DD3774009C3FB0 /* model in Resources */,
+				46D3B484190CB84100B44CF0 /* shader in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

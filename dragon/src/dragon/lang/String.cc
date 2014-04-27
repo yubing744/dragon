@@ -427,6 +427,14 @@ String& String::operator = (const String& value) {
 	return *this;
 }
 
+/*
+bool String::operator< (const String& str) const {
+    String* theStr = const_cast<String*>(&this);
+    String* otherStr = const_cast<String*>(&str);
+	return theStr->compareTo(otherStr) > 0;
+}
+*/
+
 bool String::equals(const String* str) const {
 	if (str == null) {
 		return false;
@@ -901,6 +909,18 @@ String* String::replaceAll(String* regex, String* replacement) {
 
     return ret;
 } 
+
+String* String::replaceAll(const String& regex, const String& replacement) {
+    Pattern* p = Pattern::compile(const_cast<String*>(&regex));
+    Matcher* m = p->matcher(this);
+
+    String* ret = m->replaceAll(const_cast<String*>(&replacement));
+    
+    SafeDelete(m);
+    SafeDelete(p);
+
+    return ret;
+}
 
 String* String::replaceFirst(String* regex, String* replacement) {
 

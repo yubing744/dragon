@@ -104,7 +104,8 @@ public:
      * @param texture [description]
      * @param unit    [description]
      */
-    virtual void setSampler(const String& name, Texture* texture, int unit);
+    virtual bool setSampler(const String& name, Texture* texture, int unit);
+
 
     /**
      * set the matrix
@@ -112,7 +113,7 @@ public:
      * @param name   [description]
      * @param matrix [description]
      */
-    virtual void setMatrix(const String& name, const Matrix4x4& matrix);
+    virtual bool setMatrix(const String& name, const Matrix4x4& matrix);
 
     /**
      * set int val
@@ -120,7 +121,7 @@ public:
      * @param name [description]
      * @param val  [description]
      */
-    virtual void setInt(const String& name, int val);
+    virtual bool setInt(const String& name, int val);
 
     /**
      * set float val
@@ -128,7 +129,7 @@ public:
      * @param name [description]
      * @param val  [description]
      */
-    virtual void setFloat(const String& name, float val);
+    virtual bool setFloat(const String& name, float val);
 
     /**
      * set int vector
@@ -137,7 +138,7 @@ public:
      * @param numComponents [description]
      * @param data          [description]
      */
-    virtual void setIntVector(const String& name, int numComponents, const Array<int>& data);
+    virtual bool setIntVector(const String& name, int numComponents, const Array<int>& data);
 
     /**
      * set float vector
@@ -146,7 +147,7 @@ public:
      * @param numComponents [description]
      * @param data          [description]
      */
-    virtual void setFloatVector(const String& name, int numComponents, const Array<float>& data);
+    virtual bool setFloatVector(const String& name, int numComponents, const Array<float>& data);
 
     /**
      * set bool val
@@ -154,7 +155,7 @@ public:
      * @param name [description]
      * @param val  [description]
      */
-    virtual void setBool(const String& name, float val);
+    virtual bool setBool(const String& name, float val);
 
 protected:
     int id;

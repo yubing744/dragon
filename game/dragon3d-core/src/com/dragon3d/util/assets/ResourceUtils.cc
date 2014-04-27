@@ -20,10 +20,19 @@
  * Created:     2014/04/18
  **********************************************************************/
 
+#include <dragon/lang/String.h>
+#include <dragon/lang/StringBuffer.h>
+
+#include <dragon/io/InputStreamReader.h>
+
 #include <dragon/lang/gc/Reference.h>
 #include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/util/assets/Resource.h>
+#include <com/dragon3d/util/assets/ResourceUtils.h>
 #include <com/dragon3d/util/assets/ResourceUtils.h>
 
+Import dragon::lang;
+Import dragon::io;
 Import dragon::lang::gc;
 Import dragon::util::logging;
 Import com::dragon3d::util::assets;
@@ -31,7 +40,7 @@ Import com::dragon3d::util::assets;
 const Type* ResourceUtils::TYPE = TypeOf<ResourceUtils>();
 static Logger* logger = Logger::getLogger(ResourceUtils::TYPE, ERROR);
 
-static String* ResourceUtils::readResourceToString(Resource* res, const String& charset) {
+String* ResourceUtils::readResourceToString(Resource* res, const String& charset) {
     Ref<InputStream> is = res->getInputStream();
     Ref<InputStreamReader> isr = new InputStreamReader(is, charset);
 
@@ -41,7 +50,7 @@ static String* ResourceUtils::readResourceToString(Resource* res, const String& 
 
     int readCount = 0;
 
-    while((readCount = irs->read(buf, 512)) > 0) {
+    while((readCount = isr->read(buf, 512, 0, 512)) > 0) {
         sb->append(buf, readCount);
     }
 

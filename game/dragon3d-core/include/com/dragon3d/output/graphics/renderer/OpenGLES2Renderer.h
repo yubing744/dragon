@@ -28,7 +28,7 @@
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Integer.h>
 
-#include <com/dragon3d/util/Shader.h>
+#include <com/dragon3d/output/graphics/shader/Shader.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 
@@ -40,7 +40,7 @@ BeginPackage5(com, dragon3d, output, graphics, renderer)
 
 
 Import dragon::lang;
-Import com::dragon3d::util;
+Import com::dragon3d::output::graphics::shader;
 Import com::dragon3d::output::graphics::renderer;
 
 class _DragonExport OpenGLES2Renderer extends(Object) 
@@ -52,17 +52,16 @@ public:
 public: // implements GraphicsRenderer
 	virtual void init();
     virtual void clearBuffer();
-	virtual void drawSample();
+    virtual void drawSample();
     virtual void drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera);
     virtual void drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* material, Camera* camera, int submeshIndex);
-	virtual void flushBuffer();
+    virtual void flushBuffer();
+    virtual GraphicsDevice* getDisplay();
 
 protected:
-    virtual unsigned int loadTextureID(Texture* texture);
-    virtual unsigned int loadProgramID(Shader* shader);
-
-protected:
-    virtual unsigned int loadShaderFrom(Material* material, Shader* defaultShader);
+    //virtual unsigned int loadTextureID(Texture* texture);
+    //virtual unsigned int loadProgramID(Shader* shader);
+    virtual Shader* loadShaderFrom(Material* material);
 
 protected:
     /**

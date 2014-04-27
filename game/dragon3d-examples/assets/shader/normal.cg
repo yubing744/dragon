@@ -1,9 +1,10 @@
 void main_vertex
 (
-   float4 position : POSITION,
-   out float4 oPosition : POSITION,
    uniform float4x4 modelViewProj,
+   float4 position : POSITION,
    float2 tex : TEXCOORD,
+   
+   out float4 oPosition : POSITION,
    out float2 oTex : TEXCOORD
 )
 {

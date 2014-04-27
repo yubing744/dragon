@@ -47,9 +47,14 @@ public:
 	virtual void close() throw(IOException*) = 0;
 	
 public:
-	virtual int read() const throw(IOException*);
-	virtual int read(wchar_u* cbuf, int num) const throw(IOException*);
-	virtual wlong_u skip(wlong_u n) throw(IOException*);
+	virtual int read() const 
+		throw(IOException*);
+		
+	virtual int read(wchar_u* cbuf, int num) const 
+		throw(IOException*);
+
+	virtual wlong_u skip(wlong_u n) 
+		throw(IOException*);
 };
 
 EndPackage2//(dragon, io)

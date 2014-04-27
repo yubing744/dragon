@@ -17,6 +17,7 @@
 #include <dragon/io/File.h>
 #include <dragon/util/Stack.h>
 #include <dragon/lang/StringBuffer.h>
+#include <dragon/lang/IllegalArgumentException.h>
 
 Import dragon::lang;
 Import dragon::io;
@@ -342,4 +343,14 @@ String* File::getCanonicalPath() const {
 	SafeDelete(sb);
 
 	return result;
+}
+
+String* File::getRelativePath(const String& base) {
+	String* absPath = this->getAbsolutePath();
+
+	if (absPath->startsWith(base)) {
+		return absPath->substring(base.length() + 1);
+	}
+
+	throw new IllegalArgumentException("the file is not sub dir of base!");
 }

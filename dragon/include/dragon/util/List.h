@@ -50,6 +50,7 @@ public: // extends Collection
 
 public:
 	virtual void add(int index, E* e) = 0;
+	virtual bool addAll(Collection<E>* c) = 0;
 	virtual E* get(int index) = 0;
 	virtual E* set(int index, E* e) = 0;
 

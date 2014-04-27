@@ -103,7 +103,7 @@ public: // reference countting
 	/**
 	 * retain the reference count
 	 */
-    virtual void retain();
+    virtual Object* retain();
 
     /**
      * reduce the reference count, and release object when refCount == 0

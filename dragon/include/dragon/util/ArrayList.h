@@ -40,7 +40,8 @@ class ArrayList extends(Object)
 public:
 	typedef typename vector<E*>::iterator StlIterator;
 
-	class VectorIterator implements(Iterator<E>) {
+	class VectorIterator extends(Object) 
+		implements1(Iterator<E>) {
 	public:
 		VectorIterator(StlIterator it, StlIterator itEnd) {
 			this->it = it;
@@ -85,6 +86,7 @@ public: // implements List
 	virtual E* set(int index, E* e);
 	virtual void clear();
 
+	virtual bool addAll(Collection<E>* c);
 public:
 	List<E>* subList(int fromIndex, int toIndex);
 
@@ -264,6 +266,21 @@ List<E>* ArrayList<E>::subList(int fromIndex, int toIndex) {
 	}
 
 	return sub;
+}
+
+template<class E>
+bool ArrayList<E>::addAll(Collection<E>* c) {
+	Iterator<E>* it = c->iterator();
+
+	while (it->hasNext()) {
+		E* e = it->next();
+		this->add(e);
+		SafeRelease(e);
+	}
+
+	SafeRelease(it);
+
+	return true;
 }
 
 EndPackage2//(dragon, util)

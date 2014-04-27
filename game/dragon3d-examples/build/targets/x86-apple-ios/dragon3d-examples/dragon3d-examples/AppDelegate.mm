@@ -48,10 +48,10 @@ Import com::dragon3d::examples::model;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    //app = new HelloWorld();
+    app = new HelloWorld();
     //app = new AudioDemo();
     //app = new TextureDemo();
-    app = new ModelDemo();
+    //app = new ModelDemo();
     
     Dragon3DLaunchApp(app);
     

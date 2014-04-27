@@ -38,6 +38,9 @@ OpenGLRenderer::~OpenGLRenderer() {
 
 }
 
+GraphicsDevice* OpenGLRenderer::getDisplay() {
+    return this->graphicsDevice;
+}
 
 void OpenGLRendererNativeInit(GraphicsDevice* graphicsDevice);
 

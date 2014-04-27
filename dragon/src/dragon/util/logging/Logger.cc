@@ -26,10 +26,12 @@
 
 #include <stdarg.h>
 #include <ctype.h>
- 
+
+#include <dragon/lang/String.h>
 #include <dragon/util/logging/Logger.h>
 #include <dragon/util/logging/LogManager.h>
 
+Import dragon::lang;
 Import dragon::util::logging;
 
 const Type* Logger::TYPE = TypeOf<Logger>();
@@ -97,29 +99,39 @@ void Logger::log(int level, const char *formatStr, ...) {
 
 void Logger::logV(int level, const char *formatStr, va_list arg) {
 	if (this->isEnabled(level)) {
-		char msg[BUFSIZ];
-	    vsprintf(msg, formatStr, arg);
+		String* msg = String::vformat(formatStr, arg);
+		char* utf8Str = msg->toUTF8String();
 
 	    for (Iterator it = handlers.begin(); it!=handlers.end(); ++it) {
     		Handler* handler = *it;
-    		handler->publish(this->name, msg);
+    		handler->publish(this->name, utf8Str);
     	}
+
+    	SafeFree(utf8Str);
+    	SafeRelease(msg);
     }
 }
 
 void Logger::logThrowable(int level, const String& msg, Throwable* throwable) {
 	if (this->isEnabled(level)) {
 		String* tMsg = throwable->getMessage();
-		const char* cMsg = tMsg->toCString();
-		SafeDelete(tMsg);
+		char* cMsg = tMsg->toUTF8String();
+		char* utf8Msg = msg.toUTF8String();
 
-		char buf[BUFSIZ];
-	    sprintf(buf, "%s \n    casue: %s", msg.toCString(), cMsg);
+		String* fmtedMsg = String::format("%s \n    casue: %s", utf8Msg, cMsg);
+		char* utf8Str = fmtedMsg->toUTF8String();
 
 	    for (Iterator it = handlers.begin(); it!=handlers.end(); ++it) {
     		Handler* handler = *it;
-    		handler->publish(this->name, buf);
+    		handler->publish(this->name, utf8Str);
     	}
+
+    	SafeFree(utf8Str);
+    	SafeFree(utf8Msg);
+    	SafeFree(cMsg);
+
+    	SafeRelease(fmtedMsg);
+    	SafeRelease(tMsg);
     }
 }
 

@@ -46,13 +46,13 @@ Object::~Object() {
 }
 
 //-------------------------------------------
-void Object::retain() {
+Object* Object::retain() {
 	for (;;) {
 		int current = this->refCount;
 		int next = current + 1;
 
 		if (AtomicCompareAndSwap((dg_int*)&this->refCount, (dg_int)current, (dg_int)next)) {
-			return;
+			return this;
 		}
 	}
 }

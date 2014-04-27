@@ -108,7 +108,7 @@ public:
 	friend wostream& operator << (wostream& os, const String& str);
 	friend wostream& operator << (wostream& os, String* str);
 	friend size_t hash_value(const String& str);
-	friend bool operator<(const String& left,const String& right);
+	friend bool operator<(const String& left, const String& right);
 
 //-------------------------------------------------------------------
 public:
@@ -159,7 +159,10 @@ protected:
 public:
 	String* operator = (const char* str);
 	String* operator = (const wchar_t* str);
-     String& operator = (const String& str); 	
+     String& operator = (const String& str); 
+     String* operator->(){ return this; };
+
+     //bool operator< (const String& str) const;	
 /*
 	String& operator+ (const String& str);
 	String& operator+=(const String& str);
@@ -634,7 +637,8 @@ public:
 	String* replace(wchar_u oldChar, wchar_u newChar);
 	String* replace(CharSequence* target, CharSequence* replacement);
 	String* replaceAll(String* regex, String* replacement);
-	String* replaceFirst(String* regex, String* replacement);
+     String* replaceAll(const String& regex, const String& replacement);
+     String* replaceFirst(String* regex, String* replacement);
 
      Array<String*> split(const String& regex) const;
 	Array<String*> split(const String* regex) const;
@@ -748,6 +752,17 @@ inline bool operator<(const String& left, const String& right) {
 inline size_t hash_value(const String& str) {
      String* theStr = const_cast<String*>(&str);
 	return theStr->hashCode();
+}
+
+inline const char* operator+(const String& left, const String& right) {
+     String* theStr = const_cast<String*>(&left);
+     String* otherStr = const_cast<String*>(&right);
+
+     String* retStr = theStr->concat(otherStr);
+     const char* utf8Str = retStr->toUTF8String();
+     SafeRelease(retStr);
+
+     return utf8Str;
 }
 
 EndPackage2//(dragon, lang)
