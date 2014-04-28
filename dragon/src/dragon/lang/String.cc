@@ -845,12 +845,17 @@ bool String::matches(String* regex) const {
 	return Pattern::matches(regex, text);
 }
 
-bool String::contains(CharSequence* s) {
+bool String::contains(CharSequence* s) const {
 	bool result = false;
 	String* str = s->toString();
 	result = this->indexOf(str) > -1;
 	SafeDelete(str);
+
 	return result;
+}
+
+bool String::contains(const String& s) const {
+	return this->indexOf(const_cast<String*>(&s)) > -1;
 }
 
 String* String::replace(wchar_u oldChar, wchar_u newChar) {

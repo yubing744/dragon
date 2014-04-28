@@ -52,7 +52,7 @@ char const *_al_gl_error_string(GLenum e)
 static bool check_gl_error(const char* name) {
    GLenum err = glGetError();
 
-   if (err != 0) {
+   if (err != 0 && err != GL_INVALID_ENUM) {
       logger->warn("GL Error: %s (%s)\n", name, _al_gl_error_string(err));
       return false;
    }
@@ -280,8 +280,8 @@ bool GLSLShader::setBool(const char* name, bool val) {
 }
 
 
-bool GLSLShader::setVertexAttribPointer(const char* name, int n, int t, int stride, const void *v) {
-   GLint handle;
+bool GLSLShader::setVertexAttribPointer(const char* name, int size, int type, int stride, const void *pointer) {
+   GLuint handle;
 
    Ref<String> mapName = this->queryNameMapping(name);
    Array<char> utf8MapName = mapName->toUTF8CharArray();
@@ -293,7 +293,7 @@ bool GLSLShader::setVertexAttribPointer(const char* name, int n, int t, int stri
       return false;
    }
 
-   glVertexAttribPointer(handle, n, t, false, stride, v);
+   glVertexAttribPointer(handle, size, GL_FLOAT, false, stride, pointer);
    glEnableVertexAttribArray(handle);
 
    return check_gl_error(utf8MapName);

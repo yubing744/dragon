@@ -38,8 +38,6 @@ GLSLShader::GLSLShader()
     :programObject(0), 
     name(null) {
     this->nameMap = new HashMap<String, String>();
-
-    this->init();
 }
 
 GLSLShader::~GLSLShader() {
@@ -49,7 +47,11 @@ GLSLShader::~GLSLShader() {
     
 
 void GLSLShader::init() {
-    //this->nameMap->put("modelViewProj", new String("_modelViewProj1"));
+    //this->nameMap->put("tex", new String("TEXCOORD"));
+}
+
+void GLSLShader::prepare() {
+    this->nameMap->put("tex", new String("TEXCOORD0"));
 }
 
 String* GLSLShader::queryNameMapping(const char* name) {

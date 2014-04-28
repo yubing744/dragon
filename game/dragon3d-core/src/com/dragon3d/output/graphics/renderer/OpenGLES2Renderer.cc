@@ -214,7 +214,7 @@ void OpenGLES2Renderer::drawLine(const Vector3& startV, const Vector3& endV, con
     shader->setMatrix("modelViewProj", projMatrix);
 
     // Set Draw Color
-    shader->setFloatVector("color", 4, Array<float>(color.getData(), 4));
+    shader->setFloatVector("color", 4, Array<float>(color.getData(), 4, false));
 
     // Load the vertex data
     float vertices[] = {startV.x, startV.y, startV.z, endV.x, endV.y, endV.z};
@@ -245,7 +245,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     if (material != null) {
         // setup color
         Color color = material->color;
-        shader->setFloatVector("color", 4, Array<float>(color.getData(), 4));
+        shader->setFloatVector("color", 4, Array<float>(color.getData(), 4, false));
 
         // setup texture
         Texture* mainTexture = material->mainTexture;
@@ -262,13 +262,13 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     // Load the vertex data
     if (mesh->hasVertices()) {
         Array<float> vertices = mesh->getFloatVertices();
-        shader->setVertexAttribPointer("position", 3, GL_FLOAT, 0, vertices.raw());
+        shader->setVertexAttribPointer("position", 3, GL_FLOAT, sizeof(float) * 3, vertices.raw());
     }
 
     // Load the texture coordinate
     if (mesh->hasUV()) {
         Array<float> uvs = mesh->getFloatUVs();
-        shader->setVertexAttribPointer("tex", 2, GL_FLOAT, 0, uvs.raw());
+        shader->setVertexAttribPointer("tex", 2, GL_FLOAT, sizeof(float) * 2, uvs.raw());
     }
     
   

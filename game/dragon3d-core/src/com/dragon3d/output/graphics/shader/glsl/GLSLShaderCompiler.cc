@@ -44,11 +44,15 @@ static Logger* logger = Logger::getLogger(GLSLShaderCompiler::TYPE, INFO);
 Shader* GLSLShaderCompiler::compile(ShaderSource* source) throw(ShaderException*) {
     GLSLShader* shader = new GLSLShader();
 
+    shader->init();
+
     if (this->loadProgram(shader, source)) {
         Ref<String> name = source->getName();
         shader->setName(name);
 
         this->parseAndSetNameMapping(source, shader);
+
+        shader->prepare();
 
         return shader;
     } else {
@@ -78,7 +82,10 @@ void GLSLShaderCompiler::parseShaderNameMapping(Scanner* scanner, const String& 
         }
 
         if (token->startsWith("//var")) {
-            logger->info("the token:" + token);
+            if (logger->isDebugEnabled()) {
+                logger->debug("the token:" + token);
+            }
+
             this->parseTokenNameMapping(token, shader);
 
             continue;
@@ -95,22 +102,26 @@ void GLSLShaderCompiler::parseTokenNameMapping(String* line, GLSLShader* shader)
     Ref<String> semantic = tokens[1];
     Ref<String> name = tokens[2];
 
-    logger->info("varToken:" + varToken);
-    logger->info("semantic:" + semantic);
-    logger->info("name:" + name);
+    if (logger->isDebugEnabled()) {
+        logger->debug("varToken:" + varToken);
+        logger->debug("semantic:" + semantic);
+        logger->debug("name:" + name);
+    }
 
     Array<String*> varTokens = varToken->split(" ");
     Ref<String> key = varTokens[2];
 
     Array<String*> nameTokens = name->split(",");
 
-    if (nameTokens.size()>0) {
+    if (nameTokens.size()>0 && !semantic->contains("$vout")) {
         Ref<String> theName = nameTokens[0];
         theName = theName->replaceAll("\\[\\d\\]", " ");
         theName = theName->trim();
 
-        logger->info("mapping key:" + key);
-        logger->info("mapping val:" + theName);
+        if (logger->isDebugEnabled()) {
+            logger->debug("mapping key:" + key);
+            logger->debug("mapping val:" + theName);
+        }
 
         shader->registerNameMapping(key, theName);
     }

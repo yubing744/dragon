@@ -137,14 +137,14 @@ public:
     /**
      * set vertex attrib pointer.
      * 
-     * @param  name   [description]
-     * @param  n      [description]
-     * @param  t      [description]
-     * @param  stride [description]
-     * @param  v      [description]
-     * @return        [description]
+     * @param  name    [description]
+     * @param  size    [description]
+     * @param  type    [description]
+     * @param  stride  [description]
+     * @param  pointer [description]
+     * @return         [description]
      */
-    virtual bool setVertexAttribPointer(const char* name, int n, int t, int stride, const void *v) = 0;
+    virtual bool setVertexAttribPointer(const char* name, int size, int type, int stride, const void *pointer) = 0;
 
 };//Shader
 

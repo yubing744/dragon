@@ -1055,9 +1055,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "225"
-         endingLineNumber = "225"
-         landmarkName = "OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4&amp; matrix, Material* material, Camera* camera, int submeshIndex)"
-         landmarkType = "5">
+         endingLineNumber = "225">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1133,9 +1131,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "226"
-         endingLineNumber = "226"
-         landmarkName = "OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4&amp; matrix, Material* material, Camera* camera, int submeshIndex)"
-         landmarkType = "5">
+         endingLineNumber = "226">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -1148,6 +1144,19 @@
          startingLineNumber = "245"
          endingLineNumber = "245"
          landmarkName = "OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4&amp; matrix, Material* material, Camera* camera, int submeshIndex)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc"
+         timestampString = "420332874.000664"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
+         landmarkName = "GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

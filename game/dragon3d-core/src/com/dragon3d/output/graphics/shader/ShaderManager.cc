@@ -130,17 +130,22 @@ void ShaderManager::registerShaderCompiler(ShaderType type, ShaderCompiler* comp
 void ShaderManager::importShader(Resource* shaderRes) {
     if (shaderRes->exists()) {
         Ref<String> shaderPath = shaderRes->getPath();
-        logger->info("import shader:" + shaderPath);
+
+        if (logger->isDebugEnabled()) {
+            logger->debug("import shader:" + shaderPath);
+        }
 
         Ref<String> name = shaderRes->getName();
         Ref<String> strType = shaderRes->getType();
         ShaderType type = ShaderTypeFromString(strType);
         Ref<String> code = ResourceUtils::readResourceToString(shaderRes, "UTF-8");
         
-        logger->info("shader name:" + name);
-        logger->info("shader type:" + strType);
-        logger->info("shader code:\n" + code);
-
+        if (logger->isDebugEnabled()) {
+            logger->debug("shader name:" + name);
+            logger->debug("shader type:" + strType);
+            logger->debug("shader code:\n" + code);
+        }
+    
         if (this->supportShaderType(strType)) {
             this->registerShader(name, type, code);
         }

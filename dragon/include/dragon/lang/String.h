@@ -632,7 +632,8 @@ public:
 
      bool matches(const String& regex) const;
 	bool matches(String* regex) const;
-	bool contains(CharSequence* s);
+	bool contains(CharSequence* s) const;
+     bool contains(const String& s) const;
 
 	String* replace(wchar_u oldChar, wchar_u newChar);
 	String* replace(CharSequence* target, CharSequence* replacement);
