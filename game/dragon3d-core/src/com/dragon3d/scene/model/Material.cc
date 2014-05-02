@@ -20,51 +20,50 @@
  * Created:     2013/09/28
  **********************************************************************/
 
+#include <dragon/lang/System.h>
+
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+
 #include <dragon/util/TreeMap.h>
 #include <com/dragon3d/scene/model/Material.h>
 
+Import dragon::lang::gc;
+
 Import dragon::util;
+Import dragon::util::logging;
+
 Import com::dragon3d::scene::model;
 
+const Type* Material::TYPE = TypeOf<Material>();
+const Type* Material::TextureProp::TYPE = TypeOf<Material::TextureProp>();
+
+static Logger* logger = Logger::getLogger(Material::TYPE, LOG_LEVEL_DEBUG);
+
+
 Material::Material() :name(null),
-    color(Color::WHITE), 
-    mainTexture(null), 
-    mainTextureOffset(Vector2::ZERO), 
-    mainTextureScale(Vector2::ONE),
     shader(null) {
     this->props = new TreeMap<String, Object>();
 }
 
 Material::Material(const String& name) :name(new String(name)),
-    color(Color::WHITE), 
-    mainTexture(null), 
-    mainTextureOffset(Vector2::ZERO), 
-    mainTextureScale(Vector2::ONE),
     shader(null) {
     this->props = new TreeMap<String, Object>();
 }
 
 Material::Material(const Color& color) :name(null),
-    color(color), 
-    mainTexture(null), 
-    mainTextureOffset(Vector2::ZERO), 
-    mainTextureScale(Vector2::ONE),
     shader(null) {
     this->props = new TreeMap<String, Object>();
+    this->setMainColor(color);
 }
 
 Material::Material(const Color& color, Texture* mainTexture) :name(null), 
-    color(color), 
-    mainTexture(mainTexture), 
-    mainTextureOffset(Vector2::ZERO), 
-    mainTextureScale(Vector2::ONE),
     shader(null){
-    this->mainTexture->retain();
     this->props = new TreeMap<String, Object>();
+    this->setMainTexture(mainTexture);
 }
 
 Material::~Material(void){
-    SafeRelease(this->mainTexture);
     SafeRelease(this->props);
 }
 
@@ -162,8 +161,8 @@ Vector2 Material::getTextureOffset(const String& propName) {
 
     TextureProp* prop = (TextureProp*)this->props->get(propName);
 
-    if (prop != null) {
-        ret = prop->textureOffset;
+    if (prop != null && prop->textureOffset!=null) {
+        ret = *prop->textureOffset;
     } 
 
     SafeRelease(prop);
@@ -176,8 +175,8 @@ Vector2 Material::getTextureScale(const String& propName) {
 
     TextureProp* prop = (TextureProp*)this->props->get(propName);
 
-    if (prop != null) {
-        ret = prop->textureScale;
+    if (prop != null && prop->textureScale!=null) {
+        ret = *prop->textureScale;
     } 
 
     SafeRelease(prop);
@@ -281,12 +280,102 @@ void Material::setTexture(const String& propName, Texture* texture) {
 
 void Material::setTextureOffset(const String& propName, const Vector2& offset) {
     TextureProp* prop = this->getTextureProp(propName);
-    prop->textureOffset = offset;
+    prop->textureOffset = new Vector2(offset);
     SafeRelease(prop);
 }
 
 void Material::setTextureScale(const String& propName, const Vector2& scale) {
     TextureProp* prop = this->getTextureProp(propName);
-    prop->textureScale = scale;
+    prop->textureScale = new Vector2(scale);
     SafeRelease(prop);
+}
+
+void Material::setMainColor(const Color& color) {
+    this->setColor("color", color);
+}
+
+Color Material::getMainColor() {
+    return this->getColor("color");
+}
+
+Texture* Material::getMainTexture() {
+    return this->getTexture("s0");
+}
+
+void Material::setMainTexture(Texture* texture) {
+    this->setTexture("s0", texture);
+}
+
+void Material::renderUntoShader(Shader* shader) {
+    Ref<Iterator<Map<String, Object>::Entry> > it = this->props->iterator();
+
+    while(it->hasNext()) {
+        Ref<Map<String, Object>::Entry> entry = it->next();
+        String name = entry->getKey();
+        Ref<Object> obj = entry->getValue();
+
+        if (logger->isDebugEnabled()) {
+            logger->debug("set matrial prop:" + name);
+        }
+
+        this->renderPropUnto(name, obj, shader);
+    }
+}
+
+void Material::renderPropUnto(const String& name, Object* obj, Shader* shader) {
+    if (obj != null) {
+        const Array<char> utf8Name = name->toUTF8CharArray();
+        const Type* clazz = (const Type*)obj->getClass();
+
+        // int
+        if (Integer::TYPE->equals(clazz)) {
+            Integer* val = (Integer*)obj;
+            shader->setInt(utf8Name, val->intValue());
+        } 
+
+        // float
+        else if (Float::TYPE->equals(clazz)) {
+            Float* val = (Float*)obj;
+            shader->setFloat(utf8Name, val->floatValue());
+        } 
+
+        // color
+        else if (Color::TYPE->equals(clazz)) {
+            Color* val = (Color*)obj;
+            shader->setFloatVector(utf8Name, 4, Array<float>(val->getData(), 4, false));
+        }
+
+        // vector
+        else if (Vector4::TYPE->equals(clazz)) {
+            Vector4* val = (Vector4*)obj;
+            shader->setFloatVector(utf8Name, 4, Array<float>(val->getData(), 4, false));
+        }
+
+        // matrix
+        else if (Matrix4x4::TYPE->equals(clazz)) {
+            Matrix4x4* val = (Matrix4x4*)obj;
+            shader->setMatrix(utf8Name, *val);
+        }
+
+        // texture
+        else if (Material::TextureProp::TYPE->equals(clazz)) {
+            Material::TextureProp* val = (Material::TextureProp*)obj;
+
+            Texture* texture = val->texture;
+            Vector2* textureOffset = val->textureOffset;
+            Vector2* textureScale = val->textureScale;
+
+            if (texture != null) {
+                shader->setSampler(utf8Name, texture, 0);
+            }
+
+            if (textureOffset != null) {
+                shader->setFloatVector(utf8Name, 2, Array<float>(textureOffset->getData(), 2, false));
+            }
+
+            if (textureScale != null) {
+                shader->setFloatVector(utf8Name, 2, Array<float>(textureScale->getData(), 2, false));
+            }
+        }
+    }
 }

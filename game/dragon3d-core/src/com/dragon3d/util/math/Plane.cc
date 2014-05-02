@@ -20,45 +20,67 @@
  * Created:     2013/10/05
  **********************************************************************/
 
-
+#include <com/dragon3d/util/math/Mathf.h>
 #include <com/dragon3d/util/math/Plane.h>
 
 Import com::dragon3d::util::math;
 
-Plane::Plane(const Vector3& inNormal, const Vector3& inPoint) {
+const Type* Plane::TYPE = TypeOf<Plane>();
+
+Plane::Plane()
+    :normal(Vector3::UP), distance(0.0f) {
 
 }
 
-Plane::Plane(const Vector3& inNormal, float d) {
+Plane::Plane(const Vector3& inNormal, const Vector3& inPoint) {
+    throw "not implements";
+}
 
+Plane::Plane(const Vector3& inNormal, float d) 
+    :normal(inNormal), distance(d) {
+    this->normal = this->normal.normalize();
 }
 
 Plane::Plane(const Vector3& a, const Vector3& b, const Vector3& c) {
+    throw "not implements";
+}
 
+float Plane::getDistance() {
+    return this->distance;
+}
+
+Vector3 Plane::getNormal() {
+    return this->normal;
 }
 
 float Plane::getDistanceToPoint(const Vector3& inPt) {
-    return 0.0f;
+    return this->normal.dot(inPt) - this->distance;
 }
 
 
 bool Plane::getSide(const Vector3& inPt) {
-    return false;
-}
-
-
-bool Plane::raycast(const Ray3* ray, float* enter) {
-    return false;
+    return this->getDistanceToPoint(inPt) > 0;
 }
 
 bool Plane::sameSide(const Vector3& inPt0, const Vector3& inPt1) {
-    return false;
+    throw this->getSide(inPt0) * this->getSide(inPt1) > 0;
 }
 
 void Plane::set3Points(const Vector3& a, const Vector3& b, const Vector3& c) {
+    this->normal = b.substract(a);
+    this->normal = Vector3::cross(this->normal, Vector3(c.getX() - a.getX(), c.getY() - a.getY(), c.getZ() - a.getZ()));
+    this->normal = this->normal.normalize();
 
+    this->distance = this->normal.dot(a);
 }
 
 void Plane::setNormalAndPosition(const Vector3& inNormal, const Vector3& inPoint) {
+    throw "not implements";
+}
 
+void Plane::setNormalAndDistance(const Vector3& inNormal, float distance) {
+    this->normal = inNormal;
+    this->normal = this->normal.normalize();
+
+    this->distance = distance;
 }

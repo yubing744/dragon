@@ -185,20 +185,24 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 		if (is_64) {
 			struct seg64_data *text_data = (struct seg64_data *)((char*)text_seg + sizeof(struct segment_entry));
 			struct seg64_data *link_data = (struct seg64_data *)((char*)link_seg + sizeof(struct segment_entry));
+
 			fslide = (uint64_t)(link_data->vmaddr - text_data->vmaddr) - link_data->fileoff;
 			mslide = (uint64_t)((char*)image_header - text_data->vmaddr);
 		} else {
 			struct seg32_data *text_data = (struct seg32_data *)((char*)text_seg + sizeof(struct segment_entry));
-			struct seg32_data *link_data = (struct seg32_data *)((char*)text_seg + sizeof(struct segment_entry));
+			struct seg32_data *link_data = (struct seg32_data *)((char*)link_seg + sizeof(struct segment_entry));
+
 			fslide = (uint64_t)(link_data->vmaddr - text_data->vmaddr) - link_data->fileoff;
 			mslide = (uint64_t)((char*)image_header - text_data->vmaddr);
 		}
 
+		char *str_table = (char*)image_header + cmd->stroff + fslide;
 		symbol_table_list_entry *entry = (symbol_table_list_entry *)((char*)image_header + cmd->symoff + fslide);
 
 		for (uint32_t j = 0x0; j < cmd->nsyms; j++) {
+			// https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachORuntime/Reference/reference.html#//apple_ref/c/tag/nlist
 			if (!(entry->n_type & N_STAB) && ((entry->n_type & N_TYPE) == N_SECT)) {
-				char *str_table = (char*)image_header + cmd->stroff + fslide;
+                
 				if (is_64) {
 					uint64_t *n_value = (uint64_t*)((char*)entry + sizeof(struct symbol_table_list_entry));
 					symbol_address = (void*)*n_value;
@@ -209,8 +213,12 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 
 				table = (export_symbol*)realloc(table, sizeof(export_symbol)*(symbol_count+0x1));
 
-				table[symbol_count].address = (char*)symbol_address + _dyld_get_image_vmaddr_slide(image_num);
-				table[symbol_count].symbol = ((char *)str_table + entry->n_un.n_strx) + 1;
+				uint32_t vmaddr_slide = (uint32_t)_dyld_get_image_vmaddr_slide(image_num);
+				void* address = (char*)symbol_address + vmaddr_slide;
+				table[symbol_count].address = address;
+
+				char* symbol = ((char *)str_table + entry->n_un.n_strx) + 1;
+				table[symbol_count].symbol = symbol;
 
 				symbol_count++;
 			}
@@ -242,6 +250,7 @@ void Library::resolve() {
 
 		for(int i=0; i<symbol_count; i++) {
 			export_symbol *es = table + i;
+            
 			if (memcmp(es->symbol, prefix_symbol, prefix_symbol_size)== 0x0 
 				&& isdigit(es->symbol[prefix_symbol_size])) {
 				//printf("address: 0x%x, symbol: %s\n", es->address, es->symbol);

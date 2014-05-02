@@ -291,6 +291,22 @@ _DragonExport const char* GetLocalLibPath();
 _DragonExport const char* GetDragonLibPath();
 
 /**
+ * search library in Lib Path.
+ * 
+ * @param  libName [description]
+ * @return         [description]
+ */
+_DragonExport const char* SearchLibraryPathByName(const char* libName);
+
+/**
+ * get library path by address.
+ * 
+ * @param  address [description]
+ * @return         [description]
+ */
+_DragonExport const char* GetLibraryPathByAddress(void* address);
+
+/**
  *  show current lib's laod infomation.
  *    
  */

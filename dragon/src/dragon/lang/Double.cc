@@ -23,6 +23,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <limits>
 
 #include <dragon/lang/Double.h>
 #include <dragon/lang/reflect/Type.h>
@@ -33,6 +34,9 @@ Import dragon::lang::reflect;
 
 const Type* Double::TYPE = TypeOf<double>();
 const Type* Double::PRIMARY_TYPE = TypeOf<Double>();
+
+const float Double::POSITIVE_INFINITY = numeric_limits<double>::max();
+const float Double::NEGATIVE_INFINITY = numeric_limits<double>::min();
 
 Double* Double::parseDouble(const String& str) throw(NumberFormatException*) {
     if (!str.matches("-?\\d+(\\.\\d+)?")) {

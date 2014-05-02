@@ -39,6 +39,9 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Vector3 extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     static const Vector3 ZERO; //Shorthand for writing Vector3(0, 0, 0)
     static const Vector3 ONE; //Shorthand for writing Vector3(1, 1, 1)
 
@@ -125,6 +128,15 @@ public:
      * @return     [description]
      */
     static Vector3 min(const Vector3& lhs, const Vector3& rhs);
+
+    /**
+     * Retures a vector that is centre of two vectors.
+     * 
+     * @param  lhs [description]
+     * @param  rhs [description]
+     * @return     [description]
+     */
+    static Vector3 centre(const Vector3& lhs, const Vector3& rhs);
 
     /**
      * Moves a point current in a straight line towards a target point.
@@ -277,8 +289,9 @@ public:
     Vector3(const Vector3& a);
 
 public:
-    bool operator== (const Vector3& a) const;
-    
+    bool operator==(const Vector3& a) const;
+    bool operator!=(const Vector3& a) const;
+
 public:
     /**
      * Returns the length of this vector 
@@ -380,6 +393,28 @@ public:
      * @param value [description]
      */
     void setValue(int index, float value);
+
+    /**
+     * get and set x.
+     * 
+     * @return [description]
+     */
+    float getX() const {return this->x; };
+    void setX(float x) {this->x = x; };
+    /**
+     * get ans set y.
+     * 
+     * @return [description]
+     */
+    float getY() const {return this->y; };
+    void setY(float y) {this->y = y; };
+    /**
+     * get and set z.
+     * 
+     * @return [description]
+     */
+    float getZ() const {return this->z; };
+    void setZ(float z) {this->z = z; };
 
 public:
     const float* getData() const;

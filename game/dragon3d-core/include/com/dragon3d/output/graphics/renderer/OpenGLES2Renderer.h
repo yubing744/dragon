@@ -51,6 +51,7 @@ public:
 
 public: // implements GraphicsRenderer
 	virtual void init();
+    virtual void setViewport(int x, int y, int width, int height);
     virtual void clearBuffer();
     virtual void drawSample();
     virtual void drawLine(const Vector3& startV, const Vector3& endV, const Color& color, Camera* camera);

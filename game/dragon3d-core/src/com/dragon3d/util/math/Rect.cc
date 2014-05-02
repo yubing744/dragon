@@ -26,11 +26,11 @@
 
 Import com::dragon3d::util::math;
 
+const Type* Rect::TYPE = TypeOf<Rect>();
 
 Rect Rect::minMaxRect(float left, float top, float right, float bottom) {
     return Rect(left, top, right - left, bottom - top);
 }
-
 
 Rect::Rect() 
     :x(0.0f), y(0.0f), width(1.0f), height(1.0f) {

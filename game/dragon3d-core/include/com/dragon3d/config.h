@@ -17,43 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/04
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#ifndef Vector2_Math_Util_Dragon3d_Com_H
-#define Vector2_Math_Util_Dragon3d_Com_H
+#ifndef Config_Dragon3d_Com_H
+#define Config_Dragon3d_Com_H
 
 #include <dragon/config.h>
-#include <dragon/lang/Object.h>
-#include <dragon/lang/Array.h>
 
-BeginPackage4(com, dragon3d, util, math)
+BeginPackage2(com, dragon3d)
 
-Import dragon::lang;
-Import com::dragon3d::util::math;
-
-class _DragonExport Vector2 extends(Object) {
+class_ Config {
 public:
-    static const Type* TYPE;
-    
-public:
-    static const Vector2 ZERO; //Shorthand for writing Vector2(0, 0)
-    static const Vector2 ONE; //Shorthand for writing Vector2(1, 1)
+    static const int VERSION;
+    static const char* NAME;
+};
 
-public:
-    Vector2();
-    Vector2(float x, float y);
+EndPackage2 //(com, dragon3d)
 
-public:
-    const float* getData() const;
-    const Array<float> toFloatArray() const;
-
-public:
-    float x;
-    float y;
-};//Vector2
-
-EndPackage4 //(com, dragon3d, util, math)
-
-#endif //Vector2_Math_Util_Dragon3d_Com_H
+#endif //Config_Dragon3d_Com_H

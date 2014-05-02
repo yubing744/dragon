@@ -28,8 +28,10 @@ Import dragon::lang;
 Import dragon::util;
 Import com::dragon3d::scene;
 
+const Type* GameObject::TYPE = TypeOf<GameObject>();
+
 GameObject::GameObject() 
-	:hideFlags(false), layer(0) {
+	:hideFlags(false), layer(0), active(true) {
 	this->name = new String("unnamed");
 	this->transform = new Transform();
 	this->transform->gameObject = this;
@@ -91,7 +93,7 @@ void GameObject::addComponent(Component* component) {
 	}
 }
 
-Component* GameObject::getComponent(const Type* type) {
+Component* GameObject::getFirstComponent(const Type* type) {
 	Iterator<Component>* it = this->components->iterator();
 
 	while(it->hasNext()) {
@@ -108,6 +110,26 @@ Component* GameObject::getComponent(const Type* type) {
 
 	SafeDelete(it);
 	return null;
+}
+
+List<Component>* GameObject::getComponents(const Type* type) {
+	List<Component>* results = new ArrayList<Component>();
+
+	Iterator<Component>* it = this->components->iterator();
+
+	while(it->hasNext()) {
+		Component* component = it->next();
+
+		if (component->isTypeOf(type)) {
+			results->add(component);
+		} 
+		
+		SafeRelease(component);
+	}
+
+	SafeDelete(it);
+	
+	return results;	
 }
 
 bool GameObject::hasComponent(const Type* type) {
@@ -159,4 +181,48 @@ String* GameObject::getName() {
 void GameObject::setName(const String& name) {
 	SafeRelease(this->name);
 	this->name = new String(name);
+}
+
+void GameObject::setActive(bool value) {
+	this->active = value;
+}
+
+bool GameObject::isActiveSelf() {
+	return this->active;
+}
+
+bool GameObject::isActiveInHierarchy() {
+	GameObject* parent = this->getParent();
+
+	if (parent!=null && this->active 
+		&& parent->isActiveInHierarchy() ) {
+		return true;
+	}
+
+	return this->active;
+}
+
+GameObject* GameObject::getParent() {
+	if (this->transform->getParent() != null) {
+		return this->transform->getParent()->gameObject;
+	}
+
+	return null;
+}
+
+List<GameObject>* GameObject::getChildren() {
+	List<GameObject>* children = new ArrayList<GameObject>();
+
+	int count = this->transform->childCount();
+
+	for (int i=0; i<count; i++) {
+		Transform* ts = this->transform->getChild(i);
+		children->add(ts->gameObject);
+	}
+
+	return children;
+}
+
+Transform* GameObject::getTransform() {
+	return this->transform;
 }

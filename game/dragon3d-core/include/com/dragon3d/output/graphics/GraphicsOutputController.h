@@ -27,21 +27,29 @@
 #include <dragon/config.h>
  
 #include <dragon/lang/Object.h>
+#include <dragon/util/List.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
+
+#include <com/dragon3d/scene/model/Model.h>
 
 #include <com/dragon3d/output/OutputController.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
+#include <com/dragon3d/output/graphics/renderqueue/RenderQueue.h>
+
 #include <com/dragon3d/util/debug/PlacementGrid.h>
-#include <com/dragon3d/scene/model/Model.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
 Import dragon::lang;
+Import dragon::util;
+
+Import com::dragon3d::scene::model;
 
 Import com::dragon3d::output;
 Import com::dragon3d::output::graphics;
+Import com::dragon3d::output::graphics::renderqueue;
+
 Import com::dragon3d::util::debug;
-Import com::dragon3d::scene::model;
 
 class GraphicsDevice;
 
@@ -69,16 +77,49 @@ public: // implements OutputController
      */
     virtual void destroy(); 
 
+    /**
+     * render the scene.
+     * 
+     * @param scene [description]
+     */
+    virtual void outputSceneToCamera(Scene* scene, Camera* camera);
+
 protected:
     /**
-     * render the scene to camera.
+     * find all camera.
      * 
-     * @param scene  [description]
-     * @param camera [description]
      */
-    virtual void renderSceneToCamera(Scene* scene, Camera* camera);
-    
+    virtual List<Camera>* findAllCameras(Scene* scene);
+
+    /**
+     * sort the cameras.
+     * 
+     * @param cameras [description]
+     */
+    virtual void sortCameras(List<Camera>* cameras);
+
+    /**
+     * culling the not visiable game object.
+     * 
+     * @param gameObjects [description]
+     * @param renderQueue [description]
+     */
+    virtual void culling(Camera* camera, List<GameObject>* gameObjects);
+
+    /**
+     * check if culling the game object.
+     * 
+     * @param  gameObject [description]
+     * @return            [description]
+     */
+    virtual void culling(Camera* camera, GameObject* gameObject);
+
 protected:
+    /**
+     * the renderQueue for render
+     */
+    RenderQueue* renderQueue;
+
     /**
      * graphics renderer.
      */
@@ -89,8 +130,6 @@ protected:
      */
     GraphicsDevice* graphicsDevice;
 
-
-protected:
     /**
      * placement grid
      */

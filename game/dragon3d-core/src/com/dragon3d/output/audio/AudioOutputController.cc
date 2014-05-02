@@ -21,10 +21,12 @@
  **********************************************************************/
 
 #include <dragon/util/ArrayList.h>
+#include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/output/audio/AudioOutputController.h>
 #include <dragon/util/logging/Logger.h>
 
 Import dragon::util;
+Import dragon::lang::gc;
 Import com::dragon3d::output::audio;
 Import dragon::util::logging;
 
@@ -36,7 +38,7 @@ AudioOutputController::AudioOutputController() {
 }
 
 AudioOutputController::~AudioOutputController() {
-    SafeDelete(this->render);
+    SafeRelease(this->render);
 }
 
 void AudioOutputController::init() {
@@ -48,20 +50,17 @@ void AudioOutputController::init() {
 List<AudioSource>* findAllAudioSourceFromScene(Scene* scene) {
     List<AudioSource>* ases = new ArrayList<AudioSource>();
 
-    List<GameObject>* gameObjects = scene->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = scene->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
-        AudioSource* audioSource = (AudioSource*)gameObject->getComponent(AudioSource::TYPE);
+        Ref<GameObject> gameObject = it->next();
+        Ref<AudioSource> audioSource = (AudioSource*)gameObject->getFirstComponent(AudioSource::TYPE);
 
         if (audioSource != null) {
             ases->add(audioSource);
         }
     }
-
-    SafeDelete(it);
 
     return ases;
 }
@@ -69,44 +68,33 @@ List<AudioSource>* findAllAudioSourceFromScene(Scene* scene) {
 List<AudioListener>* findAllAudioListenerFromScene(Scene* scene) {
     List<AudioListener>* ales = new ArrayList<AudioListener>();
 
-    List<GameObject>* gameObjects = scene->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = scene->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
-        AudioListener* audioListener = (AudioListener*)gameObject->getComponent(AudioListener::TYPE);
+        Ref<GameObject> gameObject = it->next();
+        Ref<AudioListener> audioListener = (AudioListener*)gameObject->getFirstComponent(AudioListener::TYPE);
 
         if (audioListener != null) {
             ales->add(audioListener);
         }
-        
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return ales;
 }
 
 void AudioOutputController::output(Scene* scene) {
-    List<AudioListener>* ales = findAllAudioListenerFromScene(scene);
+    Ref<List<AudioListener> > ales = findAllAudioListenerFromScene(scene);
 
     if (ales != null) {
-        List<AudioSource>* ases = findAllAudioSourceFromScene(scene);
+        Ref<List<AudioSource> > ases = findAllAudioSourceFromScene(scene);
 
-        Iterator<AudioListener>* it = ales->iterator();
+        Ref<Iterator<AudioListener> > it = ales->iterator();
 
         while(it->hasNext()) {
-            AudioListener* listener = it->next();
+            Ref<AudioListener> listener = it->next();
             this->render->render(listener, ases);
-            SafeRelease(listener);
         }
-
-        SafeDelete(it);
-
-        SafeRelease(ases);
-        SafeRelease(ales);
     }
 }
 

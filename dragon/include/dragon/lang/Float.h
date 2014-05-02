@@ -40,7 +40,11 @@ class _DragonExport Float
 public:
     static const Type* TYPE;
     static const Type* INNER_TYPE;
-       
+
+public:
+    static const float POSITIVE_INFINITY;
+    static const float NEGATIVE_INFINITY;
+
 public:
     static Float* parseFloat(const String& str) throw(NumberFormatException*);
     static String* toString(float val);

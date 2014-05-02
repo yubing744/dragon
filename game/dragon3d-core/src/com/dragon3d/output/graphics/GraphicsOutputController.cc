@@ -20,9 +20,7 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
-#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
-
+#include <dragon/lang/gc/Reference.h>
 #include <dragon/util/ArrayList.h>
 #include <dragon/util/logging/Logger.h>
 
@@ -31,8 +29,11 @@
 #include <com/dragon3d/output/graphics/GraphicsDevice.h>
 #include <com/dragon3d/output/graphics/shader/ShaderManager.h>
 
+#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
+
 Import dragon::util;
 
+Import dragon::lang::gc;
 Import dragon::util::logging;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::scene::camera;
@@ -44,102 +45,150 @@ static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::Grap
 void GraphicsOutputController::init() {
 	logger->info("init");
 
+    // init the render queue.
+    this->renderQueue = new RenderQueue();
+
     // init the graphics render
     this->graphicsRenderer->init();
 
     // load the built in shader
     ShaderManager::getInstance()->importShaders("shader/built-in"); 
-}
 
-List<Camera>* GraphicsOutputController_findAllCameras(Scene* scene) {
-    List<Camera>* cameras = new ArrayList<Camera>();
-
-    List<GameObject>* gameObjects = scene->findWithType(Camera::TYPE);
-    Iterator<GameObject>* it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        GameObject* gameObject = it->next();
-        Camera* camera = (Camera*)gameObject->getComponent(Camera::TYPE);
-
-        if (camera != null) {
-            cameras->add(camera);
-        }
-
-        SafeRelease(gameObject);
-    }
-
-    SafeDelete(it);
-    SafeRelease(gameObjects);
-
-    return cameras;
-}
-
-void GraphicsOutputController_sortCameras(List<Camera>* cameras) {
-
-}
-
-void GraphicsOutputController::renderSceneToCamera(Scene* scene, Camera* camera) {
-    GraphicsRenderer* gr = this->graphicsRenderer;
-
-    camera->pixelRect.x = 0;
-    camera->pixelRect.y = 0;
-    camera->pixelRect.width = graphicsDevice->width;
-    camera->pixelRect.height = graphicsDevice->height;
-
-    // draw showPlacementGrid
-    if (showPlacementGrid) {
-        placementGrid->renderUnto(gr, scene, camera);
-    }
-
-    // draw game objects
-    List<GameObject>* gameObjects = scene->findWithType(Renderable::TYPE);
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        GameObject* gameObject = it->next();
-
-        Renderable* renderable = dynamic_cast<Renderable*>(gameObject->getComponent(Renderable::TYPE));
-
-        if (renderable != null) {
-            renderable->renderUnto(gr, scene, camera);
-        }
-
-        SafeRelease(gameObject);
-    }
-
-    SafeDelete(it);
-}
-
-void GraphicsOutputController::output(Scene* scene) {
-	//logger->info("output scene");
-
-	GraphicsRenderer* gr = this->graphicsRenderer;
-    
-    gr->clearBuffer();
-
-    //gr->drawSample();
-
-    // find all cameras and sort
-    List<Camera>* cameras = GraphicsOutputController_findAllCameras(scene);
-    GraphicsOutputController_sortCameras(cameras);
-
-    // render scene to camera
-    Iterator<Camera>* it = cameras->iterator();
-
-    while(it->hasNext()) {
-        Camera* camera = it->next();
-        this->renderSceneToCamera(scene, camera);
-        SafeRelease(camera);
-    }
-
-    SafeDelete(it);
-    SafeRelease(cameras);
-
-	gr->flushBuffer();
+    this->placementGrid = new PlacementGrid();
+    this->showPlacementGrid = true;
 }
 
 void GraphicsOutputController::destroy() {
     logger->info("destroy");
+
+    SafeRelease(this->renderQueue);
+    SafeRelease(this->placementGrid);
+}
+
+List<Camera>* GraphicsOutputController::findAllCameras(Scene* scene) {
+    List<Camera>* cameras = new ArrayList<Camera>();
+
+    Ref<List<GameObject> > gameObjects = scene->findWithType(Camera::TYPE);
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+        Ref<Camera> camera = (Camera*)gameObject->getFirstComponent(Camera::TYPE);
+
+        if (camera != null) {
+            cameras->add(camera);
+        }
+    }
+
+    return cameras;
+}
+
+void GraphicsOutputController::sortCameras(List<Camera>* cameras) {
+
+}
+
+void GraphicsOutputController::output(Scene* scene) {
+	//logger->info("output scene");
+    
+    // find all cameras and sort
+    Ref<List<Camera> > cameras = this->findAllCameras(scene);
+    this->sortCameras(cameras);
+
+    // render scene to camera
+    Ref<Iterator<Camera> > it = cameras->iterator();
+
+    while(it->hasNext()) {
+        Ref<Camera> camera = it->next();
+
+        camera->resize(graphicsDevice->width, graphicsDevice->height);
+
+        if (camera->enabled) {
+            this->outputSceneToCamera(scene, camera);
+        }
+    }
+}
+
+void GraphicsOutputController::culling(Camera* camera, GameObject* gameObject) {
+    Ref<List<Component> > renderables = (List<Component>*)gameObject->getComponents(Renderable::TYPE);
+
+    if (renderables != null && renderables->size() > 0) {
+        Ref<Iterator<Component> > it = renderables->iterator();
+
+        while(it->hasNext()) {
+            Ref<Renderable> renderable = dynamic_cast<Renderable*>(it->next());
+            Ref<Bounds> bounds = renderable->getBounds();
+
+            if (bounds!=null) {
+                FrustumIntersect result = camera->contains(bounds);
+
+                switch(result) {
+                    case Inside:
+                        this->renderQueue->add(renderable);
+                        break;
+                    case Intersects:
+                        this->renderQueue->add(renderable);
+                        break;
+                    case Outside:
+                        break;
+                    default:
+                        logger->warn("no support FrustumIntersect!");
+                };
+            } else {
+                logger->warn("not found bounds in renderable!");
+            }
+        }
+    }
+}
+
+void GraphicsOutputController::culling(Camera* camera, List<GameObject>* gameObjects) {
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->isActiveInHierarchy()) {
+            // culling game object
+            this->culling(camera, gameObject);
+
+            // render the children game object
+            Ref<List<GameObject> > subGameObjects = gameObject->getChildren();
+
+            if (subGameObjects != null && subGameObjects->size()>0) {
+                this->culling(camera, subGameObjects);
+            }
+        }
+    }
+}
+
+void GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera) {
+    GraphicsRenderer* gr = this->graphicsRenderer;
+
+    gr->clearBuffer();
+    //gr->drawSample();
+
+    // 1. clear the queue
+    this->renderQueue->clear();
+
+    // draw showPlacementGrid
+    if (showPlacementGrid) {
+        this->renderQueue->add(placementGrid);
+    }
+
+    // 2. find all visiable renderable object
+    Ref<List<GameObject> > gameObjects = scene->getAll();
+    this->culling(camera, gameObjects);
+
+    // 3. sort the queue
+    this->renderQueue->sort();
+
+    // 4. render all
+    Ref<Iterator<Renderable> > it = this->renderQueue->iterator();
+
+    while(it->hasNext()) {
+        Ref<Renderable> renderable = it->next();
+        renderable->renderUnto(gr, scene, camera);
+    }
+
+    gr->flushBuffer();
 }
 

@@ -54,6 +54,9 @@ enum Space {
 class _DragonExport Transform
     extends(Component) {  
 public:
+    const static Type* TYPE;
+
+public:
     Transform();
     virtual ~Transform();
 
@@ -244,6 +247,11 @@ protected:
     void recalculatedMatrix();
     
 protected:
+    /**
+     *  The parent of the transform.
+     */
+    Transform* parent;
+
     // transform in world space
     Vector3 position;
     Quaternion rotation;
@@ -255,14 +263,11 @@ protected:
     Vector3 localScale;
 
     /**
-     * Matrix that transforms a point from local space into world space
+     * Matrix that transforms a point from local space into world space 
+     * and from world space to local space.
      * 
      */
     Matrix4x4 worldToLocalMatrix;
-
-    /**
-     * Matrix that transforms a point from local space into world space
-     */
     Matrix4x4 localToWorldMatrix;
 
     /**
@@ -273,11 +278,6 @@ protected:
      * @return [description]
      */
     bool changed;
-
-    /**
-     *  The parent of the transform.
-     */
-    Transform* parent;
 
     /**
      * the children Transform

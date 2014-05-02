@@ -36,6 +36,7 @@ Model::Model()
     material(null), 
     materials(null) {
     this->name = new String("unnamed");
+    this->bounds = new Bounds();
 }
 
 Model::~Model() {
@@ -43,6 +44,7 @@ Model::~Model() {
     SafeRelease(this->mesh);
     SafeRelease(this->material);
     SafeRelease(this->materials);
+    SafeRelease(this->bounds);
 }
 
 bool Model::isTypeOf(const Type* type) {
@@ -150,9 +152,13 @@ Material* Model::getMaterialByName(const String& name) {
     return null;
 }
 
+Bounds* Model::getBounds() {
+    return (Bounds*)this->bounds->retain();
+}
+
 void Model::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) {
     Model* model = this;
-    const Matrix4x4& matrix = this->gameObject->transform->getLocalToWorldMatrix();
+    const Matrix4x4& matrix = this->gameObject->getTransform()->getLocalToWorldMatrix();
 
     // draw mesh
     Mesh* mesh = this->getMesh();

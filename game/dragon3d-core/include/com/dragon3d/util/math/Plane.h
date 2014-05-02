@@ -28,7 +28,6 @@
 
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
-#include <com/dragon3d/util/math/Ray3.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
@@ -43,6 +42,10 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Plane extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
+    Plane();
     Plane(const Vector3& inNormal, const Vector3& inPoint);
     Plane(const Vector3& inNormal, float d);
     Plane(const Vector3& a, const Vector3& b, const Vector3& c);
@@ -65,20 +68,6 @@ public:
      * @return      [description]
      */
     bool getSide(const Vector3& inPt);
-
-    /**
-     * Intersects a ray with the plane.
-     *
-     * This function sets enter to the distance along the ray, where it intersects the plane. 
-     * If the ray is parallel to the plane, function returns false and sets enter to zero. 
-     * If the ray is pointing in the opposite direction than the plane, function returns false 
-     * and sets enter to the distance along the ray (negative value).
-     * 
-     * @param  ray   [description]
-     * @param  enter [description]
-     * @return       [description]
-     */
-    bool raycast(const Ray3* ray, float* enter);
 
     /**
      * Are two points on the same side of the plane?
@@ -108,7 +97,30 @@ public:
      */
     void setNormalAndPosition(const Vector3& inNormal, const Vector3& inPoint);
 
+    /**
+     * set a plane.
+     * 
+     * @param inNormal [description]
+     * @param distance [description]
+     */
+    void setNormalAndDistance(const Vector3& inNormal, float distance);
+
 public:
+    /**
+     * Distance from the origin to the plane.
+     * 
+     * @return [description]
+     */
+    float getDistance();
+
+    /**
+     * get normal of plane.
+     * 
+     * @return [description]
+     */
+    Vector3 getNormal();
+
+protected:
     /**
      * Distance from the origin to the plane.
      */

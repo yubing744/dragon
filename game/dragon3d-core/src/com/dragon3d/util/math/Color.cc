@@ -27,6 +27,8 @@
 
 Import com::dragon3d::util::math;
 
+const Type* Color::TYPE = TypeOf<Color>();
+
 static int HexMap[] = {
     0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,

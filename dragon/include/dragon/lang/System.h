@@ -28,11 +28,19 @@ class _DragonExport System
 {
 public:
 	/**
+	 * load library by modual inner address.
+	 * 
+	 * @param libpath [description]
+	 */
+	static void loadLibrary(void* address);
+
+	/**
 	 * load system library with libname.
 	 * 
 	 * @param libname [description]
 	 */
 	static void loadLibrary(const char* libname);
+
 
 	/**
 	 * get the current time with ms

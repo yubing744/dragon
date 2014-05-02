@@ -29,6 +29,9 @@ Import dragon::lang::internal;
 SystemClassLoader::SystemClassLoader() {
 	const char* sysLib = GetDragonLibPath();
 	this->load(sysLib);
+
+    const char* localLib = GetLocalLibPath();
+    this->load(localLib);
 }
 
 SystemClassLoader::~SystemClassLoader() {

@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"loa",
+				"loadLibraryByPath"
+			],
+			[
+				"Ve",
+				"Vector4"
+			],
+			[
+				"Mat",
+				"Material"
+			],
+			[
+				"ma",
+				"material"
+			],
+			[
+				"num",
+				"numComponents"
+			],
+			[
 				"rea",
 				"replacement"
 			],
@@ -52,10 +72,6 @@
 				"dragon3d"
 			],
 			[
-				"ma",
-				"matrix"
-			],
-			[
 				"gr",
 				"gridSize"
 			],
@@ -82,10 +98,6 @@
 			[
 				"Te",
 				"TextureInfo"
-			],
-			[
-				"Ve",
-				"Vector3"
 			],
 			[
 				"g",
@@ -502,52 +514,178 @@
 			[
 				"ret",
 				"retType02"
-			],
-			[
-				"type",
-				"type_name"
-			],
-			[
-				"arg",
-				"argv"
-			],
-			[
-				"typ",
-				"typeName"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "game/dragon3d-examples/assets/shader/built-in/normal/Vertex-Lit.cg",
+			"file": "dragon/include/dragon/lang/reflect/Type.h",
 			"settings":
 			{
-				"buffer_size": 373,
+				"buffer_size": 1873,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "game/dragon3d-examples/assets/shader/built-in/normal/Default.cg",
+			"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc",
 			"settings":
 			{
-				"buffer_size": 248,
+				"buffer_size": 9508,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "game/dragon3d-examples/assets/shader/built-in/normal/Normal.cg",
+			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
 			"settings":
 			{
-				"buffer_size": 407,
+				"buffer_size": 7583,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
+			"file": "game/dragon3d-core/include/com/dragon3d/scene/Shader.h",
 			"settings":
 			{
-				"buffer_size": 8698,
+				"buffer_size": 3932,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/build/targets/x86-apple-ios/Config.scons",
+			"settings":
+			{
+				"buffer_size": 1786,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library_mac.cc",
+			"settings":
+			{
+				"buffer_size": 8303,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 1202,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/System.cc",
+			"settings":
+			{
+				"buffer_size": 3845,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+			"settings":
+			{
+				"buffer_size": 6650,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/Library.cc",
+			"settings":
+			{
+				"buffer_size": 3744,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/Library.h",
+			"settings":
+			{
+				"buffer_size": 2428,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+			"settings":
+			{
+				"buffer_size": 1827,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/System.h",
+			"settings":
+			{
+				"buffer_size": 2136,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/include/dragon/lang/internal/platform.h",
+			"settings":
+			{
+				"buffer_size": 13099,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
+			"settings":
+			{
+				"buffer_size": 14950,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/include/com/dragon3d/Dragon3D.h",
+			"settings":
+			{
+				"buffer_size": 1259,
+				"line_ending": "Unix",
+				"name": "Dragon3D.h"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/src/com/dragon3d/Dragon3D.cc",
+			"settings":
+			{
+				"buffer_size": 1210,
+				"line_ending": "Unix",
+				"name": "Dragon3D.cc"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/include/com/dragon3d/config.h",
+			"settings":
+			{
+				"buffer_size": 1123,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/src/com/dragon3d/config.cc",
+			"settings":
+			{
+				"buffer_size": 1249,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/include/dragon3d-core.h",
+			"settings":
+			{
+				"buffer_size": 1060,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/dragon3d-core/build/Build.scons",
+			"settings":
+			{
+				"buffer_size": 23859,
 				"line_ending": "Unix"
 			}
 		}
@@ -648,25 +786,55 @@
 	},
 	"file_history":
 	[
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Simple.cg",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Material.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Vertex-Lit.cg",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Default.cg",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Normal.cg",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/GLSLShader_shared.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/glsl/GLSLShader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/Shader.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/GLSLShader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/GLSLShaderCompiler.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/ShaderManager.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/ShaderManager.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/logging/Logger.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/plugins/max/Max3DSModelLoader.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Color.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Matrix4x4.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Plane.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Quaternion.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Ray3.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Rect.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector2.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector4.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Color32.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Color.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Matrix4x4.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Plane.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Quaternion.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Ray3.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Rect.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector2.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/math/Vector4.cc",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/reflect/Type.h",
+		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Class.h",
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Simple.cg",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/glsl/GLSLShaderCompiler.h",
 		"/Users/yubing/Library/Application Support/Sublime Text 2/Packages/User/SublimeDragon.sublime-settings",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/GLSLShaderCompiler_shared.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/Scanner.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/String.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Vertex-Lit.glsl",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/string.h",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/String.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/StringTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/assets/AssetsManagerTest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/googletest/src/gtest.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/test/com/dragon3d/util/assets/modelio/ModelIOTest.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/GLSLShader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/glsl/GLSLShader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/GLSLShader_shared.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/normal/Vertex-Lit.cg",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/StringReader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/StringReader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/StringWriter.h",
@@ -674,8 +842,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/Reader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/Reader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/build/Build.scons",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/ShaderManager.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/ShaderManager.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/Resource.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/gc/Reference.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/util/logging/Logger.cc",
@@ -695,7 +861,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/osx/GLSLShaderCompiler.mm",
 		"/Users/yubing/Develop/GitRepos/dragon/game/docs/gen-code/cpp/Shader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/third_party/glsl-optimizer/src/node/shader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/Shader.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/ios/GLSLShader.mm",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/ios/AssetsManager.mm",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/io/native/ios/File.mm",
@@ -714,8 +879,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/built-in/Vertex-Lit.cg",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/texture/Texture.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/texture/Texture.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Matrix4x4.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/glsl/native/ios/GLSLShaderCompiler.mm",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets/shader/normal.cg",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsRenderer.h",
@@ -728,7 +891,6 @@
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/GraphicsOutputController.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/Renderable.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/Renderable.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/modelio/plugins/max/Max3DSModelLoader.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Model.h",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
 		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/debug/PlacementGrid.cc",
@@ -751,31 +913,7 @@
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/util/HashMap.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/lang/Object.h",
 		"/Users/yubing/Develop/GitRepos/dragon/dragon/src/dragon/lang/Object.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/camera/Camera.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Texture.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/Texture.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Material.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/ResourceUtils.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/io/InputStreamReader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/Shader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/include/dragon/config.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/ShaderType.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/cg/CGShaderCompiler.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/cg/CGShaderCompiler.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/cg/CGShader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/cg/CGShader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/hlsl/HLSLShader.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/hlsl/HLSLShader.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/shader/hlsl/HLSLShaderCompiler.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/hlsl/HLSLShaderCompiler.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/texture/RenderTexture.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/scene/texture/RenderTexture.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/util/assets/ResourceUtils.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/ShaderCompiler.h",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/support_shader_compiler.cc",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/native/osx/GLSLShaderCompiler.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/native/ios/GLSLShaderCompiler.mm",
-		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/shader/native/osx/support_shader_compiler.cc"
+		"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include/com/dragon3d/scene/camera/Camera.h"
 	],
 	"find":
 	{
@@ -783,7 +921,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/mojoshader",
@@ -1040,35 +1178,30 @@
 	"groups":
 	[
 		{
+			"selected": 18,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "game/dragon3d-examples/assets/shader/built-in/normal/Vertex-Lit.cg",
+					"file": "dragon/include/dragon/lang/reflect/Type.h",
 					"settings":
 					{
-						"buffer_size": 373,
+						"buffer_size": 1873,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								373,
-								0
+								1333,
+								1333
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"3388":
-								{
-									"a": 356.0,
-									"b": 356.0
-								}
-							},
-							"syntax": "Packages/Shader Syntax (GLSL HLSL Cg)/Cg.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1078,67 +1211,404 @@
 				},
 				{
 					"buffer": 1,
-					"file": "game/dragon3d-examples/assets/shader/built-in/normal/Default.cg",
+					"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc",
 					"settings":
 					{
-						"buffer_size": 248,
+						"buffer_size": 9508,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								246,
-								246
+								7191,
+								7191
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"3439":
-								{
-									"a": 217.0,
-									"b": 217.0
-								}
-							},
-							"syntax": "Packages/Shader Syntax (GLSL HLSL Cg)/Cg.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2575.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "game/dragon3d-examples/assets/shader/built-in/normal/Normal.cg",
+					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
 					"settings":
 					{
-						"buffer_size": 407,
+						"buffer_size": 7583,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								369,
-								369
+								7097,
+								7097
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"3448":
-								{
-									"a": 390.0,
-									"b": 390.0
-								}
-							},
-							"syntax": "Packages/Shader Syntax (GLSL HLSL Cg)/Cg.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2306.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "game/dragon3d-core/include/com/dragon3d/scene/Shader.h",
+					"settings":
+					{
+						"buffer_size": 3932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2494,
+								2501
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1303.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "dragon/build/targets/x86-apple-ios/Config.scons",
+					"settings":
+					{
+						"buffer_size": 1786,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 291.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "dragon/src/dragon/lang/internal/Library_mac.cc",
+					"settings":
+					{
+						"buffer_size": 8303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6025,
+								6025
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3226.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "dragon/src/dragon/lang/internal/SystemClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 1202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1081,
+								1081
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 48.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "dragon/src/dragon/lang/System.cc",
+					"settings":
+					{
+						"buffer_size": 3845,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1461,
+								1461
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 390.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "dragon/src/dragon/lang/internal/LibraryClassLoader.cc",
+					"settings":
+					{
+						"buffer_size": 6650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1664,
+								1664
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 549.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dragon/src/dragon/lang/internal/Library.cc",
+					"settings":
+					{
+						"buffer_size": 3744,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2183,
+								2147
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 515.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "dragon/include/dragon/lang/internal/Library.h",
+					"settings":
+					{
+						"buffer_size": 2428,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1348,
+								1355
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 524.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "dragon/include/dragon/lang/internal/LibraryClassLoader.h",
+					"settings":
+					{
+						"buffer_size": 1827,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1459,
+								1459
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 329.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "dragon/include/dragon/lang/System.h",
+					"settings":
+					{
+						"buffer_size": 2136,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1020,
+								1020
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 385.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "dragon/include/dragon/lang/internal/platform.h",
+					"settings":
+					{
+						"buffer_size": 13099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7523,
+								7523
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3940.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "dragon/src/dragon/lang/internal/platform_posix.cc",
+					"settings":
+					{
+						"buffer_size": 14950,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2267,
+								2267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4314.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "game/dragon3d-core/include/com/dragon3d/Dragon3D.h",
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								847,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1147,37 +1617,133 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.cc",
+					"buffer": 16,
+					"file": "game/dragon3d-core/src/com/dragon3d/Dragon3D.cc",
 					"settings":
 					{
-						"buffer_size": 8698,
+						"buffer_size": 1210,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7385,
-								7385
+								1167,
+								1175
 							]
 						],
 						"settings":
 						{
-							"last_edits":
-							{
-								"3460":
-								{
-									"a": 8233.0,
-									"b": 8233.0
-								}
-							},
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "game/dragon3d-core/include/com/dragon3d/config.h",
+					"settings":
+					{
+						"buffer_size": 1123,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1059,
+								1059
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "game/dragon3d-core/src/com/dragon3d/config.cc",
+					"settings":
+					{
+						"buffer_size": 1249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1135,
+								1135
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "game/dragon3d-core/include/dragon3d-core.h",
+					"settings":
+					{
+						"buffer_size": 1060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1033,
+								1033
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "game/dragon3d-core/build/Build.scons",
+					"settings":
+					{
+						"buffer_size": 23859,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19734,
+								19734
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3229.0,
+						"translation.y": 8500.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1218,7 +1784,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 205.0
+		"height": 100.0
 	},
 	"replace":
 	{
@@ -1231,11 +1797,67 @@
 		"selected_items":
 		[
 			[
-				"",
-				"dragon/src/dragon/lang/String.cc"
+				"mater",
+				"game/dragon3d-core/src/com/dragon3d/scene/model/Material.cc"
+			],
+			[
+				"system.cc",
+				"dragon/src/dragon/lang/System.cc"
+			],
+			[
+				"system",
+				"dragon/include/dragon/lang/System.h"
+			],
+			[
+				"platform",
+				"dragon/include/dragon/lang/internal/platform.h"
+			],
+			[
+				"system.h",
+				"dragon/include/dragon/lang/System.h"
+			],
+			[
+				"platform.h",
+				"dragon/include/dragon/lang/internal/platform.h"
+			],
+			[
+				"libraryclass",
+				"dragon/include/dragon/lang/internal/LibraryClassLoader.h"
+			],
+			[
+				"librar",
+				"dragon/include/dragon/lang/internal/Library.h"
+			],
+			[
+				"shader.h",
+				"game/dragon3d-core/include/com/dragon3d/scene/Shader.h"
+			],
+			[
+				"type.h",
+				"dragon/include/dragon/lang/reflect/Type.h"
+			],
+			[
+				"class.h",
+				"dragon/include/dragon/lang/Class.h"
+			],
+			[
+				"type",
+				"dragon/include/dragon/lang/reflect/Type.h"
+			],
+			[
+				"string.h",
+				"dragon/include/dragon/lang/String.h"
+			],
+			[
+				"logger",
+				"dragon/include/dragon/util/logging/Logger.h"
 			],
 			[
 				"string.cc",
+				"dragon/src/dragon/lang/String.cc"
+			],
+			[
+				"",
 				"dragon/src/dragon/lang/String.cc"
 			],
 			[
@@ -1243,16 +1865,8 @@
 				"dragon/include/dragon/lang/String.h"
 			],
 			[
-				"string.h",
-				"third_party/mpg123-1.18.1/ports/MSVC++/2008clr/mpg123clr/string.h"
-			],
-			[
 				"scanner.cc",
 				"dragon/src/dragon/util/Scanner.cc"
-			],
-			[
-				"shader.h",
-				"third_party/glsl-optimizer/src/node/shader.h"
 			],
 			[
 				"file.cc",
@@ -1693,54 +2307,6 @@
 			[
 				"filereader.cc",
 				"dragon/src/dragon/io/FileReader.cc"
-			],
-			[
-				"outputstreamwriter",
-				"dragon/src/dragon/io/OutputStreamWriter.cc"
-			],
-			[
-				"filew",
-				"dragon/include/dragon/io/FileWriter.h"
-			],
-			[
-				"filewriter",
-				"dragon/src/dragon/io/FileWriter.cc"
-			],
-			[
-				"filewriter.cc",
-				"dragon/src/dragon/io/FileWriter.cc"
-			],
-			[
-				"outputstreamwriter.cc",
-				"dragon/src/dragon/io/OutputStreamWriter.cc"
-			],
-			[
-				"xmlwriter.cc",
-				"dragon/src/dragonx/xml/io/XMLWriter.cc"
-			],
-			[
-				"xmlreader.cc",
-				"dragon/src/dragonx/xml/io/XMLReader.cc"
-			],
-			[
-				"imageiotest",
-				"dragon/test/dragonx/image/io/ImageIOTest.cc"
-			],
-			[
-				"audioclip.cc",
-				"dragon/src/dragonx/audio/AudioClip.cc"
-			],
-			[
-				"audioclip",
-				"dragon/include/dragonx/audio/AudioClip.h"
-			],
-			[
-				"audioiotest.cc",
-				"dragon/test/dragonx/audio/io/AudioIOTest.cc"
-			],
-			[
-				"gifimagewriter.c",
-				"dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc"
 			]
 		],
 		"width": 0.0
@@ -1757,6 +2323,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 388.0,
+	"side_bar_width": 299.0,
 	"status_bar_visible": true
 }

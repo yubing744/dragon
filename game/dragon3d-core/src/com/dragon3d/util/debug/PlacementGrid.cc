@@ -27,10 +27,15 @@ Import com::dragon3d::util::debug;
 
 PlacementGrid::PlacementGrid() 
     :size(200), color(Color::hexColor("#5D5C5C")){
+    this->bounds = new Bounds(Vector3::ZERO, Vector3(size, 0.1f, size));
 }
 
 PlacementGrid::~PlacementGrid() {
+    SafeRelease(this->bounds);
+}
 
+Bounds* PlacementGrid::getBounds() {
+    return (Bounds*)this->bounds->retain();
 }
 
 void PlacementGrid::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) {

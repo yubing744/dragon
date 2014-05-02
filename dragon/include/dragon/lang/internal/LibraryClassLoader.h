@@ -47,6 +47,7 @@ public:
 	virtual ~LibraryClassLoader();
 
 protected: //Override ClassLoader
+	virtual Library* findLibrary(const char* libPath);
 	virtual Class* findClass(const char* name);
 
 public:

@@ -30,6 +30,8 @@
 
 Import com::dragon3d::util::math;
 
+const Type* Matrix4x4::TYPE = TypeOf<Matrix4x4>();
+
 const Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(
     1.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 1.0f, 0.0f, 0.0f,
@@ -149,9 +151,9 @@ Matrix4x4 Matrix4x4::lookAt(const Vector3& eye, const Vector3& center, const Vec
 Matrix4x4 Matrix4x4::TRS(const Vector3& pos, const Quaternion& q, const Vector3& s) {
     Matrix4x4 result = Matrix4x4::IDENTITY;
 
+    result = result.scale(s);
     result = result.translate(pos);
     result = result.rotate(q);
-    result = result.scale(s);
 
     return result;
 }
@@ -189,6 +191,55 @@ Matrix4x4& Matrix4x4::operator= (const Matrix4x4& matrix) {
 }
 
 // -------------------------------------------------------
+
+/*
+Matrix4x4 Matrix4x4::inverse() const {
+    Matrix4x4 result = Matrix4x4::IDENTITY;
+
+    float dA0 = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+    float dA1 = m[0][0] * m[1][2] - m[0][2] * m[1][0];
+    float dA2 = m[0][0] * m[1][3] - m[0][3] * m[1][0];
+    float dA3 = m[0][1] * m[1][2] - m[0][2] * m[1][1];
+    float dA4 = m[0][1] * m[1][3] - m[0][3] * m[1][1];
+    float dA5 = m[0][2] * m[1][3] - m[0][3] * m[1][2];
+    float dB0 = m[2][0] * m[3][1] - m[2][1] * m[3][0];
+    float dB1 = m[2][0] * m[3][2] - m[2][2] * m[3][0];
+    float dB2 = m[2][0] * m[3][3] - m[2][3] * m[3][0];
+    float dB3 = m[2][1] * m[3][2] - m[2][2] * m[3][1];
+    float dB4 = m[2][1] * m[3][3] - m[2][3] * m[3][1];
+    float dB5 = m[2][2] * m[3][3] - m[2][3] * m[3][2];
+
+    float det = dA0 * dB5 - dA1 * dB4 + dA2 * dB3 + dA3 * dB2 - dA4 * dB1 + dA5 * dB0;
+
+    if (Math::abs(det) <= Mathf::EPSILON) {
+        return Matrix4x4::ZERO;
+    }
+
+    result.m[0][0] = +m[1][1] * dB5 - m[1][2] * dB4 + m[1][3] * dB3;
+    result.m[1][0] = -m[1][0] * dB5 + m[1][2] * dB2 - m[1][3] * dB1;
+    result.m[2][0] = +m[1][0] * dB4 - m[1][1] * dB2 + m[1][3] * dB0;
+    result.m[3][0] = -m[1][0] * dB3 + m[1][1] * dB1 - m[1][2] * dB0;
+
+    result.m[0][1] = -m[0][1] * dB5 + m[0][2] * dB4 - m[0][3] * dB3;
+    result.m[1][1] = +m[0][0] * dB5 - m[0][2] * dB2 + m[0][3] * dB1;
+    result.m[2][1] = -m[0][0] * dB4 + m[0][1] * dB2 - m[0][3] * dB0;
+    result.m[3][1] = +m[0][0] * dB3 - m[0][1] * dB1 + m[0][2] * dB0;
+
+    result.m[0][2] = +m[3][1] * dA5 - m[3][2] * dA4 + m[3][3] * dA3;
+    result.m[1][2] = -m[3][0] * dA5 + m[3][2] * dA2 - m[3][3] * dA1;
+    result.m[2][2] = +m[3][0] * dA4 - m[3][1] * dA2 + m[3][3] * dA0;
+    result.m[3][2] = -m[3][0] * dA3 + m[3][1] * dA1 - m[3][2] * dA0;
+
+    result.m[0][3] = -m[2][1] * dA5 + m[2][2] * dA4 - m[2][3] * dA3;
+    result.m[1][3] = +m[2][0] * dA5 - m[2][2] * dA2 + m[2][3] * dA1;
+    result.m[2][3] = -m[2][0] * dA4 + m[2][1] * dA2 - m[2][3] * dA0;
+    result.m[3][3] = +m[2][0] * dA3 - m[2][1] * dA1 + m[2][2] * dA0;
+
+    result = result.multiply(1.0 / det);
+
+    return result;
+}
+*/
 
 Matrix4x4 Matrix4x4::inverse() const {
   int i,j,k;               
@@ -289,6 +340,7 @@ Matrix4x4 Matrix4x4::inverse() const {
   return result;
 }
 
+
 Matrix4x4 Matrix4x4::transpose() const {
     Matrix4x4 result = *this;
 
@@ -342,6 +394,32 @@ Matrix4x4 Matrix4x4::multiply(const Matrix4x4& matrix) const {
                           (srcA->m[i][2] * srcB->m[2][3]) +
                           (srcA->m[i][3] * srcB->m[3][3]) ;
     }
+
+    return result;
+}
+
+Matrix4x4 Matrix4x4::multiply(float scalar) const {
+    Matrix4x4 result = *this;
+
+    result.m[0][0] *= scalar;
+    result.m[0][1] *= scalar;
+    result.m[0][2] *= scalar;
+    result.m[0][3] *= scalar;
+
+    result.m[1][0] *= scalar;
+    result.m[1][1] *= scalar;
+    result.m[1][2] *= scalar;
+    result.m[1][3] *= scalar;
+
+    result.m[2][0] *= scalar;
+    result.m[2][1] *= scalar;
+    result.m[2][2] *= scalar;
+    result.m[2][3] *= scalar;
+
+    result.m[3][0] *= scalar;
+    result.m[3][1] *= scalar;
+    result.m[3][2] *= scalar;
+    result.m[3][3] *= scalar;
 
     return result;
 }

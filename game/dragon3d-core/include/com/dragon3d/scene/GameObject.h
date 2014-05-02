@@ -55,9 +55,8 @@ Import com::dragon3d::framework;
  */
 class _DragonExport GameObject 
 	extends(Object) {
-
 public:
-	static List<GameObject>* all;
+	const static Type* TYPE;
 
 public:
 	GameObject();
@@ -82,7 +81,6 @@ public:
 	 */
 	virtual void destroy();
 
-public: // component manager
 	/**
 	 * add component.
 	 * 
@@ -96,7 +94,12 @@ public: // component manager
 	 * @param  type [description]
 	 * @return      [description]
 	 */
-	virtual Component* getComponent(const Type* type);
+	virtual Component* getFirstComponent(const Type* type);
+
+	/**
+	 * find the component by type.
+	 */
+	virtual List<Component>* getComponents(const Type* type);
 
 	/**
 	 * check if the game object has component with type
@@ -106,7 +109,6 @@ public: // component manager
 	 */
 	virtual bool hasComponent(const Type* type);
 
-public: // tag manager
 	/**
 	 * check if the game object has tag with name
 	 * 
@@ -128,13 +130,59 @@ public: // tag manager
 	 */
 	virtual void setName(const String& name);
 
+	/**
+	 * Activates/Deactivates the GameObject.
+	 *
+	 * Note that a GameObject may be inactive because a parent is not active. 
+	 * In that case, calling SetActive() will not activate it, 
+	 * but only set the local state of the GameObject, 
+	 * which can be checked using GameObject.activeSelf. 
+	 * This state will then be used once all parents are active.
+	 * 
+	 * @param value [description]
+	 */
+	virtual void setActive(bool value);
+
+	/**
+	 * Check if this game object is active.
+	 * 
+	 * @return The local active state of this GameObject
+	 */
+	virtual bool isActiveSelf();
+
+	/**
+	 * Is the GameObject active in the scene?
+	 * 
+	 * @return [description]
+	 */
+	virtual bool isActiveInHierarchy();
+
+	/**
+	 * get the parent game object.
+	 * 
+	 * @return [description]
+	 */
+	virtual GameObject* getParent();
+
+	/**
+	 * get all children game object
+	 */
+	virtual List<GameObject>* getChildren();
+
+	/**
+	 * get the transform of game object.
+	 * 
+	 * @return [description]
+	 */
+	virtual Transform* getTransform();
+
 public:
 	/**
 	 * the layer for the game object.
 	 */
 	int layer;
 
-		/**
+	/**
 	 * the tags for the game object
 	 */
 	List<String>* tags;
@@ -144,12 +192,12 @@ public:
 	 */
 	bool hideFlags;
 
+protected:
 	/**
 	 * The Transform attached to this GameObject. (null if there is none attached).
 	 */
 	Transform* transform;
 
-protected:
 	/**
 	 * the name of game object;
 	 */
@@ -159,6 +207,11 @@ protected:
 	 * game component.
 	 */
 	List<Component>* components;
+
+	/**
+	 * local active state.
+	 */
+	bool active;
 
 };//GameObject
 

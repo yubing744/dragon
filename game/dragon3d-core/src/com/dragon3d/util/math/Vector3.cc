@@ -31,6 +31,8 @@
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
+const Type* Vector3::TYPE = TypeOf<Vector3>();
+
 const Vector3 Vector3::ZERO = Vector3(0, 0 ,0);
 const Vector3 Vector3::ONE = Vector3(1, 1 ,1);
 
@@ -69,39 +71,59 @@ float Vector3::distance(const Vector3& a, const Vector3& b) {
 }
 
 Vector3 Vector3::lerp(const Vector3& from, const Vector3& to, float t) {
-    return Vector3::ZERO;
-}
+    float x = from.x * (1 - t) + (to.x - from.x) * t;
+    float y = from.y * (1 - t) + (to.y - from.y) * t;
+    float z = from.z * (1 - t) + (to.z - from.z) * t;
+
+    return Vector3(x, y, z);
+} 
 
 Vector3 Vector3::max(const Vector3& lhs, const Vector3& rhs) {
-    return Vector3::ZERO;
+    float x = Math::max(lhs.x, rhs.x);
+    float y = Math::max(lhs.y, rhs.y);
+    float z = Math::max(lhs.z, rhs.z);
+
+    return Vector3(x, y, z);
 }
 
 Vector3 Vector3::min(const Vector3& lhs, const Vector3& rhs) {
-    return Vector3::ZERO;
+    float x = Math::min(lhs.x, rhs.x);
+    float y = Math::min(lhs.y, rhs.y);
+    float z = Math::min(lhs.z, rhs.z);
+
+    return Vector3(x, y, z);
 }
 
+Vector3 Vector3::centre(const Vector3& lhs, const Vector3& rhs) {
+    float x = (lhs.x + rhs.x) / 2;
+    float y = (lhs.y + rhs.y) / 2;
+    float z = (lhs.z + rhs.z) / 2;
+
+    return Vector3(x, y, z);}
+
+
 Vector3 Vector3::moveTowards(const Vector3& current, const Vector3& target, float maxDistanceDelta) {
-    return Vector3::ZERO;  
+    throw "not implements"; 
 }
 
 void Vector3::orthoNormalize(const Vector3& normal, const Vector3& tangent) {
-
+    throw "not implements";
 }
 
 void Vector3::orthoNormalize(const Vector3& normal, const Vector3& tangent, const Vector3& binormal) {
-
+    throw "not implements";
 }
 
 Vector3 Vector3::project(const Vector3& vector, const Vector3& onNormal) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::reflect(const Vector3& inDirection, const Vector3& inNormal) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::rotateTowards(const Vector3& current, const Vector3& target, float maxRadiansDelta, float maxMagnitudeDelta) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::scale(const Vector3& a, const Vector3& b) {
@@ -113,19 +135,19 @@ Vector3 Vector3::scale(const Vector3& a, const Vector3& b) {
 }
 
 Vector3 Vector3::slerp(const Vector3& from, const Vector3& to, float t) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime, float maxSpeed) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 Vector3 Vector3::smoothDamp(const Vector3& current, const Vector3& target, const Vector3& currentVelocity, float smoothTime, float maxSpeed, float deltaTime) {
-    return Vector3::ZERO;
+    throw "not implements";
 }
 
 
@@ -150,19 +172,21 @@ Vector3::Vector3(const Vector3& a)
 
 }
 
-bool Vector3::operator== (const Vector3& a) const {
+bool Vector3::operator==(const Vector3& a) const {
     return x==a.x && y==a.y && z==a.z;
+}
+
+bool Vector3::operator!=(const Vector3& a) const {
+    return x!=a.x || y!=a.y || z!=a.z;
 }
 
 float Vector3::length() const {
     return Math::sqrt(lengthSquared());
 }
 
-
 float Vector3::lengthSquared() const {
     return x*x + y*y + z*z;
 }
-
 
 Vector3 Vector3::normalize() const {
     const float lengthSq = lengthSquared();
@@ -214,7 +238,7 @@ float Vector3::getValue(int index) {
             return this->z;
     }
 
-    throw new IllegalArgumentException(new String("index must be either 0, 1, 2"));
+    throw new IllegalArgumentException("index must be either 0, 1, 2");
 }
 
 void Vector3::setValue(int index, float value) {
@@ -230,7 +254,7 @@ void Vector3::setValue(int index, float value) {
             return;
     }
 
-    throw new IllegalArgumentException(new String("index must be either 0, 1, 2"));
+    throw new IllegalArgumentException("index must be either 0, 1, 2");
 }
 
 const float* Vector3::getData() const {

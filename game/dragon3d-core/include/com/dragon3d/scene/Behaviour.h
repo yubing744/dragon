@@ -52,9 +52,10 @@ public:
 
 public:
     /**
-     * whether enable
+     * Enabled Behaviours are Updated, disabled Behaviours are not.
      */
 	bool enabled;
+
 };//Behaviour
 
 EndPackage3 //(com, dragon3d, scene)

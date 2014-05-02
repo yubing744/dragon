@@ -58,33 +58,33 @@ void ModelDemo::init() {
     myBox = ModelIO::load("model/nokia-5700/nokia-5700-lowres.3DS");
     
     //myBox->transform->setScale(Vector3(0.2, 0.2, 0.2));
-    myBox->transform->setPosition(Vector3(0, 0, 0));
-    myBox->transform->setLocalPosition(Vector3(0, 0, 0));
+    myBox->getTransform()->setPosition(Vector3(0, 0, 0));
+    myBox->getTransform()->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
-    Plane* plane = new Plane();
+    com::dragon3d::scene::model::geometry::Plane* plane = new com::dragon3d::scene::model::geometry::Plane();
     
     Material* material = new Material();
-    material->color = Color::BLACK;
-    material->mainTexture = new Texture("Textures/Wood03.tga");
+    material->setMainColor(Color::BLACK);
+    material->setMainTexture(new Texture("Textures/Wood03.tga"));
     plane->setMaterial(material);
     
     child->addComponent(plane);
     
     //child->transform->setLocalScale(Vector3(20, 20, 20));
-    child->transform->setPosition(Vector3(0, 0, 0));
-    child->transform->setLocalPosition(Vector3(0, 0, 0));
-    child->transform->setLocalPosition(Vector3(0, 0, -3));
+    child->getTransform()->setPosition(Vector3(0, 0, 0));
+    child->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+    child->getTransform()->setLocalPosition(Vector3(0, 0, -3));
     //child->transform->setParent(myBox->transform);
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
     mainCamera->addComponent(camera);
     
-    camera->pixelRect = Rect(0, 0, 320, 480);
+    camera->resize(320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    //camera->transform->setPosition(Vector3(0, 30, -120));
-    camera->getTransform()->setPosition(Vector3(0, 3, -10));
+    camera->getTransform()->setPosition(Vector3(0, 30, -120));
+    //camera->getTransform()->setPosition(Vector3(0, 3, -10));
     
     //camera->getTransform()->setPosition(Vector3(0, 100, -750));
 
@@ -106,8 +106,8 @@ void ModelDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
-    myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
-    child->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    child->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);

@@ -17,43 +17,23 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/10/04
+ * Created:     2013/09/28
  **********************************************************************/
 
 
-#ifndef Vector2_Math_Util_Dragon3d_Com_H
-#define Vector2_Math_Util_Dragon3d_Com_H
-
-#include <dragon/config.h>
-#include <dragon/lang/Object.h>
-#include <dragon/lang/Array.h>
-
-BeginPackage4(com, dragon3d, util, math)
+#include <com/dragon3d/config.h>
+#include <dragon/lang/System.h>
 
 Import dragon::lang;
-Import com::dragon3d::util::math;
+Import com::dragon3d;
 
-class _DragonExport Vector2 extends(Object) {
-public:
-    static const Type* TYPE;
-    
-public:
-    static const Vector2 ZERO; //Shorthand for writing Vector2(0, 0)
-    static const Vector2 ONE; //Shorthand for writing Vector2(1, 1)
+const int com::dragon3d::Config::VERSION = 1;
+const char* com::dragon3d::Config::NAME = "dragon3d-core";
 
-public:
-    Vector2();
-    Vector2(float x, float y);
-
-public:
-    const float* getData() const;
-    const Array<float> toFloatArray() const;
-
-public:
-    float x;
-    float y;
-};//Vector2
-
-EndPackage4 //(com, dragon3d, util, math)
-
-#endif //Vector2_Math_Util_Dragon3d_Com_H
+// auto register shader compiler
+static struct Loader {
+    Loader() {
+        // load dragon3d library
+        System::loadLibrary((void*)com::dragon3d::Config::NAME);
+    }
+} __obj;

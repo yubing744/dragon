@@ -52,7 +52,7 @@ bool AudioListener::isTypeOf(const Type* type) {
 
 void AudioListener::init() {
     GameObject* gameObject = this->gameObject;
-    Vector3 listenerPos = gameObject->transform->getPosition();
+    Vector3 listenerPos = gameObject->getTransform()->getPosition();
     Vector3 listenerVel(0, 0, 0);
 
     alListenerfv(AL_POSITION, listenerPos.getData());

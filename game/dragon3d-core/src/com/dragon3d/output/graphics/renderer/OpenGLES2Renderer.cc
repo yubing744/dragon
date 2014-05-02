@@ -78,6 +78,11 @@ void OpenGLES2Renderer::clearBuffer() {
     glEnable(GL_DEPTH_TEST);
 }
 
+
+void OpenGLES2Renderer::setViewport(int x, int y, int width, int height) {
+    glViewport(x, y, width, height); 
+}
+
 /*
 GLuint OpenGLES2RendererLoadProgram(Shader* shader) {
     // Load the shaders and get a linked program object
@@ -102,22 +107,10 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
     Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
 
     if (camera != null) {
-        com::dragon3d::util::math::Rect screenRect = camera->pixelRect;
-        com::dragon3d::util::math::Rect nvp = camera->rect;
-
-        glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
-            screenRect.width * nvp.width, screenRect.height * nvp.height);
-
-        if (!camera->orthographic) {
-            Vector3 eye = camera->getTransform()->getPosition();
-            Vector3 center = eye.add(Vector3::FORWARD);
-            Vector3 up = Vector3::UP;
-            projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
-
-            projMatrix = projMatrix.multiply(Matrix4x4::perspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
-        } else {
-            projMatrix = projMatrix.multiply(Matrix4x4::ortho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
-        }
+        com::dragon3d::util::math::Rect viewport = camera->getViewPortRect();
+        glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
+        
+        projMatrix = camera->getModelViewProjectionMatrix();
     } 
 
     return projMatrix;
@@ -243,15 +236,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
 
     // setup material
     if (material != null) {
-        // setup color
-        Color color = material->color;
-        shader->setFloatVector("color", 4, Array<float>(color.getData(), 4, false));
-
-        // setup texture
-        Texture* mainTexture = material->mainTexture;
-        if (mainTexture != null) {
-            shader->setSampler("s0", mainTexture, 0);
-        }
+        material->renderUntoShader(shader);
     }
 
     // Enable Texture 2D

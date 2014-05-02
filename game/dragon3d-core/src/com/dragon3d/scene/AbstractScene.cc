@@ -20,11 +20,12 @@
  * Created:     2013/10/06
  **********************************************************************/
 
-
+#include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/scene/AbstractScene.h>
 #include <dragon/util/ArrayList.h>
 
 Import dragon::util;
+Import dragon::lang::gc;
 Import com::dragon3d::scene;
 
 
@@ -33,8 +34,7 @@ AbstractScene::AbstractScene() {
 }
 
 AbstractScene::~AbstractScene() {
-    this->gameObjects->clear();
-    SafeDelete(this->gameObjects);
+    SafeRelease(this->gameObjects);
 }
 
 void AbstractScene::add(GameObject* gameObject) {
@@ -50,22 +50,16 @@ void AbstractScene::remove(GameObject* gameObject) {
 GameObject* AbstractScene::findFirstWithName(const String& name) {
     List<GameObject>* finded = new ArrayList<GameObject>();
 
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->getName()->equals(name)) {
-            SafeDelete(it);
             return gameObject;
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return null;
 }   
@@ -73,42 +67,31 @@ GameObject* AbstractScene::findFirstWithName(const String& name) {
 List<GameObject>* AbstractScene::findWithName(const String& name) {
     List<GameObject>* finded = new ArrayList<GameObject>();
 
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->getName()->equals(name)) {
             finded->add(gameObject);
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return finded;
 }
 
 GameObject* AbstractScene::findFirstWithType(const Type* type) {
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->hasComponent(type)) {
-            SafeDelete(it);
             return gameObject;
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return null;
 }
@@ -116,42 +99,31 @@ GameObject* AbstractScene::findFirstWithType(const Type* type) {
 List<GameObject>* AbstractScene::findWithType(const Type* type) {
     List<GameObject>* finded = new ArrayList<GameObject>();
 
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->hasComponent(type)) {
             finded->add(gameObject);
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return finded;
 }
 
 GameObject* AbstractScene::findFirstWithTag(const String& tag) {
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->hasTag(tag)) {
-            SafeDelete(it);
             return gameObject;
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return null;
 }
@@ -159,21 +131,16 @@ GameObject* AbstractScene::findFirstWithTag(const String& tag) {
 List<GameObject>* AbstractScene::findWithTag(const String& tag) {
     List<GameObject>* finded = new ArrayList<GameObject>();
 
-    List<GameObject>* gameObjects = this->getAll();
-    
-    Iterator<GameObject>* it = gameObjects->iterator();
+    Ref<List<GameObject> > gameObjects = this->getAll();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        GameObject* gameObject = it->next();
+        Ref<GameObject> gameObject = it->next();
 
         if (gameObject->hasTag(tag)) {
             finded->add(gameObject);
         }
-
-        SafeRelease(gameObject);
     }
-
-    SafeDelete(it);
 
     return finded;
 }
@@ -187,5 +154,6 @@ List<GameObject>* AbstractScene::findWithRay(Ray3* ray) {
 }
 
 List<GameObject>* AbstractScene::getAll() {
+    SafeRetain(this->gameObjects);
     return this->gameObjects;
 }

@@ -25,6 +25,8 @@
 
 Import com::dragon3d::util::math;
 
+const Type* Vector2::TYPE = TypeOf<Vector2>();
+
 const Vector2 Vector2::ZERO = Vector2(0, 0);
 const Vector2 Vector2::ONE = Vector2(1, 1);
 

@@ -50,9 +50,26 @@ LibraryClassLoader::~LibraryClassLoader() {
 }
 
 void LibraryClassLoader::load(const char* libPath) {
-	Library* lib = new Library(libPath);
-	lib->resolve();
-	this->librarys->push_back(lib);
+	Library* lib = findLibrary(libPath);
+
+	if (lib == null) {
+		lib = new Library(libPath);
+		lib->resolve();
+		this->librarys->push_back(lib);
+	}
+}
+
+Library* LibraryClassLoader::findLibrary(const char* libPath) {
+	for (Iterator it = this->librarys->begin() ; it != this->librarys->end(); ++it) {
+		Library* lib = *it;
+		const char* path = lib->getPath();
+
+		if (strcmp(path, libPath) == 0) {
+			return lib;
+		}
+	}
+
+	return null;
 }
 
 const char* next_param_token(const char* str, int offset, size_t len) {

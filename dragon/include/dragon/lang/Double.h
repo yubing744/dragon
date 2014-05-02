@@ -40,7 +40,11 @@ class _DragonExport Double
 public:
     static const Type* TYPE;
     static const Type* PRIMARY_TYPE;
-    
+
+public:
+    static const float POSITIVE_INFINITY;
+    static const float NEGATIVE_INFINITY;
+
 public:
     static Double* parseDouble(const String& str) throw(NumberFormatException*);
     static String* toString(double val);

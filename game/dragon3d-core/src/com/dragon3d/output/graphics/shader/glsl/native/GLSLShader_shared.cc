@@ -83,18 +83,19 @@ bool GLSLShader::unuse() {
 }
 
 unsigned int GLSLShader::loadTextureID(Texture* texture){
-    GLuint textureID;
-
     GLuint* pTextureID = (GLuint*)texture->getNativeData();
+
     if (pTextureID == NULL) {
+        pTextureID = (GLuint*)malloc(sizeof(GLuint));
+        
         // Use tightly packed data
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
         // Generate a texture object
-        glGenTextures(1, &textureID);
+        glGenTextures(1, pTextureID);
 
         // Bind the texture object
-        glBindTexture(GL_TEXTURE_2D, textureID);
+        glBindTexture(GL_TEXTURE_2D, *pTextureID);
 
         int textureType = GL_RGB;
 
@@ -112,12 +113,10 @@ unsigned int GLSLShader::loadTextureID(Texture* texture){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 
-        GLuint* pTextureID = (GLuint*)malloc(sizeof(GLuint));
-        *pTextureID = textureID;
         texture->setNativeData(pTextureID);
-    }
+    } 
 
-    return textureID;
+    return *pTextureID;
 }
 
 bool GLSLShader::setSampler(const char* name, Texture* texture, int unit) {

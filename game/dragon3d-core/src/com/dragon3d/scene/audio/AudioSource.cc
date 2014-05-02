@@ -127,7 +127,7 @@ void AudioSource::init() {
     alSourcei(this->source, AL_LOOPING,  this->loop);
 
     GameObject* gameObject = this->gameObject;
-    Vector3 sourcePos = gameObject->transform->getPosition();
+    Vector3 sourcePos = gameObject->getTransform()->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
     alSourcefv(this->source, AL_POSITION, sourcePos.getData());
@@ -143,7 +143,7 @@ void AudioSource::update(Input* input, ReadOnlyTimer* timer) {
     logger->debug("update");
 
     GameObject* gameObject = this->gameObject;
-    Vector3 sourcePos = gameObject->transform->getPosition();
+    Vector3 sourcePos = gameObject->getTransform()->getPosition();
     Vector3 sourceVel(0, 0, 0);
 
     alSourcefv(this->source, AL_POSITION, sourcePos.getData());

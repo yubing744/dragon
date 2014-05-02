@@ -23,6 +23,7 @@
 #include <iostream>
 #include <sstream>
 #include <string> 
+#include <limits>
 
 #include <dragon/lang/String.h>
 #include <dragon/lang/Array.h>
@@ -36,6 +37,9 @@ Import dragon::lang::reflect;
 
 const Type* Float::TYPE = TypeOf<Float>();
 const Type* Float::INNER_TYPE = TypeOf<float>();
+
+const float Float::POSITIVE_INFINITY = numeric_limits<float>::max();
+const float Float::NEGATIVE_INFINITY = numeric_limits<float>::min();
 
 Float::Float(float val) {
 	this->value = val;

@@ -27,10 +27,10 @@
 Import com::dragon3d::scene::model::geometry;
 Import dragon::util::logging;
 
-const Type* Plane::TYPE = TypeOf<Plane>();
-static Logger* logger = Logger::getLogger(Plane::TYPE, ERROR);
+const Type* com::dragon3d::scene::model::geometry::Plane::TYPE = TypeOf<com::dragon3d::scene::model::geometry::Plane>();
+static Logger* logger = Logger::getLogger(com::dragon3d::scene::model::geometry::Plane::TYPE, ERROR);
 
-Plane::Plane() {
+com::dragon3d::scene::model::geometry::Plane::Plane() {
     float cubeVerts[] =
     {
       -1.0f,  -1.0f, 1.0f,
@@ -87,6 +87,6 @@ Plane::Plane() {
     this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
 }
 
-Plane::~Plane() {
+com::dragon3d::scene::model::geometry::Plane::~Plane() {
 
 }

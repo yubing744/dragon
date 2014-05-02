@@ -42,6 +42,9 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Matrix4x4 extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     /**
      * Returns the identity matrix
      */
@@ -167,6 +170,14 @@ public:
      * @return        [description]
      */
     Matrix4x4 multiply(const Matrix4x4& matrix) const;
+
+    /**
+     * multiply scalar.
+     * 
+     * @param  scalar [description]
+     * @return     [description]
+     */
+    Matrix4x4 multiply(float scalar) const;
 
     /**
      * translate the matrix

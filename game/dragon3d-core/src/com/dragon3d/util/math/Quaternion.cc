@@ -29,8 +29,9 @@
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
-const Quaternion Quaternion::IDENTITY = Quaternion(0, 0, 0, 1);
+const Type* Quaternion::TYPE = TypeOf<Quaternion>();
 
+const Quaternion Quaternion::IDENTITY = Quaternion(0, 0, 0, 1);
 
 Quaternion Quaternion::euler(float x, float y, float z ) {
     float heading = y * Mathf::PI / 180; // mapping heading to y axis
@@ -104,6 +105,16 @@ Quaternion::Quaternion(float x, float y, float z, float w) {
     this->y = y;
     this->z = z;
     this->w = w;
+}
+
+
+
+bool Quaternion::operator==(const Quaternion& a) const {
+    return x==a.x && y==a.y && z==a.z && w==a.w;
+}
+
+bool Quaternion::operator!=(const Quaternion& a) const {
+    return x!=a.x || y!=a.y || z!=a.z || w!=a.w;
 }
 
 // -------------------------------------------
@@ -204,6 +215,43 @@ void Quaternion::toAngleAxis(float& angle, Vector3& axis) const {
         y * oneOverSinThetaOver2,
         z * oneOverSinThetaOver2
     ); 
+}
+
+const Array<Vector3> Quaternion::toAxes() const {
+    float norm = magnitudeSquared();
+    float s = norm == 1.0 ? 2.0 : norm > 0.0 ? 2.0 / norm : 0;
+
+    // compute xs/ys/zs first to save 6 multiplications, since xs/ys/zs
+    // will be used 2-4 times each.
+    float xs = this->x * s;
+    float ys = this->y * s;
+    float zs = this->z * s;
+    float xx = this->x * xs;
+    float xy = this->x * ys;
+    float xz = this->x * zs;
+    float xw = this->w * xs;
+    float yy = this->y * ys;
+    float yz = this->y * zs;
+    float yw = this->w * ys;
+    float zz = this->z * zs;
+    float zw = this->w * zs;
+
+    // using s=2/norm (instead of 1/norm) saves 9 multiplications by 2 here
+    Array<Vector3> axes(3);
+
+    axes[0].setX(1.0 - (yy + zz));
+    axes[0].setY(xy - zw);
+    axes[0].setZ(xz + yw);
+
+    axes[1].setX(xy + zw);
+    axes[1].setY(1.0 - (xx + zz));
+    axes[1].setZ(yz - xw);
+
+    axes[2].setX(xz - yw);
+    axes[2].setY(yz + xw);
+    axes[2].setZ(1.0 - (xx + yy));
+
+    return axes;
 }
 
 Quaternion Quaternion::conjugate() {

@@ -35,6 +35,9 @@ Import com::dragon3d::util::math;
 
 class _DragonExport Vector4 extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     static const Vector4 ZERO; //Shorthand for writing Vector4(0, 0, 0, 0)
     static const Vector4 ONE; //Shorthand for writing Vector4(1, 1, 1, 1)
 

@@ -39,6 +39,9 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Rect extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     Rect minMaxRect(float left, float top, float right, float bottom);
 
 public:

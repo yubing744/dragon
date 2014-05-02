@@ -19,6 +19,7 @@
 
 #import "ViewController.h"
 
+#include <dragon/lang/System.h>
 #include <com/dragon3d/launcher/AppLauncher.h>
 
 #include <com/dragon3d/examples/audio/AudioDemo.h>
@@ -26,6 +27,7 @@
 #include <com/dragon3d/examples/texture/TextureDemo.h>
 #include <com/dragon3d/examples/model/ModelDemo.h>
 
+Import dragon::lang;
 Import com::dragon3d::examples::audio;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::examples::texture;
@@ -46,8 +48,7 @@ Import com::dragon3d::examples::model;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-
+{    
     app = new HelloWorld();
     //app = new AudioDemo();
     //app = new TextureDemo();

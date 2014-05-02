@@ -797,6 +797,14 @@ void DirectX11Renderer::clearBuffer() {
 		);
 }
 
+void DirectX11Renderer::setViewport(int x, int y, int width, int height) {
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> d3dContext = data->d3dContext;
+
+    CD3D11_VIEWPORT viewport(x, y, width, height);
+
+	d3dContext->RSSetViewports(1, &viewport);
+}
+
 void DirectX11Renderer::drawSample() {
 	//logger->info("drawSample");
 
@@ -872,12 +880,8 @@ void DirectX11RendererSetupCamera(NativeData* data, Camera* camera, ModelViewPro
     // setup camera
     if (camera != null) {
     	// set viewport
-        com::dragon3d::util::math::Rect screenRect = camera->pixelRect;
-        com::dragon3d::util::math::Rect nvp = camera->rect;
-
-        CD3D11_VIEWPORT viewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
-            screenRect.width * nvp.width, screenRect.height * nvp.height
-			);
+        com::dragon3d::util::math::Rect viewport = camera->getViewPortRect();
+        CD3D11_VIEWPORT viewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
 		d3dContext->RSSetViewports(1, &viewport);
 

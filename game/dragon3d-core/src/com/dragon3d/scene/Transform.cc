@@ -20,37 +20,46 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
-#include <com/dragon3d/scene/Transform.h>
+#include <dragon/lang/gc/Reference.h>
 #include <dragon/util/ArrayList.h>
+#include <com/dragon3d/scene/Transform.h>
+#include <dragon/util/logging/Logger.h>
 
 Import dragon::util;
+Import dragon::lang::gc;
+Import dragon::util::logging;
 Import com::dragon3d::scene;
 
+const Type* Transform::TYPE = TypeOf<Transform>();
+static Logger* logger = Logger::getLogger(Transform::TYPE, INFO);
 
 Transform::Transform() 
-    :parent(null) {
+    :parent(null), 
+    position(Vector3::ZERO),
+    rotation(Quaternion::IDENTITY),
+    scale(Vector3::ONE),
+
+    localPosition(Vector3::ZERO),
+    localRotation(Quaternion::IDENTITY),
+    localScale(Vector3::ONE),
+
+    worldToLocalMatrix(Matrix4x4::IDENTITY),
+    localToWorldMatrix(Matrix4x4::IDENTITY),
+
+    changed(true) {
+
     this->children = new ArrayList<Transform>();
-
-    this->position = Vector3::ZERO;
-    this->rotation = Quaternion::IDENTITY;
-    this->scale = Vector3::ONE;
-
-    this->localPosition = Vector3::ZERO;
-    this->localRotation = Quaternion::IDENTITY;
-    this->localScale = Vector3::ONE;
-
-    this->changed = true;
 }
 
 
 Transform::~Transform(void){
     if (this->parent != null) {
         this->parent->children->remove(this);
+        this->parent = null;
     }
 
     this->detachChildren();
-    SafeDelete(this->children);
+    SafeRelease(this->children);
 }
 
 void Transform::translate(const Vector3& translation, Space relativeTo) {
@@ -96,48 +105,52 @@ void Transform::rotate(const Vector3& eulerAngles){
 
 
 void Transform::setPosition(const Vector3& p) {
-    this->position = p;
+    if (this->position != p) {
+        this->position = p;
 
-    if (this->parent != null) {
-        Vector3 offset = p.substract(this->getPosition());
-        this->localPosition = this->localPosition.add(offset);
-    } 
+        if (this->parent != null) {
+            Vector3 offset = p.substract(this->getPosition());
+            this->localPosition = this->localPosition.add(offset);
+        } 
 
-    this->changed = true;
+        this->changed = true;
+    }
 }
     
 Vector3 Transform::getPosition() {
     if (this->parent != null) {
         return this->getLocalToWorldMatrix().getTranslation();
-        //return this->localPosition.add(this->parent->getPosition());
     } else {
         return this->position;
     }
 }
 
 void Transform::setRotation(const Quaternion& r) {
-    this->rotation = r;
+    if (this->rotation != r) {
+        this->rotation = r;
 
-    if (this->parent != null) {
-        Quaternion offset = r.multiply(this->getRotation().conjugate());
-        this->localRotation = this->localRotation.multiply(offset);
-    } 
+        if (this->parent != null) {
+            Quaternion offset = r.multiply(this->getRotation().conjugate());
+            this->localRotation = this->localRotation.multiply(offset);
+        } 
 
-    this->changed = true;
+        this->changed = true;
+    }
 }
 
 Quaternion Transform::getRotation() {
     if (this->parent != null) {
         return this->getLocalToWorldMatrix().getQuaternion();
-        //return this->localRotation.multiply(this->parent->getRotation());
     } else {
         return this->rotation;
     }
 }
 
 void Transform::setScale(const Vector3& s) {
-    this->scale = s;
-    this->changed = true;
+    if (this->scale != s) {
+        this->scale = s;
+        this->changed = true;
+    }
 }
 
 Vector3 Transform::getScale() {
@@ -149,8 +162,10 @@ Vector3 Transform::getScale() {
 }
 
 void Transform::setLocalPosition(const Vector3& p) {
-    this->localPosition = p;
-    this->changed = true;
+    if (this->localPosition != p) {
+        this->localPosition = p;
+        this->changed = true;
+    }
 }
 
 Vector3 Transform::getLocalPosition() {
@@ -158,8 +173,10 @@ Vector3 Transform::getLocalPosition() {
 }
 
 void Transform::setLocalRotation(const Quaternion& r) {
-    this->localRotation = r;
-    this->changed = true;
+    if (this->localRotation != r) {
+        this->localRotation = r;
+        this->changed = true;
+    }
 }
 
 Quaternion Transform::getLocalRotation() {
@@ -167,8 +184,10 @@ Quaternion Transform::getLocalRotation() {
 }
 
 void Transform::setLocalScale(const Vector3& s) {
-    this->localScale = s;
-    this->changed = true;
+    if (this->localScale != s) {
+        this->localScale = s;
+        this->changed = true;
+    }
 }
 
 Vector3 Transform::getLocalScale() {
@@ -186,16 +205,19 @@ Transform* Transform::getRoot() {
     return t;
 }
 
-Vector3 Transform::getUp() {
-    throw "not implement!";
+Vector3 Transform::getRight() {
+    const Array<Vector3> axes = this->rotation.toAxes();
+    return axes[0];
 }
 
-Vector3 Transform::getRight() {
-    throw "not implement!";
+Vector3 Transform::getUp() {
+    const Array<Vector3> axes = this->rotation.toAxes();
+    return axes[1];
 }
 
 Vector3 Transform::getForward() {
-    throw "not implement!";
+    const Array<Vector3> axes = this->rotation.toAxes();
+    return axes[2];
 }
 
 Vector3 Transform::getEulerAngles() {
@@ -252,7 +274,11 @@ void Transform::recalculatedMatrix() {
             temp = temp.multiply(Matrix4x4::TRS(position, rotation, scale));
         }
 
+        //Ref<String> msg = temp.toString();
+        //logger->info("the matrix" + msg);
+
         this->localToWorldMatrix = temp;
+        this->worldToLocalMatrix = temp.inverse();
 
         this->changed = false;
     }  

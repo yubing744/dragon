@@ -39,7 +39,7 @@ Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::util::math;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", ERROR);
+static Logger* logger = Logger::getLogger("com::dragon3d::examples::helloworld::HelloWorld", INFO);
 
 
 HelloWorld::HelloWorld() {
@@ -59,28 +59,35 @@ void HelloWorld::init() {
     Box* box = new Box();
     myBox->addComponent(box);
     
-    myBox->transform->setPosition(Vector3(0, 0, 1));
-    myBox->transform->setLocalPosition(Vector3(0, 0, 0));
+    myBox->getTransform()->setPosition(Vector3(0, 0, 1));
+    myBox->getTransform()->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
     Box* box2 = new Box();
     child->addComponent(box2);
     
-    child->transform->setPosition(Vector3(0, 0, 10));
-    child->transform->setLocalPosition(Vector3(0, 2, 0));
+    child->getTransform()->setPosition(Vector3(0, 0, 10));
+    child->getTransform()->setLocalPosition(Vector3(0, 2, 0));
     //child->transform->setLocalPosition(Vector3(1, 2, 0));
-    child->transform->setParent(myBox->transform);
+    child->getTransform()->setParent(myBox->getTransform());
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
     mainCamera->addComponent(camera);
     
-    camera->pixelRect = Rect(0, 0, 320, 480);
+    camera->resize(320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
     camera->getTransform()->setPosition(Vector3(0, 1, -5));
-
     camera->getTransform()->find("abc/bbb/ccc");
-
+    
+    Vector3 pos = myBox->getTransform()->getPosition();
+    logger->info("myBox init pos: %f %f %f", pos.x, pos.y, pos.z);
+    
+    camera->lookAt(pos, Vector3::UP);
+    
+    Vector3 up = myBox->getTransform()->getRight();
+    logger->info("camera up pos: %f %f %f", up.x, up.y, up.z);
+    
     scene->add(myBox);
     scene->add(child);
     scene->add(mainCamera);
@@ -89,12 +96,23 @@ void HelloWorld::init() {
 //static double abc = 0.1;
 
 void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
-    //mainCamera->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
-
-    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
-    //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
+    Application::update(scene, timer);
     
-    myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    //mainCamera->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+
+    //Vector3 pos = myBox->getTransform()->getPosition();
+    //logger->info("myBox pre pos: %f %f %f", pos.x, pos.y, pos.z);
+    
+    
+    myBox->getTransform()->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
+    myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    
+    //float deltaTime = timer->getDeltaTime();
+    //logger->info("delta time: %f", deltaTime);
+    
+    //myBox->getTransform()->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 0.5), World);
+    //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+    
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);
@@ -105,6 +123,16 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
+    
+    Camera* camera = (Camera*)mainCamera->getFirstComponent(Camera::TYPE);
+    
+    Vector3 pos = myBox->getTransform()->getPosition();
+    Vector3 localPos = myBox->getTransform()->getLocalPosition();
+    
+    logger->info("myBox pos:        %f %f %f", pos.x, pos.y, pos.z);
+    logger->info("myBox local pos : %f %f %f", localPos.x, localPos.y, localPos.z);
+    
+    camera->lookAt(pos, Vector3::UP);
     
     logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }

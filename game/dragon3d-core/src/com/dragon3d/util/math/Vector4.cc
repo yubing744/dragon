@@ -25,6 +25,8 @@
 
 Import com::dragon3d::util::math;
 
+const Type* Vector4::TYPE = TypeOf<Vector4>();
+
 const Vector4 Vector4::ZERO = Vector4(0, 0 ,0, 0);
 const Vector4 Vector4::ONE = Vector4(1, 1 ,1, 1);
 

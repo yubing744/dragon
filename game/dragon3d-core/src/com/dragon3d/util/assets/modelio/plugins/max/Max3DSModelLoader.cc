@@ -69,7 +69,7 @@ bool Max3DSModelLoader_loadModelFromNode(Resource* res, GameObject* gameObject, 
         if (p != null) {
             GameObject* child = new GameObject();
             Max3DSModelLoader_loadModelFromNode(res, child, file, p, depth + 1);
-            child->transform->setParent(gameObject->transform);
+            child->getTransform()->setParent(gameObject->getTransform());
             SafeRelease(child);
         }
     }
@@ -154,7 +154,8 @@ bool Max3DSModelLoader_loadModelFromNode(Resource* res, GameObject* gameObject, 
                         Ref<Resource> texRes = res->getResource(tex->name);
 
                         try {
-                            material->mainTexture = new Texture(texRes);
+                            Ref<Texture> texture = new Texture(texRes);
+                            material->setMainTexture(texture);
                         } catch(Exception* e) {
                             e->printStackTrace();
 
@@ -184,7 +185,7 @@ void Max3DSModelLoader_loadModelFrom3dsFile(Resource* res, GameObject* gameObjec
         if (p != null) {
             GameObject* child = new GameObject();
             Max3DSModelLoader_loadModelFromNode(res, child, file, p, 0);
-            child->transform->setParent(gameObject->transform);
+            child->getTransform()->setParent(gameObject->getTransform());
         }
     }
 }

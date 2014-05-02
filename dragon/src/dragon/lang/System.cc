@@ -26,13 +26,54 @@
 #include <dragon/lang/System.h>
 #include <dragon/lang/String.h>
 #include <dragon/lang/Arrays.h>
+
+#include <dragon/util/logging/Logger.h>
 #include <dragon/lang/internal/platform.h>
- 
+#include <dragon/lang/internal/SystemClassLoader.h>
+
 Import dragon::lang;
 Import dragon::lang::internal;
+Import dragon::util::logging;
+
+static Logger* logger = Logger::getLogger("dragon::lang::System", WARN);
+
+static void System_loadLibraryByPath(const char* libpath) {
+    SystemClassLoader* classLoader = (SystemClassLoader*)ClassLoader::getSystemClassLoader();
+    classLoader->load(libpath);
+}
+
+void System_loadLocalLibrary() {
+    const char* libpath = GetLocalLibPath();
+
+    if (libpath != NULL) {
+        System_loadLibraryByPath(libpath);
+    } else {
+        logger->warn("not found local lib path");
+    }
+}
 
 void System::loadLibrary(const char* libname) {
+    if (libname != NULL) {
+        const char* libpath = SearchLibraryPathByName(libname);
 
+        if (libpath != NULL) {
+            System_loadLibraryByPath(libpath);
+        } else {
+            logger->warn("not find lib with name!");
+        }
+    } else {
+        System_loadLocalLibrary();
+    }
+}
+
+void System::loadLibrary(void* address) {
+    const char* libpath = GetLibraryPathByAddress(address);
+
+    if (libpath != NULL) {
+        System_loadLibraryByPath(libpath);
+    } else {
+        logger->warn("not find lib with address!");
+    }
 }
 
 dg_long System::currentTimeMillis() {

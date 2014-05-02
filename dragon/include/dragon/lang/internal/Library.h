@@ -55,6 +55,7 @@ public:
 	virtual ~Library();
 
 public:
+	const char* getPath() const;
 	virtual void resolve();
 	virtual NameSpace* findClassDefine(const char* name);
 

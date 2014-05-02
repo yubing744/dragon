@@ -111,7 +111,8 @@ void GLSLShaderCompiler::parseTokenNameMapping(String* line, GLSLShader* shader)
     Array<String*> varTokens = varToken->split(" ");
     Ref<String> key = varTokens[2];
 
-    Array<String*> nameTokens = name->split(",");
+    name = name->trim();
+    Array<String*> nameTokens = name->split("[,| ]");
 
     if (nameTokens.size()>0 && !semantic->contains("$vout")) {
         Ref<String> theName = nameTokens[0];

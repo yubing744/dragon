@@ -75,6 +75,16 @@ const char* dragon::lang::internal::GetDragonLibPath() {
 	return info.dli_fname;
 }
 
+const char* dragon::lang::internal::SearchLibraryPathByName(const char* libName) {
+	return NULL;
+}
+
+const char* dragon::lang::internal::GetLibraryPathByAddress(void* address) {
+	Dl_info info;
+	dladdr(address, &info);
+	return info.dli_fname;
+}
+
 void dragon::lang::internal::ShowLocalLibInfo() {
 	Dl_info info;
 

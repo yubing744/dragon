@@ -81,6 +81,10 @@ void OpenGLRenderer::clearBuffer() {
 
 //native void OpenGLRenderer::flushBuffer();
 
+void OpenGLRenderer::setViewport(int x, int y, int width, int height) {
+    glViewport(x, y, width, height);
+}
+
 void OpenGLRenderer::drawSample() {
 	logger->debug("draw sample shape.");
 
@@ -128,29 +132,14 @@ GLuint OpenGLRendererInitTexture(Texture* texture) {
 void OpenGLRendererSetupCamera(Camera* camera) {
     // setup camera
     if (camera != null) {
-        com::dragon3d::util::math::Rect screenRect = camera->pixelRect;
-        com::dragon3d::util::math::Rect nvp = camera->rect;
+        com::dragon3d::util::math::Rect viewport = camera->getViewPortRect();
+        glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
-        glViewport(screenRect.x + screenRect.width * nvp.x, screenRect.y + screenRect.height * nvp.y, 
-            screenRect.width * nvp.width, screenRect.height * nvp.height);
-
-        if (!camera->orthographic) {
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity(); 
-            
-            Matrix4x4 projMatrix = Matrix4x4::IDENTITY;
-
-            Vector3 eye = camera->getTransform()->getPosition();
-            Vector3 center = eye.add(Vector3::FORWARD);
-            Vector3 up = Vector3::UP;
-            projMatrix = projMatrix.multiply(Matrix4x4::lookAt(eye, center, up));
-            
-            projMatrix = projMatrix.multiply(Matrix4x4::perspective(camera->fieldOfView, camera->aspect, camera->nearClipPlane, camera->farClipPlane));
-
-            glMultMatrixf((float *)&projMatrix.m[0][0]);
-        } else {
-            glOrtho(-camera->aspect, camera->aspect, -camera->aspect, camera->aspect, camera->nearClipPlane, camera->farClipPlane);
-        }
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity(); 
+        
+        Matrix4x4 projMatrix = camera->getModelViewProjectionMatrix();
+        glMultMatrixf(projMatrix.getData());
     }
 }
 
@@ -223,11 +212,11 @@ void OpenGLRenderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* mat
     // setup material
     if (material != null) {
         // setup color
-        Color c = material->color;
+        Color c = material->getMainColor();
         glColor3f(c.r, c.g, c.b);
 
         // setup texture
-        Texture* mainTexture = material->mainTexture;
+        Texture* mainTexture = material->getMainTexture();
 
         if (mainTexture != null) {
             GLuint textureID = OpenGLRendererInitTexture(mainTexture);

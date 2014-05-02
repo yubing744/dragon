@@ -67,7 +67,7 @@ String* Component::getName() {
 
 Transform* Component::getTransform() {
     if (this->gameObject != null) {
-        return this->gameObject->transform;
+        return this->gameObject->getTransform();
     }
 
     return null;

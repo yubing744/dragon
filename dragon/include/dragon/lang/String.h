@@ -159,8 +159,10 @@ protected:
 public:
 	String* operator = (const char* str);
 	String* operator = (const wchar_t* str);
-     String& operator = (const String& str); 
-     String* operator->(){ return this; };
+     String& operator = (const String& str);
+
+     String* operator->() { return this; };
+     const String* operator->() const { return this; };
 
      //bool operator< (const String& str) const;	
 /*

@@ -27,17 +27,42 @@
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Plane.h>
 
 BeginPackage4(com, dragon3d, util, math)
 
 Import dragon::lang;
 Import com::dragon3d::util::math;
 
+/**
+ * Representation of rays.
+ *
+ * A ray is an infinite line starting at origin and going in some direction.
+ * 
+ * @param  Object [description]
+ * @return        [description]
+ */
 class _DragonExport Ray3 extends(Object) {
 public:
-    Ray3(Vector3 origin, Vector3 direction);
+    static const Type* TYPE;
+    
+public:
+    Ray3(const Vector3& origin, const Vector3& direction);
 
 public:
+    /**
+     * get the origin of ray.
+     * 
+     * @return [description]
+     */
+    Vector3 getOrigin();
+
+    /**
+     * [getDirection description]
+     * @return [description]
+     */
+    Vector3 getDirection();
+
     /**
      * Returns a point at distance units along the ray.
      * 
@@ -46,7 +71,34 @@ public:
      */
     Vector3 getPoint(float distance);
 
-public:
+    /**
+     * Determine whether a ray intersect with a triangle
+     * 
+     * @param  plane [description]
+     * @param  t     [description]
+     * @return       [description]
+     */
+    bool intersectPlane(Plane* plane, float* t);
+
+    /**
+     * Determine whether a ray intersect with a triangle
+     *
+     * v0, v1, v2: vertices of triangle
+     * t(out): weight of the intersection for the ray
+     * u(out), v(out): barycentric coordinate of intersection
+     * 
+     * @param  v0 [description]
+     * @param  v1 [description]
+     * @param  v2 [description]
+     * @param  t  [description]
+     * @param  u  [description]
+     * @param  v  [description]
+     * @return    [description]
+     */
+    bool intersectTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, float* t, float* u, float* v);
+    bool intersectTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, float* t);
+
+protected:
     /**
      * The direction of the ray.
      *

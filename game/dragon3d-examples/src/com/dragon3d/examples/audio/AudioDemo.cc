@@ -89,8 +89,8 @@ void AudioDemo::init() {
 
     myBox->addComponent(as);
 
-    myBox->transform->setPosition(Vector3(0, 0, 1));
-    myBox->transform->setLocalPosition(Vector3(0, 0, 0));
+    myBox->getTransform()->setPosition(Vector3(0, 0, 1));
+    myBox->getTransform()->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject();
 
@@ -100,16 +100,16 @@ void AudioDemo::init() {
     AudioListener* lis = new AudioListener();
     child->addComponent(lis);
     
-    child->transform->setPosition(Vector3(0, 0, 10));
-    child->transform->setLocalPosition(Vector3(0, 2, 0));
+    child->getTransform()->setPosition(Vector3(0, 0, 10));
+    child->getTransform()->setLocalPosition(Vector3(0, 2, 0));
     //child->transform->setLocalPosition(Vector3(1, 2, 0));
-    child->transform->setParent(myBox->transform);
+    child->getTransform()->setParent(myBox->getTransform());
     
     mainCamera = new GameObject();
     Camera* camera = new Camera();
     mainCamera->addComponent(camera);
     
-    camera->pixelRect = Rect(0, 0, 320, 480);
+    camera->resize(320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
     camera->getTransform()->setPosition(Vector3(0, 1, -5));
 
@@ -130,7 +130,7 @@ void AudioDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
-    myBox->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
     //child->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::World);

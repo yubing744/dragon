@@ -17,18 +17,25 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/21
+ * Created:     2014/05/01
  **********************************************************************/
 
 
-#include <com/dragon3d/game/Game.h>
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/scene/texture/Cubemap.h>
 
-Import com::dragon3d::game;
+Import dragon::lang::gc;
+Import dragon::util::logging;
+Import com::dragon3d::scene::texture;
 
-Game::Game() {
+const Type* Cubemap::TYPE = TypeOf<Cubemap>();
+static Logger* logger = Logger::getLogger(Cubemap::TYPE, ERROR);
+
+Cubemap::Cubemap() {
 
 }
 
-Game::~Game() {
+Cubemap::~Cubemap() {
 
 }

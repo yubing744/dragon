@@ -26,12 +26,14 @@
 
 #include <dragon/config.h>
 #include <com/dragon3d/framework/Scene.h>
+#include <com/dragon3d/scene/Bounds.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/output/graphics/GraphicsRenderer.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
 Import com::dragon3d::framework;
+Import com::dragon3d::scene;
 Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 
@@ -43,6 +45,20 @@ public:
     virtual ~Renderable(){};
 
 public:
+    /**
+     * get the bounds of the renderable object.
+     * 
+     * @return [description]
+     */
+    virtual Bounds* getBounds() = 0;
+
+    /**
+     * render the renderable object to camera.
+     * 
+     * @param gr     [description]
+     * @param scene  [description]
+     * @param camera [description]
+     */
     virtual void renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) = 0;
 
 };//Renderable

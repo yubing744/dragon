@@ -47,11 +47,13 @@ public:
     virtual ~PlacementGrid();
 
 public:
-   virtual void renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera); 
+    virtual Bounds* getBounds();
+    virtual void renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera); 
 
 protected:
     int size;
     Color color;
+    Bounds* bounds;
 };//PlacementGrid
 
 EndPackage4 //(com, dragon3d, util, debug)

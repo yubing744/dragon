@@ -48,22 +48,30 @@ Import com::dragon3d::output::graphics::shader;
 
 class _DragonExport Material extends(Object) {
 public:
+    static const Type* TYPE;
+
+public:
     class TextureProp extends(Object) {
     public:
+        static const Type* TYPE;
+
+    public:
         TextureProp() :texture(null), 
-            textureOffset(Vector2::ZERO), 
-            textureScale(Vector2::ONE) {
+            textureOffset(null), 
+            textureScale(null) {
 
         };
 
         virtual ~TextureProp(){
             SafeRelease(this->texture);
+            SafeRelease(this->textureOffset);
+            SafeRelease(this->textureScale);
         };
 
     public:
         Texture* texture;
-        Vector2 textureOffset;
-        Vector2 textureScale;
+        Vector2* textureOffset;
+        Vector2* textureScale;
     };
 
 public:
@@ -102,14 +110,18 @@ public:
     void setTextureOffset(const String& propName, const Vector2& offset);
     void setTextureScale(const String& propName, const Vector2& scale);
 
-protected:
-    TextureProp* getTextureProp(const String& propName);
+    void renderUntoShader(Shader* shader);
 
 public:
-    Color color;
-    Texture* mainTexture;
-    Vector2 mainTextureOffset;
-    Vector2 mainTextureScale;
+    void setMainColor(const Color& color);
+    Color getMainColor();
+
+    Texture* getMainTexture();
+    void setMainTexture(Texture* texture);
+
+protected:
+    TextureProp* getTextureProp(const String& propName);
+    void renderPropUnto(const String& name, Object* obj, Shader* shader);
 
 protected:
 	String* name;

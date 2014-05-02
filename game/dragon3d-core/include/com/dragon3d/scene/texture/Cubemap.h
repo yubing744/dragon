@@ -17,7 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/04/18
+ * Created:     2014/05/01
  **********************************************************************/
 
 
+#ifndef Cubemap_Texture_Scene_Dragon3d_Com_H
+#define Cubemap_Texture_Scene_Dragon3d_Com_H
+
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+
+BeginPackage4(com, dragon3d, scene, texture)
+
+Import dragon::lang;
+
+class_ Cubemap extends(Object) {
+public:
+    static const Type* TYPE;
+    
+public:
+    Cubemap();
+    virtual ~Cubemap();
+
+public:
+    
+protected:
+    
+};//Cubemap
+
+EndPackage4 //(com, dragon3d, scene, texture)
+
+#endif //Cubemap_Texture_Scene_Dragon3d_Com_H

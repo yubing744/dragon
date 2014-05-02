@@ -32,6 +32,7 @@
 
 #include <com/dragon3d/framework/Scene.h>
 #include <com/dragon3d/scene/Component.h>
+#include <com/dragon3d/scene/Bounds.h>
 #include <com/dragon3d/scene/model/Mesh.h>
 #include <com/dragon3d/output/graphics/Renderable.h>
 
@@ -86,6 +87,7 @@ public:
     virtual Material* getMaterialByName(const String& name);
 
 public: //implements Renderable
+    virtual Bounds* getBounds();
     virtual void renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera);
 
 protected:
@@ -116,7 +118,12 @@ protected:
      * the child matrix
      */
     Matrix4x4 matrix;
-    
+   
+    /**
+     * the bounds of model.
+     */
+    Bounds* bounds;
+
 };//Model
 
 EndPackage4 //(com, dragon3d, scene, model)

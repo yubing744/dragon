@@ -38,6 +38,9 @@ Import com::dragon3d::util::math;
  */
 class _DragonExport Color extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     static const Color WHITE;
     static const Color RED;
     static const Color GREEN;

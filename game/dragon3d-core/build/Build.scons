@@ -629,6 +629,10 @@ LibraryModule(
 
 # dragon3d-core
 dragon3d_core_SOURCES = {
+    "com/dragon3d" : Split("""
+        config.cc
+    """),
+
     "com/dragon3d/launcher" : Split("""
         AppLauncher.cc
     """),
@@ -648,9 +652,11 @@ dragon3d_core_SOURCES = {
         SimpleScene.cc
 
         Shader.cc
+        Bounds.cc
     """),
 
     "com/dragon3d/scene/camera" : Split("""
+        Frustum.cc
         Camera.cc
     """),
 
@@ -691,6 +697,9 @@ dragon3d_core_SOURCES = {
 
     "com/dragon3d/output/graphics/renderer" : Split("""
         support_graphics_renderer.cc
+    """),
+    "com/dragon3d/output/graphics/renderqueue" : Split("""
+        RenderQueue.cc
     """),
     "com/dragon3d/output/graphics/shader" : Split("""
         ShaderException.cc

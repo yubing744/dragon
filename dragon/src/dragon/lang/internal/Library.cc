@@ -64,6 +64,10 @@ Library::Library(const char* libPath)
 	this->classTree->spaces = NULL;
 }
 
+const char* Library::getPath() const {
+	return this->libPath;
+}
+
 // -------------------------------------------------
 // free class tree
 // 

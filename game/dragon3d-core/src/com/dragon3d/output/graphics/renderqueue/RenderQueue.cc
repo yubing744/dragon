@@ -17,35 +17,49 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/28
+ * Created:     2014/05/01
  **********************************************************************/
 
 
-#include <com/dragon3d/output/graphics/GraphicsOutputController.h>
-
 #include <dragon/util/ArrayList.h>
-#include <dragon/util/logging/Logger.h>
 
-#include <com/dragon3d/scene/model/Model.h>
-#include <com/dragon3d/scene/camera/Camera.h>
-#include <com/dragon3d/output/graphics/renderer/OpenGLRenderer.h>
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/output/graphics/renderqueue/RenderQueue.h>
 
 Import dragon::util;
 
+Import dragon::lang::gc;
 Import dragon::util::logging;
-Import com::dragon3d::scene::model;
-Import com::dragon3d::scene::camera;
-Import com::dragon3d::output::graphics;
-Import com::dragon3d::output::graphics::renderer;
+Import com::dragon3d::output::graphics::renderqueue;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController#osx", INFO);
+const Type* RenderQueue::TYPE = TypeOf<RenderQueue>();
+static Logger* logger = Logger::getLogger(RenderQueue::TYPE, ERROR);
 
-GraphicsOutputController::GraphicsOutputController(GraphicsDevice* graphicsDevice) {
-    this->graphicsDevice = graphicsDevice;
-	this->graphicsRenderer = new OpenGLRenderer(graphicsDevice);
+RenderQueue::RenderQueue() {
+    this->queue = new ArrayList<Renderable>();
 }
 
-GraphicsOutputController::~GraphicsOutputController() {
-
+RenderQueue::~RenderQueue() {
+    SafeRelease(this->queue);
 }
 
+void RenderQueue::clear() {
+    this->queue->clear();
+}
+
+void RenderQueue::add(Renderable* renderable) {
+    this->queue->add(renderable);
+}
+
+void RenderQueue::addAll(List<Renderable>* renderables) {
+    this->queue->addAll(renderables);
+}
+
+Iterator<Renderable>* RenderQueue::iterator() {
+    return this->queue->iterator();
+}
+
+void RenderQueue::sort() {
+
+}

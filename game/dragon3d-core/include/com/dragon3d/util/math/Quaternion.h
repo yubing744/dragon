@@ -36,6 +36,9 @@ Import com::dragon3d::util::math;
 
 class _DragonExport Quaternion extends(Object) {
 public:
+    static const Type* TYPE;
+    
+public:
     static const Quaternion IDENTITY;
 
 public:
@@ -71,6 +74,10 @@ public:
     Quaternion();
     Quaternion(float x, float y, float z);
     Quaternion(float x, float y, float z, float w);
+    
+public:
+    bool operator==(const Quaternion& a) const;
+    bool operator!=(const Quaternion& a) const;
 
 public:
     /**
@@ -139,6 +146,11 @@ public:
      * @param axis  [description]
      */
     void toAngleAxis(float& angle, Vector3& axis) const;
+
+    /**
+     * Converts this quaternion to a rotation matrix and then extracts rotation axes. 
+     */
+    const Array<Vector3> toAxes() const;
 
     /**
      * Compute the quaternion conjugate.  This is the quaternian with 

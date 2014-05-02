@@ -1,3 +1,5 @@
+LoadTool('gcc-generic', env)
+
 ### add the tools to the path
 
 IOS_TOOLCHAIN_BIN='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin'
