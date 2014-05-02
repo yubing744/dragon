@@ -52,7 +52,7 @@ public:
 public:
 	Type* raw() const { return mpType;};
 	Type& ref() const { checkNullPointer(); return *mpType;};
-	Type* retain() const { checkNullPointer(); SafeRetain(mpType); return mpType; };
+	Type* retain() const { SafeRetain(mpType); return mpType; };
 	void* ployCast(Type* p);
 
 protected:

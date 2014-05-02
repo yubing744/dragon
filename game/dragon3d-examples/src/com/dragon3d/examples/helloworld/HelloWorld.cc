@@ -129,10 +129,12 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     Vector3 pos = myBox->getTransform()->getPosition();
     Vector3 localPos = myBox->getTransform()->getLocalPosition();
     
-    logger->info("myBox pos:        %f %f %f", pos.x, pos.y, pos.z);
+    //logger->info("myBox pos:        %f %f %f", pos.x, pos.y, pos.z);
     logger->info("myBox local pos : %f %f %f", localPos.x, localPos.y, localPos.z);
     
-    camera->lookAt(pos, Vector3::UP);
+    Vector3 p = myBox->getTransform()->transformDirection(Vector3::ZERO);
+    logger->info("myBox local pos : %f %f %f", p.x, p.y, p.z);
+    camera->lookAt(p, Vector3::UP);
     
     logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }

@@ -212,6 +212,21 @@ public:
     Matrix4x4 scale(float x, float y, float z) const;
     Matrix4x4 scale(const Vector3& v) const;
 
+    /**
+     * Transforms a position by this matrix (generic).
+     * 
+     * @param  v [description]
+     * @return   [description]
+     */
+    Vector3 multiplyPoint(const Vector3& v);
+
+    /**
+     * Transforms a direction by this matrix.
+     * 
+     * @param  v [description]
+     * @return   [description]
+     */
+    Vector3 multiplyVector(const Vector3& v);
 
 public:
     /**

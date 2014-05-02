@@ -39,10 +39,6 @@ Transform::Transform()
     rotation(Quaternion::IDENTITY),
     scale(Vector3::ONE),
 
-    localPosition(Vector3::ZERO),
-    localRotation(Quaternion::IDENTITY),
-    localScale(Vector3::ONE),
-
     worldToLocalMatrix(Matrix4x4::IDENTITY),
     localToWorldMatrix(Matrix4x4::IDENTITY),
 
@@ -63,10 +59,10 @@ Transform::~Transform(void){
 }
 
 void Transform::translate(const Vector3& translation, Space relativeTo) {
-    if (World == relativeTo) {
-        this->setPosition(this->getPosition().add(translation));
-    } else if (Self == relativeTo) {
-        this->localPosition = this->localPosition.add(translation);
+    if (World == relativeTo || this->parent == null) {
+        this->position = this->position.add(translation);
+    } else {
+        this->position = this->parent->position.add(translation);
     }
 
     this->changed = true;
@@ -79,10 +75,10 @@ void Transform::translate(const Vector3& translation){
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo){
     Quaternion offset = Quaternion::euler(xAngle, yAngle, zAngle);
 
-    if (World == relativeTo) {
-        this->setRotation(this->getRotation().multiply(offset));
-    } else if (Self == relativeTo) {
-        this->localRotation = this->localRotation.multiply(offset);
+    if (World == relativeTo || this->parent == null) {
+        this->rotation = this->rotation.multiply(offset);
+    } else {
+        this->rotation = this->parent->rotation.multiply(offset);
     }
 
     this->changed = true;
@@ -111,42 +107,24 @@ void Transform::setPosition(const Vector3& p) {
     if (this->position != p) {
         this->position = p;
 
-        if (this->parent != null) {
-            Vector3 offset = p.substract(this->getPosition());
-            this->localPosition = this->localPosition.add(offset);
-        } 
-
         this->changed = true;
     }
 }
     
 Vector3 Transform::getPosition() {
-    if (this->parent != null) {
-        return this->getLocalToWorldMatrix().getTranslation();
-    } else {
-        return this->position;
-    }
+    return this->position;
 }
 
 void Transform::setRotation(const Quaternion& r) {
     if (this->rotation != r) {
         this->rotation = r;
 
-        if (this->parent != null) {
-            Quaternion offset = r.multiply(this->getRotation().conjugate());
-            this->localRotation = this->localRotation.multiply(offset);
-        } 
-
         this->changed = true;
     }
 }
 
 Quaternion Transform::getRotation() {
-    if (this->parent != null) {
-        return this->getLocalToWorldMatrix().getQuaternion();
-    } else {
-        return this->rotation;
-    }
+    return this->rotation;
 }
 
 void Transform::setScale(const Vector3& s) {
@@ -157,44 +135,61 @@ void Transform::setScale(const Vector3& s) {
 }
 
 Vector3 Transform::getScale() {
-    if (this->parent != null) {
-        return this->localScale.add(this->parent->getScale());
-    } else {
-        return this->scale;
-    }
+    return this->scale;
 }
 
 void Transform::setLocalPosition(const Vector3& p) {
-    if (this->localPosition != p) {
-        this->localPosition = p;
-        this->changed = true;
-    }
+    Vector3 p1 = p;
+
+    if (this->parent != null) {
+        p1 = this->parent->position.substract(p);
+    } 
+
+    this->setPosition(p1);
 }
 
 Vector3 Transform::getLocalPosition() {
-    return this->localPosition;
+    if (this->parent != null) {
+        return this->position.substract(this->parent->position);
+    } else {
+        return this->position;
+    }
 }
 
 void Transform::setLocalRotation(const Quaternion& r) {
-    if (this->localRotation != r) {
-        this->localRotation = r;
-        this->changed = true;
-    }
+    Quaternion r1 = r;
+
+    if (this->parent != null) {
+        r1 = this->parent->rotation.subtract(r);
+    } 
+
+    this->setRotation(r1);
 }
 
 Quaternion Transform::getLocalRotation() {
-    return this->localRotation;
-}
-
-void Transform::setLocalScale(const Vector3& s) {
-    if (this->localScale != s) {
-        this->localScale = s;
-        this->changed = true;
+    if (this->parent != null) {
+        return this->rotation.subtract(this->parent->rotation);
+    } else {
+        return this->rotation;
     }
 }
 
+void Transform::setLocalScale(const Vector3& s) {
+    Vector3 s1 = s;
+
+    if (this->parent != null) {
+        s1 = this->parent->scale.substract(s);
+    } 
+
+    this->setScale(s1);
+}
+
 Vector3 Transform::getLocalScale() {
-    return this->localScale;
+    if (this->parent != null) {
+        return this->scale.substract(this->parent->scale);
+    } else {
+        return this->scale;
+    }
 }
 
 
@@ -233,14 +228,14 @@ void Transform::setEulerAngles(const Vector3& angles) {
 }
 
 Vector3 Transform::getLocalEulerAngles() {
-    return this->localRotation.getEulerAngles();
+    Quaternion localRotation = this->getLocalRotation();
+    return localRotation.getEulerAngles();
 }
 
 void Transform::setLocalEulerAngles(const Vector3& angles) {
-    this->localRotation = Quaternion::euler(angles);
-    this->changed = true;
+    Quaternion localRotation = Quaternion::euler(angles);
+    this->setLocalRotation(localRotation);
 }
-
 
 bool Transform::hasChanged() {
    return this->changed || (this->parent!=null && this->parent->hasChanged()); 
@@ -260,21 +255,8 @@ Matrix4x4 Transform::getLocalToWorldMatrix() {
 
 void Transform::recalculatedMatrix() {
     if (this->hasChanged()) {
-        Matrix4x4 temp = Matrix4x4::IDENTITY;
-
-        temp = temp.multiply(Matrix4x4::TRS(localPosition, localRotation, localScale));
-
-        if (this->parent != null) {
-            temp = temp.multiply(this->parent->getLocalToWorldMatrix());
-        } else {
-            temp = temp.multiply(Matrix4x4::TRS(position, rotation, scale));
-        }
-
-        //Ref<String> msg = temp.toString();
-        //logger->info("the matrix" + msg);
-
-        this->localToWorldMatrix = temp;
-        this->worldToLocalMatrix = temp.inverse();
+        this->localToWorldMatrix = Matrix4x4::TRS(position, rotation, scale);
+        this->worldToLocalMatrix = this->localToWorldMatrix.inverse();
 
         this->changed = false;
     }  
@@ -293,16 +275,17 @@ Transform* Transform::getParent() {
 }
 
 void Transform::detachChildren() {
-    Iterator<Transform>* it = this->children->iterator();
+    Ref<Iterator<Transform> > it = this->children->iterator();
 
     while(it->hasNext()) {
-        Transform* transform = it->next();
+        Ref<Transform> transform = it->next();
         transform->setParent(null);
     }
 }
 
 Transform* Transform::getChild(int index) {
-    if (index >=0 && index<this->children->size()) {
+    if (this->children!=null && index >=0 
+        && index<this->children->size()) {
         return this->children->get(index);
     }
 
@@ -310,7 +293,11 @@ Transform* Transform::getChild(int index) {
 }
 
 int Transform::childCount() {
-    return this->children->size();
+    if (this->children != null) {
+        return this->children->size();
+    }
+
+    return 0;
 }
 
 // -----------------------------------------------------------
@@ -318,19 +305,17 @@ int Transform::childCount() {
 // 
 Transform* TransformInternalfind(List<Transform>* children, String* name) {
     if (children != null) {
-        Iterator<Transform>* it = children->iterator();
+        Ref<Iterator<Transform> > it = children->iterator();
 
         while(it->hasNext()) {
-            Transform* transform = it->next();
+            Ref<Transform> transform = it->next();
+            Ref<String> tName = transform->getName();
 
-            if (transform->getName() != null 
-                && transform->getName()->equals(name)) {
-                SafeDelete(it);
+            if (tName != null && name!=null && 
+                name->equals(tName.raw())) {
                 return transform;
             }
         }
-
-        SafeDelete(it);
     }
 
     return null;
@@ -339,21 +324,19 @@ Transform* TransformInternalfind(List<Transform>* children, String* name) {
 Transform* Transform::internalRecursionFind(const String* path) {
     int pos = path->indexOf('/');
 
-    Transform* finded = null;
+    Ref<Transform> finded = null;
 
     if (pos > 0) {
-        String* first = path->substring(0, pos);
-        Transform* finded = TransformInternalfind(this->children, first);
-        SafeDelete(first);
+        Ref<String> first = path->substring(0, pos);
+        finded = TransformInternalfind(this->children, first);
 
         if (finded != null && pos < path->length()) {
-            String* lastPath = path->substring(pos);
+            Ref<String> lastPath = path->substring(pos);
             finded = finded->internalRecursionFind(lastPath);
-            SafeDelete(lastPath);
         }
     }
 
-    return finded;
+    return finded.retain();
 }
 
 Transform* Transform::find(const String& name) {
@@ -361,50 +344,73 @@ Transform* Transform::find(const String& name) {
     return this->internalRecursionFind(path);
 }
 
+// -------------------------------------------
+// transform point and vector
+
+// transform
 Vector3 Transform::transformPoint(const Vector3& position) {
-    throw "not implements!";
+    Matrix4x4 matrix = this->getWorldToLocalMatrix();
+    return matrix.multiplyPoint(position);
 }
 
 Vector3 Transform::transformPoint(float x, float y, float z) {
-    throw "not implements!";
+    return this->transformPoint(Vector3(x, y, z));
 }
 
-Vector3 Transform::inverseTransformPoint(const Vector3& position) {
-    throw "not implements!";
-}
-
-Vector3 Transform::inverseTransformPoint(float x, float y, float z) {
-    throw "not implements!";
-}
 
 Vector3 Transform::transformDirection(const Vector3& direction) {
-    throw "not implements!";
+    Matrix4x4 matrix = this->getWorldToLocalMatrix();
+    return matrix.multiplyVector(position);
 }
 
 Vector3 Transform::transformDirection(float x, float y, float z) {
-    throw "not implements!";
+    return this->transformDirection(Vector3(x, y, z));
+}
+
+// inverse transform
+Vector3 Transform::inverseTransformPoint(const Vector3& position) {
+    Matrix4x4 matrix = this->getLocalToWorldMatrix();
+    return matrix.multiplyPoint(position);
+}
+
+Vector3 Transform::inverseTransformPoint(float x, float y, float z) {
+    return this->inverseTransformPoint(Vector3(x, y, z));
 }
 
 Vector3 Transform::inverseTransformDirection(const Vector3& direction) {
-    throw "not implements!";
+    Matrix4x4 matrix = this->getLocalToWorldMatrix();
+    return matrix.multiplyVector(position);
 }
 
 Vector3 Transform::inverseTransformDirection(float x, float y, float z) {
-    throw "not implements!";
+    return this->inverseTransformDirection(Vector3(x, y, z));
 }
 
-void Transform::lookAt(Transform* target) {
-    throw "not implements!";
-}
-
-void Transform::lookAt(Transform* target, const Vector3& worldUp) {
-    throw "not implements!";
-}
-
+// lookAt
 void Transform::lookAt(const Vector3& worldPosition) {
-    throw "not implements!";
+    this->lookAt(worldPosition, Vector3::UP);
 }
 
 void Transform::lookAt(const Vector3& worldPosition, const Vector3& worldUp) {
-    throw "not implements!";  
+    Vector3 eye = this->getPosition();
+    Vector3 center = worldPosition;
+    Vector3 up = worldUp;
+    
+    Matrix4x4 ts = Matrix4x4::lookAt(eye, center, up);
+    ts = ts.inverse();
+
+    Vector3 newPos = ts.getTranslation();
+    Quaternion newRot = ts.getQuaternion();
+
+    this->setPosition(newPos);
+    this->setLocalRotation(newRot);
+}
+
+void Transform::lookAt(Transform* target) {
+    this->lookAt(target, Vector3::UP);
+}
+
+void Transform::lookAt(Transform* target, const Vector3& worldUp) {
+    Vector3 worldPosition = this->transformDirection(Vector3::ZERO);
+    this->lookAt(worldPosition, worldUp);
 }

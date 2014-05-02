@@ -255,18 +255,7 @@ void Camera::lookAt(const Vector3& pos, const Vector3& worldUpVector) {
 }
 
 void Camera::lookAt(float x, float y, float z, const Vector3& worldUpVector) {
-    Vector3 eye = this->getTransform()->getPosition();
-    Vector3 center = Vector3(x, y, z);
-    Vector3 up = worldUpVector;
-    
-    Matrix4x4 ts = Matrix4x4::lookAt(eye, center, up);
-    ts = ts.inverse();
-
-    Vector3 newPos = ts.getTranslation();
-    Quaternion newRot = ts.getQuaternion();
-
-    this->getTransform()->setPosition(newPos);
-    this->getTransform()->setLocalRotation(newRot);
+    this->getTransform()->lookAt(Vector3(x, y, z), worldUpVector);
 
     onFrustumChange();
     onFrameChange();

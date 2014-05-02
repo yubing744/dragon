@@ -27,6 +27,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 
+#include <dragon/lang/Class.h>
 #include <dragon/lang/String.h>
 #include <dragon/util/logging/Logger.h>
 #include <dragon/util/logging/LogManager.h>
@@ -116,9 +117,11 @@ void Logger::logThrowable(int level, const String& msg, Throwable* throwable) {
 	if (this->isEnabled(level)) {
 		String* tMsg = throwable->getMessage();
 		char* cMsg = tMsg->toUTF8String();
+
+		const Class* clazz = throwable->getClass();
 		char* utf8Msg = msg.toUTF8String();
 
-		String* fmtedMsg = String::format("%s \n    casue: %s", utf8Msg, cMsg);
+		String* fmtedMsg = String::format("%s %s \n    casue: %s", clazz->getName(), utf8Msg, cMsg);
 		char* utf8Str = fmtedMsg->toUTF8String();
 
 	    for (Iterator it = handlers.begin(); it!=handlers.end(); ++it) {

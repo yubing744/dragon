@@ -313,30 +313,24 @@ protected:
      */
     void recalculatedMatrix();
     
-protected:
-    /**
-     *  The parent of the transform.
-     */
-    Transform* parent;
-
+protected: // fields
     // transform in world space
     Vector3 position;
     Quaternion rotation;
     Vector3 scale;
 
-    // transform relative to the parent transform.
-    Vector3 localPosition;
-    Quaternion localRotation;
-    Vector3 localScale;
+    /**
+     *  The parent of the transform.
+     */
+    Transform* parent;
 
     /**
-     * Matrix that transforms a point from local space into world space 
-     * and from world space to local space.
-     * 
+     * the children Transform
      */
-    Matrix4x4 worldToLocalMatrix;
-    Matrix4x4 localToWorldMatrix;
+    List<Transform>* children;
 
+
+protected: // cache
     /**
      * Has the transform changed since the last time the flag was set to 'false'?
      *
@@ -347,10 +341,12 @@ protected:
     bool changed;
 
     /**
-     * the children Transform
+     * Matrix that transforms a point from local space into world space 
+     * and from world space to local space.
+     * 
      */
-    List<Transform>* children;
-
+    Matrix4x4 worldToLocalMatrix;
+    Matrix4x4 localToWorldMatrix;
 };//Transform
 
 EndPackage3 //(com, dragon3d, scene)

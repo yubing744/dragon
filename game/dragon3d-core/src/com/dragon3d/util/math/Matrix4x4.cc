@@ -632,6 +632,33 @@ Quaternion Matrix4x4::getQuaternion() const {
     return Quaternion(x, y, z, w);
 }
 
+Vector3 Matrix4x4::multiplyPoint(const Vector3& v) {
+    Vector3 store = Vector3::ZERO;
+
+    float x = v.getX();
+    float y = v.getY();
+    float z = v.getZ();
+
+    store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3]);
+    store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3]);
+    store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3]);
+
+    return store;
+}
+
+Vector3 Matrix4x4::multiplyVector(const Vector3& v) {
+    Vector3 store = Vector3::ZERO;
+
+    float x = v.getX();
+    float y = v.getY();
+    float z = v.getZ();
+
+    store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z);
+    store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z);
+    store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z);
+
+    return store;
+}
 
 const float* Matrix4x4::getData() const {
     return (float*)(&this->m[0][0]);
