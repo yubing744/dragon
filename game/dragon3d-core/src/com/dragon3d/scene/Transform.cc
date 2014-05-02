@@ -100,6 +100,9 @@ void Transform::rotate(const Vector3& eulerAngles){
     this->rotate(eulerAngles.x, eulerAngles.y, eulerAngles.z, Self);
 }
 
+void Transform::rotateAround(const Vector3& point, const Vector3& axis, float angle) {
+    throw "not implements!";
+}
 
 // -------------------------------------------------------------
 
@@ -245,22 +248,15 @@ bool Transform::hasChanged() {
 
 Matrix4x4 Transform::getWorldToLocalMatrix() {
     this->recalculatedMatrix();
-    return this->worldToLocalMatrix;
-}
 
-void Transform::setWorldToLocalMatrix(const Matrix4x4& matrix) {
-    this->worldToLocalMatrix = matrix;
+    return this->worldToLocalMatrix;
 }
 
 Matrix4x4 Transform::getLocalToWorldMatrix() {
     this->recalculatedMatrix();
+
     return this->localToWorldMatrix;
 }
-
-void Transform::setLocalToWorldMatrix(const Matrix4x4& matrix) {
-    this->localToWorldMatrix = matrix;
-}
-
 
 void Transform::recalculatedMatrix() {
     if (this->hasChanged()) {
@@ -363,4 +359,52 @@ Transform* Transform::internalRecursionFind(const String* path) {
 Transform* Transform::find(const String& name) {
     const String* path = &name;
     return this->internalRecursionFind(path);
+}
+
+Vector3 Transform::transformPoint(const Vector3& position) {
+    throw "not implements!";
+}
+
+Vector3 Transform::transformPoint(float x, float y, float z) {
+    throw "not implements!";
+}
+
+Vector3 Transform::inverseTransformPoint(const Vector3& position) {
+    throw "not implements!";
+}
+
+Vector3 Transform::inverseTransformPoint(float x, float y, float z) {
+    throw "not implements!";
+}
+
+Vector3 Transform::transformDirection(const Vector3& direction) {
+    throw "not implements!";
+}
+
+Vector3 Transform::transformDirection(float x, float y, float z) {
+    throw "not implements!";
+}
+
+Vector3 Transform::inverseTransformDirection(const Vector3& direction) {
+    throw "not implements!";
+}
+
+Vector3 Transform::inverseTransformDirection(float x, float y, float z) {
+    throw "not implements!";
+}
+
+void Transform::lookAt(Transform* target) {
+    throw "not implements!";
+}
+
+void Transform::lookAt(Transform* target, const Vector3& worldUp) {
+    throw "not implements!";
+}
+
+void Transform::lookAt(const Vector3& worldPosition) {
+    throw "not implements!";
+}
+
+void Transform::lookAt(const Vector3& worldPosition, const Vector3& worldUp) {
+    throw "not implements!";  
 }

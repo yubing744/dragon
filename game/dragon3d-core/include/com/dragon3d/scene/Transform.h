@@ -60,7 +60,7 @@ public:
     Transform();
     virtual ~Transform();
 
-public: //Property
+public: //Propertys
     /**
      * position
      * 
@@ -125,13 +125,11 @@ public: //Property
      * Matrix that transforms a point from local space into world space
      */
     Matrix4x4 getWorldToLocalMatrix();
-    void setWorldToLocalMatrix(const Matrix4x4& matrix);
 
     /**
      * Matrix that transforms a point from local space into world space
      */
-    Matrix4x4 getLocalToWorldMatrix();   
-    void setLocalToWorldMatrix(const Matrix4x4& matrix);
+    Matrix4x4 getLocalToWorldMatrix();
 
     /**
      * The parent of the transform.
@@ -141,7 +139,7 @@ public: //Property
     void setParent(Transform* parent);
     Transform* getParent();
 
-public:
+public: // Methods
     /**
      * Moves the transform in the direction and distance of translation.
      * 
@@ -167,6 +165,15 @@ public:
      */
     void rotate(float xAngle, float yAngle, float zAngle);
     void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo);
+
+    /**
+     * Rotates the transform about axis passing through point in world coordinates by angle degrees.
+     * 
+     * @param point [description]
+     * @param axis  [description]
+     * @param angle [description]
+     */
+    void rotateAround(const Vector3& point, const Vector3& axis, float angle);
 
     /**
      * Returns the topmost transform in the hierarchy.
@@ -231,6 +238,66 @@ public:
      * @return [description]
      */
     bool hasChanged();
+
+    /**
+     * Transforms position from local space to world space.
+     * 
+     * @param  position [description]
+     * @return          [description]
+     */
+    Vector3 transformPoint(const Vector3& position);
+    Vector3 transformPoint(float x, float y, float z);
+
+    /**
+     * Transforms position from world space to local space. The opposite of Transform.TransformPoint.
+     * 
+     * @param  position [description]
+     * @return          [description]
+     */
+    Vector3 inverseTransformPoint(const Vector3& position);
+    Vector3 inverseTransformPoint(float x, float y, float z);
+
+    /**
+     * Transforms direction from local space to world space.
+     * 
+     * @param  direction [description]
+     * @return           [description]
+     */
+    Vector3 transformDirection(const Vector3& direction);
+    Vector3 transformDirection(float x, float y, float z);
+
+    /**
+     * Transforms the direction x, y, z from world space to local space. The opposite of Transform.TransformDirection.
+     * 
+     * @param  direction [description]
+     * @return           [description]
+     */
+    Vector3 inverseTransformDirection(const Vector3& direction);
+    Vector3 inverseTransformDirection(float x, float y, float z);
+
+    /**
+     * Rotates the transform so the forward vector points at target's current position.
+     *
+     * Then it rotates the transform to point its up direction vector in the direction hinted at by the worldUp vector. 
+     * If you leave out the worldUp parameter, the function will use the world y axis. worldUp is only a hint vector. 
+     * The up vector of the rotation will only match the worldUp vector if the forward direction is perpendicular to worldUp.
+     * 
+     * @param target [description]
+     */
+    void lookAt(Transform* target);
+    void lookAt(Transform* target, const Vector3& worldUp);
+
+    /**
+     * Rotates the transform so the forward vector points at worldPosition.
+     *
+     * Then it rotates the transform to point its up direction vector in the direction hinted at by the worldUp vector.
+     * If you leave out the worldUp parameter, the function will use the world y axis. 
+     * worldUp is only a hint vector. The up vector of the rotation will only match the worldUp vector if the forward direction is perpendicular to worldUp.
+     * 
+     * @param worldPosition [description]
+     */
+    void lookAt(const Vector3& worldPosition);
+    void lookAt(const Vector3& worldPosition, const Vector3& worldUp);
 
 protected:
     /**
