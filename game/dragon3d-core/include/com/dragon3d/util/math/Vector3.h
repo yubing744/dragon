@@ -252,6 +252,15 @@ public:
     static Vector3 scale(const Vector3& a, const Vector3& b);
 
     /**
+     * [divideScale description]
+     * 
+     * @param  a [description]
+     * @param  b [description]
+     * @return   [description]
+     */
+    static Vector3 divideScale(const Vector3& a, const Vector3& b);
+
+    /**
      * Spherically interpolates between two vectors.
      *
      * Interpolates between from and to by amount t. The difference between this and linear interpolation (aka, "lerp")

@@ -135,6 +135,14 @@ Vector3 Vector3::scale(const Vector3& a, const Vector3& b) {
     );
 }
 
+Vector3 Vector3::divideScale(const Vector3& a, const Vector3& b) {
+    return Vector3(
+        a.x / b.x,
+        a.y / b.y,
+        a.z / b.z
+    );
+}
+
 Vector3 Vector3::slerp(const Vector3& from, const Vector3& to, float t) {
     throw "not implements";
 }

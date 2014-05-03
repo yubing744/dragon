@@ -290,6 +290,17 @@ Quaternion Quaternion::multiply(const Quaternion& a) const {
     return result;
 }
 
+Quaternion Quaternion::invert() {
+    Quaternion store = this->conjugate();
+    float magnitudeSQ = magnitudeSquared();
+
+    if (Math::abs(1.0 - magnitudeSQ) <= Mathf::EPSILON) {
+        return store;
+    } else {
+        return store.multiply(1.0 / magnitudeSQ);
+    }
+}
+
 const float* Quaternion::getData() const {
     return (float*)(&this->x);
 }

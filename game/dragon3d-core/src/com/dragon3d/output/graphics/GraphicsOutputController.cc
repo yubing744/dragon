@@ -40,7 +40,7 @@ Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::shader;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", DEBUG);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", ERROR);
 
 void GraphicsOutputController::init() {
 	logger->info("init");

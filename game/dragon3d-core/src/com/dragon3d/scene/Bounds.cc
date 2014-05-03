@@ -36,7 +36,7 @@ Import com::dragon3d::scene;
 Import com::dragon3d::util::math;
 
 const Type* Bounds::TYPE = TypeOf<Bounds>();
-static Logger* logger = Logger::getLogger(Bounds::TYPE, INFO);
+static Logger* logger = Logger::getLogger(Bounds::TYPE, ERROR);
 
 Bounds::Bounds() 
     :center(Vector3::ZERO), extents(Vector3::ONE){
@@ -301,22 +301,22 @@ Bounds* Bounds::transform(const Matrix4x4& matrix) {
     Vector3 init = matrix.multiplyPoint(corners[0]);
     Bounds* box = new Bounds(init, Vector3::ZERO);
 
-    //if (logger->isInfoEnabled()) {
-        logger->info("transform bounds:");
+    if (logger->isDebugEnabled()) {
+        logger->debug("transform bounds:");
 
         Ref<String> srcInitInfo = corners[0].toString();
         Ref<String> vInfo = init.toString();
-        logger->info("the src init p:" + srcInitInfo);
-        logger->info("the init p:" + vInfo);
-    //}
+        logger->debug("the src init p:" + srcInitInfo);
+        logger->debug("the init p:" + vInfo);
+    }
 
     for(int i=1; i<corners.size(); i++) {
         Vector3 tmp = matrix.multiplyPoint(corners[i]);
 
-        //if (logger->isInfoEnabled()) {
+        if (logger->isDebugEnabled()) {
             Ref<String> tmpInfo = tmp.toString();
-            logger->info("the tmp p:" + tmpInfo);
-        //}
+            logger->debug("the tmp p:" + tmpInfo);
+        }
 
         box->encapsulate(tmp);
     }

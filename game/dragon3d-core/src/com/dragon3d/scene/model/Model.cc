@@ -34,7 +34,7 @@ Import com::dragon3d::scene::model;
 Import com::dragon3d::output::graphics;
 
 const Type* Model::TYPE = TypeOf<Model>();
-static Logger* logger = Logger::getLogger(Model::TYPE, INFO);
+static Logger* logger = Logger::getLogger(Model::TYPE, ERROR);
 
 Model::Model() 
     :mesh(null), 
@@ -160,9 +160,11 @@ Material* Model::getMaterialByName(const String& name) {
 Bounds* Model::getBounds() {
     Ref<Transform> ts = this->getTransform();
 
-    Vector3 p = ts->transformDirection(Vector3::ONE);
-    Ref<String> pInfo = p.toString();
-    logger->info("model get bounds:" + pInfo);
+    if (logger->isDebugEnabled()) {
+        Vector3 p = ts->transformDirection(Vector3::ONE);
+        Ref<String> pInfo = p.toString();
+        logger->debug("model get bounds:" + pInfo);
+    }
 
     Matrix4x4 matrix = ts->getWorldToLocalMatrix();
     return this->bounds->transform(matrix);

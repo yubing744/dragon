@@ -191,6 +191,18 @@ public:
      */
     Quaternion multiply(const Quaternion& a) const;
 
+    /**
+     * Calculates the <i>multiplicative inverse</i> <code>Q<sup>-1</sup></code> of this quaternion <code>Q</code> such
+     * that <code>QQ<sup>-1</sup> = [0,0,0,1]</code> (the identity quaternion). Note that for unit quaternions, a
+     * quaternion's inverse is equal to its (far easier to calculate) conjugate.
+     * 
+     * @param store
+     *            the <code>Quaternion</code> to store the result in. If <code>null</code>, a new one is created.
+     * @see #conjugate(Quaternion)
+     * @return the multiplicative inverse of this quaternion.
+     */
+    Quaternion invert();
+
 public:
     const float* getData() const;
     const Array<float> toFloatArray() const;

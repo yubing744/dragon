@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "105"
-         endingLineNumber = "105"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -637,11 +637,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "144"
-         endingLineNumber = "144"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1310,11 +1310,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "79"
-         endingLineNumber = "79"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
          landmarkName = "HelloWorld::init()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1323,11 +1323,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "HelloWorld::init()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1427,11 +1427,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
+         startingLineNumber = "118"
+         endingLineNumber = "118"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1440,11 +1440,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "HelloWorld::init()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1453,11 +1453,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "131"
-         endingLineNumber = "131"
+         startingLineNumber = "132"
+         endingLineNumber = "132"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1479,11 +1479,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "86"
+         endingLineNumber = "86"
          landmarkName = "HelloWorld::init()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1492,7 +1492,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "132"
@@ -1505,11 +1505,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "142"
-         endingLineNumber = "142"
+         startingLineNumber = "145"
+         endingLineNumber = "145"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1570,22 +1570,48 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101">
+         startingLineNumber = "102"
+         endingLineNumber = "102">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "420807702.829857"
+         timestampString = "420826039.228151"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
+         landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
+         timestampString = "420826039.228151"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
+         landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
+         timestampString = "420826039.228151"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "112"
+         endingLineNumber = "112"
          landmarkName = "HelloWorld::update(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
