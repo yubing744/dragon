@@ -60,6 +60,8 @@ void HelloWorld::init() {
     myBox->addComponent(box);
     
     myBox->getTransform()->setPosition(Vector3(0, 0, 1));
+    myBox->getTransform()->setScale(Vector3(2, 2, 2));
+    
     //myBox->getTransform()->setLocalPosition(Vector3(0, 0, 0));
     
     child = new GameObject("child");
@@ -79,7 +81,7 @@ void HelloWorld::init() {
     
     camera->resize(320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->getTransform()->setPosition(Vector3(0, 5, -15));
+    camera->getTransform()->setPosition(Vector3(0, 2, -5));
     camera->getTransform()->find("abc/bbb/ccc");
     
     Vector3 pos = myBox->getTransform()->getPosition();
@@ -105,7 +107,7 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //logger->info("myBox pre pos: %f %f %f", pos.x, pos.y, pos.z);
     
     
-    myBox->getTransform()->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
+    //myBox->getTransform()->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
     //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
     
@@ -126,17 +128,17 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
-    Camera* camera = (Camera*)mainCamera->getFirstComponent(Camera::TYPE);
+    //Camera* camera = (Camera*)mainCamera->getFirstComponent(Camera::TYPE);
     
-    Vector3 pos = myBox->getTransform()->getPosition();
-    Vector3 localPos = myBox->getTransform()->getLocalPosition();
+    //Vector3 pos = myBox->getTransform()->getPosition();
+    //Vector3 localPos = myBox->getTransform()->getLocalPosition();
     
     //logger->info("myBox pos:        %f %f %f", pos.x, pos.y, pos.z);
     //logger->info("myBox local pos : %f %f %f", localPos.x, localPos.y, localPos.z);
     
-    Vector3 p = myBox->getTransform()->transformPoint(Vector3::ZERO);
+    Vector3 p = myBox->getTransform()->getPosition();
     logger->info("myBox local pos : %f %f %f", p.x, p.y, p.z);
-    camera->lookAt(p, Vector3::UP);
+    //camera->lookAt(p, Vector3::UP);
     //mainCamera->getTransform()->lookAt(myBox->getTransform());
     
     logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
