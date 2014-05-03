@@ -20,16 +20,21 @@
  * Created:     2013/10/04
  **********************************************************************/
 
+#include <dragon/lang/gc/Reference.h>
 #include <dragon/util/ArrayList.h>
 #include <com/dragon3d/scene/model/Model.h>
 #include <com/dragon3d/scene/GameObject.h>
+#include <dragon/util/logging/Logger.h>
 
 Import dragon::util;
+Import dragon::lang::gc;
+Import dragon::util::logging;
 Import com::dragon3d::scene;
 Import com::dragon3d::scene::model;
 Import com::dragon3d::output::graphics;
 
 const Type* Model::TYPE = TypeOf<Model>();
+static Logger* logger = Logger::getLogger(Model::TYPE, INFO);
 
 Model::Model() 
     :mesh(null), 
@@ -153,7 +158,14 @@ Material* Model::getMaterialByName(const String& name) {
 }
 
 Bounds* Model::getBounds() {
-    return (Bounds*)this->bounds->retain();
+    Ref<Transform> ts = this->getTransform();
+
+    Vector3 p = ts->transformDirection(Vector3::ONE);
+    Ref<String> pInfo = p.toString();
+    logger->info("model get bounds:" + pInfo);
+
+    Matrix4x4 matrix = ts->getWorldToLocalMatrix();
+    return this->bounds->transform(matrix);
 }
 
 void Model::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera) {

@@ -29,14 +29,25 @@ Import com::dragon3d::scene;
 const Type* Component::TYPE = TypeOf<Component>();
 
 Component::Component() 
-    :active(true) {
+    :gameObject(null), active(true) {
 
 }
 
 Component::~Component() {
-
+    SafeRelease(this->gameObject);
 }
 
+// propertys
+GameObject* Component::getGameObject() {
+    return (GameObject*)this->gameObject->retain();
+}
+
+void Component::setGameObject(GameObject* gameObject) {
+    SafeReplace(this->gameObject, gameObject);
+}
+
+
+// ------------------------------------
 void Component::init() {
     
 }

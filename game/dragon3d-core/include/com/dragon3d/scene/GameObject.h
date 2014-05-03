@@ -60,7 +60,22 @@ public:
 
 public:
 	GameObject();
+	GameObject(const String& name);
 	virtual ~GameObject();
+
+public:// Propertys
+	/**
+	 * get the game object's name
+	 * 
+	 * @return [description]
+	 */
+	virtual String* getName();
+
+	/**
+	 * set the game object's name
+	 *
+	 */
+	virtual void setName(const String& name);
 
 public:
 	/**
@@ -118,19 +133,6 @@ public:
 	virtual bool hasTag(const String& tagName);
 
 	/**
-	 * get the game object's name
-	 * 
-	 * @return [description]
-	 */
-	virtual String* getName();
-
-	/**
-	 * set the game object's name
-	 *
-	 */
-	virtual void setName(const String& name);
-
-	/**
 	 * Activates/Deactivates the GameObject.
 	 *
 	 * Note that a GameObject may be inactive because a parent is not active. 
@@ -176,32 +178,23 @@ public:
 	 */
 	virtual Transform* getTransform();
 
-public:
 	/**
-	 * the layer for the game object.
+	 * get the position of gameobject.
+	 * 
+	 * @return [description]
 	 */
-	int layer;
-
-	/**
-	 * the tags for the game object
-	 */
-	List<String>* tags;
-
-	/**
-	 * if the game object should hide.
-	 */
-	bool hideFlags;
+	virtual Vector3 getPosition();
 
 protected:
-	/**
-	 * The Transform attached to this GameObject. (null if there is none attached).
-	 */
-	Transform* transform;
-
 	/**
 	 * the name of game object;
 	 */
 	String* name;
+
+	/**
+	 * The Transform attached to this GameObject. (null if there is none attached).
+	 */
+	Transform* transform;
 
 	/**
 	 * game component.
@@ -213,6 +206,20 @@ protected:
 	 */
 	bool active;
 
+	/**
+	 * if the game object should hide.
+	 */
+	bool hideFlags;
+
+	/**
+	 * the layer for the game object.
+	 */
+	int layer;
+
+	/**
+	 * the tags for the game object
+	 */
+	List<String>* tags;
 };//GameObject
 
 EndPackage3 //(com, dragon3d, scene)

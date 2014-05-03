@@ -21,8 +21,8 @@
  **********************************************************************/
 
 
-#include <com/dragon3d/util/Timer.h>
 #include <dragon/lang/System.h>
+#include <com/dragon3d/util/Timer.h>
 
 Import dragon::lang;
 Import com::dragon3d::util;
@@ -32,7 +32,7 @@ Import com::dragon3d::util;
 
 Timer::Timer() 
 	:paused(false) {
-	this->startTime = System::nanoTime();
+	this->reset();
 }
 
 Timer::~Timer() {

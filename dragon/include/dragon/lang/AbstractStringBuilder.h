@@ -327,6 +327,8 @@ public:
     virtual AbstractStringBuilder* append(bool b);
     virtual AbstractStringBuilder* append(int i);
     virtual AbstractStringBuilder* append(dg_long l);
+    virtual AbstractStringBuilder* append(float val);
+    virtual AbstractStringBuilder* append(double val);
 
 public:
 

@@ -36,10 +36,15 @@ Import com::dragon3d::scene;
 Import com::dragon3d::util::math;
 
 const Type* Bounds::TYPE = TypeOf<Bounds>();
-static Logger* logger = Logger::getLogger(Bounds::TYPE, ERROR);
+static Logger* logger = Logger::getLogger(Bounds::TYPE, INFO);
 
 Bounds::Bounds() 
     :center(Vector3::ZERO), extents(Vector3::ONE){
+
+}
+
+Bounds::Bounds(const Vector3& center) 
+    :center(center), extents(Vector3::ONE) {
 
 }
 
@@ -268,8 +273,60 @@ float Bounds::sqrDistance(const Vector3& point) {
 }
 
 
-String* Bounds::toString() {
-       StringBuffer* sb = new StringBuffer();
+const Array<Vector3> Bounds::getCorners() {
+    Array<Vector3> store(8);
+
+    for (int i = 0; i < store.size(); i++) {
+        store[i] = Vector3();
+    }
+
+    store[0].set(center.getX() + extents.x, center.getY() + extents.y, center.getZ() + extents.z);
+    store[1].set(center.getX() + extents.x, center.getY() + extents.y, center.getZ() - extents.z);
+    store[2].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() + extents.z);
+    store[3].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+    store[4].set(center.getX() - extents.x, center.getY() + extents.y, center.getZ() + extents.z);
+    store[5].set(center.getX() - extents.x, center.getY() + extents.y, center.getZ() - extents.z);
+    store[6].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() + extents.z);
+    store[7].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+
+    return store;
+}
+
+// Some transform matrices are not in decomposed form and in this
+// situation we need to use a different, more robust, algorithm
+// for computing the new bounding box.
+Bounds* Bounds::transform(const Matrix4x4& matrix) {
+    const Array<Vector3> corners = this->getCorners();
+
+    Vector3 init = matrix.multiplyPoint(corners[0]);
+    Bounds* box = new Bounds(init, Vector3::ZERO);
+
+    //if (logger->isInfoEnabled()) {
+        logger->info("transform bounds:");
+
+        Ref<String> srcInitInfo = corners[0].toString();
+        Ref<String> vInfo = init.toString();
+        logger->info("the src init p:" + srcInitInfo);
+        logger->info("the init p:" + vInfo);
+    //}
+
+    for(int i=1; i<corners.size(); i++) {
+        Vector3 tmp = matrix.multiplyPoint(corners[i]);
+
+        //if (logger->isInfoEnabled()) {
+            Ref<String> tmpInfo = tmp.toString();
+            logger->info("the tmp p:" + tmpInfo);
+        //}
+
+        box->encapsulate(tmp);
+    }
+
+    return box;
+}
+
+
+String* Bounds::toString() const {
+    StringBuffer* sb = new StringBuffer();
 
     sb->append("Bounds [\r\n");
 

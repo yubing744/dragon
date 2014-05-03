@@ -21,10 +21,12 @@
  **********************************************************************/
 
 
-#include <dragon/lang/AbstractStringBuilder.h>
 #include <dragon/lang/Arrays.h>
 #include <dragon/lang/Integer.h>
 #include <dragon/lang/Long.h>
+#include <dragon/lang/Float.h>
+#include <dragon/lang/Double.h>
+#include <dragon/lang/AbstractStringBuilder.h>
 
 Import dragon::lang;
 
@@ -355,4 +357,23 @@ AbstractStringBuilder* AbstractStringBuilder::append(dg_long l) {
     return this;
 }
 
+AbstractStringBuilder* AbstractStringBuilder::append(float val) {
+    Float* f = new Float(val);
+    String* strVal = f->toString();
+    this->append(strVal);
+    SafeDelete(strVal);
+    SafeDelete(f);
+
+    return this;
+}
+
+AbstractStringBuilder* AbstractStringBuilder::append(double val) {
+    Double* d = new Double(val);
+    String* strVal = d->toString();
+    this->append(strVal);
+    SafeDelete(strVal);
+    SafeDelete(d);
+
+    return this;
+}
 

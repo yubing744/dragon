@@ -218,7 +218,7 @@ public:
      * @param  v [description]
      * @return   [description]
      */
-    Vector3 multiplyPoint(const Vector3& v);
+    Vector3 multiplyPoint(const Vector3& v) const;
 
     /**
      * Transforms a direction by this matrix.
@@ -226,7 +226,7 @@ public:
      * @param  v [description]
      * @return   [description]
      */
-    Vector3 multiplyVector(const Vector3& v);
+    Vector3 multiplyVector(const Vector3& v) const;
 
 public:
     /**

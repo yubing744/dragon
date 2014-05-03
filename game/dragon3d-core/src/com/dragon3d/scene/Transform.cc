@@ -263,7 +263,7 @@ void Transform::recalculatedMatrix() {
 }
 
 void Transform::setParent(Transform* parent) {
-    this->parent = parent;
+    SafeReplace(this->parent, parent);
 
     if (parent != null) {
         parent->children->add(this);
@@ -271,7 +271,11 @@ void Transform::setParent(Transform* parent) {
 }
     
 Transform* Transform::getParent() {
-    return this->parent;
+    if (this->parent != null) {
+        return (Transform*)this->parent->retain();
+    }
+
+    return null;
 }
 
 void Transform::detachChildren() {
@@ -285,7 +289,7 @@ void Transform::detachChildren() {
 
 Transform* Transform::getChild(int index) {
     if (this->children!=null && index >=0 
-        && index<this->children->size()) {
+        && (index < this->children->size())) {
         return this->children->get(index);
     }
 
@@ -348,9 +352,9 @@ Transform* Transform::find(const String& name) {
 // transform point and vector
 
 // transform
-Vector3 Transform::transformPoint(const Vector3& position) {
+Vector3 Transform::transformPoint(const Vector3& p) {
     Matrix4x4 matrix = this->getWorldToLocalMatrix();
-    return matrix.multiplyPoint(position);
+    return matrix.multiplyPoint(p);
 }
 
 Vector3 Transform::transformPoint(float x, float y, float z) {
@@ -358,9 +362,9 @@ Vector3 Transform::transformPoint(float x, float y, float z) {
 }
 
 
-Vector3 Transform::transformDirection(const Vector3& direction) {
+Vector3 Transform::transformDirection(const Vector3& d) {
     Matrix4x4 matrix = this->getWorldToLocalMatrix();
-    return matrix.multiplyVector(position);
+    return matrix.multiplyVector(d);
 }
 
 Vector3 Transform::transformDirection(float x, float y, float z) {
@@ -368,18 +372,18 @@ Vector3 Transform::transformDirection(float x, float y, float z) {
 }
 
 // inverse transform
-Vector3 Transform::inverseTransformPoint(const Vector3& position) {
+Vector3 Transform::inverseTransformPoint(const Vector3& p) {
     Matrix4x4 matrix = this->getLocalToWorldMatrix();
-    return matrix.multiplyPoint(position);
+    return matrix.multiplyPoint(p);
 }
 
 Vector3 Transform::inverseTransformPoint(float x, float y, float z) {
     return this->inverseTransformPoint(Vector3(x, y, z));
 }
 
-Vector3 Transform::inverseTransformDirection(const Vector3& direction) {
+Vector3 Transform::inverseTransformDirection(const Vector3& d) {
     Matrix4x4 matrix = this->getLocalToWorldMatrix();
-    return matrix.multiplyVector(position);
+    return matrix.multiplyVector(d);
 }
 
 Vector3 Transform::inverseTransformDirection(float x, float y, float z) {
@@ -411,6 +415,6 @@ void Transform::lookAt(Transform* target) {
 }
 
 void Transform::lookAt(Transform* target, const Vector3& worldUp) {
-    Vector3 worldPosition = this->transformDirection(Vector3::ZERO);
+    Vector3 worldPosition = this->transformPoint(Vector3::ZERO);
     this->lookAt(worldPosition, worldUp);
 }

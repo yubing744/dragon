@@ -20,14 +20,17 @@
  * Created:     2013/09/17
  **********************************************************************/
 
+#include <dragon/lang/Thread.h>
+#include <dragon/lang/gc/Reference.h>
 
 #include <com/dragon3d/framework/FrameHandler.h>
 #include <dragon/util/concurrent/CountDownLatch.h>
-#include <dragon/lang/Thread.h>
+
+Import dragon::lang;
+Import dragon::lang::gc;
+Import dragon::util::concurrent;
 
 Import com::dragon3d::framework;
-Import dragon::lang;
-Import dragon::util::concurrent;
 
 Logger* FrameHandler::logger = Logger::getLogger("com::dragon3d::framework::FrameHandler");
 
@@ -40,28 +43,27 @@ FrameHandler::FrameHandler()
 
 FrameHandler::FrameHandler(Timer* timer)
 	:timeoutSeconds(3) {
-	this->timer = timer;
+	this->timer = (Timer*)timer->retain();
 	this->updaters = new ArrayList<Updater>();
 	this->outputs = new ArrayList<Output>();
 }
 
 FrameHandler::~FrameHandler() {
-	SafeDelete(this->timer);
-	SafeDelete(this->updaters);
-	SafeDelete(this->outputs);
+	SafeRelease(this->timer);
+	SafeRelease(this->updaters);
+	SafeRelease(this->outputs);
 }
 
 void FrameHandler::init() {
 	// init updaters
-	Iterator<Updater>* it = this->updaters->iterator();
+	Ref<Iterator<Updater> > it = this->updaters->iterator();
 
 	while (it->hasNext()) {
-		Updater* updater = it->next();
+		Ref<Updater> updater = it->next();
 		updater->init();
-        SafeRelease(updater);
 	}
 
-	SafeDelete(it);
+	this->timer->reset();
 }
 
 
@@ -70,26 +72,22 @@ void FrameHandler::updateFrame(Scene* scene) {
 	this->timer->update();
 
 	// 2. call updater
-	Iterator<Updater>* it = this->updaters->iterator();
+	Ref<Iterator<Updater> > it = this->updaters->iterator();
 
 	while (it->hasNext()) {
-		Updater* updater = it->next();
+		Ref<Updater> updater = it->next();
 		updater->update(scene, this->timer);
-        SafeRelease(updater);
 	}
-
-	SafeDelete(it);
 
 	// 3. draw outputs
 	int numOutputs = this->outputs->size();
-	Iterator<Output>* itc = this->outputs->iterator();
+	Ref<Iterator<Output> > itc = this->outputs->iterator();
 
-	CountDownLatch* latch = new CountDownLatch(numOutputs);
+	Ref<CountDownLatch> latch = new CountDownLatch(numOutputs);
 
 	while (itc->hasNext()) {
-		Output* output = itc->next();
+		Ref<Output> output = itc->next();
 		output->output(scene, latch);
-        SafeRelease(output);
 	}
 
 	bool success = latch->await(this->timeoutSeconds * 1000);
@@ -97,11 +95,6 @@ void FrameHandler::updateFrame(Scene* scene) {
     if (!success) {
         logger->warn("updateFrame Timeout while waiting for renderers");
     }
-
-    SafeDelete(itc);
-	SafeDelete(latch);
-
-	Thread::sleep(20);
 }
 
 void FrameHandler::addUpdater(Updater* updater) {

@@ -40,7 +40,7 @@ Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::shader;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", DEBUG);
 
 void GraphicsOutputController::init() {
 	logger->info("init");
@@ -109,26 +109,44 @@ void GraphicsOutputController::output(Scene* scene) {
 }
 
 void GraphicsOutputController::culling(Camera* camera, GameObject* gameObject) {
+    Ref<String> name = gameObject->getName();
+
     Ref<List<Component> > renderables = (List<Component>*)gameObject->getComponents(Renderable::TYPE);
 
     if (renderables != null && renderables->size() > 0) {
+        if (logger->isDebugEnabled()) {
+            Vector3 pos = gameObject->getPosition();
+            Ref<String> posStr = pos.toString();
+
+            logger->debug(name + " finded renderables");
+            logger->debug(name + " pos: " + posStr);
+        }
+
         Ref<Iterator<Component> > it = renderables->iterator();
 
         while(it->hasNext()) {
             Ref<Renderable> renderable = dynamic_cast<Renderable*>(it->next());
             Ref<Bounds> bounds = renderable->getBounds();
 
+            if (logger->isDebugEnabled()) {
+                Ref<String> boundsInfo = bounds->toString();
+                logger->debug(name + " bounds info:" + boundsInfo);
+            }
+
             if (bounds!=null) {
                 FrustumIntersect result = camera->contains(bounds);
 
                 switch(result) {
                     case Inside:
+                        logger->debug(name + " Inside camera");
                         this->renderQueue->add(renderable);
                         break;
                     case Intersects:
+                        logger->debug(name + " Intersects camera");
                         this->renderQueue->add(renderable);
                         break;
                     case Outside:
+                        logger->debug(name + " Outside camera");
                         break;
                     default:
                         logger->warn("no support FrustumIntersect!");

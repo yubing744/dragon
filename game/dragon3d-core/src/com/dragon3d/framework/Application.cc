@@ -32,11 +32,13 @@
 #include <com/dragon3d/framework/Application.h>
 
 Import dragon::lang;
+Import dragon::lang::gc;
+
 Import dragon::util;
 Import dragon::util::logging;
+
 Import com::dragon3d::framework;
 
-Import dragon::lang::gc;
 
 static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", INFO);
 

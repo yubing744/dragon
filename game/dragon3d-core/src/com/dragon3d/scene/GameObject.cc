@@ -21,10 +21,14 @@
  **********************************************************************/
 
 #include <dragon/lang/Class.h>
+#include <dragon/lang/gc/Reference.h>
+
 #include <dragon/util/ArrayList.h>
 #include <com/dragon3d/scene/GameObject.h>
 
 Import dragon::lang;
+Import dragon::lang::gc;
+
 Import dragon::util;
 Import com::dragon3d::scene;
 
@@ -34,7 +38,17 @@ GameObject::GameObject()
 	:hideFlags(false), layer(0), active(true) {
 	this->name = new String("unnamed");
 	this->transform = new Transform();
-	this->transform->gameObject = this;
+	this->transform->setGameObject(this);
+
+	this->components = new ArrayList<Component>();
+	this->tags = new ArrayList<String>();
+}
+
+GameObject::GameObject(const String& name)
+	:hideFlags(false), layer(0), active(true) {
+	this->name = new String(name);
+	this->transform = new Transform();
+	this->transform->setGameObject(this);
 
 	this->components = new ArrayList<Component>();
 	this->tags = new ArrayList<String>();
@@ -48,40 +62,31 @@ GameObject::~GameObject() {
 }
 
 void GameObject::init() {
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 		component->init();
-		SafeRelease(component);
 	}
-
-	SafeDelete(it);
 }
 
 
 void GameObject::update(Input* input, ReadOnlyTimer* timer) {
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 		component->update(input, timer);
-		SafeRelease(component);
 	}
-
-	SafeDelete(it);
 }
 
 void GameObject::destroy() {
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 		component->destroy();
-		SafeRelease(component);
 	}
-
-	SafeDelete(it);
 }
 
 void GameObject::addComponent(Component* component) {
@@ -89,86 +94,65 @@ void GameObject::addComponent(Component* component) {
 		this->components->add(component);
 
 		// attach some other componet
-		component->gameObject = this;
+		component->setGameObject(this);
 	}
 }
 
 Component* GameObject::getFirstComponent(const Type* type) {
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 
 		if (component->isTypeOf(type)) {
-			SafeDelete(it);
-
-			return component;
-		} else {
-			SafeRelease(component);
-		}
+			return component.retain();
+		} 
 	}
 
-	SafeDelete(it);
 	return null;
 }
 
 List<Component>* GameObject::getComponents(const Type* type) {
 	List<Component>* results = new ArrayList<Component>();
 
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 
 		if (component->isTypeOf(type)) {
 			results->add(component);
-		} 
-		
-		SafeRelease(component);
+		}
 	}
-
-	SafeDelete(it);
 	
 	return results;	
 }
 
 bool GameObject::hasComponent(const Type* type) {
-	Iterator<Component>* it = this->components->iterator();
+	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Component* component = it->next();
+		Ref<Component> component = it->next();
 
 		if (component->isTypeOf(type)) {
-			SafeRelease(component);
-			SafeDelete(it);
-
 			return true;
-		} else {
-			SafeRelease(component);
-		}
+		} 
 	}
 
-	SafeDelete(it);
 	return false;
 }
 
 bool GameObject::hasTag(const String& tagName) {
-	Iterator<String>* it = this->tags->iterator();
+	Ref<Iterator<String> > it = this->tags->iterator();
 
 	while(it->hasNext()) {
-		String* tag = it->next();
+		Ref<String> tag = it->next();
 
 		if (tag->equals(tagName)) {
-			SafeRelease(tag);
-			SafeDelete(it);
-
 			return true;
-		} else {
-			SafeRelease(tag);
-		}
+		} 
 	}
 
-	SafeDelete(it);
 	return false;	
 }
 
@@ -192,7 +176,7 @@ bool GameObject::isActiveSelf() {
 }
 
 bool GameObject::isActiveInHierarchy() {
-	GameObject* parent = this->getParent();
+	Ref<GameObject> parent = this->getParent();
 
 	if (parent!=null && this->active 
 		&& parent->isActiveInHierarchy() ) {
@@ -203,8 +187,10 @@ bool GameObject::isActiveInHierarchy() {
 }
 
 GameObject* GameObject::getParent() {
-	if (this->transform->getParent() != null) {
-		return this->transform->getParent()->gameObject;
+	Ref<Transform> pt = this->transform->getParent();
+
+	if (pt != null) {
+		return pt->getGameObject();
 	}
 
 	return null;
@@ -216,13 +202,19 @@ List<GameObject>* GameObject::getChildren() {
 	int count = this->transform->childCount();
 
 	for (int i=0; i<count; i++) {
-		Transform* ts = this->transform->getChild(i);
-		children->add(ts->gameObject);
+		Ref<Transform> ts = this->transform->getChild(i);
+		Ref<GameObject> child = ts->getGameObject();
+
+		children->add(child);
 	}
 
 	return children;
 }
 
 Transform* GameObject::getTransform() {
-	return this->transform;
+	return (Transform*)this->transform->retain();
+}
+
+Vector3 GameObject::getPosition() {
+	return this->transform->transformDirection(Vector3::ZERO);
 }

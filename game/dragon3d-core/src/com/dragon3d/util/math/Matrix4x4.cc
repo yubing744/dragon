@@ -152,8 +152,10 @@ Matrix4x4 Matrix4x4::TRS(const Vector3& pos, const Quaternion& q, const Vector3&
     Matrix4x4 result = Matrix4x4::IDENTITY;
 
     result = result.scale(s);
+
     result = result.translate(pos);
     result = result.rotate(q);
+    result = result.translate(pos.negate());
 
     return result;
 }
@@ -499,7 +501,7 @@ Matrix4x4 Matrix4x4::rotate(const Quaternion& q) const {
     float norm = q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z;
     float s = norm > 0.0 ? 2.0 / norm : 0.0;
 
-    Matrix4x4 rotMat;
+    Matrix4x4 rotMat = Matrix4x4::IDENTITY;
 
     // compute xs/ys/zs first to save 6 multiplications, since xs/ys/zs
     // will be used 2-4 times each.
@@ -553,24 +555,13 @@ Matrix4x4 Matrix4x4::rotate(const Vector3& xAxis, const Vector3& yAxis, const Ve
 
 
 Matrix4x4 Matrix4x4::scale(float sx, float sy, float sz) const {
-    Matrix4x4 scaleMat = Matrix4x4::IDENTITY;
+    Matrix4x4 tmp = Matrix4x4::IDENTITY;
 
-    scaleMat.m[0][0] *= sx;
-    scaleMat.m[0][1] *= sx;
-    scaleMat.m[0][2] *= sx;
-    scaleMat.m[0][3] *= sx;
+    tmp.m[0][0] = sx;
+    tmp.m[1][1] = sy;
+    tmp.m[1][1] = sz;
 
-    scaleMat.m[1][0] *= sy;
-    scaleMat.m[1][1] *= sy;
-    scaleMat.m[1][2] *= sy;
-    scaleMat.m[1][3] *= sy;
-
-    scaleMat.m[2][0] *= sz;
-    scaleMat.m[2][1] *= sz;
-    scaleMat.m[2][2] *= sz;
-    scaleMat.m[2][3] *= sz;
-
-    return multiply(scaleMat);
+    return multiply(tmp);
 }
 
 Matrix4x4 Matrix4x4::scale(const Vector3& v) const {
@@ -632,30 +623,38 @@ Quaternion Matrix4x4::getQuaternion() const {
     return Quaternion(x, y, z, w);
 }
 
-Vector3 Matrix4x4::multiplyPoint(const Vector3& v) {
+Vector3 Matrix4x4::multiplyPoint(const Vector3& v) const {
     Vector3 store = Vector3::ZERO;
 
     float x = v.getX();
     float y = v.getY();
     float z = v.getZ();
 
-    store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3]);
-    store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3]);
-    store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3]);
+    //store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3]);
+    //store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3]);
+    //store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3]);
+
+    store.setX(m[0][0] * x + m[1][0] * y + m[2][0] * z + m[3][0]);
+    store.setY(m[0][1] * x + m[1][1] * y + m[2][1] * z + m[3][1]);
+    store.setZ(m[0][2] * x + m[1][2] * y + m[2][2] * z + m[3][2]);
 
     return store;
 }
 
-Vector3 Matrix4x4::multiplyVector(const Vector3& v) {
+Vector3 Matrix4x4::multiplyVector(const Vector3& v) const {
     Vector3 store = Vector3::ZERO;
 
     float x = v.getX();
     float y = v.getY();
     float z = v.getZ();
 
-    store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z);
-    store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z);
-    store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z);
+    //store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z);
+    //store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z);
+    //store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z);
+
+    store.setX(m[0][0] * x + m[1][0] * y + m[2][0] * z);
+    store.setY(m[0][1] * x + m[1][1] * y + m[2][1] * z);
+    store.setZ(m[0][2] * x + m[1][2] * y + m[2][2] * z);
 
     return store;
 }

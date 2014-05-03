@@ -48,6 +48,7 @@ public:
     
 public:
     Bounds();
+    Bounds(const Vector3& center);
     Bounds(const Vector3& center, const Vector3& size);
     virtual ~Bounds();
 
@@ -124,11 +125,19 @@ public:
     float sqrDistance(const Vector3& point);
 
     /**
+     * tranform this bounds to new one.
+     * 
+     * @param  matrix [description]
+     * @return       [description]
+     */
+    Bounds* transform(const Matrix4x4& matrix);
+
+    /**
      * Returns a nicely formatted string for the bounds.
      * 
      * @return [description]
      */
-    String* toString();
+    String* toString() const;
 
 protected:
     /**
@@ -194,6 +203,12 @@ public:
      * @return [description]
      */
     Vector3 getSize();
+
+    /**
+     * get the all eight corner.
+     * 
+     */
+    const Array<Vector3> getCorners();
 
 protected:
     /**

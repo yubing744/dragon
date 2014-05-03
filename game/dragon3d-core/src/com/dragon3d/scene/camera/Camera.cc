@@ -152,6 +152,7 @@ void Camera::init() {
 }
 
 void Camera::update(Input* input, ReadOnlyTimer* timer) {
+    onFrustumChange();
 	onFrameChange();
 }
 

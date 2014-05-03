@@ -292,6 +292,29 @@ public:
     bool operator==(const Vector3& a) const;
     bool operator!=(const Vector3& a) const;
 
+public: // Propertys
+    /**
+     * get and set x.
+     * 
+     * @return [description]
+     */
+    float getX() const {return this->x; };
+    void setX(float x) {this->x = x; };
+    /**
+     * get ans set y.
+     * 
+     * @return [description]
+     */
+    float getY() const {return this->y; };
+    void setY(float y) {this->y = y; };
+    /**
+     * get and set z.
+     * 
+     * @return [description]
+     */
+    float getZ() const {return this->z; };
+    void setZ(float z) {this->z = z; };
+
 public:
     /**
      * Returns the length of this vector 
@@ -370,6 +393,13 @@ public:
     float dot(const Vector3& a) const;
 
     /**
+     * negate the vector3
+     * 
+     * @return [description]
+     */
+    Vector3 negate() const;
+
+    /**
      * Set x, y and z components of an existing Vector3.
      * 
      * @param new_x [description]
@@ -395,26 +425,11 @@ public:
     void setValue(int index, float value);
 
     /**
-     * get and set x.
+     * build the Vector3 info.
      * 
      * @return [description]
      */
-    float getX() const {return this->x; };
-    void setX(float x) {this->x = x; };
-    /**
-     * get ans set y.
-     * 
-     * @return [description]
-     */
-    float getY() const {return this->y; };
-    void setY(float y) {this->y = y; };
-    /**
-     * get and set z.
-     * 
-     * @return [description]
-     */
-    float getZ() const {return this->z; };
-    void setZ(float z) {this->z = z; };
+    String* toString() const;
 
 public:
     const float* getData() const;

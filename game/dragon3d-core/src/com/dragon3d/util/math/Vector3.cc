@@ -20,15 +20,16 @@
  * Created:     2013/10/04
  **********************************************************************/
 
-
-#include <com/dragon3d/util/math/Vector3.h>
-
 #include <dragon/lang/Math.h>
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/lang/StringBuffer.h>
 #include <dragon/lang/IllegalArgumentException.h>
 
 #include <com/dragon3d/util/math/Mathf.h>
+#include <com/dragon3d/util/math/Vector3.h>
 
 Import dragon::lang;
+Import dragon::lang::gc;
 Import com::dragon3d::util::math;
 
 const Type* Vector3::TYPE = TypeOf<Vector3>();
@@ -222,6 +223,10 @@ float Vector3::dot(const Vector3& a) const {
     return x * a.x + y * a.y + z * a.z;
 }
 
+Vector3 Vector3::negate() const {
+    return this->multiply(-1);
+}
+
 void Vector3::set(float new_x, float new_y, float new_z) {
     this->x = new_x;
     this->y = new_y;
@@ -265,3 +270,19 @@ const Array<float> Vector3::toFloatArray() const {
     return Array<float>(getData(), 3, false);
 }
 
+String* Vector3::toString() const {
+    Ref<StringBuffer> sb = new StringBuffer();
+
+    sb->append("com::dragon3d::util::math::Vector3 [x=");
+    sb->append(getX());
+
+    sb->append(", y=");
+    sb->append(getY());
+
+    sb->append(", z=");
+    sb->append(getZ());
+
+    sb->append("]");
+
+    return sb->toString();
+}

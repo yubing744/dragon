@@ -50,6 +50,15 @@ public:
 	Component();
 	virtual ~Component();
 
+public: // Property
+	/**
+	 * get or set the component's game object.
+	 * 
+	 * @return [description]
+	 */
+	virtual GameObject* getGameObject();
+	virtual void setGameObject(GameObject* gameObject);
+
 public:
 	/**
 	 * update the game component
@@ -98,14 +107,12 @@ public:
 	 */
 	virtual Transform* getTransform();
 
-public: // helper method for attached GameObject.
+protected: // helper method for attached GameObject.
 	/**
 	 * The game object this component is attached to. A component is always attached to a game object.
 	 */
 	GameObject* gameObject;
 
-
-public:
 	/**
 	 * whether this componet is active
 	 */

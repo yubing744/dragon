@@ -25,18 +25,20 @@
 #define Timer_Util_Dragon3d_Com_H
 
 #include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/util/ReadOnlyTimer.h>
 
 BeginPackage3(com, dragon3d, util)
 
+Import dragon::lang;
 Import com::dragon3d::util;
 
 /**
  * game timer.
  * 
  */
-class _DragonExport Timer 
-	implements(ReadOnlyTimer) {
+class _DragonExport Timer extends(Object) 
+	implements1(ReadOnlyTimer) {
 public:
 	Timer();
 	virtual ~Timer();
