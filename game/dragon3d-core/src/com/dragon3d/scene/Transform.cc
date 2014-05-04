@@ -407,10 +407,8 @@ void Transform::lookAt(const Vector3& worldPosition, const Vector3& worldUp) {
     Matrix4x4 ts = Matrix4x4::lookAt(eye, center, up);
     ts = ts.inverse();
 
-    Vector3 newPos = ts.getTranslation();
     Quaternion newRot = ts.getQuaternion();
 
-    //this->setLocalPosition(newPos);
     this->setLocalRotation(newRot);
 }
 

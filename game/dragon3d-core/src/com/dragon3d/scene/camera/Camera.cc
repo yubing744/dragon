@@ -298,11 +298,15 @@ void Camera::onFrameChange() {
 void Camera::updateModelViewMatrix() {
 	Transform* t = this->getTransform();
 	this->modelViewMatrix = t->getWorldToLocalMatrix();
+    SafeRelease(t);
 }
 
 void Camera::updateProjectionMatrix() {
+    // fix the error for coordinate system
+    Matrix4x4 tmp = Matrix4x4::ortho(-1, 1, -1, 1, -1, 1);
+
     if (!this->orthographic) {
-        this->projectionMatrix = Matrix4x4::perspective(this->fieldOfView, this->aspect, this->nearClipPlane, this->farClipPlane);
+        this->projectionMatrix = tmp.multiply(Matrix4x4::perspective(this->fieldOfView, this->aspect, this->nearClipPlane, this->farClipPlane));
     } else {
         this->projectionMatrix = Matrix4x4::ortho(-this->aspect, this->aspect, -this->aspect, this->aspect, this->nearClipPlane, this->farClipPlane);
     }
