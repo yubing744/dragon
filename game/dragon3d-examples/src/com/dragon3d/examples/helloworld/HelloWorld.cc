@@ -59,8 +59,8 @@ void HelloWorld::init() {
     Box* box = new Box();
     myBox->addComponent(box);
     
-    myBox->getTransform()->setPosition(Vector3(2, 0, 0));
-    myBox->getTransform()->setScale(Vector3(2, 2, 2));
+    myBox->getTransform()->setPosition(Vector3(0, 0, 0));
+    //myBox->getTransform()->setScale(Vector3(2, 2, 2));
     
     //myBox->getTransform()->setLocalPosition(Vector3(0, 0, 0));
     
@@ -71,8 +71,8 @@ void HelloWorld::init() {
     child->getTransform()->setParent(myBox->getTransform());
     
     //child->getTransform()->setPosition(Vector3(0, 0, 10));
-    child->getTransform()->setLocalPosition(Vector3(2, 2, 2));
-    //child->getTransform()->setScale(Vector3(0.5, 0.5, 0.5));
+    child->getTransform()->setLocalPosition(Vector3(4, 4, 4));
+    child->getTransform()->setScale(Vector3(0.5, 0.5, 0.5));
     //child->transform->setLocalPosition(Vector3(1, 2, 0));
     
     
@@ -82,7 +82,7 @@ void HelloWorld::init() {
     
     camera->resize(320, 480);
     //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
-    camera->getTransform()->setPosition(Vector3(0, 4, -10));
+    camera->getTransform()->setPosition(Vector3(0, 5, -10));
     //camera->getTransform()->rotate(0, 180, 0);
     camera->getTransform()->find("abc/bbb/ccc");
     
@@ -91,8 +91,14 @@ void HelloWorld::init() {
     
     //camera->lookAt(pos, Vector3::UP);
     
-    Vector3 up = myBox->getTransform()->getRight();
+    Vector3 right = mainCamera->getTransform()->getRight();
+    logger->info("camera right pos: %f %f %f", right.x, right.y, right.z);
+ 
+    Vector3 up = mainCamera->getTransform()->getUp();
     logger->info("camera up pos: %f %f %f", up.x, up.y, up.z);
+    
+    Vector3 forward = mainCamera->getTransform()->getForward();
+    logger->info("camera forward pos: %f %f %f", forward.x, forward.y, forward.z);
     
     scene->add(myBox);
     scene->add(mainCamera);
@@ -109,11 +115,15 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //logger->info("myBox pre pos: %f %f %f", pos.x, pos.y, pos.z);
     
     
-    //child->getTransform()->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
+    
+    //myBox->getTransform()->translate(Vector3::LEFT.multiply(timer->getDeltaTime() * 5), World);
     //myBox->getTransform()->translate(Vector3::LEFT.multiply(timer->getDeltaTime() * 5), World);
     
     //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+    
+    child->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+    child->getTransform()->translate(Vector3::RIGHT.multiply(timer->getDeltaTime() * 5), World);
     
     float deltaTime = timer->getDeltaTime();
     logger->debug("delta time: %f", deltaTime);
@@ -139,13 +149,13 @@ void HelloWorld::update(Scene* scene, ReadOnlyTimer* timer) {
     //logger->info("myBox pos:        %f %f %f", pos.x, pos.y, pos.z);
     //logger->info("myBox local pos : %f %f %f", localPos.x, localPos.y, localPos.z);
     
-    Camera* camera = (Camera*)mainCamera->getFirstComponent(Camera::TYPE);
+    //Camera* camera = (Camera*)mainCamera->getFirstComponent(Camera::TYPE);
 
     Vector3 p = child->getTransform()->getPosition();
     logger->info("myBox local pos : %f %f %f", p.x, p.y, p.z);
     //camera->lookAt(p, Vector3::UP);
     
-    //mainCamera->getTransform()->lookAt(myBox->getTransform());
+    mainCamera->getTransform()->lookAt(child->getTransform());
     
     //logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }

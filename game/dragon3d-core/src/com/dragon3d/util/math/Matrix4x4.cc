@@ -72,13 +72,13 @@ Matrix4x4 Matrix4x4::frustum(float left, float right, float bottom, float top, f
     float deltaY = top - bottom;
     float deltaZ = farZ - nearZ;
 
-    Matrix4x4 frust;
+    Matrix4x4 frust = Matrix4x4::IDENTITY;
 
     if ((nearZ <= 0.0f) || (farZ <= 0.0f) ||
          (deltaX <= 0.0f) || (deltaY <= 0.0f) || (deltaZ <= 0.0f))
          return Matrix4x4::ZERO;
 
-    frust.m[0][0] = 2.0f * nearZ / deltaX;
+    frust.m[0][0] = -2.0f * nearZ / deltaX;
     frust.m[0][1] = frust.m[0][2] = frust.m[0][3] = 0.0f;
 
     frust.m[1][1] = 2.0f * nearZ / deltaY;

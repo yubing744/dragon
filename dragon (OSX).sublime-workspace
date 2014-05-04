@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"ch",
+				"changed"
+			],
+			[
+				"lo",
+				"localScale"
+			],
+			[
+				"mul",
+				"multiply"
+			],
+			[
+				"mu",
+				"multiplyPoint"
+			],
+			[
+				"ma",
+				"matrix"
+			],
+			[
 				"co",
 				"corners"
 			],
@@ -26,10 +46,6 @@
 			[
 				"tr",
 				"transform"
-			],
-			[
-				"lo",
-				"localScale"
 			],
 			[
 				"gam",
@@ -118,10 +134,6 @@
 			[
 				"Mat",
 				"Material"
-			],
-			[
-				"ma",
-				"material"
 			],
 			[
 				"num",
@@ -502,18 +514,6 @@
 			[
 				"f",
 				"framework"
-			],
-			[
-				"getCurr",
-				"getCurrentScene"
-			],
-			[
-				"can",
-				"canvas"
-			],
-			[
-				"c",
-				"canvas"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "game/dragon3d-core/include/com/dragon3d/util/math/ArithmeticException.h",
 			"settings":
 			{
-				"buffer_size": 1523,
+				"buffer_size": 0,
 				"line_ending": "Unix",
 				"name": "ArithmeticException.h"
 			}
@@ -532,7 +532,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/util/math/ArithmeticException.cc",
 			"settings":
 			{
-				"buffer_size": 1558,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -540,7 +540,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/util/math/Matrix4x4.cc",
 			"settings":
 			{
-				"buffer_size": 20348,
+				"buffer_size": 17939,
 				"line_ending": "Unix"
 			}
 		},
@@ -588,7 +588,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
 			"settings":
 			{
-				"buffer_size": 8227,
+				"buffer_size": 8364,
 				"line_ending": "Unix"
 			}
 		},
@@ -596,7 +596,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/scene/Transform.cc",
 			"settings":
 			{
-				"buffer_size": 10568,
+				"buffer_size": 11046,
 				"line_ending": "Unix"
 			}
 		},
@@ -628,7 +628,7 @@
 			"file": "game/dragon3d-core/include/com/dragon3d/util/math/Quaternion.h",
 			"settings":
 			{
-				"buffer_size": 5725,
+				"buffer_size": 6320,
 				"line_ending": "Unix"
 			}
 		},
@@ -636,7 +636,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/util/math/Quaternion.cc",
 			"settings":
 			{
-				"buffer_size": 7865,
+				"buffer_size": 8138,
 				"line_ending": "Unix"
 			}
 		},
@@ -676,7 +676,7 @@
 			"file": "game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
 			"settings":
 			{
-				"buffer_size": 16171,
+				"buffer_size": 16390,
 				"line_ending": "Unix"
 			}
 		},
@@ -684,7 +684,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
 			"settings":
 			{
-				"buffer_size": 7376,
+				"buffer_size": 7529,
 				"line_ending": "Unix"
 			}
 		},
@@ -764,7 +764,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/scene/Bounds.cc",
 			"settings":
 			{
-				"buffer_size": 10278,
+				"buffer_size": 10277,
 				"line_ending": "Unix"
 			}
 		},
@@ -804,7 +804,7 @@
 			"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
 			"settings":
 			{
-				"buffer_size": 5014,
+				"buffer_size": 5070,
 				"line_ending": "Unix"
 			}
 		}
@@ -1040,7 +1040,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"/Users/yubing/Develop/GitRepos/dragon/third_party/mojoshader",
@@ -1334,7 +1334,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 8,
 			"sheets":
 			[
 				{
@@ -1342,15 +1342,15 @@
 					"file": "game/dragon3d-core/include/com/dragon3d/util/math/ArithmeticException.h",
 					"settings":
 					{
-						"buffer_size": 1523,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1395,
-								1395
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1368,15 +1368,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/util/math/ArithmeticException.cc",
 					"settings":
 					{
-						"buffer_size": 1558,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								982,
-								927
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1394,25 +1394,25 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/util/math/Matrix4x4.cc",
 					"settings":
 					{
-						"buffer_size": 20348,
+						"buffer_size": 17939,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4718,
-								4718
+								2079,
+								2079
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1878.0,
+						"translation.y": 334.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1457,8 +1457,8 @@
 						"selection":
 						[
 							[
-								6451,
-								6451
+								6450,
+								6450
 							]
 						],
 						"settings":
@@ -1485,8 +1485,8 @@
 						"selection":
 						[
 							[
-								21720,
-								21720
+								21719,
+								21719
 							]
 						],
 						"settings":
@@ -1513,8 +1513,8 @@
 						"selection":
 						[
 							[
-								3358,
-								3358
+								6658,
+								6664
 							]
 						],
 						"settings":
@@ -1524,7 +1524,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3441.0,
+						"translation.y": 2963.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1541,8 +1541,8 @@
 						"selection":
 						[
 							[
-								8059,
-								8059
+								8058,
+								8058
 							]
 						],
 						"settings":
@@ -1561,15 +1561,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/scene/camera/Camera.cc",
 					"settings":
 					{
-						"buffer_size": 8227,
+						"buffer_size": 8364,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3339,
-								3339
+								6655,
+								6655
 							]
 						],
 						"settings":
@@ -1577,7 +1577,7 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1937.0,
+						"translation.y": 4120.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1587,15 +1587,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/scene/Transform.cc",
 					"settings":
 					{
-						"buffer_size": 10568,
+						"buffer_size": 11046,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9019,
-								9033
+								6423,
+								6444
 							]
 						],
 						"settings":
@@ -1605,7 +1605,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4823.0,
+						"translation.y": 3326.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1622,8 +1622,8 @@
 						"selection":
 						[
 							[
-								8853,
-								8853
+								8695,
+								8695
 							]
 						],
 						"settings":
@@ -1633,7 +1633,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4255.0,
+						"translation.y": 4229.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1656,7 +1656,9 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 145.0,
@@ -1687,7 +1689,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 433.0,
+						"translation.y": 245.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1697,15 +1699,15 @@
 					"file": "game/dragon3d-core/include/com/dragon3d/util/math/Quaternion.h",
 					"settings":
 					{
-						"buffer_size": 5725,
+						"buffer_size": 6320,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2576,
-								2576
+								6057,
+								6057
 							]
 						],
 						"settings":
@@ -1715,7 +1717,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 927.0,
+						"translation.y": 2479.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1725,15 +1727,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/util/math/Quaternion.cc",
 					"settings":
 					{
-						"buffer_size": 7865,
+						"buffer_size": 8138,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7166,
-								7174
+								1600,
+								1600
 							]
 						],
 						"settings":
@@ -1743,7 +1745,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3499.0,
+						"translation.y": 1535.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1760,7 +1762,7 @@
 						"selection":
 						[
 							[
-								1583,
+								1588,
 								1588
 							]
 						],
@@ -1771,7 +1773,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2551.0,
+						"translation.y": 1024.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1788,8 +1790,8 @@
 						"selection":
 						[
 							[
-								4035,
-								4035
+								4034,
+								4034
 							]
 						],
 						"settings":
@@ -1815,8 +1817,8 @@
 						"selection":
 						[
 							[
-								4894,
-								4894
+								4783,
+								4783
 							]
 						],
 						"settings":
@@ -1825,7 +1827,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2614.0,
+						"translation.y": 2510.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1851,7 +1853,7 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 26.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1861,15 +1863,15 @@
 					"file": "game/dragon3d-core/include/com/dragon3d/util/math/Vector3.h",
 					"settings":
 					{
-						"buffer_size": 16171,
+						"buffer_size": 16390,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15182,
-								15182
+								10719,
+								10719
 							]
 						],
 						"settings":
@@ -1879,7 +1881,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5306.0,
+						"translation.y": 3396.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1889,15 +1891,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/util/math/Vector3.cc",
 					"settings":
 					{
-						"buffer_size": 7376,
+						"buffer_size": 7529,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6073,
-								6073
+								4073,
+								4073
 							]
 						],
 						"settings":
@@ -1907,7 +1909,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2835.0,
+						"translation.y": 326.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1924,8 +1926,8 @@
 						"selection":
 						[
 							[
-								14301,
-								14301
+								14300,
+								14300
 							]
 						],
 						"settings":
@@ -1952,8 +1954,8 @@
 						"selection":
 						[
 							[
-								982,
-								982
+								981,
+								981
 							]
 						],
 						"settings":
@@ -1978,8 +1980,8 @@
 						"selection":
 						[
 							[
-								978,
-								978
+								977,
+								977
 							]
 						],
 						"settings":
@@ -2005,8 +2007,8 @@
 						"selection":
 						[
 							[
-								1897,
-								1897
+								1896,
+								1896
 							]
 						],
 						"settings":
@@ -2059,8 +2061,8 @@
 						"selection":
 						[
 							[
-								1282,
-								1282
+								1281,
+								1281
 							]
 						],
 						"settings":
@@ -2150,7 +2152,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 377.0,
+						"translation.y": 725.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2160,15 +2162,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/scene/Bounds.cc",
 					"settings":
 					{
-						"buffer_size": 10278,
+						"buffer_size": 10277,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9455,
-								9455
+								9586,
+								9586
 							]
 						],
 						"settings":
@@ -2178,7 +2180,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 871.0,
+						"translation.y": 4463.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2195,8 +2197,8 @@
 						"selection":
 						[
 							[
-								3407,
-								3407
+								3406,
+								3406
 							]
 						],
 						"settings":
@@ -2250,8 +2252,8 @@
 						"selection":
 						[
 							[
-								9033,
-								9033
+								9032,
+								9032
 							]
 						],
 						"settings":
@@ -2278,8 +2280,8 @@
 						"selection":
 						[
 							[
-								1596,
-								1596
+								1595,
+								1595
 							]
 						],
 						"settings":
@@ -2299,15 +2301,15 @@
 					"file": "game/dragon3d-core/src/com/dragon3d/scene/model/Model.cc",
 					"settings":
 					{
-						"buffer_size": 5014,
+						"buffer_size": 5070,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4030,
-								4030
+								4352,
+								4373
 							]
 						],
 						"settings":
@@ -2317,7 +2319,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2087.0,
+						"translation.y": 2391.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2358,7 +2360,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 94.0
+		"height": 200.0
 	},
 	"replace":
 	{
@@ -2897,6 +2899,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 295.0,
+	"side_bar_width": 301.0,
 	"status_bar_visible": true
 }

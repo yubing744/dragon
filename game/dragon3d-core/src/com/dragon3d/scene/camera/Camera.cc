@@ -303,10 +303,11 @@ void Camera::updateModelViewMatrix() {
 
 void Camera::updateProjectionMatrix() {
     // fix the error for coordinate system
-    Matrix4x4 tmp = Matrix4x4::ortho(-1, 1, -1, 1, -1, 1);
+    //Matrix4x4 tmp = Matrix4x4::IDENTITY;
+    //tmp = tmp.scale(Vector3(-1, 1, 1));
 
     if (!this->orthographic) {
-        this->projectionMatrix = tmp.multiply(Matrix4x4::perspective(this->fieldOfView, this->aspect, this->nearClipPlane, this->farClipPlane));
+        this->projectionMatrix = Matrix4x4::perspective(this->fieldOfView, this->aspect, this->nearClipPlane, this->farClipPlane);
     } else {
         this->projectionMatrix = Matrix4x4::ortho(-this->aspect, this->aspect, -this->aspect, this->aspect, this->nearClipPlane, this->farClipPlane);
     }

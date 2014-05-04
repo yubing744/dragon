@@ -61,8 +61,8 @@ Transform::~Transform(void){
 void Transform::translate(const Vector3& translation, Space relativeTo) {
     Vector3 localTranslation = translation;
 
-    if (World == relativeTo) {
-        Matrix4x4 matrix = this->getWorldToLocalMatrix();
+    if (World == relativeTo && this->parent != null) {
+        Matrix4x4 matrix = this->parent->getWorldToLocalMatrix();
         localTranslation = matrix.multiplyVector(localTranslation);
     }
 
