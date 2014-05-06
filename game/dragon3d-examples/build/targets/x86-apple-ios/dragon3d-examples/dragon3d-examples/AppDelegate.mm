@@ -26,12 +26,14 @@
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 #include <com/dragon3d/examples/texture/TextureDemo.h>
 #include <com/dragon3d/examples/model/ModelDemo.h>
+#include <com/dragon3d/examples/loderunner/LodeRunner.h>
 
 Import dragon::lang;
 Import com::dragon3d::examples::audio;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::examples::texture;
 Import com::dragon3d::examples::model;
+Import com::dragon3d::examples::loderunner;
 
 @implementation AppDelegate
 {
@@ -49,10 +51,11 @@ Import com::dragon3d::examples::model;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
-    app = new HelloWorld();
+    //app = new HelloWorld();
     //app = new AudioDemo();
     //app = new TextureDemo();
     //app = new ModelDemo();
+    app = new LodeRunner();
     
     Dragon3DLaunchApp(app);
     

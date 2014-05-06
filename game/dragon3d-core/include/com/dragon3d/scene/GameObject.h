@@ -185,6 +185,15 @@ public:
 	 */
 	virtual Vector3 getPosition();
 
+protected:// Events
+	virtual void onInit();
+	virtual void onUpdate(Input* input, ReadOnlyTimer* timer);
+	virtual void onDestroy();
+
+	virtual void afterInit();
+	virtual void afterUpdate(Input* input, ReadOnlyTimer* timer);
+	virtual void afterDestroy();
+	
 protected:
 	/**
 	 * the name of game object;

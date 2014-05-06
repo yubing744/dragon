@@ -457,6 +457,12 @@ dragon3d_examples_SOURCES = {
     """),
     "com/dragon3d/examples/audio" : Split("""
         AudioDemo.cc
+    """),
+
+    "com/dragon3d/examples/loderunner" : Split("""
+        Ground.cc
+
+        LodeRunner.cc
     """)
 }
 

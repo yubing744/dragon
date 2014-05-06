@@ -62,31 +62,43 @@ GameObject::~GameObject() {
 }
 
 void GameObject::init() {
+	this->onInit();
+
 	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
 		Ref<Component> component = it->next();
 		component->init();
 	}
+
+	this->afterInit();
 }
 
 
 void GameObject::update(Input* input, ReadOnlyTimer* timer) {
+	this->onUpdate(input, timer);
+
 	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
 		Ref<Component> component = it->next();
 		component->update(input, timer);
 	}
+
+	this->afterUpdate(input, timer);
 }
 
 void GameObject::destroy() {
+	this->onDestroy();
+
 	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
 		Ref<Component> component = it->next();
 		component->destroy();
 	}
+
+	this->afterDestroy();
 }
 
 void GameObject::addComponent(Component* component) {
@@ -217,4 +229,29 @@ Transform* GameObject::getTransform() {
 
 Vector3 GameObject::getPosition() {
 	return this->transform->transformDirection(Vector3::ZERO);
+}
+
+// Events stub
+void GameObject::onInit() {
+	// do nothing
+}
+
+void GameObject::onUpdate(Input* input, ReadOnlyTimer* timer) {
+	// do nothing
+}
+
+void GameObject::onDestroy() {
+	// do nothing
+}
+
+void GameObject::afterInit() {
+	// do nothing
+}
+
+void GameObject::afterUpdate(Input* input, ReadOnlyTimer* timer) {
+	// do nothing
+}
+
+void GameObject::afterDestroy() {
+	// do nothing
 }

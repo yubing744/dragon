@@ -30,7 +30,8 @@ Import dragon::util::logging;
 const Type* com::dragon3d::scene::model::geometry::Plane::TYPE = TypeOf<com::dragon3d::scene::model::geometry::Plane>();
 static Logger* logger = Logger::getLogger(com::dragon3d::scene::model::geometry::Plane::TYPE, ERROR);
 
-com::dragon3d::scene::model::geometry::Plane::Plane() {
+com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
+    /*
     float cubeVerts[] =
     {
       -1.0f,  -1.0f, 1.0f,
@@ -85,7 +86,58 @@ com::dragon3d::scene::model::geometry::Plane::Plane() {
     }
 
     this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
+    */
+   
+    float cubeVerts[] =
+    {
+      -xSize, 0, -zSize,
+      xSize, 0, -zSize,
+      xSize, 0, zSize,
+      -xSize, 0, zSize
+    };
+
+   float cubeNormals[] =
+   {
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f
+   };
+
+   float cubeTex[] =
+   {
+      0.0f, 0.0f,
+      1.0f, 0.0f,
+      1.0f, 1.0f,
+      0.0f, 1.0f
+    };   
+
+    unsigned short cubeIndices[] =
+    {
+        0, 4, 1,
+        1, 4, 2
+    };
+
+    this->mesh = new Mesh();
+    this->material = new Material(Color::GREEN);
+    
+    int numVertices = 4;
+    int numIndices = 6;
+    
+    this->mesh->setFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
+    this->mesh->setFloatNormals(Array<float>(cubeNormals, numVertices * 3, false));
+    this->mesh->setFloatUVs(Array<float>(cubeTex, numVertices * 2, false));
+
+    //Copy indices data
+    int* triangles = new int[numIndices];
+
+    for (int i=0; i<numIndices; i++) {
+        triangles[i] = cubeIndices[i];
+    }
+
+    this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
 }
+
 
 com::dragon3d::scene::model::geometry::Plane::~Plane() {
 

@@ -26,6 +26,15 @@
 		465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5929180663F700A9BF94 /* OpenGLES.framework */; };
 		465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59631806EFCA00A9BF94 /* Foundation.framework */; };
 		465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465D592618063C3400A9BF94 /* HelloWorld.cc */; };
+		46944577191861BF000553FF /* Brick.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4694456E191861BF000553FF /* Brick.cc */; };
+		46944578191861BF000553FF /* Cat.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4694456F191861BF000553FF /* Cat.cc */; };
+		46944579191861BF000553FF /* Clod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944570191861BF000553FF /* Clod.cc */; };
+		4694457A191861BF000553FF /* CrossBar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944571191861BF000553FF /* CrossBar.cc */; };
+		4694457B191861BF000553FF /* Grain.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944572191861BF000553FF /* Grain.cc */; };
+		4694457C191861BF000553FF /* Ground.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944573191861BF000553FF /* Ground.cc */; };
+		4694457D191861BF000553FF /* Ladder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944574191861BF000553FF /* Ladder.cc */; };
+		4694457E191861BF000553FF /* LodeRunner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944575191861BF000553FF /* LodeRunner.cc */; };
+		4694457F191861BF000553FF /* Mice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944576191861BF000553FF /* Mice.cc */; };
 		46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46ABCA0918C0D7A9002E234C /* AudioDemo.cc */; };
 		46ABCA0D18C0D970002E234C /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
 		46ABCA0E18C0D978002E234C /* libdragon3d-core.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
@@ -76,6 +85,15 @@
 		465D5933180665A200A9BF94 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		465D595F1806EFAA00A9BF94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		465D59631806EFCA00A9BF94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4694456E191861BF000553FF /* Brick.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brick.cc; sourceTree = "<group>"; };
+		4694456F191861BF000553FF /* Cat.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cat.cc; sourceTree = "<group>"; };
+		46944570191861BF000553FF /* Clod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clod.cc; sourceTree = "<group>"; };
+		46944571191861BF000553FF /* CrossBar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrossBar.cc; sourceTree = "<group>"; };
+		46944572191861BF000553FF /* Grain.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grain.cc; sourceTree = "<group>"; };
+		46944573191861BF000553FF /* Ground.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cc; sourceTree = "<group>"; };
+		46944574191861BF000553FF /* Ladder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ladder.cc; sourceTree = "<group>"; };
+		46944575191861BF000553FF /* LodeRunner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LodeRunner.cc; sourceTree = "<group>"; };
+		46944576191861BF000553FF /* Mice.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mice.cc; sourceTree = "<group>"; };
 		46ABCA0918C0D7A9002E234C /* AudioDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioDemo.cc; sourceTree = "<group>"; };
 		46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/x86-apple-ios/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
 		46ABCA0F18C0D9A5002E234C /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/x86-apple-ios/debug/libdragon.dylib"; sourceTree = "<group>"; };
@@ -227,6 +245,7 @@
 		465D592418063C3400A9BF94 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				4694456D191861BF000553FF /* loderunner */,
 				4642195218DD3795009C3FB0 /* model */,
 				46037E3918D4045F00901E67 /* texture */,
 				46ABCA0818C0D7A9002E234C /* audio */,
@@ -241,6 +260,22 @@
 				465D592618063C3400A9BF94 /* HelloWorld.cc */,
 			);
 			path = helloworld;
+			sourceTree = "<group>";
+		};
+		4694456D191861BF000553FF /* loderunner */ = {
+			isa = PBXGroup;
+			children = (
+				4694456E191861BF000553FF /* Brick.cc */,
+				4694456F191861BF000553FF /* Cat.cc */,
+				46944570191861BF000553FF /* Clod.cc */,
+				46944571191861BF000553FF /* CrossBar.cc */,
+				46944572191861BF000553FF /* Grain.cc */,
+				46944573191861BF000553FF /* Ground.cc */,
+				46944574191861BF000553FF /* Ladder.cc */,
+				46944575191861BF000553FF /* LodeRunner.cc */,
+				46944576191861BF000553FF /* Mice.cc */,
+			);
+			path = loderunner;
 			sourceTree = "<group>";
 		};
 		46ABCA0818C0D7A9002E234C /* audio */ = {
@@ -348,6 +383,15 @@
 				46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */,
 				46037E3B18D4045F00901E67 /* TextureDemo.cc in Sources */,
 				4642195418DD3795009C3FB0 /* ModelDemo.cc in Sources */,
+				46944577191861BF000553FF /* Brick.cc in Sources */,
+				46944578191861BF000553FF /* Cat.cc in Sources */,
+				46944579191861BF000553FF /* Clod.cc in Sources */,
+				4694457A191861BF000553FF /* CrossBar.cc in Sources */,
+				4694457B191861BF000553FF /* Grain.cc in Sources */,
+				4694457C191861BF000553FF /* Ground.cc in Sources */,
+				4694457D191861BF000553FF /* Ladder.cc in Sources */,
+				4694457E191861BF000553FF /* LodeRunner.cc in Sources */,
+				4694457F191861BF000553FF /* Mice.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

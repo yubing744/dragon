@@ -17,35 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/03/30
+ * Created:     2014/05/05
  **********************************************************************/
 
 
-#ifndef Plane_Geometry_Model_Scene_Dragon3d_Com_H
-#define Plane_Geometry_Model_Scene_Dragon3d_Com_H
+#ifndef CrossBar_Loderunner_Examples_Dragon3d_Com_H
+#define CrossBar_Loderunner_Examples_Dragon3d_Com_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
-#include <com/dragon3d/scene/model/Model.h>
 
-BeginPackage5(com, dragon3d, scene, model, geometry)
+BeginPackage4(com, dragon3d, examples, loderunner)
 
 Import dragon::lang;
-Import com::dragon3d::scene::model;
 
-class_ Plane extends(Model) {
+class_ CrossBar extends(Object) {
 public:
     static const Type* TYPE;
     
 public:
-    Plane();
-    virtual ~Plane();
+    CrossBar();
+    virtual ~CrossBar();
 
+public:
+    
 protected:
-    int xSize;
-    int zSize;
-};//Plane
+    
+};//CrossBar
 
-EndPackage5 //(com, dragon3d, scene, model, geometry)
+EndPackage4 //(com, dragon3d, examples, loderunner)
 
-#endif //Plane_Geometry_Model_Scene_Dragon3d_Com_H
+#endif //CrossBar_Loderunner_Examples_Dragon3d_Com_H

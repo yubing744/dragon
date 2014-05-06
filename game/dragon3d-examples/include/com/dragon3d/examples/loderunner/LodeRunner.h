@@ -17,35 +17,46 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/03/30
+ * Created:     2014/05/05
  **********************************************************************/
 
 
-#ifndef Plane_Geometry_Model_Scene_Dragon3d_Com_H
-#define Plane_Geometry_Model_Scene_Dragon3d_Com_H
+#ifndef LodeRunner_Loderunner_Examples_Dragon3d_Com_H
+#define LodeRunner_Loderunner_Examples_Dragon3d_Com_H
 
-#include <dragon/config.h>
-#include <dragon/lang/Object.h>
-#include <com/dragon3d/scene/model/Model.h>
+#include <dragon3d.h>
+#include <com/dragon3d/framework/Application.h>
+#include <com/dragon3d/scene/GameObject.h>
 
-BeginPackage5(com, dragon3d, scene, model, geometry)
+BeginPackage4(com, dragon3d, examples, loderunner)
 
 Import dragon::lang;
-Import com::dragon3d::scene::model;
+Import com::dragon3d::scene;
+Import com::dragon3d::framework;
 
-class_ Plane extends(Model) {
+class_ LodeRunner extends(Application) {
 public:
     static const Type* TYPE;
     
 public:
-    Plane();
-    virtual ~Plane();
+    LodeRunner();
+    virtual ~LodeRunner();
+
+public:
+    virtual void init();
+    virtual void update(Scene* scene, ReadOnlyTimer* timer);
+    virtual void destroy();
+   
+protected:
+    virtual void setupCamera();
 
 protected:
-    int xSize;
-    int zSize;
-};//Plane
+    GameObject* mainCamera;
+    GameObject* ground;
+    GameObject* clod;
+    
+};//LodeRunner
 
-EndPackage5 //(com, dragon3d, scene, model, geometry)
+EndPackage4 //(com, dragon3d, examples, loderunner)
 
-#endif //Plane_Geometry_Model_Scene_Dragon3d_Com_H
+#endif //LodeRunner_Loderunner_Examples_Dragon3d_Com_H

@@ -17,35 +17,25 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/03/30
+ * Created:     2014/05/05
  **********************************************************************/
 
 
-#ifndef Plane_Geometry_Model_Scene_Dragon3d_Com_H
-#define Plane_Geometry_Model_Scene_Dragon3d_Com_H
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/examples/loderunner/Cat.h>
 
-#include <dragon/config.h>
-#include <dragon/lang/Object.h>
-#include <com/dragon3d/scene/model/Model.h>
+Import dragon::lang::gc;
+Import dragon::util::logging;
+Import com::dragon3d::examples::loderunner;
 
-BeginPackage5(com, dragon3d, scene, model, geometry)
+const Type* Cat::TYPE = TypeOf<Cat>();
+static Logger* logger = Logger::getLogger(Cat::TYPE, ERROR);
 
-Import dragon::lang;
-Import com::dragon3d::scene::model;
+Cat::Cat() {
 
-class_ Plane extends(Model) {
-public:
-    static const Type* TYPE;
-    
-public:
-    Plane();
-    virtual ~Plane();
+}
 
-protected:
-    int xSize;
-    int zSize;
-};//Plane
+Cat::~Cat() {
 
-EndPackage5 //(com, dragon3d, scene, model, geometry)
-
-#endif //Plane_Geometry_Model_Scene_Dragon3d_Com_H
+}
