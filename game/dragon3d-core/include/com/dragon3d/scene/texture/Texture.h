@@ -37,6 +37,16 @@ Import dragonx::image;
 Import dragon::util::concurrent::atomic;
 Import com::dragon3d::util::assets;
 
+enum FilterMode {
+    Point,
+    Bilinear,
+    Trilinear
+};
+
+enum TextureWrapMode {
+    Repeat,
+    Clamp
+};
 
 class_ Texture extends(Object) {
 private:
@@ -44,18 +54,6 @@ private:
 
 public:
     static int GetNextTextureID();
-
-public:
-    enum FilterMode {
-        Point,
-        Bilinear,
-        Trilinear
-    };
-
-    enum TextureWrapMode {
-        Repeat,
-        Clamp
-    };
 
 public:
     Texture(Resource* res);
@@ -74,10 +72,13 @@ public:
     int getHeight();
     Array<byte> getData();
 
+protected:
+    void load(Resource* res);
+    
 public:
     FilterMode filterMode;
-    int anisoLevel;
     TextureWrapMode wrapMode;
+    int anisoLevel;
     float mipMapBias;
     
     int channels;

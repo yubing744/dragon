@@ -65,6 +65,11 @@ public:
 
     Color(const char* hexColor);
 
+    Color(const Color& c);
+
+public:
+    Color& operator= (const Color& c);
+
 public:
     const float* getData() const;
     const Array<float> toFloatArray() const;

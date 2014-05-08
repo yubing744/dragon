@@ -51,7 +51,7 @@ void GLSLShader::init() {
 }
 
 void GLSLShader::prepare() {
-    this->nameMap->put("tex", new String("TEXCOORD0"));
+    this->nameMap->put("uv", new String("TEXCOORD0"));
 }
 
 String* GLSLShader::queryNameMapping(const char* name) {

@@ -43,17 +43,21 @@ Import com::dragon3d::framework;
 static Logger* logger = Logger::getLogger("com::dragon3d::framework::Application", INFO);
 
 Application::Application() 
-	:paused(true), exited(false) {
-	this->inputManager = null;
-	this->outputManager= null;
+	:paused(true), stoped(false), 
+    inputManager(null), outputManager(null) {
 
     this->currentScene = new SimpleScene();
+    this->timer = new Timer();
+    this->frameWork = new FrameHandler(timer);
 
 	this->onCreate();
 }
 
 Application::~Application() {
-	this->onDestroy();
+    this->destroy();
+
+    SafeRelease(this->frameWork);
+    SafeRelease(this->timer);
     SafeRelease(this->currentScene);
 }
 
@@ -66,68 +70,33 @@ void Application::onCreate() {
 }
 
 void Application::onStart() {
-	logger->info("on start");
+    logger->info("on start");
+}
 
-	// init frame handler
-    logger->info("create frame handler"); 
-	this->timer = new Timer();
-	this->frameWork = new FrameHandler(timer);
-	
+void Application::onInit() {
+	logger->info("on init");
+}
 
-    // init input and output manager
-    this->inputManager->init();
-    this->outputManager->init();
-
-    this->frameWork->addUpdater(this);
-    this->frameWork->addOutput(this);
-    this->frameWork->addOutput(this->outputManager);
-
-    this->frameWork->init();
-    
-    // init game
-    this->onGameInit();
+void Application::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
+    logger->info("on update");
 }
 
 void Application::onResume() {
 	logger->info("on resume");
-	
-	//this->paused = false;
-	//this->timer->resume();
 }
 
 void Application::onPause() {
 	logger->info("on pause");
-
-	//this->paused = true;
-	//this->timer->pause();
 }
 
 void Application::onStop() {
 	logger->info("on stop");
-
-    // destroy input and output manager
-    this->inputManager->destroy();
-    this->outputManager->destroy();
 }
 
 void Application::onDestroy() {
 	logger->info("on destroy");	
 }
 
-
-// ------------------------------------------
-
-void Application::onGameInit() {
-	logger->info("on game init");
-}
-
-void Application::onGameDestroy() {
-    logger->info("on game destroy");
-    
-    // destroy input and output manager
-    this->inputManager->destroy();
-    this->outputManager->destroy();
-}
 
 // ---------------------------------------
 
@@ -155,13 +124,8 @@ void Application::setNextScene(Scene* scene) {
 
 // --------------------------------------
 
-bool Application::isExit() {
-    return this->exited;
-}
-
-void Application::exit() {
-    logger->info("notify exit");
-    this->exited = true;
+bool Application::isStoped() {
+    return this->stoped;
 }
 
 void Application::runLoop() {
@@ -181,8 +145,29 @@ void Application::runLoop() {
 
 // ----------------------- simple game -----------------------
 
+void Application::start() {
+    logger->info("game start");
+
+    // init frame handler
+    logger->info("create frame handler"); 
+    
+    // init input and output manager
+    this->inputManager->init();
+    this->outputManager->init();
+
+    this->frameWork->addUpdater(this);
+    this->frameWork->addOutput(this->outputManager);
+
+    this->frameWork->init();
+
+    this->paused = false;
+    this->stoped = false;
+}
+
 void Application::init() {
 	logger->info("game scene init");
+
+    this->onInit();
 
     logger->debug("init all the world");
     Ref<Scene> scene = this->getCurrentScene();
@@ -194,12 +179,14 @@ void Application::init() {
         Ref<GameObject> gameObject = it->next();
         gameObject->init();
     }
+
+    this->onStart();
 }
 
 void Application::update(Scene* scene, ReadOnlyTimer* timer) {
-	logger->debug("game scene update");
-	logger->debug("game scene fps %d", timer->getFrameRate());
-	logger->debug("current time %d", System::currentTimeMillis());
+    logger->debug("game scene update");
+    logger->debug("game scene fps %d", timer->getFrameRate());
+    logger->debug("current time %d", System::currentTimeMillis());
 
     logger->debug("update all the world");
 
@@ -210,12 +197,29 @@ void Application::update(Scene* scene, ReadOnlyTimer* timer) {
         Ref<GameObject> gameObject = it->next();
         gameObject->update(this->inputManager, timer);
     }
+
+    this->onUpdate(scene, timer);
 }
 
-void Application::output(Scene* scene, CountDownLatch* latch) {
-	logger->debug("game scene output");
+void Application::pause() {
+    logger->info("pause the app");
+    this->paused = true;
 
-    latch->countDown();
+    this->onPause();
+}
+
+void Application::resume() {
+    logger->info("pause the app");
+    this->paused = false;
+
+    this->onResume();
+}
+
+void Application::stop() {
+    logger->info("stop the app");
+    this->stoped = true;
+
+    this->onStop();
 }
 
 void Application::destroy() {
@@ -231,4 +235,10 @@ void Application::destroy() {
         Ref<GameObject> gameObject = it->next();
         gameObject->destroy();
     }
+
+    // destroy input and output manager
+    this->inputManager->destroy();
+    this->outputManager->destroy();
+
+    this->onDestroy();
 }

@@ -29,7 +29,6 @@ build({
 	'name' : 'dragon-game',
 
 	'modules' : [
-		'dragon3d-core',
-		'dragon3d-examples'
+		'dragon3d-core'
 	]
 })

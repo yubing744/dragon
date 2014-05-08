@@ -298,6 +298,8 @@ public:
     Vector3(const Vector3& a);
 
 public:
+    Vector3& operator= (const Vector3& v);
+
     bool operator==(const Vector3& a) const;
     bool operator!=(const Vector3& a) const;
 

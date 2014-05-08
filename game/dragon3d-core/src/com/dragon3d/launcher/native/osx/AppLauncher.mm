@@ -56,14 +56,13 @@ public:
     void run() {
         try {
             // start app
-            app->onStart();
+            app->start();
 
-            while (!app->isExit()) {
+            while (!app->isStoped()) {
                 app->runLoop();
             }
 
-            // stop app
-            app->onStop();
+            app->destroy();
         } catch (Throwable* t) {
             logger->errorT("Throwable caught in MainThread - exiting", t);
             t->printStackTrace();
@@ -112,5 +111,5 @@ void Dragon3DLaunchApp(Application* app) {
  * @param app [description]
  */
 void Dragon3DTerminateApp(Application* app) {
-    app->exit();
+    app->stop();
 }

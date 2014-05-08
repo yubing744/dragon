@@ -58,7 +58,9 @@ static Logger* logger = Logger::getLogger("com::dragon3d::launcher::AppLauncher#
     Application* app = (Application*)_app;
 
     try {
-        app->runLoop();
+        if (!app->isStoped()) {
+            app->runLoop();
+        }
     } catch (Throwable* t) {
         logger->errorT("Throwable caught in MainThread - exiting", t);
         t->printStackTrace();
@@ -93,7 +95,7 @@ void Dragon3DLaunchApp(Application* app) {
 
     try {
         // start app
-        app->onStart();
+        app->start();
 
 
         GameLoop* loop = [[GameLoop alloc] initWithApp: app];
@@ -122,6 +124,6 @@ void Dragon3DLaunchApp(Application* app) {
  */
 void Dragon3DTerminateApp(Application* app) {
     logger->info("terminate app");
-    app->onStop();
+    app->stop();
 }
 

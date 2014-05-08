@@ -31,7 +31,6 @@
 		46944579191861BF000553FF /* Clod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944570191861BF000553FF /* Clod.cc */; };
 		4694457A191861BF000553FF /* CrossBar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944571191861BF000553FF /* CrossBar.cc */; };
 		4694457B191861BF000553FF /* Grain.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944572191861BF000553FF /* Grain.cc */; };
-		4694457C191861BF000553FF /* Ground.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944573191861BF000553FF /* Ground.cc */; };
 		4694457D191861BF000553FF /* Ladder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944574191861BF000553FF /* Ladder.cc */; };
 		4694457E191861BF000553FF /* LodeRunner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944575191861BF000553FF /* LodeRunner.cc */; };
 		4694457F191861BF000553FF /* Mice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944576191861BF000553FF /* Mice.cc */; };
@@ -45,6 +44,9 @@
 		46ABCA1C18C0E00A002E234C /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1818C0E00A002E234C /* Data */; };
 		46ABCA1D18C0E00A002E234C /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1918C0E00A002E234C /* Textures */; };
 		46D3B484190CB84100B44CF0 /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 46D3B483190CB84100B44CF0 /* shader */; };
+		46DC1311191A6AED00E5A3E9 /* GameMap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1310191A6AED00E5A3E9 /* GameMap.cc */; };
+		46DC1313191A7BBB00E5A3E9 /* Clod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1312191A7BBB00E5A3E9 /* Clod.cc */; };
+		46DC1315191A7F3A00E5A3E9 /* Brick.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1314191A7F3A00E5A3E9 /* Brick.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -90,7 +92,6 @@
 		46944570191861BF000553FF /* Clod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clod.cc; sourceTree = "<group>"; };
 		46944571191861BF000553FF /* CrossBar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrossBar.cc; sourceTree = "<group>"; };
 		46944572191861BF000553FF /* Grain.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grain.cc; sourceTree = "<group>"; };
-		46944573191861BF000553FF /* Ground.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cc; sourceTree = "<group>"; };
 		46944574191861BF000553FF /* Ladder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ladder.cc; sourceTree = "<group>"; };
 		46944575191861BF000553FF /* LodeRunner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LodeRunner.cc; sourceTree = "<group>"; };
 		46944576191861BF000553FF /* Mice.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mice.cc; sourceTree = "<group>"; };
@@ -102,6 +103,9 @@
 		46ABCA1818C0E00A002E234C /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
 		46ABCA1918C0E00A002E234C /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../../assets/Textures; sourceTree = "<group>"; };
 		46D3B483190CB84100B44CF0 /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shader; path = ../../../../assets/shader; sourceTree = "<group>"; };
+		46DC1310191A6AED00E5A3E9 /* GameMap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMap.cc; sourceTree = "<group>"; };
+		46DC1312191A7BBB00E5A3E9 /* Clod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clod.cc; sourceTree = "<group>"; };
+		46DC1314191A7F3A00E5A3E9 /* Brick.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brick.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,12 +269,12 @@
 		4694456D191861BF000553FF /* loderunner */ = {
 			isa = PBXGroup;
 			children = (
+				46DC130D191A6A2D00E5A3E9 /* map */,
 				4694456E191861BF000553FF /* Brick.cc */,
 				4694456F191861BF000553FF /* Cat.cc */,
 				46944570191861BF000553FF /* Clod.cc */,
 				46944571191861BF000553FF /* CrossBar.cc */,
 				46944572191861BF000553FF /* Grain.cc */,
-				46944573191861BF000553FF /* Ground.cc */,
 				46944574191861BF000553FF /* Ladder.cc */,
 				46944575191861BF000553FF /* LodeRunner.cc */,
 				46944576191861BF000553FF /* Mice.cc */,
@@ -297,6 +301,16 @@
 				46ABCA1918C0E00A002E234C /* Textures */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		46DC130D191A6A2D00E5A3E9 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				46DC1314191A7F3A00E5A3E9 /* Brick.cc */,
+				46DC1312191A7BBB00E5A3E9 /* Clod.cc */,
+				46DC1310191A6AED00E5A3E9 /* GameMap.cc */,
+			);
+			path = map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,10 +402,12 @@
 				46944579191861BF000553FF /* Clod.cc in Sources */,
 				4694457A191861BF000553FF /* CrossBar.cc in Sources */,
 				4694457B191861BF000553FF /* Grain.cc in Sources */,
-				4694457C191861BF000553FF /* Ground.cc in Sources */,
 				4694457D191861BF000553FF /* Ladder.cc in Sources */,
 				4694457E191861BF000553FF /* LodeRunner.cc in Sources */,
 				4694457F191861BF000553FF /* Mice.cc in Sources */,
+				46DC1311191A6AED00E5A3E9 /* GameMap.cc in Sources */,
+				46DC1313191A7BBB00E5A3E9 /* Clod.cc in Sources */,
+				46DC1315191A7F3A00E5A3E9 /* Brick.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

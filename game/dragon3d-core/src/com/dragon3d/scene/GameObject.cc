@@ -231,6 +231,13 @@ Vector3 GameObject::getPosition() {
 	return this->transform->transformDirection(Vector3::ZERO);
 }
 
+
+void GameObject::setPosition(float x, float y, float z) {
+    Ref<Transform> ts = this->getTransform();
+    ts->setPosition(Vector3(x, y, z));
+}
+
+
 // Events stub
 void GameObject::onInit() {
 	// do nothing

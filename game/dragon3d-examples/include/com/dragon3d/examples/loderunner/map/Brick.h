@@ -17,46 +17,37 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/05/05
+ * Created:     2014/05/07
  **********************************************************************/
 
 
-#ifndef Ground_Loderunner_Examples_Dragon3d_Com_H
-#define Ground_Loderunner_Examples_Dragon3d_Com_H
+#ifndef Brick_Map_Loderunner_Examples_Dragon3d_Com_H
+#define Brick_Map_Loderunner_Examples_Dragon3d_Com_H
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/scene/GameObject.h>
-#include <com/dragon3d/scene/model/geometry/Plane.h>
 
-BeginPackage4(com, dragon3d, examples, loderunner)
+BeginPackage5(com, dragon3d, examples, loderunner, map)
 
 Import dragon::lang;
 Import com::dragon3d::scene;
-Import com::dragon3d::scene::model::geometry;
 
-/**
- * groud
- * 
- * @param  GameObject [description]
- * @return            [description]
- */
-class_ Ground extends(GameObject) {
+class_ Brick extends(GameObject) {
 public:
     static const Type* TYPE;
     
 public:
-    Ground();
-    virtual ~Ground();
+    Brick();
+    virtual ~Brick();
 
 protected:
     virtual void onInit();
-    
-protected:
-    com::dragon3d::scene::model::geometry::Plane* floorboard;
-    Array<com::dragon3d::scene::model::geometry::Plane*> arounds;
-};//Ground
+    virtual void onUpdate(Input* input, ReadOnlyTimer* timer);
+    virtual void onDestroy();
+     
+};//Brick
 
-EndPackage4 //(com, dragon3d, examples, loderunner)
+EndPackage5 //(com, dragon3d, examples, loderunner, map)
 
-#endif //Ground_Loderunner_Examples_Dragon3d_Com_H
+#endif //Brick_Map_Loderunner_Examples_Dragon3d_Com_H

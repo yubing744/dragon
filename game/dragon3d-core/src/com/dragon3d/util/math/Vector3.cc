@@ -181,6 +181,14 @@ Vector3::Vector3(const Vector3& a)
 
 }
 
+Vector3& Vector3::operator= (const Vector3& v) {
+    this->x = v.x;
+    this->y = v.y;
+    this->z = v.z;
+
+    return (*this);
+}
+
 bool Vector3::operator==(const Vector3& a) const {
     return x==a.x && y==a.y && z==a.z;
 }

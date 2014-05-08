@@ -58,20 +58,21 @@ public:
     public:
         TextureProp() :texture(null), 
             textureOffset(null), 
-            textureScale(null) {
-
+            textureTiling(null) {
+            this->textureOffset = new Vector2(0, 0);
+            this->textureTiling = new Vector2(1, 1);
         };
 
         virtual ~TextureProp(){
             SafeRelease(this->texture);
             SafeRelease(this->textureOffset);
-            SafeRelease(this->textureScale);
+            SafeRelease(this->textureTiling);
         };
 
     public:
         Texture* texture;
         Vector2* textureOffset;
-        Vector2* textureScale;
+        Vector2* textureTiling;
     };
 
 public:
@@ -95,7 +96,7 @@ public:
     Matrix4x4 getMatrix(const String& propName);
     Texture* getTexture(const String& propName);
     Vector2 getTextureOffset(const String& propName);
-    Vector2 getTextureScale(const String& propName);
+    Vector2 getTextureTiling(const String& propName);
     Vector4 getVector(const String& propName);
 
     bool hasProperty(const String& propName);
@@ -108,7 +109,7 @@ public:
     void setMatrix(const String& propName, const Matrix4x4& matrix);
     void setTexture(const String& propName, Texture* texture);
     void setTextureOffset(const String& propName, const Vector2& offset);
-    void setTextureScale(const String& propName, const Vector2& scale);
+    void setTextureTiling(const String& propName, const Vector2& tiling);
 
     void renderUntoShader(Shader* shader);
 
@@ -117,7 +118,12 @@ public:
     Color getMainColor();
 
     Texture* getMainTexture();
+    Vector2 getMainTextureOffset();
+    Vector2 getMainTextureTiling();
+    
     void setMainTexture(Texture* texture);
+    void setMainTextureOffset(const Vector2& offset);
+    void setMainTextureTiling(const Vector2& tiling);
 
 protected:
     TextureProp* getTextureProp(const String& propName);

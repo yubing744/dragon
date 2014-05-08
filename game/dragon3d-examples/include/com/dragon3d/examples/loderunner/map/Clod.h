@@ -17,42 +17,37 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/03/15
+ * Created:     2014/05/07
  **********************************************************************/
 
 
-#ifndef TextureDemo_Texture_Examples_Dragon3d_Com_H
-#define TextureDemo_Texture_Examples_Dragon3d_Com_H
+#ifndef Clod_Map_Loderunner_Examples_Dragon3d_Com_H
+#define Clod_Map_Loderunner_Examples_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/scene/GameObject.h>
 
-BeginPackage4(com, dragon3d, examples, texture)
+BeginPackage5(com, dragon3d, examples, loderunner, map)
 
+Import dragon::lang;
 Import com::dragon3d::scene;
-Import com::dragon3d::framework;
 
-class_ TextureDemo extends(Application) {
+class_ Clod extends(GameObject) {
 public:
     static const Type* TYPE;
     
 public:
-    TextureDemo();
-    virtual ~TextureDemo();
+    Clod();
+    virtual ~Clod();
 
-public:
-    virtual void onInit();
-    virtual void onUpdate(Scene* scene, ReadOnlyTimer* timer);
-    virtual void onDestroy();
-    
 protected:
-    GameObject* myBox;
-    GameObject* mainCamera;
-    GameObject* child;
-    
-};//TextureDemo
+    virtual void onInit();
+    virtual void onUpdate(Input* input, ReadOnlyTimer* timer);
+    virtual void onDestroy();  
 
-EndPackage4 //(com, dragon3d, examples, texture)
+};//Clod
 
-#endif //TextureDemo_Texture_Examples_Dragon3d_Com_H
+EndPackage5 //(com, dragon3d, examples, loderunner, map)
+
+#endif //Clod_Map_Loderunner_Examples_Dragon3d_Com_H

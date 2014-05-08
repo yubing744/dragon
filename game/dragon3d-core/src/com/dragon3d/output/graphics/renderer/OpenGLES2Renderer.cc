@@ -38,19 +38,11 @@ Import com::dragon3d::output::graphics::shader;
 
 OpenGLES2Renderer::OpenGLES2Renderer(GraphicsDevice* graphicsDevice) 
   :graphicsDevice(graphicsDevice) {
-    
-    //this->normalShader = new Shader(normalVertexShaderStr, normalFragmentShaderStr);
-
-    //this->cachedTextures = new HashMap<int, Integer>();
-    //this->cachedShaders = new HashMap<int, Integer>();
+    SafeRetain(graphicsDevice);
 }
 
 OpenGLES2Renderer::~OpenGLES2Renderer() {
-    //SafeRelease(this->defaultShader);
-    //SafeRelease(this->normalShader);
-
-    //SafeRelease(this->cachedTextures);
-    //SafeRelease(this->cachedShaders);
+    SafeRelease(this->graphicsDevice);
 }
 
 GraphicsDevice* OpenGLES2Renderer::getDisplay() {
@@ -68,12 +60,11 @@ void OpenGLES2Renderer::clearBuffer() {
     glViewport(0, 0, 320, 480);
     
     Color c("#474747");
-    //Color c("#FF0000");
     glClearColor(c.r, c.g, c.b, 0.5f);            // Black Background
-
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT| GL_STENCIL_BUFFER_BIT);
 
+    glFrontFace(GL_CW);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 }
@@ -82,21 +73,6 @@ void OpenGLES2Renderer::clearBuffer() {
 void OpenGLES2Renderer::setViewport(int x, int y, int width, int height) {
     glViewport(x, y, width, height); 
 }
-
-/*
-GLuint OpenGLES2RendererLoadProgram(Shader* shader) {
-    // Load the shaders and get a linked program object
-    char* utf8Vertex = shader->vertexShader->toUTF8String();
-    char* utf8Fragment = shader->fragmentShader->toUTF8String();
-
-    GLuint programObject = OpenGLES2RendererLoadProgram(utf8Vertex, utf8Fragment);
-
-    SafeFree(utf8Vertex);
-    SafeFree(utf8Fragment);
-
-    return programObject;
-}
-*/
 
 void OpenGLES2Renderer::drawSample() {
  
@@ -115,73 +91,6 @@ Matrix4x4 OpenGLES2RendererSetupCamera(Camera* camera) {
 
     return projMatrix;
 }
-
-// Texture
-/*
-GLuint OpenGLES2RendererInitTexture(Texture* texture){
-    GLuint textureID;
-
-    // Use tightly packed data
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // Generate a texture object
-    glGenTextures(1, &textureID);
-
-    // Bind the texture object
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    int textureType = GL_RGB;
-  
-    if(texture->channels == 4)
-        textureType = GL_RGBA;
-
-    // Load the texture
-    glTexImage2D(GL_TEXTURE_2D, 0, textureType, texture->getWidth(), 
-        texture->getHeight(), 0, textureType, GL_UNSIGNED_BYTE, texture->getData());
-
-    // Set the filtering mode
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    return textureID;
-}
-*/
-
-/*
-unsigned int OpenGLES2Renderer::loadTextureID(Texture* texture) {
-    int textureID = texture->getID();
-
-    Integer* nativeTextureID = this->cachedTextures->get(textureID);
-
-    if (nativeTextureID == null) {
-        nativeTextureID = new Integer(OpenGLES2RendererInitTexture(texture));
-        this->cachedTextures->put(textureID, nativeTextureID);
-    }
-
-    SafeRelease(nativeTextureID);
-
-    return nativeTextureID->intValue();
-}
-*/
-
-/*
-unsigned int OpenGLES2Renderer::loadProgramID(Shader* shader) {
-    int shaderID = shader->getID();
-
-    Integer* nativeShaderID = this->cachedShaders->get(shaderID);
-
-    if (nativeShaderID == null) {
-        nativeShaderID = new Integer(OpenGLES2RendererLoadProgram(shader));
-        this->cachedShaders->put(shaderID, nativeShaderID);
-    }
-
-    SafeRelease(nativeShaderID);
-
-    return nativeShaderID->intValue();
-}
-*/
 
 Shader* OpenGLES2Renderer::loadShaderFrom(Material* material) {
     Shader* shader = null;
@@ -253,7 +162,7 @@ void OpenGLES2Renderer::drawMesh(Mesh* mesh, const Matrix4x4& matrix, Material* 
     // Load the texture coordinate
     if (mesh->hasUV()) {
         Array<float> uvs = mesh->getFloatUVs();
-        shader->setVertexAttribPointer("tex", 2, GL_FLOAT, sizeof(float) * 2, uvs.raw());
+        shader->setVertexAttribPointer("uv", 2, GL_FLOAT, sizeof(float) * 2, uvs.raw());
     }
     
   

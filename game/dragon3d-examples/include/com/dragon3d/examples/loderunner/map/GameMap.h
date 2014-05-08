@@ -17,51 +17,43 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/05/05
+ * Created:     2014/05/07
  **********************************************************************/
 
 
-#ifndef LodeRunner_Loderunner_Examples_Dragon3d_Com_H
-#define LodeRunner_Loderunner_Examples_Dragon3d_Com_H
+#ifndef GameMap_Map_Loderunner_Examples_Dragon3d_Com_H
+#define GameMap_Map_Loderunner_Examples_Dragon3d_Com_H
 
-#include <dragon3d.h>
-#include <com/dragon3d/framework/Application.h>
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 #include <com/dragon3d/scene/GameObject.h>
-#include <com/dragon3d/examples/loderunner/map/Clod.h>
-#include <com/dragon3d/examples/loderunner/map/Brick.h>
-#include <com/dragon3d/examples/loderunner/map/GameMap.h>
+#include <com/dragon3d/scene/model/geometry/Plane.h>
 
-BeginPackage4(com, dragon3d, examples, loderunner)
+BeginPackage5(com, dragon3d, examples, loderunner, map)
 
 Import dragon::lang;
 Import com::dragon3d::scene;
-Import com::dragon3d::framework;
-Import com::dragon3d::examples::loderunner;
-Import com::dragon3d::examples::loderunner::map;
+Import com::dragon3d::scene::model::geometry;
 
-class_ LodeRunner extends(Application) {
+class_ GameMap extends(GameObject) {
 public:
     static const Type* TYPE;
     
 public:
-    LodeRunner();
-    virtual ~LodeRunner();
+    GameMap();
+    virtual ~GameMap();
+
+protected:
+    virtual void onInit();
 
 public:
-    virtual void onInit();
-    virtual void onUpdate(Scene* scene, ReadOnlyTimer* timer);
-    virtual void onDestroy();
-   
-protected:
-    virtual void setupCamera();
+    virtual void setSize(float width, float height);
 
 protected:
-    GameObject* mainCamera;
-    GameMap* map;
-    Clod* clod;
-    
-};//LodeRunner
+    com::dragon3d::scene::model::geometry::Plane* floorboard;
+    Array<GameObject*> arounds; 
+};//GameMap
 
-EndPackage4 //(com, dragon3d, examples, loderunner)
+EndPackage5 //(com, dragon3d, examples, loderunner, map)
 
-#endif //LodeRunner_Loderunner_Examples_Dragon3d_Com_H
+#endif //GameMap_Map_Loderunner_Examples_Dragon3d_Com_H

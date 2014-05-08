@@ -65,26 +65,36 @@ Import com::dragon3d::scene;
  * 
  */
 class _DragonExport Application extends(Object) 
-	implements2(Updater, Output) {
+	implements1(Updater) {
 public:
 	Application();
 	virtual ~Application();
 
-public: // application lifecycle 
+public: // application lifecycle callback
 	/**
 	 * callback when app create.
 	 */
 	virtual void onCreate();
 
 	/**
-	 * callback when app start.
+	 * callback when game init.
 	 */
 	virtual void onStart();
+
+	/**
+	 * callback when game init.
+	 */
+	virtual void onInit();
 
 	/**
 	 * callback when app resume.
 	 */
 	virtual void onResume();
+
+	/**
+	 * callback when game update.
+	 */
+	virtual void onUpdate(Scene* scene, ReadOnlyTimer* timer);
 
 	/**
 	 * callback when app pause.
@@ -100,17 +110,6 @@ public: // application lifecycle
 	 * callback when app destroy.
 	 */
 	virtual void onDestroy();
-
-public: // game lifecycle
-	/**
-	 * callback when game init.
-	 */
-	virtual void onGameInit();
-
-	/**
-	 * callback when game close.
-	 */
-	virtual void onGameDestroy();
 
 public:
 	/**
@@ -133,25 +132,39 @@ public:
 	 * 
 	 * @return [description]
 	 */
-	virtual bool isExit();
+	virtual bool isStoped();
 
 	/**
 	 * app main loop
 	 */
 	virtual void runLoop();
 
+public:// app control
 	/**
-	 * exit app
+	 * start app
 	 */
-	virtual void exit();
+	virtual void start();
+
+	/**
+	 * pause the app
+	 */
+	virtual void pause();
+
+	/**
+	 * resume the app
+	 */
+	virtual void resume();
+
+	/**
+	 * stop the app
+	 */
+	virtual void stop();
+
 
 public: // Implements Updater
 	virtual void init();
 	virtual void update(Scene* scene, ReadOnlyTimer* timer);
 	virtual void destroy();	
-
-public: // Implements Output
-	virtual void output(Scene* scene, CountDownLatch* latch);
 
 protected:
 	/**
@@ -188,7 +201,7 @@ protected:
 	/**
 	 * whether the app need exit
 	 */
-	bool exited;
+	bool stoped;
 
 	/**
 	 * whether the app is pause.
@@ -215,133 +228,3 @@ protected:
 EndPackage3 //(com, dragon3d, framework)
 
 #endif //Application_Framework_Dragon3d_Com_H
-
-/*
-
-#pragma once
-
-#include "dg_config.h"
-
-#if !defined(DG_ENGINE)
-#define DG_ENGINE
-
-#include <vector>
-
-#include "dg_vector3.h"
-#include "dg_scene.h"
-#include "dg_screen.h"
-#include "dg_platform.h"
-#include "dg_platform_callback.h"
-#include "dg_graphics_lib.h"
-#include "dg_log.h"
-#include "dg_input_manager.h"
-#include "dg_model_manager.h"
-#include "dg_camera.h"
-
-using std::vector;
-
-class DGEngine
-	:public DGPlatformCallback
-{
-public:
-	DGEngine(void);
-	virtual ~DGEngine(void);
-
-public:
-	virtual DGboolean init(DGPlatform* platform, const char* title, DGuint width, DGuint height);
-	virtual DGScene* createScene();
-	virtual void setupCamera(DGCamera* camera);
-
-public: // Implements Interface DGPlatformCallback
-	virtual void start();
-	virtual void run();
-	virtual void draw();
-	virtual void resize(DGuint width, DGuint height);
-	virtual void update(DGfloat deltaTime);
-	virtual void key(DGubyte charCode, DGboolean pressed, DGuint wParam, DGuint lParam);
-
-public: // Getter
-    DGPlatform* getPlatform() {
-        return this->platform;
-    };
-
-    DGGraphicsLib* getGraphicsLib() {
-        return this->glib;
-    };
-
-    DGScreen* getScreen() {
-        return this->screen;
-    };
-
-	DGInput* getInput() {
-		return this->inputManager;
-	};
-
-	DGModelManager* getModelManager() {
-		return this->modelManager;
-	};
-
-private:
-    DGScreen* screen; //Inner Variable
-	DGInputManager* inputManager; //Inner Variable
-	DGModelManager* modelManager; //Inner Variable
-	DGPlatform* platform; //Out Variable
-	DGGraphicsLib* glib; //Out Variable
-
-	vector<DGScene*> scenes;
-	vector<DGCamera*> cameras;
-
-public:
-	DGuint targetFrameRate;
-	DGuint currentFrameRate;
-
-	DGfloat frameInterval;
-    char name[256];
-
-private:
-	static DGLog* LOG;
-};
-
-#endif
-
-
-
-#pragma once
-
-#include "dg_config.h"
-
-#if !defined(DG_CONTEXT)
-#define DG_CONTEXT
-
-#include "dg_input.h"
-#include "dg_screen.h"
-#include "dg_platform.h"
-#include "dg_graphics_lib.h"
-
-class DGEngine;
-
-class DGContext
-{
-public:
-    DGContext(DGEngine* engine){
-        this->engine = engine;
-    }
-
-public:
-    DGEngine* getEngine() {
-        return engine;
-    };
-
-    DGPlatform* getPlatform();
-    DGGraphicsLib* getGraphicsLib();
-    DGScreen* getScreen();
-	DGfloat getFrameInterval();
-	DGInput* getInput();
-
-private:
-    DGEngine* engine;
-};
-
-#endif
-
- */

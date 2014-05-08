@@ -185,6 +185,15 @@ public:
 	 */
 	virtual Vector3 getPosition();
 
+	/**
+	 * set the pos of gameObject.
+	 * 
+	 * @param x [description]
+	 * @param y [description]
+	 * @param z [description]
+	 */
+    virtual void setPosition(float x, float y, float z);
+
 protected:// Events
 	virtual void onInit();
 	virtual void onUpdate(Input* input, ReadOnlyTimer* timer);

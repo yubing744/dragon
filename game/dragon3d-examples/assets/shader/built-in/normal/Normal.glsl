@@ -2,7 +2,7 @@
 #if defined(VERTEX)
 // glesv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -profile glesv -quiet
+// command line args: -profile glesv -po version=120 -quiet
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glesv
@@ -10,9 +10,9 @@
 //semantic main_vertex.modelViewProj
 //var float4x4 modelViewProj :  : _modelViewProj1[0], 4 : 0 : 1
 //var float4 position : $vin.POSITION : POSITION : 1 : 1
-//var float2 tex : $vin.TEXCOORD : TEXCOORD : 2 : 1
+//var float2 uv : $vin.TEXCOORD : TEXCOORD : 2 : 1
 //var float4 oPosition : $vout.POSITION : HPOS : 3 : 1
-//var float2 oTex : $vout.TEXCOORD : TEXCOORD : 4 : 1
+//var float2 oUV : $vout.TEXCOORD : TEXCOORD : 4 : 1
 
 precision mediump float;
 
@@ -27,14 +27,14 @@ varying vec4 TEX0;
 void main()
 {
 
-    vec2 _oTex;
+    vec2 _oUV;
 
     _r0005 = POSITION.x*_modelViewProj1[0];
     _r0005 = _r0005 + POSITION.y*_modelViewProj1[1];
     _r0005 = _r0005 + POSITION.z*_modelViewProj1[2];
     _r0005 = _r0005 + POSITION.w*_modelViewProj1[3];
     _oPosition1 = _r0005;
-    _oTex = TEXCOORD0.xy;
+    _oUV = TEXCOORD0.xy;
     gl_Position = _r0005;
     TEX0.xy = TEXCOORD0.xy;
 } // main end
@@ -42,32 +42,42 @@ void main()
 #elif defined(FRAGMENT)
 // glesf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -profile glesf -quiet
+// command line args: -profile glesf -po version=120 -quiet
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glesf
 //program main_fragment
-//semantic main_fragment.s0 : TEXUNIT0
+//semantic main_fragment.mainTex : TEXUNIT0
+//semantic main_fragment.mainTexTiling
+//semantic main_fragment.mainTexOffset
 //semantic main_fragment.color
-//var sampler2D s0 : TEXUNIT0 : _s01 0 : 1 : 1
-//var float4 color :  : _color1 : 2 : 1
-//var float2 tex : $vin.TEXCOORD : TEXCOORD : 0 : 1
+//var sampler2D mainTex : TEXUNIT0 : _mainTex1 0 : 1 : 1
+//var float2 mainTexTiling :  : _mainTexTiling1 : 2 : 1
+//var float2 mainTexOffset :  : _mainTexOffset1 : 3 : 1
+//var float4 color :  : _color1 : 4 : 1
+//var float2 uv : $vin.TEXCOORD : TEXCOORD : 0 : 1
 //var float4 main_fragment : $vout.COLOR : COL : -1 : 1
 
 precision mediump float;
 
 vec4 _ret_0;
 vec4 _TMP0;
-uniform sampler2D _s01;
+uniform sampler2D _mainTex1;
+uniform vec2 _mainTexTiling1;
+uniform vec2 _mainTexOffset1;
 uniform vec4 _color1;
+vec2 _c0006;
 varying vec4 TEX0;
 
  // main procedure, the original name was main_fragment
 void main()
 {
 
+    vec2 _tiling;
 
-    _TMP0 = texture2D(_s01, TEX0.xy);
+    _tiling = vec2(TEX0.x*_mainTexTiling1.x, TEX0.y*_mainTexTiling1.y);
+    _c0006 = _mainTexOffset1 + _tiling;
+    _TMP0 = texture2D(_mainTex1, _c0006);
     _ret_0 = _color1 + _TMP0;
     gl_FragColor = _ret_0;
     return;

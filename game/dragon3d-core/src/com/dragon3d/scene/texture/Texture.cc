@@ -47,30 +47,33 @@ int Texture::GetNextTextureID() {
 }
 
 Texture::Texture(Resource* res) :id(GetNextTextureID())
-    ,nativeData(NULL) {
-    Ref<InputStream> is = res->getInputStream();
-    Ref<String> type = res->getType();
-
-    this->image = ImageIO::read(is.raw(), type.raw());
-
-    is->close();
+    ,nativeData(NULL), image(null) {
+   this->load(res);
 }
 
 Texture::Texture(const String& resPath) 
     :id(GetNextTextureID())
-    ,nativeData(NULL) {
+    ,nativeData(NULL), image(null) {
     Ref<Resource> res = AssetsManager::getInstance()->getResource(resPath);
-    Ref<InputStream> is = res->getInputStream();
-    Ref<String> type = res->getType();
-
-    this->image = ImageIO::read(is.raw(), type.raw());
-
-    is->close();
+    this->load(res);
 }
 
 Texture::~Texture(void){
     SafeRelease(this->image);
     SafeFree(this->nativeData);
+}
+
+void Texture::load(Resource* res) {
+    Ref<InputStream> is = res->getInputStream();
+    Ref<String> type = res->getType();
+    BufferedImage* image = ImageIO::read(is.raw(), type.raw());
+
+    if (image != null) {
+        Ref<ColorModel> cm = image->getColorModel();
+        int bit = cm->getBitCount();
+        this->channels = bit/8;
+        SafeReplace(this->image, image);
+    }
 }
 
 unsigned int Texture::getID() {

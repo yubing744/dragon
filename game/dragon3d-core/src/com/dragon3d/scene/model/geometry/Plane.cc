@@ -31,7 +31,8 @@ const Type* com::dragon3d::scene::model::geometry::Plane::TYPE = TypeOf<com::dra
 static Logger* logger = Logger::getLogger(com::dragon3d::scene::model::geometry::Plane::TYPE, ERROR);
 
 com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
-    /*
+
+  /*
     float cubeVerts[] =
     {
       -1.0f,  -1.0f, 1.0f,
@@ -86,8 +87,9 @@ com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
     }
 
     this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
-    */
+    */ 
    
+  
     float cubeVerts[] =
     {
       -xSize, 0, -zSize,
@@ -114,8 +116,8 @@ com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
 
     unsigned short cubeIndices[] =
     {
-        0, 4, 1,
-        1, 4, 2
+        0, 3, 1,
+        1, 3, 2
     };
 
     this->mesh = new Mesh();

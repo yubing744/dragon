@@ -42,75 +42,75 @@ public:
 public:
 	Type* operator=(Type* p);
 	Reference& operator=(const Reference& ref);
-	Type& operator*(){ checkNullPointer(); return *mpType; };
-	Type* operator->(){ checkNullPointer(); return mpType; };
-	operator Type&() { checkNullPointer(); return *mpType; };
-	operator Type*() { checkNullPointer(); return mpType; };
+	Type& operator*(){ checkNullPointer(); return *referent; };
+	Type* operator->(){ checkNullPointer(); return referent; };
+	operator Type&() { checkNullPointer(); return *referent; };
+	operator Type*() { checkNullPointer(); return referent; };
 	bool operator==(const Reference& ref);
 	
 
 public:
-	Type* raw() const { return mpType;};
-	Type& ref() const { checkNullPointer(); return *mpType;};
-	Type* retain() const { SafeRetain(mpType); return mpType; };
+	Type* raw() const { return referent;};
+	Type& ref() const { checkNullPointer(); return *referent;};
+	Type* retain() const { SafeRetain(referent); return referent; };
 	void* ployCast(Type* p);
 
 protected:
 	void checkNullPointer() const {
-		if (this->mpType == null) {
+		if (this->referent == null) {
 			throw new NullPointerException();
 		}
 	}
 
 private:
-	Type* mpType;
+	Type* referent;
 }; //Reference
 
 
 template<class Type>
 Reference<Type>::Reference() {
-	mpType = null;
+	referent = null;
 }
 
 template<class Type>
 Reference<Type>::Reference(const Type* p) {
-	mpType = const_cast<Type*>(p);
+	referent = const_cast<Type*>(p);
 }
 
 template<class Type>
 Reference<Type>::Reference(const Reference& ref) {
-	mpType = ref.mpType;
-	SafeRetain(mpType);
+	referent = ref.referent;
+	SafeRetain(referent);
 }
 
 template<class Type>
 Reference<Type>::~Reference() {
-	if (mpType != null) {
-		SafeRelease(mpType);
+	if (referent != null) {
+		SafeRelease(referent);
 	}
 }
 
 template<class Type>
 Type* Reference<Type>::operator=(Type* p) {
-	SafeRelease(mpType);
+	SafeRelease(referent);
 
-	mpType = p;
+	referent = p;
 	return p;
 }
 
 template<class Type>
 Reference<Type>& Reference<Type>::operator=(const Reference& ref) {
-	SafeRelease(mpType);
-	SafeRetain(ref.mpType);
+	SafeRelease(referent);
+	SafeRetain(ref.referent);
 
-	mpType = ref.mpType;
+	referent = ref.referent;
 
 	return *this;
 }
 
 template<class Type>
 bool Reference<Type>::operator==(const Reference& sp) {
-	return (mpType == sp.mpType);
+	return (referent == sp.referent);
 }
 
 template<class Type>
@@ -135,7 +135,7 @@ inline bool operator==(const Reference<Type>& left, int address) {
 
 template<class Type>
 inline size_t hash_value(const Reference<Type>& sp) {
-	return (size_t)sp.mpType;
+	return (size_t)sp.referent;
 }
 
 EndPackage3 //(dragon, lang, gc)

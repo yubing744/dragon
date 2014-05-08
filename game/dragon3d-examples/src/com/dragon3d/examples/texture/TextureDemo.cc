@@ -47,7 +47,7 @@ TextureDemo::~TextureDemo() {
 
 }
 
-void TextureDemo::init() {
+void TextureDemo::onInit() {
     logger->info("init");
 
     Scene* scene = this->getCurrentScene();
@@ -57,7 +57,7 @@ void TextureDemo::init() {
     
     Material* material = new Material();
     material->setMainColor(Color::BLACK);
-    material->setMainTexture(new Texture("Textures/Wood03.tga"));
+    material->setMainTexture(new Texture("textures/Wood03.tga"));
     box->setMaterial(material);
     
     myBox->addComponent(box);
@@ -93,7 +93,7 @@ void TextureDemo::init() {
 
 //static double abc = 0.1;
 
-void TextureDemo::update(Scene* scene, ReadOnlyTimer* timer) {
+void TextureDemo::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
     //mainCamera->transform->rotate(0, timer->getDeltaTime() * 40, 0, World);
 
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
@@ -111,9 +111,11 @@ void TextureDemo::update(Scene* scene, ReadOnlyTimer* timer) {
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
     
+    mainCamera->getTransform()->lookAt(child->getTransform());
+    
     logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
-void TextureDemo::destroy() {
+void TextureDemo::onDestroy() {
     logger->info("destroy");
 }

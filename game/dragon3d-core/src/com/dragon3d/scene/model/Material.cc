@@ -170,13 +170,13 @@ Vector2 Material::getTextureOffset(const String& propName) {
     return ret;
 }
 
-Vector2 Material::getTextureScale(const String& propName) {
+Vector2 Material::getTextureTiling(const String& propName) {
     Vector2 ret = Vector2::ZERO;
 
     TextureProp* prop = (TextureProp*)this->props->get(propName);
 
-    if (prop != null && prop->textureScale!=null) {
-        ret = *prop->textureScale;
+    if (prop != null && prop->textureTiling!=null) {
+        ret = *prop->textureTiling;
     } 
 
     SafeRelease(prop);
@@ -284,9 +284,9 @@ void Material::setTextureOffset(const String& propName, const Vector2& offset) {
     SafeRelease(prop);
 }
 
-void Material::setTextureScale(const String& propName, const Vector2& scale) {
+void Material::setTextureTiling(const String& propName, const Vector2& tiling) {
     TextureProp* prop = this->getTextureProp(propName);
-    prop->textureScale = new Vector2(scale);
+    prop->textureTiling = new Vector2(tiling);
     SafeRelease(prop);
 }
 
@@ -299,11 +299,27 @@ Color Material::getMainColor() {
 }
 
 Texture* Material::getMainTexture() {
-    return this->getTexture("s0");
+    return this->getTexture("mainTex");
 }
 
 void Material::setMainTexture(Texture* texture) {
-    this->setTexture("s0", texture);
+    this->setTexture("mainTex", texture);
+}
+
+Vector2 Material::getMainTextureOffset() {
+    return this->getTextureOffset("mainTex");
+}
+
+Vector2 Material::getMainTextureTiling() {
+    return this->getTextureTiling("mainTex");
+}
+
+void Material::setMainTextureOffset(const Vector2& offset) {
+    this->setTextureOffset("mainTex", offset);
+}
+
+void Material::setMainTextureTiling(const Vector2& tiling) {
+    this->setTextureTiling("mainTex", tiling);
 }
 
 void Material::renderUntoShader(Shader* shader) {
@@ -363,18 +379,22 @@ void Material::renderPropUnto(const String& name, Object* obj, Shader* shader) {
 
             Texture* texture = val->texture;
             Vector2* textureOffset = val->textureOffset;
-            Vector2* textureScale = val->textureScale;
+            Vector2* textureTiling = val->textureTiling;
 
             if (texture != null) {
                 shader->setSampler(utf8Name, texture, 0);
             }
 
             if (textureOffset != null) {
-                shader->setFloatVector(utf8Name, 2, Array<float>(textureOffset->getData(), 2, false));
+                Ref<String> offsetName = name.concat("Offset");
+                const Array<char> utf8OffsetName = offsetName->toUTF8CharArray();
+                shader->setFloatVector(utf8OffsetName, 2, Array<float>(textureOffset->getData(), 2, false));
             }
 
-            if (textureScale != null) {
-                shader->setFloatVector(utf8Name, 2, Array<float>(textureScale->getData(), 2, false));
+            if (textureTiling != null) {
+                Ref<String> tilingName = name.concat("Tiling");
+                const Array<char> utf8TilingName = tilingName->toUTF8CharArray();
+                shader->setFloatVector(utf8TilingName, 2, Array<float>(textureTiling->getData(), 2, false));
             }
         }
     }
