@@ -86,27 +86,6 @@ public: // implements OutputController
 
 protected:
     /**
-     * find all camera.
-     * 
-     */
-    virtual List<Camera>* findAllCameras(Scene* scene);
-
-    /**
-     * sort the cameras.
-     * 
-     * @param cameras [description]
-     */
-    virtual void sortCameras(List<Camera>* cameras);
-
-    /**
-     * culling the not visiable game object.
-     * 
-     * @param gameObjects [description]
-     * @param renderQueue [description]
-     */
-    virtual void culling(Camera* camera, List<GameObject>* gameObjects);
-
-    /**
      * check if culling the game object.
      * 
      * @param  gameObject [description]

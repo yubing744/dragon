@@ -51,11 +51,11 @@ Import com::dragon3d::examples::loderunner;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
-    //app = new HelloWorld();
+    app = new HelloWorld();
     //app = new AudioDemo();
     //app = new TextureDemo();
     //app = new ModelDemo();
-    app = new LodeRunner();
+    //app = new LodeRunner();
     
     Dragon3DLaunchApp(app);
     

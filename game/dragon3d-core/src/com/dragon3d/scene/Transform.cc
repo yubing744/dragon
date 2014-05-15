@@ -235,7 +235,7 @@ void Transform::setLocalEulerAngles(const Vector3& angles) {
 }
 
 bool Transform::hasChanged() {
-   return this->changed || this->parent!=null;
+   return this->changed || (this->parent!=null && this->parent->hasChanged());
 }
 
 Matrix4x4 Transform::getWorldToLocalMatrix() {

@@ -47,7 +47,7 @@ void Brick::onInit() {
     
     Ref<Material> material = new Material();
     material->setMainColor(Color::BLACK);
-    Ref<Texture> tex = new Texture("textures/wall_07.png");
+    Ref<Texture> tex = new Texture("textures/brick_02.png");
     material->setMainTexture(tex);
     box->setMaterial(material);
     

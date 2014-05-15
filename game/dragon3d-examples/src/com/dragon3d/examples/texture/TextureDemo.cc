@@ -20,6 +20,7 @@
  * Created:     2014/03/15
  **********************************************************************/
 
+#include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/scene/SimpleScene.h>
@@ -28,6 +29,7 @@
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/examples/texture/TextureDemo.h>
 
+Import dragon::lang::gc;
 Import com::dragon3d::examples::texture;
 Import dragon::util::logging;
 
@@ -51,6 +53,7 @@ void TextureDemo::onInit() {
     logger->info("init");
 
     Scene* scene = this->getCurrentScene();
+    Ref<GameObject> root = scene->getRoot();
     
     myBox = new GameObject();
     Box* box = new Box();
@@ -84,9 +87,9 @@ void TextureDemo::onInit() {
 
     camera->getTransform()->find("abc/bbb/ccc");
 
-    scene->add(myBox);
-    scene->add(child);
-    scene->add(mainCamera);
+    root->addChild(myBox);
+    root->addChild(child);
+    root->addChild(mainCamera);
     
     SafeRelease(scene);
 }

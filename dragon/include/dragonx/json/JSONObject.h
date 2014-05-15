@@ -51,15 +51,14 @@ public:
     virtual ~JSONObject();
 
 public:
-    String* getString(const String& key);
-    int getInt(const String& key);
+    bool hasKey(const String& key);
     
+    String* getString(const String& key);
+    int getInt(const String& key); 
     float getFloat(const String& key);
     double getDouble(const String& key);
-
     bool getBoolean(const String& key);
     Object* getObject(const String& key);
-
     JSONObject* getJSONObject(const String& key);
     JSONArray* getJSONArray(const String& key);
 

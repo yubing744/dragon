@@ -29,6 +29,7 @@
 #include <dragon/util/List.h>
 #include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/util/math/Ray3.h>
+#include <com/dragon3d/util/intersection/PickResults.h>
 
 BeginPackage3(com, dragon3d, framework)
 
@@ -36,60 +37,31 @@ Import dragon::lang;
 Import dragon::util;
 Import com::dragon3d::scene;
 Import com::dragon3d::util::math;
+Import com::dragon3d::util::intersection;
 
 /**
  * Owns all the data that is related to the scene. This class should not really know anything about rendering or the
  * screen, it's just the scene data.
  */
-__interface _DragonExport Scene {
+interface_ Scene {
 public:
 	virtual ~Scene(){};
 
 public:
 	/**
-	 * add a new GameObject
-	 * 
-	 * @param gameObject [description]
-	 */
-	virtual void add(GameObject* gameObject) = 0;
-
-	/**
-	 * remove game object
-	 * 
-	 * @param gameObject [description]
-	 */
-	virtual void remove(GameObject* gameObject) = 0;
-
-	/**
-	 * find game object by name
-	 */
-	virtual GameObject* findFirstWithName(const String& name) = 0;
-	virtual List<GameObject>* findWithName(const String& name) = 0;
-
-	/**
-	 * find game object by component Type
-	 */
-	virtual GameObject* findFirstWithType(const Type* type) = 0;
-	virtual List<GameObject>* findWithType(const Type* type) = 0;
-
-	/**
-	 * find game object by name
-	 */
-	virtual GameObject* findFirstWithTag(const String& tagName) = 0;
-	virtual List<GameObject>* findWithTag(const String& tagName) = 0;
-
-	/**
-	 * find game object by ray
-	 */
-	virtual GameObject* findFirstWithRay(Ray3* ray) = 0;
-	virtual List<GameObject>* findWithRay(Ray3* ray) = 0;
-
-	/**
-	 * find all gameobject
+	 * get root gameobject of scene.
 	 * 
 	 * @return [description]
 	 */
-	virtual List<GameObject>* getAll() = 0;
+	virtual GameObject* getRoot() = 0;
+	
+	/**
+	 * do pick with a ray.
+	 * 
+	 * @param  pickRay [description]
+	 * @return         [description]
+	 */
+	virtual PickResults* doPick(Ray3* pickRay) = 0;
 
 };//Scene
 

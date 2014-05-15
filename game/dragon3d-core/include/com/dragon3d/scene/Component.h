@@ -107,6 +107,13 @@ public:
 	 */
 	virtual Transform* getTransform();
 
+	/**
+	 * is active of this component.
+	 * 
+	 * @return [description]
+	 */
+	virtual bool isActived();
+
 protected: // helper method for attached GameObject.
 	/**
 	 * The game object this component is attached to. A component is always attached to a game object.

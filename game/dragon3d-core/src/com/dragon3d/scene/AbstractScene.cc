@@ -30,130 +30,13 @@ Import com::dragon3d::scene;
 
 
 AbstractScene::AbstractScene() {
-    this->gameObjects = new ArrayList<GameObject>();
+    this->root = new GameObject();
 }
 
 AbstractScene::~AbstractScene() {
-    SafeRelease(this->gameObjects);
+    SafeRelease(this->root);
 }
 
-void AbstractScene::add(GameObject* gameObject) {
-    if (!this->gameObjects->contains(gameObject)) {
-        this->gameObjects->add(gameObject);
-    }
-}
-
-void AbstractScene::remove(GameObject* gameObject) {
-    this->gameObjects->remove(gameObject);
-}
-
-GameObject* AbstractScene::findFirstWithName(const String& name) {
-    List<GameObject>* finded = new ArrayList<GameObject>();
-
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->getName()->equals(name)) {
-            return gameObject;
-        }
-    }
-
-    return null;
-}   
-
-List<GameObject>* AbstractScene::findWithName(const String& name) {
-    List<GameObject>* finded = new ArrayList<GameObject>();
-
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->getName()->equals(name)) {
-            finded->add(gameObject);
-        }
-    }
-
-    return finded;
-}
-
-GameObject* AbstractScene::findFirstWithType(const Type* type) {
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->hasComponent(type)) {
-            return gameObject;
-        }
-    }
-
-    return null;
-}
-
-List<GameObject>* AbstractScene::findWithType(const Type* type) {
-    List<GameObject>* finded = new ArrayList<GameObject>();
-
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->hasComponent(type)) {
-            finded->add(gameObject);
-        }
-    }
-
-    return finded;
-}
-
-GameObject* AbstractScene::findFirstWithTag(const String& tag) {
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->hasTag(tag)) {
-            return gameObject;
-        }
-    }
-
-    return null;
-}
-
-List<GameObject>* AbstractScene::findWithTag(const String& tag) {
-    List<GameObject>* finded = new ArrayList<GameObject>();
-
-    Ref<List<GameObject> > gameObjects = this->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-
-        if (gameObject->hasTag(tag)) {
-            finded->add(gameObject);
-        }
-    }
-
-    return finded;
-}
-
-GameObject* AbstractScene::findFirstWithRay(Ray3* ray) {
-    return null;
-}
-
-List<GameObject>* AbstractScene::findWithRay(Ray3* ray) {
-    return null;
-}
-
-List<GameObject>* AbstractScene::getAll() {
-    SafeRetain(this->gameObjects);
-    return this->gameObjects;
+GameObject* AbstractScene::getRoot() {
+    return (GameObject*)this->root->retain();
 }

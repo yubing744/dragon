@@ -20,12 +20,18 @@
  * Created:     2013/10/06
  **********************************************************************/
 
-
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/scene/SimpleScene.h>
-#include <dragon/util/ArrayList.h>
+#include <com/dragon3d/scene/collider/Collider.h>
 
-Import dragon::util;
+Import dragon::lang::gc;
+Import dragon::util::logging;
 Import com::dragon3d::scene;
+Import com::dragon3d::scene::collider;
+
+const Type* SimpleScene::TYPE = TypeOf<SimpleScene>();
+static Logger* logger = Logger::getLogger(SimpleScene::TYPE, ERROR);
 
 SimpleScene::SimpleScene() {
 
@@ -33,4 +39,35 @@ SimpleScene::SimpleScene() {
 
 SimpleScene::~SimpleScene() {
 
+}
+
+void SimpleScene::innerDoPick(PickResults* results, GameObject* parent, Ray3* pickRay) {
+    Ref<List<GameObject> > gameObjects = parent->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        Ref<Collider> collider = dynamic_cast<Collider*>(gameObject->getFirstComponent(Collider::TYPE));
+
+        if (collider!=null && collider->isEnabled()) {
+            RaycastHit* hit = null; 
+
+            if (collider->raycast(pickRay, &hit)) {
+                results->addHit(hit);
+                SafeRelease(hit);
+            }
+        }
+
+        this->innerDoPick(results, gameObject, pickRay);
+    }  
+}
+
+PickResults* SimpleScene::doPick(Ray3* pickRay) {
+    PickResults* results = new PickResults();
+    GameObject* root = this->root;
+
+    this->innerDoPick(results, root, pickRay);
+
+    return results;
 }

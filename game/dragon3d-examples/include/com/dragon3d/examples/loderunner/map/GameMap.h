@@ -29,9 +29,17 @@
 #include <com/dragon3d/scene/GameObject.h>
 #include <com/dragon3d/scene/model/geometry/Plane.h>
 
+#include <dragonx/json/JSONArray.h>
+#include <dragonx/json/JSONObject.h>
+#include <dragonx/json/JSONException.h>
+
+#include <com/dragon3d/examples/loderunner/map/Clod.h>
+#include <com/dragon3d/examples/loderunner/map/Brick.h>
+ 
 BeginPackage5(com, dragon3d, examples, loderunner, map)
 
 Import dragon::lang;
+Import dragonx::json;
 Import com::dragon3d::scene;
 Import com::dragon3d::scene::model::geometry;
 
@@ -41,10 +49,15 @@ public:
     
 public:
     GameMap();
+    GameMap(const String& mapPath);
     virtual ~GameMap();
 
 protected:
     virtual void onInit();
+
+protected:
+    virtual void initMapWithJsonConfig();
+    virtual void initLayerModel(int layerNum, JSONArray* datas);
 
 public:
     virtual void setSize(float width, float height);
@@ -52,6 +65,10 @@ public:
 protected:
     com::dragon3d::scene::model::geometry::Plane* floorboard;
     Array<GameObject*> arounds; 
+    Resource* mapRes;
+
+    float width;
+    float height;
 };//GameMap
 
 EndPackage5 //(com, dragon3d, examples, loderunner, map)

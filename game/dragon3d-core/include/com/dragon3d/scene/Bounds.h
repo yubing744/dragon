@@ -97,6 +97,7 @@ public:
      * @return     [description]
      */
     bool intersectRay(Ray3* ray);
+    bool intersectRay(Ray3* ray, float* distance);
 
     /**
      * Does another bounding box intersect with this bounding box?

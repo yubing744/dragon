@@ -15,16 +15,44 @@
 */
 
 /**********************************************************************
- * File:        dragon.h
- * Description: the header for dragon class library
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2014/05/14
  **********************************************************************/
 
-#ifndef Dragon3D_H
-#define Dragon3D_H
 
-#include <dragon3d-core.h>
+#ifndef RaycastHit_Intersection_Util_Dragon3d_Com_H
+#define RaycastHit_Intersection_Util_Dragon3d_Com_H
 
-#endif // Dragon3D_H
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+
+BeginPackage4(com, dragon3d, scene, collider)
+    class Collider;
+EndPackage4 
+
+BeginPackage4(com, dragon3d, util, intersection)
+
+Import dragon::lang;
+Import com::dragon3d::scene::collider;
+
+class_ RaycastHit extends(Object) {
+public:
+    static const Type* TYPE;
+    
+public:
+    RaycastHit(Collider* collider, float distance);
+    virtual ~RaycastHit();
+
+public:
+    virtual Collider* getCollider();
+    virtual float getDistance();
+
+protected:
+    Collider* collider;
+    float distance;
+};//RaycastHit
+
+EndPackage4 //(com, dragon3d, util, intersection)
+
+#endif //RaycastHit_Intersection_Util_Dragon3d_Com_H

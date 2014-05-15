@@ -25,6 +25,7 @@
 
 #include <dragonx/audio/io/AudioIO.h>
 
+#include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 #include <com/dragon3d/scene/SimpleScene.h>
@@ -39,6 +40,7 @@
 #include <com/dragon3d/util/assets/Resource.h>
 #include <com/dragon3d/util/assets/AssetsManager.h>
 
+Import dragon::lang::gc;
 Import com::dragon3d::scene::audio;
 Import com::dragon3d::examples::audio;
 Import dragon::util::logging;
@@ -66,7 +68,8 @@ AudioDemo::~AudioDemo() {
 void AudioDemo::init() {
     logger->info("init");
 
-    Scene* scene = this->getCurrentScene();
+    Ref<Scene> scene = this->getCurrentScene();
+    Ref<GameObject> root = scene->getRoot();
     
     myBox = new GameObject();
 
@@ -115,9 +118,9 @@ void AudioDemo::init() {
 
     camera->getTransform()->find("abc/bbb/ccc");
 
-    scene->add(myBox);
-    scene->add(child);
-    scene->add(mainCamera);
+    root->addChild(myBox);
+    root->addChild(child);
+    root->addChild(mainCamera);
 
     Application::init();
 }

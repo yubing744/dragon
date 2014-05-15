@@ -83,3 +83,7 @@ Transform* Component::getTransform() {
 
     return null;
 }
+
+bool Component::isActived() {
+    return this->active;
+}

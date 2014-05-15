@@ -64,12 +64,22 @@ GameObject::~GameObject() {
 void GameObject::init() {
 	this->onInit();
 
-	Ref<Iterator<Component> > it = this->components->iterator();
+    // init component
+	Ref<Iterator<Component> > itc = this->components->iterator();
 
-	while(it->hasNext()) {
-		Ref<Component> component = it->next();
+	while(itc->hasNext()) {
+		Ref<Component> component = itc->next();
 		component->init();
 	}
+
+    // init children
+    Ref<List<GameObject> > children = this->getChildren();
+    Ref<Iterator<GameObject> > it = children->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> child = it->next();
+        child->init();
+    }
 
 	this->afterInit();
 }
@@ -78,12 +88,22 @@ void GameObject::init() {
 void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 	this->onUpdate(input, timer);
 
-	Ref<Iterator<Component> > it = this->components->iterator();
+    // update componet
+	Ref<Iterator<Component> > itc = this->components->iterator();
 
-	while(it->hasNext()) {
-		Ref<Component> component = it->next();
+	while(itc->hasNext()) {
+		Ref<Component> component = itc->next();
 		component->update(input, timer);
 	}
+
+    // update children
+    Ref<List<GameObject> > children = this->getChildren();
+    Ref<Iterator<GameObject> > it = children->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> child = it->next();
+        child->update(input, timer);
+    }
 
 	this->afterUpdate(input, timer);
 }
@@ -91,12 +111,22 @@ void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 void GameObject::destroy() {
 	this->onDestroy();
 
-	Ref<Iterator<Component> > it = this->components->iterator();
+    // destroy componet
+	Ref<Iterator<Component> > itc = this->components->iterator();
 
-	while(it->hasNext()) {
-		Ref<Component> component = it->next();
+	while(itc->hasNext()) {
+		Ref<Component> component = itc->next();
 		component->destroy();
 	}
+
+    // destroy children
+    Ref<List<GameObject> > children = this->getChildren();
+    Ref<Iterator<GameObject> > it = children->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> child = it->next();
+        child->destroy();
+    }
 
 	this->afterDestroy();
 }
@@ -124,20 +154,47 @@ Component* GameObject::getFirstComponent(const Type* type) {
 	return null;
 }
 
-List<Component>* GameObject::getComponents(const Type* type) {
+List<Component>* GameObject::getComponents(const Type* type, bool includeInactive) {
 	List<Component>* results = new ArrayList<Component>();
 
 	Ref<Iterator<Component> > it = this->components->iterator();
 
 	while(it->hasNext()) {
-		Ref<Component> component = it->next();
+		Ref<Component> comp = it->next();
 
-		if (component->isTypeOf(type)) {
-			results->add(component);
+		if ((comp->isActived() || includeInactive) 
+            && comp->isTypeOf(type)) {
+			results->add(comp);
 		}
 	}
 	
 	return results;	
+}
+
+List<Component>* GameObject::getComponents(const Type* type) {
+    return this->getComponents(type, false);
+}
+
+List<Component>* GameObject::getComponentsInChildren(const Type* type, bool includeInactive) {
+    List<Component>* results = new ArrayList<Component>();
+
+    Ref<List<Component> > thisComps = this->getComponents(type);
+    results->addAll(thisComps);
+
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+        Ref<List<Component> > childComps = gameObject->getComponentsInChildren(type, includeInactive);
+        results->addAll(childComps);
+    }
+
+    return results;
+}
+
+List<Component>* GameObject::getComponentsInChildren(const Type* type) {
+    return getComponentsInChildren(type, false);   
 }
 
 bool GameObject::hasComponent(const Type* type) {
@@ -208,6 +265,17 @@ GameObject* GameObject::getParent() {
 	return null;
 }
 
+
+void GameObject::setParent(GameObject* gameObject) {
+    Transform* ts = this->transform;
+    Ref<Transform> pts = gameObject->getTransform();
+
+    if (ts != null) {
+	    ts->setParent(pts);
+	}
+}
+
+
 List<GameObject>* GameObject::getChildren() {
 	List<GameObject>* children = new ArrayList<GameObject>();
 
@@ -237,7 +305,119 @@ void GameObject::setPosition(float x, float y, float z) {
     ts->setPosition(Vector3(x, y, z));
 }
 
+//---------------------------------------------------------
+//
+void GameObject::addChild(GameObject* gameObject) {
+    Transform* ts = this->transform;
+    Ref<Transform> gts = gameObject->getTransform();
+    gts->setParent(ts);
+}
 
+void GameObject::removeChild(GameObject* gameObject) {
+    Ref<Transform> gts = gameObject->getTransform();
+    gts->setParent(null); 
+}
+
+GameObject* GameObject::findFirstWithName(const String& name) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->getName()->equals(name)) {
+            return gameObject;
+        }
+    }
+
+    return null;
+}   
+
+List<GameObject>* GameObject::findWithName(const String& name) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->getName()->equals(name)) {
+            finded->add(gameObject);
+        }
+    }
+
+    return finded;
+}
+
+GameObject* GameObject::findFirstWithType(const Type* type) {
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->hasComponent(type)) {
+            return gameObject;
+        }
+    }
+
+    return null;
+}
+
+List<GameObject>* GameObject::findWithType(const Type* type) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->hasComponent(type)) {
+            finded->add(gameObject);
+        }
+    }
+
+    return finded;
+}
+
+GameObject* GameObject::findFirstWithTag(const String& tag) {
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->hasTag(tag)) {
+            return gameObject;
+        }
+    }
+
+    return null;
+}
+
+List<GameObject>* GameObject::findWithTag(const String& tag) {
+    List<GameObject>* finded = new ArrayList<GameObject>();
+
+    Ref<List<GameObject> > gameObjects = this->getChildren();
+    Ref<Iterator<GameObject> > it = gameObjects->iterator();
+
+    while(it->hasNext()) {
+        Ref<GameObject> gameObject = it->next();
+
+        if (gameObject->hasTag(tag)) {
+            finded->add(gameObject);
+        }
+    }
+
+    return finded;
+}
+
+
+//---------------------------------------------------------
 // Events stub
 void GameObject::onInit() {
 	// do nothing

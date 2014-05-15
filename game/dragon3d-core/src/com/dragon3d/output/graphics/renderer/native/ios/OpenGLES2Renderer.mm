@@ -46,6 +46,8 @@ static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::rend
 // include commons
 #include "../../OpenGLES2Renderer.cc"
 
+#define USE_DEPTH_BUFFER 1
+
 // mine thread handle
 typedef struct {
     NSAutoreleasePool *pool;
@@ -65,7 +67,10 @@ void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice) {
         return;
     }
 
-    GLuint defaultFramebuffer, colorRenderbuffer;
+    GLint backingWidth = graphicsDevice->width;
+    GLint backingHeight = graphicsDevice->height;
+
+    GLuint defaultFramebuffer, colorRenderbuffer, depthRenderbuffer;
 
     // Create default framebuffer object. The backing will be allocated for the current layer in -resizeFromLayer
     glGenFramebuffers(1, &defaultFramebuffer);
@@ -76,14 +81,18 @@ void OpenGLES2RendererNativeInit(GraphicsDevice* graphicsDevice) {
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
 
+    if (USE_DEPTH_BUFFER) {
+        glGenRenderbuffers(1, &depthRenderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, depthRenderbuffer);
+        
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, backingWidth, backingHeight);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthRenderbuffer);
+    }
 
     // bind framebuffer with CAEAGLLayer
     NativeData* data = (NativeData*)graphicsDevice->getNativeData();
     UIView* glView = (UIView*)data->dgView;
     CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[glView layer];
-
-    GLint backingWidth = 320;
-    GLint backingHeight = 480;
 
     // Allocate color buffer backing based on the current layer size
     glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);

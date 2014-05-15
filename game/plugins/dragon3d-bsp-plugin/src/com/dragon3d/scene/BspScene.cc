@@ -15,17 +15,27 @@
 */
 
 /**********************************************************************
- * File:        dragon.h
- * Description: the header for dragon class library
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2014/05/12
  **********************************************************************/
 
-#ifndef Dragon3D_CORE_H
-#define Dragon3D_CORE_H
 
-#include <dragon/config.h>
-#include <com/dragon3d/config.h>
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/scene/BspScene.h>
 
-#endif // Dragon3D_CORE_H
+Import dragon::lang::gc;
+Import dragon::util::logging;
+Import com::dragon3d::scene;
+
+const Type* BspScene::TYPE = TypeOf<BspScene>();
+static Logger* logger = Logger::getLogger(BspScene::TYPE, ERROR);
+
+BspScene::BspScene() {
+
+}
+
+BspScene::~BspScene() {
+
+}

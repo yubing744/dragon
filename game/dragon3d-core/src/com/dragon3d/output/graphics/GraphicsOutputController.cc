@@ -65,40 +65,18 @@ void GraphicsOutputController::destroy() {
     SafeRelease(this->placementGrid);
 }
 
-List<Camera>* GraphicsOutputController::findAllCameras(Scene* scene) {
-    List<Camera>* cameras = new ArrayList<Camera>();
-
-    Ref<List<GameObject> > gameObjects = scene->findWithType(Camera::TYPE);
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        Ref<Camera> camera = (Camera*)gameObject->getFirstComponent(Camera::TYPE);
-
-        if (camera != null) {
-            cameras->add(camera);
-        }
-    }
-
-    return cameras;
-}
-
-void GraphicsOutputController::sortCameras(List<Camera>* cameras) {
-
-}
-
 void GraphicsOutputController::output(Scene* scene) {
 	//logger->info("output scene");
+    Ref<GameObject> root = scene->getRoot();
     
     // find all cameras and sort
-    Ref<List<Camera> > cameras = this->findAllCameras(scene);
-    this->sortCameras(cameras);
+    Ref<List<Component> > cameras = root->getComponentsInChildren(Camera::TYPE);
 
     // render scene to camera
-    Ref<Iterator<Camera> > it = cameras->iterator();
+    Ref<Iterator<Component> > it = cameras->iterator();
 
     while(it->hasNext()) {
-        Ref<Camera> camera = it->next();
+        Ref<Camera> camera = dynamic_cast<Camera*>(it->next());
 
         camera->resize(graphicsDevice->width, graphicsDevice->height);
 
@@ -111,7 +89,8 @@ void GraphicsOutputController::output(Scene* scene) {
 void GraphicsOutputController::culling(Camera* camera, GameObject* gameObject) {
     Ref<String> name = gameObject->getName();
 
-    Ref<List<Component> > renderables = (List<Component>*)gameObject->getComponents(Renderable::TYPE);
+    // culling this game object
+    Ref<List<Component> > renderables = gameObject->getComponents(Renderable::TYPE);
 
     if (renderables != null && renderables->size() > 0) {
         if (logger->isDebugEnabled()) {
@@ -156,24 +135,16 @@ void GraphicsOutputController::culling(Camera* camera, GameObject* gameObject) {
             }
         }
     }
-}
 
-void GraphicsOutputController::culling(Camera* camera, List<GameObject>* gameObjects) {
+    // culling all child
+    Ref<List<GameObject> > gameObjects = gameObject->getChildren();
     Ref<Iterator<GameObject> > it = gameObjects->iterator();
 
     while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
+        Ref<GameObject> child = it->next();
 
-        if (gameObject->isActiveInHierarchy()) {
-            // culling game object
-            this->culling(camera, gameObject);
-
-            // render the children game object
-            Ref<List<GameObject> > subGameObjects = gameObject->getChildren();
-
-            if (subGameObjects != null && subGameObjects->size()>0) {
-                this->culling(camera, subGameObjects);
-            }
+        if (child->isActiveInHierarchy()) {
+            this->culling(camera, child);
         }
     }
 }
@@ -193,8 +164,8 @@ void GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)
     }
 
     // 2. find all visiable renderable object
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    this->culling(camera, gameObjects);
+    Ref<GameObject> root = scene->getRoot();
+    this->culling(camera, root);
 
     // 3. sort the queue
     this->renderQueue->sort();

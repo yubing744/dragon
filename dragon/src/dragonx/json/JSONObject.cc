@@ -393,6 +393,10 @@ JSONObject::~JSONObject() {
 
 }
 
+bool JSONObject::hasKey(const String& key) {
+    return this->get(key) != null;
+}
+
 Object* JSONObject::getObject(const String& key) {
     Object* val = (Object*)this->get(key);
 

@@ -24,7 +24,7 @@
 #ifndef HelloWorld_Dragon3D_H
 #define HelloWorld_Dragon3D_H
 
-#include <dragon3d.h>
+#include <dragon/config.h>
 #include <com/dragon3d/framework/Application.h>
 #include <com/dragon3d/scene/GameObject.h>
 
@@ -39,9 +39,9 @@ public:
 	virtual ~HelloWorld();
 
 public:
-    virtual void init();
-	virtual void update(Scene* scene, ReadOnlyTimer* timer);
-	virtual void destroy();
+    virtual void onInit();
+	virtual void onUpdate(Scene* scene, ReadOnlyTimer* timer);
+	virtual void onDestroy();
     
 protected:
     GameObject* myBox;

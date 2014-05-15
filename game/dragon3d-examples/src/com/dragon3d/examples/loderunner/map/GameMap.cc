@@ -25,9 +25,12 @@
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/scene/model/Material.h>
 #include <com/dragon3d/examples/loderunner/map/GameMap.h>
+#include <com/dragon3d/util/assets/AssetsManager.h>
+#include <com/dragon3d/util/assets/ResourceUtils.h>
 
 Import dragon::lang::gc;
 Import dragon::util::logging;
+Import com::dragon3d::util::assets;
 Import com::dragon3d::examples::loderunner::map;
 
 const Type* GameMap::TYPE = TypeOf<GameMap>();
@@ -35,11 +38,24 @@ static Logger* logger = Logger::getLogger(GameMap::TYPE, ERROR);
 
 GameMap::GameMap()     
     :floorboard(new com::dragon3d::scene::model::geometry::Plane()), 
-    arounds(4) {
+    arounds(4), width(1), height(1) {
 
     for(int i=0; i<4; i++) {
         arounds[i] = new GameObject();
     }
+
+    this->mapRes = null;
+}
+
+GameMap::GameMap(const String& mapPath)     
+    :floorboard(new com::dragon3d::scene::model::geometry::Plane()), 
+    arounds(4), width(1), height(1) {
+
+    for(int i=0; i<4; i++) { 
+        arounds[i] = new GameObject();
+    }
+
+    this->mapRes = AssetsManager::getInstance()->getResource(mapPath);
 }
 
 GameMap::~GameMap() {
@@ -48,6 +64,8 @@ GameMap::~GameMap() {
     for(int i=0; i<4; i++) {
         SafeRelease(arounds[i]);
     }
+
+    SafeRelease(this->mapRes);
 }
 
 void GameMap::onInit() {
@@ -113,14 +131,77 @@ void GameMap::onInit() {
     backTs->translate(Vector3(0, -1, 1));
     backTs->rotate(-90, 0, 0);
 
+    Ref<Brick> obj = new Brick();
+    Ref<Transform> objTs = obj->getTransform();
+    objTs->setPosition(Vector3(0, 0, 0));
+    objTs->setParent(this->transform);
+    
+    //initMapWithJsonConfig();
+    
     Ref<Transform> ts = this->getTransform();
     ts->setPosition(Vector3(0, 0, 0));
 }
 
+void GameMap::initLayerModel(int layerNum, JSONArray* datas) {
+    int size = datas->size();
+
+    for(int i=0; i<size; i++) {
+        Ref<String> line = (String*)datas->get(i);
+        int length = line->length();
+
+        for(int j=0; j<length; j++) {
+            wchar_u type = line->charAt(j);
+
+            GameObject* obj = null;
+
+            // create brick
+            if (type == '1') {
+                obj = new Brick();
+            }
+
+            // create clod
+            else if (type == '2') {
+                obj = new Clod();
+            }
+
+            if (obj != null) {
+                Ref<Transform> objTS = obj->getTransform();
+                //objTS->setLocalPosition(Vector3((i - this->width), layerNum + 2.5, (j - this->height)));
+                //obj->setParent(this);
+                
+                objTS->setParent(this->transform);
+            }
+        }
+    }
+}
+
+void GameMap::initMapWithJsonConfig() {
+    if (this->mapRes != null) {
+        Ref<String> json = ResourceUtils::readResourceToString(mapRes, "UTF-8");
+        Ref<JSONObject> jsonObj = JSONObject::parse(json);
+
+        for(int i=0; i<16; i++) {
+            Ref<String> num = String::valueOf(i);
+            Ref<String> layerName = new String("layer" + num);
+
+            if (jsonObj->hasKey(layerName)) {
+                Ref<JSONArray> datas = jsonObj->getJSONArray(layerName);
+                
+                if (datas != null) {
+                    initLayerModel(i, datas);
+                }
+            }
+        }
+    }
+}
+
 void GameMap::setSize(float width, float height) {
+    this->width = width;
+    this->height = height;
+
     Ref<Transform> ts = this->getTransform();
     ts->setScale(Vector3(width, 1, height));
 
     Ref<Material> material = this->floorboard->getMaterial();
-    material->setMainTextureTiling(Vector2(width, height));
+    material->setMainTextureTiling(Vector2(width * 2, height * 2));
 }

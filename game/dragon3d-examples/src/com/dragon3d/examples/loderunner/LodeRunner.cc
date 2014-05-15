@@ -41,7 +41,7 @@ static Logger* logger = Logger::getLogger(LodeRunner::TYPE, ERROR);
 
 LodeRunner::LodeRunner() {
     this->mainCamera = new GameObject("MainCamera");
-    this->map = new GameMap();
+    this->map = new GameMap("scene/map.js");
     this->clod = new Clod();
 }
 
@@ -53,55 +53,83 @@ LodeRunner::~LodeRunner() {
 
 void LodeRunner::setupCamera() {
     Ref<Scene> scene = this->getCurrentScene();
-
+    Ref<GameObject> root = scene->getRoot();
+    
     Ref<Camera> camera = new Camera();
     this->mainCamera->addComponent(camera);
-    
-    //camera->resize(320, 480);
-    
+        
     Ref<Transform> ts = camera->getTransform();
-    ts->setPosition(Vector3(0, 6, -6));
-
-    scene->add(mainCamera);
+    ts->setPosition(Vector3(-32, 62, -62));
+    ts->rotate(0, 180, 0);
+    
+    root->addChild(mainCamera);
 }
 
 void LodeRunner::onInit() {
     logger->info("init");
     
     Ref<Scene> scene = this->getCurrentScene();
+    Ref<GameObject> root = scene->getRoot();
 
     // map
-    this->map->setSize(64, 64);
-    scene->add(this->map);
+    //this->map->setSize(16, 16);
+    //root->addChild(this->map);
     
-    
-    // clod
-    Ref<Transform> clodTs = this->clod->getTransform();
-    clodTs->setPosition(Vector3(0, 0, 0));
-    scene->add(this->clod);
-
-    for(int i=0; i<5; i++) {
-        Ref<Clod> clod = new Clod();
-        scene->add(clod);
-        clod->setPosition(i * 2 + -5.5, 0, 4.5);
-    }
-    
+    /*
     // brick
     for(int i=0; i<5; i++) {
         Ref<Brick> brick = new Brick();
         scene->add(brick);
-        brick->setPosition(i * 1 + -5.5, 0, 0.5);
+        brick->setPosition(i * 1 + 3.5, 0.5, 3.5);
     }
     
+    for(int i=0; i<5; i++) {
+        Ref<Brick> brick = new Brick();
+        scene->add(brick);
+        brick->setPosition(i * 1 + 3.5, 1.5, 3.5);
+    }
+    
+    // clod
+    Ref<Transform> clodTs = this->clod->getTransform();
+    clodTs->setPosition(Vector3(0, 0.5, 0));
+    
+
+    for(int i=0; i<32; i++) {
+        Ref<Clod> clod = new Clod();
+        scene->add(clod);
+        clod->setPosition(i * 1 - 16, 0.5, 4.5);
+    }
+  
+    for(int i=0; i<32; i++) {
+        Ref<Clod> clod = new Clod();
+        scene->add(clod);
+        clod->setPosition(i * 1 - 16, 1.5, 4.5);
+    }
+    */
+
+    //root->addChild(this->clod);
+    
     // camera
-    setupCamera();
-    Ref<Transform> cameraTs = this->mainCamera->getTransform();
-    Ref<Transform> groundTs = this->map->getTransform();
-    cameraTs->lookAt(groundTs);
+    //setupCamera();
+    mainCamera = new GameObject("MainCamera");
+    Camera* camera = new Camera();
+    mainCamera->addComponent(camera);
+    
+    //camera->rect = Rect(0.1, 0.1, 0.8, 0.8);
+    camera->getTransform()->setPosition(Vector3(0, 5, -10));
+    camera->getTransform()->rotate(0, 180 + 30, 0);
+    camera->getTransform()->find("abc/bbb/ccc");
+    root->addChild((mainCamera));
+    
+    //Ref<Transform> cameraTs = this->mainCamera->getTransform();
+    //Ref<Transform> groundTs = this->map->getTransform();
+    //Ref<Transform> clodTs = this->clod->getTransform();
+    //cameraTs->lookAt(clodTs);
 }
 
 void LodeRunner::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
-    //mainCamera->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    Ref<Transform> cameraTs = this->mainCamera->getTransform();
+    cameraTs->rotate(0, timer->getDeltaTime() * 40, 0, World);
 
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
@@ -115,14 +143,16 @@ void LodeRunner::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
     
     //child->transform->rotate(0, timer->getDeltaTime() * 40, 0, Transform::Space::World);
     
-    Ref<Transform> cts = this->clod->getTransform();
-    cts->rotate(0, timer->getDeltaTime() * 40, 0, Self);
-    cts->translate(Vector3::BACK.multiply(timer->getDeltaTime() * 5));
+    //Ref<Transform> cts = this->clod->getTransform();
+    //cts->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+    //cts->translate(Vector3::RIGHT.multiply(timer->getDeltaTime() * 1));
     //Ref<Transform> gts = this->ground->getTransform();
     //gts->rotate(0, timer->getDeltaTime() * 40, 0, Self);
     
     //abc += timer->getDeltaTime() * 2;
     //myBox->transform->setEulerAngles(Vector3(0, abc, 0));
+    
+    //mainCamera->getTransform()->lookAt(clod->getTransform());
     
     logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }

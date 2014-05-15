@@ -655,6 +655,10 @@ dragon3d_core_SOURCES = {
         Bounds.cc
     """),
 
+    "com/dragon3d/scene/collider" : Split("""
+        Collider.cc
+    """),
+       
     "com/dragon3d/scene/camera" : Split("""
         Frustum.cc
         Camera.cc
@@ -735,6 +739,11 @@ dragon3d_core_SOURCES = {
         Ray3.cc
         Rect.cc
         Plane.cc
+    """),
+
+    "com/dragon3d/util/intersection" : Split("""
+        RaycastHit.cc
+        PickResults.cc
     """),
 
     "com/dragon3d/util/debug" : Split("""

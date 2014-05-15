@@ -1,0 +1,5 @@
+LoadTool('gcc-generic', env)
+
+### Neptune System Files
+env['DRAGON_PLATFORM__SOURCES']={'System/StdC':'*.cpp', 'System/Bsd':'*.cpp', 'System/Posix':'*.cpp'}
+env['DRAGON_EXTRA_LIBS']=['pthread']

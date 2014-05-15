@@ -20,6 +20,7 @@
  * Created:     2014/03/22
  **********************************************************************/
 
+#include <dragon/lang/gc/Reference.h>
 #include <com/dragon3d/scene/model/geometry/Box.h>
 #include <com/dragon3d/scene/model/geometry/Plane.h>
 #include <com/dragon3d/scene/camera/Camera.h>
@@ -30,6 +31,7 @@
 #include <dragon/util/logging/Logger.h>
 #include <com/dragon3d/examples/model/ModelDemo.h>
 
+Import dragon::lang::gc;
 Import com::dragon3d::scene;
 Import com::dragon3d::scene::model::geometry;
 Import com::dragon3d::scene::camera;
@@ -53,7 +55,8 @@ ModelDemo::~ModelDemo() {
 void ModelDemo::init() {
     logger->info("init");
 
-    Scene* scene = this->getCurrentScene();
+    Ref<Scene> scene = this->getCurrentScene();
+    Ref<GameObject> root = scene->getRoot();
     
     myBox = ModelIO::load("model/nokia-5700/nokia-5700-lowres.3DS");
     
@@ -91,11 +94,9 @@ void ModelDemo::init() {
     
     camera->getTransform()->find("abc/bbb/ccc");
 
-    scene->add(myBox);
-    scene->add(child);
-    scene->add(mainCamera);
-    
-    SafeRelease(scene);
+    root->addChild(myBox);
+    root->addChild(child);
+    root->addChild(mainCamera);
 }
 
 //static double abc = 0.1;

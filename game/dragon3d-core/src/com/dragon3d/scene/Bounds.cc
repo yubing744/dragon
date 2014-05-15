@@ -178,7 +178,7 @@ bool Bounds::clip(float denom, float numer, float* t) {
     }
 }
 
-bool Bounds::intersectRay(Ray3* ray) {
+bool Bounds::intersectRay(Ray3* ray, float* distance) {
     Vector3 diff = ray->getOrigin().substract(this->center);
     Vector3 direction = ray->getDirection();
 
@@ -205,9 +205,18 @@ bool Bounds::intersectRay(Ray3* ray) {
             && clip(-direction.getY(), diff.getY() - y, t) && clip(direction.getZ(), -diff.getZ() - z, t)
             && clip(-direction.getZ(), diff.getZ() - z, t);
 
-    return notEntirelyClipped && (t[0] != 0.0 || t[1] != Float::POSITIVE_INFINITY);
+    if (notEntirelyClipped && (t[0] != 0.0 || t[1] != Float::POSITIVE_INFINITY)) {
+        (*distance) = t[0];
+        return true;
+    }  
+
+    return false;
 }
 
+bool Bounds::intersectRay(Ray3* ray) {
+    float distance;
+    return this->intersectRay(ray, &distance);
+}
 
 bool Bounds::intersects(Bounds* bb) {
     if (this->center.getX() + this->extents.getX() < bb->center.getX() - bb->extents.getX()

@@ -46,30 +46,26 @@ public:
     virtual ~AbstractScene();
 
 public: // Implements Scene
-    virtual void add(GameObject* gameObject);
-
-    virtual void remove(GameObject* gameObject);
-
-    virtual GameObject* findFirstWithName(const String& name);
-    virtual List<GameObject>* findWithName(const String& name);
-
-    virtual GameObject* findFirstWithType(const Type* type);
-    virtual List<GameObject>* findWithType(const Type* type);
-
-    virtual GameObject* findFirstWithTag(const String& tagName);
-    virtual List<GameObject>* findWithTag(const String& tag);
-
-    virtual GameObject* findFirstWithRay(Ray3* ray);
-    virtual List<GameObject>* findWithRay(Ray3* ray);
-
-    virtual List<GameObject>* getAll();
+    /**
+     * get root gameobject of scene.
+     * 
+     * @return [description]
+     */
+    virtual GameObject* getRoot();
+    
+    /**
+     * do pick with a ray.
+     * 
+     * @param  pickRay [description]
+     * @return         [description]
+     */
+    virtual PickResults* doPick(Ray3* pickRay) = 0;
 
 protected:
     /**
-     * all the gameObject.
+     * the root game object of scene
      */
-    List<GameObject>* gameObjects;
-    
+    GameObject* root;
 };//AbstractScene
 
 EndPackage3 //(com, dragon3d, scene)

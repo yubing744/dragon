@@ -57,8 +57,12 @@ void OpenGLES2Renderer::init() {
 
 
 void OpenGLES2Renderer::clearBuffer() {
-    glViewport(0, 0, 320, 480);
+    glViewport(0, 0, 320, 320);
     
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glDepthMask(true);
+
     Color c("#474747");
     glClearColor(c.r, c.g, c.b, 0.5f);            // Black Background
 

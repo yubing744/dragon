@@ -30,7 +30,7 @@ const Type* Ray3::TYPE = TypeOf<Ray3>();
 
 Ray3::Ray3(const Vector3& origin, const Vector3& direction) 
     :origin(origin), direction(direction){
-    direction.normalize();
+    this->direction = direction.normalize();
 }
 
 Vector3 Ray3::getOrigin() {

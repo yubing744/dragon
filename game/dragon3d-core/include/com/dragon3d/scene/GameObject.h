@@ -37,7 +37,7 @@
 
 #include <com/dragon3d/scene/Component.h>
 #include <com/dragon3d/scene/Transform.h>
-
+#include <com/dragon3d/util/math/Ray3.h>
 
 BeginPackage3(com, dragon3d, scene)
 
@@ -49,6 +49,7 @@ Import dragon::lang::reflect;
 Import com::dragon3d::util;
 Import com::dragon3d::scene;
 Import com::dragon3d::framework;
+Import com::dragon3d::util::math;
 
 /**
  * the game object
@@ -114,7 +115,14 @@ public:
 	/**
 	 * find the component by type.
 	 */
+	virtual List<Component>* getComponents(const Type* type, bool includeInactive);
 	virtual List<Component>* getComponents(const Type* type);
+
+	/**
+	 * Returns all components of Type type in the GameObject or any of its children. 
+	 */
+	virtual List<Component>* getComponentsInChildren(const Type* type, bool includeInactive);
+	virtual List<Component>* getComponentsInChildren(const Type* type);
 
 	/**
 	 * check if the game object has component with type
@@ -166,6 +174,13 @@ public:
 	 */
 	virtual GameObject* getParent();
 
+    /**
+     * set the parent of game object.
+     * 
+     * @param gameObject [description]
+     */
+    virtual void setParent(GameObject* gameObject);
+
 	/**
 	 * get all children game object
 	 */
@@ -178,6 +193,7 @@ public:
 	 */
 	virtual Transform* getTransform();
 
+public: // helper method
 	/**
 	 * get the position of gameobject.
 	 * 
@@ -193,6 +209,38 @@ public:
 	 * @param z [description]
 	 */
     virtual void setPosition(float x, float y, float z);
+
+	/**
+	 * add a new GameObject
+	 * 
+	 * @param gameObject [description]
+	 */
+	virtual void addChild(GameObject* gameObject);
+
+	/**
+	 * remove game object
+	 * 
+	 * @param gameObject [description]
+	 */
+	virtual void removeChild(GameObject* gameObject);
+
+	/**
+	 * find game object by name
+	 */
+	virtual GameObject* findFirstWithName(const String& name);
+	virtual List<GameObject>* findWithName(const String& name);
+
+	/**
+	 * find game object by component Type
+	 */
+	virtual GameObject* findFirstWithType(const Type* type);
+	virtual List<GameObject>* findWithType(const Type* type);
+
+	/**
+	 * find game object by tag name
+	 */
+	virtual GameObject* findFirstWithTag(const String& tagName);
+	virtual List<GameObject>* findWithTag(const String& tagName);
 
 protected:// Events
 	virtual void onInit();

@@ -24,7 +24,7 @@
 #ifndef OutputDevice_Output_Dragon3d_Com_H
 #define OutputDevice_Output_Dragon3d_Com_H
 
-#include <dragon/config.h>z
+#include <dragon/config.h>
 #include <com/dragon3d/output/OutputController.h>
 
 BeginPackage3(com, dragon3d, output)

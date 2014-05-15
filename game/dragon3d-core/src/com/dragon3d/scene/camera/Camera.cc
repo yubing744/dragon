@@ -274,6 +274,10 @@ FrustumIntersect Camera::contains(Bounds* bounds) {
 	}
 }
 
+List<GameObject>* Camera::culling(Scene* scene) {
+    return null;
+}
+
 void Camera::onFrustumChange() {
 	Matrix4x4 modelViewMatrix = this->getModelViewMatrix();
 	Matrix4x4 projectionMatrix = this->getProjectionMatrix();
@@ -282,7 +286,9 @@ void Camera::onFrustumChange() {
 }
 
 void Camera::onViewPortChange() {
+    this->aspect = this->pixelRect.width / this->pixelRect.height;
 	this->viewPortDirty = true;
+    this->updatePMatrix = true;
 }
 
 void Camera::onFrameChange() {

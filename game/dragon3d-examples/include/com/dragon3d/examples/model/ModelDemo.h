@@ -24,7 +24,7 @@
 #ifndef ModelDemo_Model_Examples_Dragon3d_Com_H
 #define ModelDemo_Model_Examples_Dragon3d_Com_H
 
-#include <dragon3d.h>
+#include <dragon/config.h>
 #include <com/dragon3d/framework/Application.h>
 #include <com/dragon3d/scene/GameObject.h>
 

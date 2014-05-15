@@ -47,7 +47,7 @@ void Clod::onInit() {
     
     Ref<Material> material = new Material();
     material->setMainColor(Color::BLACK);
-    Ref<Texture> tex = new Texture("textures/wall_05.png");
+    Ref<Texture> tex = new Texture("textures/wall_10.png");
     material->setMainTexture(tex);
     box->setMaterial(material);
     

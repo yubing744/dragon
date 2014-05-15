@@ -335,6 +335,11 @@ public:
 	 */
 	virtual FrustumIntersect contains(Bounds* bounds);
 
+	/**
+	 * culling the scene by camera.
+	 */
+	virtual List<GameObject>* culling(Scene* scene);
+
 public: // get matrix
 	virtual Matrix4x4 getModelViewMatrix();
 	virtual Matrix4x4 getProjectionMatrix();

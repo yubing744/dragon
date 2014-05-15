@@ -26,19 +26,13 @@
 		465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D5929180663F700A9BF94 /* OpenGLES.framework */; };
 		465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465D59631806EFCA00A9BF94 /* Foundation.framework */; };
 		465D59731806F42100A9BF94 /* HelloWorld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 465D592618063C3400A9BF94 /* HelloWorld.cc */; };
-		46944577191861BF000553FF /* Brick.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4694456E191861BF000553FF /* Brick.cc */; };
 		46944578191861BF000553FF /* Cat.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4694456F191861BF000553FF /* Cat.cc */; };
-		46944579191861BF000553FF /* Clod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944570191861BF000553FF /* Clod.cc */; };
 		4694457A191861BF000553FF /* CrossBar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944571191861BF000553FF /* CrossBar.cc */; };
 		4694457B191861BF000553FF /* Grain.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944572191861BF000553FF /* Grain.cc */; };
 		4694457D191861BF000553FF /* Ladder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944574191861BF000553FF /* Ladder.cc */; };
 		4694457E191861BF000553FF /* LodeRunner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944575191861BF000553FF /* LodeRunner.cc */; };
 		4694457F191861BF000553FF /* Mice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46944576191861BF000553FF /* Mice.cc */; };
 		46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46ABCA0918C0D7A9002E234C /* AudioDemo.cc */; };
-		46ABCA0D18C0D970002E234C /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
-		46ABCA0E18C0D978002E234C /* libdragon3d-core.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */; };
-		46ABCA1018C0D9A5002E234C /* libdragon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ABCA0F18C0D9A5002E234C /* libdragon.dylib */; };
-		46ABCA1118C0D9AA002E234C /* libdragon.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA0F18C0D9A5002E234C /* libdragon.dylib */; };
 		46ABCA1A18C0E00A002E234C /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1618C0E00A002E234C /* mp3 */; };
 		46ABCA1B18C0E00A002E234C /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1718C0E00A002E234C /* scene */; };
 		46ABCA1C18C0E00A002E234C /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 46ABCA1818C0E00A002E234C /* Data */; };
@@ -47,6 +41,11 @@
 		46DC1311191A6AED00E5A3E9 /* GameMap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1310191A6AED00E5A3E9 /* GameMap.cc */; };
 		46DC1313191A7BBB00E5A3E9 /* Clod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1312191A7BBB00E5A3E9 /* Clod.cc */; };
 		46DC1315191A7F3A00E5A3E9 /* Brick.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46DC1314191A7F3A00E5A3E9 /* Brick.cc */; };
+		46DFE8C1191C4AA200A9426F /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DFE8C0191C4AA200A9426F /* libdragon3d-core.dylib */; };
+		46DFE8C3191C4AAF00A9426F /* libdragon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DFE8C2191C4AAF00A9426F /* libdragon.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
+		46DFE8C4191C510900A9426F /* libdragon3d-core.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46DFE8C0191C4AA200A9426F /* libdragon3d-core.dylib */; };
+		46DFE8C5191C510900A9426F /* libdragon.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 46DFE8C2191C4AAF00A9426F /* libdragon.dylib */; };
+		46DFE8C6191C516800A9426F /* libstdc++.6.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 465D5933180665A200A9BF94 /* libstdc++.6.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,17 +86,13 @@
 		465D5933180665A200A9BF94 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		465D595F1806EFAA00A9BF94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		465D59631806EFCA00A9BF94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4694456E191861BF000553FF /* Brick.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brick.cc; sourceTree = "<group>"; };
 		4694456F191861BF000553FF /* Cat.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cat.cc; sourceTree = "<group>"; };
-		46944570191861BF000553FF /* Clod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clod.cc; sourceTree = "<group>"; };
 		46944571191861BF000553FF /* CrossBar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrossBar.cc; sourceTree = "<group>"; };
 		46944572191861BF000553FF /* Grain.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grain.cc; sourceTree = "<group>"; };
 		46944574191861BF000553FF /* Ladder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ladder.cc; sourceTree = "<group>"; };
 		46944575191861BF000553FF /* LodeRunner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LodeRunner.cc; sourceTree = "<group>"; };
 		46944576191861BF000553FF /* Mice.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mice.cc; sourceTree = "<group>"; };
 		46ABCA0918C0D7A9002E234C /* AudioDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioDemo.cc; sourceTree = "<group>"; };
-		46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/x86-apple-ios/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
-		46ABCA0F18C0D9A5002E234C /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/x86-apple-ios/debug/libdragon.dylib"; sourceTree = "<group>"; };
 		46ABCA1618C0E00A002E234C /* mp3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mp3; path = ../../../../assets/mp3; sourceTree = "<group>"; };
 		46ABCA1718C0E00A002E234C /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
 		46ABCA1818C0E00A002E234C /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../../assets/Data; sourceTree = "<group>"; };
@@ -106,6 +101,8 @@
 		46DC1310191A6AED00E5A3E9 /* GameMap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMap.cc; sourceTree = "<group>"; };
 		46DC1312191A7BBB00E5A3E9 /* Clod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clod.cc; sourceTree = "<group>"; };
 		46DC1314191A7F3A00E5A3E9 /* Brick.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brick.cc; sourceTree = "<group>"; };
+		46DFE8C0191C4AA200A9426F /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/x86-apple-ios/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
+		46DFE8C2191C4AAF00A9426F /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/x86-apple-ios/debug/libdragon.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,13 +110,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46ABCA1018C0D9A5002E234C /* libdragon.dylib in Frameworks */,
-				46ABCA0D18C0D970002E234C /* libdragon3d-core.dylib in Frameworks */,
+				46DFE8C3191C4AAF00A9426F /* libdragon.dylib in Frameworks */,
+				46DFE8C1191C4AA200A9426F /* libdragon3d-core.dylib in Frameworks */,
+				465D5934180665A200A9BF94 /* libstdc++.6.dylib in Frameworks */,
 				465D59641806EFCA00A9BF94 /* Foundation.framework in Frameworks */,
 				465D59621806EFBF00A9BF94 /* OpenGLES.framework in Frameworks */,
 				465D59611806EFB300A9BF94 /* UIKit.framework in Frameworks */,
 				465D59601806EFAA00A9BF94 /* QuartzCore.framework in Frameworks */,
-				465D5934180665A200A9BF94 /* libstdc++.6.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +161,8 @@
 		465D58F618063ACA00A9BF94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46ABCA0F18C0D9A5002E234C /* libdragon.dylib */,
-				46ABCA0C18C0D970002E234C /* libdragon3d-core.dylib */,
+				46DFE8C0191C4AA200A9426F /* libdragon3d-core.dylib */,
+				46DFE8C2191C4AAF00A9426F /* libdragon.dylib */,
 				465D5933180665A200A9BF94 /* libstdc++.6.dylib */,
 				465D59631806EFCA00A9BF94 /* Foundation.framework */,
 				465D595F1806EFAA00A9BF94 /* QuartzCore.framework */,
@@ -270,9 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				46DC130D191A6A2D00E5A3E9 /* map */,
-				4694456E191861BF000553FF /* Brick.cc */,
 				4694456F191861BF000553FF /* Cat.cc */,
-				46944570191861BF000553FF /* Clod.cc */,
 				46944571191861BF000553FF /* CrossBar.cc */,
 				46944572191861BF000553FF /* Grain.cc */,
 				46944574191861BF000553FF /* Ladder.cc */,
@@ -365,8 +360,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46ABCA1118C0D9AA002E234C /* libdragon.dylib in Resources */,
-				46ABCA0E18C0D978002E234C /* libdragon3d-core.dylib in Resources */,
+				46DFE8C6191C516800A9426F /* libstdc++.6.dylib in Resources */,
+				46DFE8C4191C510900A9426F /* libdragon3d-core.dylib in Resources */,
+				46DFE8C5191C510900A9426F /* libdragon.dylib in Resources */,
 				465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */,
 				465D590A18063ACA00A9BF94 /* Default.png in Resources */,
 				465D590C18063ACA00A9BF94 /* Default@2x.png in Resources */,
@@ -397,9 +393,7 @@
 				46ABCA0A18C0D7A9002E234C /* AudioDemo.cc in Sources */,
 				46037E3B18D4045F00901E67 /* TextureDemo.cc in Sources */,
 				4642195418DD3795009C3FB0 /* ModelDemo.cc in Sources */,
-				46944577191861BF000553FF /* Brick.cc in Sources */,
 				46944578191861BF000553FF /* Cat.cc in Sources */,
-				46944579191861BF000553FF /* Clod.cc in Sources */,
 				4694457A191861BF000553FF /* CrossBar.cc in Sources */,
 				4694457B191861BF000553FF /* Grain.cc in Sources */,
 				4694457D191861BF000553FF /* Ladder.cc in Sources */,
@@ -509,14 +503,11 @@
 					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
-					"/Users/yubing/Workspace/xcode-static-lib-demo",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
-					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
 					"\"$(SRCROOT)/../../../../../../repo/x86-apple-ios/debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -537,14 +528,11 @@
 					/Users/yubing/Develop/GitRepos/dragon/dragon/include,
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/include",
 					"/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/include",
-					"/Users/yubing/Workspace/xcode-static-lib-demo",
 				);
 				INFOPLIST_FILE = "dragon3d-examples/dragon3d-examples-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../targets/x86-apple-ios/debug\"",
-					"\"$(SRCROOT)/../../../../../../../../../Workspace/xcode-static-lib-demo\"",
 					"\"$(SRCROOT)/../../../../../../repo/x86-apple-ios/debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

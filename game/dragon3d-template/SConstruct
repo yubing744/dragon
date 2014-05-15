@@ -19,5 +19,15 @@
 # Email:       yubing744@163.com
 # Created:     2013/02/20
 # **********************************************************************
+from dragon import build
 
-SConscript('./build/Boot.scons')
+build({
+    'groupID' : 'dragon',
+    'artifactID' : 'dragon3d-template',
+
+    'name' : 'dragon3d-template',
+    'dependencies' : [
+        'dragon:dragon',
+        'dragon:dragon3d-core'
+    ]
+})

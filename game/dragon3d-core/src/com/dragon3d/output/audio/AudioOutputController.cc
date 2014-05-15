@@ -47,47 +47,13 @@ void AudioOutputController::init() {
     this->render->init();
 }
 
-List<AudioSource>* findAllAudioSourceFromScene(Scene* scene) {
-    List<AudioSource>* ases = new ArrayList<AudioSource>();
-
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        Ref<AudioSource> audioSource = (AudioSource*)gameObject->getFirstComponent(AudioSource::TYPE);
-
-        if (audioSource != null) {
-            ases->add(audioSource);
-        }
-    }
-
-    return ases;
-}
-
-List<AudioListener>* findAllAudioListenerFromScene(Scene* scene) {
-    List<AudioListener>* ales = new ArrayList<AudioListener>();
-
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        Ref<AudioListener> audioListener = (AudioListener*)gameObject->getFirstComponent(AudioListener::TYPE);
-
-        if (audioListener != null) {
-            ales->add(audioListener);
-        }
-    }
-
-    return ales;
-}
-
 void AudioOutputController::output(Scene* scene) {
-    Ref<List<AudioListener> > ales = findAllAudioListenerFromScene(scene);
+    Ref<GameObject> root = scene->getRoot();
+
+    Ref<List<AudioListener> > ales = (List<AudioListener>*)root->getComponentsInChildren(AudioListener::TYPE);
 
     if (ales != null) {
-        Ref<List<AudioSource> > ases = findAllAudioSourceFromScene(scene);
+        Ref<List<AudioSource> > ases = (List<AudioSource>*)root->getComponentsInChildren(AudioSource::TYPE);
 
         Ref<Iterator<AudioListener> > it = ales->iterator();
 

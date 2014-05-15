@@ -172,13 +172,8 @@ void Application::init() {
     logger->debug("init all the world");
     Ref<Scene> scene = this->getCurrentScene();
 
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        gameObject->init();
-    }
+    Ref<GameObject> root = scene->getRoot();
+    root->init();
 
     this->onStart();
 }
@@ -189,14 +184,8 @@ void Application::update(Scene* scene, ReadOnlyTimer* timer) {
     logger->debug("current time %d", System::currentTimeMillis());
 
     logger->debug("update all the world");
-
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        gameObject->update(this->inputManager, timer);
-    }
+    Ref<GameObject> root = scene->getRoot();
+    root->update(this->inputManager, timer);
 
     this->onUpdate(scene, timer);
 }
@@ -228,13 +217,8 @@ void Application::destroy() {
     logger->debug("destroy all the world");
     Ref<Scene> scene = this->getCurrentScene();
 
-    Ref<List<GameObject> > gameObjects = scene->getAll();
-    Ref<Iterator<GameObject> > it = gameObjects->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> gameObject = it->next();
-        gameObject->destroy();
-    }
+    Ref<GameObject> root = scene->getRoot();
+    root->destroy();
 
     // destroy input and output manager
     this->inputManager->destroy();

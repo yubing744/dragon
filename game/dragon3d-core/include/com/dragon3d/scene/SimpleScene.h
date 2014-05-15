@@ -40,9 +40,30 @@ Import com::dragon3d::scene;
 class _DragonExport SimpleScene 
     extends(AbstractScene) {
 public:
+    static const Type* TYPE;
+
+public:
     SimpleScene();
     virtual ~SimpleScene();
-    
+
+public:
+    /**
+     * do pick with a ray.
+     * 
+     * @param  pickRay [description]
+     * @return         [description]
+     */
+    virtual PickResults* doPick(Ray3* pickRay);
+
+protected:
+    /**
+     * the inner pick
+     * 
+     * @param results [description]
+     * @param pickRay [description]
+     */
+    virtual void innerDoPick(PickResults* results, GameObject* gameObject, Ray3* pickRay);
+
 };//SimpleScene
 
 EndPackage3 //(com, dragon3d, scene)
