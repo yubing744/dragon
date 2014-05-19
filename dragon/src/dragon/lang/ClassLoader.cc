@@ -24,6 +24,7 @@
 #include <dragon/lang/ClassLoader.h>
 #include <dragon/lang/Class.h>
 #include <dragon/lang/internal/SystemClassLoader.h>
+#include <dragon/lang/ClassNotFoundException.h>
 
 Import dragon::lang;
 Import dragon::lang::internal;
@@ -39,8 +40,8 @@ ClassLoader* ClassLoader::getSystemClassLoader() {
 }
 
 Class* ClassLoader::createClass(const ClassLoader* classLoader, 
-		const char* packageName, const char* simpleName) {
-	return new Class(classLoader, packageName, simpleName);
+		const char* packageName, const char* simpleName, size_t size) {
+	return new Class(classLoader, packageName, simpleName, size);
 }
 
 void ClassLoader::setClassConstructors(Class* clazz, const Array<Constructor*>& constructors) {
@@ -101,7 +102,11 @@ Class* ClassLoader::loadClass(const char* name, dg_boolean resolve){
 		this->resolveClass(result);
 	}
 
-	return result;
+	if (result != null) {
+		return result;
+	}
+
+	throw new ClassNotFoundException(name);
 }
 
 Class* ClassLoader::findLoadedClass(const char* name){

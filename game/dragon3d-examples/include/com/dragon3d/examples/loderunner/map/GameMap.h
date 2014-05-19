@@ -27,7 +27,6 @@
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
 #include <com/dragon3d/scene/GameObject.h>
-#include <com/dragon3d/scene/model/geometry/Plane.h>
 
 #include <dragonx/json/JSONArray.h>
 #include <dragonx/json/JSONObject.h>
@@ -35,6 +34,7 @@
 
 #include <com/dragon3d/examples/loderunner/map/Clod.h>
 #include <com/dragon3d/examples/loderunner/map/Brick.h>
+#include <com/dragon3d/examples/loderunner/map/Ground.h>
  
 BeginPackage5(com, dragon3d, examples, loderunner, map)
 
@@ -48,7 +48,6 @@ public:
     static const Type* TYPE;
     
 public:
-    GameMap();
     GameMap(const String& mapPath);
     virtual ~GameMap();
 
@@ -56,19 +55,16 @@ protected:
     virtual void onInit();
 
 protected:
-    virtual void initMapWithJsonConfig();
     virtual void initLayerModel(int layerNum, JSONArray* datas);
 
-public:
-    virtual void setSize(float width, float height);
-
 protected:
-    com::dragon3d::scene::model::geometry::Plane* floorboard;
-    Array<GameObject*> arounds; 
     Resource* mapRes;
 
-    float width;
-    float height;
+    int width;
+    int height;
+
+    Clod* clodPrefab;
+    Brick* brickPrefab;
 };//GameMap
 
 EndPackage5 //(com, dragon3d, examples, loderunner, map)

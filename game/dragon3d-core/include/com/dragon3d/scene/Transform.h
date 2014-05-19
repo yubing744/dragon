@@ -60,6 +60,34 @@ public:
     Transform();
     virtual ~Transform();
 
+public:
+    bool isTypeOf(const Type* type);
+
+public:
+    /**
+     * update the game component
+     * 
+     * @param input [description]
+     * @param timer [description]
+     */
+    virtual void init();
+
+    /**
+     * update the game component
+     * 
+     * @param input [description]
+     * @param timer [description]
+     */
+    virtual void update(Input* input, ReadOnlyTimer* timer);
+
+    /**
+     * destroy the game component
+     * 
+     * @param input [description]
+     * @param timer [description]
+     */
+    virtual void destroy();
+
 public: //Propertys
     /**
      * position

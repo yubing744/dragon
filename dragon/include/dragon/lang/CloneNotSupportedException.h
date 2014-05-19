@@ -17,29 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/24
+ * Created:     2014/05/18
  **********************************************************************/
 
 
-#include <dragon/lang/internal/SystemClassLoader.h>
-#include <dragon/lang/internal/platform.h>
+#ifndef CloneNotSupportedException_Lang_Dragon_H
+#define CloneNotSupportedException_Lang_Dragon_H
 
-Import dragon::lang::internal;
+#include <dragon/config.h>
+#include <dragon/lang/Exception.h>
 
-SystemClassLoader::SystemClassLoader() {
-	const char* sysLib = GetDragonLibPath();
-    if (sysLib != null) {
-    	this->load(sysLib);
-    }
+BeginPackage2(dragon, lang)
 
-    /*
-    const char* localLib = GetLocalLibPath();
-    if (localLib != null) {
-        this->load(localLib);
-    }
-    */
-}
+Import dragon::lang;
 
-SystemClassLoader::~SystemClassLoader() {
+class_ CloneNotSupportedException extends(Exception) {
+public:
+    static const Type* TYPE;
+    
+public:
+    CloneNotSupportedException();
+    CloneNotSupportedException(const String& msg);
+    CloneNotSupportedException(const String& msg, Throwable* cause);
+    virtual ~CloneNotSupportedException();
+    
+};//CloneNotSupportedException
 
-}
+EndPackage2 //(dragon, lang)
+
+#endif //CloneNotSupportedException_Lang_Dragon_H

@@ -54,6 +54,13 @@ public:
 
 public:
     /**
+     * init the bounds.
+     * 
+     * @param center [description]
+     */
+    void init(const Vector3& center);
+
+    /**
      * Is point contained in the bounding box?
      * 
      * @param  point [description]
@@ -74,6 +81,13 @@ public:
      * @param bounds [description]
      */
     void encapsulate(Bounds* bounds);
+
+    /**
+     * Grows the Bounds to include the float point data.
+     * 
+     * @param data [description]
+     */
+    void encapsulateFloatVertices(const Array<float>& data);
 
     /**
      * Expand the bounds by increasing its size by amount along each side.

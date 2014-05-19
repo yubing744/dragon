@@ -17,29 +17,31 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/24
+ * Created:     2014/05/17
  **********************************************************************/
 
 
-#include <dragon/lang/internal/SystemClassLoader.h>
-#include <dragon/lang/internal/platform.h>
+#ifndef PrefabUtility_Prefab_Util_Dragon3d_Com_H
+#define PrefabUtility_Prefab_Util_Dragon3d_Com_H
 
-Import dragon::lang::internal;
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/scene/GameObject.h>
 
-SystemClassLoader::SystemClassLoader() {
-	const char* sysLib = GetDragonLibPath();
-    if (sysLib != null) {
-    	this->load(sysLib);
-    }
+BeginPackage4(com, dragon3d, util, prefab)
 
-    /*
-    const char* localLib = GetLocalLibPath();
-    if (localLib != null) {
-        this->load(localLib);
-    }
-    */
-}
+Import dragon::lang;
+Import com::dragon3d::scene;
 
-SystemClassLoader::~SystemClassLoader() {
+class_ PrefabUtility extends(Object) {
+public:
+    static const Type* TYPE;
+    
+public:
+    static GameObject* instantiatePrefab(GameObject* prefab);
+    
+};//PrefabUtility
 
-}
+EndPackage4 //(com, dragon3d, util, prefab)
+
+#endif //PrefabUtility_Prefab_Util_Dragon3d_Com_H

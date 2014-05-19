@@ -21,11 +21,12 @@
  **********************************************************************/
 
 
-#include <dragon/lang/internal/LibraryClassLoader.h>
-#include <dragon/lang/Class.h>
-#include <dragon/lang/internal/platform.h>
-
 #include <stdlib.h>
+
+#include <dragon/lang/Class.h>
+#include <dragon/lang/ClassLoadError.h>
+#include <dragon/lang/internal/platform.h>
+#include <dragon/lang/internal/LibraryClassLoader.h>
 
 Import dragon::lang;
 Import dragon::lang::reflect;
@@ -50,22 +51,26 @@ LibraryClassLoader::~LibraryClassLoader() {
 }
 
 void LibraryClassLoader::load(const char* libPath) {
-	Library* lib = findLibrary(libPath);
+	if (libPath != null) {
+		Library* lib = findLibrary(libPath);
 
-	if (lib == null) {
-		lib = new Library(libPath);
-		lib->resolve();
-		this->librarys->push_back(lib);
+		if (lib == null) {
+			lib = new Library(libPath);
+			lib->resolve();
+			this->librarys->push_back(lib);
+		}
 	}
 }
 
 Library* LibraryClassLoader::findLibrary(const char* libPath) {
-	for (Iterator it = this->librarys->begin() ; it != this->librarys->end(); ++it) {
-		Library* lib = *it;
-		const char* path = lib->getPath();
+	if (libPath != null) {
+		for (Iterator it = this->librarys->begin() ; it != this->librarys->end(); ++it) {
+			Library* lib = *it;
+			const char* path = lib->getPath();
 
-		if (strcmp(path, libPath) == 0) {
-			return lib;
+			if (path!=null && strcmp(path, libPath) == 0) {
+				return lib;
+			}
 		}
 	}
 
@@ -213,6 +218,56 @@ Method* make_method(Class* clazz, const char* methodName, Library::ExportSymbol*
 	return new Method(clazz, methodName, es->address, parameterTypes);
 }
 
+dg_boolean is_class_type(const char* className, Library::ExportSymbol* es) {
+	dg_boolean ret = dg_false;
+
+	char* sign = Demangle(es->symbol);
+
+	if (sign) {
+		size_t sign_size = strlen(sign);
+
+		size_t len = strlen("TYPE");
+		int offset = strlen(className) + 2;
+
+
+		char* bb = sign + offset;
+		if (offset + len <= sign_size
+			&& memcmp(sign + offset, "TYPE", len)==0x0) {
+			ret = true;
+		}
+
+		free(sign);
+	}
+
+	return ret;
+}
+
+size_t find_class_size(const char* className, Library::NameSpace* ns) {
+	Library::NameSpace* p = ns->spaces;
+
+	while(p != NULL) {
+		size_t es_size = p->symbolCount;
+
+		for (int i=0; i<es_size; i++) {
+			Library::ExportSymbol* es = &p->symbols[i];
+			//printf("address: 0x%x, symbol: %s\n", es->address, es->symbol);
+
+			if (is_class_type(className, es)) {
+				Type** type = (Type**)es->address;
+				if (type) {
+					return (*type)->getSize();
+				}
+			}
+		}
+
+		p = p->next;
+	}
+
+	String msg("not define 'static const TYPE' in class: ");
+	msg = msg + className;
+	throw new ClassLoadError(msg);
+}
+
 Class* LibraryClassLoader::defineClass(const char* name, Library::NameSpace* ns) {
 	const ClassLoader* classLoader = this;
 	
@@ -225,7 +280,8 @@ Class* LibraryClassLoader::defineClass(const char* name, Library::NameSpace* ns)
 	packageName[p_size] = '\0';
 	delete[] simpleName;
 
-	Class* clazz = createClass(this, packageName, name);
+	size_t classSize = find_class_size(name, ns);
+	Class* clazz = createClass(this, packageName, name, classSize);
 	delete[] packageName;
 
 	Constructor** constructors = NULL;
@@ -274,12 +330,14 @@ Class* LibraryClassLoader::defineClass(const char* name, Library::NameSpace* ns)
 }
 
 Class* LibraryClassLoader::findClass(const char* name){
-	for (Iterator it = this->librarys->begin() ; it != this->librarys->end(); ++it) {
-		Library* lib = *it;
-		Library::NameSpace* ns = lib->findClassDefine(name);
+	if (name != null) {
+		for (Iterator it = this->librarys->begin() ; it != this->librarys->end(); ++it) {
+			Library* lib = *it;
+			Library::NameSpace* ns = lib->findClassDefine(name);
 
-		if (ns != NULL) {
-			return this->defineClass(name, ns);
+			if (ns != NULL) {
+				return this->defineClass(name, ns);
+			}
 		}
 	}
 

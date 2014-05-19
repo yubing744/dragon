@@ -166,7 +166,7 @@ Bounds* Model::getBounds() {
         logger->debug("model get bounds:" + pInfo);
     }
 
-    Matrix4x4 matrix = ts->getWorldToLocalMatrix();
+    Matrix4x4 matrix = ts->getLocalToWorldMatrix();
     return this->bounds->transform(matrix);
 }
 

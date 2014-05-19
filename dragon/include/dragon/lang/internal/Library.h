@@ -63,38 +63,6 @@ protected:
 	char* libPath;
 	dg_boolean resolved;
 	ClassTree* classTree;
-
-/*
-public:
-	Library();
-	Library(HMODULE hModule);
-	Library(String dllPath) throw(FileNotFoundException);
-	virtual ~Library();
-
-public:
-	virtual void load(String libPath) throw(FileNotFoundException);
-	virtual void free();
-
-	virtual P<Class<Object>> getClassForName(String className);
-	virtual bool updateClass(Class<Object>* clazz);
-	virtual bool containsClass(String className);
-	virtual int getClassCount();
-
-	virtual FARPROC getClassProc(String methodName);
-	virtual P<Method> getClassMethod(String methodName);
-	virtual P<Array<P<Method>>> getClassMethods();
-	virtual int getMethodCount();
-
-protected:
-	virtual bool processLib();
-	virtual bool processMethod(String methodSign, FARPROC pfn);
-
-protected:
-	HMODULE hModule;
-	int methodCount;
-	P<Map<String, P<Method>>> methodMap;
-	P<Map<String, P<Class<Object>>>> classMap;
-*/
 };
 
 EndPackage3//(dragon, lang, internal)

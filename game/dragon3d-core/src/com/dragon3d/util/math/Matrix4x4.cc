@@ -57,6 +57,10 @@ Matrix4x4 Matrix4x4::ortho(float left, float right, float bottom, float top, flo
 
     Matrix4x4 ortho = Matrix4x4::IDENTITY;
 
+    if ((nearZ <= 0.0f) || (farZ <= 0.0f) ||
+         (deltaX <= 0.0f) || (deltaY <= 0.0f) || (deltaZ <= 0.0f))
+         return Matrix4x4::ZERO;
+
     ortho.m[0][0] = 2.0f / deltaX;
     ortho.m[3][0] = -(right + left) / deltaX;
     ortho.m[1][1] = 2.0f / deltaY;
@@ -79,18 +83,12 @@ Matrix4x4 Matrix4x4::frustum(float left, float right, float bottom, float top, f
          return Matrix4x4::ZERO;
 
     frust.m[0][0] = -2.0f * nearZ / deltaX;
-    frust.m[0][1] = frust.m[0][2] = frust.m[0][3] = 0.0f;
-
     frust.m[1][1] = 2.0f * nearZ / deltaY;
-    frust.m[1][0] = frust.m[1][2] = frust.m[1][3] = 0.0f;
-
     frust.m[2][0] = (right + left) / deltaX;
     frust.m[2][1] = (top + bottom) / deltaY;
     frust.m[2][2] = -(nearZ + farZ) / deltaZ;
     frust.m[2][3] = -1.0f;
-
     frust.m[3][2] = -2.0f * nearZ * farZ / deltaZ;
-    frust.m[3][0] = frust.m[3][1] = frust.m[3][3] = 0.0f;
 
     return frust;
 }
@@ -578,10 +576,6 @@ Vector3 Matrix4x4::multiplyPoint(const Vector3& v) const {
     float y = v.getY();
     float z = v.getZ();
 
-    //store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3]);
-    //store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3]);
-    //store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3]);
-
     store.setX(m[0][0] * x + m[1][0] * y + m[2][0] * z + m[3][0]);
     store.setY(m[0][1] * x + m[1][1] * y + m[2][1] * z + m[3][1]);
     store.setZ(m[0][2] * x + m[1][2] * y + m[2][2] * z + m[3][2]);
@@ -596,13 +590,25 @@ Vector3 Matrix4x4::multiplyVector(const Vector3& v) const {
     float y = v.getY();
     float z = v.getZ();
 
-    //store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z);
-    //store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z);
-    //store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z);
-
     store.setX(m[0][0] * x + m[1][0] * y + m[2][0] * z);
     store.setY(m[0][1] * x + m[1][1] * y + m[2][1] * z);
     store.setZ(m[0][2] * x + m[1][2] * y + m[2][2] * z);
+
+    return store;
+}
+
+Vector4 Matrix4x4::multiply(const Vector4& v) const {
+    Vector4 store = Vector4::ZERO;
+
+    float x = v.getX();
+    float y = v.getY();
+    float z = v.getZ();
+    float w = v.getW();
+
+    store.setX(m[0][0] * x + m[0][1] * y + m[0][2] * z + m[0][3] * w);
+    store.setY(m[1][0] * x + m[1][1] * y + m[1][2] * z + m[1][3] * w);
+    store.setZ(m[2][0] * x + m[2][1] * y + m[2][2] * z + m[2][3] * w);
+    store.setW(m[3][0] * x + m[3][1] * y + m[3][2] * z + m[3][3] * w);
 
     return store;
 }

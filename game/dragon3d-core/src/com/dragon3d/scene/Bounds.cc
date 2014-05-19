@@ -57,6 +57,11 @@ Bounds::~Bounds() {
 
 }
 
+void Bounds::init(const Vector3& center) {
+    this->center = center;
+    this->extents = Vector3::ZERO;
+}
+
 /**
  * get the center of bounding box
  * 
@@ -132,6 +137,15 @@ void Bounds::encapsulate(Bounds* bounds) {
     min = Vector3::min(min, bounds->getMin());
 
     this->setMinMax(min, max);
+}
+
+void Bounds::encapsulateFloatVertices(const Array<float>& data) {
+    int size = data.size() / 3;
+
+    for (int i=0; i<size; i++) {
+        Vector3 p(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+        this->encapsulate(p);
+    }
 }
 
 void Bounds::expand(float amount) {
@@ -291,12 +305,13 @@ const Array<Vector3> Bounds::getCorners() {
 
     store[0].set(center.getX() + extents.x, center.getY() + extents.y, center.getZ() + extents.z);
     store[1].set(center.getX() + extents.x, center.getY() + extents.y, center.getZ() - extents.z);
-    store[2].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() + extents.z);
-    store[3].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+    store[2].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+    store[3].set(center.getX() + extents.x, center.getY() - extents.y, center.getZ() + extents.z);
+
     store[4].set(center.getX() - extents.x, center.getY() + extents.y, center.getZ() + extents.z);
     store[5].set(center.getX() - extents.x, center.getY() + extents.y, center.getZ() - extents.z);
-    store[6].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() + extents.z);
-    store[7].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+    store[6].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() - extents.z);
+    store[7].set(center.getX() - extents.x, center.getY() - extents.y, center.getZ() + extents.z);
 
     return store;
 }

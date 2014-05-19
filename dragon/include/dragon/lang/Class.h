@@ -46,10 +46,10 @@ public:
 	
 protected:
 	Class(const ClassLoader* classLoader, 
-		const char* packageName, const char* name);
+		const char* packageName, const char* name, size_t size);
 
 	Class(const ClassLoader* classLoader, 
-		const char* packageName, const char* name,
+		const char* packageName, const char* name, size_t size,
 		const Array<Constructor*>& constructors, const Array<Method*>& methods,
 		const Array<Field*>& fields);
 public:

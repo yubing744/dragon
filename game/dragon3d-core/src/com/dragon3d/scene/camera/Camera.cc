@@ -20,9 +20,10 @@
  * Created:     2013/09/28
  **********************************************************************/
 
-
+#include <com/dragon3d/util/math/Vector4.h>
 #include <com/dragon3d/scene/camera/Camera.h>
 
+Import com::dragon3d::util::math;
 Import com::dragon3d::scene::camera;
 
 const Type* Camera::TYPE = TypeOf<Camera>();
@@ -262,6 +263,7 @@ void Camera::lookAt(float x, float y, float z, const Vector3& worldUpVector) {
     onFrameChange();
 }
 
+/*
 FrustumIntersect Camera::contains(Bounds* bounds) {
 	int result = this->frustum->checkBounds(bounds);
 
@@ -273,6 +275,45 @@ FrustumIntersect Camera::contains(Bounds* bounds) {
 		return Intersects;
 	}
 }
+*/
+
+int computeOutCode(float x, float y, float z, float w) {
+    int code = 0;
+
+    if (x < -w) code |= 0x01; // left
+    if (x > w) code |= 0x02; // right
+    if (y < -w) code |= 0x04; // bottom
+    if (y > w) code |= 0x08; // top
+    if (z < -w) code |= 0x010; // near
+    if (z > w) code |= 0x020; // far
+
+    return code;
+}
+
+FrustumIntersect Camera::contains(Bounds* bounds) {
+    int result = 0;
+
+    const Array<Vector3> corners = bounds->getCorners();
+    Matrix4x4 matrix = this->getModelViewProjectionMatrix();
+
+    for (int i=0; i<corners.size(); i++) {
+        Vector3 orig = corners[i];
+        Vector4 orig4(orig.x, orig.y, orig.z, 1);
+
+        Vector4 p = matrix.multiply(orig4);
+        result &= computeOutCode(p.x, p.y, p.z, p.w);
+    }
+
+    if (result > 0) {
+        return Outside;
+    } else if(result == 0) {
+        return Inside;
+    } else {
+        return Intersects;
+    }
+}
+
+
 
 List<GameObject>* Camera::culling(Scene* scene) {
     return null;

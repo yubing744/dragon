@@ -40,7 +40,7 @@ Import com::dragon3d::scene::camera;
 Import com::dragon3d::output::graphics;
 Import com::dragon3d::output::graphics::shader;
 
-static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", ERROR);
+static Logger* logger = Logger::getLogger("com::dragon3d::output::graphics::GraphicsOutputController", INFO);
 
 void GraphicsOutputController::init() {
 	logger->info("init");
@@ -54,8 +54,13 @@ void GraphicsOutputController::init() {
     // load the built in shader
     ShaderManager::getInstance()->importShaders("shader/built-in"); 
 
+    this->showPlacementGrid = false;
     this->placementGrid = new PlacementGrid();
-    this->showPlacementGrid = true;
+
+    this->showBounds = false;
+    this->boundsOutline = new BoundingBoxOutline();
+
+    this->showModel = true;
 }
 
 void GraphicsOutputController::destroy() {
@@ -163,12 +168,19 @@ void GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)
         this->renderQueue->add(placementGrid);
     }
 
+    if (showBounds) {
+        this->renderQueue->add(this->boundsOutline);
+    }
+
     // 2. find all visiable renderable object
-    Ref<GameObject> root = scene->getRoot();
-    this->culling(camera, root);
+    if (this->showModel) {
+        Ref<GameObject> root = scene->getRoot();
+        this->culling(camera, root);
+    }
 
     // 3. sort the queue
     this->renderQueue->sort();
+    logger->info("the renderQueue size: %d", this->renderQueue->size());
 
     // 4. render all
     Ref<Iterator<Renderable> > it = this->renderQueue->iterator();

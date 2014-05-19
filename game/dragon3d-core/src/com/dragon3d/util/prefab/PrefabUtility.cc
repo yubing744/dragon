@@ -17,53 +17,22 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/05/01
+ * Created:     2014/05/17
  **********************************************************************/
 
 
-#include <dragon/util/ArrayList.h>
-
 #include <dragon/lang/gc/Reference.h>
 #include <dragon/util/logging/Logger.h>
-#include <com/dragon3d/output/graphics/renderqueue/RenderQueue.h>
-
-Import dragon::util;
+#include <com/dragon3d/util/prefab/PrefabUtility.h>
 
 Import dragon::lang::gc;
 Import dragon::util::logging;
-Import com::dragon3d::output::graphics::renderqueue;
+Import com::dragon3d::util::prefab;
 
-const Type* RenderQueue::TYPE = TypeOf<RenderQueue>();
-static Logger* logger = Logger::getLogger(RenderQueue::TYPE, ERROR);
+const Type* PrefabUtility::TYPE = TypeOf<PrefabUtility>();
+static Logger* logger = Logger::getLogger(PrefabUtility::TYPE, ERROR);
 
-RenderQueue::RenderQueue() {
-    this->queue = new ArrayList<Renderable>();
-}
-
-RenderQueue::~RenderQueue() {
-    SafeRelease(this->queue);
-}
-
-void RenderQueue::clear() {
-    this->queue->clear();
-}
-
-void RenderQueue::add(Renderable* renderable) {
-    this->queue->add(renderable);
-}
-
-void RenderQueue::addAll(List<Renderable>* renderables) {
-    this->queue->addAll(renderables);
-}
-
-Iterator<Renderable>* RenderQueue::iterator() {
-    return this->queue->iterator();
-}
-
-void RenderQueue::sort() {
-
-}
-
-int RenderQueue::size() {
-    return this->queue->size();
+GameObject* PrefabUtility::instantiatePrefab(GameObject* prefab) {
+    GameObject* instance = new GameObject(prefab);
+    return instance;
 }

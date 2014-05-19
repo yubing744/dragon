@@ -17,31 +17,46 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/05/19
+ * Created:     2014/05/17
  **********************************************************************/
 
 
-#ifndef ClassNotFoundException_Lang_Dragon_H
-#define ClassNotFoundException_Lang_Dragon_H
+#ifndef Ground_Map_Loderunner_Examples_Dragon3d_Com_H
+#define Ground_Map_Loderunner_Examples_Dragon3d_Com_H
 
 #include <dragon/config.h>
-#include <dragon/lang/Exception.h>
+#include <dragon/lang/Object.h>
+#include <com/dragon3d/scene/GameObject.h>
+#include <com/dragon3d/scene/model/geometry/Plane.h>
 
-BeginPackage2(dragon, lang)
+BeginPackage5(com, dragon3d, examples, loderunner, map)
 
 Import dragon::lang;
+Import com::dragon3d::scene;
+Import com::dragon3d::scene::model::geometry;
 
-class_ ClassNotFoundException extends(Exception) {
+class_ Ground extends(GameObject) {
 public:
     static const Type* TYPE;
     
 public:
-    ClassNotFoundException();
-    ClassNotFoundException(const String& msg);
-    ClassNotFoundException(const String& msg, Throwable* cause);
-    virtual ~ClassNotFoundException();
-};//ClassNotFoundException
+    Ground();
+    virtual ~Ground();
 
-EndPackage2 //(dragon, lang)
+protected:
+    virtual void onInit();
 
-#endif //ClassNotFoundException_Lang_Dragon_H
+public:
+    virtual void setSize(float width, float height);
+
+protected:
+    com::dragon3d::scene::model::geometry::Plane* floorboard;
+    Array<GameObject*> arounds; 
+
+    float width;
+    float height;    
+};//Ground
+
+EndPackage5 //(com, dragon3d, examples, loderunner, map)
+
+#endif //Ground_Map_Loderunner_Examples_Dragon3d_Com_H

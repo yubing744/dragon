@@ -50,7 +50,7 @@ public:
 	typedef ClassMap::iterator Iterator;
 
 protected:
-    Class* createClass(const ClassLoader* classLoader, const char* packageName, const char* simpleName);
+    Class* createClass(const ClassLoader* classLoader, const char* packageName, const char* simpleName, size_t size);
 	void setClassConstructors(Class* clazz, const Array<Constructor*>& constructors);
 	void setClassMethods(Class* clazz, const Array<Method*>& methods);
 	void setClassFields(Class* clazz, const Array<Field*>& fields);

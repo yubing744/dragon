@@ -45,6 +45,37 @@ public:
     Vector4();
     Vector4(float x, float y, float z, float w);
 
+public: // Propertys
+    /**
+     * get and set x.
+     * 
+     * @return [description]
+     */
+    float getX() const {return this->x; };
+    void setX(float x) {this->x = x; };
+    /**
+     * get ans set y.
+     * 
+     * @return [description]
+     */
+    float getY() const {return this->y; };
+    void setY(float y) {this->y = y; };
+    /**
+     * get and set z.
+     * 
+     * @return [description]
+     */
+    float getZ() const {return this->z; };
+    void setZ(float z) {this->z = z; };
+
+    /**
+     * get and set w.
+     * 
+     * @return [description]
+     */
+    float getW() const {return this->w; };
+    void setW(float w) {this->w = w; };
+
 public:
     const float* getData() const;
     const Array<float> toFloatArray() const;

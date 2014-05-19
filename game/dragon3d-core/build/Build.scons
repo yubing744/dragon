@@ -746,8 +746,13 @@ dragon3d_core_SOURCES = {
         PickResults.cc
     """),
 
+    "com/dragon3d/util/prefab" : Split("""
+        PrefabUtility.cc
+    """),
+
     "com/dragon3d/util/debug" : Split("""
         PlacementGrid.cc
+        BoundingBoxOutline.cc
     """),
 
     "com/dragon3d/util/assets" : Split("""

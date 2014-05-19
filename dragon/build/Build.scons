@@ -967,6 +967,9 @@ dragon_SOURCES = {
         RuntimeException.cc 
         IllegalArgumentException.cc
 
+        Error.cc
+        ClassLoadError.cc
+
         Void.cc
         Number.cc
         Short.cc
@@ -989,7 +992,9 @@ dragon_SOURCES = {
         UnsupportedEncodingException.cc
         UnsupportedOperationException.cc
         NumberFormatException.cc
-
+        CloneNotSupportedException.cc
+        ClassNotFoundException.cc
+        
         Null.cc
         Boolean.cc
     """),

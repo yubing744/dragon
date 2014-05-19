@@ -19,18 +19,26 @@
 
 #import "ViewController.h"
 
+#include <dragon/lang/System.h>
 #include <com/dragon3d/launcher/AppLauncher.h>
 
 #include <com/dragon3d/examples/audio/AudioDemo.h>
 #include <com/dragon3d/examples/helloworld/HelloWorld.h>
 #include <com/dragon3d/examples/texture/TextureDemo.h>
+#include <com/dragon3d/examples/model/ModelDemo.h>
+#include <com/dragon3d/examples/loderunner/LodeRunner.h>
 
+Import dragon::lang;
 Import com::dragon3d::examples::audio;
 Import com::dragon3d::examples::helloworld;
 Import com::dragon3d::examples::texture;
+Import com::dragon3d::examples::model;
+Import com::dragon3d::examples::loderunner;
 
 @implementation AppDelegate
 {
+    //AppLauncher* launcher;
+    
     Application* app;
 }
 
@@ -45,7 +53,9 @@ Import com::dragon3d::examples::texture;
 {
     //app = new HelloWorld();
     //app = new AudioDemo();
-    app = new TextureDemo();
+    //app = new TextureDemo();
+    //app = new ModelDemo();
+    app = new LodeRunner();
     
     Dragon3DLaunchApp(app);
     
@@ -60,7 +70,7 @@ Import com::dragon3d::examples::texture;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

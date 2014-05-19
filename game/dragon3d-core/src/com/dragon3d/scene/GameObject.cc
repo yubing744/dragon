@@ -37,11 +37,43 @@ const Type* GameObject::TYPE = TypeOf<GameObject>();
 GameObject::GameObject() 
 	:hideFlags(false), layer(0), active(true) {
 	this->name = new String("unnamed");
+
 	this->transform = new Transform();
 	this->transform->setGameObject(this);
 
 	this->components = new ArrayList<Component>();
 	this->tags = new ArrayList<String>();
+
+    this->addComponent(this->transform);
+}
+
+GameObject::GameObject(GameObject* go) 
+    :hideFlags(go->hideFlags), layer(go->layer), active(go->active) {
+    this->name = (String*)go->name->retain();
+
+    this->transform = new Transform();
+    this->transform->setGameObject(this);
+
+    this->components = new ArrayList<Component>();
+    this->tags = new ArrayList<String>();
+
+    this->addComponent(this->transform);
+
+    // add all component
+    Ref<Iterator<Component> > itc = go->components->iterator();
+
+    while(itc->hasNext()) {
+        Ref<Component> component = itc->next();
+
+        if (!component->isTypeOf(Transform::TYPE)) {
+            Ref<Component> newComp = (Component*)component->clone();
+            newComp->setGameObject(this);
+            this->addComponent(newComp);
+        }
+    }
+
+    // add all tags
+    //this->tags->addAll(go->getTags());
 }
 
 GameObject::GameObject(const String& name)
@@ -52,6 +84,8 @@ GameObject::GameObject(const String& name)
 
 	this->components = new ArrayList<Component>();
 	this->tags = new ArrayList<String>();
+
+    this->addComponent(this->transform);
 }
 
 GameObject::~GameObject() {
@@ -72,15 +106,6 @@ void GameObject::init() {
 		component->init();
 	}
 
-    // init children
-    Ref<List<GameObject> > children = this->getChildren();
-    Ref<Iterator<GameObject> > it = children->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> child = it->next();
-        child->init();
-    }
-
 	this->afterInit();
 }
 
@@ -96,15 +121,6 @@ void GameObject::update(Input* input, ReadOnlyTimer* timer) {
 		component->update(input, timer);
 	}
 
-    // update children
-    Ref<List<GameObject> > children = this->getChildren();
-    Ref<Iterator<GameObject> > it = children->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> child = it->next();
-        child->update(input, timer);
-    }
-
 	this->afterUpdate(input, timer);
 }
 
@@ -118,15 +134,6 @@ void GameObject::destroy() {
 		Ref<Component> component = itc->next();
 		component->destroy();
 	}
-
-    // destroy children
-    Ref<List<GameObject> > children = this->getChildren();
-    Ref<Iterator<GameObject> > it = children->iterator();
-
-    while(it->hasNext()) {
-        Ref<GameObject> child = it->next();
-        child->destroy();
-    }
 
 	this->afterDestroy();
 }

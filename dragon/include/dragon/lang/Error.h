@@ -17,29 +17,32 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/24
+ * Created:     2014/05/18
  **********************************************************************/
 
 
-#include <dragon/lang/internal/SystemClassLoader.h>
-#include <dragon/lang/internal/platform.h>
+#ifndef Error_Lang_Dragon_H
+#define Error_Lang_Dragon_H
 
-Import dragon::lang::internal;
+#include <dragon/config.h>
+#include <dragon/lang/Throwable.h>
 
-SystemClassLoader::SystemClassLoader() {
-	const char* sysLib = GetDragonLibPath();
-    if (sysLib != null) {
-    	this->load(sysLib);
-    }
+BeginPackage2(dragon, lang)
 
-    /*
-    const char* localLib = GetLocalLibPath();
-    if (localLib != null) {
-        this->load(localLib);
-    }
-    */
-}
+Import dragon::lang;
 
-SystemClassLoader::~SystemClassLoader() {
+class_ Error extends(Throwable) {
+public:
+    static const Type* TYPE;
+    
+public:
+    Error();
+    Error(const String& msg);
+    Error(const String& msg, Throwable* cause);
+    virtual ~Error();
+    
+};//Error
 
-}
+EndPackage2 //(dragon, lang)
+
+#endif //Error_Lang_Dragon_H

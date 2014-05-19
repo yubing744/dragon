@@ -24,6 +24,7 @@
 #include <dragon/util/ArrayList.h>
 #include <com/dragon3d/scene/Transform.h>
 #include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/scene/GameObject.h>
 
 Import dragon::util;
 Import dragon::lang::gc;
@@ -58,6 +59,70 @@ Transform::~Transform(void){
     SafeRelease(this->children);
 }
 
+bool Transform::isTypeOf(const Type* type) {
+    if (Transform::TYPE->equals(type) 
+        || Component::TYPE->equals(type)) {
+        return true;
+    }
+
+    return false;
+}
+
+void Transform::init() {
+    // init children
+    List<Transform>* children = this->children;
+
+    if (children!=null && children->size()>0) {
+        Ref<Iterator<Transform> > it = children->iterator();
+
+        while(it->hasNext()) {
+            Ref<Transform> child = it->next();
+            Ref<GameObject> cgo = child->getGameObject();
+
+            if (cgo!=null) {
+                cgo->init();
+            }
+        }
+    }
+}
+
+void Transform::update(Input* input, ReadOnlyTimer* timer) {
+    // update children
+    List<Transform>* children = this->children;
+
+    if (children!=null && children->size()>0) {
+        Ref<Iterator<Transform> > it = children->iterator();
+
+        while(it->hasNext()) {
+            Ref<Transform> child = it->next();
+            Ref<GameObject> cgo = child->getGameObject();
+            
+            if (cgo!=null) {
+                cgo->update(input, timer);
+            }
+        }
+    }
+}
+
+void Transform::destroy() {
+    // destroy children
+    List<Transform>* children = this->children;
+
+    if (children!=null && children->size()>0) {
+        Ref<Iterator<Transform> > it = children->iterator();
+
+        while(it->hasNext()) {
+            Ref<Transform> child = it->next();
+            Ref<GameObject> cgo = child->getGameObject();
+            
+            if (cgo!=null) {
+                cgo->destroy();
+            }
+        }
+    }
+}
+
+//-------------------------------------------------------------------------
 void Transform::translate(const Vector3& translation, Space relativeTo) {
     Vector3 localTranslation = translation;
 
@@ -235,7 +300,7 @@ void Transform::setLocalEulerAngles(const Vector3& angles) {
 }
 
 bool Transform::hasChanged() {
-   return this->changed || (this->parent!=null && this->parent->hasChanged());
+   return this->changed || this->parent!=null;
 }
 
 Matrix4x4 Transform::getWorldToLocalMatrix() {

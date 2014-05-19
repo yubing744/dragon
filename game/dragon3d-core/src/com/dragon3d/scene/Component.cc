@@ -37,6 +37,20 @@ Component::~Component() {
     SafeRelease(this->gameObject);
 }
 
+bool Component::isTypeOf(const Type* type) {
+    if (Component::TYPE->equals(type)) {
+        return true;
+    }
+
+    return false;
+}
+
+Object* Component::clone() const {
+    Component* newComp = (Component*)Object::clone();
+    newComp->gameObject = null;
+    return newComp;
+}
+
 // propertys
 GameObject* Component::getGameObject() {
     return (GameObject*)this->gameObject->retain();
@@ -58,14 +72,6 @@ void Component::update(Input* input, ReadOnlyTimer* timer) {
 
 void Component::destroy() {
 
-}
-
-bool Component::isTypeOf(const Type* type) {
-    if (Component::TYPE->equals(type)) {
-        return true;
-    }
-
-    return false;
 }
 
 String* Component::getName() {

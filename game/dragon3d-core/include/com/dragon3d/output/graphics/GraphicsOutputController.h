@@ -37,6 +37,7 @@
 #include <com/dragon3d/output/graphics/renderqueue/RenderQueue.h>
 
 #include <com/dragon3d/util/debug/PlacementGrid.h>
+#include <com/dragon3d/util/debug/BoundingBoxOutline.h>
 
 BeginPackage4(com, dragon3d, output, graphics)
 
@@ -113,12 +114,18 @@ protected:
      * placement grid
      */
     PlacementGrid* placementGrid;
-    
-    /**
-     * whether or not to show PlacementGrid
-     */
     bool showPlacementGrid;
 
+    /**
+     * the bounds outline
+     */
+    BoundingBoxOutline* boundsOutline;
+    bool showBounds;
+
+    /**
+     * show the model.
+     */
+    bool showModel;
 };//GraphicsOutputController
 
 EndPackage4 //(com, dragon3d, output, graphics)

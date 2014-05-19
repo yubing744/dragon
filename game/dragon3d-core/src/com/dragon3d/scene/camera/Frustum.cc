@@ -30,7 +30,7 @@ Import dragon::util::logging;
 Import com::dragon3d::scene::camera;
 
 const Type* Frustum::TYPE = TypeOf<Frustum>();
-static Logger* logger = Logger::getLogger(Frustum::TYPE, ERROR);
+static Logger* logger = Logger::getLogger(Frustum::TYPE, INFO);
 
 Frustum::Frustum() 
     :planes(FRUSTUM_PLANES) {
@@ -119,53 +119,30 @@ void Frustum::update(float screenDepth, const Matrix4x4& projectionMatrix, const
         ),
         matrix.m[4][4] + matrix.m[4][3]
     );
+
+    logger->info("the frustum update");
 }
 
 int Frustum::checkBounds(Bounds* bounds) {
-    Vector3 center = bounds->getCenter();
-    Vector3 extents = bounds->getExtents();
-
-    float xCenter = center.x; float yCenter = center.y; float zCenter = center.z;
-    float xSize = extents.x; float ySize = extents.y; float zSize = extents.z;
-
-
     int c;
     int c2 = 0;
+
+    const Array<Vector3> corners = bounds->getCorners();
 
     // Check if any of the 6 planes of the rectangle are inside the view frustum.
     for(int i=0; i<FRUSTUM_PLANES; i++) {
         Plane* plane = this->planes[i];
 
-        if(plane->getDistanceToPoint(Vector3((xCenter - xSize), (yCenter - ySize), (zCenter - zSize))) >= 0.0f) {
-            c++;
-        }
+        c = 0;
 
-        if(plane->getDistanceToPoint(Vector3((xCenter + xSize), (yCenter - ySize), (zCenter - zSize))) >= 0.0f) {
-            c++;
-        }
+        for (int j=0; j<corners.size(); j++) {
+            Vector3 p = corners[i];
 
-        if(plane->getDistanceToPoint(Vector3((xCenter - xSize), (yCenter + ySize), (zCenter - zSize))) >= 0.0f) {
-            c++;
-        }
-
-        if(plane->getDistanceToPoint(Vector3((xCenter - xSize), (yCenter - ySize), (zCenter + zSize))) >= 0.0f) {
-            c++;
-        }
-
-        if(plane->getDistanceToPoint(Vector3((xCenter + xSize), (yCenter + ySize), (zCenter - zSize))) >= 0.0f) {
-            c++;
-        }
-
-        if(plane->getDistanceToPoint(Vector3((xCenter + xSize), (yCenter - ySize), (zCenter + zSize))) >= 0.0f) {
-            c++;
-        }
-
-        if(plane->getDistanceToPoint(Vector3((xCenter - xSize), (yCenter + ySize), (zCenter + zSize))) >= 0.0f) {
-            c++;
-        }
-
-        if(plane->getDistanceToPoint(Vector3((xCenter + xSize), (yCenter + ySize), (zCenter + zSize))) >= 0.0f) {
-            c++;
+            float distance = plane->getDistanceToPoint(p);
+            
+            if(distance >= 0.0f) {
+                c++;
+            }
         }
 
         if(c == 0) {

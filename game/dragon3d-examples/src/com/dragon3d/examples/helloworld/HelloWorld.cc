@@ -110,7 +110,7 @@ void HelloWorld::onInit() {
 //static double abc = 0.1;
 
 void HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
-    mainCamera->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
+    //mainCamera->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
 
     //Vector3 pos = myBox->getTransform()->getPosition();
     //logger->info("myBox pre pos: %f %f %f", pos.x, pos.y, pos.z);
@@ -120,7 +120,7 @@ void HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
     //myBox->getTransform()->translate(Vector3::LEFT.multiply(timer->getDeltaTime() * 5), World);
     //myBox->getTransform()->translate(Vector3::LEFT.multiply(timer->getDeltaTime() * 5), World);
     
-    //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
     
     //child->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);

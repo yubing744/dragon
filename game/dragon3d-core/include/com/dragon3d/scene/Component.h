@@ -50,6 +50,22 @@ public:
 	Component();
 	virtual ~Component();
 
+public:
+	/**
+	 * clone component.
+	 * 
+	 * @return [description]
+	 */
+	virtual Object* clone() const;
+
+	/**
+	 * the component is type of type.
+	 * 
+	 * @param  type [description]
+	 * @return      [description]
+	 */
+	virtual bool isTypeOf(const Type* type);
+
 public: // Property
 	/**
 	 * get or set the component's game object.
@@ -85,14 +101,6 @@ public:
 	virtual void destroy();
 
 public:
-	/**
-	 * the component is type of type.
-	 * 
-	 * @param  type [description]
-	 * @return      [description]
-	 */
-	virtual bool isTypeOf(const Type* type);
-
 	/**
 	 * get the name of attacehed GameObject.
 	 * 

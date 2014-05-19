@@ -162,6 +162,8 @@ struct load_command* find_segment(const struct mach_header *image_header, const 
 }
 
 export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_table_size) {
+	void *handle = dlopen(path, RTLD_LAZY);
+
 	size_t image_num = find_image_num(path);
 	const struct mach_header *image_header = get_mach_header(path);
 	bool is_64 = is_64bit_image(image_header);
@@ -202,7 +204,6 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 		for (uint32_t j = 0x0; j < cmd->nsyms; j++) {
 			// https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachORuntime/Reference/reference.html#//apple_ref/c/tag/nlist
 			if (!(entry->n_type & N_STAB) && ((entry->n_type & N_TYPE) == N_SECT)) {
-                
 				if (is_64) {
 					uint64_t *n_value = (uint64_t*)((char*)entry + sizeof(struct symbol_table_list_entry));
 					symbol_address = (void*)*n_value;
@@ -221,6 +222,21 @@ export_symbol* find_symbol_export_table(const char* path, size_t* addr_export_ta
 				table[symbol_count].symbol = symbol;
 
 				symbol_count++;
+			} else if (entry->n_type & N_STAB && entry->n_sect == 0x0) {
+				char* symbol = ((char *)str_table + entry->n_un.n_strx) + 1;
+
+				if (memcmp(symbol, "_ZN", 3)== 0x0) {
+					table = (export_symbol*)realloc(table, sizeof(export_symbol)*(symbol_count+0x1));
+
+					void* symbol_address = dlsym(handle, symbol);
+
+					table[symbol_count].symbol = symbol;
+					table[symbol_count].address = symbol_address;
+
+					printf("address: 0x%x, symbol: %s\n", symbol_address, symbol);
+
+					symbol_count++;
+				}
 			}
 
 			entry = (struct symbol_table_list_entry *)((char*)entry + (sizeof(struct symbol_table_list_entry) + (is_64 ? sizeof(uint64_t) : sizeof(uint32_t))));
@@ -241,7 +257,7 @@ void free_export_symbol_table(export_symbol* table) {
 
 
 void Library::resolve() {
-	if (!this->resolved) {
+	if (!this->resolved && this->libPath!=null) {
 		size_t symbol_count = 0;
 		export_symbol *table = find_symbol_export_table(this->libPath, &symbol_count);
 

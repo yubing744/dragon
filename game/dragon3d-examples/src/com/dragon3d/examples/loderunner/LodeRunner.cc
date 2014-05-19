@@ -37,7 +37,7 @@ Import com::dragon3d::examples::loderunner;
 Import com::dragon3d::examples::loderunner::map;
 
 const Type* LodeRunner::TYPE = TypeOf<LodeRunner>();
-static Logger* logger = Logger::getLogger(LodeRunner::TYPE, ERROR);
+static Logger* logger = Logger::getLogger(LodeRunner::TYPE, LOG_LEVEL_DEBUG);
 
 LodeRunner::LodeRunner() {
     this->mainCamera = new GameObject("MainCamera");
@@ -59,8 +59,11 @@ void LodeRunner::setupCamera() {
     this->mainCamera->addComponent(camera);
         
     Ref<Transform> ts = camera->getTransform();
-    ts->setPosition(Vector3(-32, 62, -62));
-    ts->rotate(0, 180, 0);
+    
+    //ts->setPosition(Vector3(-32, 32, -32));
+    ts->setPosition(Vector3(-16, 16, -16));
+    //ts->setPosition(Vector3(-4, 4, -4));
+    ts->lookAt(Vector3::ZERO);
     
     root->addChild(mainCamera);
 }
@@ -72,8 +75,7 @@ void LodeRunner::onInit() {
     Ref<GameObject> root = scene->getRoot();
 
     // map
-    //this->map->setSize(16, 16);
-    //root->addChild(this->map);
+    root->addChild(this->map);
     
     /*
     // brick
@@ -107,10 +109,13 @@ void LodeRunner::onInit() {
     }
     */
 
+    //this->clod->setPosition(0, 0.5, 0);
     //root->addChild(this->clod);
     
     // camera
-    //setupCamera();
+    setupCamera();
+    
+    /*
     mainCamera = new GameObject("MainCamera");
     Camera* camera = new Camera();
     mainCamera->addComponent(camera);
@@ -120,6 +125,7 @@ void LodeRunner::onInit() {
     camera->getTransform()->rotate(0, 180 + 30, 0);
     camera->getTransform()->find("abc/bbb/ccc");
     root->addChild((mainCamera));
+    */
     
     //Ref<Transform> cameraTs = this->mainCamera->getTransform();
     //Ref<Transform> groundTs = this->map->getTransform();
@@ -128,13 +134,13 @@ void LodeRunner::onInit() {
 }
 
 void LodeRunner::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
-    Ref<Transform> cameraTs = this->mainCamera->getTransform();
-    cameraTs->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    //Ref<Transform> cameraTs = this->mainCamera->getTransform();
+    //cameraTs->rotate(0, timer->getDeltaTime() * 40, 0, World);
 
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), World);
     //myBox->transform->translate(Vector3::FORWARD.multiply(timer->getDeltaTime() * 5), Transform::Space::Self);
     
-    //myBox->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
+    this->map->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, Self);
     //child->getTransform()->rotate(0, timer->getDeltaTime() * 40, 0, World);
     //myBox->transform->rotate(0, timer->getDeltaTime() * 200, 0, Transform::Space::Self);
     
@@ -154,7 +160,7 @@ void LodeRunner::onUpdate(Scene* scene, ReadOnlyTimer* timer) {
     
     //mainCamera->getTransform()->lookAt(clod->getTransform());
     
-    logger->debug("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
+    logger->info("tps: %f fps: %f curTime: %f", timer->getDeltaTime(), timer->getFrameRate(), timer->getTimeInSeconds());
 }
 
 void LodeRunner::onDestroy() {

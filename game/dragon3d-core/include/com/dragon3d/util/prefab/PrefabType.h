@@ -17,29 +17,34 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/07/24
+ * Created:     2014/05/17
  **********************************************************************/
 
 
-#include <dragon/lang/internal/SystemClassLoader.h>
-#include <dragon/lang/internal/platform.h>
+#ifndef PrefabType_Prefab_Util_Dragon3d_Com_H
+#define PrefabType_Prefab_Util_Dragon3d_Com_H
 
-Import dragon::lang::internal;
+#include <dragon/config.h>
+#include <dragon/lang/Object.h>
 
-SystemClassLoader::SystemClassLoader() {
-	const char* sysLib = GetDragonLibPath();
-    if (sysLib != null) {
-    	this->load(sysLib);
-    }
+BeginPackage4(com, dragon3d, util, prefab)
 
-    /*
-    const char* localLib = GetLocalLibPath();
-    if (localLib != null) {
-        this->load(localLib);
-    }
-    */
-}
+Import dragon::lang;
 
-SystemClassLoader::~SystemClassLoader() {
+class_ PrefabType extends(Object) {
+public:
+    static const Type* TYPE;
+    
+public:
+    PrefabType();
+    virtual ~PrefabType();
 
-}
+public:
+    
+protected:
+    
+};//PrefabType
+
+EndPackage4 //(com, dragon3d, util, prefab)
+
+#endif //PrefabType_Prefab_Util_Dragon3d_Com_H

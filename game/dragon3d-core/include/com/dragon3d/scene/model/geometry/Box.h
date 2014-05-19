@@ -36,6 +36,9 @@ Import com::dragon3d::scene::model::geometry;
 class _DragonExport Box 
     extends(Model) {
 public:
+    static const Type* TYPE;
+    
+public:
     Box();
     virtual ~Box();
 

@@ -30,66 +30,7 @@ Import dragon::util::logging;
 const Type* com::dragon3d::scene::model::geometry::Plane::TYPE = TypeOf<com::dragon3d::scene::model::geometry::Plane>();
 static Logger* logger = Logger::getLogger(com::dragon3d::scene::model::geometry::Plane::TYPE, ERROR);
 
-com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
-
-  /*
-    float cubeVerts[] =
-    {
-      -1.0f,  -1.0f, 1.0f,
-      1.0f,  -1.0f,  1.0f,
-      1.0f,  1.0f,  1.0f,
-      1.0f,  1.0f,  1.0f,
-      -1.0f,  1.0f, 1.0f,
-       -1.0f,  -1.0f, 1.0f
-   };
-
-   float cubeNormals[] =
-   {
-      0.0f, 1.0f, 0.0f,
-      0.0f, 1.0f, 0.0f,
-      0.0f, 1.0f, 0.0f,
-      0.0f, 1.0f, 0.0f,
-      0.0f, 1.0f, 0.0f,
-      0.0f, 1.0f, 0.0f,
-   };
-
-   float cubeTex[] =
-   {
-      0.0f, 0.0f,
-      1.0f, 0.0f,
-      1.0f, 1.0f,
-      1.0f, 1.0f,
-      0.0f, 1.0f,
-      0.0f, 0.0f,
-    };   
-
-    unsigned short cubeIndices[] =
-    {
-        0, 1, 2,
-        3, 4, 5
-    };
-
-    this->mesh = new Mesh();
-    this->material = new Material(Color::GREEN);
-    
-    int numVertices = 6;
-    int numIndices = 6;
-    
-    this->mesh->setFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
-    this->mesh->setFloatNormals(Array<float>(cubeNormals, numVertices * 3, false));
-    this->mesh->setFloatUVs(Array<float>(cubeTex, numVertices * 2, false));
-
-    //Copy indices data
-    int* triangles = new int[numIndices];
-
-    for (int i=0; i<numIndices; i++) {
-        triangles[i] = cubeIndices[i];
-    }
-
-    this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
-    */ 
-   
-  
+com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {  
     float cubeVerts[] =
     {
       -xSize, 0, -zSize,
@@ -138,6 +79,10 @@ com::dragon3d::scene::model::geometry::Plane::Plane() : xSize(1), zSize(1) {
     }
 
     this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
+
+    // build the bounds
+    this->bounds->init(Vector3(cubeVerts[0], cubeVerts[1], cubeVerts[2]));
+    this->bounds->encapsulateFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
 }
 
 

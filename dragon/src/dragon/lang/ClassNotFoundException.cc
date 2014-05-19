@@ -17,21 +17,35 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/03/31
+ * Created:     2014/05/19
  **********************************************************************/
 
+
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
 #include <dragon/lang/ClassNotFoundException.h>
 
+Import dragon::lang::gc;
+Import dragon::util::logging;
 Import dragon::lang;
 
-ClassNotFoundException::ClassNotFoundException()
-{
-	mMsg=new String(L"ClassNotFoundException");
-	mpCause=null;
+const Type* ClassNotFoundException::TYPE = TypeOf<ClassNotFoundException>();
+static Logger* logger = Logger::getLogger(ClassNotFoundException::TYPE, ERROR);
+
+ClassNotFoundException::ClassNotFoundException() {
+
 }
 
-ClassNotFoundException::ClassNotFoundException(String& message)
-{
-	mMsg=new String(message);
-	mpCause=null;
+ClassNotFoundException::ClassNotFoundException(const String& msg) 
+    :Exception(msg) {
+
+}
+
+ClassNotFoundException::ClassNotFoundException(const String& msg, Throwable* cause) 
+    :Exception(msg, cause) {
+
+}
+
+ClassNotFoundException::~ClassNotFoundException() {
+
 }

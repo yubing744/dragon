@@ -61,6 +61,7 @@ public:
 
 public:
 	GameObject();
+	GameObject(GameObject* gameObject);
 	GameObject(const String& name);
 	virtual ~GameObject();
 
@@ -97,6 +98,16 @@ public:
 	 */
 	virtual void destroy();
 
+protected:// Events
+	virtual void onInit();
+	virtual void onUpdate(Input* input, ReadOnlyTimer* timer);
+	virtual void onDestroy();
+
+	virtual void afterInit();
+	virtual void afterUpdate(Input* input, ReadOnlyTimer* timer);
+	virtual void afterDestroy();
+
+public:
 	/**
 	 * add component.
 	 * 
@@ -242,15 +253,6 @@ public: // helper method
 	virtual GameObject* findFirstWithTag(const String& tagName);
 	virtual List<GameObject>* findWithTag(const String& tagName);
 
-protected:// Events
-	virtual void onInit();
-	virtual void onUpdate(Input* input, ReadOnlyTimer* timer);
-	virtual void onDestroy();
-
-	virtual void afterInit();
-	virtual void afterUpdate(Input* input, ReadOnlyTimer* timer);
-	virtual void afterDestroy();
-	
 protected:
 	/**
 	 * the name of game object;

@@ -73,6 +73,13 @@ public:
      */
     virtual void sort();
 
+    /**
+     * the size of queue.
+     * 
+     * @return [description]
+     */
+    virtual int size();
+
 protected:
     List<Renderable>* queue;
     

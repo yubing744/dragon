@@ -10,6 +10,7 @@
 		46037E3B18D4045F00901E67 /* TextureDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46037E3A18D4045F00901E67 /* TextureDemo.cc */; };
 		4642195118DD3774009C3FB0 /* model in Resources */ = {isa = PBXBuildFile; fileRef = 4642195018DD3774009C3FB0 /* model */; };
 		4642195418DD3795009C3FB0 /* ModelDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4642195318DD3795009C3FB0 /* ModelDemo.cc */; };
+		464FF6421926FD5000A81A86 /* Ground.cc in Sources */ = {isa = PBXBuildFile; fileRef = 464FF6411926FD5000A81A86 /* Ground.cc */; };
 		465D590218063ACA00A9BF94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 465D590018063ACA00A9BF94 /* InfoPlist.strings */; };
 		465D590418063ACA00A9BF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D590318063ACA00A9BF94 /* main.m */; };
 		465D590818063ACA00A9BF94 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 465D590718063ACA00A9BF94 /* AppDelegate.mm */; };
@@ -65,6 +66,7 @@
 		46037E3A18D4045F00901E67 /* TextureDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDemo.cc; sourceTree = "<group>"; };
 		4642195018DD3774009C3FB0 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; name = model; path = ../../../../assets/model; sourceTree = "<group>"; };
 		4642195318DD3795009C3FB0 /* ModelDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelDemo.cc; sourceTree = "<group>"; };
+		464FF6411926FD5000A81A86 /* Ground.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cc; sourceTree = "<group>"; };
 		465D58F418063ACA00A9BF94 /* dragon3d-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dragon3d-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		465D58F718063ACA00A9BF94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		465D58FF18063ACA00A9BF94 /* dragon3d-examples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dragon3d-examples-Info.plist"; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		46DC130D191A6A2D00E5A3E9 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				464FF6411926FD5000A81A86 /* Ground.cc */,
 				46DC1314191A7F3A00E5A3E9 /* Brick.cc */,
 				46DC1312191A7BBB00E5A3E9 /* Clod.cc */,
 				46DC1310191A6AED00E5A3E9 /* GameMap.cc */,
@@ -402,6 +405,7 @@
 				46DC1311191A6AED00E5A3E9 /* GameMap.cc in Sources */,
 				46DC1313191A7BBB00E5A3E9 /* Clod.cc in Sources */,
 				46DC1315191A7F3A00E5A3E9 /* Brick.cc in Sources */,
+				464FF6421926FD5000A81A86 /* Ground.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

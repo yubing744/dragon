@@ -38,8 +38,10 @@ Import dragon::util::logging;
 static Logger* logger = Logger::getLogger("dragon::lang::System", WARN);
 
 static void System_loadLibraryByPath(const char* libpath) {
-    SystemClassLoader* classLoader = (SystemClassLoader*)ClassLoader::getSystemClassLoader();
-    classLoader->load(libpath);
+    if (libpath != null) {
+        SystemClassLoader* classLoader = (SystemClassLoader*)ClassLoader::getSystemClassLoader();
+        classLoader->load(libpath);
+    }
 }
 
 void System_loadLocalLibrary() {

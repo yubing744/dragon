@@ -29,6 +29,7 @@
 #include <dragon/lang/Object.h>
 #include <dragon/lang/Array.h>
 #include <com/dragon3d/util/math/Vector3.h>
+#include <com/dragon3d/util/math/Vector4.h>
 #include <com/dragon3d/util/math/Quaternion.h>
 
 BeginPackage4(com, dragon3d, util, math)
@@ -162,6 +163,14 @@ public:
      * @return [description]
      */
     Matrix4x4 transpose() const;
+
+    /**
+     * multiply vector4
+     * 
+     * @param  v [description]
+     * @return   [description]
+     */
+    Vector4 multiply(const Vector4& v) const;
 
     /**
      * Multiplies this matrices.

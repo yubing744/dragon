@@ -24,16 +24,18 @@
 
 #include <dragon/lang/Object.h>
 #include <dragon/lang/String.h>
+#include <dragon/lang/Class.h>
 #include <dragon/lang/ClassLoader.h>
 
 #include <dragon/lang/internal/platform.h>
+#include <dragon/lang/CloneNotSupportedException.h>
 
 Import dragon::lang;
 Import dragon::lang::internal;
 
 
 Object::Object() 
-	:semaphoreHandle(NULL), refCount(0) {
+	:semaphoreHandle(NULL), refCount(0), clazz(null) {
 
 }
 
@@ -77,10 +79,29 @@ int Object::getRefCount() {
 }
 
 //------------------------------------------
+Object* Object::clone() const {
+	Class* clazz = const_cast<Class*>(this->getClass());
+	size_t size = clazz->getSize();
+
+	Object* newObj = (Object*)malloc(size);
+	memcpy(newObj, this, size);
+	
+	newObj->refCount = 0;
+	newObj->semaphoreHandle = NULL;
+
+	return newObj;
+}
+
 const Class* Object::getClass() const {
-	ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
-	const char* className = Demangle(typeid(*this).name());
-	return classLoader->loadClass(className);
+	Object* self = const_cast<Object*>(this);
+
+	if (self->clazz == null) {
+		ClassLoader* classLoader = ClassLoader::getSystemClassLoader();
+		const char* className = Demangle(typeid(*this).name());
+		self->clazz = const_cast<Class*>(classLoader->loadClass(className));
+	}
+
+	return self->clazz;
 }
 
 bool Object::equals(const Object* obj) {

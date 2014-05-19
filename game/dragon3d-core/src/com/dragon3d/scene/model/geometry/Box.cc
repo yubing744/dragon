@@ -28,6 +28,8 @@
 
 Import com::dragon3d::scene::model::geometry;
 
+const Type* Box::TYPE = TypeOf<Box>();
+
 Box::Box() {
 
    

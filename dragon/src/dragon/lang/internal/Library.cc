@@ -56,9 +56,11 @@ Import dragon::lang::internal;
 
 Library::Library(const char* libPath) 
 	:resolved(dg_false) {
-	char* buf = (char*)malloc(strlen(libPath) + 1);
-	strcpy(buf, libPath);
-	this->libPath = buf;
+	if (this->libPath != null) {
+		char* buf = (char*)malloc(strlen(libPath) + 1);
+		strcpy(buf, libPath);
+		this->libPath = buf;
+	}
 
 	this->classTree = (ClassTree*)malloc(sizeof(ClassTree));
 	this->classTree->spaces = NULL;

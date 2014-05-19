@@ -120,9 +120,10 @@ void add_to_package(Library::NameSpace* parent, export_symbol * es, int offset) 
 
 }
 
-void add_to_tree(Library::ClassTree* tree,export_symbol * es, int offset) {
+void add_to_tree(Library::ClassTree* tree, export_symbol * es, int offset) {
 	size_t num_offset;
 	int num = next_offset(es->symbol + offset, &num_offset);
+	
 	if (num > 0) {
 		Library::NameSpace* space = find_package(tree->spaces, es->symbol, offset + num_offset, num);
 

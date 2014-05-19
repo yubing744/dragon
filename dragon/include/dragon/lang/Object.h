@@ -38,6 +38,13 @@ public:
 
 public:
 	/**
+	 * Creates and returns a copy of this object. 
+	 * 
+	 * @return [description]
+	 */
+	virtual Object* clone() const;
+
+	/**
 	 * Indicates whether some other object is "equal to" this one.
 	 * 
 	 * @param  obj [description]
@@ -140,7 +147,22 @@ private:
 	 * the reference count of this object
 	 */
 	DRAGON_ALIGN(4) dg_int refCount;
+
+	/**
+	 * the class of object
+	 */
+	DRAGON_ALIGN(4) Class* clazz;
 };
+
+
+template<class T>
+inline T* Clone(T* type) {
+    int size = sizeof(T);
+    T* newObj = (T*)malloc(size);
+    memcpy(newObj, type, size);
+
+    return newObj;
+}
 
 EndPackage2//(dragon, lang)
 
