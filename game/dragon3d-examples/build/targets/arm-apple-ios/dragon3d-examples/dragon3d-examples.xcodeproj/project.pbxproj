@@ -23,7 +23,6 @@
 		464FF65F1928F90D00A81A86 /* ModelDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 464FF65E1928F90D00A81A86 /* ModelDemo.cc */; };
 		464FF6661929002000A81A86 /* scene in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6601929002000A81A86 /* scene */; };
 		464FF6671929002000A81A86 /* model in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6611929002000A81A86 /* model */; };
-		464FF6681929002000A81A86 /* textures in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6621929002000A81A86 /* textures */; };
 		464FF6691929002000A81A86 /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6631929002000A81A86 /* shader */; };
 		464FF66A1929002000A81A86 /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6641929002000A81A86 /* mp3 */; };
 		464FF66B1929002000A81A86 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 464FF6651929002000A81A86 /* data */; };
@@ -46,6 +45,7 @@
 		4679BF4818C0E54A0062753B /* libdragon3d-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4679BF4718C0E54A0062753B /* libdragon3d-core.dylib */; };
 		4679BF4918C0E57E0062753B /* libdragon3d-core.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 4679BF4718C0E54A0062753B /* libdragon3d-core.dylib */; };
 		4679BF4A18C0E57E0062753B /* libdragon.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 4679BF4518C0E5350062753B /* libdragon.dylib */; };
+		4697A83E192B9870001FC6B6 /* textures in Resources */ = {isa = PBXBuildFile; fileRef = 4697A83D192B9870001FC6B6 /* textures */; };
 		46ABCA0718C0D0F3002E234C /* AudioDemo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46ABCA0618C0D0F3002E234C /* AudioDemo.cc */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +66,6 @@
 		464FF65E1928F90D00A81A86 /* ModelDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelDemo.cc; sourceTree = "<group>"; };
 		464FF6601929002000A81A86 /* scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scene; path = ../../../../assets/scene; sourceTree = "<group>"; };
 		464FF6611929002000A81A86 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; name = model; path = ../../../../assets/model; sourceTree = "<group>"; };
-		464FF6621929002000A81A86 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = textures; path = ../../../../assets/textures; sourceTree = "<group>"; };
 		464FF6631929002000A81A86 /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shader; path = ../../../../assets/shader; sourceTree = "<group>"; };
 		464FF6641929002000A81A86 /* mp3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mp3; path = ../../../../assets/mp3; sourceTree = "<group>"; };
 		464FF6651929002000A81A86 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../../../../assets/data; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		465D59631806EFCA00A9BF94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4679BF4518C0E5350062753B /* libdragon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdragon.dylib; path = "../../../../../../repo/arm-apple-ios/debug/libdragon.dylib"; sourceTree = "<group>"; };
 		4679BF4718C0E54A0062753B /* libdragon3d-core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libdragon3d-core.dylib"; path = "../../../../../../repo/arm-apple-ios/debug/libdragon3d-core.dylib"; sourceTree = "<group>"; };
+		4697A83D192B9870001FC6B6 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = textures; path = ../../../../assets/textures; sourceTree = "<group>"; };
 		46ABCA0618C0D0F3002E234C /* AudioDemo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioDemo.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -281,9 +281,9 @@
 		4679BF4B18C0E6830062753B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4697A83D192B9870001FC6B6 /* textures */,
 				464FF6601929002000A81A86 /* scene */,
 				464FF6611929002000A81A86 /* model */,
-				464FF6621929002000A81A86 /* textures */,
 				464FF6631929002000A81A86 /* shader */,
 				464FF6641929002000A81A86 /* mp3 */,
 				464FF6651929002000A81A86 /* data */,
@@ -361,10 +361,10 @@
 				465D592118063C2100A9BF94 /* com in Resources */,
 				464FF6661929002000A81A86 /* scene in Resources */,
 				464FF6671929002000A81A86 /* model in Resources */,
-				464FF6681929002000A81A86 /* textures in Resources */,
 				464FF6691929002000A81A86 /* shader in Resources */,
 				464FF66A1929002000A81A86 /* mp3 in Resources */,
 				464FF66B1929002000A81A86 /* data in Resources */,
+				4697A83E192B9870001FC6B6 /* textures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

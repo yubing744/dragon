@@ -55,7 +55,7 @@ Import com::dragon3d::examples::loderunner;
     //app = new AudioDemo();
     //app = new TextureDemo();
     //app = new ModelDemo();
-    //app = new LodeRunner();
+    app = new LodeRunner();
     
     Dragon3DLaunchApp(app);
     

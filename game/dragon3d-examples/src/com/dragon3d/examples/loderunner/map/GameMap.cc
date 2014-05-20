@@ -76,7 +76,6 @@ void GameMap::onInit() {
     brick2->setPosition(5, 5, 5);
     */
     
-    /*
     Ref<String> json = ResourceUtils::readResourceToString(this->mapRes, "UTF-8");
     Ref<JSONObject> jsonObj = JSONObject::parse(json);
 
@@ -92,7 +91,6 @@ void GameMap::onInit() {
             }
         }
     }
-     */
 }
 
 void GameMap::initLayerModel(int layerNum, JSONArray* datas) {

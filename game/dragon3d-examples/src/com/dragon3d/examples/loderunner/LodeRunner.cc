@@ -60,8 +60,8 @@ void LodeRunner::setupCamera() {
         
     Ref<Transform> ts = camera->getTransform();
     
-    //ts->setPosition(Vector3(-32, 32, -32));
-    ts->setPosition(Vector3(-16, 16, -16));
+    ts->setPosition(Vector3(-32, 32, -32));
+    //ts->setPosition(Vector3(-16, 16, -16));
     //ts->setPosition(Vector3(-4, 4, -4));
     ts->lookAt(Vector3::ZERO);
     
