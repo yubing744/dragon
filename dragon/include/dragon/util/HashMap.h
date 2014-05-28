@@ -30,6 +30,7 @@
 #include <dragon/util/Map.h>
 
 #include <map>
+#include <vector>
 
 BeginPackage2(dragon, util)
 
@@ -73,12 +74,17 @@ public:
 	class HashMapIterator extends(Object) 
 		implements1(Iterator<MapEntry>) {
 	public:
-		HashMapIterator(StlIterator it, StlIterator itEnd) {
+		HashMapIterator(map<K, V*>* keyMap, StlIterator it, StlIterator itEnd) {
+			this->keyMap = keyMap;
 			this->it = it;
 			this->itEnd = itEnd;
 		}
 
-		~HashMapIterator(){};
+		~HashMapIterator(){
+			for(int i=0; i<toDels.size(); i++) {
+				this->keyMap->erase(toDels[i]);
+			}
+		};
 
 	public:
 		virtual bool hasNext() {
@@ -95,9 +101,16 @@ public:
 			return mapEntry;
 		};
 
+		virtual void remove() {
+			toDels.push_back(it);
+		};
+
 	private:
 		StlIterator it;
 		StlIterator itEnd;
+
+		map<K, V*>* keyMap;
+		vector<StlIterator> toDels;
 	};
 
 public:
@@ -185,7 +198,7 @@ V* HashMap<K, V>::remove(K key) {
 
 template<class K, class V>
 Iterator<typename HashMap<K, V>::MapEntry>* HashMap<K, V>::iterator() {
-	return new HashMapIterator(keyMap.begin(), keyMap.end());
+	return new HashMapIterator(&keyMap, keyMap.begin(), keyMap.end());
 }
 
 template<class K, class V>

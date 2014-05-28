@@ -27,7 +27,15 @@
 Import dragon::util;
 Import com::dragon3d::scene::model;
 
+AtomicInteger* Mesh::sequence = new AtomicInteger(0);
+
+int Mesh::GetNextID() {
+    return sequence->incrementAndGet();
+}
+
 Mesh::Mesh() :
+    id(GetNextID()
+        ),
     vertices(), 
     vertexCount(0),
 
@@ -52,6 +60,10 @@ void Mesh::clear() {
 
     SafeFree(this->subMeshs);
     this->subMeshCount = 0;
+}
+
+int Mesh::getID() {
+    return this->id;
 }
 
 // indices

@@ -711,6 +711,10 @@ dragon3d_core_SOURCES = {
         ShaderManager.cc
         support_shader_compiler.cc
     """),
+    "com/dragon3d/output/graphics/vbo" : Split("""
+        VBOMeshCache.cc
+        VBOMeshCacheManager.cc
+    """),
 
     "com/dragon3d/output/graphics/shader/glsl" : Split("""
         GLSLShader.cc

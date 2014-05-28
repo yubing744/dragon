@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -129,9 +129,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "64"
-         endingLineNumber = "64"
-         landmarkName = "Mesh::setIndices(Array&lt;int&gt; indices, MeshTopology topology, int submesh)"
-         landmarkType = "5">
+         endingLineNumber = "64">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -639,11 +637,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421858698.487923"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "163"
-         endingLineNumber = "163"
+         startingLineNumber = "168"
+         endingLineNumber = "168"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -656,7 +654,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "90"
-         endingLineNumber = "90">
+         endingLineNumber = "90"
+         landmarkName = "GraphicsOutputController::output(Scene* scene)"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -964,7 +964,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "228"
-         endingLineNumber = "228">
+         endingLineNumber = "228"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1036,7 +1038,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "208"
-         endingLineNumber = "208">
+         endingLineNumber = "208"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1047,7 +1051,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "225"
-         endingLineNumber = "225">
+         endingLineNumber = "225"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1123,7 +1129,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "226"
-         endingLineNumber = "226">
+         endingLineNumber = "226"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1134,7 +1142,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "245"
-         endingLineNumber = "245">
+         endingLineNumber = "245"
+         landmarkName = "OpenGLES2RendererSetupCamera(Camera* camera)"
+         landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1145,7 +1155,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "91"
-         endingLineNumber = "91">
+         endingLineNumber = "91"
+         landmarkName = "GraphicsOutputController::output(Scene* scene)"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1271,7 +1283,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "246"
-         endingLineNumber = "246">
+         endingLineNumber = "246"
+         landmarkName = "OpenGLES2RendererSetupCamera(Camera* camera)"
+         landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1304,11 +1318,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421853316.121939"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1317,11 +1331,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421853316.121939"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
+         startingLineNumber = "86"
+         endingLineNumber = "86"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1419,11 +1433,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1432,11 +1446,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "96"
+         endingLineNumber = "96"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1445,11 +1459,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
+         startingLineNumber = "151"
+         endingLineNumber = "151"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1458,11 +1472,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421853316.121939"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
+         startingLineNumber = "68"
+         endingLineNumber = "68"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1471,11 +1485,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1484,11 +1498,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
+         startingLineNumber = "151"
+         endingLineNumber = "151"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1497,11 +1511,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421857684.598315"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "161"
-         endingLineNumber = "161"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1540,7 +1554,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "197"
-         endingLineNumber = "197">
+         endingLineNumber = "197"
+         landmarkName = "GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1560,22 +1576,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112">
+         startingLineNumber = "117"
+         endingLineNumber = "117">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421857684.598315"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "156"
-         endingLineNumber = "156"
+         startingLineNumber = "161"
+         endingLineNumber = "161"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1584,11 +1600,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "119"
-         endingLineNumber = "119"
+         startingLineNumber = "124"
+         endingLineNumber = "124"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1597,11 +1613,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "123"
-         endingLineNumber = "123"
+         startingLineNumber = "128"
+         endingLineNumber = "128"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1778,7 +1794,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "73"
          endingLineNumber = "73"
-         landmarkName = "GraphicsOutputController::output(Scene* scene)"
+         landmarkName = "GraphicsOutputController::destroy()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1797,11 +1813,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421855480.763055"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "106"
-         endingLineNumber = "106"
+         startingLineNumber = "107"
+         endingLineNumber = "107"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1814,20 +1830,18 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "74"
-         endingLineNumber = "74"
-         landmarkName = "GraphicsOutputController::output(Scene* scene)"
-         landmarkType = "5">
+         endingLineNumber = "74">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421858770.423402"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "113"
-         endingLineNumber = "113"
+         startingLineNumber = "118"
+         endingLineNumber = "118"
          landmarkName = "HelloWorld::onUpdate(Scene* scene, ReadOnlyTimer* timer)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1836,11 +1850,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../../src/com/dragon3d/examples/helloworld/HelloWorld.cc"
-         timestampString = "421858977.754013"
+         timestampString = "422676159.350351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
+         startingLineNumber = "84"
+         endingLineNumber = "84"
          landmarkName = "HelloWorld::onInit()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2061,6 +2075,58 @@
          startingLineNumber = "50"
          endingLineNumber = "50"
          landmarkName = "BoundingBoxOutline::renderUnto(GraphicsRenderer* gr, Scene* scene, Camera* camera)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/ios/../../OpenGLES2Renderer.cc"
+         timestampString = "422785579.689354"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "142"
+         endingLineNumber = "142"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/ios/../../OpenGLES2Renderer.cc"
+         timestampString = "422786361.684249"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "165"
+         endingLineNumber = "165"
+         landmarkName = "OpenGLES2Renderer::drawSample()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/vbo/native/ios/../../VBOMeshCache_opengl.cc"
+         timestampString = "422786692.311901"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "34"
+         endingLineNumber = "34"
+         landmarkName = "VBOMeshCache::init()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../../../../dragon3d-core/src/com/dragon3d/output/graphics/GraphicsOutputController.cc"
+         timestampString = "422924609.629429"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "195"
+         endingLineNumber = "195"
+         landmarkName = "GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

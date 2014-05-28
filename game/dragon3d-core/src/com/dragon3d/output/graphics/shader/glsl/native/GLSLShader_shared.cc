@@ -292,8 +292,8 @@ bool GLSLShader::setVertexAttribPointer(const char* name, int size, int type, in
       return false;
    }
 
-   glVertexAttribPointer(handle, size, GL_FLOAT, false, stride, pointer);
    glEnableVertexAttribArray(handle);
+   glVertexAttribPointer(handle, size, GL_FLOAT, false, stride, pointer);
 
    return check_gl_error(utf8MapName);
 }

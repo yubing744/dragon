@@ -120,7 +120,7 @@ void Frustum::update(float screenDepth, const Matrix4x4& projectionMatrix, const
         matrix.m[4][4] + matrix.m[4][3]
     );
 
-    logger->info("the frustum update");
+    //logger->info("the frustum update");
 }
 
 int Frustum::checkBounds(Bounds* bounds) {

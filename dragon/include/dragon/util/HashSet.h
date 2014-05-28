@@ -45,6 +45,10 @@ public:
 			return *(it++);
 		};
 
+		virtual void remove() {
+
+		};
+
 	private:
 		StlIterator it;
 		StlIterator itEnd;

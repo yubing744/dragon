@@ -20,6 +20,7 @@
  * Created:     2013/09/15
  **********************************************************************/
 
+#include <map>
 
 #include <dragon/lang/String.h>
 #include <dragon/lang/gc/Reference.h>
@@ -105,6 +106,10 @@ void HelloWorld::onInit() {
     
     root->addChild(myBox);
     root->addChild(mainCamera);
+    
+    map<int, int> theMap;
+    map<int, int>::iterator it = theMap.begin();
+    it++;
 }
 
 //static double abc = 0.1;

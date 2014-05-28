@@ -17,29 +17,38 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/21
+ * Created:     2014/05/21
  **********************************************************************/
 
 
-#ifndef Iterator_Util_Dragon_H
-#define Iterator_Util_Dragon_H
+#include <dragon/lang/gc/Reference.h>
+#include <dragon/util/logging/Logger.h>
+#include <com/dragon3d/output/graphics/vbo/VBOMeshCache.h>
 
-#include <dragon/config.h>
+Import dragon::lang::gc;
+Import dragon::util::logging;
+Import com::dragon3d::output::graphics::vbo;
 
-BeginPackage2(dragon, util)
+const Type* VBOMeshCache::TYPE = TypeOf<VBOMeshCache>();
+static Logger* logger = Logger::getLogger(VBOMeshCache::TYPE, ERROR);
 
-template<class E>
-__interface Iterator
-{
-public:
-	virtual ~Iterator(){};
+VBOMeshCache::VBOMeshCache(Mesh* mesh) 
+    :vertexBufferID(0),
+    indexBufferID(0),
 
-public:
-	virtual bool hasNext() = 0;
-	virtual E* next() = 0;
-    virtual void remove() = 0;
-};
+    posOffset(0),
+    normalOffset(0),
+    uvOffset(0),
+    uv2Offset(0),
+    tangentOffset(0),
+    colorOffset(0),
+    color32Offset(0),
 
-EndPackage2//(dragon, util)
+    vtxStride(0) {
 
-#endif//Iterator_Util_Dragon_H
+    this->mesh = (Mesh*)mesh->retain();
+}
+
+VBOMeshCache::~VBOMeshCache() {
+    SafeRelease(this->mesh);
+}

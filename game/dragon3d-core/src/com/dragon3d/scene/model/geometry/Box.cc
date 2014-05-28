@@ -156,6 +156,9 @@ Box::Box() {
     }
 
     this->mesh->setTriangles(Array<int>(triangles, numIndices, false));
+
+    // build the boundss
+    this->bounds->encapsulateFloatVertices(Array<float>(cubeVerts, numVertices * 3, false));
 }
 
 Box::~Box() {

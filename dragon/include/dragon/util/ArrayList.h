@@ -63,6 +63,10 @@ public:
 			return e;
 		};
 
+		virtual void remove() {
+
+		};
+
 	private:
 		StlIterator it;
 		StlIterator itEnd;

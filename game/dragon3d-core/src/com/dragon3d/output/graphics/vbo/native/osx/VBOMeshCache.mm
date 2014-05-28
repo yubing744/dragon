@@ -17,29 +17,10 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/21
+ * Created:     2014/05/21
  **********************************************************************/
 
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 
-#ifndef Iterator_Util_Dragon_H
-#define Iterator_Util_Dragon_H
-
-#include <dragon/config.h>
-
-BeginPackage2(dragon, util)
-
-template<class E>
-__interface Iterator
-{
-public:
-	virtual ~Iterator(){};
-
-public:
-	virtual bool hasNext() = 0;
-	virtual E* next() = 0;
-    virtual void remove() = 0;
-};
-
-EndPackage2//(dragon, util)
-
-#endif//Iterator_Util_Dragon_H
+#include "../../VBOMeshCache_opengl.cc"

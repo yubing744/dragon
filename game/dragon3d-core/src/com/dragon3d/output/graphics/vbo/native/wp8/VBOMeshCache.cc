@@ -17,29 +17,17 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2013/09/21
+ * Created:     2014/05/21
  **********************************************************************/
 
+#import <UIKit/UIKit.h>
 
-#ifndef Iterator_Util_Dragon_H
-#define Iterator_Util_Dragon_H
+#import <QuartzCore/QuartzCore.h>
 
-#include <dragon/config.h>
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/EAGLDrawable.h>
 
-BeginPackage2(dragon, util)
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
-template<class E>
-__interface Iterator
-{
-public:
-	virtual ~Iterator(){};
-
-public:
-	virtual bool hasNext() = 0;
-	virtual E* next() = 0;
-    virtual void remove() = 0;
-};
-
-EndPackage2//(dragon, util)
-
-#endif//Iterator_Util_Dragon_H
+#include "../../VBOMeshCache_opengl.cc"

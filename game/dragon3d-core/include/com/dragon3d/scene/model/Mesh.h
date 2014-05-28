@@ -34,19 +34,28 @@
 #include <com/dragon3d/util/math/Vector4.h>
 #include <com/dragon3d/util/math/Color32.h>
 
+#include <dragonx/image/BufferedImage.h>
 #include <com/dragon3d/scene/model/Material.h>
- 
+#include <dragon/util/concurrent/atomic/AtomicInteger.h>
+
 BeginPackage4(com, dragon3d, scene, model)
 
 Import dragon::lang;
 
 Import com::dragon3d::util::math;
 Import com::dragon3d::scene::model;
+Import dragon::util::concurrent::atomic;
 
 /**
  * A class that allows creating or modifying meshes from scripts.
  */
 class _DragonExport Mesh extends(Object) {
+private:
+    static AtomicInteger* sequence;
+
+public:
+    static int GetNextID();
+
 public:
 	Mesh();
 	virtual ~Mesh();
@@ -68,6 +77,8 @@ public:
     };
 
 public:
+    int getID();
+    
     /**
      * vertices
      * 
@@ -268,6 +279,8 @@ protected:
     MeshData getSubMeshData(int submesh);
 
 protected:
+    int id; // the id of mesh
+
     Array<float> vertices; // Returns a copy of the vertex positions or assigns a new vertex positions array.
     int vertexCount; //Returns the number of vertices in the mesh (Read Only).
 

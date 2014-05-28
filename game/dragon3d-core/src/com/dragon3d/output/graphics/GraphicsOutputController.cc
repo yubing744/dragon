@@ -61,6 +61,8 @@ void GraphicsOutputController::init() {
     this->boundsOutline = new BoundingBoxOutline();
 
     this->showModel = true;
+
+    this->showSample = false;
 }
 
 void GraphicsOutputController::destroy() {
@@ -180,7 +182,9 @@ void GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)
 
     // 3. sort the queue
     this->renderQueue->sort();
-    logger->info("the renderQueue size: %d", this->renderQueue->size());
+    if (logger->isDebugEnabled()) {
+        logger->debug("the renderQueue size: %d", this->renderQueue->size());
+    }
 
     // 4. render all
     Ref<Iterator<Renderable> > it = this->renderQueue->iterator();
@@ -188,6 +192,10 @@ void GraphicsOutputController::outputSceneToCamera(Scene* scene, Camera* camera)
     while(it->hasNext()) {
         Ref<Renderable> renderable = it->next();
         renderable->renderUnto(gr, scene, camera);
+    }
+
+    if (this->showSample) {
+        gr->drawSample();
     }
 
     gr->flushBuffer();

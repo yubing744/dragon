@@ -126,6 +126,11 @@ protected:
      * show the model.
      */
     bool showModel;
+
+    /**
+     * show the sample
+     */
+    bool showSample;
 };//GraphicsOutputController
 
 EndPackage4 //(com, dragon3d, output, graphics)

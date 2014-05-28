@@ -92,6 +92,10 @@ public:
             return mapEntry;
         };
 
+        virtual void remove() {
+
+        };
+
     private:
         StlIterator it;
         StlIterator itEnd;
