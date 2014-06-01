@@ -20,35 +20,23 @@
  * Created:     2014/02/15
  **********************************************************************/
 
-#import <Foundation/Foundation.h>
+#include <jni.h>
+#include <android/log.h>
+
+#include <assert.h>
+#include <jni.h>
+#include <string.h>
+
+#include <sys/types.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 
 #include <com/dragon3d/util/assets/AssetsManager.h>
 
-Import com::dragon3d::util::assets;
+static AAssetManager* AAsetsMgr;
 
-
-String* AssetsManager::getAppPath() {
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:"/"] ofType:nil];
-    String* path = null;
-
-    if (fullpath != nil) {
-        path = new String([fullpath UTF8String]);
-    }
-
-    return path;
+//Dragon Init
+JNIEXPORT void JNICALL Java_com_dragon3d_util_assets_Resource_nativeSetAssetManager(JNIEnv * env, jobject assetManager) {
+    AAsetsMgr = AAssetManager_fromJava(env, assetManager);
 }
-
-Resource* AssetsManager::getResource(const String& uri) {
-    const char* utf8String = uri.toUTF8String();
- 
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:utf8String] ofType:nil];
-    Resource* res = null;
-
-    if (fullpath != nil) {
-        res = new Resource([fullpath UTF8String]);
-    }
-
-    return res;
-}
-
 

@@ -814,14 +814,13 @@ mpg123_arm_SOURCES = Split("""
     synth_stereo_neon.S
 """)
 
+MPG123_ROOT = THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.18.1"
 
 LibraryModule(
     name                  = 'mpg123',
-    source_root           = THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.18.1",
+    source_root           = MPG123_ROOT,
 
-    build_include_dirs    = [
-        THIRD_PARTY_SOURCE_ROOT + "/mpg123-1.18.1/ports/Xcode"
-    ],  
+    build_include_dirs    = [],  
     build_source_dirs     = [],         
     build_source_files    = {
         "src/libmpg123" : mpg123_SOURCES
@@ -832,15 +831,29 @@ LibraryModule(
     ], 
 
     conditions = {
+        "TARGET=arm-android-linux" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/linux"
+            ]
+        },
         "TARGET=arm-apple-ios" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/Xcode"
+            ],
             "sources" : {
                 "src/libmpg123" : mpg123_arm_SOURCES
             }
         },
         "TARGET=x86-apple-ios" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/Xcode"
+            ]
             #empty
         },
         "TARGET=universal-apple-macosx" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/Xcode"
+            ],
             "sources" : {
                 "src/libmpg123" : mpg123_x86_64_SOURCES
             }

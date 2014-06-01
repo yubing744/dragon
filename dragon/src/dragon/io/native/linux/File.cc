@@ -20,8 +20,10 @@ Import dragon::lang;
 Import dragon::io;
 
 bool File::isHidden() {
-    String* fileName = this->getFileName();
-    bool result = fileName->startsWith(L".");
+    String* fileName = this->getName();
+    bool result = fileName->startsWith(".");
     SafeDelete(fileName);
     return result;
 }
+
+#include "../File_posix.cc"

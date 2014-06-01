@@ -53,30 +53,29 @@ AssetsManager::~AssetsManager() {
 
 }
 
-
 List<Resource>* AssetsManager::getResources(const String& baseURI, bool recursion) {
-    Ref<String> appBase = this->getAppPath();
-    Ref<File> baseDir = new File(appBase, baseURI);
-
     List<Resource>* results = new ArrayList<Resource>();
-    const Array<File*> files = baseDir->listFiles();
+
+    Ref<Resource> baseRes = new Resource(baseURI);
     
-    for (int i=0; i<files.size(); i++) {
-        Ref<File> file = files[i];
-        Ref<String> path = file->getPath();
+    List<Resource>* subReses = baseRes->getSubResources();
+    int size = subReses->size();
 
-        if (file->isDirectory()) {
+    for (int i=0; i<size; i++) {
+        Ref<Resource> res = subReses->get(i);
+
+        if (res->hasSubs()) {
             if (recursion) {
-                Ref<String> subPath = file->getRelativePath(appBase);
-
-                Ref<List<Resource> >  subReses = this->getResources(subPath, recursion);
+                Ref<String> resURI = res->getPath();
+                Ref<List<Resource> >  subReses = this->getResources(resURI, recursion);
                 results->addAll(subReses);
             }
         } else {
-            Ref<Resource> res = new Resource(path);
             results->add(res);
         }
     }
 
     return results;
 }
+
+

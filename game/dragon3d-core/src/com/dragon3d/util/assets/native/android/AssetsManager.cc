@@ -20,35 +20,13 @@
  * Created:     2014/02/15
  **********************************************************************/
 
-#import <Foundation/Foundation.h>
-
 #include <com/dragon3d/util/assets/AssetsManager.h>
 
 Import com::dragon3d::util::assets;
 
-
-String* AssetsManager::getAppPath() {
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:"/"] ofType:nil];
-    String* path = null;
-
-    if (fullpath != nil) {
-        path = new String([fullpath UTF8String]);
-    }
-
-    return path;
-}
+#include "jni/AssetsManager_jni.cc"
 
 Resource* AssetsManager::getResource(const String& uri) {
-    const char* utf8String = uri.toUTF8String();
- 
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:utf8String] ofType:nil];
-    Resource* res = null;
-
-    if (fullpath != nil) {
-        res = new Resource([fullpath UTF8String]);
-    }
-
-    return res;
+    return new Resource(uri);
 }
-
 

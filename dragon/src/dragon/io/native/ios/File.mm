@@ -33,7 +33,7 @@ Import dragon::io;
 Import dragon::util;
 Import dragon::util::logging;
 
-static Logger* logger = Logger::getLogger("dragon::io::File#posix", INFO);
+static Logger* logger = Logger::getLogger("dragon::io::File#ios", INFO);
 
 dg_char File::getNativePathSeparator() {
     return L':';

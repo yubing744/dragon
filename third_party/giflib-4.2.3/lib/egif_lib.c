@@ -60,7 +60,7 @@ static int EGifBufferedOutput(GifFileType * GifFile, GifByteType * Buf,
 GifFileType *
 EGifOpenFileName(const char *FileName,
                  bool TestExistance) {
-
+    /*
     int FileHandle;
     GifFileType *GifFile;
 
@@ -79,6 +79,9 @@ EGifOpenFileName(const char *FileName,
     if (GifFile == (GifFileType *) NULL)
         close(FileHandle);
     return GifFile;
+    */
+   
+    return NULL;
 }
 
 /******************************************************************************

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>dragon3d-examples</name>
+	<name>dragon3d-core</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -32,15 +32,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>assets</name>
+			<name>src_assets</name>
 			<type>2</type>
-			<location>/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-examples/assets</location>
+			<location>/Users/yubing/Develop/GitRepos/dragon/game/dragon3d-core/src/com/dragon3d/util/assets/native/android/java</location>
 		</link>
 	</linkedResources>
-	<variableList>
-		<variable>
-			<name>DRAGON_HOME</name>
-			<value>file:/Users/yubing/Develop/GitRepos/dragon</value>
-		</variable>
-	</variableList>
 </projectDescription>

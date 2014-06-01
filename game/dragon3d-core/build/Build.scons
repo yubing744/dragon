@@ -494,6 +494,13 @@ Alc_coreaudio_backends_SOURCES = Split("""
     coreaudio.c
 """)
 
+Alc_opensl_backends_SOURCES = Split("""
+    null.c
+    wave.c
+    loopback.c
+    opensl.c
+""")
+
 OPENAL_SOFT_ROOT = THIRD_PARTY_SOURCE_ROOT + "/OpenAL-MOB-1.0.0"
 
 LibraryModule(
@@ -519,7 +526,7 @@ LibraryModule(
     conditions = {
         "OS=mac" : {
             "sources" : {
-                "Alc/backends" : Alc_coreaudio_backends_SOURCES,
+                "Alc/backends" : Alc_coreaudio_backends_SOURCES
             }
         },
         "OS=ios" : {
@@ -531,6 +538,14 @@ LibraryModule(
             "include_dirs" : [
                 OPENAL_SOFT_ROOT + "/build_mac"
             ]
+        },
+        "OS=android" : {
+            "include_dirs" : [
+                OPENAL_SOFT_ROOT + "/build_android/jni"
+            ],
+            "sources" : {
+                "Alc/backends" : Alc_opensl_backends_SOURCES
+            }
         }
     },
 
@@ -572,58 +587,6 @@ LibraryModule(
         "lib3ds" : lib3ds_la_SOURCES
     },  
     shared                = False,
-    install               = True
-)
-
-
-# retro-shader
-
-RETRO_SHADER_ROOT = THIRD_PARTY_SOURCE_ROOT + "/retro-shader"
-
-LibraryModule(
-    name                  = 'retro-shader',
-    source_root           = RETRO_SHADER_ROOT,
-    build_include_dirs    = [
-        RETRO_SHADER_ROOT
-    ],  
-    build_source_dirs     = [],         
-    build_source_files    = {
-        "math" : [
-            "matrix.c",
-            "matrix_3x3.c"
-        ],
-        "glsym" : [
-            "rglgen.c"
-        ],
-        "logger" : [
-            "logger.c"
-        ],
-        "." : [
-            "shader_common.c"
-        ]
-    },    
-    extra_cpp_defines     = [],
-
-    conditions = {
-        "OS=mac" : {
-            "sources" : {
-                "." : "shader_glsl.c",
-            }
-        },
-        "OS=ios" : {
-            "defines" : ["IOS", "HAVE_OPENGLES", "HAVE_OPENGLES2"],
-            "sources" : {
-                "." : "shader_glsl.c",
-            }
-        },
-        "OS=osx" : {
-            "sources" : {
-                "." : "shader_glsl.c",
-            }
-        }
-    },
-
-    shared                = False,                    
     install               = True
 )
 
@@ -800,8 +763,7 @@ LibraryModule(
         'dragon',
         'openal',
         'delaunay',
-        '3ds',
-        'retro-shader'
+        '3ds'
     ] + env['DRAGON_EXTRA_LIBS'],
 
     conditions = {

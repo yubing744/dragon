@@ -26,6 +26,7 @@
 
 #include <dragon/config.h>
 #include <dragon/lang/Object.h>
+#include <dragon/util/List.h>
 
 #include <dragon/io/InputStream.h>
 
@@ -33,6 +34,7 @@ BeginPackage4(com, dragon3d, util, assets)
 
 Import dragon::lang;
 Import dragon::io;
+Import dragon::util;
 
 class_ Resource extends(Object) {
 public:
@@ -43,14 +45,16 @@ public:
     virtual ~Resource();
 
 public:
-    virtual InputStream* getInputStream();
     virtual String* getName();
     virtual String* getType();
-    virtual Resource* getResource(const String& path);
     virtual String* getURI();
     virtual String* getPath();
-    virtual bool exists();
+    virtual InputStream* getInputStream();
+    virtual Resource* getResource(const String& path);
 
+    virtual bool exists();
+    virtual bool hasSubs();
+    virtual List<Resource>* getSubResources();
 protected:
     String* uri;
 };//Resource

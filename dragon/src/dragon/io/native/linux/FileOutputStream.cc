@@ -14,14 +14,4 @@
 * limitations under the License.
 */
 
-/**********************************************************************
- * Author:      Owen Wu/wcw/yubing
- * Email:       yubing744@163.com
- * Created:     2014/05/21
- **********************************************************************/
-
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-
-#include "../../VBOMeshCache_opengl.cc"
+#include "../FileOutputStream_posix.cc"

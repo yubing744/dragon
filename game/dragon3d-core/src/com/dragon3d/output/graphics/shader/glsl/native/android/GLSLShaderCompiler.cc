@@ -17,38 +17,12 @@
 /**********************************************************************
  * Author:      Owen Wu/wcw/yubing
  * Email:       yubing744@163.com
- * Created:     2014/02/15
+ * Created:     2013/09/28
  **********************************************************************/
 
-#import <Foundation/Foundation.h>
+#include <EGL/egl.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 
-#include <com/dragon3d/util/assets/AssetsManager.h>
-
-Import com::dragon3d::util::assets;
-
-
-String* AssetsManager::getAppPath() {
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:"/"] ofType:nil];
-    String* path = null;
-
-    if (fullpath != nil) {
-        path = new String([fullpath UTF8String]);
-    }
-
-    return path;
-}
-
-Resource* AssetsManager::getResource(const String& uri) {
-    const char* utf8String = uri.toUTF8String();
- 
-    NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:utf8String] ofType:nil];
-    Resource* res = null;
-
-    if (fullpath != nil) {
-        res = new Resource([fullpath UTF8String]);
-    }
-
-    return res;
-}
-
-
+// include commons
+#include "../GLSLShaderCompiler_shared.cc"

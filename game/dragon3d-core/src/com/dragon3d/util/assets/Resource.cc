@@ -47,14 +47,6 @@ Resource::~Resource() {
     SafeDelete(this->uri);
 }
 
-InputStream* Resource::getInputStream() {
-    File* file = new File(this->uri);
-    FileInputStream* fis = new FileInputStream(file);
-    SafeDelete(file);
-
-    return fis;
-}
-
 String* Resource::getName() {
     int begin = this->uri->lastIndexOf("/");
     int end = this->uri->lastIndexOf(".");
@@ -111,12 +103,4 @@ String* Resource::getURI() {
 
 String* Resource::getPath() {
     return this->getURI();
-}
-
-bool Resource::exists() {
-     File* file = new File(this->uri);
-     bool ret = file->exists();
-     SafeRelease(file);
-
-     return ret;
 }
