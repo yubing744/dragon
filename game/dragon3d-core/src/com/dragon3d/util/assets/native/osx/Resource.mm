@@ -20,6 +20,8 @@
  * Created:     2014/02/11
  **********************************************************************/
 
+#include <dragon/lang/gc/Reference.h>
+
 #include <dragon/io/File.h>
 #include <dragon/lang/System.h>
 #include <dragon/lang/StringBuffer.h>
@@ -30,6 +32,7 @@
 #include <com/dragon3d/util/assets/Resource.h>
 #include <com/dragon3d/util/assets/AssetsManager.h>
 
+Import dragon::lang::gc;
 Import dragon::lang;
 Import dragon::io;
 
@@ -39,8 +42,11 @@ Import dragon::util::logging;
 static Logger* logger = Logger::getLogger("Resource#ios", ERROR);
 
 InputStream* Resource::getInputStream() {
-    Ref<File> file = new File(this->uri);
-    return new FileInputStream(file);
+    File* file = new File(this->uri);
+    FileInputStream* fis = new FileInputStream(file);
+    SafeDelete(file);
+
+    return fis;
 }
 
 bool Resource::exists() {
@@ -50,7 +56,7 @@ bool Resource::exists() {
 
 List<Resource>* Resource::getSubResources() {
     List<Resource>* results = new ArrayList<Resource>();
-    
+
     Ref<File> baseDir = new File(this->uri);
     const Array<File*> files = baseDir->listFiles();
     
