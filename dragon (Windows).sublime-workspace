@@ -392,6 +392,31 @@
 	},
 	"file_history":
 	[
+		"/E/Develop/GitProject/dragon/third_party/jpeg-9/jconfig.txt",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_wp8.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/image/io/plugins/png/PNGImageReader.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/json/JSONObject.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageReader.cc",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/gif_lib.h",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/image/io/plugins/gif/GIFImageWriter.cc",
+		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
+		"/E/Develop/GitProject/dragon/third_party/jpeg-9/jchuff.c",
+		"/E/Develop/GitProject/dragon/third_party/jpeg-9/jconfig.h",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/dgif_lib.c",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/gif_hash.h",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/gif_lib_private.h",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/egif_lib.c",
+		"/E/Develop/GitProject/dragon/third_party/giflib-4.2.3/lib/gif_hash.c",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/config.h",
+		"/E/Develop/GitProject/dragon/third_party/libtga-ex-1.0.0/src/tgaconfig.h",
+		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/platform.h",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_posix.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/System.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/image/io/plugins/tga/TGAImageReader.cc",
+		"/E/Develop/GitProject/dragon/third_party/libtga-ex-1.0.0/src/tga.h",
+		"/E/Develop/GitProject/dragon/dragon/src/dragonx/audio/io/plugins/mp3/Mp3AudioInputStream.cc",
+		"/E/Develop/GitProject/dragon/third_party/mpg123-1.18.1/ports/MSVC++/mpg123.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/util/concurrent/atomic/AtomicLong.cc",
 		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/String.h",
 		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/Object.h",
@@ -404,7 +429,6 @@
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/String.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/io/native/win32/FileOutputStream.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/AbstractStringBuilder.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/System.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/ClassLoader.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_mac.cc",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_Linux.cc",
@@ -414,7 +438,6 @@
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library.cc",
 		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/Library.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/targets/arm-microsoft-wp8/Config.scons",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_wp8.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsOutputController.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/native/wp8/GraphicsDevice.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/wp8/support_graphics_renderer.cc",
@@ -431,9 +454,7 @@
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/model/Mesh.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/scene/model/geometry/Box.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/output/graphics/renderer/OpenGLES2Renderer.h",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/config.h",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/wp8/AppLauncher.cc",
-		"/E/Develop/GitProject/dragon/dragon/build/Build.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/build/Build.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/Build.scons",
 		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/Build.scons",
@@ -467,10 +488,8 @@
 		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/concurrent/locks/Lock.h",
 		"/D/Dropbox/Software/Sublime Text 2.0.2 x64/Data/Packages/User/Preferences.sublime-settings",
 		"/D/Dropbox/Software/Sublime Text 2.0.2 x64/Data/Packages/Default/Preferences.sublime-settings",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_win32.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/launcher/native/win32/AppLauncher.cc",
 		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/OpenGLRenderer.cc",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/lang/internal/platform.h",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/arm/platform_arm.cc",
 		"/E/Develop/GitProject/dragon/dragon/build/targets/x86-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/third_party/googletest/include/gtest/internal/gtest-port.h",
@@ -500,26 +519,7 @@
 		"/E/Develop/GitProject/dragon/game/dragon3d-examples/build/targets/x86-microsoft-wp8/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/build/targets/amd64-microsoft-win32/Config.scons",
 		"/E/Develop/GitProject/dragon/dragon/src/dragon/util/logging/native/win32/ConsoleHandler.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/ia32/platformTest_ia32.cc",
-		"/E/Develop/GitProject/dragon/game/dragon3d-template/build/targets/x86-microsoft-win32/Config.scons",
-		"/E/Develop/GitProject/dragon/dragon/include/dragon/util/logging/Logger.h",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/include/com/dragon3d/scene/GameObject.h",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/output/graphics/renderer/native/osx/OpenGLRenderer.mm",
-		"/E/Develop/GitProject/dragon/game/dragon3d-core/src/com/dragon3d/framework/FrameHandler.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform_macos.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/platform.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/Library_Windows.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/LibraryTest.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/LibraryTest_OSX.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc",
-		"/E/Develop/GitProject/dragon/dragon/src/dragon/lang/internal/SystemClassLoader.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_win32.cc",
-		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/platformTest_macos.cc",
-		"/E/Develop/GitProject/dragon/game/dragon3d-v8/build/targets/x86-microsoft-win32/Config.scons",
-		"/E/Develop/GitProject/dragon/dragon.sublime-project",
-		"/E/Develop/GitProject/dragon/dragon/targets/universal-apple-macosx/debug/dragon_test",
-		"/Users/yubing/Develop/GitRepos/dragon/dragon/test/dragon/lang/internal/SystemClassLoaderTest.cc"
+		"/E/Develop/GitProject/dragon/dragon/test/dragon/lang/internal/ia32/platformTest_ia32.cc"
 	],
 	"find":
 	{
@@ -527,9 +527,11 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			"",
+			"<open folders>,<open files>",
 			"<open folders>",
 			"/Users/yubing/Develop/GitRepos/dragon",
 			"/Users/yubing/Develop/GitRepos/dragon/dragon",
@@ -542,6 +544,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"boolean",
+			"HAVE_LOCALE_H",
+			"#define LOCAL",
+			"LOCAL",
+			"RGB_PREMULTIPLY_APLHA",
+			"HAVE_INTTYPES_H",
 			"m_constantBuffer",
 			"CubeRenderer",
 			"CaptureUiThreadContext",
@@ -694,6 +702,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"jchuff.c",
+				"third_party/jpeg-9/jchuff.c"
+			],
 			[
 				"dragon_te",
 				"dragon/targets/universal-apple-macosx/debug/dragon_test"

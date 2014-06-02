@@ -25,8 +25,6 @@
 #include <stdlib.h>
 #include <tga.h>
 
-
-
 #include <dragonx/image/io/plugins/tga/TGAImageReader.h>
 #include <dragon/util/logging/Logger.h>
 

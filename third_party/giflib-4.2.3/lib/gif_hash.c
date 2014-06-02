@@ -16,7 +16,10 @@
 * 14 Jun 89 - Version 1.0 by Gershon Elber.
 *****************************************************************************/
 
+#ifndef _WIN32
 #include <unistd.h>
+#endif
+
 #include <stdint.h>
 #include <fcntl.h>
 #include <stdio.h>

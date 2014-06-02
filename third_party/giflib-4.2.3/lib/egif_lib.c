@@ -11,7 +11,10 @@
  * 26 Jun 96 - Version 3.0 by Eric S. Raymond (Full GIF89 support)
  *****************************************************************************/
 
+#ifndef _WIN32
 #include <unistd.h>
+#endif
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -59,7 +62,7 @@ static int EGifBufferedOutput(GifFileType * GifFile, GifByteType * Buf,
  *****************************************************************************/
 GifFileType *
 EGifOpenFileName(const char *FileName,
-                 bool TestExistance) {
+                 BOOL TestExistance) {
     /*
     int FileHandle;
     GifFileType *GifFile;
@@ -228,7 +231,7 @@ EGifPutScreenDesc(GifFileType * GifFile,
     }
 
     /* Bulletproofing - always write GIF89 if we need to */
-    Private->gif89 = false;
+    Private->gif89 = FALSE;
     for (i = 0; i < GifFile->ImageCount; i++) {
         for (j = 0; j < GifFile->SavedImages[i].ExtensionBlockCount; j++) {
             int function =
@@ -238,7 +241,7 @@ EGifPutScreenDesc(GifFileType * GifFile,
                 || function == GRAPHICS_EXT_FUNC_CODE
                 || function == PLAINTEXT_EXT_FUNC_CODE
                 || function == APPLICATION_EXT_FUNC_CODE)
-                Private->gif89 = true;
+                Private->gif89 = TRUE;
         }
     }
 
@@ -330,7 +333,7 @@ EGifPutImageDesc(GifFileType * GifFile,
                  int Top,
                  int Width,
                  int Height,
-                 bool Interlace,
+                 BOOL Interlace,
                  const ColorMapObject * ColorMap) {
 
     GifByteType Buf[3];

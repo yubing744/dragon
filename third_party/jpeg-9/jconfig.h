@@ -24,12 +24,18 @@
 typedef unsigned char boolean;
 #endif
 #define HAVE_BOOLEAN        /* prevent jmorecfg.h from redefining it */
+
 #endif
 
 #ifdef JPEG_INTERNALS
 
 /* #undef RIGHT_SHIFT_IS_UNSIGNED */
+#ifdef _WIN32
+#define INLINE __inline
+#else
 #define INLINE __inline__
+#endif
+
 /* These are for configuring the JPEG memory manager. */
 /* #undef DEFAULT_MAX_MEM */
 /* #undef NO_MKTEMP */

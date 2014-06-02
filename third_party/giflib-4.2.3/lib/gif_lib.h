@@ -27,12 +27,17 @@ extern "C" {
 #define GIF_ERROR   0
 #define GIF_OK      1
 
-#include <stdbool.h>
+//#include <stdbool.h>
 
 /* this is a backward-compatibility hack; these will go away in 5.0 */
+typedef unsigned char BOOL;
+#define TRUE 1
+#define FALSE 0
+
 #ifndef TRUE
 #define TRUE        true
 #endif /* TRUE */
+
 #ifndef FALSE
 #define FALSE       false
 #endif /* FALSE */
@@ -111,7 +116,7 @@ typedef int (*OutputFunc) (GifFileType *, const GifByteType *, int);
 
 /* Main entry points */
 GifFileType *EGifOpenFileName(const char *GifFileName,
-                              bool GifTestExistance);
+                              BOOL _GifTestExistance);
 GifFileType *EGifOpenFileHandle(int GifFileHandle);
 GifFileType *EGifOpen(void *userPtr, OutputFunc writeFunc);
 int EGifSpew(GifFileType * GifFile);
@@ -135,7 +140,7 @@ int EGifPutScreenDesc(GifFileType * GifFile,
                       int GifBackGround,
                       const ColorMapObject * GifColorMap);
 int EGifPutImageDesc(GifFileType * GifFile, int GifLeft, int GifTop,
-                     int Width, int GifHeight, bool GifInterlace,
+                     int Width, int GifHeight, BOOL _GifInterlace,
                      const ColorMapObject * GifColorMap);
 int EGifPutLine(GifFileType * GifFile, GifPixelType * GifLine,
                 int GifLineLen);

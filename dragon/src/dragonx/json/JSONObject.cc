@@ -25,7 +25,6 @@
 #include <string.h>
 #include <assert.h>
 #include <locale.h>
-#include <getopt.h>
 #include <errno.h>
 
 #include <json.h>
@@ -244,26 +243,26 @@ static int print_with_string_buffer(void *userdata, const char *data, uint32_t l
     return 1;
 }
 
-static int print_json_int(json_printer* printer, const Integer* val) {
+static void print_json_int(json_printer* printer, const Integer* val) {
     String* str = val->toString();
     const Array<byte> data = str->getBytes("UTF-8");
     json_print_pretty(printer, JSON_INT, data.raw(), data.size());
     SafeDelete(str);
 }
 
-static int print_json_float(json_printer* printer, const Float* val) {
+static void print_json_float(json_printer* printer, const Float* val) {
     String* str = val->toString();
     const Array<byte> data = str->getBytes("UTF-8");
     json_print_pretty(printer, JSON_FLOAT, data.raw(), data.size());  
     SafeDelete(str);  
 }
 
-static int print_json_string(json_printer* printer, const String* val) {
+static void print_json_string(json_printer* printer, const String* val) {
     const Array<byte> data = val->getBytes("UTF-8");
     json_print_pretty(printer, JSON_STRING, data.raw(), data.size());  
 }
 
-static int print_json_bool(json_printer* printer, const Boolean* val) {
+static void print_json_bool(json_printer* printer, const Boolean* val) {
     bool boolValue = val->booleanValue();
 
     if (boolValue) {
@@ -276,7 +275,7 @@ static int print_json_bool(json_printer* printer, const Boolean* val) {
 static void print_json_object(json_printer* printer, JSONObject* jsonObj);
 static void print_json_array(json_printer* printer, JSONArray* jsonArray);
 
-static int print_json_value(json_printer* printer, const Object* obj) {
+static void print_json_value(json_printer* printer, const Object* obj) {
     if (obj != null) {
         const Type* objType = (const Type*)obj->getClass();
 

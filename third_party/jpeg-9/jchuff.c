@@ -22,6 +22,7 @@
 
 #define JPEG_INTERNALS
 #include "jinclude.h"
+#include "jmorecfg.h"
 #include "jpeglib.h"
 
 

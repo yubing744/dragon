@@ -21,7 +21,7 @@
  **********************************************************************/
 
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include <mpg123.h>
 
 #include <dragon/util/logging/Logger.h>

@@ -600,3 +600,19 @@ void dragon::lang::internal::SleepThread(long millisecs) {
     nanosleep(&time, NULL);
 }
 
+size_t dragon::lang::internal::GetSysEnvVariable(const char* varName, char* outBuf, size_t size) {
+	const char* val = getenv(varName);
+
+	if (val != NULL) {
+		size_t valSize = strlen(val);
+
+		if (size > valSize) {
+			strcpy(val, outBuf);
+			return valSize;
+		}  else {
+			return valSize;
+		}
+	}
+
+	return 0;
+}

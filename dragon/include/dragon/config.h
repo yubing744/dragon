@@ -292,9 +292,10 @@ typedef dg_char char_u;
 typedef dg_long long_u;
 typedef dg_int int_u;
 
-#ifndef _WIN32
-	typedef dg_byte byte;
-#endif
+//#ifndef _WIN32
+//	typedef dg_byte byte;
+//#endif
+typedef dg_byte byte;
 
 #ifdef _WIN32
 	#undef max

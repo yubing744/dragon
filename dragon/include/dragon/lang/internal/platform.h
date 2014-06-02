@@ -572,6 +572,12 @@ _DragonExport void YieldThread();
 _DragonExport void SleepThread(long millis);
 
 
+/**
+ * get system environment variable
+ * 
+ */
+_DragonExport size_t GetSysEnvVariable(const char* varName, char* outBuf, size_t size);
+
 EndPackage3//(dragon, lang, internal)
 
 #endif//PLATFORM_Internal_Lang_Dragon_H

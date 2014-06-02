@@ -438,6 +438,9 @@ THIRD_PARTY_SOURCE_ROOT = '../third_party'
 # zip lib
 LibraryModule(
     name                  = 'z',
+    build_include_dirs    = [
+        THIRD_PARTY_SOURCE_ROOT + "/zlib-1.2.3",
+    ],  
     source_root           = THIRD_PARTY_SOURCE_ROOT,
     build_source_dirs     = ['zlib-1.2.3'],
     shared                = False,
@@ -636,6 +639,7 @@ LibraryModule(
     extra_cpp_defines     = [
         "PNG_ARM_NEON_OPT=0"
     ],     
+    linked_modules      = ["z"], 
     shared                = False,                    
     install               = True
 )
@@ -646,10 +650,8 @@ libgif_SOURCES = Split("""
     egif_lib.c  \
     gif_font.c  \
     gif_hash.c  \
-    gif_hash.h  \
     gifalloc.c  \
-    gif_err.c   \
-    gif_lib_private.h
+    gif_err.c 
 """)
 
 LibraryModule(
@@ -855,6 +857,25 @@ LibraryModule(
                 MPG123_ROOT + "/ports/Xcode"
             ],
             "sources" : {
+                "src/libmpg123" : mpg123_x86_64_SOURCES
+            }
+        },
+
+        "TARGET=x86-microsoft-win32" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/MSVC++"
+            ],
+            "sources" : {
+                "src/ports/MSVC++" : ["msvc.c"]
+            }
+        },
+
+        "TARGET=x86-microsoft-wp8" : {
+            "include_dirs" : [
+                MPG123_ROOT + "/ports/MSVC++"
+            ],
+            "sources" : {
+                "src/ports/MSVC++" : ["msvc.c"],
                 "src/libmpg123" : mpg123_x86_64_SOURCES
             }
         }

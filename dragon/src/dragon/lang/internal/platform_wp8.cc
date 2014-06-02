@@ -720,3 +720,7 @@ bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_int
 bool dragon::lang::internal::AtomicCompareAndSwap(DRAGON_ATOMICS_VOLATILE dg_long *value, dg_long valueToCompare, dg_long newValue) {
 	return InterlockedCompareExchange64((volatile __int64*)value, (__int64)newValue, (__int64)valueToCompare);
 }
+
+void dragon::lang::internal::GetSysEnvVariable(const char* varName, char* outBuf, size_t size) {
+    return GetEnvironmentVariable(varName, outBuf, size);
+}

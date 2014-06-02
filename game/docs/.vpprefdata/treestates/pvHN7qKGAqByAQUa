@@ -12,11 +12,13 @@
 	<TreeState name="ClassBrowser" viewX="0" viewY="0">
 		<ExpandedPath>ClassBrowser</ExpandedPath>
 		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<SelectedPath>ClassBrowser,ClassBrowser,SK5t7qKGAqByAQba</SelectedPath>
 	</TreeState>
 	<TreeState name="LogicalView" viewX="0" viewY="0">
 		<ExpandedPath>LogicalView</ExpandedPath>
 		<ExpandedPath>LogicalView,Clkt7qKGAqByAQa_</ExpandedPath>
 		<ExpandedPath>LogicalView,ce0t7qKGAqByAQbA</ExpandedPath>
-		<SelectedPath>LogicalView,Clkt7qKGAqByAQa_,WUBt7qKGAqByAQbK</SelectedPath>
+		<ExpandedPath>LogicalView,ce0t7qKGAqByAQbA,UPVAh6KGAqByAQTX</ExpandedPath>
+		<SelectedPath>LogicalView,ce0t7qKGAqByAQbA,UPVAh6KGAqByAQTX,UxDsh6KGAqByAQkn</SelectedPath>
 	</TreeState>
 </ProjectTreeState>

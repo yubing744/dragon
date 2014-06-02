@@ -25,7 +25,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <fcntl.h>
-#include <stdbool.h>
+//#include <stdbool.h>
 
 #ifdef __MSDOS__
 #include <io.h>

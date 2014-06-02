@@ -4,11 +4,15 @@
 	<TreeState name="DiagramNavigator" viewX="0" viewY="0">
 		<ExpandedPath>DiagramNavigator</ExpandedPath>
 	</TreeState>
-	<TreeState name="ClassBrowser" viewX="0" viewY="0"/>
+	<TreeState name="ClassBrowser" viewX="0" viewY="0">
+		<ExpandedPath>ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<SelectedPath>ClassBrowser,ClassBrowser,YO6VxEKGAqACBRob</SelectedPath>
+	</TreeState>
 	<TreeState name="LogicalView" viewX="0" viewY="0">
 		<ExpandedPath>LogicalView</ExpandedPath>
 		<ExpandedPath>LogicalView,Clkt7qKGAqByAQa_</ExpandedPath>
 		<ExpandedPath>LogicalView,ce0t7qKGAqByAQbA</ExpandedPath>
-		<SelectedPath>LogicalView,ce0t7qKGAqByAQbA,1wKYXqKGAqByAVf8</SelectedPath>
+		<SelectedPath>LogicalView,ce0t7qKGAqByAQbA,jYYTV6KGAqByARSc</SelectedPath>
 	</TreeState>
 </ProjectTreeState>

@@ -118,15 +118,42 @@ const String* System::getProperty(const char* name) {
         atexit(ClearSysPropMap);
     }
 
+    // try get from local cache
     Iterator it = sysPropMap.find(name);
 
     if (it != sysPropMap.end()) {
         return it->second;
-    } else {
-        String* val = new String(getenv(name));
+    }  
+
+    String* val = null;
+
+    // try get from system 
+    int bufSize = 16;
+
+    while(true) {
+        char* buf = (char*)malloc(bufSize);
+        size_t rtn = GetSysEnvVariable(name, buf, bufSize);
+
+        if (rtn == 0) {
+            free(buf);
+            val = NULL;
+            break;
+        } else if (rtn <= bufSize){
+            val = new String(buf, bufSize);
+            free(buf);
+            break;
+        } else if (rtn > bufSize) {
+            free(buf);
+            bufSize = rtn + 1;
+        }
+    };
+
+    if (val != null) {
         sysPropMap[name] = val;
         return val;
     }
+
+    return null;
 }
 
 

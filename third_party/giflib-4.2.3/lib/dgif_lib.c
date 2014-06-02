@@ -14,7 +14,11 @@
 #include <limits.h>
 #include <stdint.h>
 #include <fcntl.h>
+
+#ifndef _WIN32
 #include <unistd.h>
+#endif
+
 #include <stdio.h>
 #include <string.h>
 
@@ -354,7 +358,7 @@ DGifGetImageDesc(GifFileType * GifFile) {
         return GIF_ERROR;
     }
     BitsPerPixel = (Buf[0] & 0x07) + 1;
-    GifFile->Image.Interlace = (Buf[0] & 0x40) ? true : false;
+    GifFile->Image.Interlace = (Buf[0] & 0x40) ? TRUE : FALSE;
 
     /* Setup the colormap */
     if (GifFile->Image.ColorMap) {

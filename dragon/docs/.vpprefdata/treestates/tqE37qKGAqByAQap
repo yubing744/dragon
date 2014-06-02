@@ -4,12 +4,22 @@
 	<TreeState name="DiagramNavigator" viewX="0" viewY="0">
 		<ExpandedPath>DiagramNavigator</ExpandedPath>
 	</TreeState>
-	<TreeState name="ClassBrowser" viewX="0" viewY="0"/>
+	<TreeState name="ClassBrowser" viewX="0" viewY="270">
+		<ExpandedPath>ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3,B1yOWoKGAqACBX.3</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip</ExpandedPath>
+		<SelectedPath>ClassBrowser,ClassBrowser,.FTZqoKGAqACBRAL,CNHZqoKGAqACBRI6,Z33ZqoKGAqACBRLu,z4w5qoKGAqACBRR3,B1yOWoKGAqACBX.3,3qfCWoKGAqACBSir</SelectedPath>
+	</TreeState>
 	<TreeState name="LogicalView" viewX="0" viewY="0">
 		<ExpandedPath>LogicalView</ExpandedPath>
 		<ExpandedPath>LogicalView,rk95qoKGAqACBRq3</ExpandedPath>
 		<ExpandedPath>LogicalView,Ky9d.oKGAqACBVc7</ExpandedPath>
 		<ExpandedPath>LogicalView,y6nKFqKGAqHGAQaE</ExpandedPath>
-		<SelectedPath>LogicalView,Ky9d.oKGAqACBVc7,PTk0HqKGAqByATBw</SelectedPath>
+		<SelectedPath>LogicalView,rk95qoKGAqACBRq3</SelectedPath>
 	</TreeState>
 </ProjectTreeState>
